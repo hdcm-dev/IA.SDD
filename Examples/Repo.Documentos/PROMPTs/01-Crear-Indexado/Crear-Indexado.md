@@ -1,0 +1,1 @@
+Lee y ejecuta `/IA/IA.Prompts/Tool-Prompts/Indexado-Documentado/Iniciar-Indexado.md` de `/DEV/SelfHosted.Service.Core` y deja la indexación en `/DEV/SelfHosted.Service.Core.Documentacion/ia-db`
