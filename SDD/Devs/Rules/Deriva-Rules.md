@@ -1,9 +1,9 @@
 # Reglas constructivas — Sensado de deriva y evidencia verificable
 
-**Carpeta target (por proyecto de código):** `SDD/Docs/Proyectos/<Nombre-Proyecto-Codigo>/03-UX-UI-DX/` para la línea de base, `SDD/Docs/Proyectos/<Nombre-Proyecto-Codigo>/08-Calidad-Y-Pruebas/` para la matriz de sensado
-**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Proyecto de código
+**Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/03-UX-UI-DX/` para la línea de base, `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/08-Calidad-Y-Pruebas/` para la matriz de sensado
+**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** el subagente de la categoría que emite la afirmación; el auditor independiente para la verificación
-**Versión de las reglas:** 3.1
+**Versión de las reglas:** 5.0
 
 ---
 
@@ -47,7 +47,7 @@ Forma de la evidencia. Una evidencia es verificable cuando cumple las cuatro con
 Formato de cita de evidencia, obligatorio cuando D9 aplica:
 
 ```text
-[EV-XX | <tipo> | <ruta-o-comando> | <ubicación dentro del artefacto> | <fecha o commit>]
+[EV-XXXXX | <tipo> | <ruta-o-comando> | <ubicación dentro del artefacto> | <fecha o commit>]
 ```
 
 Tipos de evidencia admitidos: `artefacto` (un archivo del repositorio), `ejecucion` (la salida de un comando reproducible), `linea-base` (un identificador de la línea de base visual o del contrato de datos), `audit` (un hallazgo de un informe de audit), `humano` (una aprobación explícita registrada con fecha).
@@ -64,32 +64,39 @@ D9 rige desde su incorporación hacia adelante. No se aplica retroactivamente a 
 
 La línea de base se emite al cierre de la Fase B2, con la maqueta aprobada. Son tres artefactos y cada uno tiene su sistema de identificadores, porque un elemento sin identificador no se puede rastrear.
 
-A esos tres se suma una cuarta fuente de sondas que no proviene de la maqueta: los contratos de verificación de la categoría 10, descriptos en §2.4. La distinción importa porque cubren dimensiones distintas. Las sondas de maqueta miden si el sistema construido se parece a lo que el humano aprobó mirando; las sondas de verificación miden si el sistema construido sigue haciendo lo que la especificación dice que hace. Un proyecto de código sin interfaz visual no tiene línea de base de maqueta y aun así tiene deriva que sensar.
+A esos tres se suma una cuarta fuente de **sondas** —la sonda es la unidad elemental del sensado de deriva, definida en el glosario operativo de `Master-Prompt.md` §15— que no proviene de la maqueta: los contratos de verificación de la categoría 10, descriptos en §2.4. La distinción importa porque cubren dimensiones distintas. Las sondas de maqueta miden si el sistema construido se parece a lo que el humano aprobó mirando; las sondas de verificación miden si el sistema construido sigue haciendo lo que la especificación dice que hace. Un unidad de entrega sin interfaz visual no tiene línea de base de maqueta y aun así tiene deriva que sensar.
 
 ### 2.1 `Linea-Base-Visual.md`
 
-Ubicación: `SDD/Docs/Proyectos/<Nombre-Proyecto-Codigo>/03-UX-UI-DX/`.
+Ubicación: `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/03-UX-UI-DX/`.
 
 Inventario de lo que el humano aprobó al mirar la maqueta. Cuatro tablas, cada una con su prefijo de identificador:
 
 | Prefijo | Elemento | Qué registra cada fila |
 | --- | --- | --- |
-| `SUP-XX` | Superficie | Nombre canónico, archivo de la maqueta, wireframe de 03 que la especifica, CU de 02 que la origina, propósito en una línea |
-| `CMP-XX` | Componente | Nombre, superficies en que aparece, datos que muestra, comportamiento, patrón del catálogo de diseño que materializa |
-| `EST-XX` | Estado | Superficie o componente al que pertenece, condición que lo produce, representación aprobada |
-| `NAV-XX` | Ruta de navegación | Superficie origen, disparador, superficie destino, qué se preserva al volver |
+| `SUP-XXXXX` | Superficie | Nombre canónico, archivo de la maqueta, wireframe de 03 que la especifica, CU de 02 que la origina, propósito en una línea |
+| `CMP-XXXXX` | Componente | Nombre, superficies en que aparece, datos que muestra, comportamiento, patrón del catálogo de diseño que materializa |
+| `EST-XXXXX` | Estado | Superficie o componente al que pertenece, condición que lo produce, representación aprobada |
+| `NAV-XXXXX` | Ruta de navegación | Superficie origen, disparador, superficie destino, qué se preserva al volver |
 
-Los identificadores son de dos dígitos uniformes, como el resto de los identificadores del template (D3, D4). Son estables: un elemento que se elimina no libera su número; su fila queda con estado `Retirado` y la fecha, para que una referencia vieja no apunte a otra cosa.
+Los identificadores siguen el sistema de `Root-Rules.md` §9: cinco dígitos uniformes, únicos en el
+producto, y estables —un elemento que se elimina no libera su número; su fila queda con estado
+`Retirado` y la fecha, para que una referencia vieja no apunte a otra cosa—.
+
+La estabilidad tiene una consecuencia que `Root-Rules.md` §9.3 enuncia y que acá pesa más que en
+ninguna otra regla: **el rango no se recicla, así que se dimensiona por el total histórico y no por
+el vigente**. Las tablas de esta categoría son las más grandes del framework: una corrida real emitió
+191 estados y 374 sondas en un solo unidad de entrega.
 
 ### 2.2 `Contrato-Datos-Maqueta.md`
 
-Ubicación: `SDD/Docs/Proyectos/<Nombre-Proyecto-Codigo>/03-UX-UI-DX/`.
+Ubicación: `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/03-UX-UI-DX/`.
 
 El modelo de datos tal como quedó validado visualmente. Es el documento que cierra la brecha entre el modelo conceptual de 02, que es abstracto, y lo que el humano efectivamente vio y aprobó.
 
 | Prefijo | Elemento | Qué registra cada fila |
 | --- | --- | --- |
-| `DM-XX` | Campo del modelo | Entidad, nombre del campo, tipo, obligatoriedad, ejemplo exhibido en la maqueta, superficies donde aparece (`SUP-XX`), entidad y atributo del modelo conceptual de 02 que le corresponde, regla de negocio que lo condiciona si la hay |
+| `DM-XXXXX` | Campo del modelo | Entidad, nombre del campo, tipo, obligatoriedad, ejemplo exhibido en la maqueta, superficies donde aparece (`SUP-XXXXX`), entidad y atributo del modelo conceptual de 02 que le corresponde, regla de negocio que lo condiciona si la hay |
 
 Reglas del contrato:
 
@@ -99,38 +106,43 @@ Reglas del contrato:
 
 ### 2.3 `Matriz-Sensado-Deriva.md`
 
-Ubicación: `SDD/Docs/Proyectos/<Nombre-Proyecto-Codigo>/08-Calidad-Y-Pruebas/`.
+Ubicación: `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/08-Calidad-Y-Pruebas/`.
 
 La matriz es el instrumento operativo: convierte la línea de base en una lista de comprobaciones que el humano o un agente pueden correr en cualquier momento de la codificación.
 
+**Es una colección derivada, y se declara como tal** (`Root-Rules.md` §9.4). Se construye a partir de
+las otras tablas, con una sonda por elemento, de modo que su tamaño es la **suma** de sus fuentes y no
+un conteo propio. Su encabezado declara de qué tablas deriva. Es la tabla que con más seguridad
+desborda cualquier techo, porque hereda el tamaño de todo lo que la alimenta.
+
 | Columna | Contenido |
 | --- | --- |
-| ID | `SD-XX` |
-| Elemento de línea de base | El identificador que se verifica: `SUP-XX`, `CMP-XX`, `EST-XX`, `NAV-XX`, `DM-XX` o `VER-XX` |
+| ID | `SD-XXXXX` |
+| Elemento de línea de base | El identificador que se verifica: `SUP-XXXXX`, `CMP-XXXXX`, `EST-XXXXX`, `NAV-XXXXX`, `DM-XXXXX` o `VER-XXXXX` |
 | Afirmación a verificar | Qué tendría que ser cierto en el sistema construido |
-| Método de verificación | Cómo se comprueba: inspección visual contra la maqueta, test automatizado de 08, inspección del esquema de datos, revisión de una ruta, o el comando declarado en el contrato de verificación cuando la sonda es `VER-XX` |
+| Método de verificación | Cómo se comprueba: inspección visual contra la maqueta, test automatizado de 08, inspección del esquema de datos, revisión de una ruta, o el comando declarado en el contrato de verificación cuando la sonda es `VER-XXXXX` |
 | Evidencia esperada | Qué artefacto o ejecución produce la evidencia, en el formato de §1 |
 | Umbral de deriva | Qué diferencia se considera aceptable y cuál no |
 | Estado | `Sin verificar`, `Conforme`, `Deriva menor`, `Deriva mayor` |
 | Fecha de la última verificación | — |
 
-La matriz vive en 08 y no en 03 porque es un instrumento de verificación, y 08 es la categoría dueña de la verificación. La emite AG-03M al cerrar la Fase B2, y AG-08 la incorpora a la estrategia de testing del proyecto de código cuando genera la Fase E.
+La matriz vive en 08 y no en 03 porque es un instrumento de verificación, y 08 es la categoría dueña de la verificación. La emite AG-03M al cerrar la Fase B2, y AG-08 la incorpora a la estrategia de testing de la unidad de entrega cuando genera la Fase E.
 
-Cuando el proyecto de código no ejecuta Fase B2 pero sí tiene categoría 10, la matriz se emite igual: la abre AG-08 en la Fase E, poblada solo con sondas `VER-XX` tomadas de los contratos de verificación. Una matriz sin filas es un proyecto de código sin instrumento de sensado, y eso hay que evitarlo, no documentarlo.
+Cuando la unidad de entrega no ejecuta Fase B2 pero sí tiene categoría 10, la matriz se emite igual: la abre AG-08 en la Fase E, poblada solo con sondas `VER-XXXXX` tomadas de los contratos de verificación. Una matriz sin filas es una unidad de entrega sin instrumento de sensado, y eso hay que evitarlo, no documentarlo.
 
 
-### 2.4 Contratos de verificación de la categoría 10 (`VER-XX`)
+### 2.4 Contratos de verificación de la categoría 10 (`VER-XXXXX`)
 
-Ubicación: dentro de cada `ejemplo-XX-<Progresion>.md` de `SDD/Docs/Proyectos/<Nombre-Proyecto-Codigo>/10-Examples/`, en su sección 9. Los define `Rules-Examples.md` §4.6; esta regla solo declara cómo entran al sensado.
+Ubicación: dentro de cada `ejemplo-XXXXX-<Progresion>.md` de `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/10-Examples/`, en su sección 9. Los define `Rules-Examples.md` §4.6; esta regla solo declara cómo entran al sensado.
 
 | Prefijo | Elemento | Qué registra cada sonda |
 | --- | --- | --- |
-| `VER-XX` | Contrato de verificación de un sample | Los `CU-XX` y `US-XX` que ejercita, el comando exacto, las precondiciones, el criterio de aceptación como aserción evaluable y la evidencia de la última corrida con su fecha |
+| `VER-XXXXX` | Contrato de verificación de un sample | Los `CU-XXXXX` y `US-XXXXX` que ejercita, el comando exacto, las precondiciones, el criterio de aceptación como aserción evaluable y la evidencia de la última corrida con su fecha |
 
 Estas sondas extienden el alcance de la matriz de superficies visuales a **contratos y comportamiento**. Tres consecuencias que hay que tener presentes:
 
-- **No requieren maqueta.** Un proyecto de código con `requiere_maqueta` en `false` no emite `Linea-Base-Visual` ni `Contrato-Datos-Maqueta`, pero sí emite `Matriz-Sensado-Deriva` si tiene categoría 10, poblada exclusivamente con sondas `VER-XX`. Antes de esta extensión, esos proyectos de código quedaban sin ningún instrumento de sensado.
-- **Su método de verificación es siempre automatizable.** A diferencia de una sonda `SUP-XX`, que suele resolverse por inspección visual, una `VER-XX` trae su propio comando y su propia aserción. La columna «Método de verificación» de la matriz se completa con el comando del contrato.
+- **No requieren maqueta.** Un unidad de entrega con `requiere_maqueta` en `false` no emite `Linea-Base-Visual` ni `Contrato-Datos-Maqueta`, pero sí emite `Matriz-Sensado-Deriva` si tiene categoría 10, poblada exclusivamente con sondas `VER-XXXXX`. Antes de esta extensión, esos unidades de entrega quedaban sin ningún instrumento de sensado.
+- **Su método de verificación es siempre automatizable.** A diferencia de una sonda `SUP-XXXXX`, que suele resolverse por inspección visual, una `VER-XXXXX` trae su propio comando y su propia aserción. La columna «Método de verificación» de la matriz se completa con el comando del contrato.
 - **Su evidencia ya existe.** El campo `evidencia` del contrato es la evidencia que D9 exige. No hay que producirla aparte: la matriz la cita por identificador.
 
 Un contrato en estado `No verificado — sin código` entra a la matriz con estado `Sin verificar`, igual que cualquier otra sonda antes de la primera corrida.
@@ -148,7 +160,7 @@ No toda diferencia entre la maqueta y el sistema construido es un problema. La m
 | Navegación | Cambia el disparador visual de una ruta | Falta una ruta, aparece un callejón sin salida, se pierde lo que debía preservarse al volver |
 | Modelo de datos | Cambia el orden de los campos en la presentación | Falta un campo, cambia el tipo, cambia la obligatoriedad, cambia el formato de presentación acordado |
 | Accesibilidad | Cambia el orden de foco dentro de un grupo | Se pierde el recorrido por teclado, se pierde el foco visible, cae el contraste bajo el piso |
-| Contratos y comportamiento (`VER-XX`) | Cambia el texto de un mensaje de salida sin cambiar su semántica, cambia el formato de un log | El `criterio_aceptacion` falla, cambia el comando de ejecución sin actualizar el contrato, aparecen precondiciones no declaradas, o el CU que la sonda ejercita dejó de estar cubierto |
+| Contratos y comportamiento (`VER-XXXXX`) | Cambia el texto de un mensaje de salida sin cambiar su semántica, cambia el formato de un log | El `criterio_aceptacion` falla, cambia el comando de ejecución sin actualizar el contrato, aparecen precondiciones no declaradas, o el CU que la sonda ejercita dejó de estar cubierto |
 
 Toda deriva mayor detectada se resuelve por una de dos vías, nunca por omisión:
 
@@ -166,12 +178,12 @@ El sensado no es un evento único al final. Son cinco momentos, cada uno con su 
 | Momento | Quién lo corre | Alcance | Salida |
 | --- | --- | --- | --- |
 | Al cerrar la Fase B2 | AG-03M | Emisión de la línea de base y de la matriz con todo en `Sin verificar` | Los artefactos de §2.1 a §2.3 |
-| Al cerrar la fase que genera la categoría 10 | AG-10 | Alta de una sonda `VER-XX` por cada contrato de verificación declarado en la pasada de diseño, todas en `Sin verificar` | Matriz con las filas de contratos incorporadas |
-| Al cerrar la Fase E (08) | AG-08 | Incorporación de la matriz a la estrategia de testing: qué filas se cubren con test automatizado y cuáles quedan como inspección. Las filas `VER-XX` ya traen su comando, así que se resuelven como automatizadas salvo justificación | Matriz con método de verificación resuelto por fila |
-| Al cerrar cada sprint de codificación | El humano, asistido por el orquestador | Verificación de las filas cuyos elementos toca el sprint. En las `VER-XX` esto significa correr el comando del contrato y volcar la salida real al campo `evidencia` del sample | Matriz con estado y fecha actualizados, derivas mayores escaladas |
+| Al cerrar la fase que genera la categoría 10 | AG-10 | Alta de una sonda `VER-XXXXX` por cada contrato de verificación declarado en la pasada de diseño, todas en `Sin verificar` | Matriz con las filas de contratos incorporadas |
+| Al cerrar la Fase E (08) | AG-08 | Incorporación de la matriz a la estrategia de testing: qué filas se cubren con test automatizado y cuáles quedan como inspección. Las filas `VER-XXXXX` ya traen su comando, así que se resuelven como automatizadas salvo justificación | Matriz con método de verificación resuelto por fila |
+| Al cerrar cada sprint de codificación | El humano, asistido por el orquestador | Verificación de las filas cuyos elementos toca el sprint. En las `VER-XXXXX` esto significa correr el comando del contrato y volcar la salida real al campo `evidencia` del sample | Matriz con estado y fecha actualizados, derivas mayores escaladas |
 | Ante una regeneración parcial | El orquestador | Revalidación de las filas que dependen de lo regenerado | Filas afectadas devueltas a `Sin verificar` |
 
-El cuarto momento es el que da valor a todo lo anterior. Ocurre durante la codificación, y es el punto donde las dos clases de sonda se comportan distinto: una `SUP-XX` exige que alguien mire y compare, mientras que una `VER-XX` se corre sola y devuelve un veredicto. Esa asimetría es deliberada, y es la razón por la que conviene que todo proyecto de código tenga sondas de comportamiento aunque no tenga superficie visual.
+El cuarto momento es el que da valor a todo lo anterior. Ocurre durante la codificación, y es el punto donde las dos clases de sonda se comportan distinto: una `SUP-XXXXX` exige que alguien mire y compare, mientras que una `VER-XXXXX` se corre sola y devuelve un veredicto. Esa asimetría es deliberada, y es la razón por la que conviene que todo unidad de entrega tenga sondas de comportamiento aunque no tenga superficie visual.
 
 Por eso el resumen ejecutivo del handoff (§12 del master-prompt) entrega la matriz explícitamente: es el instrumento que el equipo se lleva al ciclo de desarrollo.
 
@@ -183,7 +195,7 @@ La línea de base sirve a dos lectores distintos y hay que escribirla para los d
 
 Para el humano. La maqueta abierta al lado del sistema construido es la comparación más barata que existe: se mira, se navega y se ven las diferencias sin leer una línea de documentación. La matriz le da la lista de qué mirar para no revisar solo lo que le llama la atención.
 
-Para el agente. La línea de base es la única descripción del resultado esperado que está en forma de inventario identificado y no de prosa. Un agente que va a codificar una superficie puede pedir su fila `SUP-XX`, sus `CMP-XX`, sus `EST-XX` y sus `DM-XX`, y tiene el alcance exacto sin interpretar. Un agente que va a verificar puede recorrer la matriz sin decidir qué es relevante.
+Para el agente. La línea de base es la única descripción del resultado esperado que está en forma de inventario identificado y no de prosa. Un agente que va a codificar una superficie puede pedir su fila `SUP-XXXXX`, sus `CMP-XXXXX`, sus `EST-XXXXX` y sus `DM-XXXXX`, y tiene el alcance exacto sin interpretar. Un agente que va a verificar puede recorrer la matriz sin decidir qué es relevante.
 
 Reglas de uso:
 
@@ -195,21 +207,31 @@ Reglas de uso:
 
 ## 6. Criterios de aceptación
 
-- [ ] En proyectos de código con Fase B2: existen `Linea-Base-Visual.md` y `Contrato-Datos-Maqueta.md` en 03 del proyecto de código, con los identificadores `SUP-XX`, `CMP-XX`, `EST-XX`, `NAV-XX` y `DM-XX` de dos dígitos uniformes.
-- [ ] Toda superficie de la maqueta aprobada tiene su `SUP-XX`, y toda superficie con `SUP-XX` existe en la maqueta.
-- [ ] Todo campo que la maqueta exhibe tiene su `DM-XX` con su correspondencia al modelo conceptual de 02.
-- [ ] Los campos del modelo conceptual que ninguna superficie exhibe están declarados con su motivo.
-- [ ] Existe `Matriz-Sensado-Deriva.md` en 08 del proyecto de código, con una fila `SD-XX` por elemento verificable, su método de verificación, su evidencia esperada y su umbral.
-- [ ] Los umbrales de deriva de cada fila son coherentes con la tabla del §3.
-- [ ] Toda afirmación sobre el estado del sistema en los artefactos de la fase cita evidencia en el formato del §1.
-- [ ] Ninguna evidencia citada apunta a una ruta, identificador o comando que no resuelve.
-- [ ] El resumen ejecutivo del handoff incluye la matriz de sensado con el estado de cada fila.
-- [ ] En proyectos de código con categoría 10: la matriz tiene una fila `VER-XX` por cada contrato de verificación declarado en `10-Examples`, sin contratos huérfanos ni filas sin contrato que las respalde.
-- [ ] Ningún proyecto de código con categoría 10 queda sin `Matriz-Sensado-Deriva.md`, aunque no haya ejecutado Fase B2.
-- [ ] El método de verificación de cada fila `VER-XX` es el comando declarado en su contrato, o su desvío está justificado en la propia fila.
-- [ ] La evidencia de cada fila `VER-XX` cita el campo `evidencia` del sample por identificador, con su fecha, y no se transcribe duplicada en la matriz.
-- [ ] Los nombres canónicos de superficie, componente, estado y navegación de la línea de base (`SUP`, `CMP`, `EST`, `NAV`) coinciden término por término con los que usa `03-UX-UI-DX` y están declarados en `Glosario-UX.md`. Un nombre de superficie que la línea de base inventa vuelve inservible el sensado: lo que se compara ya no es lo que se aprobó.
-- [ ] Ninguna polisemia con contextos disjuntos se reporta como deriva ni como defecto (criterio negativo de `Vocabulario-Rules.md` §9.1).
+**Naturaleza de cada criterio.** Cada ítem lleva su marca: `[enumerable]` si se decide contando o
+comparando —existencia, forma, recuento, resolución de un enlace— y `[interpretativo]` si solo se
+decide leyendo los dos lados. Los enumerables son los que la compuerta mecánica de
+`Master-Prompt.md` §10.0 tiene que cubrir; los interpretativos son para lo que el audit existe.
+
+La clasificación es **conservadora por diseño**: ante la duda, un criterio se marca interpretativo.
+El error no es simétrico —declarar mecanizable algo que no lo es produce falsa confianza, que es peor
+que la ausencia de verificación—, así que marcar de más un interpretativo solo cuesta atención del
+auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
+
+- [ ] [interpretativo] En unidades de entrega con Fase B2: existen `Linea-Base-Visual.md` y `Contrato-Datos-Maqueta.md` en 03 de la unidad de entrega, con los identificadores `SUP-XXXXX`, `CMP-XXXXX`, `EST-XXXXX`, `NAV-XXXXX` y `DM-XXXXX` con el ancho uniforme de `Root-Rules.md` §9.2.
+- [ ] [interpretativo] Toda superficie de la maqueta aprobada tiene su `SUP-XXXXX`, y toda superficie con `SUP-XXXXX` existe en la maqueta.
+- [ ] [interpretativo] Todo campo que la maqueta exhibe tiene su `DM-XXXXX` con su correspondencia al modelo conceptual de 02.
+- [ ] [interpretativo] Los campos del modelo conceptual que ninguna superficie exhibe están declarados con su motivo.
+- [ ] [enumerable] Existe `Matriz-Sensado-Deriva.md` en 08 de la unidad de entrega, con una fila `SD-XXXXX` por elemento verificable, su método de verificación, su evidencia esperada y su umbral.
+- [ ] [interpretativo] Los umbrales de deriva de cada fila son coherentes con la tabla del §3.
+- [ ] [interpretativo] Toda afirmación sobre el estado del sistema en los artefactos de la fase cita evidencia en el formato del §1.
+- [ ] [interpretativo] Ninguna evidencia citada apunta a una ruta, identificador o comando que no resuelve.
+- [ ] [interpretativo] El resumen ejecutivo del handoff incluye la matriz de sensado con el estado de cada fila.
+- [ ] [interpretativo] En unidades de entrega con categoría 10: la matriz tiene una fila `VER-XXXXX` por cada contrato de verificación declarado en `10-Examples`, sin contratos huérfanos ni filas sin contrato que las respalde.
+- [ ] [interpretativo] Ningún unidad de entrega con categoría 10 queda sin `Matriz-Sensado-Deriva.md`, aunque no haya ejecutado Fase B2.
+- [ ] [interpretativo] El método de verificación de cada fila `VER-XXXXX` es el comando declarado en su contrato, o su desvío está justificado en la propia fila.
+- [ ] [interpretativo] La evidencia de cada fila `VER-XXXXX` cita el campo `evidencia` del sample por identificador, con su fecha, y no se transcribe duplicada en la matriz.
+- [ ] [interpretativo] Los nombres canónicos de superficie, componente, estado y navegación de la línea de base (`SUP`, `CMP`, `EST`, `NAV`) coinciden término por término con los que usa `03-UX-UI-DX` y están declarados en `Glosario-UX.md`. Un nombre de superficie que la línea de base inventa vuelve inservible el sensado: lo que se compara ya no es lo que se aprobó.
+- [ ] [interpretativo] Ninguna polisemia con contextos disjuntos se reporta como deriva ni como defecto (criterio negativo de `Vocabulario-Rules.md` §9.1).
 
 ---
 
@@ -217,7 +239,7 @@ Reglas de uso:
 
 | Anti-patrón | Problema | Solución |
 | --- | --- | --- |
-| Línea de base escrita como prosa descriptiva | No se puede rastrear ni verificar elemento por elemento | Inventario con identificadores estables de dos dígitos |
+| Línea de base escrita como prosa descriptiva | No se puede rastrear ni verificar elemento por elemento | Inventario con identificadores estables, con el ancho de `Root-Rules.md` §9.2 |
 | Matriz sin umbrales | Toda diferencia parece deriva; el equipo la abandona en dos sprints | Declarar umbral por fila según la tabla del §3 |
 | Matriz sin método de verificación | Nadie sabe cómo comprobar la fila, así que nadie la comprueba | Método concreto por fila, resuelto por AG-08 en la Fase E |
 | Evidencia que cita al mismo agente que afirma | Verificación circular: el agente se cita a sí mismo | La evidencia es independiente de quien afirma |
@@ -228,24 +250,24 @@ Reglas de uso:
 | Reauditar retroactivamente toda la documentación previa contra D9 | Volumen de hallazgos que ahoga a los reales | D9 rige hacia adelante desde su incorporación |
 | Tratar la maqueta como contrato pixel a pixel | Bloqueo permanente por diferencias irrelevantes | Umbrales de deriva menor y mayor |
 | Emitir línea de base sin Fase B2 | No hay nada que el humano haya mirado y aprobado; la línea de base es una afirmación más | La línea de base se emite solo desde una maqueta aprobada explícitamente |
-| Dejar sin matriz a un proyecto de código sin interfaz visual | Se lo deja sin instrumento de sensado por no tener maqueta, cuando sí tiene contratos que pueden derivar | Si hay categoría 10, la matriz se emite con sondas `VER-XX` aunque no haya Fase B2 |
-| Sonda `VER-XX` con método de verificación manual | Desaprovecha lo único que la distingue: que trae su comando y su aserción | El método es el comando del contrato, salvo justificación escrita en la fila |
-| Transcribir la evidencia del contrato dentro de la matriz | Dos copias de la misma salida que divergen en la corrida siguiente | La matriz cita el `VER-XX` y su fecha; la salida vive en el sample |
-| Confundir deriva de superficie con deriva de comportamiento | Se aplica el umbral equivocado y se escala mal | `SUP-XX` a `DM-XX` miden parecido con lo aprobado; `VER-XX` mide si el sistema sigue haciendo lo especificado |
+| Dejar sin matriz a una unidad de entrega sin interfaz visual | Se lo deja sin instrumento de sensado por no tener maqueta, cuando sí tiene contratos que pueden derivar | Si hay categoría 10, la matriz se emite con sondas `VER-XXXXX` aunque no haya Fase B2 |
+| Sonda `VER-XXXXX` con método de verificación manual | Desaprovecha lo único que la distingue: que trae su comando y su aserción | El método es el comando del contrato, salvo justificación escrita en la fila |
+| Transcribir la evidencia del contrato dentro de la matriz | Dos copias de la misma salida que divergen en la corrida siguiente | La matriz cita el `VER-XXXXX` y su fecha; la salida vive en el sample |
+| Confundir deriva de superficie con deriva de comportamiento | Se aplica el umbral equivocado y se escala mal | `SUP-XXXXX` a `DM-XXXXX` miden parecido con lo aprobado; `VER-XXXXX` mide si el sistema sigue haciendo lo especificado |
 
 ---
 
 ## 8. Prompt-snippet sugerido
 
 ```text
-Sos el subagente responsable de emitir la línea de base de sensado de deriva del proyecto de código
+Sos el subagente responsable de emitir la línea de base de sensado de deriva de la unidad de entrega
 {{NOMBRE_PROYECTO_CODIGO}} del producto {{NOMBRE_PRODUCTO}}, al cierre de la Fase B2.
 
 Insumos obligatorios:
 - La maqueta aprobada: SDD/Maquetas/{{NOMBRE_PROYECTO_CODIGO}}/ (todos sus archivos).
 - Bitacora-Validacion-Maqueta.md con las iteraciones de validación.
-- 03 del proyecto de código: Experiencia-De-Uso y wireframes-<superficie> ya retroalimentados.
-- 02 del proyecto de código: modelo conceptual de datos, CU y RN.
+- 03 de la unidad de entrega: Experiencia-De-Uso y wireframes-<superficie> ya retroalimentados.
+- 02 de la unidad de entrega: modelo conceptual de datos, CU y RN.
 
 A generar:
 - SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/03-UX-UI-DX/Linea-Base-Visual.md
@@ -253,7 +275,7 @@ A generar:
 - SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/08-Calidad-Y-Pruebas/Matriz-Sensado-Deriva.md
 
 Reglas: §1 a §5 de Deriva-Rules.md.
-Identificadores: SUP-XX, CMP-XX, EST-XX, NAV-XX, DM-XX, SD-XX, dos dígitos uniformes, estables.
+Identificadores: SUP-XXXXX, CMP-XXXXX, EST-XXXXX, NAV-XXXXX, DM-XXXXX, SD-XXXXX, con el ancho uniforme de `Root-Rules.md` §9.2, únicos en el producto y estables.
 Regla D9: toda afirmación sobre el estado del sistema cita evidencia en el formato de §1.
 Umbrales: declarar deriva menor y mayor por fila según la tabla de §3.
 
@@ -274,8 +296,10 @@ Devolución:
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
-| 1.0 | 2026-07-19 | Reglas iniciales del sensado de deriva. Define la regla de evidencia verificable D9 con su alcance acotado a las afirmaciones sobre el estado del sistema, las cuatro condiciones de una evidencia y su formato de cita `EV-XX`; los tres artefactos de línea de base (`Linea-Base-Visual`, `Contrato-Datos-Maqueta`, `Matriz-Sensado-Deriva`) con sus sistemas de identificadores; los umbrales de deriva menor y mayor por dimensión; los cuatro puntos de sensado; el uso de la línea de base como guía tutora para el humano y para el agente; criterios de aceptación, anti-patrones y prompt-snippet. |
-| 1.1 | 2026-07-26 | Extensión del sensado de deriva a contratos y comportamiento (S2). Nuevo §2.4 con las sondas `VER-XX` aportadas por los contratos de verificación de la categoría 10, que no dependen de la maqueta y traen su propio comando y su propia evidencia. §2.3 admite `VER-XX` en la columna de elemento de línea de base y en la de método de verificación, y declara que un proyecto con categoría 10 emite matriz aunque no ejecute Fase B2. §3 suma la dimensión de contratos y comportamiento con sus dos umbrales. §4 pasa de cuatro a cinco puntos de sensado, con el alta de sondas al cerrar la fase que genera la categoría 10. §6 suma cuatro criterios de aceptación. |
+| 1.0 | 2026-07-19 | Reglas iniciales del sensado de deriva. Define la regla de evidencia verificable D9 con su alcance acotado a las afirmaciones sobre el estado del sistema, las cuatro condiciones de una evidencia y su formato de cita `EV-XXXXX`; los tres artefactos de línea de base (`Linea-Base-Visual`, `Contrato-Datos-Maqueta`, `Matriz-Sensado-Deriva`) con sus sistemas de identificadores; los umbrales de deriva menor y mayor por dimensión; los cuatro puntos de sensado; el uso de la línea de base como guía tutora para el humano y para el agente; criterios de aceptación, anti-patrones y prompt-snippet. |
+| 1.1 | 2026-07-26 | Extensión del sensado de deriva a contratos y comportamiento (S2). Nuevo §2.4 con las sondas `VER-XXXXX` aportadas por los contratos de verificación de la categoría 10, que no dependen de la maqueta y traen su propio comando y su propia evidencia. §2.3 admite `VER-XXXXX` en la columna de elemento de línea de base y en la de método de verificación, y declara que un proyecto con categoría 10 emite matriz aunque no ejecute Fase B2. §3 suma la dimensión de contratos y comportamiento con sus dos umbrales. §4 pasa de cuatro a cinco puntos de sensado, con el alta de sondas al cerrar la fase que genera la categoría 10. §6 suma cuatro criterios de aceptación. |
 | 2.0 | 2026-07-28 | Normalización del versionado (framework 4.0). El archivo vivo pierde el sufijo de versión del nombre y pasa a declarar su versión en el campo `Versión` de su cabecera; el sufijo `-v<X.Y>.md` queda reservado a las copias archivadas en `_legacy/`. Se actualizan los patrones de nombre, los ejemplos, las cabeceras modelo, los anti-patrones y los criterios de aceptación de la categoría. Sube major porque la documentación generada con la nomenclatura anterior deja de cumplir. Deriva de la reformulación de D4 y D5 en el `README.md` del framework. |
 | 3.0 | 2026-07-29 | Renombre de vocabulario normativo (framework 5.0). El nivel superior pasa de «solución» a **producto**, la unidad de compilación de «proyecto» a **proyecto de código**, y los cuatro planos de identidad del producto se separan en campos propios (`Nombre-Producto`, `Slug-Producto`, `Raiz-Codigo`, `Artefacto-Agrupacion`). Se declara el nivel de aplicación de la regla en su cabecera, según `Vocabulario-Rules.md` §4 R3. Sube major porque los identificadores y los nombres de artefacto cambian, y la documentación generada con la nomenclatura anterior deja de cumplir. |
 | 3.1 | 2026-07-29 | Coherencia de nombres de la línea de base con el glosario de 03, en §6. Sube minor: agrega dos criterios de aceptación sin cambiar los artefactos ni los umbrales. El primero exige que los nombres canónicos `SUP`, `CMP`, `EST` y `NAV` coincidan término por término con los de `03-UX-UI-DX` y estén declarados en `Glosario-UX.md`, porque un nombre de superficie que la línea de base inventa vuelve inservible el sensado: lo que se compara deja de ser lo que se aprobó. El segundo incorpora el criterio negativo de `Vocabulario-Rules.md` §9.1. **Origen**: era el único archivo de reglas que no mencionaba el glosario ni una vez pese a emitir un inventario de nombres. |
+| 4.0 | 2026-08-15 | Ancho y colección derivada (intervención reportes 00 a 11). §2.1 deja de fijar «dos dígitos uniformes» y remite al sistema de identificadores de `Root-Rules.md` §9, con cinco dígitos y ámbito producto; se enuncia junto a la estabilidad la consecuencia que ninguna regla decía: el rango se dimensiona por el total histórico y no por el vigente. §2.3 declara la matriz de sensado como **colección derivada**, que dimensiona sobre la suma de sus fuentes y las nombra en su encabezado. El defecto era estructural y no de escala: la regla fijaba un ancho de dos dígitos para la tabla que el propio framework define como derivada de todas las otras, garantizando el choque; una corrida real emitió 191 estados y 374 sondas, y el agente tuvo que elegir entre tres salidas sin ningún criterio del método para preferir una. Sube **major**: la línea de base y la matriz generadas con dos dígitos dejan de cumplir. Origen: reporte `05`. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. |
+| 5.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |

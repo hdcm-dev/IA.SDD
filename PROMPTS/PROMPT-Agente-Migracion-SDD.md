@@ -1,10 +1,10 @@
 # Prompt de entrada — Agente de Migración Normativa SDD
 
 > **Invocación**:
-> - `Leer y Ejecutar /IA/IA.SDD/PROMPTS/PROMPT-Agente-Migracion-SDD.md en el repositorio: /<Repositorio-Destino>`
+> - `Leer y Ejecutar /IA/SDD/IA.SDD/PROMPTS/PROMPT-Agente-Migracion-SDD.md en el repositorio: /<Repositorio-Destino>`
 
 **Archivo:** `PROMPT-Agente-Migracion-SDD.md`
-**Versión:** 1.0
+**Versión:** 2.0
 **Idioma:** Español rioplatense neutro técnico
 **Modo de ejecución:** Local en Claude Code. La invocación declara dos rutas: la del prompt de entrada (de la que se deriva la raíz del repositorio fuente `IA.SDD`) y la del repositorio destino del producto. Su ubicación relativa en el workspace es indistinta.
 **Resultado esperado:** El destino re-expresado bajo la normativa vigente del framework, con su bloque de procedencia actualizado si la cadena quedó completa, y su informe de migración auditado en `SDD/Docs/Audit/`.
@@ -125,3 +125,4 @@ Con la migración completa, reinvocá `PROMPT-Agente-Bootstrap-SDD.md` para segu
 | Versión | Fecha | Cambios | Autor |
 | --- | --- | --- | --- |
 | 1.0 | 2026-07-29 | Prompt de entrada inicial de la migración normativa, par del prompt de entrada de bootstrap. Fija el modelo de dos repositorios con las dos lecturas propias de la migración —`_legacy/` y el `CHANGELOG.md` del framework, de donde salen el conjunto de origen y los renombres de artefacto—, cinco prerrequisitos verificables, la tabla que decide entre este prompt y el de bootstrap según el estado del destino, la invocación que delega en `Master-Prompt-Migracion.md` y el resumen de las siete fases con lo que el usuario recibe al terminar. Declara explícitamente que el nombre legado del intake **no es un prerrequisito a corregir** sino el caso que la migración atiende, y que el plan de migración es opcional porque la fase M1 lo emite si falta. No contiene lógica de orquestación, igual que su par de bootstrap. | Framework SDD (migración normativa) |
+| 2.0 | 2026-08-15 | El nivel de unidad de entrega (framework 8.0). La migración normativa incorpora el salto estructural de `Migracion-Rules.md` §4.3.2: al migrar un destino generado con una versión anterior, el agente **propone** qué proyectos de código son unidades de entrega y **se detiene** para que el humano confirme, porque el manifiesto de origen no lo declara. Sube **major** por coherencia con el conjunto. |

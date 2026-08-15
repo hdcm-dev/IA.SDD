@@ -1,15 +1,15 @@
 # Reglas constructivas — 06 Backlog técnico
 
-**Carpeta target (por proyecto de código):** `SDD/Docs/Proyectos/<Nombre-Proyecto-Codigo>/06-Backlog-Tecnico/`
-**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Proyecto de código
+**Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/06-Backlog-Tecnico/`
+**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Scrum Master / Agile Coach senior (AG-06)
-**Versión de las reglas:** 3.1
+**Versión de las reglas:** 4.0
 
 ---
 
 ## 0. Posición en la cadena SDD
 
-La categoría 06 es la bisagra entre el diseño y la ejecución dentro de la cadena de trazabilidad D6. Recibe upstream de 01 (necesidades de negocio NB-XX), 02 (CU, RN, modelo conceptual) y 05 (arquitectura de producto, ADRs y modelo lógico). Produce los artefactos que alimentan 07 (sprint plan), 08 (acceptance tests y QA) y 10 (developer guide cuando se trata de onboarding al backlog). Su salida define qué se construye y en qué orden, sin entrar en el detalle de planificación temporal por sprint, que vive en 07. Aplica de manera obligatoria a los ocho tipos D8: ningún tipo está exento de producir un product backlog priorizado, un backlog técnico y una Definition of Ready acotada.
+La categoría 06 es la bisagra entre el diseño y la ejecución dentro de la cadena de trazabilidad D6. Recibe upstream de 01 (necesidades de negocio NB-XXXXX), 02 (CU, RN, modelo conceptual) y 05 (arquitectura de producto, ADRs y modelo lógico). Produce los artefactos que alimentan 07 (sprint plan), 08 (acceptance tests y QA) y 10 (developer guide cuando se trata de onboarding al backlog). Su salida define qué se construye y en qué orden, sin entrar en el detalle de planificación temporal por sprint, que vive en 07. Aplica de manera obligatoria a los ocho tipos D8: ningún tipo está exento de producir un product backlog priorizado, un backlog técnico y una Definition of Ready acotada.
 
 ---
 
@@ -19,7 +19,7 @@ La categoría 06 es la bisagra entre el diseño y la ejecución dentro de la cad
 
 Scrum Master con perfil de Agile Coach orientado al backlog, equivalente al AG-06 del catálogo SDD. Su perfil profesional combina la facilitación ágil con la curaduría del backlog: asegura que las historias de usuario cumplan INVEST, que la priorización MoSCoW refleje el valor real de negocio, que cada historia trace a uno o más CU y que la Definition of Ready filtre trabajo no refinado antes del Sprint Planning. Conecta la capa funcional (CU y RN de 02) y la capa técnica (componentes y ADRs de 05) con el trabajo planificable en sprints. Se alinea con la Scrum Guide 2020 para los artefactos de producto, con el método MoSCoW (DSDM Atern) para priorización y con la práctica de Backlog Refinement como mecanismo continuo de curaduría.
 
-### 1.2 Variantes según tipo de proyecto de código (8 valores D8)
+### 1.2 Variantes según tipo de unidad de entrega (8 valores D8)
 
 | Tipo | Especialidad específica | Justificación |
 | --- | --- | --- |
@@ -32,7 +32,7 @@ Scrum Master con perfil de Agile Coach orientado al backlog, equivalente al AG-0
 | cli-tool | Scrum Master | Épicas por comando o pipeline; BT por contrato de stdout/stderr y exit codes. |
 | worker-service | Scrum Master + Operations Lead | Épicas por flujo de mensajes y por capacidades operativas (idempotencia, dead-letter, backpressure); el Ops Lead arbitra prioridades operativas. |
 
-El orquestador lee esta tabla y, según el `tipo_proyecto_codigo` del proyecto de código en curso (leído del manifiesto de producto), selecciona la variante correspondiente y la combina con la especialidad base. La variante se aplica una vez por cada proyecto de código del producto.
+El orquestador lee esta tabla y, según el `tipo_unidad_entrega` de la unidad de entrega en curso (leído del manifiesto de producto), selecciona la variante correspondiente y la combina con la especialidad base. La variante se aplica una vez por cada unidad de entrega del producto.
 
 ### 1.3 Multi-especialidad
 
@@ -54,9 +54,9 @@ El AG-06 mantiene siempre la titularidad del artefacto; las demás especialidade
 | Archivo | Obligatorio para | Recomendado | Omitir para | Descripción |
 | --- | --- | --- | --- | --- |
 | `Product-Backlog.md` | Todos los tipos D8 | — | — | Índice maestro priorizado de historias de usuario con MoSCoW, story points, trazabilidad a CU y a épicas. |
-| `Backlog-Tecnico.md` | Todos los tipos D8 | — | — | Vista del backlog desde la lente técnica, organizada por épicas técnicas y por BT-XX con dependencias, fuente upstream y criterios de aceptación. |
-| `historias-usuario/US-XX-<Nombre>.md` | Proyectos de código con más de 20 US | Proyectos de código con 10 a 20 US | Proyectos de código con menos de 10 US (US inline en `Product-Backlog.md`) | Un archivo por historia, con criterios BDD, INVEST check, trazabilidad y DoR. |
-| `tareas-tecnicas/BT-XX-<Nombre>.md` | Proyectos de código con más de 30 BT | Proyectos de código con 15 a 30 BT | Proyectos de código con menos de 15 BT (BT inline en `Backlog-Tecnico.md`) | Un archivo por tarea técnica, con justificación, dependencias, tipo y trazabilidad a US. |
+| `Backlog-Tecnico.md` | Todos los tipos D8 | — | — | Vista del backlog desde la lente técnica, organizada por épicas técnicas y por BT-XXXXX con dependencias, fuente upstream y criterios de aceptación. |
+| `historias-usuario/US-XXXXX-<Nombre>.md` | Proyectos de código con más de 20 US | Proyectos de código con 10 a 20 US | Proyectos de código con menos de 10 US (US inline en `Product-Backlog.md`) | Un archivo por historia, con criterios BDD, INVEST check, trazabilidad y DoR. |
+| `tareas-tecnicas/BT-XXXXX-<Nombre>.md` | Proyectos de código con más de 30 BT | Proyectos de código con 15 a 30 BT | Proyectos de código con menos de 15 BT (BT inline en `Backlog-Tecnico.md`) | Un archivo por tarea técnica, con justificación, dependencias, tipo y trazabilidad a US. |
 | `Definition-Of-Ready.md` | Todos los tipos D8 | — | — | Criterios DoR para US y para BT, con aprobador y excepciones admitidas. |
 | `README.md` de la sección | Recomendado para todos | — | — | Índice navegable del backlog: épicas, US Must Have, BT prioritarias y DoR vigente. |
 
@@ -83,28 +83,29 @@ Los mínimos son piso, no techo. La cantidad real surge del refinamiento iterati
 
 - `product-backlog.md` para el índice maestro de historias.
 - `backlog-tecnico.md` para la vista técnica por épicas.
-- `historias-usuario/US-XX-<Nombre>.md` para cada historia individual, con dos dígitos en `XX`, Título-Con-Guiones en el slug y guion medio antes de la versión.
-- `tareas-tecnicas/BT-XX-<Nombre>.md` para cada tarea técnica individual, con dos dígitos en `XX`, Título-Con-Guiones estricto y guion medio antes de la versión.
+- `historias-usuario/US-XXXXX-<Nombre>.md` para cada historia individual, con cinco dígitos en `XXXXX` (`Root-Rules.md` §9.2), Título-Con-Guiones en el slug y guion medio antes de la versión.
+- `tareas-tecnicas/BT-XXXXX-<Nombre>.md` para cada tarea técnica individual, con cinco dígitos en `XXXXX` (`Root-Rules.md` §9.2), Título-Con-Guiones estricto y guion medio antes de la versión.
 - `definition-of-ready.md` para la DoR.
 
 Queda prohibido el patrón heredado `product-backlog.v1.0.md`; la versión siempre va con guion medio `-v`, jamás con guion bajo `_v` ni con punto `.v`. El slug va en Título-Con-Guiones (cada palabra capitalizada, separadas por guion medio); quedan prohibidas las variantes todo-minúsculas, camelCase, con espacios o con acentos.
 
-### 3.2 Convención crítica de identificadores de dos dígitos
+### 3.2 Convención crítica de identificadores uniformes
 
-La auditoría de Fase 0 del bootstrap (`Bootstrap/Audit-SDD1.md`) detectó que el fuente Motor DSL usa identificadores heterogéneos: `US-01` con dos dígitos en el product-backlog y `BT-001` con tres dígitos en el backlog técnico. SDD corrige esta práctica de manera obligatoria:
+La auditoría de Fase 0 del bootstrap (`Bootstrap/Audit-SDD1.md`) detectó que el fuente Motor DSL usa identificadores heterogéneos: `US-00001` con dos dígitos en el product-backlog y `BT-001` con tres dígitos en el backlog técnico. La lección de esa auditoría —**el ancho tiene que ser uniforme**— sigue vigente y es la que gobierna acá; lo que cambió es el ancho, que hoy lo fija `Root-Rules.md` §9.2 para todo el framework:
 
-1. Todos los identificadores de US y BT llevan dos dígitos uniformes (`US-01` a `US-99`, `BT-01` a `BT-99`).
-2. Si un proyecto de código supera 99 US o 99 BT, debe descomponerse en épicas separadas o subdividirse en sub-backlogs por bounded context antes de saltar a tres dígitos.
-3. Queda prohibido mezclar `US-01` y `BT-001` en el mismo proyecto de código; los esquemas de numeración deben ser consistentes entre artefactos.
-4. Las épicas mantienen su prefijo propio `EP-XX` con dos dígitos.
+1. Todos los identificadores de US, BT y EP llevan **cinco dígitos uniformes** (`US-00001` a `US-99999`), y son únicos en el producto (`Root-Rules.md` §9.1).
+2. Queda prohibido mezclar anchos dentro del producto; los esquemas de numeración son consistentes entre artefactos y entre unidades de entrega.
+3. El ancho se dimensiona por el **total histórico** y no por el vigente, porque un identificador retirado no libera su número (`Root-Rules.md` §9.3).
+
+**Qué dejó de ser necesario.** La versión anterior de esta sección obligaba a descomponer en épicas o en sub-backlogs por bounded context «antes de saltar a tres dígitos», si un proyecto superaba las 99 US. Esa regla existía para administrar un techo que ya no existe: la descomposición en épicas sigue siendo buena práctica de backlog, y deja de ser una obligación derivada del ancho del identificador.
 
 Esta convención asegura coherencia visual entre product-backlog y backlog-tecnico y compatibilidad con herramientas de búsqueda y matriz de trazabilidad.
 
 ### 3.3 Convención de archivos individuales para US y BT
 
-- Para proyectos de código con más de 20 US, cada historia vive en su archivo individual bajo `historias-usuario/`. Esto permite versionar cada US, asignarla a un autor distinto y revisarla por separado.
-- Para proyectos de código con más de 30 BT, cada tarea técnica vive en su archivo individual bajo `tareas-tecnicas/`. Esto permite trazar dependencias técnicas por archivo y bloquear individualmente sin tocar el backlog completo.
-- Para proyectos de código por debajo de esos umbrales, las US y BT pueden vivir inline en el `Product-Backlog.md` y el `Backlog-Tecnico.md` respectivamente, sin perder la estructura de secciones obligatoria.
+- Para unidades de entrega con más de 20 US, cada historia vive en su archivo individual bajo `historias-usuario/`. Esto permite versionar cada US, asignarla a un autor distinto y revisarla por separado.
+- Para unidades de entrega con más de 30 BT, cada tarea técnica vive en su archivo individual bajo `tareas-tecnicas/`. Esto permite trazar dependencias técnicas por archivo y bloquear individualmente sin tocar el backlog completo.
+- Para unidades de entrega por debajo de esos umbrales, las US y BT pueden vivir inline en el `Product-Backlog.md` y el `Backlog-Tecnico.md` respectivamente, sin perder la estructura de secciones obligatoria.
 - En ambos modos (inline o por archivo), los criterios de aceptación, la trazabilidad y el DoR check deben estar presentes; no se admite "US sin criterios" ni "BT sin justificación" en ningún modo.
 
 ### 3.4 Vinculación cross-doc
@@ -120,7 +121,7 @@ Recomendado para todos los tipos. Debe listar el `Product-Backlog.md`, el `Backl
 
 ### 3.6 Política de versionado
 
-Una sola versión vigente por nombre lógico para todos los artefactos. Cuando el backlog evoluciona de manera significativa (por ejemplo, una nueva épica grande o un cambio de alcance del MVP), se pasa de `v1.0` a `v2.0` y la versión anterior se mueve a `_legacy/` con estado `Superado`. Para `US-XX` y `BT-XX` aplica una regla diferente: una vez que una US o BT entró a un sprint y se cerró con `Done`, no cambia de versión; si la funcionalidad evoluciona, se crea una nueva US o BT con el siguiente identificador disponible.
+Una sola versión vigente por nombre lógico para todos los artefactos. Cuando el backlog evoluciona de manera significativa (por ejemplo, una nueva épica grande o un cambio de alcance del MVP), se pasa de `v1.0` a `v2.0` y la versión anterior se mueve a `_legacy/` con estado `Superado`. Para `US-XXXXX` y `BT-XXXXX` aplica una regla diferente: una vez que una US o BT entró a un sprint y se cerró con `Done`, no cambia de versión; si la funcionalidad evoluciona, se crea una nueva US o BT con el siguiente identificador disponible.
 
 ---
 
@@ -131,20 +132,20 @@ Una sola versión vigente por nombre lógico para todos los artefactos. Cuando e
 Cada artefacto inicia con un H1 y un bloque markdown de metadatos:
 
 ```markdown
-# US-XX — <Título de la historia>
+# US-XXXXX — <Título de la historia>
 
 **Proyecto de código:** {{Nombre-Proyecto-Codigo}}
-**Documento:** US-XX-<Nombre>.md
+**Documento:** US-XXXXX-<Nombre>.md
 **Versión:** <X.Y>
 **Estado:** Borrador | Ready | En curso | Done | Descartada
 **Fecha:** YYYY-MM-DD
 **Autor:** {{equipo-o-rol}}
-**Épica:** EP-XX
+**Épica:** EP-XXXXX
 **Prioridad MoSCoW:** Must | Should | Could | Won't (v1.0)
 **Estimación:** <story points o T-shirt>
 ```
 
-Para `product-backlog`, `backlog-tecnico`, `BT-XX` y `definition-of-ready` aplica la misma cabecera adaptando el título y los campos pertinentes (la BT lleva `Tipo` en vez de `Prioridad MoSCoW`).
+Para `product-backlog`, `backlog-tecnico`, `BT-XXXXX` y `definition-of-ready` aplica la misma cabecera adaptando el título y los campos pertinentes (la BT lleva `Tipo` en vez de `Prioridad MoSCoW`).
 
 **Tabla de contenido.** Todo documento generado que supere las tres secciones de primer nivel incluye una tabla de contenido inmediatamente después de la cabecera de metadatos, con enlaces ancla a cada sección de primer y de segundo nivel. La tabla de contenido no cuenta como sección de contenido ni altera la estructura obligatoria del documento: se ubica entre la cabecera y la primera sección, y las secciones obligatorias siguen siendo las que declara §4.2. Los documentos breves —fichas de una sola sección, entradas de índice— quedan exceptuados.
 
@@ -153,18 +154,18 @@ El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente
 ### 4.2 Secciones obligatorias de `Product-Backlog.md`
 
 1. Objetivos del producto. Una a tres oraciones que enuncien el propósito del backlog y el MVP buscado.
-2. Épicas. Tabla con identificador `EP-XX`, nombre, descripción breve y sprints estimados.
-3. Historias por épica. Tabla con `US-XX`, título, MoSCoW, story points, estado, CU relacionados y épica.
+2. Épicas. Tabla con identificador `EP-XXXXX`, nombre, descripción breve y sprints estimados.
+3. Historias por épica. Tabla con `US-XXXXX`, título, MoSCoW, story points, estado, CU relacionados y épica.
 4. Métricas de avance. Resumen por prioridad (cantidad y SP), porcentaje cerrado, deuda en backlog.
 5. Refinamiento. Cadencia de refinement, responsables y formato (Planning Poker, T-shirt, etc.).
 
 ### 4.3 Secciones obligatorias de `Backlog-Tecnico.md`
 
 1. Épicas técnicas. Cada épica con objetivo, alcance, fuente upstream (ADR, componente o contrato) y BT contenidas.
-2. BT por épica. Tabla con `BT-XX`, título, tipo (spike, feature, refactor, devops, docs), prioridad, estimación, fuente (NB, CU, ADR, contrato), dependencias y criterios de aceptación.
+2. BT por épica. Tabla con `BT-XXXXX`, título, tipo (spike, feature, refactor, devops, docs), prioridad, estimación, fuente (NB, CU, ADR, contrato), dependencias y criterios de aceptación.
 3. Trazabilidad BT↔US↔CU. Tabla cruzada que permita, para cada BT, identificar las US que la consumen y los CU upstream.
 
-### 4.4 Secciones obligatorias de `US-XX-<Nombre>.md`
+### 4.4 Secciones obligatorias de `US-XXXXX-<Nombre>.md`
 
 1. Historia. Bloque `Como [rol], quiero [acción], para [valor]` con valor explícito.
 2. Contexto. Por qué existe esta historia, qué NB o CU la motivan, qué problema resuelve.
@@ -174,7 +175,7 @@ El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente
 6. DoR check. Lista de los criterios DoR vigentes con su estado (cumplido o pendiente).
 7. Notas y supuestos. Aclaraciones que no son criterios pero documentan decisiones de scope o ambigüedades resueltas.
 
-### 4.5 Secciones obligatorias de `BT-XX-<Nombre>.md`
+### 4.5 Secciones obligatorias de `BT-XXXXX-<Nombre>.md`
 
 1. Descripción. Qué se construye, refactoriza o investiga; alcance acotado a una tarea ejecutable en menos de un sprint.
 2. Justificación. Qué NB, CU, ADR o contrato exige esta tarea; sin justificación upstream no hay BT.
@@ -225,9 +226,9 @@ Tabla de trazabilidad de la US:
 
 | Dimensión | Referencia |
 | --- | --- |
-| NB upstream | NB-XX |
-| CU cubiertos | CU-XX, CU-YY |
-| BT derivadas | BT-XX, BT-YY |
+| NB upstream | NB-XXXXX |
+| CU cubiertos | CU-XXXXX, CU-YY |
+| BT derivadas | BT-XXXXX, BT-YY |
 | Tests previstos | <referencia tentativa a 08> |
 
 ### 4.8 Anti-patrones a evitar
@@ -239,7 +240,7 @@ Tabla de trazabilidad de la US:
 | DoR sin criterios verificables | "La historia debe estar clara" no es verificable | Cada criterio DoR debe poder responderse con sí o no de manera objetiva |
 | Estimación sin técnica declarada | Mezcla de SP y horas sin convención | Declarar la técnica en el `Product-Backlog.md` y mantenerla en todas las US |
 | Backlog sin refinement con cadencia | El backlog envejece sin curaduría; entra trabajo crudo al sprint | Política explícita de refinement (mínimo una sesión por sprint) documentada en §5 del backlog |
-| IDs heterogéneos | `US-01` y `BT-001` rompen búsquedas y matrices de trazabilidad (lección documentada del fuente Motor DSL) | Forzar dos dígitos uniformes en US, BT y EP |
+| IDs heterogéneos | `US-00001` y `BT-001` conviviendo rompen búsquedas y matrices de trazabilidad (lección documentada del fuente Motor DSL) | Forzar el ancho uniforme de `Root-Rules.md` §9.2 en US, BT y EP |
 | Todo Must Have | No hay priorización real; el equipo no puede recortar alcance | Forzar distribución 60/20/20 entre Must, Should y Could como ejercicio mínimo |
 | US huérfanas de CU | No se puede validar completitud del sistema contra la especificación funcional | Columna `CU relacionados` obligatoria; AG-02 firma trazabilidad |
 | BT sin US consumidora | Tarea técnica que nadie usa; deuda inventada | Cada BT debe declarar al menos una US que la consume o justificarse como infraestructura compartida con ADR explícita |
@@ -280,7 +281,7 @@ Tabla de trazabilidad de la US:
 
 ### 5.5 Convenciones
 
-- ¿Todos los identificadores usan dos dígitos uniformes? ¿Hay rastros de `BT-001` heredados del fuente?
+- ¿Todos los identificadores usan el ancho uniforme de `Root-Rules.md` §9.2? ¿Hay rastros de anchos heredados del fuente?
 - ¿Los slugs están en Título-Con-Guiones estricto?
 - ¿Los nombres de archivo respetan `.md` y no `.md`?
 - ¿Las US y BT individuales viven en sus carpetas (`historias-usuario/` y `tareas-tecnicas/`) cuando aplica el umbral?
@@ -289,22 +290,34 @@ Tabla de trazabilidad de la US:
 
 ## 6. Criterios de aceptación
 
-- [ ] Existe `Product-Backlog.md` con las cinco secciones del §4.2 y una tabla de épicas con identificadores `EP-XX` de dos dígitos.
-- [ ] Existe `Backlog-Tecnico.md` con las tres secciones del §4.3 y la tabla cruzada BT↔US↔CU completa.
-- [ ] Existe `Definition-Of-Ready.md` con criterios DoR para US (entre 5 y 8) y para BT (entre 4 y 6), excepciones y aprobador declarado.
-- [ ] Todos los identificadores `US-XX`, `BT-XX` y `EP-XX` usan dos dígitos uniformes; no quedan rastros de `BT-001` heredados del fuente.
-- [ ] Cada US tiene al menos un CU relacionado declarado en la columna `CU relacionados`; no hay US huérfanas.
-- [ ] Cada BT tiene fuente upstream declarada (NB, CU, ADR o contrato) y al menos una US consumidora o justificación de infraestructura compartida.
-- [ ] La distribución MoSCoW no es 100 % Must; hay reparto razonable entre Must, Should y Could.
-- [ ] Cada US Must y Should tiene criterios de aceptación en Given/When/Then con al menos dos escenarios.
-- [ ] Si el proyecto de código supera 20 US, existen archivos individuales bajo `historias-usuario/`; si supera 30 BT, existen archivos individuales bajo `tareas-tecnicas/`.
-- [ ] Ningún archivo de la carpeta de trabajo lleva sufijo de versión en el nombre; cada uno declara su versión en el campo `Versión` de su cabecera (D4).
-- [ ] La DoR no se solapa con la Definition of Done de 08; la DoR habla de cuándo empezar, la DoD de cuándo terminar.
-- [ ] No hay menciones a stacks concretos, productos comerciales ni protocolos específicos del dominio fuente.
-- [ ] Todo documento con más de tres secciones de primer nivel incluye tabla de contenido inmediatamente después de la cabecera, con enlaces ancla a las secciones de primer y de segundo nivel. Los documentos breves quedan exceptuados.
-- [ ] Todo término que esta categoría acuña o precisa, y que aparece en más de uno de sus artefactos, está declarado en `Glosario-Funcional.md` de 02 y `Glosario-Tecnico.md` de 11, con sus referentes cuando tiene más de uno. Las US y los BT no acuñan vocabulario propio: reusan el de 02 y el de 05. Un término nuevo en una US es señal de que falta en el glosario de la categoría que lo origina.
-- [ ] Ninguna forma desnuda de un término polisémico queda sin resolver en un artefacto que se lee por secciones (`Vocabulario-Rules.md` §9.2).
-- [ ] Ninguna polisemia con contextos disjuntos se reporta como defecto ni se corrige calificando todas las ocurrencias (criterio negativo de `Vocabulario-Rules.md` §9.1).
+**Naturaleza de cada criterio.** Cada ítem lleva su marca: `[enumerable]` si se decide contando o
+comparando —existencia, forma, recuento, resolución de un enlace— y `[interpretativo]` si solo se
+decide leyendo los dos lados. Los enumerables son los que la compuerta mecánica de
+`Master-Prompt.md` §10.0 tiene que cubrir; los interpretativos son para lo que el audit existe.
+
+La clasificación es **conservadora por diseño**: ante la duda, un criterio se marca interpretativo.
+El error no es simétrico —declarar mecanizable algo que no lo es produce falsa confianza, que es peor
+que la ausencia de verificación—, así que marcar de más un interpretativo solo cuesta atención del
+auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
+
+- [ ] [enumerable] Existe `Product-Backlog.md` con las cinco secciones del §4.2 y una tabla de épicas con identificadores `EP-XXXXX` con el ancho de `Root-Rules.md` §9.2.
+- [ ] [enumerable] Existe `Backlog-Tecnico.md` con las tres secciones del §4.3 y la tabla cruzada BT↔US↔CU completa.
+- [ ] [enumerable] Existe `Definition-Of-Ready.md` con criterios DoR para US (entre 5 y 8) y para BT (entre 4 y 6), excepciones y aprobador declarado.
+- [ ] [interpretativo] Todos los identificadores `US-XXXXX`, `BT-XXXXX` y `EP-XXXXX` usan el ancho uniforme de `Root-Rules.md` §9.2 y son únicos en el producto; no quedan rastros de `BT-001` heredados del fuente.
+- [ ] [interpretativo] Cada US tiene al menos un CU relacionado declarado en la columna `CU relacionados`; no hay US huérfanas.
+- [ ] [interpretativo] Cada BT tiene fuente upstream declarada (NB, CU, ADR o contrato) y al menos una US consumidora o justificación de infraestructura compartida.
+- [ ] [interpretativo] La distribución MoSCoW no es 100 % Must; hay reparto razonable entre Must, Should y Could.
+- [ ] [interpretativo] Cada US Must y Should tiene criterios de aceptación en Given/When/Then con al menos dos escenarios.
+- [ ] [interpretativo] Si la unidad de entrega supera 20 US, existen archivos individuales bajo `historias-usuario/`; si supera 30 BT, existen archivos individuales bajo `tareas-tecnicas/`.
+- [ ] [enumerable] Ningún archivo de la carpeta de trabajo lleva sufijo de versión en el nombre; cada uno declara su versión en el campo `Versión` de su cabecera (D4).
+- [ ] [interpretativo] La DoR no se solapa con la Definition of Done de 08; la DoR habla de cuándo empezar, la DoD de cuándo terminar.
+- [ ] [interpretativo] No hay menciones a stacks concretos, productos comerciales ni protocolos específicos del dominio fuente.
+- [ ] [enumerable] Todo documento con más de tres secciones de primer nivel incluye tabla de contenido inmediatamente después de la cabecera, con enlaces ancla a las secciones de primer y de segundo nivel. Los documentos breves quedan exceptuados.
+- [ ] [interpretativo] **El vocabulario del método va al glosario operativo de `Master-Prompt.md` §15 y se cita sin redefinir; el del producto, al glosario que corresponda.** Los términos que el framework acuña e impone a esta categoría no son vocabulario que la categoría acuñe: no van a un glosario del producto.
+- [ ] [interpretativo] Todo término que esta categoría acuña o precisa, y que aparece en más de uno de sus artefactos, está declarado en `Glosario-Funcional.md` de 02 y `Glosario-Tecnico.md` de 11, con sus referentes cuando tiene más de uno. Las US y los BT no acuñan vocabulario propio: reusan el de 02 y el de 05. Un término nuevo en una US es señal de que falta en el glosario de la categoría que lo origina.
+- [ ] [interpretativo] El apuntamiento a `Glosario-Tecnico.md` de la 11 se declara como **referencia pendiente** (`Root-Rules.md` §12) mientras esa categoría no se haya emitido: la 11 se emite en la Fase H y esta categoría es anterior. Al emitirse, la reapertura de `Master-Prompt.md` §6 cierra la referencia.
+- [ ] [interpretativo] Ninguna forma desnuda de un término polisémico queda sin resolver en un artefacto que se lee por secciones (`Vocabulario-Rules.md` §9.2).
+- [ ] [interpretativo] Ninguna polisemia con contextos disjuntos se reporta como defecto ni se corrige calificando todas las ocurrencias (criterio negativo de `Vocabulario-Rules.md` §9.1).
 
 ---
 
@@ -315,15 +328,15 @@ Tabla de trazabilidad de la US:
 Fragmento ilustrativo, no documento completo:
 
 ```markdown
-# US-05 — El paciente cancela un turno
+# US-00005 — El paciente cancela un turno
 
 **Proyecto de código:** {{Nombre-Proyecto-Codigo}}
-**Documento:** US-05-Paciente-Cancela-Turno.md
+**Documento:** US-00005-Paciente-Cancela-Turno.md
 **Versión:** 1.0
 **Estado:** Ready
 **Fecha:** 2026-05-17
 **Autor:** Equipo Producto
-**Épica:** EP-02 Reserva de turnos
+**Épica:** EP-00002 Reserva de turnos
 **Prioridad MoSCoW:** Must
 **Estimación:** 5 SP (Fibonacci)
 
@@ -331,7 +344,7 @@ Fragmento ilustrativo, no documento completo:
 Como paciente, quiero cancelar un turno previamente reservado, para liberar el horario si no puedo asistir y permitir que otra persona lo tome.
 
 ## 2. Contexto
-NB-02 exige que la disponibilidad de turnos refleje la realidad en tiempo real. CU-04 describe el flujo de cancelación y RN-05 fija la ventana mínima de aviso. Sin esta US, los turnos no asistidos quedan ocupando agenda y bloquean reservas legítimas.
+NB-00002 exige que la disponibilidad de turnos refleje la realidad en tiempo real. CU-00004 describe el flujo de cancelación y RN-00005 fija la ventana mínima de aviso. Sin esta US, los turnos no asistidos quedan ocupando agenda y bloquean reservas legítimas.
 
 ## 3. Criterios de aceptación
 - Given un turno reservado con más de 24 h de anticipación, When el paciente confirma la cancelación, Then el sistema libera el horario y muestra confirmación con la hora liberada.
@@ -341,9 +354,9 @@ NB-02 exige que la disponibilidad de turnos refleje la realidad en tiempo real. 
 ## 4. Trazabilidad
 | Dimensión | Referencia |
 | --- | --- |
-| NB upstream | NB-02 |
-| CU cubiertos | CU-04 |
-| BT derivadas | BT-12, BT-15 |
+| NB upstream | NB-00002 |
+| CU cubiertos | CU-00004 |
+| BT derivadas | BT-00012, BT-00015 |
 | Tests previstos | acceptance/AT-04-cancelacion-turno |
 
 ## 5. Prioridad y estimación
@@ -357,7 +370,7 @@ Must porque sin cancelación la agenda queda contaminada por turnos no asistidos
 - [x] Datos de prueba disponibles (fixtures de turnos)
 
 ## 7. Notas y supuestos
-La política de penalidad por cancelación tardía queda fuera del alcance de esta US; se cubre en US-09. Esta US asume autenticación previa del paciente (US-01).
+La política de penalidad por cancelación tardía queda fuera del alcance de esta US; se cubre en US-00009. Esta US asume autenticación previa del paciente (US-00001).
 ```
 
 ### 7.2 Ejemplo 2 — BT individual para un rest-api de pagos
@@ -365,10 +378,10 @@ La política de penalidad por cancelación tardía queda fuera del alcance de es
 Fragmento ilustrativo, no documento completo:
 
 ```markdown
-# BT-12 — Spike de comparación de mecanismos de persistencia
+# BT-00012 — Spike de comparación de mecanismos de persistencia
 
 **Proyecto de código:** {{Nombre-Proyecto-Codigo}}
-**Documento:** BT-12-Spike-Comparacion-Orm.md
+**Documento:** BT-00012-Spike-Comparacion-Orm.md
 **Versión:** 1.0
 **Estado:** Ready
 **Fecha:** 2026-05-17
@@ -381,7 +394,7 @@ Fragmento ilustrativo, no documento completo:
 Investigar y comparar dos mecanismos de persistencia candidatos para el bounded context de pagos, en función de los criterios de transaccionalidad, soporte de migraciones versionadas y curva de adopción del equipo.
 
 ## 2. Justificación
-ADR-03 declara la decisión de adoptar una base relacional pero deja abierta la elección del mecanismo de mapeo. CU-06 (registrar pago) y CU-08 (idempotencia de confirmación) exigen transacciones ACID con clave de idempotencia, lo que condiciona la selección. NB-04 fija un objetivo de latencia p95 que también condiciona la elección.
+ADR-00003 declara la decisión de adoptar una base relacional pero deja abierta la elección del mecanismo de mapeo. CU-00006 (registrar pago) y CU-00008 (idempotencia de confirmación) exigen transacciones ACID con clave de idempotencia, lo que condiciona la selección. NB-00004 fija un objetivo de latencia p95 que también condiciona la elección.
 
 ## 3. Criterios de aceptación
 - Existe un informe comparativo con dos alternativas evaluadas en transaccionalidad, migraciones y rendimiento bajo carga sintética.
@@ -389,8 +402,8 @@ ADR-03 declara la decisión de adoptar una base relacional pero deja abierta la 
 - La recomendación se eleva como ADR candidata; el spike no decide por sí solo, alimenta una ADR posterior.
 
 ## 4. Dependencias
-- ADR-03 aceptada (persistencia relacional).
-- BT-10 (modelo lógico inicial) completada para tener entidades reales contra las que medir.
+- ADR-00003 aceptada (persistencia relacional).
+- BT-00010 (modelo lógico inicial) completada para tener entidades reales contra las que medir.
 
 ## 5. Tipo
 Spike con caja temporal de 2 días. Si al final del plazo no hay recomendación clara, se documenta el bloqueo y se eleva al arquitecto.
@@ -401,34 +414,34 @@ Spike con caja temporal de 2 días. Si al final del plazo no hay recomendación 
 ## 7. Trazabilidad a US
 | US | Por qué consume esta BT |
 | --- | --- |
-| US-08 (registrar pago) | Necesita la decisión de persistencia tomada antes de implementarse |
-| US-09 (consultar estado de pago) | Lectura sobre el mismo mecanismo |
+| US-00008 (registrar pago) | Necesita la decisión de persistencia tomada antes de implementarse |
+| US-00009 (consultar estado de pago) | Lectura sobre el mismo mecanismo |
 ```
 
-Los dos fragmentos son ilustrativos. Cada proyecto de código adapta el dominio respetando la estructura.
+Los dos fragmentos son ilustrativos. Cada unidad de entrega adapta el dominio respetando la estructura.
 
 ---
 
 ## 8. Prompt-snippet sugerido
 
 ```text
-Sos un {{ESPECIALIDAD-VARIANTE}} responsable de redactar el backlog técnico del proyecto de código {{NOMBRE_PROYECTO_CODIGO}}.
+Sos un {{ESPECIALIDAD-VARIANTE}} responsable de redactar el backlog técnico de la unidad de entrega {{NOMBRE_PROYECTO_CODIGO}}.
 
 Insumos:
 - PRODUCT-INTAKE: {{path}}
-- Upstream: 01 (NB-XX), 02 (CU, RN, modelo conceptual), 05 (arquitectura de producto, ADRs, modelo lógico, contratos).
+- Upstream: 01 (NB-XXXXX), 02 (CU, RN, modelo conceptual), 05 (arquitectura de producto, ADRs, modelo lógico, contratos).
 
 A generar (según tipo {{TIPO}} de D8):
-- Product-Backlog.md con las cinco secciones obligatorias y la tabla de épicas EP-XX.
+- Product-Backlog.md con las cinco secciones obligatorias y la tabla de épicas EP-XXXXX.
 - Backlog-Tecnico.md con épicas técnicas, BT por épica y matriz BT↔US↔CU.
-- historias-usuario/US-XX-<Nombre>.md si el proyecto de código supera 20 US; en caso contrario, US inline en el product-backlog.
-- tareas-tecnicas/BT-XX-<Nombre>.md si el proyecto de código supera 30 BT; en caso contrario, BT inline en el backlog-tecnico.
+- historias-usuario/US-XXXXX-<Nombre>.md si la unidad de entrega supera 20 US; en caso contrario, US inline en el product-backlog.
+- tareas-tecnicas/BT-XXXXX-<Nombre>.md si la unidad de entrega supera 30 BT; en caso contrario, BT inline en el backlog-tecnico.
 - Definition-Of-Ready.md con criterios DoR para US (5-8) y BT (4-6), excepciones y aprobador.
 - README.md de la sección (recomendado).
 
 Reglas de redacción: §4 de Rules-Backlog-Tecnico.md.
-Nomenclatura: dos dígitos uniformes para US-XX, BT-XX y EP-XX; slug Título-Con-Guiones; sin sufijo de versión en el nombre; la versión vive en el campo `Versión` de la cabecera (D4).
-Convención crítica: corregir la herencia del antecedente Motor DSL que mezclaba `US-01` con `BT-001`; forzar dos dígitos en todos los identificadores.
+Nomenclatura: cinco dígitos uniformes para US-XXXXX, BT-XXXXX y EP-XXXXX, únicos en el producto; slug Título-Con-Guiones; sin sufijo de versión en el nombre; la versión vive en el campo `Versión` de la cabecera (D4).
+Convención crítica: corregir la herencia del antecedente Motor DSL que mezclaba anchos; forzar el ancho uniforme de `Root-Rules.md` §9.2 en todos los identificadores.
 Trazabilidad: cada US referencia al menos un CU; cada BT referencia NB, CU, ADR o contrato; matriz BT↔US↔CU completa.
 INVEST + MoSCoW: cada US Must y Should cumple INVEST y tiene criterios Given/When/Then con al menos dos escenarios.
 Estimación: declarar técnica (Fibonacci, T-shirt u horas ideales) y mantenerla consistente en todo el backlog.
@@ -445,10 +458,12 @@ Salida: SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/06-Backlog-Tecnico/<estruc
 
 | Versión | Fecha | Descripción |
 | --- | --- | --- |
-| 1.0 | 2026-05-17 | Versión inicial de las reglas constructivas de la categoría 06. Establece la convención obligatoria de dos dígitos uniformes en US, BT y EP como corrección del antecedente Motor DSL (mezcla `US-01` y `BT-001`), define las cinco secciones del product-backlog, las tres del backlog-tecnico, las siete de cada US individual y las siete de cada BT individual, las variantes por tipo D8, los umbrales de archivos individuales (20 US y 30 BT) y los criterios de aceptación. |
+| 1.0 | 2026-05-17 | Versión inicial de las reglas constructivas de la categoría 06. Establece la convención obligatoria de dos dígitos uniformes en US, BT y EP como corrección del antecedente Motor DSL (mezcla `US-00001` y `BT-001`), define las cinco secciones del product-backlog, las tres del backlog-tecnico, las siete de cada US individual y las siete de cada BT individual, las variantes por tipo D8, los umbrales de archivos individuales (20 US y 30 BT) y los criterios de aceptación. |
 | 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `Proyectos/<Nombre-Proyecto>/06-Backlog-Tecnico/`; la frase de cierre de §1.2 y la ruta de salida del prompt-snippet referencian el `project_type` del proyecto en curso (manifiesto). Tablas §1.2 sin reescritura. |
 | 1.2 | 2026-06-10 | Migración de referencias de intake al documento unificado SOLUTION-INTAKE (unificación de intake). |
 | 1.3 | 2026-07-26 | Navegabilidad para lectores humanos: §4.1 y §6 exigen tabla de contenido en todo documento generado que supere las tres secciones de primer nivel, con enlaces ancla de primer y segundo nivel y excepción para documentos breves. Es el único cambio: no se altera la estructura obligatoria de los documentos, no se agregan artefactos ni carga narrativa. |
 | 2.0 | 2026-07-28 | Normalización del versionado (framework 4.0). El archivo vivo pierde el sufijo de versión del nombre y pasa a declarar su versión en el campo `Versión` de su cabecera; el sufijo `-v<X.Y>.md` queda reservado a las copias archivadas en `_legacy/`. Se actualizan los patrones de nombre, los ejemplos, las cabeceras modelo, los anti-patrones y los criterios de aceptación de la categoría. Sube major porque la documentación generada con la nomenclatura anterior deja de cumplir. Deriva de la reformulación de D4 y D5 en el `README.md` del framework. |
 | 3.0 | 2026-07-29 | Renombre de vocabulario normativo (framework 5.0). El nivel superior pasa de «solución» a **producto**, la unidad de compilación de «proyecto» a **proyecto de código**, y los cuatro planos de identidad del producto se separan en campos propios (`Nombre-Producto`, `Slug-Producto`, `Raiz-Codigo`, `Artefacto-Agrupacion`). Se declara el nivel de aplicación de la regla en su cabecera, según `Vocabulario-Rules.md` §4 R3. Sube major porque los identificadores y los nombres de artefacto cambian, y la documentación generada con la nomenclatura anterior deja de cumplir. |
 | 3.1 | 2026-07-29 | Criterio de gobierno del glosario en §6. Sube minor: agrega criterios de aceptación verificables sin cambiar el conjunto de artefactos de la categoría ni ninguna invariante, y ninguna documentación ya emitida deja de cumplir por sí sola. Los tres criterios exigen que todo término que la categoría acuña o precisa y usa en más de uno de sus artefactos esté declarado en el glosario que le corresponde, que ninguna forma desnuda de un término polisémico quede sin resolver en un artefacto que se lee por secciones, y —criterio negativo— que ninguna polisemia con contextos disjuntos se reporte como defecto. Materializan `Vocabulario-Rules.md` §9 en la categoría. **Origen**: el audit verificaba «glosario sin contradicciones», que un glosario incompleto cumple trivialmente, y esta regla no mencionaba la palabra «glosario» ni una vez. |
+| 3.2 | 2026-08-15 | Criterio de gobierno de glosario, primera cláusula (intervención reportes 00 a 11). §6 pasa a distinguir el **vocabulario del método** —el que el framework acuña e impone a la categoría, que vive en el glosario operativo de `Master-Prompt.md` §15 y se cita sin redefinir— del **vocabulario del producto**, que va al glosario que corresponda. El criterio estaba replicado en once reglas mandando a nueve destinos distintos, casi todos glosarios del producto, y la política correcta estaba escrita una sola vez, en `Rules-Plan-Sprint.md` §6 y sobre términos que ya estaban resueltos. Sube **minor**: precisa un criterio existente. Origen: reporte `11`, propuesta 1. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. Se incorpora además el tratamiento de las obligaciones hacia una fase posterior que la comprobación del grafo de `Master-Prompt.md` §6 detectó al correrse sobre las doce reglas: las referencias afectadas se declaran con la forma de `Root-Rules.md` §12. |
+| 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |

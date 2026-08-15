@@ -3,7 +3,7 @@
 **Archivo target:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Lector:** la Fase de validación de intake del `Master-Prompt.md` (previa a la Fase A).
-**Versión de las reglas:** 3.2
+**Versión de las reglas:** 4.0
 
 ---
 
@@ -43,8 +43,9 @@ La versión de formato bajo la que cada uno de los dos artefactos se estructuró
 Son bloqueantes todos los campos del intake marcados con `(*)` en sus preguntas guía, más los siguientes, sin los cuales el orquestador no puede operar:
 
 - Cabecera: nombre del producto, estado.
-- §13 Proyectos de código: la tabla con al menos una fila; por cada proyecto de código su `Nombre-Proyecto-Codigo`, su `tipo_proyecto_codigo` D8, su rol y sus dependencias; el proyecto de código principal señalado; el perfil de convención de nombres.
-- §17 por proyecto de código: para cada proyecto de código de §13, el bloque técnico con su identidad y, como mínimo, P.6 (cobertura numérica), P.7 (SemVer/Conventional Commits), P.8 (quality gates), P.9 (plataformas) y P.10 (NFR numéricos).
+- §13.1 Unidades de entrega: la tabla con al menos una fila; por cada unidad de entrega su `Nombre-Unidad-Entrega`, su `tipo_unidad_entrega` D8, su rol, su `redistribuible` y su estado; la unidad de entrega principal señalada.
+- §13.2 Proyectos de código: la tabla con al menos una fila; por cada proyecto de código su `Nombre-Proyecto-Codigo`, su solución de código, su stack, sus dependencias de compilación y las unidades de entrega que compone; el perfil de convención de nombres.
+- §17 por unidad de entrega: para cada unidad de entrega de §13.1 con estado `vigente`, el bloque técnico con su identidad y, como mínimo, P.6 (cobertura numérica), P.7 (SemVer/Conventional Commits), P.8 (quality gates), P.9 (plataformas) y P.10 (NFR numéricos).
 
 Un campo bloqueante vacío, con placeholder o con valor `desconocido` detiene la cadena y genera una entrada en la batería de preguntas de §6.
 
@@ -57,7 +58,7 @@ Disparan pregunta, además de los de §2 del master-prompt:
 - Marcadores literales sin completar: `[…]`, `Pendiente`, `TBD`, `[Reemplazar]`, `[Nombre]`, `[YYYY-MM-DD]`, `[Nombre-Proyecto-Codigo]`, `[uno de los 8 D8]`, y cualquier corchete de la plantilla original.
 - Tablas con filas de ejemplo no sustituidas (por ejemplo la fila `| [Nombre-Proyecto-Codigo] (principal) | … |` de §13 sin reemplazar).
 - NFR o cobertura expresados de forma no numérica ("rápido", "alta", "razonable") donde la regla exige número.
-- `tipo_proyecto_codigo` fuera del conjunto cerrado D8.
+- `tipo_unidad_entrega` fuera del conjunto cerrado D8.
 
 ---
 
@@ -74,7 +75,7 @@ Mapeo de campos de §13 del intake al manifiesto:
 | Campo en `PRODUCT-INTAKE` §13 | Campo en el manifiesto |
 |---|---|
 | `Nombre-Proyecto-Codigo` | `Nombre-Proyecto-Codigo` (directo) |
-| `tipo_proyecto_codigo` (D8) | `tipo_proyecto_codigo` (directo) |
+| `tipo_unidad_entrega` (D8) | `tipo_unidad_entrega` (directo) |
 | Rol en el producto | Rol (directo) |
 | Dependencias | Dependencias (directo, validadas) |
 | `redistribuible` | `redistribuible` (directo) |
@@ -85,11 +86,27 @@ Mapeo de campos de §13 del intake al manifiesto:
 
 Validaciones bloqueantes de la derivación (si alguna falla, no se deriva el manifiesto y se reporta en la batería de §6):
 
-- Cada `tipo_proyecto_codigo` pertenece al conjunto cerrado D8 (exactamente 8 valores: `library`, `web-monolith`, `web-microservices`, `desktop-app`, `mobile-app-maui`, `rest-api`, `cli-tool`, `worker-service`).
-- Hay exactamente un proyecto de código principal.
+**Del eje de entrega (§13.1):**
+
+- Cada `tipo_unidad_entrega` pertenece al conjunto cerrado D8 (exactamente 8 valores: `library`, `web-monolith`, `web-microservices`, `desktop-app`, `mobile-app-maui`, `rest-api`, `cli-tool`, `worker-service`).
+- Hay exactamente una unidad de entrega principal.
+- No hay colisión de `Nombre-Unidad-Entrega`.
+- Cada integración referencia una unidad de entrega existente en §13.1.
+- La unidad de entrega principal no está declarada `diferida`.
+
+**Del eje de construcción (§13.2):**
+
 - No hay colisión de `Nombre-Proyecto-Codigo` ni de `Identidad-Codigo`.
-- Cada dependencia referencia un proyecto de código existente en §13.
-- El grafo de dependencias es acíclico (DAG).
+- Cada dependencia de compilación referencia un proyecto de código existente en §13.2.
+- El grafo de compilación es acíclico (DAG).
+- **Ningún proyecto de código declara un valor D8.** Si lo declara, el intake está confundiendo los dos ejes: el tipo es atributo de la entrega.
+
+**Del puente entre ejes (§13.3):**
+
+- **Todo proyecto de código compone al menos una unidad de entrega.** Un proyecto que no compone ninguna no se construye para nada, o falta declarar la entrega que lo usa.
+- **Toda unidad de entrega se compone de al menos un proyecto de código.** Una entrega sin proyectos no tiene con qué construirse.
+- Cada nombre de la columna «Compone» de §13.2 existe en §13.1.
+- Una unidad de entrega con `redistribuible: true` tiene al menos un proyecto de código que la compone y que es el que se publica.
 - **`Nombre-Producto` está expresado en prosa de negocio.** Si coincide con `Raiz-Codigo` salvo por la puntuación, o si contiene el separador de segmentos del perfil, el campo de negocio fue completado con un nombre de artefacto de código y la derivación no procede (`Master-Prompt.md` §3.2, validación de independencia).
 - `Raiz-Codigo` está declarado en la cabecera o en el perfil de convención, o su ausencia está informada como valor asumido.
 
@@ -102,13 +119,32 @@ Confirmación humana: el orquestador presenta el manifiesto derivado y espera co
 Por parte del intake, el orquestador verifica presencia y coherencia mínima:
 
 - Negocio (Parte A): problema y consecuencia (§1); al menos un stakeholder por categoría (§2); MoSCoW con Must mínimo (§4); 3 historias y 2 roles si aplica (§5); 5 casos límite (§7); 3 métricas SMART de negocio (§8); 3 exclusiones (§9); presupuesto y fecha o "sin fecha" justificado (§10); 3 riesgos (§11); 5 términos de glosario (§12).
-- Composición (Parte B): §13 completa y derivable (ver §4); §14 declara los contratos entre proyectos de código coherentes con las dependencias de §13; §15 garantiza valor end-to-end en el primer sprint; §16 deriva el árbol de la jerarquía y la convención de nombres.
+- Composición (Parte B): §13.1, §13.2 y §13.3 completas y derivables (ver §4); §14 declara los contratos entre proyectos de código coherentes con las dependencias de §13; §15 garantiza valor end-to-end en el primer sprint; §16 deriva el árbol de la jerarquía y la convención de nombres.
 - Técnica (Parte C): §17 completo por cada proyecto de código de §13, con los P bloqueantes de §2.
 
 - Anexos de datos (Parte D): es opcional, pero **si existe se valida**. Cada escenario declara procedencia, un `Estado` del enum cerrado (`medido`, `declarado`, `derivado`, `reconstruido`) y sus cuatro bloques: contexto, qué ejercita, JSON completo y **qué verificar**. Un escenario sin bloque de verificación no es utilizable por `08-Calidad-Y-Pruebas` ni por `10-Examples`, que son sus consumidores declarados.
 - Navegabilidad: el intake declara su **tabla de contenido** después de la cabecera, con las secciones de primer y segundo nivel y con cada escenario de la Parte D listado por identificador.
 
-Coherencia cross-parte que se chequea: la cantidad de bloques §17 coincide con la cantidad de proyectos de código de §13; los contratos de §14 corresponden a aristas de dependencia de §13; las métricas de negocio (§8) no se confunden con NFR técnicos (§17 P.10).
+Coherencia cross-parte que se chequea: la cantidad de bloques §17 coincide con la cantidad de unidades de entrega **vigentes** de §13.1; los contratos de integración de §14 corresponden a aristas del grafo de integración de §13.1 y los de compilación a aristas del grafo de §13.2, **sin mezclarse**; las métricas de negocio (§8) no se confunden con NFR técnicos (§17 P.10).
+
+**Regla de coherencia intra-escenario.** Los cuatro bloques de un escenario tienen que decir lo
+mismo. Toda magnitud, conteo o enumeración que la prosa de un escenario enuncie coincide con lo que
+su payload contiene, **o el escenario declara explícitamente por qué difieren**, según la regla de
+transcripción fiel de `PRODUCT-INTAKE-template.md` §20. La discrepancia **no declarada** es
+bloqueante; la declarada es un dato más del escenario.
+
+Hasta acá la validación verificaba que los cuatro bloques **existieran**, no que **dijeran lo mismo**,
+y un escenario que afirma nueve en un bloque y enumera once en el siguiente cumplía los cuatro
+requisitos. Importa porque los cuatro bloques tienen consumidores declarados distintos —`02` toma el
+modelo, `08` toma «qué verificar» como criterio de aceptación, `10` lo convierte en contrato de
+verificación—: si se contradicen, cada consumidor aguas abajo cree una cosa distinta y ninguno tiene
+forma de saber que el otro leyó otra.
+
+**Alcance acotado, y es lo que decide si la validación es aplicable.** La comparación alcanza a
+**conteos y enumeraciones del propio payload**, y no a cualquier número que aparezca en el texto. Una
+fecha, una versión o una medición mencionadas en la prosa no disparan la validación. Una comprobación
+que contraste todos los números de la prosa contra todos los del payload produce ruido, y una
+validación ruidosa se desactiva sola.
 
 **Regla de resolución de la Parte D.** Todo identificador de escenario citado desde el cuerpo (`E-1`, `E-2`, …) existe como subsección de §20, y todo escenario de §20 está citado desde el cuerpo. Una cita sin anexo es una referencia colgada que el orquestador no puede resolver aguas abajo; un anexo sin cita es ruido. La plantilla declara esta regla desde su versión 1.3 y hasta ahora ninguna validación la verificaba: se verifica acá.
 
@@ -144,8 +180,8 @@ Reglas de la batería:
 
 ## §7 Niveles de bloqueo
 
-- Bloqueante: campo de §2, falla de derivación del manifiesto de §4, o incoherencia cross-parte de §5. Detiene la cadena.
-- Recomendado: completitud de §5 no bloqueante (por ejemplo menos del mínimo sugerido de un ítem no marcado `(*)`). Se reporta en la batería como recomendado; el humano decide si lo resuelve antes de continuar.
+- Bloqueante: campo de §2, falla de derivación del manifiesto de §4, o incoherencia cross-parte de §5. Detiene la cadena. Entra acá la **discrepancia de conteo no declarada** dentro de un escenario de la Parte D.
+- Recomendado: completitud de §5 no bloqueante (por ejemplo menos del mínimo sugerido de un ítem no marcado `(*)`). Se reporta en la batería como recomendado; el humano decide si lo resuelve antes de continuar. Entra acá la **discrepancia de conteo declarada**, que es un dato del escenario y no un defecto, y el caso en que la fuente enuncia un total que el escenario no reproduce en ningún lado: la regla de transcripción fiel pide reproducirlo, pero su ausencia no contradice nada.
 
 ---
 
@@ -169,3 +205,5 @@ Reglas de la batería:
 | 3.0 | 2026-07-29 | Renombre de vocabulario normativo (framework 5.0). El nivel superior pasa de «solución» a **producto**, la unidad de compilación de «proyecto» a **proyecto de código**, y los cuatro planos de identidad del producto se separan en campos propios (`Nombre-Producto`, `Slug-Producto`, `Raiz-Codigo`, `Artefacto-Agrupacion`). Se declara el nivel de aplicación de la regla en su cabecera, según `Vocabulario-Rules.md` §4 R3. Sube major porque los identificadores y los nombres de artefacto cambian, y la documentación generada con la nomenclatura anterior deja de cumplir. | Reformulación SDD |
 | 3.1 | 2026-07-29 | Corrección de la sustitución global de cadena de la 5.0. §5 decía «Regla de **reproducto** de la Parte D», palabra inexistente producida al sustituir `soluci*` por `producto` sobre «re**soluci**ón». La clase de defecto y su prohibición quedan documentadas en `Vocabulario-Rules.md` §9.5. La restitución de las filas históricas de este control de cambios, que la migración había reescrito contra `SDD-Development-Guide.md` §VI.2, se registra una sola vez en `CHANGELOG.md` [5.1] por alcanzar a veintitrés archivos. | Revisión SDD |
 | 3.2 | 2026-07-29 | Instrumentación de la enumeración de los documentos de entrada (prerrequisito F2 de la migración normativa). **§2.1 es nueva**: tabla maestra de los dos artefactos que esta regla gobierna, `PRODUCT-INTAKE-<Slug-Producto>.md` y `PRODUCT-MANIFEST-<Slug-Producto>.md`, con columnas homólogas a las de las reglas de categoría y con la declaración explícita de que no hay gating por tipo D8 porque todo producto tiene exactamente uno de cada uno. La regla no la tenía, y el paso 4 del diff normativo de `Master-Prompt.md` §2.1 enumera los documentos gobernados leyendo precisamente esa dirección: sin tabla maestra, el intake y el manifiesto nunca podían aparecer entre los documentos potencialmente invalidados, ni siquiera ante el salto major de 2.1 a 3.0 de esta misma regla. §2 pasa a titularse «Artefactos gobernados y campos bloqueantes» para alojar las dos subsecciones, y los campos bloqueantes se numeran como **§2.2** sin cambiar de contenido; la referencia externa vigente apunta a §2, que sigue conteniéndolos. Sube **minor**: incorpora una declaración que no invalida nada de lo vigente. | Framework SDD (migración normativa) |
+| 3.3 | 2026-08-15 | **Regla de coherencia intra-escenario** en §5, con su nivel de bloqueo en §7. Toda magnitud que la prosa de un escenario de la Parte D enuncia coincide con lo que su payload contiene, o el escenario declara por qué difieren; la discrepancia no declarada es bloqueante y la declarada es un dato del escenario. La validación verificaba que los cuatro bloques existieran y no que dijeran lo mismo, de modo que un escenario con «nueve» en un bloque y once entradas en el siguiente cumplía los cuatro requisitos y llegaba a los tres consumidores aguas abajo, cada uno creyendo una cosa distinta. Se declara además el alcance acotado —conteos y enumeraciones del propio payload, no cualquier número del texto—, sin el cual la validación produce ruido y se desactiva sola. Sube **minor**: agrega una validación sin cambiar la estructura de los artefactos que gobierna; un intake ya emitido no deja de cumplir por su forma, aunque pueda fallar la validación nueva, que es el efecto buscado. Origen: reporte `00`, huecos A y B. | Framework SDD (intervención reportes 00-11) |
+| 4.0 | 2026-08-15 | **Validación de los dos ejes** (framework 8.0). §2.2 parte los campos bloqueantes de §13 en los de unidades de entrega y los de proyectos de código, y condiciona el bloque §17 a las unidades de entrega vigentes. §4 reorganiza las validaciones de la derivación en tres grupos —eje de entrega, eje de construcción y puente entre ejes— y suma siete validaciones nuevas, de las cuales dos son las que impiden que el intake confunda los ejes: que ningún proyecto de código declare un valor D8, y que todo proyecto componga al menos una unidad de entrega y toda unidad se componga de al menos un proyecto. §5 verifica que los contratos de integración y los de compilación no se mezclen. Sube **major**: cambia la estructura de lo que valida y el nombre de un campo bloqueante. | Framework SDD (nivel de unidad de entrega) |

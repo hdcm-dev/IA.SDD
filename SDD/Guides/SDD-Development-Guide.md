@@ -3,7 +3,7 @@ doc_id: GUIDE-SDD-DEVELOPMENT
 doc_type: development-guide
 title: Guía de desarrollo y extensibilidad del framework SDD
 status: vigente
-version: 1.6
+version: 1.8
 owner: Framework SDD
 last_review: 2026-07-29
 audience: [mantenedor-del-framework, agente-ia]
@@ -197,17 +197,17 @@ La decisión encadena tres entradas y no admite atajos.
 
 ```mermaid
 graph LR
-    A[PRODUCT-INTAKE 13<br/>tabla de proyectos de código] --> B[PRODUCT-MANIFEST<br/>derivado y confirmado]
-    B --> C{tipo_proyecto_codigo<br/>de cada proyecto de código}
+    A[PRODUCT-INTAKE 13<br/>tabla de unidades de entrega] --> B[PRODUCT-MANIFEST<br/>derivado y confirmado]
+    B --> C{tipo_unidad_entrega<br/>de cada unidad de entrega}
     C --> D[Seccion 0 y 2.2 del archivo<br/>de reglas: existe la categoria?]
     D --> E[Seccion 2.1: que artefactos<br/>se materializan?]
     E --> F[Seccion 1.2: que variante<br/>de especialidad?]
     F --> G[Seccion 8: prompt-snippet<br/>y ruta de salida]
 ```
 
-El `tipo_proyecto_codigo` es el discriminador central. Sale de §13 del intake, se deriva al manifiesto, el humano lo confirma, y a partir de ahí gobierna tres decisiones distintas en cada categoría: si la categoría existe, qué subconjunto de artefactos produce, y con qué perfil profesional se la genera.
+El `tipo_unidad_entrega` es el discriminador central. Sale de §13 del intake, se deriva al manifiesto, el humano lo confirma, y a partir de ahí gobierna tres decisiones distintas en cada categoría: si la categoría existe, qué subconjunto de artefactos produce, y con qué perfil profesional se la genera.
 
-**Consecuencia para quien extiende.** Si agregás un artefacto sin declarar su comportamiento para los ocho tipos, el orquestador no sabe si generarlo. En el mejor caso lo genera siempre, que suele ser incorrecto; en el peor, el subagente decide por su cuenta y el resultado varía entre corridas del mismo proyecto de código.
+**Consecuencia para quien extiende.** Si agregás un artefacto sin declarar su comportamiento para los ocho tipos, el orquestador no sabe si generarlo. En el mejor caso lo genera siempre, que suele ser incorrecto; en el peor, el subagente decide por su cuenta y el resultado varía entre corridas del misma unidad de entrega.
 
 ### II.3 El gating de doble granularidad
 
@@ -220,9 +220,9 @@ El framework filtra en dos niveles, y confundirlos produce categorías vacías o
 
 Hay un tercer discriminador que se suma a los dos anteriores: los **flags** de §4 del master-prompt. `usa_llm` habilita la categoría 04 entera; `requiere_maqueta` habilita la Fase B2; `tiene_portal_developers` refuerza artefactos de 03 y de 11. Un flag no reemplaza al gating por tipo: se combina con él.
 
-La categoría 11 introdujo una variante que conviene conocer porque puede repetirse: su gating es **por cuerpo**, un nivel intermedio entre categoría y artefacto. La categoría existe siempre, y lo que varía es cuál de sus tres cuerpos —integrador, mantenedor, operador— se materializa. Cuando una categoría agrupa artefactos por rol de lector, ese nivel intermedio resulta más expresivo que la tabla plana de artefactos, porque permite decir «este proyecto de código no tiene integradores externos» sin tener que repetir la exclusión en siete filas.
+La categoría 11 introdujo una variante que conviene conocer porque puede repetirse: su gating es **por cuerpo**, un nivel intermedio entre categoría y artefacto. La categoría existe siempre, y lo que varía es cuál de sus tres cuerpos —integrador, mantenedor, operador— se materializa. Cuando una categoría agrupa artefactos por rol de lector, ese nivel intermedio resulta más expresivo que la tabla plana de artefactos, porque permite decir «esta unidad de entrega no tiene integradores externos» sin tener que repetir la exclusión en siete filas.
 
-**Regla de cierre.** Toda omisión por gating se registra en `Decisiones-Proyecto.md` del proyecto de código. Cuando el equipo omite algo que el gating declara obligatorio, se requiere ADR.
+**Regla de cierre.** Toda omisión por gating se registra en `Decisiones-Proyecto.md` de la unidad de entrega. Cuando el equipo omite algo que el gating declara obligatorio, se requiere ADR.
 
 ### II.4 Cómo se encadena la trazabilidad
 
@@ -230,11 +230,11 @@ La cadena D6 es lo que hace que la documentación sea auditable en lugar de ser 
 
 ```mermaid
 graph LR
-    NB[NB-XX<br/>necesidad de negocio] --> CU[CU-XX<br/>caso de uso]
-    CU --> ADR[ADR-XX<br/>decision de arquitectura]
-    ADR --> US[US-XX y BT-XX<br/>backlog]
+    NB[NB-XXXXX<br/>necesidad de negocio] --> CU[CU-XXXXX<br/>caso de uso]
+    CU --> ADR[ADR-XXXXX<br/>decision de arquitectura]
+    ADR --> US[US-XXXXX y BT-XXXXX<br/>backlog]
     US --> TC[casos de prueba]
-    CU --> VER[VER-XX<br/>contrato de verificacion]
+    CU --> VER[VER-XXXXX<br/>contrato de verificacion]
     VER --> DOC[cuerpo documental<br/>de entrega]
 ```
 
@@ -247,7 +247,7 @@ Cada eslabón declara su upstream en la cabecera del documento y su downstream c
 El auditor se invoca desde cero, sin contexto previo, y lee solo los entregables de la fase, sus insumos upstream y los archivos de reglas correspondientes. Verifica cinco cosas:
 
 1. Conformidad D1 a D9 de cada documento.
-2. Cumplimiento de §6 del archivo de reglas, para el `tipo_proyecto_codigo` del proyecto de código.
+2. Cumplimiento de §6 del archivo de reglas, para el `tipo_unidad_entrega` de la unidad de entrega.
 3. Coherencia cross-doc dentro de la fase: referencias que resuelven, identificadores no duplicados, glosario sin contradicciones.
 4. Trazabilidad declarada y consistente con §3.3 del archivo de reglas.
 5. Filename y estructura de carpetas correctos.
@@ -262,9 +262,9 @@ Los flags de §4 del master-prompt no los inventa el orquestador ni los pregunta
 
 | Flag | Se deriva de | Habilita |
 | --- | --- | --- |
-| `usa_llm` | Declaración explícita del proyecto de código en el intake | La categoría 04 completa |
+| `usa_llm` | Declaración explícita de la unidad de entrega en el intake | La categoría 04 completa |
 | `tiene_ui_final` | Tipo D8 y declaración del intake | Variante UX/UI de la categoría 03 |
-| `requiere_maqueta` | `tiene_ui_final`, `tipo_proyecto_codigo` y `tiene_portal_developers`; propuesto por el orquestador y confirmado o invertido por el humano | La Fase B2 y la línea de base del sensado de deriva |
+| `requiere_maqueta` | `tiene_ui_final`, `tipo_unidad_entrega` y `tiene_portal_developers`; propuesto por el orquestador y confirmado o invertido por el humano | La Fase B2 y la línea de base del sensado de deriva |
 | `tiene_portal_developers` | Declaración del intake sobre SDK público o documentación pública | Documentos DX adicionales en 03; refuerza 10 y 11 |
 | `tiene_extensibilidad` | Puntos de extensión declarados en el intake | Artefactos de extensión en 05 y guía de extensión en 11 |
 
@@ -344,7 +344,7 @@ Cada eje sigue la misma estructura: qué estás agregando, qué archivos tocar y
 
 **Invariantes.** La letra de las fases es secuencial y no se recicla. Toda fase cierra con audit y con detención antes de la siguiente. Si la fase requiere confirmación humana, se declara explícitamente como gate.
 
-**Tres preguntas que hay que responder antes de agregarla:** ¿corre una vez, una vez por proyecto de código, o una vez por incremento? ¿Qué precondición tiene que cumplirse para que pueda ejecutarse? ¿Qué se regenera y qué se preserva si vuelve a correr?
+**Tres preguntas que hay que responder antes de agregarla:** ¿corre una vez, una vez por unidad de entrega, o una vez por incremento? ¿Qué precondición tiene que cumplirse para que pueda ejecutarse? ¿Qué se regenera y qué se preserva si vuelve a correr?
 
 **Ejemplo trabajado.** Las Fases I y J son el caso más completo, porque son las primeras que operan sobre un repositorio con código. La Fase I obligó a declarar tres cosas que ninguna fase anterior necesitaba: una precondición dura —sin código, sin sample implementado y sin tests que corran, la fase no se ejecuta—, un criterio de re-ejecución que declara qué se preserva entre corridas, incluidas las correcciones manuales del usuario, y un path de informe de audit que distinga cada incremento.
 
@@ -356,21 +356,21 @@ Cada eje sigue la misma estructura: qué estás agregando, qué archivos tocar y
 
 **Invariantes.** D8: los ocho tipos siguen teniendo una decisión declarada. Un tipo sin fila no es «opcional»: es un hueco.
 
-**Qué se rompe si el gating es incorrecto.** Dos fallas simétricas y de distinto costo. Si el gating es **demasiado laxo**, se generan artefactos que nadie va a leer, y el volumen ahoga a lo que sí importa. Si es **demasiado estricto**, un proyecto de código queda sin un documento que necesita, y eso se descubre meses después, cuando alguien lo busca y no está. La segunda falla es más cara y menos visible.
+**Qué se rompe si el gating es incorrecto.** Dos fallas simétricas y de distinto costo. Si el gating es **demasiado laxo**, se generan artefactos que nadie va a leer, y el volumen ahoga a lo que sí importa. Si es **demasiado estricto**, una unidad de entrega queda sin un documento que necesita, y eso se descubre meses después, cuando alguien lo busca y no está. La segunda falla es más cara y menos visible.
 
 **Bump de versión.** Es **major**. La documentación generada con el gating anterior deja de cumplir la regla nueva.
 
-**Ejemplo trabajado.** El cuerpo mantenedor de la categoría 11 pasó de opcional a obligatorio para los ocho tipos. El fundamento: todo proyecto de código va a ser retomado por alguien, incluso los que no tienen integrador externo, y ese alguien puede no haber participado de ninguna fase de la especificación. Es el caso típico de gating demasiado estricto que se descubre tarde.
+**Ejemplo trabajado.** El cuerpo mantenedor de la categoría 11 pasó de opcional a obligatorio para los ocho tipos. El fundamento: todo unidad de entrega va a ser retomado por alguien, incluso los que no tienen integrador externo, y ese alguien puede no haber participado de ninguna fase de la especificación. Es el caso típico de gating demasiado estricto que se descubre tarde.
 
 ### III.6 Agregar un modelo UX-UI al catálogo
 
-**Qué estás agregando.** Un diseño capturado de una maqueta aprobada, disponible como punto de partida para proyectos de código futuros.
+**Qué estás agregando.** Un diseño capturado de una maqueta aprobada, disponible como punto de partida para unidades de entrega futuros.
 
 **Archivos a tocar:** un archivo nuevo bajo `SDD/Devs/Modelos-UX-UI/` siguiendo `Rules-Design-Modelo-Template.md`, su fila en `Index-Modelos-UX-UI.md`, y el template ejecutable ofuscado bajo `Templates/`.
 
-**Invariantes.** **D7 es crítica acá y es bloqueante.** El modelo se captura de la maqueta de un cliente real, así que la ofuscación no es una recomendación: es condición de aceptación. Ningún literal del dominio del proyecto de código origen puede sobrevivir en el modelo ni en el template.
+**Invariantes.** **D7 es crítica acá y es bloqueante.** El modelo se captura de la maqueta de un cliente real, así que la ofuscación no es una recomendación: es condición de aceptación. Ningún literal del dominio de la unidad de entrega origen puede sobrevivir en el modelo ni en el template.
 
-**Cómo verificar.** Buscá en el modelo y en el template los términos del dominio del proyecto de código origen. El resultado esperado es cero, sin matices.
+**Cómo verificar.** Buscá en el modelo y en el template los términos del dominio de la unidad de entrega origen. El resultado esperado es cero, sin matices.
 
 **La vía normal no es manual.** El paso 7 de la Fase B2 ofrece capturar el modelo automáticamente, con aceptación explícita del humano y verificación de ofuscación bloqueante. Agregarlo a mano es la excepción, y pierde esa verificación.
 
@@ -420,7 +420,7 @@ Es el eje que menos se recorre y el que más fácil se confunde con agregar una 
 **Archivos a tocar, en orden:**
 
 1. `PRODUCT-INTAKE-template.md` — la sección o pregunta de la cual el flag se deriva. Si el flag no tiene de dónde derivarse, no es un flag: es una pregunta más que le hacés al usuario en cada corrida.
-2. `Master-Prompt.md` §4 — la fila del flag con su ámbito (producto o proyecto de código), su fuente, su **regla de derivación** y qué habilita.
+2. `Master-Prompt.md` §4 — la fila del flag con su ámbito (producto o unidad de entrega), su fuente, su **regla de derivación** y qué habilita.
 3. `Master-Prompt.md` §6 — la columna de gating de las filas que el flag afecta.
 4. Los archivos de reglas de las categorías afectadas — §0 y §2.2, para que el subagente sepa qué cambia cuando el flag está activo.
 5. `Master-Prompt.md` §15 y `SDD-User-Guide.md` — glosario y explicación al usuario.
@@ -429,17 +429,17 @@ Es el eje que menos se recorre y el que más fácil se confunde con agregar una 
 
 **Cómo verificar.** Respondé tres preguntas: ¿de qué dato del intake se deriva? ¿qué pasa si el humano lo invierte? ¿qué se registra si queda en `false` y el gating declaraba algo obligatorio? Si la tercera no tiene respuesta, falta la ADR de omisión.
 
-**Ejemplo trabajado.** `requiere_maqueta` es el caso más completo, porque combina tres entradas —`tiene_ui_final`, `tipo_proyecto_codigo` y `tiene_portal_developers`— para proponer un valor, admite que el humano lo invierta, y su `false` en un proyecto de código con interfaz visual exige ADR de omisión registrada en 05. Además dispara una fase entera, no solo artefactos.
+**Ejemplo trabajado.** `requiere_maqueta` es el caso más completo, porque combina tres entradas —`tiene_ui_final`, `tipo_unidad_entrega` y `tiene_portal_developers`— para proponer un valor, admite que el humano lo invierta, y su `false` en una unidad de entrega con interfaz visual exige ADR de omisión registrada en 05. Además dispara una fase entera, no solo artefactos.
 
 ### III.10 Por qué el conjunto D8 es cerrado
 
-El conjunto de ocho tipos de proyecto de código es cerrado por diseño, y esta guía no habilita ampliarlo. Conviene entender el fundamento, porque la tentación de agregar un noveno tipo aparece seguido.
+El conjunto de ocho tipos de unidad de entrega es cerrado por diseño, y esta guía no habilita ampliarlo. Conviene entender el fundamento, porque la tentación de agregar un noveno tipo aparece seguido.
 
-**El fundamento.** El `tipo_proyecto_codigo` no es una etiqueta descriptiva: es el discriminador del que cuelga todo el comportamiento variable del framework. Cada uno de los doce archivos de reglas tiene al menos dos tablas indexadas por tipo —la de variantes de especialidad en §1.2 y la de gating en §2.2— y varios tienen más. El master-prompt tiene su propia tabla de adaptabilidad. Un tipo nuevo no agrega una fila: agrega **una fila en cada una de esas tablas**, y cada una exige una decisión de diseño real, no un valor por defecto copiado del vecino.
+**El fundamento.** El `tipo_unidad_entrega` no es una etiqueta descriptiva: es el discriminador del que cuelga todo el comportamiento variable del framework. Cada uno de los doce archivos de reglas tiene al menos dos tablas indexadas por tipo —la de variantes de especialidad en §1.2 y la de gating en §2.2— y varios tienen más. El master-prompt tiene su propia tabla de adaptabilidad. Un tipo nuevo no agrega una fila: agrega **una fila en cada una de esas tablas**, y cada una exige una decisión de diseño real, no un valor por defecto copiado del vecino.
 
 **Qué habría que rehacer si alguna vez se ampliara.** Las doce tablas de §1.2, las doce de §2.2, las tablas de §2.1 con gating por artefacto, la tabla de adaptabilidad del master-prompt, la matriz de estructura de `/samples` de la categoría 10, el gating por cuerpo de la categoría 11, y las reglas de derivación de los flags que dependen del tipo. Son más de treinta tablas, y una fila mal puesta en cualquiera produce documentación incorrecta en silencio.
 
-**Por qué ocho y no otro número.** Los ocho tipos cubren el espacio de formas de entrega de software: biblioteca redistribuible, aplicación web monolítica, aplicación web distribuida, aplicación de escritorio, aplicación móvil, servicio HTTP, herramienta de línea de comandos y servicio de procesamiento en segundo plano. Un caso que no encaja en ninguno suele ser una **combinación** de dos, y el modelo de producto con N proyectos de código existe precisamente para eso: se modela como dos proyectos de código tipados con una dependencia entre ellos, no como un tipo nuevo.
+**Por qué ocho y no otro número.** Los ocho tipos cubren el espacio de formas de entrega de software: biblioteca redistribuible, aplicación web monolítica, aplicación web distribuida, aplicación de escritorio, aplicación móvil, servicio HTTP, herramienta de línea de comandos y servicio de procesamiento en segundo plano. Un caso que no encaja en ninguno suele ser una **combinación** de dos, y el modelo de producto con N unidades de entrega existe precisamente para eso: se modela como dos unidades de entrega tipados con una dependencia entre ellos, no como un tipo nuevo.
 
 ---
 
@@ -466,12 +466,23 @@ El objetivo de esta parte es que formes criterio, no que sigas una receta. Antes
 - ¿Cómo va a verificar el auditor que esto se generó bien? Si no podés escribir el criterio de §6, el artefacto no está listo para agregarse.
 - ¿El criterio es evaluable, o requiere que alguien interprete? «El documento es claro» no es un criterio.
 - ¿La verificación que estás exigiendo es posible en la fase donde la ubicaste? Es el error que se detalla en la Parte V.
+- ¿El criterio es **enumerable** o **interpretativo**? Todo criterio de §6 lleva su marca. Ante la duda se marca interpretativo: declarar mecanizable algo que no lo es produce falsa confianza, y la falsa confianza es peor que la ausencia de verificación.
+
+**Sobre qué pregunta el criterio, que es donde más se falla:**
+
+Un criterio de aceptación se escribe casi siempre mirando el artefacto que se quiere obtener —«que exista la tabla», «que tenga al menos una fila»— y produce criterios verificables de un vistazo. Pero la propiedad que hace útil a una declaración casi nunca es del artefacto solo: es de la **relación** entre el artefacto y otra cosa. Que una tabla de trazabilidad sea cierta es una relación entre el sample y el caso de uso; que un glosario esté completo, entre el glosario y los términos usados; que un recuento sea correcto, entre el número y la colección que cuenta. Verificar una relación cuesta más, porque hay que leer los dos lados, y por eso los criterios derivan hacia la presencia. El derive es sistemático, no un descuido de una regla en particular.
+
+- ¿El criterio pregunta si una declaración **está**, o si **es verdadera**? Un artefacto que declara algo falso cumple el primero exactamente igual que uno que declara algo cierto, con lo cual el criterio no discrimina entre los dos casos que existe para distinguir.
+- Si la propiedad que importa es una relación, ¿el criterio **nombra los dos lados**?
+- **La comprobación barata, y la que más encuentra:** por cada criterio que cuenta algo, preguntarse si una declaración **falsa** sube o baja la cuenta. Un criterio que se cumple **mejor** con un artefacto falso que con uno honesto no es un criterio débil: es un criterio con el signo cambiado. El caso real: «todo caso de uso crítico tiene al menos una sonda que lo ejercita» cuenta casos de uso sin sonda, de modo que una sonda mentirosa lo acerca a cumplirse igual que una verdadera.
+- ¿Una declaración verdadera alcanza, o hace falta que sea **verificable**? No son lo mismo. Una trazabilidad que dice la verdad sobre qué pasos recorre sigue sin servir si ninguna aserción falla cuando esos pasos se rompen.
+- ¿La pregunta que hace falta ya está escrita en §5, del lado que no bloquea? Las preguntas guía son cantera de criterios: están escritas, están bien formuladas y no detienen nada. **Promover una es más barato que inventarla.**
 
 **Sobre el impacto:**
 
 - ¿Cuántos archivos toca este cambio? Si son más de tres o cuatro, conviene segmentar en etapas con nota de coherencia entre cada una.
 - ¿Invalida documentación ya emitida en repositorios destino? Si la respuesta es sí, es bump major y hay que declarar el impacto.
-- ¿Qué le pasa a un producto de un solo proyecto de código? El caso degenerado con layout aplanado se rompe con facilidad y es el que menos se prueba.
+- ¿Qué le pasa a un producto de un solo unidad de entrega? El caso degenerado con layout aplanado se rompe con facilidad y es el que menos se prueba.
 
 ---
 
@@ -543,7 +554,7 @@ Es la parte más incómoda del procedimiento y la que más se posterga. Un bump 
 
 Opciones, en orden de preferencia:
 
-1. **Regeneración parcial.** El orquestador vuelve a correr solo la categoría afectada del proyecto de código afectado, y el sensado de deriva devuelve a `Sin verificar` las filas que dependen de lo regenerado. Es la vía normal.
+1. **Regeneración parcial.** El orquestador vuelve a correr solo la categoría afectada de la unidad de entrega afectado, y el sensado de deriva devuelve a `Sin verificar` las filas que dependen de lo regenerado. Es la vía normal.
 2. **Regeneración con preservación de correcciones manuales.** Si el usuario editó a mano los documentos, se aplica el patrón de re-ejecución: el orquestador relee, enumera las diferencias, informa cómo las interpretó y espera confirmación antes de propagar.
 3. **Congelar la versión anterior.** Si regenerar no es viable, la documentación existente se marca con la versión de reglas contra la cual se generó, y el cambio se aplica solo a productos nuevos.
 
@@ -617,4 +628,6 @@ Quedan fuera del snapshot el propio `CHANGELOG.md`, que es acumulativo y cuya hi
 | 1.3 | 2026-07-29 | Vocabulario normativo (framework 5.0). La guía adopta «producto» y «proyecto de código» en las seis partes. Fila registrada retroactivamente en la 5.1: la migración subió la versión de cabecera a 1.3 sin dejar su fila, y §I.2, §II.1 y §III.7 quedaron declarando dieciséis archivos de reglas y cuatro transversales cuando la propia intervención agregó el decimoséptimo. | Reformulación SDD |
 | 1.4 | 2026-07-29 | Puesta al día contra el conjunto 5.1 y el decimoséptimo archivo de reglas. **Corregidos tres conteos** que contradecían al `README.md` raíz: §I.2 decía «los dieciséis archivos normativos … más `Root-Rules`, `Intake-Rules`, `Maqueta-Rules` y `Deriva-Rules`», §II.1 «las cuatro reglas transversales» y §III.7 que una invariante «vive en los dieciséis archivos de reglas»; pasan a diecisiete y cinco. **§I.1** suma el nodo `Vocabulario-Rules` al mapa de dependencias, con sus dos aristas: la del master-prompt, que la inyecta, y la de las reglas de categoría, que la citan. **§I.3** la incorpora a la tabla de quién lee cada pieza, declarándola como la única regla transversal que llega a todo subagente, y corrige la nota que decía que el subagente «recibe un solo archivo de reglas». **§III.8** suma un segundo ejemplo trabajado, el de `Vocabulario-Rules` en la 5.0, cuyo paso 2 quedó incompleto —lector declarado sin cablear en el esqueleto de despacho— con la lección explícita de que declarar el lector no es cablearlo. Se restituye el salto de línea final del archivo, que faltaba, y se unifica la versión, que el front-matter declaraba como 1.2 mientras la cabecera declaraba 1.3: el mismo defecto de doble declaración que traía `SDD-Getting-Started-Guide.md`. | Revisión SDD |
 | 1.6 | 2026-07-29 | Puesta al día contra el conjunto 6.0 y la decimoctava regla. **Tres conteos corregidos**, los mismos ejes que la 1.4 ya había tenido que corregir una vez: §I.2 pasa de diecisiete archivos normativos y cinco transversales a dieciocho y seis, §II.1 de «las cinco reglas transversales» a seis, y §III.7 de «los diecisiete archivos de reglas» a dieciocho, con «el master-prompt» pasando a «los dos master-prompts». **§I.1** suma al mapa de dependencias los nodos `Master-Prompt-Migracion` y `Migracion-Rules`, con la arista punteada que declara que el orquestador de migración **cita** el despacho y la auditoría del de generación en lugar de redefinirlos. **§I.2** reescribe la fila de `Orchestrator/`, que describía un solo archivo. **§I.3** parte la fila del master-prompt en las dos que hoy existen y suma `Migracion-Rules.md`, declarando que ninguna corrida de generación la lee. **§II.1** declara además que §1.2 y §2.1 son contrato incluso en las reglas transversales, porque el orquestador las resuelve por número y no por título, con el caso de `Intake-Rules.md` como ejemplo. **§VI.5** corrige la tabla de derivación del conjunto, que hacía subir major solo por reglas e invariantes y no contemplaba las plantillas de intake, pese a que se versionan aparte de toda regla; la corrección se aplica también a la fila equivalente del `README.md` raíz. Sube minor: pone al día conteos y declaraciones sin cambiar ningún procedimiento. | Framework SDD (migración normativa) |
+| 1.7 | 2026-08-15 | Regla de redacción de criterios de aceptación (intervención reportes 00 a 11). La Parte IV suma el bloque «sobre qué pregunta el criterio», con la observación que lo origina: la propiedad que hace útil a una declaración casi nunca es del artefacto solo, es de la **relación** entre el artefacto y otra cosa, y como verificar una relación exige leer los dos lados, los criterios derivan sistemáticamente hacia la presencia. Se incorpora la comprobación barata —por cada criterio que cuenta algo, preguntarse si una declaración falsa sube o baja la cuenta, porque un criterio que se cumple mejor con un artefacto falso tiene el signo cambiado—, la distinción entre declaración verdadera y declaración verificable, y la indicación de promover preguntas de §5 a §6 en lugar de inventar criterios. Se agrega además la marca `[enumerable]` / `[interpretativo]` como pregunta obligatoria, con su política conservadora. Origen: reportes `09` y `10`. | Framework SDD (intervención reportes 00-11) |
+| 1.8 | 2026-08-15 | Puesta al día por el nivel de unidad de entrega (framework 8.0). La guía pasa a nombrar la unidad de entrega donde el referente es el nivel intermedio del layout, y conserva el proyecto de código donde el referente es la unidad de compilación. La pregunta «¿qué comportamiento tiene para cada uno de los ocho tipos?» de la Parte IV sigue siendo válida, y ahora se responde sobre la unidad de entrega, que es de quien D8 es atributo. | Framework SDD (nivel de unidad de entrega) |
 | 1.5 | 2026-07-29 | Forma obligatoria del registro de impacto en las entradas major (prerrequisito F4 de la migración normativa). **§VI.4** suma la especificación del bloque «Impacto sobre destinos existentes»: tres tablas —renombres de artefacto, secciones movidas o partidas y campos bloqueantes nuevos—, con la regla de que una tabla sin contenido se declara vacía y no se omite. El fundamento es que hay una clase de cambio que ningún diff de versiones puede inferir: un renombre de artefacto no se deduce de que su regla haya subido de 2.1 a 3.0, y ese conocimiento vivía disperso en prosa, donde un agente que tiene que reconocer un destino legado no lo puede resolver. Se declara además qué **no** es el bloque —un playbook de migración por salto de versión, que duplicaría el estado objetivo ya declarado en las reglas y obligaría a mantener dos declaraciones sincronizadas—, para que la concesión no se lea como habilitación de esa forma. **§VI.5** declara la obligación correlativa al publicar un conjunto major, y que se cumple una vez por entrada consolidando la intervención entera, no una vez por regla que sube. Sube **minor**: precisa la forma de un registro que ya era obligatorio, sin cambiar ningún procedimiento existente. | Framework SDD (migración normativa) |

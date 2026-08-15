@@ -26,7 +26,7 @@ Este índice es el punto de entrada del catálogo: el subagente AG-03 lo carga p
 
 Documento base y especializaciones por stack:
 
-| Documento | Ámbito | Hereda de | `tipo_proyecto_codigo` / stack al que aplica | Estado |
+| Documento | Ámbito | Hereda de | `tipo_unidad_entrega` / stack al que aplica | Estado |
 | --- | --- | --- | --- | --- |
 | `Design-Rules-Web-Generico.md` | Web genérico | — (base) | web-monolith, web-microservices (con frontend) | Vigente |
 | `Design-Rules-Blazor-Mudblazor.md` | Web Blazor Interactive Server + MudBlazor | web-genérico | proyectos de código web con stack Blazor + MudBlazor | Vigente |
@@ -44,9 +44,9 @@ Las tres últimas se incorporaron a partir de la extracción de características
 
 ## 3. Documentos previstos (roadmap)
 
-Huecos esperados del catálogo. Cada especialización futura hereda del documento base web genérico y aplica a su `tipo_proyecto_codigo` o stack. Aún no existen como archivo; se listan para fijar la convención de nombre y el lugar que ocuparán.
+Huecos esperados del catálogo. Cada especialización futura hereda del documento base web genérico y aplica a su `tipo_unidad_entrega` o stack. Aún no existen como archivo; se listan para fijar la convención de nombre y el lugar que ocuparán.
 
-| Documento previsto | Ámbito | Hereda de | `tipo_proyecto_codigo` / stack al que aplicará |
+| Documento previsto | Ámbito | Hereda de | `tipo_unidad_entrega` / stack al que aplicará |
 | --- | --- | --- | --- |
 | `Design-Rules-HTML.md` | Web con HTML/CSS puro | web-genérico | web-monolith / web-microservices con frontend sin framework de componentes |
 | `Design-Rules-Mobile-MAUI.md` | Mobile nativo | web-genérico | mobile-app-maui |
@@ -56,7 +56,7 @@ Sobre las extensiones por capacidad: el documento `Design-Rules-Config-Esquema` 
 
 ## 4. Cómo se selecciona el documento
 
-El subagente AG-03 elige la especialización según el stack declarado en la Parte C del intake (bloque técnico del proyecto de código) y el `tipo_proyecto_codigo` del proyecto de código en curso:
+El subagente AG-03 elige la especialización según el stack declarado en la Parte C del intake (bloque técnico del proyecto de código) y el `tipo_unidad_entrega` del proyecto de código en curso:
 
 1. Aplica siempre el documento base `Design-Rules-Web-Generico.md`.
 2. Si existe una especialización para el stack declarado, la suma por encima del base (por ejemplo `Design-Rules-Blazor-Mudblazor.md` cuando el stack es Blazor Interactive Server + MudBlazor).

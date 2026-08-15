@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/01-Necesidades-Negocio/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Subagente target del orquestador:** Analista de Negocio Senior (AG-01)
-**Versión de las reglas:** 3.1
+**Versión de las reglas:** 4.0
 
 ---
 
@@ -13,9 +13,9 @@
 
 Analista de Negocio Senior, equivalente al AG-01 del catálogo de especialidades. Su rol es traducir los dolores y oportunidades capturados en PRODUCT-INTAKE y en la visión del producto (categoría 00) en necesidades de negocio (NB) estructuradas, medibles y trazables hacia los casos de uso (CU) que las implementarán. El AG-01 trabaja a partir del intake y consolida cada NB en un archivo independiente bajo `SDD/Docs/01-Necesidades-Negocio/Necesidades-De-Negocio/`, además de mantener un índice maestro en la raíz de la categoría. Su responsabilidad no es definir flujos funcionales (eso es del AG-02) ni decisiones técnicas (AG-05), sino articular qué problema concreto del negocio se resuelve, para quién, con qué métrica de éxito y con qué prioridad relativa.
 
-### 1.2 Variantes según tipo de proyecto de código
+### 1.2 Variantes según tipo de unidad de entrega
 
-| Tipo de proyecto de código (D8) | Especialidad específica | Justificación |
+| Tipo de unidad de entrega (D8) | Especialidad específica | Justificación |
 | --- | --- | --- |
 | library | Analista de Negocio + Curador de API | El integrador de una librería es un desarrollador; las NB deben articular dolores de integración, ergonomía de la API y compatibilidad. |
 | web-monolith | Analista de Negocio Senior | Estructura clásica de levantamiento de necesidades organizacionales sobre un sistema único. |
@@ -26,11 +26,11 @@ Analista de Negocio Senior, equivalente al AG-01 del catálogo de especialidades
 | cli-tool | Analista de Negocio + Developer Experience Analyst | Las NB se redactan desde la mirada del desarrollador que invoca la herramienta en su pipeline. |
 | worker-service | Analista de Negocio + Operations Analyst | Las NB se centran en throughput, latencia funcional y resiliencia operativa del proceso de fondo. |
 
-El orquestador lee esta tabla y selecciona la variante según el `tipo_proyecto_codigo` del proyecto de código principal del producto (leído del manifiesto), porque esta categoría se genera una vez a nivel producto a partir del PRODUCT-INTAKE único.
+El orquestador lee esta tabla y selecciona la variante según el `tipo_unidad_entrega` de la unidad de entrega principal del producto (leído del manifiesto), porque esta categoría se genera una vez a nivel producto a partir del PRODUCT-INTAKE único.
 
 ### 1.3 Multi-especialidad
 
-El AG-01 se combina sistemáticamente con dos roles aledaños. Con AG-00 (Product Manager) revisa que las NB estén alineadas con la visión y el alcance del producto, en especial cuando aparecen NB que no estaban anticipadas en el roadmap. Con AG-02 (Analista Funcional) coordina la trazabilidad downstream: cada NB declara las CU previstas y el AG-02 las desarrolla en la categoría 02. Cuando el proyecto de código incorpora capacidades de IA o LLMs, también se sincroniza con AG-04 (Ingeniero de Prompts) para que las NB que motivan prompts queden explícitas. La propiedad del documento permanece en AG-01; los otros roles aportan revisión y validación, no autoría compartida.
+El AG-01 se combina sistemáticamente con dos roles aledaños. Con AG-00 (Product Manager) revisa que las NB estén alineadas con la visión y el alcance del producto, en especial cuando aparecen NB que no estaban anticipadas en el roadmap. Con AG-02 (Analista Funcional) coordina la trazabilidad downstream: cada NB declara las CU previstas y el AG-02 las desarrolla en la categoría 02. Cuando la unidad de entrega incorpora capacidades de IA o LLMs, también se sincroniza con AG-04 (Ingeniero de Prompts) para que las NB que motivan prompts queden explícitas. La propiedad del documento permanece en AG-01; los otros roles aportan revisión y validación, no autoría compartida.
 
 ---
 
@@ -40,13 +40,13 @@ El AG-01 se combina sistemáticamente con dos roles aledaños. Con AG-00 (Produc
 
 | Archivo | Obligatorio para | Recomendado para | Omitir para | Descripción |
 | --- | --- | --- | --- | --- |
-| `Necesidades-Negocio.md` | Todos los tipos D8 | — | — | Índice maestro de NB del proyecto de código, con tabla resumen, mapa de dependencias y trazabilidad agregada. |
-| `Necesidades-De-Negocio/NB-XX-<Nombre>.md` | Todos los tipos D8 (mínimo 3 NB, máximo razonable 15) | — | — | Una necesidad de negocio por archivo, en subcarpeta dedicada. |
+| `Necesidades-Negocio.md` | Todos los tipos D8 | — | — | Índice maestro de NB de la unidad de entrega, con tabla resumen, mapa de dependencias y trazabilidad agregada. |
+| `Necesidades-De-Negocio/NB-XXXXX-<Nombre>.md` | Todos los tipos D8 (mínimo 3 NB, máximo razonable 15) | — | — | Una necesidad de negocio por archivo, en subcarpeta dedicada. |
 | `README.md` de la sección | Proyectos de código con más de 5 NB | Proyectos de código con 4 o 5 NB | Proyectos de código con 3 NB | Índice navegable de las NB, incluye RACI y orden de lectura sugerido. |
 
-### 2.2 Reglas de inclusión/exclusión por tipo de proyecto de código
+### 2.2 Reglas de inclusión/exclusión por tipo de unidad de entrega
 
-La categoría 01 es obligatoria para los 8 tipos D8: ningún proyecto de código avanza al diseño funcional sin tener al menos 3 NB documentadas. Lo que varía es el foco temático:
+La categoría 01 es obligatoria para los 8 tipos D8: ningún unidad de entrega avanza al diseño funcional sin tener al menos 3 NB documentadas. Lo que varía es el foco temático:
 
 - `library`: las NB se redactan desde la mirada del desarrollador integrador (consumibilidad, estabilidad de API, ergonomía).
 - `web-monolith`: NB centradas en el flujo organizacional y la operación cotidiana del usuario final.
@@ -65,19 +65,19 @@ Una NB se fusiona con otra cuando ambas tienen el mismo dolor central y se disti
 
 ### 3.1 Patrón de nombres
 
-El índice se llama `Necesidades-Negocio.md` (sin sufijo de proyecto de código). Cada necesidad va en un archivo `NB-XX-<Nombre>.md` dentro de la subcarpeta `Necesidades-De-Negocio/`. Reglas estrictas:
+El índice se llama `Necesidades-Negocio.md` (sin sufijo de unidad de entrega). Cada necesidad va en un archivo `NB-XXXXX-<Nombre>.md` dentro de la subcarpeta `Necesidades-De-Negocio/`. Reglas estrictas:
 
-- `XX` son dos dígitos, con cero a la izquierda si corresponde (`NB-01`, no `NB-1`).
+- `XXXXX` son cinco dígitos, con ceros a la izquierda (`NB-00001`, no `NB-1`), según `Root-Rules.md` §9.2.
 - `<Nombre>` va en Título-Con-Guiones (cada palabra capitalizada), palabras separadas por guion medio, sin acentos ni eñes en el filename (sí pueden aparecer en el cuerpo del documento).
 - El archivo vivo no lleva versión en el nombre: la declara en el campo `Versión` de su cabecera. El sufijo `-v<X.Y>.md` aparece solo en la copia archivada.
 - La versión inicial es `.md` y sigue D5.
 
-Ejemplo válido: `NB-03-Trazabilidad-Pedidos.md`.
+Ejemplo válido: `NB-00003-Trazabilidad-Pedidos.md`.
 Ejemplo inválido a evitar: `nb-03-trazabilidad-pedidos_v1.0.md` (todo-minúsculas y guion bajo antes de la versión; éste es el patrón heredado del material fuente SDD 1.0 explícitamente registrado en la auditoría de Fase 0, §4, y se corrige por convención en SDD).
 
 ### 3.2 Convenciones de prefijos / sufijos
 
-- Prefijo obligatorio: `NB-XX-`.
+- Prefijo obligatorio: `NB-XXXXX-`.
 - Sufijo obligatorio: `.md` con dos componentes numéricos `mayor.menor`.
 - Subcarpeta obligatoria para los archivos por necesidad: `Necesidades-De-Negocio/`.
 - El índice maestro vive en la raíz de `01-Necesidades-Negocio/`, no dentro de la subcarpeta.
@@ -93,7 +93,7 @@ Upstream:
 Downstream:
 
 - 02-Especificacion-Funcional: cada NB declara las CU previstas que la implementarán.
-- 04-Prompts-AI: si el proyecto de código declara IA o LLMs en PRODUCT-INTAKE, las NB que motivan prompts se enlazan a sus artefactos en esa categoría.
+- 04-Prompts-AI: si la unidad de entrega declara IA o LLMs en PRODUCT-INTAKE, las NB que motivan prompts se enlazan a sus artefactos en esa categoría.
 - 06-Backlog-Tecnico, 07-Plan-Sprint: la priorización MoSCoW de cada NB ordena el backlog y los sprints.
 - 08-Calidad-Y-Pruebas: cada criterio de éxito de §5 de la NB es input directo para los criterios de aceptación de la categoría 08.
 
@@ -103,7 +103,7 @@ La cadena de trazabilidad obligatoria por D6 es: PRODUCT-INTAKE → 00-Contexto 
 
 El `README.md` de `01-Necesidades-Negocio/` se recomienda cuando hay más de 5 NB. Contiene como mínimo:
 
-- Tabla `NB-XX / título / impacto / prioridad MoSCoW / estado / enlace al archivo`.
+- Tabla `NB-XXXXX / título / impacto / prioridad MoSCoW / estado / enlace al archivo`.
 - Mapa de dependencias entre NB en formato lista o tabla.
 - Orden de lectura sugerido si las NB tienen dependencias fuertes.
 - RACI breve con propietario, implementador y revisor por NB.
@@ -118,21 +118,21 @@ Proyectos de código con 3 o 4 NB pueden prescindir del README y dejar al índic
 
 ### 4.1 Cabecera obligatoria
 
-Cada archivo `NB-XX-<Nombre>.md` arranca con el siguiente bloque, completando los valores entre llaves dobles:
+Cada archivo `NB-XXXXX-<Nombre>.md` arranca con el siguiente bloque, completando los valores entre llaves dobles:
 
 ```markdown
-# NB-XX — {{titulo-descriptivo}}
+# NB-XXXXX — {{titulo-descriptivo}}
 
 | Campo | Valor |
 | --- | --- |
 | Producto | {{Nombre-Producto}} |
-| Documento | NB-XX-<Nombre>.md |
+| Documento | NB-XXXXX-<Nombre>.md |
 | Versión | 1.0 |
 | Estado | Borrador / Propuesto / Aprobado / Vigente / Superado / Archivado |
 | Fecha | YYYY-MM-DD |
 | Autor | {{rol-y-nombre}} |
 | Trazabilidad upstream | PRODUCT-INTAKE §1, §4; Vision-Producto.md |
-| Trazabilidad downstream | CU-XX, CU-YY (previstas en 02-Especificacion-Funcional) |
+| Trazabilidad downstream | CU-XXXXX, CU-YY (previstas en 02-Especificacion-Funcional) |
 ```
 
 El bloque equivalente para el índice `Necesidades-Negocio.md` agrega los campos `Cantidad de NB` y `Versión del catálogo de NB`.
@@ -141,7 +141,7 @@ El bloque equivalente para el índice `Necesidades-Negocio.md` agrega los campos
 
 El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente de IA que recorre la cadena de especificación acumulando contexto, y para ese lector la tabla de contenido es indiferente. Existe para el agente humano que entra a consultar un punto concreto sin haber leído el documento entero.
 
-### 4.2 Secciones obligatorias del archivo `NB-XX-<Nombre>.md`
+### 4.2 Secciones obligatorias del archivo `NB-XXXXX-<Nombre>.md`
 
 El cuerpo del documento debe contener, en este orden, las siguientes diez secciones numeradas:
 
@@ -151,12 +151,12 @@ El cuerpo del documento debe contener, en este orden, las siguientes diez seccio
 4. Problema específico que resuelve: enumeración de los puntos de dolor concretos que la NB ataca. Cada punto en una línea, accionable.
 5. Criterios de éxito: tabla con columnas `criterio / métrica / target / plazo`. Mínimo 4 filas, todas SMART, todas con número y unidad.
 6. Stakeholders involucrados: tabla con `rol / nivel de involucramiento / qué pide o aporta`. Mínimo 3 filas, una por categoría (propietario, implementador, beneficiario).
-7. Trazabilidad a CU: tabla con `NB-XX / CU-YY prevista / estado de la CU`. Estado posible: `a generar`, `en redacción`, `aprobada`.
+7. Trazabilidad a CU: tabla con `NB-XXXXX / CU-YY prevista / estado de la CU`. Estado posible: `a generar`, `en redacción`, `aprobada`.
 8. Dependencias con otras NB: lista de NB de las que depende y de las que es prerequisito. Si la NB no tiene dependencias se declara explícitamente "Sin dependencias".
 9. Prioridad MoSCoW: declaración explícita de `Must Have`, `Should Have`, `Could Have` o `Won't Have v1`, con una línea de justificación.
 10. Control de cambios: tabla `versión / fecha / cambios`, con al menos la entrada inicial 1.0.
 
-### 4.3 Secciones opcionales según tipo de proyecto de código
+### 4.3 Secciones opcionales según tipo de unidad de entrega
 
 | Sección | Aplica a | Notas |
 | --- | --- | --- |
@@ -189,14 +189,14 @@ Tabla C: Trazabilidad a CU.
 
 | NB | CU prevista | Estado |
 | --- | --- | --- |
-| NB-01 | CU-01 reservar turno por especialidad | a generar |
-| NB-01 | CU-02 confirmar turno por canal de mensajería | a generar |
+| NB-00001 | CU-00001 reservar turno por especialidad | a generar |
+| NB-00001 | CU-00002 confirmar turno por canal de mensajería | a generar |
 
 Tabla D (solo para el índice maestro): Resumen de NB.
 
 | ID | Necesidad | Prioridad MoSCoW | CU previstas | Estado | Enlace |
 | --- | --- | --- | --- | --- | --- |
-| NB-01 | Reducir tiempo de asignación de turno | Must | CU-01, CU-02 | Aprobado | [NB-01](Necesidades-De-Negocio/NB-01-Reduccion-Tiempo-Asignacion-Turno.md) |
+| NB-00001 | Reducir tiempo de asignación de turno | Must | CU-00001, CU-00002 | Aprobado | [NB-00001](Necesidades-De-Negocio/NB-00001-Reduccion-Tiempo-Asignacion-Turno.md) |
 
 ### 4.5 Anti-patrones a evitar
 
@@ -225,7 +225,7 @@ Tabla D (solo para el índice maestro): Resumen de NB.
 
 ### 5.2 Decisiones de scope
 
-- ¿Cuántas NB tiene este proyecto de código y por qué? Si superan 15, justificar o agrupar.
+- ¿Cuántas NB tiene esta unidad de entrega y por qué? Si superan 15, justificar o agrupar.
 - ¿Hay dos NB que comparten dolor y se pueden fusionar?
 - ¿Hay una NB que mezcla dos dolores con públicos distintos y conviene partir?
 - ¿Las NB están al nivel correcto de abstracción (problema de negocio) y no descendiendo a flujo o a tarea técnica?
@@ -243,7 +243,7 @@ Tabla D (solo para el índice maestro): Resumen de NB.
 - ¿Cada NB tiene prioridad MoSCoW explícita y justificada?
 - ¿Ninguna NB depende de más de 3 otras NB?
 - ¿Los stakeholders son nominales (rol específico), no genéricos?
-- ¿Los filenames respetan el patrón `NB-XX-<Nombre>.md` con guion medio antes de la versión y en Título-Con-Guiones?
+- ¿Los filenames respetan el patrón `NB-XXXXX-<Nombre>.md` con guion medio antes de la versión y en Título-Con-Guiones?
 - ¿Se respetó D1 (rioplatense técnico, sin emojis, sin negritas decorativas)?
 - ¿Se evitó vocabulario del dominio prohibido por D7 (DSL, ESC-POS, MAUI literal fuera del valor del tipo D8, Bluetooth, NuGet, .NET 10, impresora térmica)?
 
@@ -251,44 +251,55 @@ Tabla D (solo para el índice maestro): Resumen de NB.
 
 ## 6. Criterios de aceptación del entregable
 
-- [ ] Existe el índice maestro `Necesidades-Negocio.md` en la raíz de `SDD/Docs/01-Necesidades-Negocio/` con tabla resumen de todas las NB.
-- [ ] Existen al menos 3 archivos `NB-XX-<Nombre>.md` dentro de la subcarpeta `Necesidades-De-Negocio/`.
-- [ ] Cada NB contiene las 10 secciones obligatorias §1 a §10 en el orden definido en §4.2 de estas reglas.
-- [ ] Cada NB tiene al menos 4 criterios de éxito SMART en §5, todos con métrica numérica, target y plazo.
-- [ ] Cada NB declara su prioridad MoSCoW en §9 con justificación de una línea.
-- [ ] Cada NB tiene trazabilidad upstream explícita a PRODUCT-INTAKE y/o a documentos de 00-Contexto.
-- [ ] Cada NB declara en §7 las CU previstas que la implementarán, con estado `a generar`, `en redacción` o `aprobada`.
-- [ ] Cada NB tiene al menos 3 stakeholders nominales en §6, cubriendo las categorías propietario, implementador y beneficiario.
-- [ ] Ningún filename usa `.v` ni `_v` antes de la versión ni palabras en minúsculas; todos respetan el regex `^NB-\d{2}-([A-Z][A-Za-z0-9]*)(-[A-Z][A-Za-z0-9]*)*-v\d+\.\d+\.md$`.
-- [ ] El índice maestro referencia las NB con paths relativos correctos hacia la subcarpeta y todos los enlaces resuelven.
-- [ ] Ninguna NB depende de más de 3 otras NB en §8 ni existen ciclos de dependencias.
-- [ ] Si el proyecto de código tiene más de 5 NB, existe el `README.md` de la sección con la tabla de §3.4 completa.
-- [ ] El estado declarado en la cabecera de cada NB pertenece al enum cerrado: Borrador, Propuesto, Aprobado, Vigente, Superado o Archivado.
-- [ ] No aparecen emojis, negritas decorativas, ni términos del dominio prohibido por D7.
-- [ ] Todo documento con más de tres secciones de primer nivel incluye tabla de contenido inmediatamente después de la cabecera, con enlaces ancla a las secciones de primer y de segundo nivel. Los documentos breves quedan exceptuados.
-- [ ] Todo término que esta categoría acuña o precisa, y que aparece en más de uno de sus artefactos, está declarado en `Vision-Producto.md` §9 de 00, con sus referentes cuando tiene más de uno. Esta categoría consume el vocabulario del negocio y no acuña uno propio: los términos nuevos que aparezcan se dan de alta en el glosario de 00, no en un glosario de 01.
-- [ ] Ninguna forma desnuda de un término polisémico queda sin resolver en un artefacto que se lee por secciones (`Vocabulario-Rules.md` §9.2).
-- [ ] Ninguna polisemia con contextos disjuntos se reporta como defecto ni se corrige calificando todas las ocurrencias (criterio negativo de `Vocabulario-Rules.md` §9.1).
+**Naturaleza de cada criterio.** Cada ítem lleva su marca: `[enumerable]` si se decide contando o
+comparando —existencia, forma, recuento, resolución de un enlace— y `[interpretativo]` si solo se
+decide leyendo los dos lados. Los enumerables son los que la compuerta mecánica de
+`Master-Prompt.md` §10.0 tiene que cubrir; los interpretativos son para lo que el audit existe.
+
+La clasificación es **conservadora por diseño**: ante la duda, un criterio se marca interpretativo.
+El error no es simétrico —declarar mecanizable algo que no lo es produce falsa confianza, que es peor
+que la ausencia de verificación—, así que marcar de más un interpretativo solo cuesta atención del
+auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
+
+- [ ] [enumerable] Existe el índice maestro `Necesidades-Negocio.md` en la raíz de `SDD/Docs/01-Necesidades-Negocio/` con tabla resumen de todas las NB.
+- [ ] [enumerable] Existen al menos 3 archivos `NB-XXXXX-<Nombre>.md` dentro de la subcarpeta `Necesidades-De-Negocio/`.
+- [ ] [enumerable] Cada NB contiene las 10 secciones obligatorias §1 a §10 en el orden definido en §4.2 de estas reglas.
+- [ ] [enumerable] Cada NB tiene al menos 4 criterios de éxito SMART en §5, todos con métrica numérica, target y plazo.
+- [ ] [interpretativo] Cada NB declara su prioridad MoSCoW en §9 con justificación de una línea.
+- [ ] [interpretativo] Cada NB tiene trazabilidad upstream explícita a PRODUCT-INTAKE y/o a documentos de 00-Contexto.
+- [ ] [interpretativo] Cada NB declara en §7 las CU previstas que la implementarán, con estado `a generar`, `en redacción` o `aprobada`.
+- [ ] [enumerable] Cada NB tiene al menos 3 stakeholders nominales en §6, cubriendo las categorías propietario, implementador y beneficiario.
+- [ ] [interpretativo] Ningún filename usa `.v` ni `_v` antes de la versión ni palabras en minúsculas; todos respetan el regex `^NB-\d{2}-([A-Z][A-Za-z0-9]*)(-[A-Z][A-Za-z0-9]*)*-v\d+\.\d+\.md$`.
+- [ ] [interpretativo] El índice maestro referencia las NB con paths relativos correctos hacia la subcarpeta y todos los enlaces resuelven.
+- [ ] [interpretativo] Ninguna NB depende de más de 3 otras NB en §8 ni existen ciclos de dependencias.
+- [ ] [interpretativo] Si la unidad de entrega tiene más de 5 NB, existe el `README.md` de la sección con la tabla de §3.4 completa.
+- [ ] [enumerable] El estado declarado en la cabecera de cada NB pertenece al enum cerrado: Borrador, Propuesto, Aprobado, Vigente, Superado o Archivado.
+- [ ] [enumerable] No aparecen emojis, negritas decorativas, ni términos del dominio prohibido por D7.
+- [ ] [enumerable] Todo documento con más de tres secciones de primer nivel incluye tabla de contenido inmediatamente después de la cabecera, con enlaces ancla a las secciones de primer y de segundo nivel. Los documentos breves quedan exceptuados.
+- [ ] [interpretativo] **El vocabulario del método va al glosario operativo de `Master-Prompt.md` §15 y se cita sin redefinir; el del producto, al glosario que corresponda.** Los términos que el framework acuña e impone a esta categoría no son vocabulario que la categoría acuñe: no van a un glosario del producto.
+- [ ] [interpretativo] Todo término que esta categoría acuña o precisa, y que aparece en más de uno de sus artefactos, está declarado en `Vision-Producto.md` §9 de 00, con sus referentes cuando tiene más de uno. Esta categoría consume el vocabulario del negocio y no acuña uno propio: los términos nuevos que aparezcan se dan de alta en el glosario de 00, no en un glosario de 01.
+- [ ] [interpretativo] Ninguna forma desnuda de un término polisémico queda sin resolver en un artefacto que se lee por secciones (`Vocabulario-Rules.md` §9.2).
+- [ ] [interpretativo] Ninguna polisemia con contextos disjuntos se reporta como defecto ni se corrige calificando todas las ocurrencias (criterio negativo de `Vocabulario-Rules.md` §9.1).
 
 ---
 
 ## 7. Ejemplos genéricos
 
-### 7.1 Ejemplo A: NB-01 de un sistema de turnos médicos (web-monolith)
+### 7.1 Ejemplo A: NB-00001 de un sistema de turnos médicos (web-monolith)
 
 ```markdown
-# NB-01 — Reducción del tiempo de asignación de turno
+# NB-00001 — Reducción del tiempo de asignación de turno
 
 | Campo | Valor |
 | --- | --- |
 | Proyecto de código | turnos-medicos |
-| Documento | NB-01-Reduccion-Tiempo-Asignacion-Turno.md |
+| Documento | NB-00001-Reduccion-Tiempo-Asignacion-Turno.md |
 | Versión | 1.0 |
 | Estado | Aprobado |
 | Fecha | 2026-04-10 |
 | Autor | Analista de Negocio, Centro de Salud Norte |
 | Trazabilidad upstream | PRODUCT-INTAKE §1, §4; Vision-Producto.md |
-| Trazabilidad downstream | CU-01, CU-02 (previstas) |
+| Trazabilidad downstream | CU-00001, CU-00002 (previstas) |
 
 ## 1. Descripción de la necesidad
 
@@ -318,21 +329,21 @@ Must Have. Sin esta NB, el sistema no resuelve el problema central declarado
 en PRODUCT-INTAKE §1 y no hay MVP defendible.
 ```
 
-### 7.2 Ejemplo B: NB-01 de una librería de parsing CSV (library)
+### 7.2 Ejemplo B: NB-00001 de una librería de parsing CSV (library)
 
 ```markdown
-# NB-01 — Extensibilidad del esquema de parsers
+# NB-00001 — Extensibilidad del esquema de parsers
 
 | Campo | Valor |
 | --- | --- |
 | Proyecto de código | csv-parser-lib |
-| Documento | NB-01-Extensibilidad-Parsers.md |
+| Documento | NB-00001-Extensibilidad-Parsers.md |
 | Versión | 1.0 |
 | Estado | Aprobado |
 | Fecha | 2026-04-22 |
 | Autor | Curador de API, equipo de plataforma |
 | Trazabilidad upstream | PRODUCT-INTAKE §3, §4 |
-| Trazabilidad downstream | CU-04, CU-05 (previstas) |
+| Trazabilidad downstream | CU-00004, CU-00005 (previstas) |
 
 ## 1. Descripción de la necesidad
 
@@ -370,11 +381,11 @@ Insumos:
 
 Documentos a generar:
 - Necesidades-Negocio.md (índice maestro en la raíz de la categoría).
-- NB-XX-<Nombre>.md (uno por necesidad, mínimo 3, en subcarpeta Necesidades-De-Negocio/).
-- README.md de la sección si el proyecto de código tiene más de 5 NB.
+- NB-XXXXX-<Nombre>.md (uno por necesidad, mínimo 3, en subcarpeta Necesidades-De-Negocio/).
+- README.md de la sección si la unidad de entrega tiene más de 5 NB.
 
 Reglas de redacción: §4 de Rules-Necesidades-Negocio.md.
-Nomenclatura: respetar el patrón NB-XX-<Nombre>.md.
+Nomenclatura: respetar el patrón NB-XXXXX-<Nombre>.md.
 Trazabilidad esperada: cada NB declara las CU previstas en 02-Especificacion-Funcional con estado a generar / en redacción / aprobada.
 Criterios de calidad: §6 de Rules-Necesidades-Negocio.md (14 ítems verificables).
 Restricciones: respetar D1 a D9; no incluir emojis, negritas decorativas, ni términos del dominio prohibido por D7.
@@ -397,3 +408,5 @@ Salida: SDD/Docs/01-Necesidades-Negocio/<archivos>.
 | 2.0 | 2026-07-28 | Normalización del versionado (framework 4.0). El archivo vivo pierde el sufijo de versión del nombre y pasa a declarar su versión en el campo `Versión` de su cabecera; el sufijo `-v<X.Y>.md` queda reservado a las copias archivadas en `_legacy/`. Se actualizan los patrones de nombre, los ejemplos, las cabeceras modelo, los anti-patrones y los criterios de aceptación de la categoría. Sube major porque la documentación generada con la nomenclatura anterior deja de cumplir. Deriva de la reformulación de D4 y D5 en el `README.md` del framework. |
 | 3.0 | 2026-07-29 | Renombre de vocabulario normativo (framework 5.0). El nivel superior pasa de «solución» a **producto**, la unidad de compilación de «proyecto» a **proyecto de código**, y los cuatro planos de identidad del producto se separan en campos propios (`Nombre-Producto`, `Slug-Producto`, `Raiz-Codigo`, `Artefacto-Agrupacion`). Se declara el nivel de aplicación de la regla en su cabecera, según `Vocabulario-Rules.md` §4 R3. Sube major porque los identificadores y los nombres de artefacto cambian, y la documentación generada con la nomenclatura anterior deja de cumplir. |
 | 3.1 | 2026-07-29 | Criterio de gobierno del glosario en §6. Sube minor: agrega criterios de aceptación verificables sin cambiar el conjunto de artefactos de la categoría ni ninguna invariante, y ninguna documentación ya emitida deja de cumplir por sí sola. Los tres criterios exigen que todo término que la categoría acuña o precisa y usa en más de uno de sus artefactos esté declarado en el glosario que le corresponde, que ninguna forma desnuda de un término polisémico quede sin resolver en un artefacto que se lee por secciones, y —criterio negativo— que ninguna polisemia con contextos disjuntos se reporte como defecto. Materializan `Vocabulario-Rules.md` §9 en la categoría. **Origen**: el audit verificaba «glosario sin contradicciones», que un glosario incompleto cumple trivialmente, y esta regla no mencionaba la palabra «glosario» ni una vez. |
+| 3.2 | 2026-08-15 | Criterio de gobierno de glosario, primera cláusula (intervención reportes 00 a 11). §6 pasa a distinguir el **vocabulario del método** —el que el framework acuña e impone a la categoría, que vive en el glosario operativo de `Master-Prompt.md` §15 y se cita sin redefinir— del **vocabulario del producto**, que va al glosario que corresponda. El criterio estaba replicado en once reglas mandando a nueve destinos distintos, casi todos glosarios del producto, y la política correcta estaba escrita una sola vez, en `Rules-Plan-Sprint.md` §6 y sobre términos que ya estaban resueltos. Sube **minor**: precisa un criterio existente. Origen: reporte `11`, propuesta 1. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. |
+| 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |

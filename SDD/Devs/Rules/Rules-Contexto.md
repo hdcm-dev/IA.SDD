@@ -2,8 +2,8 @@
 
 **Carpeta target:** `SDD/Docs/00-Contexto/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
-**Subagente target del orquestador:** Product Manager Senior (AG-00) en conjunción con Analista de Negocio Senior (AG-01) si el proyecto de código tiene stakeholders múltiples.
-**Versión de las reglas:** 3.1
+**Subagente target del orquestador:** Product Manager Senior (AG-00) en conjunción con Analista de Negocio Senior (AG-01) si la unidad de entrega tiene stakeholders múltiples.
+**Versión de las reglas:** 4.1
 
 ---
 
@@ -11,7 +11,7 @@
 
 ### 1.1 Especialidad base
 
-Product Manager Senior, equivalente a AG-00 del catálogo de especialidades. Define el porqué del proyecto de código, la visión a mediano plazo, el alcance, el roadmap de fases y las plataformas target. Trabaja desde el PRODUCT-INTAKE como insumo de negocio (Parte A) y de tipo de proyecto de código (§13).
+Product Manager Senior, equivalente a AG-00 del catálogo de especialidades. Define el porqué de la unidad de entrega, la visión a mediano plazo, el alcance, el roadmap de fases y las plataformas target. Trabaja desde el PRODUCT-INTAKE como insumo de negocio (Parte A) y de tipo de unidad de entrega (§13).
 
 Su responsabilidad principal es **formalizar lo que el cliente dijo de manera implícita**: traducir aspiraciones en objetivos SMART, estructurar el alcance, explicitar lo que se dio por sabido y dejar el contexto listo para que las categorías 01 (NB), 02 (CU), 03 (UX), 05 (arquitectura), 07 (sprint plan) y 10 (ejemplos) puedan trabajar sin volver a preguntarle al cliente.
 
@@ -21,7 +21,7 @@ La razón es de trazabilidad, no de prolijidad. AG-00 corre **aguas abajo del pu
 
 Esta acotación no es un cambio de alcance de la categoría: la validación de intake de `Intake-Rules.md` §5 ya verifica, **antes de que se despache cualquier subagente**, que §4 tenga MoSCoW con un Must mínimo razonable y que §9 tenga al menos tres exclusiones. Si el intake pasa esa validación, no queda nada que forzar; si no la pasa, el orquestador se detiene con la batería de preguntas y el humano completa.
 
-### 1.2 Variantes según tipo de proyecto de código
+### 1.2 Variantes según tipo de unidad de entrega
 
 | Tipo (D8) | Especialidad específica | Justificación |
 | --- | --- | --- |
@@ -34,7 +34,7 @@ Esta acotación no es un cambio de alcance de la categoría: la validación de i
 | cli-tool | Product Manager + Developer Advocate | La audiencia es técnica. La visión enfatiza ergonomía de uso, scripting y documentación ejecutable; el roadmap suele ser ligero. |
 | worker-service | Product Manager + Operations Lead | La visión se mide por SLA operativos, throughput y resiliencia. El alcance se define por colas y eventos procesados, no por pantallas. |
 
-Esta categoría se genera a nivel producto, una vez por producto, a partir del PRODUCT-INTAKE único. El orquestador selecciona la variante según el `tipo_proyecto_codigo` del proyecto de código principal declarado en el manifiesto; la compatibilidad de plataformas agrega las plataformas de todos los proyectos de código del producto.
+Esta categoría se genera a nivel producto, una vez por producto, a partir del PRODUCT-INTAKE único. El orquestador selecciona la variante según el `tipo_unidad_entrega` de la unidad de entrega principal declarado en el manifiesto; la compatibilidad de plataformas agrega las plataformas de todos las unidades de entrega del producto.
 
 **Alcance de los nombres de rol en esta tabla.** Cada variante nombra el **perfil profesional** que el subagente emula, no una autoridad que se le confiere. En particular, la variante de `rest-api` nombra al API Product Owner por su expertise en contratos versionados y métricas de adopción; no habilita a AG-00 a decidir en lugar del Product Owner del producto, que es un rol humano aguas arriba del intake. La frontera de autoridad la fija §1.1 y rige para todas las variantes sin excepción.
 
@@ -44,10 +44,10 @@ Se combina con AG-01 Analista de Negocio Senior cuando se cumple al menos una de
 
 - Hay más de tres categorías de stakeholders con intereses divergentes.
 - El dominio está regulado (salud, financiero, público) y la visión debe declarar restricciones normativas.
-- El proyecto de código es B2B con múltiples organizaciones cliente que aportan requisitos.
+- El unidad de entrega es B2B con múltiples organizaciones cliente que aportan requisitos.
 - El PRODUCT-INTAKE §11 declara riesgos de negocio que requieren mitigación con dueño funcional.
 
-En proyectos de código pequeños (1 a 2 stakeholders, sin regulación), AG-00 trabaja solo. En proyectos de código de 1 dev sin cliente externo, AG-00 actúa también como AG-01 y el `acuerdo-equipo` queda omitido.
+En unidades de entrega chicas (1 a 2 stakeholders, sin regulación), AG-00 trabaja solo. En unidades de entrega de 1 dev sin cliente externo, AG-00 actúa también como AG-01 y el `acuerdo-equipo` queda omitido.
 
 ---
 
@@ -63,7 +63,7 @@ En proyectos de código pequeños (1 a 2 stakeholders, sin regulación), AG-00 t
 | `Compatibilidad-Plataformas.md` | desktop-app, mobile-app-maui, cli-tool | web-monolith, rest-api, worker-service | library de puro lenguaje sin runtime particular | Versiones de SO, runtimes, navegadores y dispositivos soportados. |
 | `Acuerdo-Equipo.md` | Todos los tipos con equipo de más de 2 personas | Equipos de 2 personas que coordinan con stakeholders externos | Proyectos de código de 1 desarrollador solo, sin equipo | Convenciones de trabajo, ceremonias, herramientas, branching strategy. |
 
-### 2.2 Reglas de inclusión/exclusión por tipo de proyecto de código
+### 2.2 Reglas de inclusión/exclusión por tipo de unidad de entrega
 
 | Tipo (D8) | Genera | Omite |
 | --- | --- | --- |
@@ -88,17 +88,17 @@ Patrón único: `<Nombre-Documento>.md`, sin sufijo de versión en el nombre. El
 
 ### 3.2 Convenciones de prefijos / sufijos
 
-No se aplica en esta categoría. Los documentos de contexto no usan prefijos del tipo `NB-XX`, `CU-XX`, `RN-XX`. Solo nombre Título-Con-Guiones más sufijo de versión.
+No se aplica en esta categoría. Los documentos de contexto no usan prefijos del tipo `NB-XXXXX`, `CU-XXXXX`, `RN-XXXXX`. Solo nombre Título-Con-Guiones más sufijo de versión.
 
 ### 3.3 Vinculación cross-doc (trazabilidad upstream/downstream)
 
-- Upstream: PRODUCT-INTAKE (§1 idea y problema, §3 propuesta de valor, §5 historias de usuario, §9 exclusiones, §10 restricciones del cliente, §11 riesgos, §13 tipo de proyecto de código, §17 P.9 plataformas target).
+- Upstream: PRODUCT-INTAKE (§1 idea y problema, §3 propuesta de valor, §5 historias de usuario, §9 exclusiones, §10 restricciones del cliente, §11 riesgos, §13 tipo de unidad de entrega, §17 P.9 plataformas target).
 - Downstream: alimenta 01 (necesidades de negocio), 02 (casos de uso y reglas), 03 (UX/UI/DX), 05 (arquitectura y ADR), 07 (sprint plan), 11 (examples). La categoría 00 es upstream de toda la cadena de trazabilidad D6.
 - Cada documento de esta categoría declara en su cabecera la trazabilidad upstream (qué secciones del PRODUCT-INTAKE originaron su contenido) y downstream (qué categorías consumen sus decisiones).
 
 ### 3.4 README de la sección
 
-Recomendado. La carpeta `SDD/Docs/00-Contexto/` lleva un `README.md` (sin versión) que enumera los 5 documentos con su propósito, su estado y el orden de lectura sugerido. Si algún documento fue omitido por aplicación de §2.2, el README declara el motivo. El README también lista los stakeholders del proyecto de código con nombre o rol.
+Recomendado. La carpeta `SDD/Docs/00-Contexto/` lleva un `README.md` (sin versión) que enumera los 5 documentos con su propósito, su estado y el orden de lectura sugerido. Si algún documento fue omitido por aplicación de §2.2, el README declara el motivo. El README también lista los stakeholders de la unidad de entrega con nombre o rol.
 
 **Al archivarse sí recibe el sufijo de versión**: `_legacy/<YYYY-MM-DD>/README-v<X.Y>.md`, con la versión tomada del campo `Versión` de su cabecera. El nombre sin sufijo rige para el archivo vivo, porque es el punto de entrada de la carpeta y su nombre debe ser estable; en el snapshot, la versión es lo que lo identifica, y sin ella dos archivados del mismo día colisionan y el segundo sobrescribe al primero sin que ningún actor reciba error. La regla general y su tabla de exenciones viven en `Master-Prompt.md` §5.1.
 
@@ -179,11 +179,15 @@ El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente
 - §2 Equipo y roles (Scrum o el modelo de gestión adoptado).
 - §3 Cadencia de ceremonias.
 - §4 Acuerdos de trabajo (branching, code review, comunicación, horario core, documentación, convenciones de commits).
-- §5 Definition of Done (referencia a 08).
-- §6 Definition of Ready (referencia a 06).
+- §5 Definition of Done, **capa de acuerdo del equipo**. Acá vive la mitad de la condición de terminado que es **del equipo y no de la estrategia de verificación**: revisión por pares, cobertura mínima acordada, documentación actualizada, y los criterios de cierre que el equipo se compromete a cumplir cualquiera sea lo que construya. Es de nivel producto, como el equipo, y se emite acá **porque acá se acuerda**, no porque haya que anticipar nada.
+
+  La otra mitad —la pirámide de testing, los quality gates, la matriz de cobertura— es de la categoría 08 y de nivel unidad de entrega, porque depende de qué se entrega. La 08 **refina** esta capa: la referencia y agrega los suyos.
+
+  **No son dos fuentes de lo mismo: son dos capas con dueños y niveles distintos**, y cada una es fuente única de la suya. La formulación anterior —que este documento referenciara una condición de terminado que no existiría hasta cinco fases después— dejaba al acuerdo de equipo sin lo único que un acuerdo de equipo tiene que declarar, y administraba con una referencia pendiente algo que no era una dependencia real: un equipo puede acordar cómo cierra su trabajo sin saber todavía qué pirámide de testing va a usar cada entrega.
+- §6 Definition of Ready. **Referencia a la de la categoría 06, sin enumerar sus criterios.** La 06 se emite en la Fase D y este documento en la Fase A, de modo que la referencia se declara con la forma de **referencia pendiente** de `Root-Rules.md` §12 y se cierra por la reapertura de `Master-Prompt.md` §6. Es el mismo caso que §5, con otra categoría de destino.
 - §7 Herramientas.
 
-### 4.3 Secciones opcionales según tipo de proyecto de código
+### 4.3 Secciones opcionales según tipo de unidad de entrega
 
 - Sección "NFR de compatibilidad" se agrega en `alcance-proyecto` solo si el tipo es `mobile-app-maui`, `desktop-app` o `cli-tool`.
 - Sección "Modelo de licenciamiento" se agrega en `vision-producto` solo si el tipo es `library` o si el producto es comercial.
@@ -229,7 +233,7 @@ El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente
 - ¿Qué dice el PRODUCT-INTAKE §9 sobre exclusiones declaradas por el cliente?
 - ¿Qué dice el PRODUCT-INTAKE §10 sobre restricciones del cliente (presupuesto, fecha, normativa, integración obligatoria)?
 - ¿Qué dice el PRODUCT-INTAKE §11 sobre riesgos detectados desde el negocio?
-- ¿El PRODUCT-INTAKE §13 declara un tipo de proyecto de código que requiera `Compatibilidad-Plataformas.md`?
+- ¿El PRODUCT-INTAKE §13 declara un tipo de unidad de entrega que requiera `Compatibilidad-Plataformas.md`?
 - ¿El PRODUCT-INTAKE §17 P.9 enumera plataformas target que deban reflejarse en compatibilidad?
 
 ### 5.2 Verificación de scope
@@ -260,22 +264,34 @@ Estas preguntas se contestan **leyendo el intake**, no decidiendo. Si alguna no 
 
 ## 6. Criterios de aceptación del entregable
 
-- [ ] La visión expresa el problema en lenguaje de negocio, sin mencionar stack, frameworks ni patrones de implementación.
-- [ ] El alcance enumera al menos 5 capacidades incluidas y 3 exclusiones explícitas con justificación.
-- [ ] El roadmap tiene al menos 3 hitos con criterios de avance verificables tipo `- [ ]`.
-- [ ] La sección de objetivos SMART tiene al menos 3 objetivos con métrica numérica, target y plazo.
-- [ ] La sección de stakeholders tiene mínimo 1 representante por categoría (propietario, implementador, beneficiario) con rol concreto.
-- [ ] El glosario del dominio tiene mínimo 10 términos en proyectos de código con equipo de más de 2 personas, o mínimo 5 términos en proyectos de código individuales.
-- [ ] La compatibilidad-plataformas declara todas las plataformas target listadas en el PRODUCT-INTAKE §17 P.9 cuando aplica por tipo D8.
-- [ ] El acuerdo-equipo declara herramientas, ceremonias, branching strategy y SLA de respuesta cuando aplica.
-- [ ] Cada documento de la carpeta declara su trazabilidad upstream (PRODUCT-INTAKE con secciones específicas) y downstream (categorías 01, 02, 05, 07, 10 con detalle).
-- [ ] Ningún archivo de la carpeta de trabajo lleva sufijo de versión en el nombre; cada uno declara su versión en el campo `Versión` de su cabecera (D4).
-- [ ] Ningún documento contiene emojis, negritas decorativas ni referencias hardcoded a stack, frameworks o ejemplos del dominio fuente del bootstrap.
-- [ ] Todo documento con más de tres secciones de primer nivel incluye tabla de contenido inmediatamente después de la cabecera, con enlaces ancla a las secciones de primer y de segundo nivel. Los documentos breves quedan exceptuados.
-- [ ] Ninguna prioridad MoSCoW, exclusión, fecha objetivo, target de métrica ni criterio de transición de fase se origina en esta categoría: todos derivan del PRODUCT-INTAKE y trazan a su sección de origen. Ningún ítem del catálogo de §6.1 quedó resuelto por cuenta propia en lugar de escalarse.
-- [ ] Todo término que esta categoría acuña o precisa, y que aparece en más de uno de sus artefactos, está declarado en `Vision-Producto.md` §9, el glosario del dominio del cliente, con sus referentes cuando tiene más de uno. Es el glosario raíz de la cadena: 02 y 03 referencian sus términos en lugar de redefinirlos.
-- [ ] Ninguna forma desnuda de un término polisémico queda sin resolver en un artefacto que se lee por secciones (`Vocabulario-Rules.md` §9.2).
-- [ ] Ninguna polisemia con contextos disjuntos se reporta como defecto ni se corrige calificando todas las ocurrencias (criterio negativo de `Vocabulario-Rules.md` §9.1).
+**Naturaleza de cada criterio.** Cada ítem lleva su marca: `[enumerable]` si se decide contando o
+comparando —existencia, forma, recuento, resolución de un enlace— y `[interpretativo]` si solo se
+decide leyendo los dos lados. Los enumerables son los que la compuerta mecánica de
+`Master-Prompt.md` §10.0 tiene que cubrir; los interpretativos son para lo que el audit existe.
+
+La clasificación es **conservadora por diseño**: ante la duda, un criterio se marca interpretativo.
+El error no es simétrico —declarar mecanizable algo que no lo es produce falsa confianza, que es peor
+que la ausencia de verificación—, así que marcar de más un interpretativo solo cuesta atención del
+auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
+
+- [ ] [interpretativo] La visión expresa el problema en lenguaje de negocio, sin mencionar stack, frameworks ni patrones de implementación.
+- [ ] [enumerable] El alcance enumera al menos 5 capacidades incluidas y 3 exclusiones explícitas con justificación.
+- [ ] [enumerable] El roadmap tiene al menos 3 hitos con criterios de avance verificables tipo `- [ ]`.
+- [ ] [enumerable] La sección de objetivos SMART tiene al menos 3 objetivos con métrica numérica, target y plazo.
+- [ ] [enumerable] La sección de stakeholders tiene mínimo 1 representante por categoría (propietario, implementador, beneficiario) con rol concreto.
+- [ ] [enumerable] El glosario del dominio tiene mínimo 10 términos en unidades de entrega con equipo de más de 2 personas, o mínimo 5 términos en unidades de entrega individuales.
+- [ ] [interpretativo] La compatibilidad-plataformas declara todas las plataformas target listadas en el PRODUCT-INTAKE §17 P.9 cuando aplica por tipo D8.
+- [ ] [interpretativo] El acuerdo-equipo declara herramientas, ceremonias, branching strategy y SLA de respuesta cuando aplica.
+- [ ] [interpretativo] Cada documento de la carpeta declara su trazabilidad upstream (PRODUCT-INTAKE con secciones específicas) y downstream (categorías 01, 02, 05, 07, 10 con detalle).
+- [ ] [enumerable] Ningún archivo de la carpeta de trabajo lleva sufijo de versión en el nombre; cada uno declara su versión en el campo `Versión` de su cabecera (D4).
+- [ ] [interpretativo] Ningún documento contiene emojis, negritas decorativas ni referencias hardcoded a stack, frameworks o ejemplos del dominio fuente del bootstrap.
+- [ ] [enumerable] Todo documento con más de tres secciones de primer nivel incluye tabla de contenido inmediatamente después de la cabecera, con enlaces ancla a las secciones de primer y de segundo nivel. Los documentos breves quedan exceptuados.
+- [ ] [interpretativo] Ninguna prioridad MoSCoW, exclusión, fecha objetivo, target de métrica ni criterio de transición de fase se origina en esta categoría: todos derivan del PRODUCT-INTAKE y trazan a su sección de origen. Ningún ítem del catálogo de §6.1 quedó resuelto por cuenta propia en lugar de escalarse.
+- [ ] [interpretativo] **El vocabulario del método va al glosario operativo de `Master-Prompt.md` §15 y se cita sin redefinir; el del producto, al glosario que corresponda.** `Vision-Producto.md` §9 es el glosario del **dominio del cliente** y no admite vocabulario del framework.
+- [ ] [interpretativo] Todo término que esta categoría acuña o precisa **sobre el dominio**, y que aparece en más de uno de sus artefactos, está declarado en `Vision-Producto.md` §9, con sus referentes cuando tiene más de uno. Es el glosario raíz de la cadena: 02 y 03 referencian sus términos en lugar de redefinirlos.
+- [ ] [interpretativo] `Acuerdo-Equipo.md` §5 declara la **capa de acuerdo del equipo** de la condición de terminado —revisión, cobertura acordada, documentación— y **no** la estrategia de verificación, que es de la 08. Ningún criterio de esta sección habla de pirámide de testing, de quality gates ni de matriz de cobertura.
+- [ ] [interpretativo] Ninguna forma desnuda de un término polisémico queda sin resolver en un artefacto que se lee por secciones (`Vocabulario-Rules.md` §9.2).
+- [ ] [interpretativo] Ninguna polisemia con contextos disjuntos se reporta como defecto ni se corrige calificando todas las ocurrencias (criterio negativo de `Vocabulario-Rules.md` §9.1).
 
 ### 6.1 Catálogo de ambigüedades de la categoría
 
@@ -300,13 +316,13 @@ Cada ítem detectado dispara el patrón de `Master-Prompt.md` §9: detención, p
 | D1 | Fecha objetivo del intake §10 incompatible con el alcance Must de §4 | `Roadmap-Producto.md` |
 | D2 | Criterio de transición entre fases ausente, siendo verificable y exigido por la estructura de `Roadmap-Producto.md` de §4 | `Roadmap-Producto.md` |
 | D3 | Orden de fases no derivable: dos Must sin precedencia declarada ni dependencia técnica que la imponga | `Roadmap-Producto.md` |
-| E1 | Plataformas target que se contradicen entre proyectos de código del producto sin declarar cuál rige | `Compatibilidad-Plataformas.md` |
+| E1 | Plataformas target que se contradicen entre unidades de entrega del producto sin declarar cuál rige | `Compatibilidad-Plataformas.md` |
 | E2 | Versión mínima de runtime o de SO ausente donde el tipo D8 la exige | `Compatibilidad-Plataformas.md` |
 | F1 | `equipo_n` sin declarar en el intake §2: gatea la emisión de este documento y la forma de la categoría 07 | `Acuerdo-Equipo.md` |
 | G1 | Riesgo del intake §11 sin mitigación ni responsable: asignar responsable es decisión organizativa | `Vision-Producto.md` |
 | G2 | Término del glosario con dos definiciones incompatibles entre fuentes | `Vision-Producto.md` |
 
-**Agregación de plataformas (E1).** Agregar las plataformas declaradas por cada proyecto de código es mecánico y le corresponde a AG-00. Resolver un conflicto entre ellas no lo es.
+**Agregación de plataformas (E1).** Agregar las plataformas declaradas por cada unidad de entrega es mecánico y le corresponde a AG-00. Resolver un conflicto entre ellas no lo es.
 
 ---
 
@@ -389,13 +405,13 @@ Fragmento representativo de `Alcance-Producto.md` para una librería utilitaria:
 ## 8. Prompt-snippet sugerido para el subagente
 
 ```text
-Sos un {{ESPECIALIDAD-VARIANTE}} responsable de redactar los documentos de contexto del proyecto de código {{NOMBRE_PROYECTO_CODIGO}}.
+Sos un {{ESPECIALIDAD-VARIANTE}} responsable de redactar los documentos de contexto de la unidad de entrega {{NOMBRE_PROYECTO_CODIGO}}.
 
 Insumos:
 - PRODUCT-INTAKE: {{path-al-intake}}
 - Documentos upstream: ninguno (sos el inicio de la cadena de trazabilidad D6).
 
-Documentos a generar (según tipo de proyecto de código {{TIPO}} y reglas de §2.2):
+Documentos a generar (según tipo de unidad de entrega {{TIPO}} y reglas de §2.2):
 - Vision-Producto.md (obligatorio para todos los tipos)
 - Alcance-Producto.md (obligatorio para todos los tipos)
 - Roadmap-Producto.md (según matriz §2.2)
@@ -435,3 +451,6 @@ Salida: SDD/Docs/00-Contexto/<archivos>.md.
 | 2.1 | 2026-07-29 | Acotación de la autoridad de AG-00 y catálogo de ambigüedades. §1.1 parte la responsabilidad de la especialidad: **formaliza lo implícito y no arbitra**. La priorización MoSCoW y las exclusiones son decisiones de producto del Product Owner, declaradas en el `PRODUCT-INTAKE` §4 y §9 aguas arriba; AG-00 las deriva y traza, y ante su ausencia escala por `Master-Prompt.md` §9 en lugar de completarlas. **§6.1 nueva**: catálogo de 18 ambigüedades de la categoría, con el criterio que distingue formalización de decisión, para correr antes de redactar y no mientras se redacta. §5.2 pasa de «decisiones de scope» a «verificación de scope» y sus preguntas dejan de pedir renegociación. §8 propaga la acotación al prompt-snippet. Correcciones de coherencia: cuatro referencias al `BRIEF` deprecado pasan a `PRODUCT-INTAKE`; la trazabilidad downstream de §6 y §8 y la enumeración de §1.1 apuntan a 10-Examples tras el intercambio 10 ↔ 11; el conteo de ítems de §6 en el prompt-snippet pasa de 11 a 13. |
 | 3.0 | 2026-07-29 | Renombre de vocabulario normativo (framework 5.0). El nivel superior pasa de «solución» a **producto**, la unidad de compilación de «proyecto» a **proyecto de código**, y los cuatro planos de identidad del producto se separan en campos propios (`Nombre-Producto`, `Slug-Producto`, `Raiz-Codigo`, `Artefacto-Agrupacion`). Se declara el nivel de aplicación de la regla en su cabecera, según `Vocabulario-Rules.md` §4 R3. Sube major porque los identificadores y los nombres de artefacto cambian, y la documentación generada con la nomenclatura anterior deja de cumplir. |
 | 3.1 | 2026-07-29 | Criterio de gobierno del glosario en §6. Sube minor: agrega criterios de aceptación verificables sin cambiar el conjunto de artefactos de la categoría ni ninguna invariante, y ninguna documentación ya emitida deja de cumplir por sí sola. Los tres criterios exigen que todo término que la categoría acuña o precisa y usa en más de uno de sus artefactos esté declarado en el glosario que le corresponde, que ninguna forma desnuda de un término polisémico quede sin resolver en un artefacto que se lee por secciones, y —criterio negativo— que ninguna polisemia con contextos disjuntos se reporte como defecto. Materializan `Vocabulario-Rules.md` §9 en la categoría. **Origen**: el audit verificaba «glosario sin contradicciones», que un glosario incompleto cumple trivialmente, y esta regla no mencionaba la palabra «glosario» ni una vez. |
+| 3.2 | 2026-08-15 | El acuerdo de equipo referencia la condición de terminado y no la enumera (intervención reportes 00 a 11). §4.2 declara que §5 de `Acuerdo-Equipo.md` remite a `Definition-Of-Done.md` de la 08 con la forma de **referencia pendiente** de `Root-Rules.md` §12, porque este documento se emite en la Fase A y la 08 en la Fase E, y §6 lo convierte en criterio de aceptación. El hueco era exacto: `Rules-Calidad-Y-Pruebas.md` §6 exigía que la condición de terminado no se redefiniera **en planes de sprint**, y una copia hecha en el acuerdo de equipo no la alcanzaba ningún criterio de ninguna regla. En la corrida real esa copia se produjo, con ocho criterios enumerados cinco fases antes que la canónica. Se agrega además la distinción entre vocabulario del método y del producto: `Vision-Producto.md` §9 es el glosario del dominio del cliente y no admite vocabulario del framework. Sube **minor**: precisa una obligación existente y agrega criterios. Origen: reportes `07` (incidente A) y `11`. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. Se incorpora además el tratamiento de las obligaciones hacia una fase posterior que la comprobación del grafo de `Master-Prompt.md` §6 detectó al correrse sobre las doce reglas: las referencias afectadas se declaran con la forma de `Root-Rules.md` §12. |
+| 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
+| 4.1 | 2026-08-15 | **La condición de terminado se declara en dos capas** (framework 8.0, cierre de pendiente). La capa de **acuerdo del equipo** —revisión, cobertura acordada, documentación— es de nivel producto y se emite en la Fase A, dentro de `Acuerdo-Equipo.md` §5, porque es donde el equipo la acuerda. La capa de **verificación** —pirámide de testing, quality gates, matriz de cobertura— es de la unidad de entrega y vive en `Definition-Of-Done.md` de la 08, que refina la primera en lugar de crearla. Cierra el hallazgo del reporte `07` sin administrarlo: la obligación de la Fase A hacia la Fase E desaparece, porque no era una dependencia real. Un equipo puede acordar cómo cierra su trabajo sin saber todavía qué pirámide de testing usará cada entrega. Sube **minor**: reparte contenido entre dos artefactos existentes sin cambiar el conjunto de artefactos de ninguna de las dos categorías. |

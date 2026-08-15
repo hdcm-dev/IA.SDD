@@ -1,15 +1,15 @@
 # Reglas constructivas — 04 Prompts AI
 
-**Carpeta target (por proyecto de código):** `SDD/Docs/Proyectos/<Nombre-Proyecto-Codigo>/04-Prompts-AI/`
-**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Proyecto de código
+**Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/04-Prompts-AI/`
+**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Ingeniero de Prompts / AI Specialist (AG-04)
-**Versión de las reglas:** 3.1
+**Versión de las reglas:** 4.0
 
 ---
 
 ## 0. Posición en la cadena SDD
 
-La categoría 04 produce los artefactos que rigen toda interacción del sistema con modelos de lenguaje (LLMs) y demás componentes de IA generativa. Es una categoría **opcional** y **gated** por declaración explícita del proyecto de código. Recibe insumos de 01 (necesidades de negocio que declaran feature LLM) y del PRODUCT-INTAKE (§17 P.11 decisiones pre-ADR, §17 P.10 NFR). Alimenta a 02 (CU que delegan parte del flujo en LLM), a 05 (arquitectura del pipeline AI), a 08 (tests de comportamiento del prompt y umbrales) y a 09 (rate limits, costos por entorno). Esta categoría no es transversal: si el proyecto de código no consume LLMs, no se genera.
+La categoría 04 produce los artefactos que rigen toda interacción del sistema con modelos de lenguaje (LLMs) y demás componentes de IA generativa. Es una categoría **opcional** y **gated** por declaración explícita de la unidad de entrega. Recibe insumos de 01 (necesidades de negocio que declaran feature LLM) y del PRODUCT-INTAKE (§17 P.11 decisiones pre-ADR, §17 P.10 NFR). Alimenta a 02 (CU que delegan parte del flujo en LLM), a 05 (arquitectura del pipeline AI), a 08 (tests de comportamiento del prompt y umbrales) y a 09 (rate limits, costos por entorno). Esta categoría no es transversal: si la unidad de entrega no consume LLMs, no se genera.
 
 ---
 
@@ -19,7 +19,7 @@ La categoría 04 produce los artefactos que rigen toda interacción del sistema 
 
 Ingeniero de Prompts senior, equivalente AG-04 del catálogo SDD. Perfil profesional que combina ingeniería de instrucciones para LLMs, diseño de contratos de entrada/salida estructurada, evaluación empírica con datasets versionados y governance de uso responsable. Trata cada prompt como un artefacto de software: lleva versión, contrato, few-shot, guardrails, dataset de evaluación y métricas. Se alinea con OWASP LLM Top 10 para guardrails, con prompt-engineering guidelines de los principales proveedores (OpenAI, Anthropic, Google) y con métricas estándar de evaluación de NLP (accuracy, precision/recall, F1, BLEU/ROUGE, exact match, latencia p99, costo por request).
 
-### 1.2 Variantes según tipo de proyecto de código (8 valores D8)
+### 1.2 Variantes según tipo de unidad de entrega (8 valores D8)
 
 | Tipo | Especialidad específica | Justificación |
 | --- | --- | --- |
@@ -49,7 +49,7 @@ El AG-04 mantiene titularidad del prompt, del dataset de evaluación y de la pol
 
 ### 2.1 Gating explícito
 
-Esta categoría se genera **solo** si el proyecto de código declara explícitamente que usa LLMs. La declaración vive en dos lugares del intake:
+Esta categoría se genera **solo** si la unidad de entrega declara explícitamente que usa LLMs. La declaración vive en dos lugares del intake:
 
 - PRODUCT-INTAKE §17 P.11 (decisiones pre-ADR): bandera `usa_llm: true|false`.
 - PRODUCT-INTAKE §17 P.10 (NFR): NFR explícita de funcionalidad asistida por IA o de procesamiento de lenguaje natural.
@@ -162,7 +162,7 @@ Un archivo `prompt-<tarea>.md` tiene exactamente las siguientes secciones, en or
 6. Few-shot examples. Mínimo dos por prompt, con un caso típico y un caso de borde. Cuando la tarea sea de generación abierta, mínimo tres.
 7. Casos de borde y manejo. Tabla con condición de entrada anómala y respuesta esperada del prompt (rechazo, valor por defecto, escalado a humano).
 8. Métricas de evaluación. Lista de métricas aplicables con la métrica crítica resaltada. Los umbrales viven en `evaluacion-prompts`.
-9. Costos esperados. Tokens estimados de entrada y de salida y costo por request en la moneda declarada en 09.
+9. Costos esperados. Tokens estimados de entrada y de salida, y costo por request. **La moneda la declara la categoría 09, que se emite cuatro fases después**: hasta entonces el costo se expresa en la moneda que el intake declare, o sin moneda con la magnitud declarada como pendiente. No es una referencia que se pueda dejar colgada —es un dato que falta— y por eso no se resuelve con la forma de `Root-Rules.md` §12 sino declarando de dónde sale el dato.
 10. Latencia esperada. Latencia p50 y p99 esperadas según familia y tamaño del modelo.
 11. Trazabilidad. Tabla con NB, CU, ADR, métricas en 08 y referencia a la política y a la evaluación.
 
@@ -193,7 +193,7 @@ Un archivo `prompt-<tarea>.md` tiene exactamente las siguientes secciones, en or
 5. Tabla de muestras: identificador, entrada, salida esperada, etiqueta.
 6. Control de cambios del dataset.
 
-### 4.3 Secciones opcionales por tipo de proyecto de código
+### 4.3 Secciones opcionales por tipo de unidad de entrega
 
 - §12 Modo offline o degradado, sólo para mobile-app-maui y desktop-app.
 - §13 Idempotencia del prompt y deduplicación, sólo para worker-service y rest-api.
@@ -232,10 +232,10 @@ Tabla de trazabilidad del prompt:
 
 | Dimensión | Referencia |
 | --- | --- |
-| Necesidad de negocio | NB-XX |
-| Caso de uso consumidor | CU-XX |
-| ADR de proveedor o vendor lock-in | ADR-XX |
-| Tests de comportamiento previstos | <referencia a 08> |
+| Necesidad de negocio | NB-XXXXX |
+| Caso de uso consumidor | CU-XXXXX |
+| ADR de proveedor o vendor lock-in | ADR-XXXXX |
+| Tests de comportamiento previstos | Referencia pendiente a 08 (`Root-Rules.md` §12): la 08 se emite en la Fase E y esta categoría en la Fase B |
 | Métricas de release | <referencia a evaluacion-prompts> |
 
 ### 4.5 Anti-patrones a evitar
@@ -259,8 +259,8 @@ Tabla de trazabilidad del prompt:
 
 ### 5.1 Upstream
 
-- ¿El proyecto de código declara `usa_llm = true` en el PRODUCT-INTAKE §17 P.11 o una NFR de IA en §17 P.10? Sin esa declaración, no se genera la categoría.
-- ¿Qué CU del proyecto de código delegan en LLM? ¿Hay CU que mencionan IA sin declarar prompt asociado?
+- ¿El unidad de entrega declara `usa_llm = true` en el PRODUCT-INTAKE §17 P.11 o una NFR de IA en §17 P.10? Sin esa declaración, no se genera la categoría.
+- ¿Qué CU de la unidad de entrega delegan en LLM? ¿Hay CU que mencionan IA sin declarar prompt asociado?
 - ¿Qué NB upstream motivan cada prompt?
 
 ### 5.2 Diseño del prompt
@@ -301,28 +301,39 @@ Tabla de trazabilidad del prompt:
 
 ## 6. Criterios de aceptación
 
-- [ ] La categoría se activa solamente si PRODUCT-INTAKE declara explícitamente que el sistema usa LLMs; caso contrario la carpeta no existe.
-- [ ] Existe `Politica-Uso-AI.md` antes de cualquier `prompt-<tarea>` productivo.
-- [ ] Cada `prompt-<tarea>` declara contrato de entrada y contrato de salida (con JSON Schema si la salida es JSON).
-- [ ] Cada `prompt-<tarea>` tiene mínimo dos few-shot; tres si la tarea es generación abierta.
-- [ ] Cada `prompt-<tarea>` enumera casos de borde con respuesta esperada.
-- [ ] Cada `prompt-<tarea>` declara costo esperado por request y latencia esperada p50 y p99.
-- [ ] Existe `Evaluacion-Prompts.md` con métricas, dataset referenciado, umbrales numéricos y frecuencia de re-evaluación.
-- [ ] Existe `Dataset-Evaluacion.md` versionado, salvo justificación documentada en `evaluacion-prompts`.
-- [ ] Cada prompt declara trazabilidad NB→CU→ADR→tests en 08.
-- [ ] Ningún archivo de la carpeta de trabajo lleva sufijo de versión en el nombre; cada uno declara su versión en el campo `Versión` de su cabecera (D4).
-- [ ] Ningún slug contiene mayúsculas, espacios, acentos ni caracteres no permitidos.
-- [ ] Existe un solo archivo por nombre lógico en la carpeta principal; las versiones superadas viven en `_legacy/` con su sufijo de versión.
-- [ ] Todo documento con más de tres secciones de primer nivel incluye tabla de contenido inmediatamente después de la cabecera, con enlaces ancla a las secciones de primer y de segundo nivel. Los documentos breves quedan exceptuados.
-- [ ] Todo término que esta categoría acuña o precisa, y que aparece en más de uno de sus artefactos, está declarado en `Glosario-Funcional.md` de 02 para los términos de dominio, y el propio contrato de prompt para los términos de la interacción con el modelo, con sus referentes cuando tiene más de uno. Un término que el contrato de prompt usa con un sentido distinto al del dominio declara la diferencia en el contrato.
-- [ ] Ninguna forma desnuda de un término polisémico queda sin resolver en un artefacto que se lee por secciones (`Vocabulario-Rules.md` §9.2).
-- [ ] Ninguna polisemia con contextos disjuntos se reporta como defecto ni se corrige calificando todas las ocurrencias (criterio negativo de `Vocabulario-Rules.md` §9.1).
+**Naturaleza de cada criterio.** Cada ítem lleva su marca: `[enumerable]` si se decide contando o
+comparando —existencia, forma, recuento, resolución de un enlace— y `[interpretativo]` si solo se
+decide leyendo los dos lados. Los enumerables son los que la compuerta mecánica de
+`Master-Prompt.md` §10.0 tiene que cubrir; los interpretativos son para lo que el audit existe.
+
+La clasificación es **conservadora por diseño**: ante la duda, un criterio se marca interpretativo.
+El error no es simétrico —declarar mecanizable algo que no lo es produce falsa confianza, que es peor
+que la ausencia de verificación—, así que marcar de más un interpretativo solo cuesta atención del
+auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
+
+- [ ] [interpretativo] La categoría se activa solamente si PRODUCT-INTAKE declara explícitamente que el sistema usa LLMs; caso contrario la carpeta no existe.
+- [ ] [enumerable] Existe `Politica-Uso-AI.md` antes de cualquier `prompt-<tarea>` productivo.
+- [ ] [interpretativo] Cada `prompt-<tarea>` declara contrato de entrada y contrato de salida (con JSON Schema si la salida es JSON).
+- [ ] [interpretativo] Cada `prompt-<tarea>` tiene mínimo dos few-shot; tres si la tarea es generación abierta.
+- [ ] [interpretativo] Cada `prompt-<tarea>` enumera casos de borde con respuesta esperada.
+- [ ] [interpretativo] Cada `prompt-<tarea>` declara costo esperado por request y latencia esperada p50 y p99.
+- [ ] [enumerable] Existe `Evaluacion-Prompts.md` con métricas, dataset referenciado, umbrales numéricos y frecuencia de re-evaluación.
+- [ ] [enumerable] Existe `Dataset-Evaluacion.md` versionado, salvo justificación documentada en `evaluacion-prompts`.
+- [ ] [interpretativo] Cada prompt declara trazabilidad NB→CU→ADR→tests en 08.
+- [ ] [enumerable] Ningún archivo de la carpeta de trabajo lleva sufijo de versión en el nombre; cada uno declara su versión en el campo `Versión` de su cabecera (D4).
+- [ ] [interpretativo] Ningún slug contiene mayúsculas, espacios, acentos ni caracteres no permitidos.
+- [ ] [enumerable] Existe un solo archivo por nombre lógico en la carpeta principal; las versiones superadas viven en `_legacy/` con su sufijo de versión.
+- [ ] [enumerable] Todo documento con más de tres secciones de primer nivel incluye tabla de contenido inmediatamente después de la cabecera, con enlaces ancla a las secciones de primer y de segundo nivel. Los documentos breves quedan exceptuados.
+- [ ] [interpretativo] **El vocabulario del método va al glosario operativo de `Master-Prompt.md` §15 y se cita sin redefinir; el del producto, al glosario que corresponda.** Los términos que el framework acuña e impone a esta categoría no son vocabulario que la categoría acuñe: no van a un glosario del producto.
+- [ ] [interpretativo] Todo término que esta categoría acuña o precisa, y que aparece en más de uno de sus artefactos, está declarado en `Glosario-Funcional.md` de 02 para los términos de dominio, y el propio contrato de prompt para los términos de la interacción con el modelo, con sus referentes cuando tiene más de uno. Un término que el contrato de prompt usa con un sentido distinto al del dominio declara la diferencia en el contrato.
+- [ ] [interpretativo] Ninguna forma desnuda de un término polisémico queda sin resolver en un artefacto que se lee por secciones (`Vocabulario-Rules.md` §9.2).
+- [ ] [interpretativo] Ninguna polisemia con contextos disjuntos se reporta como defecto ni se corrige calificando todas las ocurrencias (criterio negativo de `Vocabulario-Rules.md` §9.1).
 
 ---
 
 ## 7. Ejemplos genéricos
 
-Los ejemplos son ilustrativos y de dominios distintos al material fuente. No deben copiarse literalmente a ningún proyecto de código.
+Los ejemplos son ilustrativos y de dominios distintos al material fuente. No deben copiarse literalmente a ningún unidad de entrega.
 
 ### 7.1 Ejemplo 1 — Fragmento de prompt para un web-monolith de mesa de ayuda
 
@@ -410,7 +421,7 @@ Proveedor primario: {{proveedor-1}}. Alternativa documentada: {{proveedor-2}}. P
 ## 8. Prompt-snippet sugerido
 
 ```text
-Sos un {{ESPECIALIDAD-VARIANTE}} responsable de la categoría 04 (prompts AI) del proyecto de código {{NOMBRE_PROYECTO_CODIGO}}.
+Sos un {{ESPECIALIDAD-VARIANTE}} responsable de la categoría 04 (prompts AI) de la unidad de entrega {{NOMBRE_PROYECTO_CODIGO}}.
 
 Precondición de gating:
 - Antes de generar cualquier artefacto, verificá que PRODUCT-INTAKE declare explícitamente `usa_llm = true` en §17 P.11 o una NFR de IA en §17 P.10. Si no está declarado, NO generes la carpeta SDD/Docs/04-Prompts-AI/ y dejá constancia en el log.
@@ -451,3 +462,5 @@ Salida: SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/04-Prompts-AI/<estructura>
 | 2.0 | 2026-07-28 | Normalización del versionado (framework 4.0). El archivo vivo pierde el sufijo de versión del nombre y pasa a declarar su versión en el campo `Versión` de su cabecera; el sufijo `-v<X.Y>.md` queda reservado a las copias archivadas en `_legacy/`. Se actualizan los patrones de nombre, los ejemplos, las cabeceras modelo, los anti-patrones y los criterios de aceptación de la categoría. Sube major porque la documentación generada con la nomenclatura anterior deja de cumplir. Deriva de la reformulación de D4 y D5 en el `README.md` del framework. |
 | 3.0 | 2026-07-29 | Renombre de vocabulario normativo (framework 5.0). El nivel superior pasa de «solución» a **producto**, la unidad de compilación de «proyecto» a **proyecto de código**, y los cuatro planos de identidad del producto se separan en campos propios (`Nombre-Producto`, `Slug-Producto`, `Raiz-Codigo`, `Artefacto-Agrupacion`). Se declara el nivel de aplicación de la regla en su cabecera, según `Vocabulario-Rules.md` §4 R3. Sube major porque los identificadores y los nombres de artefacto cambian, y la documentación generada con la nomenclatura anterior deja de cumplir. |
 | 3.1 | 2026-07-29 | Criterio de gobierno del glosario en §6. Sube minor: agrega criterios de aceptación verificables sin cambiar el conjunto de artefactos de la categoría ni ninguna invariante, y ninguna documentación ya emitida deja de cumplir por sí sola. Los tres criterios exigen que todo término que la categoría acuña o precisa y usa en más de uno de sus artefactos esté declarado en el glosario que le corresponde, que ninguna forma desnuda de un término polisémico quede sin resolver en un artefacto que se lee por secciones, y —criterio negativo— que ninguna polisemia con contextos disjuntos se reporte como defecto. Materializan `Vocabulario-Rules.md` §9 en la categoría. **Origen**: el audit verificaba «glosario sin contradicciones», que un glosario incompleto cumple trivialmente, y esta regla no mencionaba la palabra «glosario» ni una vez. |
+| 3.2 | 2026-08-15 | Criterio de gobierno de glosario, primera cláusula (intervención reportes 00 a 11). §6 pasa a distinguir el **vocabulario del método** —el que el framework acuña e impone a la categoría, que vive en el glosario operativo de `Master-Prompt.md` §15 y se cita sin redefinir— del **vocabulario del producto**, que va al glosario que corresponda. El criterio estaba replicado en once reglas mandando a nueve destinos distintos, casi todos glosarios del producto, y la política correcta estaba escrita una sola vez, en `Rules-Plan-Sprint.md` §6 y sobre términos que ya estaban resueltos. Sube **minor**: precisa un criterio existente. Origen: reporte `11`, propuesta 1. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. Se incorpora además el tratamiento de las obligaciones hacia una fase posterior que la comprobación del grafo de `Master-Prompt.md` §6 detectó al correrse sobre las doce reglas: las referencias afectadas se declaran con la forma de `Root-Rules.md` §12. |
+| 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |

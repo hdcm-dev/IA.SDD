@@ -1,9 +1,9 @@
 # Reglas constructivas — Migración normativa de un destino a la versión vigente
 
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino para los dos artefactos propios. El alcance sobre el que la migración opera es `SDD/Intake/` y `SDD/Docs/` del mismo repositorio
-**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto y proyecto de código
+**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto, unidad de entrega y proyecto de código
 **Subagente target del orquestador:** el orquestador de migración para el plan y el cierre; el auditor independiente para el informe; el subagente titular de cada categoría para re-expresar los documentos de esa categoría
-**Versión de las reglas:** 1.0
+**Versión de las reglas:** 3.0
 
 Dentro de este archivo «migración» se usa en forma desnuda, según la excepción que `Vocabulario-Rules.md` §9.6 declara: en este contexto de lectura no hay otro referente con el que colisione. En cualquier otro archivo del framework el término va calificado como «migración normativa».
 
@@ -32,7 +32,7 @@ Esta regla define el instrumento que faltaba: la mecánica con la que un destino
 
 La migración **no crea especialidades nuevas**. Es la consecuencia directa del principio de delegación de la especialidad que rige el orquestador: la especialidad es propiedad del documento que se va a producir, no del orquestador que lo pide. Un caso de uso migrado sigue siendo un caso de uso, y quien mejor lo re-expresa es el mismo perfil que lo habría generado.
 
-De ahí la regla base: **el documento migrado lo re-expresa el subagente titular de su categoría**, leído de §1.2 del archivo de reglas de esa categoría, con la variante que corresponda al `tipo_proyecto_codigo` del proyecto de código al que pertenece. Exactamente como en la generación.
+De ahí la regla base: **el documento migrado lo re-expresa el subagente titular de su categoría**, leído de §1.2 del archivo de reglas de esa categoría, con la variante que corresponda al `tipo_unidad_entrega` del proyecto de código al que pertenece. Exactamente como en la generación.
 
 ### 1.2 Variantes de especialidad
 
@@ -144,6 +144,110 @@ Cada documento del plan recibe exactamente una de tres clasificaciones, derivada
 
 La severidad se lee de la propia numeración de las versiones, no se infiere del contenido. Es la misma regla que gobierna el diff de la reconciliación normativa, y acá no se reinterpreta.
 
+### 4.3.1 Renumeración de identificadores y renombre de archivos
+
+Un salto normativo puede cambiar **la forma de los identificadores**, y con ella el nombre de los
+archivos que los llevan: `CU-XX-<Nombre>.md` no es solo texto, es un nombre de archivo, y toda
+referencia que lo apunte tiene que seguirlo. Es el caso del salto a la versión 7.0, que fija cinco
+dígitos uniformes y ámbito de unicidad producto (`Root-Rules.md` §9).
+
+**La renumeración se hace en dos pasadas, y nunca en una.** Una sustitución archivo por archivo
+deja referencias colgadas: en una corrida real, renumerar treinta y nueve archivos produjo por sí
+solo dos hallazgos bloqueantes, porque la corrección no alcanzó a dos secciones que describían el
+problema ya resuelto.
+
+**Pasada 1 — Árbol de migración.** Antes de tocar nada, el agente construye el mapa completo y lo
+presenta al humano para confirmación. Contiene, por cada identificador alcanzado:
+
+| Campo | Contenido |
+| --- | --- |
+| Identificador de origen | `CU-14` |
+| Identificador de destino | `CU-00014`, derivado del ancho vigente y del rango que el mapa de `Master-Prompt.md` §3.4 asigna a su proyecto de código |
+| Archivo de origen y de destino | Cuando el identificador vive en el nombre del archivo |
+| Referencias que lo apuntan | Todas, con archivo y sección: tablas de trazabilidad, enlaces relativos, cabeceras upstream y downstream, prosa, matrices de cobertura, contratos de verificación y anclas de sección |
+
+El árbol se emite como artefacto del plan y se confirma. Un identificador sin fila en el árbol es
+un identificador que la migración no va a tocar, y eso tiene que ser una decisión y no un olvido.
+
+**Pasada 2 — Aplicación.** Se aplica **el árbol confirmado**, no una búsqueda: renombre de archivos,
+sustitución de identificadores y actualización de cada referencia enumerada. Cierra con tres
+comprobaciones bloqueantes:
+
+1. **Ninguna referencia colgada.** Toda cita que apuntaba a un identificador de origen resuelve
+   contra su destino.
+2. **Ninguna colisión.** Dos identificadores de origen distintos no terminan en el mismo destino,
+   que es el riesgo real cuando el ámbito de unicidad pasa de proyecto de código a producto y dos
+   proyectos traían el mismo número.
+3. **Ningún residuo de la forma vieja** fuera de `_legacy/`, donde los snapshots conservan la
+   nomenclatura con que se emitieron y **no se renombran** (`Master-Prompt.md` §5.1).
+
+**Qué no se renumera.** Los identificadores de los informes de audit ya emitidos y los hallazgos que
+citan, porque son registros de lo que se verificó en un momento dado. Las familias excluidas del
+ancho por `Root-Rules.md` §9.2 —`AG-XX` y el ordinal de iteración— tampoco.
+
+### 4.3.2 Migración estructural: del proyecto de código a la unidad de entrega
+
+El salto a la 8.0 no cambia el contenido de los documentos: cambia **de qué nivel son**. Un destino
+generado con la 7.0 tiene un árbol de once categorías por cada proyecto de código; en la 8.0 tiene uno
+por cada unidad de entrega, y los proyectos de código se inventarían a nivel producto. Fusionar árboles
+es una operación que la migración no puede hacer sola, y por eso esta sección declara qué decide el
+método y qué decide el humano.
+
+**Lo que el método no puede decidir.** Cuál de los proyectos de código existentes es una unidad de
+entrega. El manifiesto de un destino 7.0 no lo declara: hay que leerlo. La migración **propone** y se
+**detiene**; no clasifica por su cuenta.
+
+**Paso 1 — Propuesta de clasificación.** El agente enumera los proyectos de código del manifiesto y
+propone una clasificación con dos señales, declarando cuál usó en cada caso:
+
+| Señal | Qué sugiere |
+| --- | --- |
+| Es el proyecto de código principal | Unidad de entrega, casi siempre |
+| `redistribuible: true` | Unidad de entrega: se publica para que otro lo consuma |
+| Su rol declara despliegue, publicación, host, punto de entrada o proceso propio | Unidad de entrega |
+| Su rol declara dominio, contratos, abstracciones, utilidades o una capa | Proyecto de código de otra unidad, y hay que decir de cuál |
+
+La propuesta se presenta como tabla, con una fila por proyecto de código, su clasificación propuesta,
+la señal que la sustenta y —cuando no es unidad de entrega— a qué unidades compone. **El humano
+confirma, corrige o reasigna.** Sin esa confirmación la migración no avanza.
+
+**Paso 2 — Mapa de fusión.** Con la clasificación confirmada, el agente construye el mapa de qué
+árbol va a dónde, y lo presenta antes de mover nada:
+
+- Los árboles de los proyectos de código que **son** unidades de entrega se renombran a
+  `Unidades-Entrega/<Nombre>/`.
+- Los árboles de los proyectos de código que **no** lo son se **funden** en el de la unidad de entrega
+  que componen. La fusión es lo que exige criterio: dos categorías 02 que se fusionan traen dos
+  conjuntos de casos de uso que describen la misma capacidad desde capas distintas.
+- Si un proyecto de código compone **más de una** unidad de entrega, su árbol no se funde en ninguna:
+  su contenido de arquitectura va al inventario de `Producto/Vista-Producto.md`, y lo demás se
+  presenta al humano documento por documento. Un artefacto de un proyecto compartido no tiene una
+  unidad de entrega dueña, y adivinarla es exactamente el defecto que la 8.0 corrige.
+
+**Paso 3 — Qué se conserva y qué se declara.** Rige §4.1: nada se inventa y nada se descarta en
+silencio. En particular:
+
+- **Los casos de uso duplicados por capa no se fusionan automáticamente.** Se conservan los dos, con
+  su origen declarado, y la deduplicación se propone al humano como lista. Fundir por título produciría
+  pérdidas invisibles.
+- **Los artefactos que la 8.0 ya no ubica en ese nivel** —la experiencia de uso de un proyecto que no
+  se despliega, el pipeline de una capa interna, los entornos de algo que no tiene entornos— se
+  declaran en el informe como **contenido sin destino**, y el humano decide si se descarta o si aporta
+  algo que hay que reubicar. No se borran por su cuenta.
+- **El valor D8 de un proyecto de código que no es unidad de entrega se retira**, porque en la 8.0 el
+  tipo es atributo de la entrega. El retiro se declara: no es una pérdida de dato, es un dato que
+  cambió de nivel.
+
+**Paso 4 — Renumeración, si corresponde.** El reparto de rangos pasa de ser por proyecto de código a
+ser por unidad de entrega, de modo que la fusión de árboles puede producir colisiones de identificador
+donde antes no las había: dos proyectos que se funden en la misma unidad traían numeraciones
+independientes. Aplica el árbol de migración de §4.3.1 con sus dos pasadas y su comprobación de
+colisión de destino.
+
+**Migración parcial.** Es un estado final legítimo según §4.6, y acá es más probable que en cualquier
+otro salto: un destino puede migrar sus unidades de entrega y dejar el inventario del eje de
+construcción para después. Se declara documento por documento, como exige esa sección.
+
 ### 4.4 El intake es documento humano
 
 El Product Owner es el autor responsable del intake y quien lo aprueba. La redacción puede estar asistida por un agente, pero la autoría del contenido y la aprobación no se delegan. De ahí cuatro restricciones propias:
@@ -198,22 +302,41 @@ Antes de cerrar la migración:
 
 ## 6. Criterios de aceptación
 
+- [ ] [interpretativo] Si el salto alcanza el nivel de aplicación, la clasificación de proyectos de código en unidades de entrega la **confirmó el humano**, y el informe declara qué señal sustentaba cada propuesta.
+- [ ] [enumerable] Todo proyecto de código del manifiesto de origen aparece en la clasificación: como unidad de entrega, o como componente de al menos una.
+- [ ] [interpretativo] Ningún caso de uso se fusionó automáticamente por coincidencia de título; los duplicados por capa se conservan con su origen declarado y su deduplicación se propuso como lista.
+- [ ] [enumerable] El contenido sin destino está declarado en el informe y no se descartó en silencio.
+
+- [ ] [enumerable] Si el salto alcanza la forma de los identificadores, existe el **árbol de migración** de §4.3.1 con una fila por identificador alcanzado, y está confirmado por el humano antes de la pasada de aplicación.
+- [ ] [enumerable] Después de la pasada de aplicación, ninguna referencia queda colgada, ningún identificador de destino colisiona y no hay residuos de la forma vieja fuera de `_legacy/`.
+- [ ] [enumerable] Ningún archivo de `_legacy/` fue renombrado por la renumeración.
+
+**Naturaleza de cada criterio.** Cada ítem lleva su marca: `[enumerable]` si se decide contando o
+comparando —existencia, forma, recuento, resolución de un enlace— y `[interpretativo]` si solo se
+decide leyendo los dos lados. Los enumerables son los que la compuerta mecánica de
+`Master-Prompt.md` §10.0 tiene que cubrir; los interpretativos son para lo que el audit existe.
+
+La clasificación es **conservadora por diseño**: ante la duda, un criterio se marca interpretativo.
+El error no es simétrico —declarar mecanizable algo que no lo es produce falsa confianza, que es peor
+que la ausencia de verificación—, así que marcar de más un interpretativo solo cuesta atención del
+auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
+
 Verificables por el auditor independiente sobre el resultado de la migración:
 
-- [ ] Todo documento migrado tiene su fuente de contenido declarada en el plan, con uno de los tres valores admitidos de §2.1.
-- [ ] Ninguna sección de ningún documento migrado contiene contenido que no provenga del documento de origen, de un documento hermano o de una respuesta del humano.
-- [ ] Ninguna sección exigida por la normativa vigente y sin fuente quedó rellenada: todas se emitieron como pendientes.
-- [ ] El estado previo de cada documento migrado quedó archivado en el `_legacy/` de su propia carpeta antes de sobrescribir.
-- [ ] Todo contenido del documento de origen que la normativa vigente no ubica quedó enumerado en el informe, con su texto localizable.
-- [ ] Ninguna corrección manual del usuario fue pisada sin declarar la interpretación y esperar confirmación.
-- [ ] Cada documento del plan lleva su clasificación de §4.3, incluidos los clasificados como «no tocar».
-- [ ] El intake migrado se verificó contra la plantilla vigente y no solo contra los campos bloqueantes de `Intake-Rules.md` §2.2, y su bump es major.
-- [ ] El intake se migró antes que el manifiesto, y el manifiesto antes que los documentos generados.
-- [ ] Si el destino no declaraba procedencia, la degradación de la clasificación está declarada y no se supuso ninguna versión de origen.
-- [ ] El bloque de procedencia se reescribió **solo** si toda la cadena quedó migrada. Si la migración fue parcial, la procedencia declara todavía el origen y el informe declara el estado parcial documento por documento.
-- [ ] Ninguna fila del plan quedó sin resolver y sin declararse como pendiente en el informe.
-- [ ] Ningún renombre de artefacto se resolvió por inferencia: se leyó del bloque de impacto sobre destinos existentes del `CHANGELOG.md` del framework.
-- [ ] Ninguna sustitución de un término dentro de un documento migrado se hizo por reemplazo global de cadena (`Vocabulario-Rules.md` §9.5).
+- [ ] [interpretativo] Todo documento migrado tiene su fuente de contenido declarada en el plan, con uno de los tres valores admitidos de §2.1.
+- [ ] [interpretativo] Ninguna sección de ningún documento migrado contiene contenido que no provenga del documento de origen, de un documento hermano o de una respuesta del humano.
+- [ ] [interpretativo] Ninguna sección exigida por la normativa vigente y sin fuente quedó rellenada: todas se emitieron como pendientes.
+- [ ] [interpretativo] El estado previo de cada documento migrado quedó archivado en el `_legacy/` de su propia carpeta antes de sobrescribir.
+- [ ] [interpretativo] Todo contenido del documento de origen que la normativa vigente no ubica quedó enumerado en el informe, con su texto localizable.
+- [ ] [interpretativo] Ninguna corrección manual del usuario fue pisada sin declarar la interpretación y esperar confirmación.
+- [ ] [interpretativo] Cada documento del plan lleva su clasificación de §4.3, incluidos los clasificados como «no tocar».
+- [ ] [interpretativo] El intake migrado se verificó contra la plantilla vigente y no solo contra los campos bloqueantes de `Intake-Rules.md` §2.2, y su bump es major.
+- [ ] [interpretativo] El intake se migró antes que el manifiesto, y el manifiesto antes que los documentos generados.
+- [ ] [interpretativo] Si el destino no declaraba procedencia, la degradación de la clasificación está declarada y no se supuso ninguna versión de origen.
+- [ ] [interpretativo] El bloque de procedencia se reescribió **solo** si toda la cadena quedó migrada. Si la migración fue parcial, la procedencia declara todavía el origen y el informe declara el estado parcial documento por documento.
+- [ ] [interpretativo] Ninguna fila del plan quedó sin resolver y sin declararse como pendiente en el informe.
+- [ ] [interpretativo] Ningún renombre de artefacto se resolvió por inferencia: se leyó del bloque de impacto sobre destinos existentes del `CHANGELOG.md` del framework.
+- [ ] [interpretativo] Ninguna sustitución de un término dentro de un documento migrado se hizo por reemplazo global de cadena (`Vocabulario-Rules.md` §9.5).
 
 **Hallazgos P0**, que detienen la cadena: contenido inventado; sección exigida rellenada con contenido inferido; procedencia reescrita con migración parcial; corrección manual pisada sin declarar la interpretación; estado previo no archivado; fila del plan sin resolver y sin declarar.
 
@@ -274,3 +397,5 @@ Para el despacho del auditor, los criterios de §6 de este archivo se suman a lo
 | Versión | Fecha | Cambios | Autor |
 | --- | --- | --- | --- |
 | 1.0 | 2026-07-29 | Regla inicial de migración normativa, decimoctava regla del framework y sexta transversal. Fija el **principio de estado objetivo** de §3, con sus cinco fundamentos y su única concesión, en lugar de playbooks por salto de versión: la normativa vigente es la especificación del destino y el documento existente es la fuente del contenido. §1 declara que la migración no crea especialidades y delega el perfil a §1.2 de la regla de cada categoría, con la omisión de la tabla por D8 declarada y fundamentada. §2 declara los dos artefactos propios, el plan como contrato entre los dos orquestadores con su columna nueva de fuente de contenido, el alcance sobre `SDD/Intake/` y `SDD/Docs/` y los cuatro artefactos fuera de alcance con su razón. §4 reúne la mecánica: **regla de no invención** (§4.1), preservación de contenido y de correcciones manuales con archivado previo (§4.2), clasificación por severidad del salto (§4.3), el intake como documento humano con el agente proponiendo y el orden de la cadena D6 (§4.4), **destinos sin procedencia** admitidos con clasificación degradada a revisar todo (§4.5) y **migración parcial** admitida con la procedencia intacta y el estado parcial declarado (§4.6). §6 declara catorce criterios de aceptación y seis hallazgos P0; §7, ocho anti-patrones. La regla no declara fases ni orden de ejecución de la corrida: eso vive en el master-prompt de migración. | Framework SDD (migración normativa) |
+| 2.0 | 2026-08-15 | Renumeración de identificadores y renombre de archivos (intervención reportes 00 a 11). **§4.3.1 es nueva**: cuando un salto normativo cambia la forma de los identificadores —como el de la 7.0, que fija cinco dígitos y ámbito producto—, la migración se hace en dos pasadas. La primera construye el **árbol de migración** completo, con identificador de origen y de destino, archivos a renombrar y **todas** las referencias que los apuntan, y se confirma con el humano antes de tocar nada. La segunda aplica el árbol confirmado y cierra con tres comprobaciones bloqueantes: ninguna referencia colgada, ninguna colisión de destino —el riesgo real cuando el ámbito pasa de proyecto de código a producto— y ningún residuo de la forma vieja fuera de `_legacy/`, que no se renombra. La evidencia de por qué no alcanza una sola pasada es de una corrida real: renumerar treinta y nueve archivos produjo por sí solo dos hallazgos bloqueantes. §6 suma sus tres criterios. Además, §6 clasifica cada criterio de aceptación como `[enumerable]` o `[interpretativo]`. Sube **major**: incorpora una capacidad que la migración no tenía y sin la cual el salto a la 7.0 no se puede ejecutar. Origen: reportes `01` y `05`, y la decisión del responsable del 2026-08-15. | Framework SDD |
+| 3.0 | 2026-08-15 | **Migración estructural del proyecto de código a la unidad de entrega** (framework 8.0). §4.3.2 es nueva y declara los cuatro pasos del salto: propuesta de clasificación con sus cuatro señales y **detención obligatoria** para que el humano la confirme, porque el manifiesto de un destino 7.0 no declara cuál de sus proyectos de código se despliega; mapa de fusión de árboles, con la regla de que el árbol de un proyecto **compartido** no se funde en ninguna unidad, ya que adivinarle una dueña es el defecto que la 8.0 corrige; qué se conserva y qué se declara, con la prohibición de fusionar casos de uso por coincidencia de título y la obligación de declarar el contenido sin destino en lugar de borrarlo; y la renumeración por el árbol de §4.3.1, que acá importa más que en otros saltos porque fundir dos árboles puede producir colisiones que antes no existían. §6 suma cuatro criterios. Sube **major**: incorpora una capacidad sin la cual el salto a la 8.0 no se puede ejecutar. | Framework SDD |
