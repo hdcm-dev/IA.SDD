@@ -17,7 +17,7 @@ traces:
 # Guía de desarrollo y extensibilidad del framework SDD
 
 **Documento:** SDD-Development-Guide.md
-**Versión:** 1.13
+**Versión:** 1.12
 **Estado:** Vigente
 **Fecha:** 2026-07-29
 **Rol de intervención:** Mantenedor del framework
@@ -519,23 +519,6 @@ se renombró, y la verificación lo contó como conforme.
   el nivel nuevo? Recorrer es lo que más se olvida, porque el orden no suele nombrar la variable que
   se renombró.
 
-**Sobre las fuentes declarativas que declares:**
-
-Toda regla que crea un documento donde alguien va a **declarar un estado** —en qué etapa va, qué quedó
-abierto, contra qué versión se generó— está creando una fuente que puede quedar atrás. Y una fuente que
-queda atrás no avisa: sigue afirmando lo último que alguien escribió.
-
-- ¿El documento **nombra a su responsable**, y no sólo el evento en el que se actualiza? «Se actualiza
-  al cerrar la etapa» es una oración sin sujeto, y una obligación sin sujeto no la incumple nadie.
-- Si ningún rol del producto corresponde, ¿pusiste igual un responsable **genérico** —la organización
-  dueña del repositorio— en lugar de dejar el campo vacío? Un campo vacío se lee como que la pregunta
-  no se hizo.
-- ¿Podés obtener el mismo dato de un **subproducto del acto** —una etiqueta al fusionar, el nombre de
-  la rama, el mensaje de confirmación— en vez de un documento que hay que acordarse de actualizar? El
-  subproducto no se degrada, porque nadie tiene que recordarlo.
-- Si la fuente **no** es un subproducto, ¿declaraste contra qué se la contrasta cuando miente? Ésa es
-  la única defensa que le queda.
-
 **Sobre el impacto:**
 
 - ¿Cuántos archivos toca este cambio? Si son más de tres o cuatro, conviene segmentar en etapas con nota de coherencia entre cada una.
@@ -765,4 +748,3 @@ que diga otra cosa.
 | 1.10 | 2026-08-15 | La Parte IV suma el bloque «sobre cómo verificás una intervención estructural» (framework 8.5). Una intervención que renombra un concepto o cambia un nivel se verifica buscando residuos de lo viejo, y esa comprobación tiene un falso negativo que no se ve: **un archivo que nunca usó el término viejo pasa sin haber sido migrado**. Ocurrió con el orquestador de migración, que quedó dos versiones atrás porque no mencionaba la variable renombrada y la verificación lo contó como conforme. Tres preguntas: si se verificó la presencia de lo nuevo y no solo la ausencia de lo viejo; qué archivos del alcance declarado no cambiaron y por cuál de los dos motivos; y, cuando cambia un nivel de aplicación, si cada archivo que ordena un recorrido nombra el nivel nuevo, que es lo que más se olvida porque el orden no suele nombrar la variable renombrada. | Framework SDD (validación por migración) |
 | 1.11 | 2026-08-16 | **§VI.5 declara cuándo se toma el snapshot de `_legacy/`**, que era lo único que la sección no decía y donde efectivamente se rompía: el conjunto se copia **antes** de aplicar la intervención, y copiarlo después produce una carpeta con el nombre de una versión y el contenido de la siguiente. Se declara la consecuencia —el diff normativo de ese salto **sale vacío** y la migración se declara completa sin aplicar nada—, la verificación mecánica por versión de cabecera de los archivos tocados, y que la regla de intocabilidad **no cubre** una carpeta que archivó el conjunto equivocado: reconstruirla la restituye. Origen: **cuatro de los cinco snapshots más recientes estaban corridos un lugar**, detectado al tomar el sexto. |
 | 1.12 | 2026-08-16 | **§VI.3 suma la comprobación 10, integridad del registro**: la versión de cabecera es la mayor fila del control de cambios, las filas están en orden y ninguna se repite. La comprobación 5 pedía «una fila por archivo» y se cumplía escribiéndola en cualquier lado; **seis archivos tenían el registro inconsistente**, repartidos entre cuatro intervenciones, y ninguna verificación los miraba —incluido este archivo, cuya cabecera decía **1.7** mientras su tabla llegaba a **1.10**—. Concordancias de género de la sustitución léxica de la 8.0 (`Vocabulario-Rules.md` §9.5), en el barrido del layout. | Framework SDD (barrido del layout 8.0) |
-| 1.13 | 2026-08-16 | La Parte IV suma el bloque **«sobre las fuentes declarativas que declares»**, con sus cuatro preguntas: que el documento **nombre a su responsable** y no sólo el evento; que si ningún rol corresponde se ponga uno **genérico** en lugar de dejarlo vacío; que se prefiera el **subproducto del acto** al documento que hay que acordarse de actualizar; y que, si la fuente no es un subproducto, se declare contra qué se la contrasta. Cierra el pendiente de `Coherencia-Orquestador-Reanudacion.md` §7. | Framework SDD (dueño de las fuentes declarativas) |

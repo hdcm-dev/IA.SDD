@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/09-Devops/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto
 **Subagente target del orquestador:** Ingeniero DevOps Senior (AG-09)
-**Versión de las reglas:** 4.2
+**Versión de las reglas:** 4.1
 
 ---
 
@@ -174,8 +174,6 @@ El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente
 4. Branching. GitHub Flow, Git Flow o Trunk-based development según el acuerdo de equipo, con reglas de protección de ramas y políticas de PR.
 5. Canales. Preview, stable y opcionalmente LTS, con criterios de promoción y semántica de sufijos `-alpha`, `-beta`, `-rc`.
 6. Deprecation policy. Cómo se anuncian y comunican los breaking changes, cuántos minor antes de remover, marcado de obsoletos en código y mención en CHANGELOG.
-7. **Registro del avance, con responsable nombrado.** Qué documento declara en qué etapa va el producto, **quién lo actualiza** —con nombre de rol, y si ninguno corresponde, la organización dueña del repositorio— y **en qué evento**. Declarar sólo el evento deja una obligación sin sujeto, que es la forma en que estos registros se degradan.
-8. **Instrumento preferido: el subproducto del acto.** Entre un registro que alguien tiene que acordarse de actualizar y uno que el acto produce por sí solo —la etiqueta al fusionar, el nombre de la rama, el mensaje de confirmación—, se elige el segundo y se declara por qué. Si el producto igual necesita el registro en prosa, se declara **cuál de los dos manda** cuando no coinciden.
 
 ### 4.4 Estructura de `Entornos-Deploy.md`
 
@@ -265,7 +263,6 @@ Tipo de unidad de entrega D8 y tipo de artefacto a publicar:
 | Falta de firma del artefacto | El integrador no puede verificar autoría e integridad | Firma con sigstore/cosign u homólogo en el stage final |
 | Promotion sin aprobador humano para PROD | Despliegues automáticos a producción sin gate humano cuando el negocio lo requiere | Aprobador explícito en la promoción a PROD y registro auditable |
 | CHANGELOG ausente o no mantenido | El integrador no sabe qué cambió | Generación automática desde Conventional Commits y publicación en el release |
-| Registro de avance sin responsable | La obligación queda sin sujeto y el registro se degrada sin que nadie lo incumpla. Observado: un producto declaró la etapa `b` con el código en la `e`, y la regla de actualizarlo estaba en la segunda línea de ese mismo documento | Nombrar al responsable **en el propio registro**, y derivar el avance del acto —etiqueta al fusionar, rama de la etapa— en lugar de una actualización que hay que recordar |
 
 ### 4.9 Estructura de `Pipeline-Producto.md`
 
@@ -526,4 +523,3 @@ Salida: SDD/Docs/Producto/Pipeline-Producto.md.
 | 3.2 | 2026-08-15 | Criterio de gobierno de glosario, primera cláusula (intervención reportes 00 a 11). §6 pasa a distinguir el **vocabulario del método** —el que el framework acuña e impone a la categoría, que vive en el glosario operativo de `Master-Prompt.md` §15 y se cita sin redefinir— del **vocabulario del producto**, que va al glosario que corresponda. El criterio estaba replicado en once reglas mandando a nueve destinos distintos, casi todos glosarios del producto, y la política correcta estaba escrita una sola vez, en `Rules-Plan-Sprint.md` §6 y sobre términos que ya estaban resueltos. Sube **minor**: precisa un criterio existente. Origen: reporte `11`, propuesta 1. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. Se incorpora además el tratamiento de las obligaciones hacia una fase posterior que la comprobación del grafo de `Master-Prompt.md` §6 detectó al correrse sobre las doce reglas: las referencias afectadas se declaran con la forma de `Root-Rules.md` §12. |
 | 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
 | 4.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |
-| 4.2 | 2026-08-16 | §4.3 suma los ítems **7 y 8** a `Estrategia-Versionado.md`: el **registro del avance con responsable nombrado** —quién lo actualiza y en qué evento, con la organización dueña del repositorio como último recurso— y el **instrumento preferido**, que es el subproducto del acto antes que el documento que hay que acordarse de actualizar. §4.8 suma el anti-patrón correspondiente, con el caso observado. Sube **minor**: agrega dos ítems obligatorios a un documento de la categoría sin cambiar los artefactos que produce. | Framework SDD (dueño de las fuentes declarativas) |

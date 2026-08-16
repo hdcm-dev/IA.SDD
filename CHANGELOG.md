@@ -3,6 +3,31 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.14] - 2026-08-16
+
+**Se cierra el único pendiente que una nota de coherencia declaraba sin resolver:** una dimensión del estado cuya fuente **nadie tenía obligación de mantener**. Lo destrabó una instrucción del Product Owner —«cuando no tengas dueño, colocá un dueño genérico, y con eso lo resolvés y no dejás algo boyando»— sobre una solución que yo había descartado.
+
+**La había descartado mal.** Mi argumento era que declarar el dueño no alcanzaba, porque el registro que se degradó ya declaraba su regla de mantenimiento. Al ir a leerla, decía: *«se actualiza en la rama de la etapa, no después de la fusión»*. **Declara el cuándo y no declara el quién** — es una oración sin sujeto, y una obligación sin sujeto no la incumple nadie en particular. Faltaba un dueño, literalmente.
+
+**La otra mitad se sostiene, y la evidencia es fuerte.** Esa dimensión tenía **dos** fuentes declarativas y **las dos se degradaron**: el registro quedó en la etapa `b` con el código en la `e`, y las etiquetas por etapa cerrada que el pipeline declaraba como **el** instrumento de versionado nunca se crearon —**cero en todo el repositorio**—. Lo único intacto fue el **nombre de la rama en cada confirmación de fusión**, que nadie tuvo que acordarse de escribir porque fusionar lo escribe.
+
+### Agregado — las tres reglas
+
+- **`Master-Prompt-Reanudacion.md` 1.1 → 1.2.** §1 suma la columna **«quién la mantiene»** a las seis dimensiones, y **§1.1** es nueva:
+  - **R1** · Toda fuente declarativa nombra a su responsable **en el propio documento**, no en un plan ni en una regla del framework.
+  - **R2** · Cuando ningún rol del producto corresponde, el responsable es **genérico y sigue siendo obligatorio**: el rol que el producto asigne, si no el perfil de convención del intake, si no **la organización dueña del repositorio**. Un campo vacío se lee como que la pregunta no se hizo.
+  - **R3** · Entre dos fuentes posibles, **gana la que es subproducto del acto**. Y su consecuencia: cuando la fuente no es un subproducto, el contraste observable **deja de ser opcional**.
+- **`Rules-Devops.md` 4.1 → 4.2.** §4.3 suma los ítems **7 y 8** a `Estrategia-Versionado.md` —el registro del avance con responsable nombrado, y el instrumento preferido— y §4.8 el anti-patrón, con el caso observado.
+- **`SDD-Development-Guide.md` 1.12 → 1.13.** La Parte IV suma el bloque «sobre las fuentes declarativas que declares», para quien escribe una regla que crea un documento donde alguien va a declarar un estado.
+
+**No extiende el alcance del framework, que era el temor de la nota anterior.** No le da un prompt al ciclo de construcción ni lo gobierna: exige que el documento **diga quién lo mantiene**, que es una propiedad del documento.
+
+**El framework ya sabía la respuesta y la aplicaba en un solo lugar.** `Rules-Devops.md` §4.8 tenía el anti-patrón «CHANGELOG ausente o no mantenido» resuelto por generación automática desde los mensajes de confirmación: es **R3**, escrito para el registro del **integrador** y nunca aplicado al del **avance del producto**.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/8.13/`.
+
+---
+
 ## [8.13] - 2026-08-16
 
 **El cambio de layout de la 8.0 nunca llegó a la tabla que el orquestador ejecuta.** `Master-Prompt.md` §3.5 declara desde la 7.0 que la documentación de las categorías 02 a 11 se genera **por unidad de entrega**, bajo `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/`. La tabla del plan maestro de §7 seguía declarando el ámbito «proyecto de código» en once categorías y emitiendo a **`SDD/Docs/Proyectos/<Nombre>/`**, en sus **quince filas**.

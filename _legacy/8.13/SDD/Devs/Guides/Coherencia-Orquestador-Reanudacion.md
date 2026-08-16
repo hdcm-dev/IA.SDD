@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Coherencia-Orquestador-Reanudacion.md
-**Versión:** 1.2
+**Versión:** 1.1
 **Estado:** Vigente
 **Fecha:** 2026-08-16
 **Autor:** AG-ROOT (Arquitecto de Soluciones)
@@ -128,7 +128,7 @@ contra la pérdida de contexto que no entregaba contexto— y no me la hice ante
 registrado porque **es el cuarto caso del mismo patrón**, y los tres anteriores están en esa misma
 regla.
 
-## 7. Lo que esta nota dejaba anotado, y cómo se cerró
+## 7. Lo que esta nota deja anotado
 
 **El orquestador de reanudación no repara lo que encuentra, y eso deja una pregunta abierta: quién
 repara una divergencia que no es de ningún orquestador.** El registro de cambios de un producto que
@@ -140,23 +140,9 @@ método documenta antes de construir y no gobierna la construcción—, y darle 
 extenderlo a un territorio que declaró fuera de alcance. Pero la consecuencia queda: **hay una
 dimensión del estado cuya fuente nadie tiene obligación de mantener**, y es la que divergió más.
 
-**Se cerró en la 8.14, y la mitad que faltaba la aportó el Product Owner.** Yo había concluido que
-nombrar al dueño no alcanzaba, porque el registro que se degradó **ya declaraba su regla**. Al ir a
-leerla, la regla decía: *«se actualiza en la rama de la etapa, no después de la fusión»*. **Declara el
-cuándo y no declara el quién**: es una oración sin sujeto, y una obligación sin sujeto no la incumple
-nadie en particular. Faltaba un dueño, literalmente.
-
-La solución **no extiende el framework al ciclo de construcción**, que es lo que esta nota temía. No le
-da un prompt ni lo gobierna: exige que el documento **nombre a su responsable**, con un genérico
-obligatorio —hasta la organización dueña del repositorio— cuando ningún rol corresponde, y que entre
-dos fuentes posibles gane **la que es subproducto del acto**. `Master-Prompt-Reanudacion.md` §1.1 lo
-declara con sus tres reglas, `Rules-Devops.md` §4.3 lo exige en la estrategia de versionado del
-producto, y la Parte IV de `SDD-Development-Guide.md` lo pregunta a quien escribe una regla nueva.
-
 ## 8. Veredicto
 
 **APROBADO.** El conjunto 8.10 es internamente coherente: los tres orquestadores están enumerados
 como tres en todos los lugares vivos que los cuentan, las dos apariciones que seguían siendo ciertas
 con «dos» quedaron desambiguadas, y las tres históricas están declaradas.
 | 1.1 | 2026-08-16 | §6.1 nueva: el hueco que la 1.0 dejó —diagnosticaba y se detenía, sin entregar el contexto— y sus tres correcciones. El informe pasa a ser **instrumento de entrega**, entra **R4** y **la decisión viaja** para que el orquestador siguiente no vuelva a preguntar. Registra que la 1.0 **cometió el defecto que corregía**, cuarto caso del patrón que la 8.9 declara. |
-| 1.2 | 2026-08-16 | §7 pasa de «lo que deja anotado» a **cómo se cerró**: la 8.14 resuelve la dimensión sin dueño sin extender el framework al ciclo de construcción. Registra que la regla del registro degradado **declaraba el cuándo y no el quién**, y que la mitad que faltaba la aportó el Product Owner. |
