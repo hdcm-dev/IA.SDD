@@ -3,6 +3,27 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.9] - 2026-08-16
+
+**La lista de comprobación de coherencia tenía «sin contradicción entre lo escrito y lo que ya estaba», y tres intervenciones seguidas la pasaron dejando una contradicción adentro.** No porque nadie la corriera: porque **está enunciada sobre los archivos tocados**, y los tres defectos vivían en lugares que la intervención había tocado sin mirar, o que ni figuraban en su alcance.
+
+Los tres son el mismo caso. La **8.0** movió el bloque técnico del intake de colgar del proyecto de código a colgar de la unidad de entrega, y **la tabla de identidad dentro de ese mismo bloque** siguió pidiendo el valor D8 al proyecto de código —descubierto **tres versiones después**, completando un intake real—. La misma 8.0 dejó **el orquestador de migración** describiendo el modelo anterior —descubierto **dos versiones después**, al ir a ejecutarlo—. Y su propia nota de coherencia registró que **la intervención cometió el defecto que corregía** en su propio alcance, y aun así volvió a pasar.
+
+**Lo que falló no fue el cuidado: el alcance se declaró por archivo y el cambio era por concepto.**
+
+### Cambiado
+
+- **`SDD-Development-Guide.md` 1.6 → 1.7.** La lista de comprobación de §VI.3 pasa de **siete a nueve**: entra el **barrido por concepto** —enumerar el término en todo el árbol, sin filtrar por el alcance declarado, **incluido el interior de los archivos ya tocados**— y la **coherencia interna de cada artefacto**, que ninguna comprobación entre archivos detecta. Entra **§VI.3.1** con el procedimiento de cuatro pasos, los tres casos que lo produjeron y por qué una plantilla es el peor lugar para dejar una contradicción: no rompe nada hasta que alguien la completa, y es el artefacto con más superficie de contacto del framework.
+- **La cuarta regla del procedimiento es la que faltaba y la que más cuesta.** La pregunta final de toda intervención no es «¿toqué todo lo que había que tocar?» sino **«¿mi intervención cometió el defecto que corrige?»**. En los tres casos la respuesta era sí, y en los tres se podía haber contestado antes de publicar.
+- **`README.md`** suma la fila de «cambiar un concepto» a su tabla de reglas de intervención.
+- **`Coherencia-Plantilla-Intake-Identidad.md` 1.0 → 1.1.** Su §6 pasa de «lo que no resuelve» a **cómo se cerró**: pedía tratar los tres casos juntos y no agregar una comprobación por caso, y así se hizo.
+
+**Esta intervención se verificó con la regla que incorpora.** El barrido por concepto encontró **una** aparición alcanzada fuera de su alcance declarado —una nota de coherencia que citaba «las siete comprobaciones»— y **se declaró en lugar de reescribirse**, porque es un registro de lo que se verificó en su fecha. Es la regla 3 del propio procedimiento.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/8.8/`.
+
+---
+
 ## [8.8] - 2026-08-16
 
 **Lecciones de la primera migración real completa.** Un destino de siete proyectos de código migró de 6.0 a 8.6 y **se llevó la migración hasta el final**: las siete fases, la consolidación de casos de uso, la de la fusión —67 grupos, 143 documentos absorbidos, 9726 líneas— y seis rondas de auditoría. Lo que sigue son las reglas que esa corrida necesitó y que no estaban escritas, cada una con el error que la produjo.
