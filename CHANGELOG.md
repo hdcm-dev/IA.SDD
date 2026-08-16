@@ -3,6 +3,23 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.7] - 2026-08-16
+
+**La plantilla de intake se contradecía a sí misma, y el defecto se descubrió usándola.** La 8.0 partió §13 en dos ejes y movió el bloque técnico de §17 de «por proyecto de código» a «por unidad de entrega». **La tabla de identidad de §17 se conservó del bloque anterior** y siguió pidiéndole `tipo_unidad_entrega` (D8) y `redistribuible` **al proyecto de código**, contra lo que §13.2 del mismo documento declara —«los proyectos de código no llevan valor D8»— y contra §13.1, que hace de `redistribuible` una columna de la unidad de entrega.
+
+**El daño no es formal.** Quien completara §17 siguiendo la plantilla **declaraba D8 tantas veces como proyectos tuviera el producto**, y tenía que elegir una forma de entrega para algo que no se entrega. Es el defecto que el modelo de dos ejes existe para hacer imposible, escrito en el documento que lo enseña.
+
+**Cómo apareció.** Migrando un destino real de 6.0 a 8.6, en la fase M2. El agente que completaba el intake tuvo que decidir qué hacer con esa tabla y emitió la contradicción como hallazgo aguas arriba en lugar de copiarla. **Ninguna verificación del framework la había detectado en tres versiones**: la coherencia interna de una plantilla entre dos de sus secciones no la mira nadie.
+
+### Cambiado
+
+- **`PRODUCT-INTAKE-template.md` 3.0 → 3.1.** §17 pasa a **dos tablas de identidad**: la de la unidad de entrega, con su D8, su `redistribuible` y los proyectos que la componen; y la de esos proyectos, con nombre, identidad de código y rol, **sin D8 y sin `redistribuible`**, con la constancia de por qué no los llevan y de que un proyecto compartido aparece en el bloque de cada entrega que compone.
+- **Ocho instrucciones de P.1 a P.12** decían «del proyecto de código» bajo un encabezado que dice «por unidad de entrega». Pasan a decirlo de la entrega, con la regla de **nombrar el proyecto cuando el dato es de uno en particular**: P.1 enumera los stacks, P.3 distingue el contrato de integración de §13.1 del de compilación de §13.2, P.6 declara los umbrales **por proyecto y sin promediar**, y P.10 admite los NFR de una capa interna nombrando su proyecto.
+
+Ninguna sección se agrega ni se retira, ningún campo bloqueante cambia y ninguna invariante se modifica. El conjunto superado se archiva en `_legacy/8.6/`.
+
+---
+
 ## [8.6] - 2026-08-15
 
 **R5 estaba declarada y nada la verificaba.** La 8.4 incorporó la regla —toda referencia a un artefacto identificado nombra su identificador en el texto visible— y no agregó ninguna comprobación que la exija. La compuerta usaba R5 **solo para reparar** un enlace ya roto.
