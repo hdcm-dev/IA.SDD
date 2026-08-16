@@ -3,6 +3,40 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.12] - 2026-08-16
+
+**El barrido por concepto se corrió sobre lo que la 8.7 corrigió, y encontró el concepto vivo en cinco archivos más.** La 8.7 es anterior al barrido —que entró en la 8.9—: arregló el lugar donde el defecto se había manifestado, §17 de la plantilla de intake, y declaró ese archivo como su alcance.
+
+**Tres de los cinco hallazgos valen por sí solos:**
+
+- **`Intake-Rules.md` §4 se contradecía consigo mismo a treinta líneas de distancia.** Su mapeo era **una sola tabla** que le pedía a la misma fila el `Nombre-Proyecto-Codigo` y el `tipo_unidad_entrega`, y su paso 2 leía `redistribuible` —atributo de la entrega— de la fila del proyecto de código. Más abajo, el mismo §4 valida: *«Ningún proyecto de código declara un valor D8»*. Un defecto que entra y sale del mismo archivo **no lo cruza ninguna verificación entre artefactos**: es el primer caso cobrado de la coherencia interna que la 8.9 incorporó.
+- **`Master-Prompt.md` tenía un marcador roto en el despacho.** Desde la 7.0 el despacho se parametriza por unidad de entrega, pero tres plantillas —el insumo del intake de §8, el bloque de ambigüedad de §9 y el despacho del auditor de §10— seguían citando **`{{NOMBRE_PROYECTO_CODIGO}}`**, que el contexto ya no define. Un marcador sin valor no falla: **se completa con lo que el agente suponga**.
+- **El checklist que verifica §17 estaba dentro del archivo que la 8.7 tocó, y no se abrió.** §19 de la plantilla seguía pidiendo «§17 completo para cada proyecto de código». Es exactamente lo que `SDD-Development-Guide.md` §VI.3.1 manda barrer —**el interior de lo ya tocado**— y la primera vez que se cobra.
+
+### Cambiado
+
+- **`Intake-Rules.md` 4.0 → 4.1.** El mapeo de derivación pasa de **una** tabla a **tres** —eje de entrega, eje de construcción y producto—, con la constancia de que ningún campo D8 ni `redistribuible` sale del eje de construcción y ningún `Identidad-Codigo` sale del de entrega. El prefijo de organización de un redistribuible **se resuelve por el puente §13.3** —qué proyecto publica la entrega— y no por la fila. §5 corrige la Parte C, que decía «por cada proyecto de código» contra §2.2 del mismo archivo.
+- **`Master-Prompt.md` 7.7 → 7.8.** Los tres marcadores rotos pasan a `{{NOMBRE_UNIDAD_ENTREGA}}`; §2 y §4 nombran el nivel correcto.
+- **`PRODUCT-INTAKE-template.md` 3.1 → 3.2.** El checklist de la Parte C pasa a la unidad de entrega vigente y nombra las **dos** tablas de identidad que la 8.7 creó; §16 deja de tratar `redistribuible` como atributo del proyecto.
+- **`Vocabulario-Rules.md` 3.0 → 3.1** y **`Marco-Teorico-SDD.md` 3.0 → 3.1.** La cita literal del despacho sigue al original; el glosario del manifiesto declara los dos ejes y la matriz.
+
+### Corregido — el archivo de versiones estaba corrido un lugar
+
+**Al tomar el snapshot de `_legacy/8.11/` se descubrió que cuatro de los cinco anteriores estaban mal.** `_legacy/8.10/` contenía el conjunto **8.11**, `_legacy/8.9/` el **8.10**, y así: todos se habían copiado **después** de aplicar la intervención en lugar de antes, con lo cual cada carpeta llevaba el nombre de una versión y el contenido de la siguiente.
+
+**No es un problema del archivo histórico: es un problema de la migración.** `Master-Prompt-Migracion.md` construye el diff normativo de un salto leyendo `_legacy/`. Con el archivo corrido, **el diff de ese salto sale vacío** y una migración que no tiene nada que aplicar se declara completa sin haber hecho nada. Un snapshot corrido es más dañino que uno ausente, porque el ausente se nota.
+
+- **`_legacy/8.6/`, `8.7/`, `8.9/` y `8.10/` reconstruidos** desde el estado que a cada uno le corresponde, verificados archivo por archivo contra la versión de cabecera que tenían al publicarse. `_legacy/8.8/` estaba bien.
+- **`SDD-Development-Guide.md` 1.7 → 1.8.** §VI.5 declara **cuándo** se toma el snapshot —antes de aplicar la intervención—, la consecuencia de tomarlo tarde, la verificación mecánica por versión de cabecera, y que la regla de intocabilidad **no cubre** una carpeta que archivó el conjunto equivocado: reconstruirla no reescribe historia, la restituye.
+
+**§VI.5 decía qué copiar y no decía cuándo**, y ese hueco produjo cuatro errores seguidos sin que ninguna verificación los viera.
+
+**Ninguna invariante modificada, y D8 conforme en el sentido que importa:** los ocho valores no cambian; cambia **a qué eje se le piden**, que es lo que la 8.0 decidió y estos cinco lugares no habían acatado. El conjunto superado se archiva en `_legacy/8.11/`.
+
+**Queda anotado:** las intervenciones anteriores a la 8.9 son todas anteriores al barrido y **ninguna lo corrió**. El criterio que esta entrada fija es que **cuando una intervención vieja se toca por cualquier motivo, su concepto se barre entonces**.
+
+---
+
 ## [8.11] - 2026-08-16
 
 **El orquestador de reanudación de la 8.10 diagnosticaba y se detenía.** Lo señaló el Product Owner el mismo día, con una pregunta directa: *«y si no se migra —porque no hay que migrar o porque se eligió no hacerlo—, ¿retomaría, recuperaría el contexto y seguiría?»*.

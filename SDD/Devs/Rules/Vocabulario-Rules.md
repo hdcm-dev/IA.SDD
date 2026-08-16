@@ -2,7 +2,7 @@
 
 **Archivo target:** todo artefacto del framework y toda documentación que el framework genera
 **Lector:** el orquestador, todo subagente AG-XX, el auditor de cada fase y quien interviene el framework
-**Versión de las reglas:** 3.0
+**Versión de las reglas:** 3.1
 
 ---
 
@@ -220,7 +220,7 @@ Acá está la parte que el framework tiene que declarar explícitamente, porque 
 
 > **El contexto de lectura de un subagente es la sección, no el documento.**
 
-`Master-Prompt.md` §8 construye cada despacho con una lista de insumos que nombra **secciones**, no archivos completos: «Parte A negocio; §13 composición; §17 bloque técnico del proyecto de código». Un lector humano abre el documento entero y el contexto le resuelve la referencia; un subagente que recibió tres secciones de setenta, no.
+`Master-Prompt.md` §8 construye cada despacho con una lista de insumos que nombra **secciones**, no archivos completos: «Parte A negocio; §13 composición; §17 bloque técnico de la unidad de entrega». Un lector humano abre el documento entero y el contexto le resuelve la referencia; un subagente que recibió tres secciones de setenta, no.
 
 Consecuencia operativa: **un término cuyos sentidos se distinguen solo leyendo el documento completo sí colisiona.** «El registro queda en el estado previo», leído dentro de un caso de uso completo, se entiende; leído como sección suelta por un subagente que tiene que derivar una decisión de transaccionalidad, admite tres lecturas que producen tres arquitecturas distintas.
 

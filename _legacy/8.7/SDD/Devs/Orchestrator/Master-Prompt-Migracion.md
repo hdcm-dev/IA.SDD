@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de migración normativa
 
 **Archivo:** `Master-Prompt-Migracion.md`
-**Versión:** 2.1
+**Versión:** 2.0
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente. La mecánica de despacho y de auditoría **no se define acá**: se cita de `Master-Prompt.md` §8 y §10
 **Prerequisitos:** un repositorio destino con `SDD/Docs/` poblado y, opcionalmente, un `Plan-Migracion-<origen>-a-<vigente>.md` emitido por la reconciliación normativa del orquestador de generación
@@ -153,30 +153,10 @@ Diff de estructura del intake
 
 Secciones movidas:      {{origen §N → vigente §M}}
 Secciones partidas:     {{origen §N → vigente §M y §P}}
-Secciones colapsadas:   {{origen §N, §P y §Q → vigente §M}}
 Secciones renombradas:  {{nombre anterior → nombre vigente}}
-Campos que cambian de dueño: {{campo, de qué nivel a qué nivel}}
-Campos que desaparecen: {{campo, y qué decisión de la plantilla vigente lo retira}}
 Secciones nuevas sin fuente: {{§M, va a la batería de preguntas}}
 Contenido sin destino:  {{texto localizable del origen que la plantilla vigente no ubica}}
 ```
-
-**El renglón de colapsadas es el inverso del de partidas, y faltaba.** Un salto que cambia el nivel al
-que cuelga un bloque repetible —de N bloques por proyecto de código a M por unidad de entrega— es un
-colapso, no una partición ni un movimiento. En una corrida real fue **el movimiento más grande de la
-fase**, siete bloques a dos, y hubo que declararlo bajo un título inventado porque el formato no lo
-preveía.
-
-**Los dos renglones de campos existen por el mismo motivo.** Cuando un salto mueve un atributo de un
-nivel a otro —o lo retira porque el modelo nuevo lo declara inaplicable—, eso no es una sección
-movida ni contenido sin destino: es un campo que cambia de dueño, y quien complete el intake nuevo
-necesita saber **por qué ya no se lo piden**.
-
-**Cómo se transpone un bloque colapsado, sin reescribirlo.** El contenido de los N bloques de origen
-pasa a **una subsección por proyecto de código dentro de cada subsección del bloque de destino**,
-nombrando el proyecto. Es una **transposición**: cambia el orden y no el contenido, lo que la vuelve
-verificable línea por línea contra el origen, y **satisface por construcción la regla de no invención
-de `Migracion-Rules.md` §4.1**.
 
 4. **Emitir la batería consolidada de preguntas** con el formato de `Intake-Rules.md` §6, por cada sección exigida que no tiene fuente.
 5. **Detención doble**: aprobación del diff de estructura, y resolución de la batería. Las dos son necesarias; aprobar el diff no autoriza a escribir con la batería abierta.

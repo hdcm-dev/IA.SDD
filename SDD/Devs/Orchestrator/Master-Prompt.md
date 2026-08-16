@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 7.7
+**Versión:** 7.8
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -80,7 +80,7 @@ Procedimiento:
 
 1. Resolver el `<Slug-Producto>`. Si hay un solo archivo `PRODUCT-INTAKE-*.md` en `SDD/Intake/`, esa es el producto. Si hay varios, pedir al usuario que indique cuál.
    **Si no hay ninguno, antes de concluir que no hay intake el orquestador busca los nombres de artefacto legados**: los que declaran las versiones archivadas en `../IA.SDD/_legacy/<version>/SDD/Devs/Intake/` y los bloques «Impacto sobre destinos existentes» de las entradas major del `CHANGELOG.md` del framework. Un intake encontrado bajo un nombre legado no es un error: es un destino generado con una versión anterior, y el orquestador lo declara como tal, sigue leyéndolo para poder evaluar §2.1, y rutea a la migración normativa. Recién si no aparece bajo ningún nombre se detiene por ausencia de intake, enumerando los nombres que buscó.
-2. Leer `PRODUCT-INTAKE-<Slug-Producto>.md` íntegro: la Parte A (negocio, §1 a §12), la Parte B (composición, §13 a §16, con la tabla de proyectos de código de la que se deriva el manifiesto) y la Parte C (técnica por proyecto de código, §17, un bloque por proyecto de código).
+2. Leer `PRODUCT-INTAKE-<Slug-Producto>.md` íntegro: la Parte A (negocio, §1 a §12), la Parte B (composición, §13 a §16, con las dos tablas de composición y la matriz de §13.3, de las que se deriva el manifiesto) y la Parte C (técnica por unidad de entrega, §17, un bloque por unidad de entrega vigente).
 3. Verificar el checklist final de §19. Cualquier ítem bloqueante sin tildar invalida el intake.
 
 Patrón de detención por intake incompleto:
@@ -386,7 +386,7 @@ Cada flag se calcula con reglas explícitas para que el resultado sea reproducib
 | `tiene_portal_developers` | unidad de entrega | README §5 del proyecto de código | true si el proyecto de código declara portal de developers, SDK público o documentación pública orientada a integradores | Activa documentos DX adicionales en 03 y refuerza 10 y 11 del proyecto de código. |
 | `tiene_extensibilidad` | unidad de entrega | README §5 P.2 y rol del proyecto de código | true si el proyecto de código declara puntos de extensión, plugins o handlers externos | Activa `Extensibilidad.md` en 05 y `guia-testing-extensibilidad` en 08 del proyecto de código. |
 | `tiene_persistencia` | unidad de entrega | §17 P.4 de la unidad de entrega | true si **alguno de los proyectos de código que la componen** declara un motor de persistencia distinto a "No aplica" | Activa `modelo-conceptual` en 02 y `Modelo-Datos-Logico.md` en 05 de la unidad de entrega. Evaluado en este nivel, el caso que rompía la versión anterior desaparece: una entrega cuya persistencia vive en una de sus capas **sí** persiste. |
-| `requiere_compliance` | producto | PRODUCT-INTAKE §10 (restricciones) y §17 P.5/P.10 del proyecto de código | true si se mencionan GDPR, PCI, HIPAA, SOC2, ISO 27001 o normativa local | Refuerza secciones de seguridad en 05, 08 y 09 y obliga ADR de compliance. |
+| `requiere_compliance` | producto | PRODUCT-INTAKE §10 (restricciones) y §17 P.5/P.10 de la unidad de entrega | true si se mencionan GDPR, PCI, HIPAA, SOC2, ISO 27001 o normativa local | Refuerza secciones de seguridad en 05, 08 y 09 y obliga ADR de compliance. |
 | `tiene_observabilidad_critica` | unidad de entrega | README §5 P.10 del proyecto de código | true si los NFR declaran SLO de disponibilidad >= 99.9 % o latencia p99 con métrica numérica | Refuerza supply-chain-seguridad y dashboards en 09 y NFR-tests en 08 del proyecto de código. |
 | `requiere_maqueta` | unidad de entrega | Derivado de `tiene_ui_final`, del `tipo_unidad_entrega` y de `tiene_portal_developers`; confirmado por el humano | Valor propuesto true si `tiene_ui_final` == true, o si es `library` de componentes visuales, o si es `rest-api` con portal visible. False en cualquier otro caso. El humano confirma o invierte el valor propuesto al aprobar el plan inicial. | Si true, se ejecuta la Fase B2 de validación visual de maqueta para ese proyecto de código (regla `Maqueta-Rules.md`) y se emiten los artefactos de línea de base del sensado de deriva (regla `Deriva-Rules.md`). Si false en un proyecto de código con `tiene_ui_final` == true, la omisión se registra como ADR en 05 del proyecto de código. |
 
@@ -749,7 +749,7 @@ Sos un {{ESPECIALIDAD_VARIANTE}}, leído literal de la sección §1.2 del archiv
 ## Insumos a leer obligatoriamente
 
 - PRODUCT-MANIFEST: SDD/Intake/PRODUCT-MANIFEST-{{SLUG_PRODUCTO}}.md
-- PRODUCT-INTAKE: SDD/Intake/PRODUCT-INTAKE-{{SLUG_PRODUCTO}}.md (Parte A negocio; §13 composición; §17 bloque técnico del proyecto de código {{NOMBRE_PROYECTO_CODIGO}})
+- PRODUCT-INTAKE: SDD/Intake/PRODUCT-INTAKE-{{SLUG_PRODUCTO}}.md (Parte A negocio; §13 composición; §17 bloque técnico de la unidad de entrega {{NOMBRE_UNIDAD_ENTREGA}})
 - Reglas de la categoría: {{PATH_REGLA}}
 - Reglas de vocabulario: ../IA.SDD/SDD/Devs/Rules/Vocabulario-Rules.md (§2 los seis términos, §4 reglas de uso, §9 criterio de desambiguación léxica)
 - Reglas transversales de `Root-Rules.md` (§9 sistema de identificadores, §10 datos derivados en la prosa, §11 apartamiento declarado, §12 referencia pendiente): ../IA.SDD/SDD/Devs/Rules/Root-Rules.md
@@ -828,7 +828,7 @@ Pattern de detención / pregunta / reanudación:
    ```text
    AMBIGÜEDAD DETECTADA
    - Subagente: {{NOMBRE_SUBAGENTE}}
-   - Producto / proyecto de código: {{NOMBRE_PRODUCTO}} / {{NOMBRE_PROYECTO_CODIGO}}
+   - Producto / unidad de entrega: {{NOMBRE_PRODUCTO}} / {{NOMBRE_UNIDAD_ENTREGA}}
    - Documento bloqueado: {{PATH_DOCUMENTO}}
    - Sección afectada: {{SECCION}}
    - Pregunta concreta: {{PREGUNTA}}
@@ -1020,7 +1020,7 @@ Veredicto del audit: APROBADO, APROBADO CON OBSERVACIONES (admite P1/P2/P3 sin P
 Despacho del auditor (esqueleto):
 
 ```text
-Sos un auditor independiente con perfil Arquitecto de Soluciones + QA Senior. No participaste de la generación de la fase {{FASE}} del proyecto de código {{NOMBRE_PROYECTO_CODIGO}} (o de nivel producto). Tu misión es evaluar los entregables contra:
+Sos un auditor independiente con perfil Arquitecto de Soluciones + QA Senior. No participaste de la generación de la fase {{FASE}} de la unidad de entrega {{NOMBRE_UNIDAD_ENTREGA}} (o de nivel producto). Tu misión es evaluar los entregables contra:
 - D1 a D9 globales del template.
 - §6 (criterios de aceptación) de cada archivo de reglas correspondiente a la fase, para el tipo_unidad_entrega {{TIPO_UNIDAD_ENTREGA}}.
 - Coherencia cross-doc dentro de la fase y trazabilidad hacia el upstream de producto y de proyectos de código dependientes.
@@ -1282,4 +1282,5 @@ Reglas de versionado:
 
 **Fin del master-prompt SDD**
 | 7.6 | 2026-08-16 | §2.1 declara que, si quien invoca **no sabe en qué estado está el destino**, el que corresponde antes es el orquestador de reanudación, y que esta reconciliación resuelve **una** de sus seis dimensiones. Ningún caso, salida ni comportamiento de la reconciliación cambia. Sube minor. |
+| 7.8 | 2026-08-16 | **Barrido por concepto de la 8.7** (`SDD-Development-Guide.md` §VI.3.1). El despacho de §8 y los dos esqueletos de §9 y §10 seguían parametrizados por proyecto de código después de que la 7.0 pasara el despacho a la unidad de entrega: **`{{NOMBRE_PROYECTO_CODIGO}}` ya no es una variable del contexto de despacho** —§8 define `{{NOMBRE_UNIDAD_ENTREGA}}`— con lo cual el insumo del intake, el bloque de ambigüedad y el despacho del auditor citaban un marcador sin valor. §2 paso 2 declara la Parte C por unidad de entrega y nombra las dos tablas de composición; §4 lee `requiere_compliance` de §17 de la entrega. Sube **minor**: corrige marcadores rotos y el nivel citado, sin cambiar el flujo ni ningún entregable. | Framework SDD (barrido 8.7) |
 | 7.7 | 2026-08-16 | §2.1 declara que **no vuelve a preguntar** cuando la reanudación ya resolvió el desfase: lee la decisión del informe de estado, la informa como decidida y continúa. La decisión caduca al cambiar la procedencia o la versión vigente. Sube minor. |

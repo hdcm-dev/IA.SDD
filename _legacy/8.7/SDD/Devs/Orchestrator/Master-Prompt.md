@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 7.5
+**Versión:** 7.4
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -918,17 +918,6 @@ Criterios del audit (matriz):
 - **Conjuntos cerrados, cruzando categorías.** Todo conjunto cerrado que una categoría declara —valores de un campo, estados de una entidad, códigos de resultado, clasificaciones— está marcado como tal, y ninguna otra categoría del árbol afirma algo incompatible sobre el mismo referente. Una divergencia entre dos categorías sobre el mismo conjunto es **P0**. Es el único criterio que obliga a mirar fuera de la fase auditada, y existe porque cada categoría puede ser internamente coherente, pasar su audit, y dejar el producto documentado incoherente. La nota en prosa dentro de un artefacto **no** satisface este criterio: la extensión de un conjunto cerrado ajeno se resuelve con la detención de §7 y queda registrada en el registro de decisiones pendientes de §12.
 - **Anclaje de las referencias** (`Root-Rules.md` §10 R5): toda referencia a un artefacto identificado nombra su identificador en el texto visible. Hallazgo **P2**. No es cosmético: una referencia sin ancla es irreparable cuando su destino cambia, y su costo no se paga al escribirla sino cuando alguien mueve el archivo.
 - **Recuentos anclados** (`Root-Rules.md` §10): por cada recuento que declara su fuente, el número coincide con la colección que cuenta. Hallazgo **P2**, o **P1** si el número vive en un índice, en un manifiesto o en un criterio de aceptación, porque desde ahí se propaga. Los recuentos sin ancla no son hallazgo de este criterio, sino de §10 R1.
-- **Un recuento que confirma una propiedad no confirma las demás, y contarlo a favor es peor que no
-  contarlo.** Toda comprobación enumerable declara **qué propiedad decide y cuál no**. En una
-  auditoría real, una carpeta de trabajo pendiente se contó como evidencia favorable —«ninguno se
-  sobrescribió», que era cierto— cuando la regla que la define declara que **su sola presencia
-  significa que el trabajo no terminó**. El recuento era correcto y sostuvo una conclusión falsa
-  durante tres rondas. Hallazgo **P1** cuando una comprobación se usa para afirmar algo que no decide.
-- **Toda marca de una comprobación se abre antes de reportarla.** Un verificador que sobre-reporta
-  entrena a ignorarlo, y el día que acierta ya nadie lo mira: en la misma corrida, un verificador de
-  preservación marcó pérdidas cinco veces y **cuatro eran artefactos suyos**; la quinta era real. Un
-  recuento de hallazgos que nadie abrió **no es evidencia de nada**, en ninguna de las dos
-  direcciones.
 - **Referencias pendientes** (`Root-Rules.md` §12): toda referencia a un artefacto todavía no emitido está declarada con la forma de §12. Una referencia colgada que no la declara es **P1**; una copia del contenido referenciado, que crea una segunda fuente, es **P0**.
 - **Apartamientos** (`Root-Rules.md` §11): un artefacto obligatorio ausente **con** ADR de apartamiento se evalúa como decisión y no como omisión. Ausente sin ADR es P0.
 - Trazabilidad upstream/downstream declarada en cada cabecera y consistente con §3.3 del archivo de reglas, incluyendo el upstream de nivel producto (00, 01) y de proyectos de código dependientes cuando aplica.

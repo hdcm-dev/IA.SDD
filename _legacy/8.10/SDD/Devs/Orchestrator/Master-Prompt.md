@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 7.7
+**Versión:** 7.6
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -98,8 +98,6 @@ Un árbol de `SDD/Docs/` sobrevive a varias versiones del framework. Esta secci�
 **Cuándo se dispara.** Solo si `SDD/Docs/` tiene contenido. Si está vacía o no existe, el orquestador salta a §3 sin más.
 
 **Si quien invoca no sabe en qué estado está el destino**, el que corresponde antes que éste es `Master-Prompt-Reanudacion.md`: reconstruye el estado desde el árbol, contrasta lo que los documentos declaran contra lo observable, y devuelve la decisión de cuál orquestador continúa. Esta reconciliación resuelve **una** de las seis dimensiones de aquél —la versión— y da por sabidas las otras cinco.
-
-**Y si la reanudación ya corrió, esta reconciliación no vuelve a preguntar.** Cuando existe un informe `Estado-Del-Destino-<fecha>.md` en `SDD/Docs/Audit/` cuya decisión declara **seguir en la versión declarada**, el orquestador lo lee, informa el desfase **como decidido** —citando el informe y su fecha— y continúa sin detenerse. Detenerse otra vez en lo que el humano ya resolvió **le enseña a contestar sin leer**, que es peor que no haber preguntado. La decisión caduca cuando cambia la procedencia o la versión vigente: ahí vuelve a haber algo nuevo que decidir.
 
 **Los tres casos posibles.**
 
@@ -1282,4 +1280,3 @@ Reglas de versionado:
 
 **Fin del master-prompt SDD**
 | 7.6 | 2026-08-16 | §2.1 declara que, si quien invoca **no sabe en qué estado está el destino**, el que corresponde antes es el orquestador de reanudación, y que esta reconciliación resuelve **una** de sus seis dimensiones. Ningún caso, salida ni comportamiento de la reconciliación cambia. Sube minor. |
-| 7.7 | 2026-08-16 | §2.1 declara que **no vuelve a preguntar** cuando la reanudación ya resolvió el desfase: lee la decisión del informe de estado, la informa como decidida y continúa. La decisión caduca al cambiar la procedencia o la versión vigente. Sube minor. |

@@ -1,6 +1,6 @@
 # PRODUCT-INTAKE-template
 
-**Versión de la plantilla:** 3.1
+**Versión de la plantilla:** 3.2
 
 Este campo versiona la **plantilla**. El campo `| Versión |` de la cabecera de abajo pertenece al documento de intake que la plantilla genera, y arranca en 1.0 en cada producto nuevo.
 
@@ -440,9 +440,9 @@ Instrucción: Proponer el árbol `tree` con `/src`, `/tests`, `/samples` y la ca
 Las rutas del framework no se eligen: las fija `Master-Prompt.md` §3.5. El intake va en `SDD/Intake/`, la documentación generada en `SDD/Docs/` y las maquetas de la Fase B2 en `SDD/Maquetas/`. Lo único que esta sección propone es el árbol de código.
 
 Preguntas guía:
-- (*) ¿Cada proyecto de código de §13 tiene su carpeta en `/src` con su nombre de código?
+- (*) ¿Cada proyecto de código de **§13.2** tiene su carpeta en `/src` con su nombre de código?
 - (*) ¿La estructura sigue las convenciones del ecosistema del lenguaje?
-- ¿Los redistribuibles arrancan con el prefijo de organización?
+- ¿El proyecto que publica una unidad de entrega `redistribuible` (§13.1, resuelto por §13.3) arranca con el prefijo de organización? El atributo es de la entrega; el prefijo lo lleva el proyecto que la publica.
 
 Ejemplo (producto Gestión de Turnos):
 ```text
@@ -706,9 +706,9 @@ Composición (Parte B):
 - [ ] §15 garantiza valor demostrable end-to-end en el primer sprint a través de la jerarquía.
 - [ ] §16 publica el árbol `tree` derivado de la jerarquía y de la convención de nombres, con §16.1.
 
-Técnica por proyecto de código (Parte C):
-- [ ] §17 está completo para cada proyecto de código de §13 (identidad + P.1 a P.12).
-- [ ] Cada proyecto de código: P.6 declara cobertura mínima numérica; P.7 adopta SemVer y Conventional Commits; P.8 enumera quality gates bloqueantes; P.9 declara plataformas y versiones mínimas; P.10 expresa NFR con métricas numéricas.
+Técnica por unidad de entrega (Parte C):
+- [ ] §17 está completo para cada unidad de entrega **vigente** de §13.1 (sus **dos** tablas de identidad + P.1 a P.12). **No hay un bloque §17 por proyecto de código**: los proyectos aparecen dentro del bloque de cada entrega que componen.
+- [ ] Cada bloque §17: P.6 declara cobertura mínima numérica; P.7 adopta SemVer y Conventional Commits; P.8 enumera quality gates bloqueantes; P.9 declara plataformas y versiones mínimas; P.10 expresa NFR con métricas numéricas.
 
 Anexos de datos (Parte D — solo si las fuentes aportan ejemplos de instancia):
 - [ ] Todo identificador de escenario citado en el cuerpo (§6, §7, u otras) tiene su JSON completo en §20, y ningún escenario de §20 queda huérfano.
@@ -751,4 +751,5 @@ Este documento alimenta las siguientes secciones SDD. La parte de negocio (A) es
 | 2.1 | 2026-07-29 | Corrección de la sustitución global de cadena de la 5.0. La Parte D declaraba «Regla de **reproducto**», palabra inexistente producida al sustituir `soluci*` por `producto` sobre «re**soluci**ón». La clase de defecto y su prohibición quedan documentadas en `Vocabulario-Rules.md` §9.5. La restitución de las filas históricas de este control de cambios, que la migración había reescrito contra `SDD-Development-Guide.md` §VI.2, se registra una sola vez en `CHANGELOG.md` [5.1] por alcanzar a veintitrés archivos. | Revisión SDD |
 | 2.2 | 2026-08-15 | **Regla de transcripción fiel** en la Parte D (§20), incorporada por la intervención sobre los reportes 00 a 11. El enum de `Estado` gobierna la relación entre el dato y su existencia; faltaba la relación entre el dato y lo que la fuente afirma sobre ese dato. Tres obligaciones: reproducir el conteo que la fuente enuncia, declarar los dos valores y su razón cuando la transcripción arroja otro, y marcar como derivada toda magnitud que el escenario calcule en lugar de copiar, aunque el escenario sea `medido` en su conjunto. Se agrega el bloque de conteo como forma sugerida y dos anti-patrones: el conteo derivado presentado como transcripto, y la prosa que contradice al payload sin declararlo. Sube **minor**: incorpora una exigencia sin reestructurar el artefacto; un intake ya emitido no deja de cumplir por su forma, aunque pueda fallar la validación nueva de `Intake-Rules.md` §5, que es el efecto buscado. Origen: reporte `00`, huecos A y B, con el caso del escenario que afirmaba tres números distintos sobre la misma tabla. | Framework SDD (intervención reportes 00-11) |
 | 3.0 | 2026-08-15 | **La composición se declara en dos ejes** (framework 8.0). §13 pasa de una tabla de proyectos de código a tres subsecciones: §13.1 unidades de entrega con su `tipo_unidad_entrega` D8, su `redistribuible` y su estado —vigente o diferida—; §13.2 proyectos de código con su solución de código, su stack, sus dependencias de compilación y las unidades de entrega que componen; y §13.3 la matriz de composición, que hace visible el proyecto compartido. Se declara el criterio que decide qué es cada cosa, con la aclaración de que las dos condiciones no se excluyen: una librería que se publica es proyecto de código y unidad de entrega. §14 distingue los **contratos de integración** entre unidades de entrega de los **contratos de compilación** entre proyectos de código, y declara que son dos grafos distintos. §17 pasa a repetirse por unidad de entrega, con el motivo escrito: sus doce subsecciones describen decisiones de lo que se entrega, y un proyecto de código que no se despliega no tiene NFR de latencia ni plataformas propias. Sube **major**: cambia la estructura de la Parte B y la cardinalidad de la Parte C. |
+| 3.2 | 2026-08-16 | **Barrido por concepto de la propia 8.7**, que corrigió §17 y **no revisó el checklist de §19 que lo verifica**: seguía pidiendo «§17 completo para cada proyecto de código de §13», que es el nivel que esa misma intervención había sacado. Es el caso que `SDD-Development-Guide.md` §VI.3.1 nombra —barrer **el interior de lo ya tocado**— y la primera vez que se cobra. §16 desambigua §13.2 y corrige la pregunta del prefijo de organización, que trataba `redistribuible` como atributo del proyecto. |
 | 3.1 | 2026-08-16 | **Cierra la contradicción que la 3.0 dejó dentro de §17**, detectada al migrar un destino real con la plantilla en la mano. La tabla de identidad del bloque técnico se conservó de la versión anterior, que era **por proyecto de código**, y seguía pidiéndole `tipo_unidad_entrega` (D8) y `redistribuible` al proyecto de código — contra lo que **§13.2 del mismo documento** declara, «los proyectos de código no llevan valor D8», y contra §13.1, que hace de `redistribuible` una columna de la unidad de entrega. Quien completara el intake siguiendo §17 **declaraba D8 tantas veces como proyectos tuviera el producto**. Ahora son **dos tablas**: la identidad de la unidad de entrega, con su D8, su `redistribuible` y los proyectos que la componen; y la de esos proyectos, con nombre, identidad de código y rol, **sin D8 y sin `redistribuible`**, con la constancia de por qué no los lleva y de que un proyecto compartido aparece en el bloque de cada entrega que compone. **Ocho instrucciones de P.1 a P.12** decían «del proyecto de código» bajo un encabezado que dice «por unidad de entrega», y pasan a decirlo de la entrega, con la regla de nombrar el proyecto cuando el dato es de uno en particular: P.1 los stacks, P.3 los dos contratos contra §13.1 y §13.2, P.6 los umbrales **que no se promedian**, y P.10 los NFR de una capa interna. Ninguna sección se agrega ni se retira y ningún campo bloqueante cambia. Sube minor. |

@@ -1,7 +1,7 @@
 # Marco Teórico SDD
 
 **Documento:** Marco-Teorico-SDD.md
-**Versión:** 3.0
+**Versión:** 3.1
 **Estado:** Aprobado
 **Fecha:** 2026-07-19
 **Autor:** Equipo Template SDD — UTN
@@ -301,7 +301,7 @@ El intake se organiza en tres partes:
 
 - Parte A — Negocio (§1 a §12): visión del producto, problema, usuarios, alcance, stakeholders, criterios de éxito y exclusiones. Es el insumo de negocio de AG-00 (Product Manager) y AG-01 (Analista de Negocio). Se carga una vez, porque el negocio es uno por producto (intake a nivel producto, ver §3.10.5).
 - Parte B — Composición (§13 a §16): la tabla de unidades de entrega tipados (§13), el estilo de producto (§14), la descomposición (§15) y la estructura (§16). La tabla de unidades de entrega tipados del §13 declara, para cada unidad de entrega, su tipo D8, su rol y sus dependencias; es la fuente desde la que se deriva el PRODUCT-MANIFEST (ver §3.10.3). En un producto de un único unidad de entrega, la tabla tiene una sola fila y la composición se comporta igual que en el modelo de tipo único.
-- Parte C — Técnica por proyecto de código (§17): un bloque repetible P.1 a P.12 por cada proyecto de código, con el stack tentativo, las decisiones D1–D9 que ese proyecto de código adopta y las secciones del SDD que aplican y las que no.
+- Parte C — Técnica por unidad de entrega (§17): un bloque repetible P.1 a P.12 por cada unidad de entrega vigente, con el stack tentativo de los proyectos de código que la componen, las decisiones D1–D9 que ese proyecto de código adopta y las secciones del SDD que aplican y las que no.
 
 El documento se cierra con §18 (samples) y §19 (checklist de completitud).
 
@@ -1797,7 +1797,7 @@ Términos canónicos del template SDD. Cada uno con definición operativa en una
 | **SBOM** | Software Bill of Materials. Lista trazable de todos los componentes que conforman un artefacto de software. |
 | **SDD (Specification-Driven Development)** | Enfoque que pone a la especificación como artefacto central del ciclo de desarrollo. |
 | **SemVer** | Semantic Versioning 2.0.0. Estándar de versionado MAJOR.MINOR.PATCH para librerías y APIs. |
-| **PRODUCT-MANIFEST** | Fuente única de verdad de un producto. Enumera sus unidades de entrega y, por cada uno, su tipo D8, rol, dependencias y nombres de código. Su grafo de dependencias es acíclico (DAG). Es un artefacto derivado: el orquestador lo construye desde el §13 del intake en la Fase de validación de intake y lo confirma con el humano; no se completa a mano. |
+| **PRODUCT-MANIFEST** | Fuente única de verdad de un producto. Enumera sus unidades de entrega con su tipo D8, rol e integraciones; sus proyectos de código con su identidad de código y sus dependencias de compilación; y la matriz de composición entre los dos ejes. Su grafo de dependencias es acíclico (DAG). Es un artefacto derivado: el orquestador lo construye desde el §13 del intake en la Fase de validación de intake y lo confirma con el humano; no se completa a mano. |
 | **Producto** | Aquello que se entrega y que alguien usa para obtener valor. Lo delimitan una frontera clara, stakeholders conocidos, usuarios o clientes definidos, y un roadmap y un ciclo de vida propios. Es la unidad de trabajo del framework: un intake, un negocio, un repositorio destino. No tiene un D8 propio: su tipo es compuesto, derivado de los tipos de sus unidades de entrega. Definición normativa en `Vocabulario-Rules.md` §2. |
 | **Solución de código** | El artefacto del ecosistema que agrupa la construcción: el archivo de solución en .NET, el POM agregador en Maven, el *workspace* en Cargo o npm. No es el producto: es cómo se agrupa su compilación. |
 | **Sprint** | Iteración de tiempo fijo (típicamente 1 a 4 semanas) donde el equipo entrega un incremento del producto. |

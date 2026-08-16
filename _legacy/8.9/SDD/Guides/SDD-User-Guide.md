@@ -369,11 +369,11 @@ Validá rápidamente que el intake está en su lugar (destino) y que el template
 
 ```bash
 ls SDD/Intake/                        # tu intake, en el repo destino
-ls ../IA.SDD/SDD/Devs/Orchestrator/   # Master-Prompt.md, Master-Prompt-Migracion.md y Master-Prompt-Reanudacion.md, en la fuente
+ls ../IA.SDD/SDD/Devs/Orchestrator/   # Master-Prompt.md y Master-Prompt-Migracion.md, en la fuente
 ls ../IA.SDD/SDD/Devs/Rules/          # reglas de la fuente
 ```
 
-Debería listar los **tres** master-prompts en `Orchestrator/` de la fuente —`Master-Prompt.md`, que genera, y `Master-Prompt-Migracion.md`, que lleva un destino ya especificado a la versión vigente—, los doce archivos de reglas por categoría `Rules-*.md` (de `Rules-Contexto.md` a `Rules-Examples.md`), más las seis reglas transversales `Root-Rules.md`, `Intake-Rules.md`, `Maqueta-Rules.md`, `Deriva-Rules.md`, `Vocabulario-Rules.md` y `Migracion-Rules.md` en `Rules/` de la fuente —dieciocho archivos en total—, y tu intake personalizado en `SDD/Intake/` del destino (el único `PRODUCT-INTAKE` del producto). El `PRODUCT-MANIFEST` no lo creás vos: lo deriva el orquestador y lo escribe también en `SDD/Intake/` del destino.
+Debería listar los dos master-prompts en `Orchestrator/` de la fuente —`Master-Prompt.md`, que genera, y `Master-Prompt-Migracion.md`, que lleva un destino ya especificado a la versión vigente—, los doce archivos de reglas por categoría `Rules-*.md` (de `Rules-Contexto.md` a `Rules-Examples.md`), más las seis reglas transversales `Root-Rules.md`, `Intake-Rules.md`, `Maqueta-Rules.md`, `Deriva-Rules.md`, `Vocabulario-Rules.md` y `Migracion-Rules.md` en `Rules/` de la fuente —dieciocho archivos en total—, y tu intake personalizado en `SDD/Intake/` del destino (el único `PRODUCT-INTAKE` del producto). El `PRODUCT-MANIFEST` no lo creás vos: lo deriva el orquestador y lo escribe también en `SDD/Intake/` del destino.
 
 ### 4.5 Paso 5 — Ejecutar el master-prompt en Claude Code
 
