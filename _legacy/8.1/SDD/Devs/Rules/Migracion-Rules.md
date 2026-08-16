@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino para los dos artefactos propios. El alcance sobre el que la migración opera es `SDD/Intake/` y `SDD/Docs/` del mismo repositorio
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto, unidad de entrega y proyecto de código
 **Subagente target del orquestador:** el orquestador de migración para el plan y el cierre; el auditor independiente para el informe; el subagente titular de cada categoría para re-expresar los documentos de esa categoría
-**Versión de las reglas:** 3.1
+**Versión de las reglas:** 3.0
 
 Dentro de este archivo «migración» se usa en forma desnuda, según la excepción que `Vocabulario-Rules.md` §9.6 declara: en este contexto de lectura no hay otro referente con el que colisione. En cualquier otro archivo del framework el término va calificado como «migración normativa».
 
@@ -169,40 +169,6 @@ presenta al humano para confirmación. Contiene, por cada identificador alcanzad
 El árbol se emite como artefacto del plan y se confirma. Un identificador sin fila en el árbol es
 un identificador que la migración no va a tocar, y eso tiene que ser una decisión y no un olvido.
 
-**Pasada 1.b — Familias acuñadas por el destino.** Antes de cerrar el árbol, el agente busca
-**familias de identificador que el destino haya acuñado y que no pertenezcan al catálogo del
-framework**: prefijos con forma de identificador que ninguna regla declara, y formas calificadas que
-el destino inventó para desambiguar —`P·CU-XX`, `<Proyecto>·CU-XX` y equivalentes—.
-
-Aparecen con certeza y no por azar: un destino que se choca con un hueco normativo **inventa un
-identificador para seguir trabajando**, y esa invención es justamente la evidencia de qué le faltaba
-al método. Ignorarlas al migrar deja identificadores huérfanos que ninguna regla gobierna y que
-ninguna comprobación de referencias detecta, porque resuelven entre sí.
-
-Por cada familia encontrada, el árbol declara:
-
-| Campo | Contenido |
-| --- | --- |
-| Forma | `P·CU-XX` |
-| Ocurrencias y dónde | Cuántas y en qué categorías |
-| Qué hueco vino a llenar | La lectura del destino sobre qué le faltaba al framework |
-| Resolución | Una de las tres de abajo |
-
-Las tres resoluciones posibles, y el orden en que hay que evaluarlas:
-
-1. **Se retira porque el hueco ya no existe.** La versión vigente resolvió lo que la familia venía a
-   suplir, de modo que la invención dejó de hacer falta. Es la resolución preferible y la más
-   frecuente, porque estas familias nacen de huecos que las intervenciones posteriores cierran. Se
-   retira la forma calificada y sus citas pasan a la familia del framework que ahora las cubre.
-2. **Se adopta como familia del destino**, con su prefijo, su forma y su ámbito declarados en la
-   categoría que la acuña, según `Root-Rules.md` §9.5. Aplica cuando nombra algo que el framework no
-   modela y que el producto sí necesita.
-3. **Se escala como hueco del framework.** Si la familia nombra algo que el método debería modelar y
-   no modela, la migración lo declara y **no lo resuelve por su cuenta**: no es una decisión de
-   destino.
-
-La resolución la confirma el humano, como el resto del árbol.
-
 **Pasada 2 — Aplicación.** Se aplica **el árbol confirmado**, no una búsqueda: renombre de archivos,
 sustitución de identificadores y actualización de cada referencia enumerada. Cierra con tres
 comprobaciones bloqueantes:
@@ -341,7 +307,6 @@ Antes de cerrar la migración:
 - [ ] [interpretativo] Ningún caso de uso se fusionó automáticamente por coincidencia de título; los duplicados por capa se conservan con su origen declarado y su deduplicación se propuso como lista.
 - [ ] [enumerable] El contenido sin destino está declarado en el informe y no se descartó en silencio.
 
-- [ ] [enumerable] El árbol declara las **familias acuñadas por el destino** que no pertenecen al catálogo del framework, con su resolución confirmada por el humano.
 - [ ] [enumerable] Si el salto alcanza la forma de los identificadores, existe el **árbol de migración** de §4.3.1 con una fila por identificador alcanzado, y está confirmado por el humano antes de la pasada de aplicación.
 - [ ] [enumerable] Después de la pasada de aplicación, ninguna referencia queda colgada, ningún identificador de destino colisiona y no hay residuos de la forma vieja fuera de `_legacy/`.
 - [ ] [enumerable] Ningún archivo de `_legacy/` fue renombrado por la renumeración.
@@ -434,4 +399,3 @@ Para el despacho del auditor, los criterios de §6 de este archivo se suman a lo
 | 1.0 | 2026-07-29 | Regla inicial de migración normativa, decimoctava regla del framework y sexta transversal. Fija el **principio de estado objetivo** de §3, con sus cinco fundamentos y su única concesión, en lugar de playbooks por salto de versión: la normativa vigente es la especificación del destino y el documento existente es la fuente del contenido. §1 declara que la migración no crea especialidades y delega el perfil a §1.2 de la regla de cada categoría, con la omisión de la tabla por D8 declarada y fundamentada. §2 declara los dos artefactos propios, el plan como contrato entre los dos orquestadores con su columna nueva de fuente de contenido, el alcance sobre `SDD/Intake/` y `SDD/Docs/` y los cuatro artefactos fuera de alcance con su razón. §4 reúne la mecánica: **regla de no invención** (§4.1), preservación de contenido y de correcciones manuales con archivado previo (§4.2), clasificación por severidad del salto (§4.3), el intake como documento humano con el agente proponiendo y el orden de la cadena D6 (§4.4), **destinos sin procedencia** admitidos con clasificación degradada a revisar todo (§4.5) y **migración parcial** admitida con la procedencia intacta y el estado parcial declarado (§4.6). §6 declara catorce criterios de aceptación y seis hallazgos P0; §7, ocho anti-patrones. La regla no declara fases ni orden de ejecución de la corrida: eso vive en el master-prompt de migración. | Framework SDD (migración normativa) |
 | 2.0 | 2026-08-15 | Renumeración de identificadores y renombre de archivos (intervención reportes 00 a 11). **§4.3.1 es nueva**: cuando un salto normativo cambia la forma de los identificadores —como el de la 7.0, que fija cinco dígitos y ámbito producto—, la migración se hace en dos pasadas. La primera construye el **árbol de migración** completo, con identificador de origen y de destino, archivos a renombrar y **todas** las referencias que los apuntan, y se confirma con el humano antes de tocar nada. La segunda aplica el árbol confirmado y cierra con tres comprobaciones bloqueantes: ninguna referencia colgada, ninguna colisión de destino —el riesgo real cuando el ámbito pasa de proyecto de código a producto— y ningún residuo de la forma vieja fuera de `_legacy/`, que no se renombra. La evidencia de por qué no alcanza una sola pasada es de una corrida real: renumerar treinta y nueve archivos produjo por sí solo dos hallazgos bloqueantes. §6 suma sus tres criterios. Además, §6 clasifica cada criterio de aceptación como `[enumerable]` o `[interpretativo]`. Sube **major**: incorpora una capacidad que la migración no tenía y sin la cual el salto a la 7.0 no se puede ejecutar. Origen: reportes `01` y `05`, y la decisión del responsable del 2026-08-15. | Framework SDD |
 | 3.0 | 2026-08-15 | **Migración estructural del proyecto de código a la unidad de entrega** (framework 8.0). §4.3.2 es nueva y declara los cuatro pasos del salto: propuesta de clasificación con sus cuatro señales y **detención obligatoria** para que el humano la confirme, porque el manifiesto de un destino 7.0 no declara cuál de sus proyectos de código se despliega; mapa de fusión de árboles, con la regla de que el árbol de un proyecto **compartido** no se funde en ninguna unidad, ya que adivinarle una dueña es el defecto que la 8.0 corrige; qué se conserva y qué se declara, con la prohibición de fusionar casos de uso por coincidencia de título y la obligación de declarar el contenido sin destino en lugar de borrarlo; y la renumeración por el árbol de §4.3.1, que acá importa más que en otros saltos porque fundir dos árboles puede producir colisiones que antes no existían. §6 suma cuatro criterios. Sube **major**: incorpora una capacidad sin la cual el salto a la 8.0 no se puede ejecutar. | Framework SDD |
-| 3.1 | 2026-08-15 | **Familias de identificador acuñadas por el destino** (framework 8.2). §4.3.1 suma la pasada 1.b: antes de cerrar el árbol de migración hay que buscar los prefijos con forma de identificador que ninguna regla del framework declara, y las formas calificadas que el destino inventó para desambiguar. Aparecen con certeza y no por azar —un destino que se choca con un hueco normativo inventa un identificador para seguir trabajando— y su invención es la evidencia de qué le faltaba al método. Se declaran con su forma, sus ocurrencias, el hueco que vinieron a llenar y su resolución, que es una de tres y se evalúa en orden: retirarla porque la versión vigente ya cubrió el hueco, adoptarla como familia del destino con prefijo y ámbito declarados, o escalarla como hueco del framework sin resolverla. Sube **minor**: agrega una pasada al árbol sin cambiar la mecánica de las dos existentes. **Origen**: la migración de un destino real que había acuñado `P·CU-XX`, con 166 ocurrencias, para nombrar una numeración de casos de uso de nivel producto que el ámbito de unicidad de la 7.0 volvió innecesaria. | Framework SDD (validación por migración) |
