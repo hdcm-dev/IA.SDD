@@ -3,6 +3,24 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.11] - 2026-08-16
+
+**El orquestador de reanudación de la 8.10 diagnosticaba y se detenía.** Lo señaló el Product Owner el mismo día, con una pregunta directa: *«y si no se migra —porque no hay que migrar o porque se eligió no hacerlo—, ¿retomaría, recuperaría el contexto y seguiría?»*.
+
+**La respuesta era no.** Sus cuatro fases terminaban en un informe y sus salidas decían a qué prompt ir, con lo cual **el siguiente volvía a deducir lo que éste acababa de deducir** —el trabajo que el prompt vino a evitar—. Y en la salida más frecuente, continuar la construcción, **no hay «tal otro»**: no tiene prompt, de modo que quedaba un diagnóstico sin punto de continuación.
+
+### Cambiado
+
+- **`Master-Prompt-Reanudacion.md` 1.0 → 1.1.** El informe **deja de ser un diagnóstico y pasa a ser el instrumento de entrega**: suma el **diff normativo** que el orquestador siguiente consume, la **decisión** con su autor y su fecha, y el **punto de continuación** —la etapa que sigue, su puerta de entrada y los documentos que la gobiernan—, que existe **para la salida que no tiene prompt**. Entra **R4, la continuación**: escrito el informe, se sigue en la misma sesión. Cortar ahí sigue siendo válido; lo que no lo es, es continuar **sin** escribir el informe, porque entonces el contexto vuelve a vivir sólo en la sesión.
+- **`Master-Prompt.md` 7.6 → 7.7.** §2.1 **no vuelve a preguntar** cuando la reanudación ya resolvió el desfase: lee la decisión del informe, la informa como decidida y continúa. Caduca al cambiar la procedencia o la versión vigente.
+- **`Master-Prompt-Migracion.md` 2.2 → 2.3.** **M1 verifica** el diff normativo que el informe trae, en lugar de reconstruirlo: rehacerlo no lo vuelve más confiable, lo vuelve más lento y arriesga dos diffs del mismo salto que no coinciden.
+
+**La 8.10 cometió el defecto que la 8.9 había escrito para evitar.** Su regla dice que la pregunta final de toda intervención es «¿mi intervención cometió el defecto que corrige?», y acá la respuesta era sí: **un prompt contra la pérdida de contexto que no entregaba contexto**. Es el cuarto caso del mismo patrón, y los tres anteriores están registrados en esa misma regla.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/8.10/`.
+
+---
+
 ## [8.10] - 2026-08-16
 
 **«Si corto a mitad de camino, ¿cómo se continúa desde una sesión limpia?»** La pregunta la hizo el Product Owner al terminar una migración real, y **no había respuesta escrita**: los dos orquestadores declaran detenciones, confirmaciones humanas y auditores invocados desde cero, y ninguno declara cómo se retoma.
