@@ -3,7 +3,7 @@ doc_id: GUIDE-SDD-DEVELOPMENT
 doc_type: development-guide
 title: Guía de desarrollo y extensibilidad del framework SDD
 status: vigente
-version: 1.9
+version: 1.8
 owner: Framework SDD
 last_review: 2026-07-29
 audience: [mantenedor-del-framework, agente-ia]
@@ -478,26 +478,6 @@ Un criterio de aceptación se escribe casi siempre mirando el artefacto que se q
 - ¿Una declaración verdadera alcanza, o hace falta que sea **verificable**? No son lo mismo. Una trazabilidad que dice la verdad sobre qué pasos recorre sigue sin servir si ninguna aserción falla cuando esos pasos se rompen.
 - ¿La pregunta que hace falta ya está escrita en §5, del lado que no bloquea? Las preguntas guía son cantera de criterios: están escritas, están bien formuladas y no detienen nada. **Promover una es más barato que inventarla.**
 
-**Sobre las operaciones que declares, y es donde más se falla:**
-
-Una regla que define una **operación** —renombrar, archivar, fundir, propagar, reabrir— casi siempre
-declara qué hace y casi nunca qué **produce como efecto**. Y toda operación produce situaciones
-nuevas: renombrar deja punteros apuntando al nombre viejo, archivar baja un documento de nivel y le
-acorta las rutas, fundir dos árboles produce colisiones de nombre, propagar hacia una categoría ya
-aprobada produce contradicciones. No son casos exóticos: son **consecuencias necesarias** de la
-operación, y si la regla no dice qué hacer con ellas, cada agente que las encuentra improvisa.
-
-- ¿Qué situaciones **crea** esta operación que antes no existían? Enumeralas: es una lista corta y se
-  agota pensando qué queda distinto después de ejecutarla.
-- Por cada una, ¿la regla dice qué hacer? Si la respuesta es «se entiende», no está declarada.
-- ¿La operación deja algo **derivado** desactualizado —una ruta, un recuento, un índice—? Eso no se
-  arregla pidiendo cuidado: se declara quién lo recalcula.
-- ¿Hay un caso que la operación produce y que **no se puede resolver contando**? Ése es el que exige
-  detención y decisión humana, y hay que decirlo en la regla en lugar de descubrirlo en una corrida.
-
-Es la misma pregunta que la sección anterior hace sobre los criterios, aplicada a los verbos en lugar
-de a los artefactos.
-
 **Sobre el impacto:**
 
 - ¿Cuántos archivos toca este cambio? Si son más de tres o cuatro, conviene segmentar en etapas con nota de coherencia entre cada una.
@@ -650,5 +630,4 @@ Quedan fuera del snapshot el propio `CHANGELOG.md`, que es acumulativo y cuya hi
 | 1.6 | 2026-07-29 | Puesta al día contra el conjunto 6.0 y la decimoctava regla. **Tres conteos corregidos**, los mismos ejes que la 1.4 ya había tenido que corregir una vez: §I.2 pasa de diecisiete archivos normativos y cinco transversales a dieciocho y seis, §II.1 de «las cinco reglas transversales» a seis, y §III.7 de «los diecisiete archivos de reglas» a dieciocho, con «el master-prompt» pasando a «los dos master-prompts». **§I.1** suma al mapa de dependencias los nodos `Master-Prompt-Migracion` y `Migracion-Rules`, con la arista punteada que declara que el orquestador de migración **cita** el despacho y la auditoría del de generación en lugar de redefinirlos. **§I.2** reescribe la fila de `Orchestrator/`, que describía un solo archivo. **§I.3** parte la fila del master-prompt en las dos que hoy existen y suma `Migracion-Rules.md`, declarando que ninguna corrida de generación la lee. **§II.1** declara además que §1.2 y §2.1 son contrato incluso en las reglas transversales, porque el orquestador las resuelve por número y no por título, con el caso de `Intake-Rules.md` como ejemplo. **§VI.5** corrige la tabla de derivación del conjunto, que hacía subir major solo por reglas e invariantes y no contemplaba las plantillas de intake, pese a que se versionan aparte de toda regla; la corrección se aplica también a la fila equivalente del `README.md` raíz. Sube minor: pone al día conteos y declaraciones sin cambiar ningún procedimiento. | Framework SDD (migración normativa) |
 | 1.7 | 2026-08-15 | Regla de redacción de criterios de aceptación (intervención reportes 00 a 11). La Parte IV suma el bloque «sobre qué pregunta el criterio», con la observación que lo origina: la propiedad que hace útil a una declaración casi nunca es del artefacto solo, es de la **relación** entre el artefacto y otra cosa, y como verificar una relación exige leer los dos lados, los criterios derivan sistemáticamente hacia la presencia. Se incorpora la comprobación barata —por cada criterio que cuenta algo, preguntarse si una declaración falsa sube o baja la cuenta, porque un criterio que se cumple mejor con un artefacto falso tiene el signo cambiado—, la distinción entre declaración verdadera y declaración verificable, y la indicación de promover preguntas de §5 a §6 en lugar de inventar criterios. Se agrega además la marca `[enumerable]` / `[interpretativo]` como pregunta obligatoria, con su política conservadora. Origen: reportes `09` y `10`. | Framework SDD (intervención reportes 00-11) |
 | 1.8 | 2026-08-15 | Puesta al día por el nivel de unidad de entrega (framework 8.0). La guía pasa a nombrar la unidad de entrega donde el referente es el nivel intermedio del layout, y conserva el proyecto de código donde el referente es la unidad de compilación. La pregunta «¿qué comportamiento tiene para cada uno de los ocho tipos?» de la Parte IV sigue siendo válida, y ahora se responde sobre la unidad de entrega, que es de quien D8 es atributo. | Framework SDD (nivel de unidad de entrega) |
-| 1.9 | 2026-08-15 | La Parte IV suma el bloque «sobre las operaciones que declares» (framework 8.4). Una regla que define una operación declara qué hace y casi nunca qué **produce como efecto**, y toda operación produce situaciones nuevas: renombrar deja punteros al nombre viejo, archivar acorta rutas relativas, fundir produce colisiones de nombre, propagar hacia una categoría aprobada produce contradicciones. No son casos exóticos sino consecuencias necesarias, y sin declararlas cada agente improvisa. Cuatro preguntas: qué situaciones crea la operación, si la regla dice qué hacer con cada una, si deja algún dato derivado desactualizado y quién lo recalcula, y cuál de esos casos no se puede resolver contando y por lo tanto exige detención. Origen: de los seis huecos que una migración real destapó, dos eran de esta clase y los cuatro restantes eran datos derivados sin dueño. | Framework SDD (validación por migración) |
 | 1.5 | 2026-07-29 | Forma obligatoria del registro de impacto en las entradas major (prerrequisito F4 de la migración normativa). **§VI.4** suma la especificación del bloque «Impacto sobre destinos existentes»: tres tablas —renombres de artefacto, secciones movidas o partidas y campos bloqueantes nuevos—, con la regla de que una tabla sin contenido se declara vacía y no se omite. El fundamento es que hay una clase de cambio que ningún diff de versiones puede inferir: un renombre de artefacto no se deduce de que su regla haya subido de 2.1 a 3.0, y ese conocimiento vivía disperso en prosa, donde un agente que tiene que reconocer un destino legado no lo puede resolver. Se declara además qué **no** es el bloque —un playbook de migración por salto de versión, que duplicaría el estado objetivo ya declarado en las reglas y obligaría a mantener dos declaraciones sincronizadas—, para que la concesión no se lea como habilitación de esa forma. **§VI.5** declara la obligación correlativa al publicar un conjunto major, y que se cumple una vez por entrada consolidando la intervención entera, no una vez por regla que sube. Sube **minor**: precisa la forma de un registro que ya era obligatorio, sin cambiar ningún procedimiento existente. | Framework SDD (migración normativa) |
