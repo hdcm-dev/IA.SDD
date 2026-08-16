@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Coherencia-Reportes-00-11.md
-**Versión:** 1.0
+**Versión:** 1.1
 **Estado:** Vigente
 **Fecha:** 2026-08-15
 **Autor:** AG-ROOT (Arquitecto de Soluciones) con verificación contra los doce reportes de evidencia
@@ -140,12 +140,18 @@ condición de terminado a la Fase A; decidir si el «glosario de categoría» es
 ampliar D9 a los recuentos en prosa. Los cinco están declarados en el plan de aplicación, y ninguno
 queda como hueco silencioso.
 
-**Un pendiente estructural quedó explícito y sin ejecutar.** Durante la intervención se confirmó, con
-mediciones sobre tres destinos reales, el pendiente que `Vocabulario-Rules.md` §8 ya declaraba: la
-**unidad de entrega** está definida y no es un nivel del layout, y las once categorías cuelgan hoy del
-nivel de proyecto de código. Es una intervención estructural aparte. Esta intervención es su
-prerrequisito, porque el nivel por artefacto de R3 es lo que permite declarar qué artefacto
-corresponde a qué nivel.
+**Un pendiente estructural quedó explícito.** Durante la intervención se confirmó, con mediciones
+sobre tres destinos reales, el pendiente que `Vocabulario-Rules.md` §8 ya declaraba: la **unidad de
+entrega** está definida y no es un nivel del layout, y las once categorías cuelgan del nivel de
+proyecto de código. Es una intervención estructural aparte, y ésta es su prerrequisito: el nivel por
+artefacto de R3 es lo que permite declarar qué artefacto corresponde a qué nivel.
+
+> **Reexpresado.** Esta nota verificó el conjunto **7.0**, y en ese momento el pendiente estaba sin
+> ejecutar. La versión **8.0** lo ejecutó, en la misma sesión: el nivel intermedio pasó a la unidad de
+> entrega y `Vocabulario-Rules.md` §8 lo declara cerrado. La celda se reexpresa porque su redacción
+> original —«sin ejecutar»— quedaría falsa contra el árbol vigente; lo que la nota **verificó** no se
+> toca, según `README.md`. Su nota de coherencia es
+> [`Coherencia-Unidad-De-Entrega.md`](Coherencia-Unidad-De-Entrega.md).
 
 ## 6. Veredicto
 
@@ -160,3 +166,12 @@ corresponde a qué nivel.
 - La única invariante modificada es D3, con decisión explícita del responsable, y su impacto sobre
   destinos existentes está declarado en la entrada `[7.0]` del `CHANGELOG.md` con su vía de
   reparación, que la migración normativa ahora sabe ejecutar.
+
+---
+
+## Control de cambios
+
+| Versión | Fecha | Descripción |
+| --- | --- | --- |
+| 1.0 | 2026-08-15 | Nota inicial de la intervención sobre los reportes 00 a 11, conjunto 7.0. |
+| 1.1 | 2026-08-15 | **Reexpresión de una celda de §5**, según el procedimiento de `README.md`: la nota declaraba el pendiente de la unidad de entrega «sin ejecutar», y la versión 8.0 lo ejecutó en la misma sesión, de modo que esa redacción quedaría falsa contra el árbol vigente. Se declara bajo qué versión se hizo la verificación original y se enlaza la nota de coherencia que registra su cierre. El alcance de lo que esta nota verificó no se toca. |
