@@ -1,6 +1,6 @@
 # PRODUCT-MANIFEST-template
 
-**Versión de la plantilla:** 4.1
+**Versión de la plantilla:** 5.0
 
 Este campo versiona la **referencia de formato**. El campo `| Versión |` del bloque de producto de §1 pertenece al manifiesto que el orquestador deriva, y arranca en 1.0 en cada producto nuevo.
 
@@ -86,27 +86,62 @@ Configuración que el orquestador aplica de forma reproducible para derivar los 
 
 ---
 
-## §2 Tabla de proyectos de código
+## §2 Los dos ejes del producto
 
-Una fila por proyecto de código. Todos los campos son obligatorios salvo Dependencias, que puede quedar vacío para proyectos de código sin dependencias.
+El manifiesto deriva **dos tablas y una matriz**, porque el producto tiene dos ejes que no coinciden:
+el de entrega, que dice qué se despliega, y el de construcción, que dice qué se compila.
 
-| `Nombre-Proyecto-Codigo` | `Identidad-Codigo` | `tipo_proyecto_codigo` (D8) | Rol en el producto | `redistribuible` | Dependencias | Path `/src` |
+### §2.A Tabla de unidades de entrega
+
+Se deriva de §13.1 del intake. Una fila por unidad de entrega. Es la que lleva el valor D8.
+
+| `Nombre-Unidad-Entrega` | `tipo_unidad_entrega` (D8) | Rol en el producto | `redistribuible` | Integra con (runtime) | Estado | Path de documentación |
 |---|---|---|---|---|---|---|
-| [Nombre-Proyecto-Codigo] | [`<Raiz-Codigo>.<Sufijo>`] | [uno de los 8 D8] | [una frase] | [true / false] | [lista de Nombre-Proyecto-Codigo o vacío] | [`src/<NombreProyectoCodigo>/`] |
+| [Nombre-Unidad-Entrega] | [uno de los 8 D8] | [una frase] | [true / false] | [lista o vacío] | [vigente / diferida] | [`SDD/Docs/Unidades-Entrega/<Nombre>/`] |
 
-Valores cerrados de `tipo_proyecto_codigo` (D8), exactamente 8:
+Valores cerrados de `tipo_unidad_entrega` (D8), exactamente 8:
 
 ```text
 library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service
 ```
 
+### §2.B Tabla de proyectos de código
+
+Se deriva de §13.2 del intake. Una fila por proyecto de código. **No lleva valor D8**: el tipo es
+atributo de la entrega, no de la compilación.
+
+**Agrupada por solución de código.** Un producto puede tener más de una solución de código
+(`Vocabulario-Rules.md` §5), y cuando las tiene la tabla se emite **una vez por solución**, con su
+encabezado. El motivo es que la solución de código es lo que delimita un comando de construcción:
+dos proyectos de soluciones distintas no se construyen juntos, y su grafo de compilación no es uno
+solo sino uno por solución. Con una sola solución —el caso frecuente— la tabla se emite una vez y el
+encabezado la nombra igual, para que el lector sepa cuál es.
+
+| `Nombre-Proyecto-Codigo` | `Identidad-Codigo` | Solución de código | Stack | Rol en la arquitectura | Dependencias de compilación | Path `/src` |
+|---|---|---|---|---|---|---|
+| [Nombre-Proyecto-Codigo] | [`<Raiz-Codigo>.<Sufijo>`] | [nombre] | [lenguaje y framework] | [una frase] | [lista o vacío] | [`src/<Identidad-Codigo>/`] |
+
+### §2.C Matriz de composición
+
+Se **deriva** de la columna «Compone» de §13.2 del intake; no se completa a mano. Cruza los dos ejes.
+
+| | [Proyecto-A] | [Proyecto-B] | [Proyecto-Compartido] |
+|---|---|---|---|
+| [Unidad-1] | X | | X |
+| [Unidad-2] | | X | X |
+
+Una columna con más de una marca es un proyecto de código **compartido**. El orquestador la publica en
+la vista de producto y la incluye en el despacho de cada unidad de entrega, con los compartidos
+marcados: un subagente que va a proponer un cambio sobre un proyecto compartido tiene que saber a
+quién más alcanza.
+
 ### §2.1 Regla de nombres de código
 
 1. El nombre de código de cada proyecto de código se forma como `<Raiz-Codigo>.<Sufijo>`, donde `<Sufijo>` identifica el rol del proyecto de código.
 2. Si `redistribuible: true`, el nombre arranca con el prefijo de organización del perfil (`Aplicada` por defecto) en lugar de la raíz de código, porque un paquete reusable necesita un espacio de nombres estable e independiente del producto que lo consume. Por ejemplo, bajo la raíz de código `Contoso.Turnos`, un paquete de validaciones reusable se llama `Aplicada.Validaciones`, no `Contoso.Turnos.Validaciones`.
-3. El `<Sufijo>` se orienta por el `tipo_proyecto_codigo` y el rol. Mapa orientativo, no cerrado:
+3. El `<Sufijo>` se orienta por el `tipo_unidad_entrega` y el rol. Mapa orientativo, no cerrado:
 
-| `tipo_proyecto_codigo` | Sufijo orientativo |
+| `tipo_unidad_entrega` | Sufijo orientativo |
 |---|---|
 | `rest-api` | `.WebApi` o `.Api` |
 | `web-monolith` | `.Web` |
@@ -127,9 +162,27 @@ La regla se expresa de forma agnóstica de stack a propósito. El perfil de conv
 
 ---
 
-## §3 Grafo de dependencias
+## §3 Los dos grafos
 
-Las dependencias declaradas en la tabla de §2 forman un grafo dirigido. El orquestador deriva de él el orden topológico de generación y de construcción: primero los proyectos de código sin dependencias, luego los que dependen solo de proyectos de código ya resueltos. Los proyectos de código del mismo nivel topológico pueden generarse en paralelo.
+Los dos ejes producen **dos grafos dirigidos distintos**, y no coinciden. Declararlos por separado es
+lo que evita que una arista de runtime se lea como una dependencia de compilación, o al revés.
+
+**Grafo de integración**, derivado de la columna «Integra con» de §2.A. Ordena la **generación de la
+documentación**: el orquestador recorre las unidades de entrega en su orden topológico, y las del
+mismo nivel pueden generarse en paralelo.
+
+**Grafo de compilación**, derivado de la columna «Dependencias de compilación» de §2.B. Es acíclico y
+ordena el **build**: primero los proyectos sin dependencias, luego los que dependen solo de proyectos
+ya resueltos. Vive en el pipeline de producto.
+
+**Hay un grafo de compilación por solución de código**, no uno solo: la solución es lo que delimita
+el comando de construcción. Una dependencia de compilación **entre soluciones distintas** no es una
+arista de este grafo: es un consumo de artefacto publicado, y se declara como tal —la solución
+consumidora referencia el paquete que la productora publica—. Confundirlas produce un orden de build
+que ningún comando puede ejecutar.
+
+Un front que le habla a una API por HTTP tiene una arista en el primero y ninguna en el segundo. Si
+las dos coinciden es una propiedad de ese producto, no del método.
 
 Representar el grafo como referencia visual (opcional pero recomendado):
 
@@ -143,7 +196,7 @@ Representar el grafo como referencia visual (opcional pero recomendado):
 
 El orquestador detiene la cadena y reporta si alguna de estas condiciones no se cumple:
 
-- Algún `tipo_proyecto_codigo` no pertenece al conjunto cerrado D8.
+- Algún `tipo_unidad_entrega` no pertenece al conjunto cerrado D8.
 - No hay exactamente un proyecto de código principal (hay cero o más de uno).
 - Dos proyectos de código colisionan en `Nombre-Proyecto-Codigo` o en `Identidad-Codigo`.
 - Una dependencia apunta a un proyecto de código que no existe en la tabla.
@@ -171,7 +224,7 @@ Perfil de convención: separador `.`; prefijo de redistribuibles `Aplicada`; ext
 
 Tabla de proyectos de código:
 
-| `Nombre-Proyecto-Codigo` | `Identidad-Codigo` | `tipo_proyecto_codigo` | Rol | `redistribuible` | Dependencias | Path `/src` |
+| `Nombre-Proyecto-Codigo` | `Identidad-Codigo` | `tipo_unidad_entrega` | Rol | `redistribuible` | Dependencias | Path `/src` |
 |---|---|---|---|---|---|---|
 | `Gestion-De-Turnos-API` | `Contoso.Turnos.WebApi` | `rest-api` | API pública de turnos (principal) | false | `Gestion-De-Turnos-Domain`, `Aplicada-Validaciones` | `src/Contoso.Turnos.WebApi/` |
 | `Gestion-De-Turnos-Domain` | `Contoso.Turnos.Domain` | `library` | Dominio y reglas de negocio compartidas | false | `Aplicada-Validaciones` | `src/Contoso.Turnos.Domain/` |
@@ -212,11 +265,11 @@ Bloque de producto:
 
 Tabla de proyectos de código:
 
-| `Nombre-Proyecto-Codigo` | `Identidad-Codigo` | `tipo_proyecto_codigo` | Rol | `redistribuible` | Dependencias | Path `/src` |
+| `Nombre-Proyecto-Codigo` | `Identidad-Codigo` | `tipo_unidad_entrega` | Rol | `redistribuible` | Dependencias | Path `/src` |
 |---|---|---|---|---|---|---|
 | `Parser-Csv` | `ParserCsv.Core` | `library` | Librería de parseo (única y principal) | false | — | `src/ParserCsv.Core/` |
 
-El orquestador recorre un solo proyecto de código; el resultado equivale a la ejecución actual del template contra un único `tipo_proyecto_codigo`.
+El orquestador recorre un solo proyecto de código; el resultado equivale a la ejecución actual del template contra un único `tipo_unidad_entrega`.
 
 ---
 
@@ -228,7 +281,7 @@ El orquestador verifica estos ítems al derivar el manifiesto desde `PRODUCT-INT
 - [ ] El bloque de procedencia de §1.1 declara la versión del conjunto, la del master-prompt, la de cada regla aplicada y la de las **dos plantillas de intake**. Ninguna de las dos filas de plantilla queda vacía.
 - [ ] El perfil de convención de nombres está declarado (forma PascalCase, separador, prefijo de redistribuibles).
 - [ ] La tabla de proyectos de código tiene al menos una fila y todos los campos obligatorios completos.
-- [ ] Cada `tipo_proyecto_codigo` pertenece al conjunto cerrado D8 de 8 valores.
+- [ ] Cada `tipo_unidad_entrega` pertenece al conjunto cerrado D8 de 8 valores.
 - [ ] Hay exactamente un proyecto de código principal.
 - [ ] No hay colisiones de `Nombre-Proyecto-Codigo` ni de `Identidad-Codigo`.
 - [ ] Cada dependencia referencia un proyecto de código existente en la tabla.
@@ -249,3 +302,4 @@ El orquestador verifica estos ítems al derivar el manifiesto desde `PRODUCT-INT
 | 3.1 | 2026-07-29 | Restitución de la fila histórica del control de cambios que la migración de la 5.0 había reescrito con el vocabulario nuevo, contra `SDD-Development-Guide.md` §VI.2: una fila ya escrita no se reescribe aunque un cambio posterior invalide lo que describe, porque corregirla hace que el registro mienta. La fila nueva declara el renombre; la vieja sigue nombrando lo que nombraba. | Revisión SDD |
 | 4.0 | 2026-07-29 | Instrumentación de la comparación de versiones sobre los documentos de entrada (prerrequisito F1 de la migración normativa). **§1.1 suma dos filas obligatorias** al bloque de procedencia: la versión de `PRODUCT-INTAKE-template` y la de `PRODUCT-MANIFEST-template`, con el fundamento de que las plantillas se versionan aparte de las reglas y por lo tanto un cambio de su estructura no movía ninguna versión declarada; sin las filas, una reestructuración de plantilla era invisible para el diff normativo de `Master-Prompt.md` §2.1 y los dos documentos de entrada del destino no podían resultar candidatos de nada. El intro de la sección precisa que la versión de las plantillas se lee del campo `Versión de la plantilla` y no del campo `Versión`, que en ellas designa otra cosa. **§7 suma su ítem de checklist**, para que la omisión de cualquiera de las dos filas detenga la derivación en lugar de pasar sin verificarse. Sube **major** por el criterio de `SDD-Development-Guide.md` §VI.1: un manifiesto ya emitido no declara esas filas y deja de cumplir. El impacto sobre destinos existentes se declara en la entrada del `CHANGELOG.md` de la versión del conjunto que publica esta intervención. | Framework SDD (migración normativa) |
 | 4.1 | 2026-07-29 | Completitud de la fila de reglas transversales de §1.1, que enumeraba `Intake-Rules`, `Maqueta-Rules` y `Deriva-Rules` y omitía a `Vocabulario-Rules`, pese a que `Master-Prompt.md` §8 la inyecta en **todo** despacho sin excepción de categoría. Era la misma clase de defecto que la 4.0 corrigió para las plantillas: una pieza que gobierna la generación sin poder declarar su versión en la procedencia, y por lo tanto con su salto de versión invisible para la comparación normativa. La fila pasa a distinguir las transversales que se aplican siempre de las condicionales, suma `Migracion-Rules` para los árboles que atravesaron una migración normativa, y remite a la fila propia de `Root-Rules` para no duplicarla. Sube minor: completa una enumeración sin cambiar la estructura del bloque. | Framework SDD (migración normativa) |
+| 5.0 | 2026-08-15 | **El manifiesto deriva los dos ejes** La tabla de proyectos de código se agrupa **por solución de código** cuando el producto tiene más de una, y §3 declara que hay un grafo de compilación por solución: una dependencia entre soluciones distintas no es una arista del grafo sino un consumo de artefacto publicado. (framework 8.0). §2 pasa de una tabla de proyectos de código a §2.A unidades de entrega —la que lleva el valor D8, renombrado a `tipo_unidad_entrega`, con `redistribuible` y estado vigente o diferida—, §2.B proyectos de código —con su solución de código, su stack y sus dependencias de compilación, y **sin** valor D8— y §2.C la matriz de composición, derivada y no completada a mano, que hace visible el proyecto compartido. §3 declara los **dos grafos** por separado: el de integración, que ordena la generación de la documentación, y el de compilación, que ordena el build, con la aclaración de que no coinciden y no tienen por qué. Sube **major**: cambia la estructura del manifiesto y el nombre de un campo bloqueante; un manifiesto ya emitido deja de cumplir. |

@@ -76,7 +76,7 @@ Al terminar esta guía vas a haber ejecutado el flujo completo de especificació
 Esta guía asume que:
 
 - Es tu **primera** producto con SDD. Si ya trabajaste con el framework, andá directo a la [Guía de usuario](SDD-User-Guide.md) §9.2.
-- Tu producto es **de un solo proyecto de código** o **multi-proyecto**: el flujo es el mismo; las diferencias de layout las resuelve el orquestador (ver §4 PASO-5 y la [Guía de usuario](SDD-User-Guide.md) §5.4).
+- Tu producto es **de un solo unidad de entrega** o **multi-proyecto**: el flujo es el mismo; las diferencias de layout las resuelve el orquestador (ver §4 PASO-5 y la [Guía de usuario](SDD-User-Guide.md) §5.4).
 - Vas a trabajar **en local con Claude Code**, no solo en Claude.ai web.
 
 Lo que esta guía **no** cubre (y dónde está):
@@ -196,7 +196,7 @@ git clone <url-de-documentacion> DEV/<Slug-Producto>.Documentacion
 
 **Convención de nombres.** El repositorio de documentación lleva el nombre del producto con el sufijo `.Documentacion` (por ejemplo `<Slug-Producto>` → `<Slug-Producto>.Documentacion`). El destino normalmente lleva el nombre del producto tal cual.
 
-> Si tu producto es de un solo proyecto de código, igual usás los tres repos: el modelo no cambia. Lo que cambia según sea de uno o varios proyectos de código es cómo el orquestador organiza `SDD/Docs/`, no cómo arrancás.
+> Si tu producto es de un solo unidad de entrega, igual usás los tres repos: el modelo no cambia. Lo que cambia según sea de uno o varias unidades de entrega es cómo el orquestador organiza `SDD/Docs/`, no cómo arrancás.
 
 ### PASO-2 — Armar la jerarquía del workspace
 
@@ -249,7 +249,7 @@ Lee y ejecuta <RUTA-DOCUMENTACION>/Prompts/01-Ejecutar-Prompt-Integrador-Documen
 Bloque para agentes — qué hace este tool-prompt:
 
 - **Entradas:** el material de `INPUTs/`, la plantilla oficial [`PRODUCT-INTAKE-template.md`](../Devs/Intake/PRODUCT-INTAKE-template.md), el stack y los datos del producto declarados en el cuerpo del propio tool-prompt.
-- **Proceso:** crea en el **repositorio destino** la jerarquía de carpetas que pide el framework y vuelca el material a la plantilla de intake, respetando sus tres partes: A negocio (§1–§12), B composición con la tabla de proyectos de código (§13–§16) y C técnica por proyecto de código (§17). Marca como `PENDIENTE` lo que falte, en lugar de inventar.
+- **Proceso:** crea en el **repositorio destino** la jerarquía de carpetas que pide el framework y vuelca el material a la plantilla de intake, respetando sus tres partes: A negocio (§1–§12), B composición con la tabla de unidades de entrega (§13–§16) y C técnica por unidad de entrega (§17). Marca como `PENDIENTE` lo que falte, en lugar de inventar.
 - **Salidas:** un único archivo `SDD/Intake/PRODUCT-INTAKE-<Nombre-Producto>.md` en el repositorio destino, con el checklist de §19 apuntando a completitud.
 
 > **No** completás el `PRODUCT-MANIFEST` a mano: lo deriva el orquestador de la §13 del intake en el paso siguiente ([Guía de usuario](SDD-User-Guide.md) §4.3, F-19).
@@ -283,9 +283,9 @@ flowchart TD
 Qué pasa a partir de acá (resumen; el detalle está en la [Guía de usuario](SDD-User-Guide.md) §4.5):
 
 1. **Fase de validación de intake.** El orquestador lee tu `PRODUCT-INTAKE`, valida su completitud, **deriva el `PRODUCT-MANIFEST`** de la §13 y te lo presenta para confirmación. Si falta algo bloqueante, se detiene y te hace una batería de preguntas en vez de avanzar a ciegas.
-2. **Plan de generación.** Ordena los proyectos de código en orden topológico y te muestra el plan (proyectos de código, tipos, categorías a producir, flags). Lo revisás y respondés `aprobar` (o `aprobar con cambios: …`).
+2. **Plan de generación.** Ordena las unidades de entrega en orden topológico y te muestra el plan (unidades de entrega, tipos, categorías a producir, flags). Lo revisás y respondés `aprobar` (o `aprobar con cambios: …`).
 3. **Generación por fases (A a H), con plan-then-confirm.** Cada fase produce documentos y cierra con un **audit independiente**. Entre fases, el orquestador se detiene, te muestra el informe del audit y espera tu confirmación. Si un audit devuelve `RECHAZADO` por un hallazgo P0, no avanza hasta corregir.
-4. **(Opcional) Fase B2 — validación visual de maqueta.** Solo en proyectos de código con interfaz visual y si confirmás el flag `requiere_maqueta`. Materializa la especificación de UX/UI en una maqueta navegable. Ver [Guía de usuario](SDD-User-Guide.md) §4.6.
+4. **(Opcional) Fase B2 — validación visual de maqueta.** Solo en unidades de entrega con interfaz visual y si confirmás el flag `requiere_maqueta`. Materializa la especificación de UX/UI en una maqueta navegable. Ver [Guía de usuario](SDD-User-Guide.md) §4.6.
 
 > **Confirmá cada fase con calma.** El patrón plan-then-confirm es la garantía de calidad del framework: el orquestador **no codea sin tu confirmación** y no salta fases. Tomarte el tiempo de leer cada audit es parte del método, no una demora.
 
@@ -294,7 +294,7 @@ Qué pasa a partir de acá (resumen; el detalle está en la [Guía de usuario](S
 Cuando el orquestador termina la Fase H, te presenta el resumen ejecutivo. Antes de autorizar el paso a código, hacé una revisión humana rápida ([Guía de usuario](SDD-User-Guide.md) §4.7):
 
 - **Trazabilidad:** abrí 3–4 user stories al azar y verificá que la cadena US → CU → NB → Visión cierra.
-- **Completitud:** recorré las categorías de cada proyecto de código y abrí su README. Si alguno está vacío, algo falló en la generación.
+- **Completitud:** recorré las categorías de cada unidad de entrega y abrí su README. Si alguno está vacío, algo falló en la generación.
 - **Coherencia:** leé la visión, los CU del Sprint 1 y el ADR-001. ¿Cuentan la misma historia?
 - **Pendientes:** cerrá las decisiones pendientes o documentalas como riesgos asumidos.
 
@@ -385,9 +385,9 @@ Checklist de los tropiezos más comunes la primera vez:
 - **Avanzar con el intake incompleto.** Si el integrador dejó `PENDIENTE`s, resolvelos antes del PASO-5. El intake incompleto es la principal fuente de documentación pobre; el orquestador se va a frenar igual.
 - **Completar el `PRODUCT-MANIFEST` a mano.** No se hace: lo deriva el orquestador de la §13. Vos solo completás el `PRODUCT-INTAKE`.
 - **`SDD/Docs/` con contenido previo.** Si el destino ya tiene documentación de una corrida anterior, el orquestador no arranca de una: ejecuta la reconciliación normativa ([Master-Prompt §2.1](../Devs/Orchestrator/Master-Prompt.md)). Lee con qué versión del framework se generó ese árbol, la compara con la vigente y te dice qué cambió y qué documentos quedaron potencialmente invalidados. Después te ofrece tres caminos: un plan de migración normativa documento por documento, regenerar todo desde cero, o seguir bajo la versión anterior. Hasta que elijas, no toca nada. Ejecutar el plan es una corrida aparte, con [`PROMPT-Agente-Migracion-SDD.md`](../../PROMPTS/PROMPT-Agente-Migracion-SDD.md), que lleva el destino a la versión vigente preservando su contenido.
-- **Aprobar el plan sin leerlo.** Revisá tipos D8, proyecto de código principal, orden topológico y flags (`usa_llm`, `tiene_auth`, `equipo_n`). Un flag mal puesto genera categorías de más o de menos.
+- **Aprobar el plan sin leerlo.** Revisá tipos D8, unidad de entrega principal, orden topológico y flags (`usa_llm`, `tiene_auth`, `equipo_n`). Un flag mal puesto genera categorías de más o de menos.
 - **Perder el material de investigación en un chat.** Dejalo en `INPUTs/` del repo de documentación. Es lo que hace el arranque reproducible (§5).
-- **Un `tipo_proyecto_codigo` fuera de D8.** Cada proyecto de código declara exactamente uno de los 8 tipos cerrados. Cualquier otro valor es un error bloqueante.
+- **Un `tipo_unidad_entrega` fuera de D8.** Cada unidad de entrega declara exactamente uno de los 8 tipos cerrados. Cualquier otro valor es un error bloqueante.
 
 Para el catálogo completo de resolución de problemas, ver [Guía de usuario](SDD-User-Guide.md) §6 (F-01 a F-29).
 
@@ -435,7 +435,7 @@ Solo los términos que necesitás para el primer arranque. El glosario completo 
 | Plan-then-confirm | Modo del orquestador: cada fase se planifica, se confirma con vos, se ejecuta, se audita y se detiene. |
 | Audit independiente | Revisión de cierre de fase por un subagente sin contexto previo. Veredicto bloqueante (P0 detiene el avance). |
 | Handoff a codificación | Punto en que el orquestador entrega la documentación auditada y espera tu confirmación para arrancar Sprint 1. |
-| D8 | Conjunto cerrado de 8 tipos de proyecto de código: `library`, `web-monolith`, `web-microservices`, `desktop-app`, `mobile-app-maui`, `rest-api`, `cli-tool`, `worker-service`. |
+| D8 | Conjunto cerrado de 8 tipos de unidad de entrega: `library`, `web-monolith`, `web-microservices`, `desktop-app`, `mobile-app-maui`, `rest-api`, `cli-tool`, `worker-service`. |
 | Producto | Lo que entregás y que alguien usa para obtener valor, con frontera clara, stakeholders conocidos y roadmap propio. Es la unidad de trabajo: un intake, un repositorio destino, un árbol `SDD/Docs/`. |
 | Proyecto de código | La unidad de compilación: lo que tu ecosistema llama *project*, *module* o *package*. Un producto puede tener uno o veinte. Lleva exactamente un tipo D8. |
 | Proyecto | El emprendimiento, el esfuerzo temporal de construir el producto. **«Proyecto» a secas siempre significa esto**; la unidad de compilación se escribe completa, «proyecto de código». |

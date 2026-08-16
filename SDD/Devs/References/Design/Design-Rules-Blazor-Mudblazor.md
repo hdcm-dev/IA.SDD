@@ -8,7 +8,7 @@
 **Autor:** {{equipo-o-rol}} (AG-03 UX/UI + Frontend Architect .NET)
 **Ámbito:** Web — Blazor Interactive Server (.NET 8/9) con MudBlazor v9
 **Hereda de:** `Design-Rules-Web-Generico.md`
-**Posición:** Insumo normativo de la categoría 03 para proyectos de código `tipo_proyecto_codigo = web-monolith` o `web-microservices (con frontend)` cuyo stack declarado en la Parte C del intake sea Blazor + MudBlazor.
+**Posición:** Insumo normativo de la categoría 03 para proyectos de código `tipo_unidad_entrega = web-monolith` o `web-microservices (con frontend)` cuyo stack declarado en la Parte C del intake sea Blazor + MudBlazor.
 
 ---
 
@@ -263,7 +263,7 @@ Además de los criterios del documento base, una superficie Blazor + MudBlazor c
 | Documento base | `Design-Rules-Web-Generico.md` |
 | Especialidad dueña | AG-03 UX/UI + Frontend Architect .NET |
 | Regla que lo invoca | `devs/Rules/Rules-UX-UI-DX.md` (selección por stack) |
-| Aplica a `tipo_proyecto_codigo` | web-monolith, web-microservices (con frontend) con stack Blazor + MudBlazor |
+| Aplica a `tipo_unidad_entrega` | web-monolith, web-microservices (con frontend) con stack Blazor + MudBlazor |
 | Extensiones por capacidad que mapea | `Design-Rules-Config-Esquema.md` (§4.1); `Design-Rules-Primer-Arranque.md`, `Design-Rules-Acceso-Monousuario.md` e `Design-Rules-Identidad-De-Version.md` (§4.2) |
 | Artefactos operativos que lo aplican | `experiencia-de-uso`, `wireframes-<superficie>` del proyecto de código Blazor |
 

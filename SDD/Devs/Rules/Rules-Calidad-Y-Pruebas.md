@@ -1,9 +1,9 @@
 # Reglas constructivas — 08 Calidad y pruebas
 
-**Carpeta target (por proyecto de código):** `SDD/Docs/Proyectos/<Nombre-Proyecto-Codigo>/08-Calidad-Y-Pruebas/`
-**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Proyecto de código
+**Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/08-Calidad-Y-Pruebas/`
+**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Ingeniero QA / SDET Senior (AG-08)
-**Versión de las reglas:** 3.1
+**Versión de las reglas:** 4.1
 
 ---
 
@@ -11,11 +11,11 @@
 
 La categoría 08 ancla la disciplina de validación del sistema. Recibe upstream de 02 (casos de uso con criterios de aceptación Given-When-Then y reglas de negocio), de 05 (arquitectura, componentes, contratos y NFR con métricas numéricas), de 06 (Definition of Ready de las US y backlog técnico) y de 07 (sprint goals y compromisos por iteración). Alimenta a 09 (quality gates ejecutados en el pipeline CI/CD), a 10 (developer guide de testing y convenciones de tests del repositorio) y a 11 (examples ejecutables que se validan mediante los mismos casos de prueba).
 
-Esta categoría es **obligatoria para los ocho tipos D8**. Ningún proyecto de código está exento de declarar su estrategia de calidad, su pirámide de testing, su matriz de cobertura y su Definition of Done. El nivel de exhaustividad y la mezcla de artefactos cambia por tipo, pero la categoría siempre existe.
+Esta categoría es **obligatoria para los ocho tipos D8**. Ningún unidad de entrega está exento de declarar su estrategia de calidad, su pirámide de testing, su matriz de cobertura y su Definition of Done. El nivel de exhaustividad y la mezcla de artefactos cambia por tipo, pero la categoría siempre existe.
 
 La auditoría de Fase 0 (`Bootstrap/Audit-SDD1.md`) detectó dos déficits del fuente SDD 1.0 que SDD corrige aquí. Primero, los artefactos del fuente usan un sufijo de dominio (por ejemplo `estrategia-testing-<dominio>.md`, `criterios-validacion-<dominio>.md`, `estrategia-calidad-<dominio>.md`) que ata el nombre al producto particular. SDD unifica todos los nombres con el sufijo `.md` sin marcador de dominio. Segundo, el material teórico de calidad estaba ausente en `/References/` y debía deducirse de los `docs/`; estas reglas formalizan el marco.
 
-**Dos clases de sonda en la matriz de sensado.** Esta categoría es dueña operativa de `Matriz-Sensado-Deriva.md`, cuya mecánica define `Deriva-Rules.md`. La matriz se puebla con dos clases de sonda de origen distinto: las **visuales**, que emite AG-03M al cerrar la Fase B2 y miden si lo construido se parece a lo que el humano aprobó mirando; y las de **contrato y comportamiento** (`VER-XX`), que aporta la categoría 10 desde sus contratos de verificación y miden si el sistema sigue haciendo lo que la especificación dice. Las segundas no dependen de la maqueta, así que un proyecto de código sin interfaz visual también tiene matriz.
+**Dos clases de sonda en la matriz de sensado.** Esta categoría es dueña operativa de `Matriz-Sensado-Deriva.md`, cuya mecánica define `Deriva-Rules.md`. La matriz se puebla con dos clases de sonda de origen distinto: las **visuales**, que emite AG-03M al cerrar la Fase B2 y miden si lo construido se parece a lo que el humano aprobó mirando; y las de **contrato y comportamiento** (`VER-XXXXX`), que aporta la categoría 10 desde sus contratos de verificación y miden si el sistema sigue haciendo lo que la especificación dice. Las segundas no dependen de la maqueta, así que una unidad de entrega sin interfaz visual también tiene matriz.
 
 **Frontera con la categoría 11.** Esta categoría es dueña de la estrategia de testing, de los casos de prueba y de la matriz de sensado de deriva. La categoría 11 **cita** esa estrategia para explicarle al mantenedor cómo correr los tests y qué deberían devolver, en su `Guia-Contribucion`. **No la redefine.** Un procedimiento de testing que aparece descripto en 08 y en 11 con criterios distintos es un hallazgo: el de 08 es el que rige.
 ---
@@ -28,7 +28,7 @@ Ingeniero QA / SDET Senior, equivalente al AG-08 del catálogo SDD. Perfil profe
 
 Combina dos facetas que históricamente estaban separadas. La cara QA define qué probar, el enfoque por niveles, los quality gates y los criterios de aceptación. La cara SDET implementa frameworks de automatización, fixtures reutilizables, snapshot baselines, integración en CI y reportes de cobertura. Cuando el sistema tiene SLAs estrictos o exposición pública, el rol se extiende a testing de performance (load, stress, soak) y de seguridad (OWASP ZAP, threat modeling, fuzz), siempre con métricas numéricas verificables.
 
-### 1.2 Variantes según tipo de proyecto de código (8 valores D8)
+### 1.2 Variantes según tipo de unidad de entrega (8 valores D8)
 
 | Tipo | Especialidad específica | Justificación |
 | --- | --- | --- |
@@ -41,7 +41,7 @@ Combina dos facetas que históricamente estaban separadas. La cara QA define qu�
 | cli-tool | QA + CLI Testing | bats o framework equivalente, snapshot del output de stdout y stderr, validación de exit codes, tests por subcomando y por combinación de flags. |
 | worker-service | QA + Event Testing | Consumer tests por tipo de mensaje, validación de idempotencia, simulación de replay y de mensajes envenenados, tests de dead-letter y de orden cuando aplica. |
 
-El orquestador lee esta tabla y, según el `tipo_proyecto_codigo` del proyecto de código en curso (leído del manifiesto de producto), selecciona la variante correspondiente y la combina con la especialidad base. La variante se aplica una vez por cada proyecto de código del producto.
+El orquestador lee esta tabla y, según el `tipo_unidad_entrega` de la unidad de entrega en curso (leído del manifiesto de producto), selecciona la variante correspondiente y la combina con la especialidad base. La variante se aplica una vez por cada unidad de entrega del producto.
 
 ### 1.3 Multi-especialidad
 
@@ -63,15 +63,15 @@ El AG-08 mantiene titularidad de los artefactos. Las demás especialidades aport
 
 | Archivo | Obligatorio para | Recomendado | Omitir para | Descripción |
 | --- | --- | --- | --- | --- |
-| `estrategia-calidad.md` | Todos los tipos D8 | — | — | Definición de calidad para el proyecto de código, atributos priorizados (ISO 25010), quality gates, roles y cadencia. |
+| `estrategia-calidad.md` | Todos los tipos D8 | — | — | Definición de calidad para la unidad de entrega, atributos priorizados (ISO 25010), quality gates, roles y cadencia. |
 | `estrategia-testing.md` | Todos los tipos D8 | — | — | Pirámide de testing, cobertura mínima por capa, tooling, datos de prueba, ambiente. |
 | `plan-pruebas.md` | Todos los tipos D8 | — | — | Alcance del plan, criterios de entrada y salida, riesgos de calidad, plan por sprint, recursos. |
 | `matriz-cobertura-pruebas.md` | Todos los tipos D8 | — | — | Trazabilidad CU↔tests, NFR↔tests, RN↔tests. |
-| `casos-prueba-referenciales.md` | Todos los tipos D8 | — | — | Catálogo de TC-XX con setup, pasos, expected, actual y status. |
+| `casos-prueba-referenciales.md` | Todos los tipos D8 | — | — | Catálogo de TC-XXXXX con setup, pasos, expected, actual y status. |
 | `criterios-validacion.md` | Todos los tipos D8 | — | — | Criterios numéricos que permiten declarar al sistema validado para release. |
 | `definition-of-done.md` | Todos los tipos D8 | — | — | DoD por capa (US, BT, sprint, release) con criterios verificables y excepciones admitidas. |
 | `guia-testing-extensibilidad.md` | library con plugins, web-microservices con plugins | cli-tool con plugins, rest-api con handlers externos | Tipos sin puntos de extensión | Cómo testear plugins, extensiones y handlers externos sin modificar el núcleo. |
-| `Matriz-Sensado-Deriva.md` | Proyectos de código con `requiere_maqueta` == true, y proyectos de código con categoría 10 | — | Proyectos de código sin Fase B2 y sin categoría 10 | Lista de comprobaciones que contrasta lo construido contra sus líneas de base. Con Fase B2 se puebla con las sondas visuales (`SUP-XX`, `CMP-XX`, `EST-XX`, `NAV-XX`, `DM-XX`); con categoría 10 se puebla además con las sondas de contrato y comportamiento (`VER-XX`) tomadas de los contratos de verificación de los samples. Cada fila lleva método de verificación, evidencia esperada y umbral de deriva. La mecánica vive en `Deriva-Rules.md`; esta categoría es su dueña operativa. |
+| `Matriz-Sensado-Deriva.md` | Proyectos de código con `requiere_maqueta` == true, y unidades de entrega con categoría 10 | — | Proyectos de código sin Fase B2 y sin categoría 10 | Lista de comprobaciones que contrasta lo construido contra sus líneas de base. Con Fase B2 se puebla con las sondas visuales (`SUP-XXXXX`, `CMP-XXXXX`, `EST-XXXXX`, `NAV-XXXXX`, `DM-XXXXX`); con categoría 10 se puebla además con las sondas de contrato y comportamiento (`VER-XXXXX`) tomadas de los contratos de verificación de los samples. Cada fila lleva método de verificación, evidencia esperada y umbral de deriva. La mecánica vive en `Deriva-Rules.md`; esta categoría es su dueña operativa. |
 | `README.md` de la sección | Recomendado para todos | — | — | Índice navegable de los artefactos de calidad. |
 
 ### 2.2 Reglas de inclusión y exclusión por tipo
@@ -99,19 +99,19 @@ Los porcentajes son piso, no techo. El equipo puede subir cobertura cuando el do
 - `estrategia-testing.md` para la pirámide y el tooling.
 - `plan-pruebas.md` para el plan operativo.
 - `matriz-cobertura-pruebas.md` para la trazabilidad.
-- `casos-prueba-referenciales.md` para el catálogo de TC-XX.
+- `casos-prueba-referenciales.md` para el catálogo de TC-XXXXX.
 - `criterios-validacion.md` para los criterios de release.
-- `definition-of-done.md` para la DoD canónica del proyecto de código.
+- `definition-of-done.md` para la DoD canónica de la unidad de entrega.
 - `guia-testing-extensibilidad.md` cuando aplica.
 - `README.md` para el índice de la sección.
 
-El archivo vivo lleva su nombre lógico estable, sin sufijo de versión, y declara su versión en el campo `Versión` de la cabecera (D4). El sufijo `-v<X.Y>.md`, con guion medio, identifica únicamente a las copias archivadas en `_legacy/`. Queda prohibido el sufijo de dominio `-motor` u otros marcadores temáticos en el nombre de archivo (por ejemplo `Estrategia-Testing-Motor.md`, `Estrategia-Calidad-Motor.md` o `Criterios-Validacion-Motor.md` están explícitamente vedados). El nombre del artefacto describe el rol del documento, no el dominio del proyecto de código.
+El archivo vivo lleva su nombre lógico estable, sin sufijo de versión, y declara su versión en el campo `Versión` de la cabecera (D4). El sufijo `-v<X.Y>.md`, con guion medio, identifica únicamente a las copias archivadas en `_legacy/`. Queda prohibido el sufijo de dominio `-motor` u otros marcadores temáticos en el nombre de archivo (por ejemplo `Estrategia-Testing-Motor.md`, `Estrategia-Calidad-Motor.md` o `Criterios-Validacion-Motor.md` están explícitamente vedados). El nombre del artefacto describe el rol del documento, no el dominio de la unidad de entrega.
 
 ### 3.2 Convenciones de identificadores internos
 
-- `TC-XX`: caso de prueba referencial. Numeración contigua con dos dígitos, segmento descriptivo opcional para el slug interno cuando se nombra (`TC-01-parsing-feliz`).
-- `NFR-XX`: las NFR provienen de 05; en 08 sólo se referencian.
-- `CU-XX`, `RN-XX`: provienen de 02; en 08 sólo se referencian.
+- `TC-XXXXX`: caso de prueba referencial. Numeración contigua con el ancho de `Root-Rules.md` §9.2, segmento descriptivo opcional para el slug interno cuando se nombra (`TC-00001-parsing-feliz`).
+- `NFR-XXXXX`: las NFR provienen de 05; en 08 sólo se referencian.
+- `CU-XXXXX`, `RN-XXXXX`: provienen de 02; en 08 sólo se referencian.
 
 ### 3.3 Vinculación cross-doc
 
@@ -125,7 +125,7 @@ Una sola versión vigente por nombre lógico. Cuando se pasa de `v1.0` a `v2.0` 
 
 ### 3.5 README de la sección
 
-Recomendado para todos los tipos. Lista los artefactos vigentes, el estado de cada uno, los quality gates configurados en CI y el enlace a la DoD canónica del proyecto de código.
+Recomendado para todos los tipos. Lista los artefactos vigentes, el estado de cada uno, los quality gates configurados en CI y el enlace a la DoD canónica de la unidad de entrega.
 
 ---
 
@@ -152,7 +152,7 @@ El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente
 
 ### 4.2 Estructura de `Estrategia-Calidad.md`
 
-1. Definición de calidad para el proyecto de código. Qué significa "el sistema tiene calidad" en este contexto, en una a tres oraciones que respondan al alcance funcional y al perfil de riesgo.
+1. Definición de calidad para la unidad de entrega. Qué significa "el sistema tiene calidad" en este contexto, en una a tres oraciones que respondan al alcance funcional y al perfil de riesgo.
 2. Atributos de calidad priorizados según ISO/IEC 25010. Funcionalidad, eficiencia de desempeño, compatibilidad, usabilidad, fiabilidad, seguridad, mantenibilidad, portabilidad. Cada atributo tiene prioridad declarada y, cuando corresponde, métrica numérica con su NFR de origen.
 3. Quality gates. Conjunto de criterios mecánicos que el pipeline aplica antes de declarar un build, una rama o un release como aceptable. Cada gate especifica condición, herramienta y consecuencia.
 4. Roles QA dentro del equipo. Quién diseña tests, quién los ejecuta, quién aprueba el release. RACI explícito si el equipo lo amerita.
@@ -180,15 +180,15 @@ El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente
 ### 4.5 Estructura de `Matriz-Cobertura-Pruebas.md`
 
 1. Propósito y alcance.
-2. Tabla CU↔Tests. Cada CU con sus criterios Given-When-Then, el TC-XX que lo cubre y el estado del test.
+2. Tabla CU↔Tests. Cada CU con sus criterios Given-When-Then, el TC-XXXXX que lo cubre y el estado del test.
 3. Tabla NFR↔Tests. Cada NFR con su SLA numérico, el test que lo valida y el tooling de medición.
-4. Tabla RN↔Tests. Cada RN con el TC-XX que verifica su cumplimiento.
+4. Tabla RN↔Tests. Cada RN con el TC-XXXXX que verifica su cumplimiento.
 5. Tabla de cobertura por capa. Líneas, branches y mutation score por capa.
 6. Gaps identificados. Áreas sin cobertura suficiente con plan de remediación.
 
 ### 4.6 Estructura de `Casos-Prueba-Referenciales.md`
 
-Catálogo de TC-XX. Para cada caso:
+Catálogo de TC-XXXXX. Para cada caso:
 
 1. Identificador y nombre Título-Con-Guiones.
 2. Tipo (unit, integration, e2e, snapshot, contract, property-based).
@@ -229,13 +229,13 @@ Trazabilidad CU↔criterio↔test:
 
 | CU | Criterio Given-When-Then | Test ID | Tipo | Estado |
 | --- | --- | --- | --- | --- |
-| CU-XX | Given <contexto>, When <acción>, Then <resultado> | TC-XX | Unit / Integration / E2E | Verde / Rojo / Pendiente |
+| CU-XXXXX | Given <contexto>, When <acción>, Then <resultado> | TC-XXXXX | Unit / Integration / E2E | Verde / Rojo / Pendiente |
 
 Trazabilidad NFR↔SLA↔test:
 
 | NFR | SLA | Test | Tooling |
 | --- | --- | --- | --- |
-| NFR-XX | <valor numérico> | TC-XX | <herramienta de medición> |
+| NFR-XXXXX | <valor numérico> | TC-XXXXX | <herramienta de medición> |
 
 Cobertura por capa:
 
@@ -274,7 +274,7 @@ Cobertura por capa:
 
 ### 5.2 Scope
 
-- ¿La pirámide objetivo es adecuada al tipo D8 del proyecto de código y a la variante de especialidad activa?
+- ¿La pirámide objetivo es adecuada al tipo D8 de la unidad de entrega y a la variante de especialidad activa?
 - ¿Hay capas en la arquitectura que no tienen umbral de cobertura definido?
 - ¿La guía de testing de extensibilidad existe si y sólo si el tipo D8 admite plugins o handlers externos?
 
@@ -297,26 +297,39 @@ Cobertura por capa:
 
 ## 6. Criterios de aceptación
 
-- [ ] Existe `Estrategia-Calidad.md` con atributos ISO 25010 priorizados y quality gates declarados.
-- [ ] Existe `Estrategia-Testing.md` con pirámide objetivo numérica, cobertura mínima por capa y tooling declarado.
-- [ ] Existe `Plan-Pruebas.md` con criterios de entrada, salida y riesgos por sprint.
-- [ ] Existe `Matriz-Cobertura-Pruebas.md` con las tres tablas obligatorias (CU↔Tests, NFR↔Tests, RN↔Tests) más la tabla de cobertura por capa.
-- [ ] Existe `Casos-Prueba-Referenciales.md` con al menos un TC por CU crítico, con setup, pasos, expected y status.
-- [ ] Existe `Criterios-Validacion.md` con criterios numéricos que permiten declarar al sistema validado.
-- [ ] Existe `Definition-Of-Done.md` con DoD por capa (US, BT, sprint, release), cada criterio verificable mecánicamente y excepciones explícitas.
-- [ ] Si el tipo D8 admite plugins, existe `Guia-Testing-Extensibilidad.md`.
-- [ ] Ningún archivo lleva sufijo de dominio (`-motor` u otros marcadores temáticos) ni sufijo de versión en el nombre; cada uno declara su versión en la cabecera.
-- [ ] Cada NFR con objetivo numérico tiene un test asociado en la matriz.
-- [ ] Si el proyecto de código ejecutó la Fase B2, la matriz tiene una fila por elemento de la línea de base visual y del contrato de datos, cada una con método de verificación resuelto (test automatizado o inspección), evidencia esperada y umbral de deriva menor y mayor declarados.
-- [ ] Si el proyecto de código tiene categoría 10, la matriz tiene una fila `VER-XX` por cada contrato de verificación declarado en `10-Examples`, con el comando del contrato como método de verificación. **Un proyecto de código con categoría 10 emite matriz aunque no haya ejecutado la Fase B2**: un proyecto de código sin interfaz visual también tiene contratos que pueden derivar.
-- [ ] No existe `Matriz-Sensado-Deriva.md` sin filas. Una matriz vacía es un proyecto de código sin instrumento de sensado, no un proyecto de código conforme.
-- [ ] Cada caso de prueba referencia explícitamente al menos un CU, RN o NFR.
-- [ ] La DoD no se redefine en sprint plans; los sprint plans referencian este documento.
-- [ ] La cobertura se reporta por capa, no como número global único.
-- [ ] Todo documento con más de tres secciones de primer nivel incluye tabla de contenido inmediatamente después de la cabecera, con enlaces ancla a las secciones de primer y de segundo nivel. Los documentos breves quedan exceptuados.
-- [ ] Todo término que esta categoría acuña o precisa, y que aparece en más de uno de sus artefactos, está declarado en `Glosario-Funcional.md` de 02 y `Glosario-Tecnico.md` de 11, con sus referentes cuando tiene más de uno. Los términos de prueba propios de la categoría —nivel, sonda, umbral, fixture— se definen en el plan de pruebas la primera vez que aparecen.
-- [ ] Ninguna forma desnuda de un término polisémico queda sin resolver en un artefacto que se lee por secciones (`Vocabulario-Rules.md` §9.2).
-- [ ] Ninguna polisemia con contextos disjuntos se reporta como defecto ni se corrige calificando todas las ocurrencias (criterio negativo de `Vocabulario-Rules.md` §9.1).
+**Naturaleza de cada criterio.** Cada ítem lleva su marca: `[enumerable]` si se decide contando o
+comparando —existencia, forma, recuento, resolución de un enlace— y `[interpretativo]` si solo se
+decide leyendo los dos lados. Los enumerables son los que la compuerta mecánica de
+`Master-Prompt.md` §10.0 tiene que cubrir; los interpretativos son para lo que el audit existe.
+
+La clasificación es **conservadora por diseño**: ante la duda, un criterio se marca interpretativo.
+El error no es simétrico —declarar mecanizable algo que no lo es produce falsa confianza, que es peor
+que la ausencia de verificación—, así que marcar de más un interpretativo solo cuesta atención del
+auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
+
+- [ ] [interpretativo] Existe `Estrategia-Calidad.md` con atributos ISO 25010 priorizados y quality gates declarados.
+- [ ] [enumerable] Existe `Estrategia-Testing.md` con pirámide objetivo numérica, cobertura mínima por capa y tooling declarado.
+- [ ] [enumerable] Existe `Plan-Pruebas.md` con criterios de entrada, salida y riesgos por sprint.
+- [ ] [enumerable] Existe `Matriz-Cobertura-Pruebas.md` con las tres tablas obligatorias (CU↔Tests, NFR↔Tests, RN↔Tests) más la tabla de cobertura por capa.
+- [ ] [enumerable] Existe `Casos-Prueba-Referenciales.md` con al menos un TC por CU crítico, con setup, pasos, expected y status.
+- [ ] [enumerable] Existe `Criterios-Validacion.md` con criterios numéricos que permiten declarar al sistema validado.
+- [ ] [enumerable] Existe `Definition-Of-Done.md` con DoD por capa (US, BT, sprint, release), cada criterio verificable mecánicamente y excepciones explícitas.
+- [ ] [interpretativo] Si el tipo D8 admite plugins, existe `Guia-Testing-Extensibilidad.md`.
+- [ ] [enumerable] Ningún archivo lleva sufijo de dominio (`-motor` u otros marcadores temáticos) ni sufijo de versión en el nombre; cada uno declara su versión en la cabecera.
+- [ ] [interpretativo] Cada NFR con objetivo numérico tiene un test asociado en la matriz.
+- [ ] [interpretativo] Si la unidad de entrega ejecutó la Fase B2, la matriz tiene una fila por elemento de la línea de base visual y del contrato de datos, cada una con método de verificación resuelto (test automatizado o inspección), evidencia esperada y umbral de deriva menor y mayor declarados.
+- [ ] [interpretativo] Si la unidad de entrega tiene categoría 10, la matriz tiene una fila `VER-XXXXX` por cada contrato de verificación declarado en `10-Examples`, con el comando del contrato como método de verificación. **Un unidad de entrega con categoría 10 emite matriz aunque no haya ejecutado la Fase B2**: una unidad de entrega sin interfaz visual también tiene contratos que pueden derivar.
+- [ ] [interpretativo] No existe `Matriz-Sensado-Deriva.md` sin filas. Una matriz vacía es una unidad de entrega sin instrumento de sensado, no una unidad de entrega conforme.
+- [ ] [interpretativo] Cada caso de prueba referencia explícitamente al menos un CU, RN o NFR.
+- [ ] [interpretativo] **`Definition-Of-Done.md` es fuente única de la capa de verificación de la condición de terminado**, y **refina** la capa de acuerdo del equipo que `00-Contexto/Acuerdo-Equipo.md` §5 declara a nivel producto: la referencia y agrega los criterios que dependen de qué se entrega —pirámide de testing, quality gates, matriz de cobertura—. Las dos capas tienen dueños y niveles distintos y ninguna copia a la otra. Ningún artefacto de ninguna categoría la redefine ni enumera sus criterios: la referencian. Alcanza a los planes de sprint, al `Acuerdo-Equipo.md` de la categoría 00, a la condición de listo de la 06 y a cualquier otro artefacto que la cite. Mientras esta categoría no se haya emitido, la 06 y la 07 referencian la **capa de acuerdo del equipo** de la Fase A, que sí existe, y declaran con la forma de `Root-Rules.md` §12 que la capa de verificación llega en la Fase E.
+- [ ] [enumerable] La búsqueda de los criterios de la condición de terminado en las categorías 00, 06 y 07 devuelve **referencias y ninguna enumeración**.
+- [ ] [interpretativo] La cobertura se reporta por capa, no como número global único.
+- [ ] [enumerable] Todo documento con más de tres secciones de primer nivel incluye tabla de contenido inmediatamente después de la cabecera, con enlaces ancla a las secciones de primer y de segundo nivel. Los documentos breves quedan exceptuados.
+- [ ] [interpretativo] **El vocabulario del método va al glosario operativo; el del producto, al glosario que corresponda.** Los términos que el framework acuña e impone a esta categoría —`sonda`, `umbral` de deriva, `pasada de diseño`— están definidos en `Master-Prompt.md` §15 y esta categoría **los cita sin redefinirlos**. Ningún término del método se define en línea, en el cuerpo de un documento del producto.
+- [ ] [interpretativo] Todo término que esta categoría acuña o precisa **sobre el producto**, y que aparece en más de uno de sus artefactos, está declarado en `Glosario-Funcional.md` de 02 y `Glosario-Tecnico.md` de 11, con sus referentes cuando tiene más de uno. `nivel` y `fixture` entran acá y no en el glosario operativo: los fija cada unidad de entrega en su estrategia de testing y no tienen valor único a nivel producto.
+- [ ] [interpretativo] El apuntamiento a `Glosario-Tecnico.md` de la 11 se declara como **referencia pendiente** (`Root-Rules.md` §12) mientras esa categoría no se haya emitido: la 11 se emite en la Fase H y esta categoría es anterior. Al emitirse, la reapertura de `Master-Prompt.md` §6 cierra la referencia.
+- [ ] [interpretativo] Ninguna forma desnuda de un término polisémico queda sin resolver en un artefacto que se lee por secciones (`Vocabulario-Rules.md` §9.2).
+- [ ] [interpretativo] Ninguna polisemia con contextos disjuntos se reporta como defecto ni se corrige calificando todas las ocurrencias (criterio negativo de `Vocabulario-Rules.md` §9.1).
 
 ---
 
@@ -386,26 +399,26 @@ Fragmento ilustrativo, no documento completo:
 
 | CU | Criterio Given-When-Then | Test ID | Tipo | Estado |
 | --- | --- | --- | --- | --- |
-| CU-01 | Given pago válido, When se confirma, Then el estado pasa a confirmado | TC-01 | Integration | Verde |
-| CU-01 | Given pago duplicado por clave de idempotencia, When se reintenta, Then no se duplica | TC-02 | Integration | Verde |
-| CU-02 | Given pago inválido, When se confirma, Then se devuelve problem+json con código de error | TC-03 | Unit | Verde |
-| CU-03 | Given pago confirmado, When se consulta su estado, Then devuelve el agregado completo | TC-04 | Contract | Verde |
+| CU-00001 | Given pago válido, When se confirma, Then el estado pasa a confirmado | TC-00001 | Integration | Verde |
+| CU-00001 | Given pago duplicado por clave de idempotencia, When se reintenta, Then no se duplica | TC-00002 | Integration | Verde |
+| CU-00002 | Given pago inválido, When se confirma, Then se devuelve problem+json con código de error | TC-00003 | Unit | Verde |
+| CU-00003 | Given pago confirmado, When se consulta su estado, Then devuelve el agregado completo | TC-00004 | Contract | Verde |
 
 ## 3. Trazabilidad NFR↔Tests
 
 | NFR | SLA | Test | Tooling |
 | --- | --- | --- | --- |
-| NFR-01 latencia p95 confirmación | < 300 ms | TC-10 | Cliente de load testing equivalente |
-| NFR-02 idempotencia | 100 % | TC-02 | Test de integración con replays controlados |
-| NFR-03 disponibilidad mensual | >= 99,9 % | Monitoreo SLO en 09 | Métrica observada, no test unitario |
+| NFR-00001 latencia p95 confirmación | < 300 ms | TC-00010 | Cliente de load testing equivalente |
+| NFR-00002 idempotencia | 100 % | TC-00002 | Test de integración con replays controlados |
+| NFR-00003 disponibilidad mensual | >= 99,9 % | Monitoreo SLO en 09 | Métrica observada, no test unitario |
 
 ## 4. Trazabilidad RN↔Tests
 
 | RN | TC | Tipo |
 | --- | --- | --- |
-| RN-01 monto positivo | TC-05 | Unit |
-| RN-02 estado válido en transición | TC-06 | Unit |
-| RN-03 cliente activo | TC-07 | Integration |
+| RN-00001 monto positivo | TC-00005 | Unit |
+| RN-00002 estado válido en transición | TC-00006 | Unit |
+| RN-00003 cliente activo | TC-00007 | Integration |
 
 ## 5. Cobertura por capa
 
@@ -419,17 +432,17 @@ Fragmento ilustrativo, no documento completo:
 ## 6. Gaps identificados
 
 - TC pendiente para el flujo de compensación tras timeout del bus de eventos: se planifica en sprint S-04.
-- Mutation testing aún no corre en CI: planificado en BT-12.
+- Mutation testing aún no corre en CI: planificado en BT-00012.
 ```
 
-Los dos fragmentos son ilustrativos. Cada proyecto de código adapta el dominio respetando la estructura.
+Los dos fragmentos son ilustrativos. Cada unidad de entrega adapta el dominio respetando la estructura.
 
 ---
 
 ## 8. Prompt-snippet sugerido
 
 ```text
-Sos un {{ESPECIALIDAD-VARIANTE-08}} responsable de redactar los artefactos de calidad y pruebas del proyecto de código {{NOMBRE_PROYECTO_CODIGO}}.
+Sos un {{ESPECIALIDAD-VARIANTE-08}} responsable de redactar los artefactos de calidad y pruebas de la unidad de entrega {{NOMBRE_PROYECTO_CODIGO}}.
 
 Insumos:
 - PRODUCT-INTAKE: {{path}}
@@ -449,8 +462,8 @@ A generar (obligatorio para todos los tipos D8):
 Reglas de redacción: §4 de Rules-Calidad-Y-Pruebas.md.
 Nomenclatura: sufijo uniforme `.md`. Prohibido el sufijo `-motor` o cualquier marcador de dominio en el nombre del archivo (corrección obligatoria del antecedente del fuente).
 Trazabilidad: cada TC referencia al menos un CU, RN o NFR. La matriz tiene las tres tablas obligatorias (CU↔Tests, NFR↔Tests, RN↔Tests) más la tabla de cobertura por capa.
-Pirámide objetivo: la declarada en §2.2 para el tipo D8 del proyecto de código, con justificación cuando se aparta de ella.
-DoD canónica: Definition-Of-Done.md es la única fuente. Los sprint plans referencian, no redefinen.
+Pirámide objetivo: la declarada en §2.2 para el tipo D8 de la unidad de entrega, con justificación cuando se aparta de ella.
+DoD en dos capas: la de acuerdo del equipo vive en 00 y es de nivel producto; la de verificación vive acá y es de la unidad de entrega. Definition-Of-Done.md refina la primera y es fuente única de la segunda. Los sprint plans referencian las dos y no redefinen ninguna.
 Criterios de calidad: §6 de Rules-Calidad-Y-Pruebas.md.
 
 Restricciones: no introducir productos comerciales ni protocolos del dominio fuente. Idioma rioplatense técnico, tildes correctas, sin emojis ni negritas decorativas.
@@ -475,3 +488,6 @@ Salida: SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/08-Calidad-Y-Pruebas/<estr
 | 2.0 | 2026-07-28 | Normalización del versionado (framework 4.0). El archivo vivo pierde el sufijo de versión del nombre y pasa a declarar su versión en el campo `Versión` de su cabecera; el sufijo `-v<X.Y>.md` queda reservado a las copias archivadas en `_legacy/`. Se actualizan los patrones de nombre, los ejemplos, las cabeceras modelo, los anti-patrones y los criterios de aceptación de la categoría. Sube major porque la documentación generada con la nomenclatura anterior deja de cumplir. Deriva de la reformulación de D4 y D5 en el `README.md` del framework. |
 | 3.0 | 2026-07-29 | Renombre de vocabulario normativo (framework 5.0). El nivel superior pasa de «solución» a **producto**, la unidad de compilación de «proyecto» a **proyecto de código**, y los cuatro planos de identidad del producto se separan en campos propios (`Nombre-Producto`, `Slug-Producto`, `Raiz-Codigo`, `Artefacto-Agrupacion`). Se declara el nivel de aplicación de la regla en su cabecera, según `Vocabulario-Rules.md` §4 R3. Sube major porque los identificadores y los nombres de artefacto cambian, y la documentación generada con la nomenclatura anterior deja de cumplir. |
 | 3.1 | 2026-07-29 | Criterio de gobierno del glosario en §6. Sube minor: agrega criterios de aceptación verificables sin cambiar el conjunto de artefactos de la categoría ni ninguna invariante, y ninguna documentación ya emitida deja de cumplir por sí sola. Los tres criterios exigen que todo término que la categoría acuña o precisa y usa en más de uno de sus artefactos esté declarado en el glosario que le corresponde, que ninguna forma desnuda de un término polisémico quede sin resolver en un artefacto que se lee por secciones, y —criterio negativo— que ninguna polisemia con contextos disjuntos se reporte como defecto. Materializan `Vocabulario-Rules.md` §9 en la categoría. **Origen**: el audit verificaba «glosario sin contradicciones», que un glosario incompleto cumple trivialmente, y esta regla no mencionaba la palabra «glosario» ni una vez. |
+| 3.2 | 2026-08-15 | Fuente única y vocabulario del método (intervención reportes 00 a 11). La declaración «`Definition-Of-Done.md` es la única fuente; los sprint plans referencian, no redefinen» vivía en §8, el prompt-snippet sugerido, que no es sección normativa: **ningún audit podía exigirla**. Sube a §6 como criterio de aceptación y amplía su alcance a cualquier artefacto, no solo a los planes de sprint. El criterio anterior cubría la copia hecha en un plan de sprint y no alcanzaba a la del `Acuerdo-Equipo.md` de la Fase A, que cayó en el hueco entre dos reglas y produjo una segunda fuente de la condición de terminado escrita cinco fases antes que la canónica. Se remite además a la referencia pendiente de `Root-Rules.md` §12 para el intervalo en que esta categoría todavía no se emitió. Y el criterio de gobierno de glosario deja de mandar `sonda`, `umbral` y `fixture` a definirse «en el plan de pruebas la primera vez que aparecen», que era un noveno destino y el único que no era un glosario: el vocabulario del método se cita del glosario operativo de `Master-Prompt.md` §15, y `nivel` y `fixture` se conservan en la categoría por no ser del método. Sube **minor**: mueve una declaración existente a donde es exigible y precisa un criterio. Origen: reportes `07` y `11`. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. Se incorpora además el tratamiento de las obligaciones hacia una fase posterior que la comprobación del grafo de `Master-Prompt.md` §6 detectó al correrse sobre las doce reglas: las referencias afectadas se declaran con la forma de `Root-Rules.md` §12. |
+| 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
+| 4.1 | 2026-08-15 | **La condición de terminado se declara en dos capas** (framework 8.0, cierre de pendiente). La capa de **acuerdo del equipo** —revisión, cobertura acordada, documentación— es de nivel producto y se emite en la Fase A, dentro de `Acuerdo-Equipo.md` §5, porque es donde el equipo la acuerda. La capa de **verificación** —pirámide de testing, quality gates, matriz de cobertura— es de la unidad de entrega y vive en `Definition-Of-Done.md` de la 08, que refina la primera en lugar de crearla. Cierra el hallazgo del reporte `07` sin administrarlo: la obligación de la Fase A hacia la Fase E desaparece, porque no era una dependencia real. Un equipo puede acordar cómo cierra su trabajo sin saber todavía qué pirámide de testing usará cada entrega. Sube **minor**: reparte contenido entre dos artefactos existentes sin cambiar el conjunto de artefactos de ninguna de las dos categorías. |

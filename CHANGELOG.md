@@ -3,6 +3,180 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.0] - 2026-08-15
+
+**El nivel de unidad de entrega.** Cierra el pendiente que `Vocabulario-Rules.md` §8 declaraba desde la versión 5.0: la unidad de entrega estaba definida y no era un nivel del layout de salida. Sube major por todo: cambia el layout, el nivel de aplicación de once categorías y el nombre de una variable bloqueante.
+
+**Nota sobre el archivado.** Las versiones 7.0 y 8.0 se publican en la misma intervención, de modo que la 7.0 nunca fue un conjunto vigente que un destino pudiera consumir. `_legacy/` conserva la **6.0**, que es el último conjunto efectivamente superado; no hay `_legacy/7.0/` y no debe haberlo.
+
+La nota de coherencia es [`Coherencia-Unidad-De-Entrega.md`](SDD/Devs/Guides/Coherencia-Unidad-De-Entrega.md).
+
+### El problema, medido
+
+El framework tenía dos niveles —producto y proyecto de código— y los productos reales tienen tres. El nivel intermedio se poblaba con proyectos de código, y las once categorías que colgaban de él producían artefactos que no eran de ese nivel. Medido sobre tres destinos reales antes de corregir:
+
+| Destino | Proyectos de código | De ellos, se despliegan | Casos de uso emitidos | Necesidades de negocio |
+| --- | --- | --- | --- | --- |
+| Lab-Geometria | 7 | 2 | 71 | 9 |
+| RPI.VidelControl | 5 | 1 | 58 | 8 |
+
+Un proyecto de código de DTOs tenía guía de onboarding para developers y documento de entornos de despliegue; ese documento tuvo que abrir con una sección de apartamiento declarando que el proyecto «no tiene ambientes ni canales propios». Y la misma capacidad del producto aparecía fragmentada por capa: `CU-05-Crear-Y-Reeditar-Un-Trabajo` en el dominio y `CU-03-Contrato-De-Carga-Y-Edicion-Del-Trabajo` en los contratos.
+
+### Cambiado — el modelo
+
+- **Dos ejes, no tres niveles.** El de **entrega** —producto → unidades de entrega— y el de **construcción** —producto → soluciones de código → proyectos de código—. Su relación es de **muchos a muchos**: una unidad de entrega se compone de varios proyectos de código y un proyecto de código puede componer varias unidades. Los dos grafos son distintos y no coinciden: el de integración une unidades en runtime, el de compilación une proyectos al construir.
+- **El proyecto de código deja de tener árbol documental propio.** Se inventaría una sola vez, a nivel producto, en `Vista-Producto.md`, con su stack, su rol y sus dependencias de compilación. Anidarlo obligaría a documentar un proyecto compartido una vez por cada entrega que lo usa, o a asignarlo arbitrariamente a una dejando en las otras una referencia colgada.
+- **La matriz de composición** es el puente entre los ejes: una columna con más de una marca es un proyecto compartido, y su modificación alcanza a todas las entregas marcadas.
+- **`tipo_proyecto_codigo` pasa a `tipo_unidad_entrega`.** El conjunto D8 no cambia: siguen siendo ocho valores. Cambia de qué es atributo, porque `SDD-Development-Guide.md` declara que los ocho «cubren el espacio de **formas de entrega** de software», y una forma de entrega es propiedad de lo que se entrega.
+
+### Cambiado — el layout
+
+`SDD/Docs/Proyectos/<Nombre-Proyecto-Codigo>/` pasa a `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/`. Y los casos de aplanado pasan de uno a cuatro, en cascada:
+
+| Composición | Resultado |
+| --- | --- |
+| Una unidad de entrega y un proyecto de código | Idéntico al template de tipo único |
+| Una unidad de entrega y varios proyectos de código | Categorías directo bajo `SDD/Docs/`, **con** vista de producto: hay eje de construcción que inventariar |
+| Varias unidades de entrega | Layout completo |
+
+La segunda fila es la que la versión anterior no podía expresar, y es exactamente `RPI.VidelControl`: un monolito de cinco proyectos de código que producía cinco árboles de once categorías, cuatro de ellos sobre unidades de compilación que no se despliegan.
+
+### Cambiado — gating por nivel
+
+Cada flag declara su nivel. `equipo_n` y `requiere_compliance` son del producto; `tipo_unidad_entrega`, `tiene_ui_final`, `usa_llm`, `requiere_maqueta`, `redistribuible` y `tiene_persistencia` son de la unidad de entrega; el proyecto de código **no tiene flags de gating**, porque no emite categorías.
+
+Dos consecuencias:
+
+- **`entrega_diferida`** es un flag nuevo: una unidad de entrega puede estar en el roadmap y no en la etapa en curso. Se enumera y no se le genera documentación, y su ausencia no requiere ADR de apartamiento.
+- **El caso del reporte `06` se disuelve.** Con `tiene_persistencia` evaluado en la unidad de entrega, un monolito cuya persistencia vive en una de sus capas compiladas **sí persiste**, y su modelo lógico es uno solo. El conflicto que obligó a inventar un ADR desaparece sin necesidad del ADR.
+
+### Cambiado — intake, manifiesto y validación
+
+- `PRODUCT-INTAKE-template.md` §13 se parte en **§13.1 unidades de entrega**, **§13.2 proyectos de código** y **§13.3 matriz de composición**, con el criterio que decide qué es cada cosa y la aclaración de que las dos condiciones no se excluyen: una librería que se publica es proyecto de código **y** unidad de entrega. §14 distingue contratos de **integración** de contratos de **compilación**. §17 se repite por unidad de entrega.
+- `PRODUCT-MANIFEST-template.md` deriva las dos tablas, la matriz y **los dos grafos por separado**.
+- `Intake-Rules.md` suma siete validaciones, de las cuales dos impiden confundir los ejes: que ningún proyecto de código declare un valor D8, y que todo proyecto componga al menos una unidad de entrega y toda unidad se componga de al menos un proyecto.
+
+### Cambiado — DevOps y arquitectura, donde los dos ejes se cruzan
+
+- **`Rules-Devops.md`**: se **construye por proyecto de código** y se **publica por unidad de entrega**. La regla declaraba que «el orden de construcción y de publicación lo fija el grafo de dependencias del manifiesto», que con dos ejes es falso. La matriz única se parte en matriz de build y matriz de publicación.
+- **`Rules-Arquitectura-Tecnica.md`**: `Arquitectura-Proyecto-Codigo.md` pasa a `Arquitectura-Unidad-Entrega.md` y declara de qué proyectos se compone; `Vista-Producto.md` pasa a ser el artefacto de los dos ejes; y los ADR de nivel producto incorporan **toda decisión sobre un proyecto de código compartido**, que es el caso que la versión anterior no podía ubicar y que terminaba en la carpeta de la primera entrega que lo escribiera.
+
+### Añadido — migración estructural
+
+`Migracion-Rules.md` §4.3.2 declara los cuatro pasos del salto 7.0 → 8.0. El primero es una **detención obligatoria**: el manifiesto de un destino anterior no declara cuál de sus proyectos de código se despliega, así que el agente **propone** una clasificación con cuatro señales declaradas y el humano la confirma. El árbol de un proyecto **compartido** no se funde en ninguna unidad; los casos de uso duplicados por capa no se fusionan por coincidencia de título; y el contenido sin destino se declara en el informe en lugar de borrarse.
+
+### Añadido — el inventario de vocabulario propio
+
+Se corrió el pendiente y encontró **nueve términos** usados en dos o más artefactos del framework sin definición en ningún glosario suyo: `compuerta mecánica`, `glosario operativo`, `referencia pendiente`, `apartamiento declarado`, `despacho`, `matriz de sensado de deriva`, `conjunto cerrado`, `mapa de rangos de identificadores` y `salida prometida`. **Cinco de los nueve los acuñaron las versiones 7.0 y 8.0**, que es el patrón del reporte `11` cometido por la propia intervención que lo corregía. Los nueve entran al glosario operativo.
+
+### Cerrado — los pendientes que quedaban
+
+Los tres pendientes que la 7.0 dejó abiertos se cierran en esta misma versión, para que el conjunto no se publique con deuda declarada:
+
+- **La condición de terminado en dos capas.** El reporte `07` proponía adelantarla a la Fase A y la 7.0 la administraba con una referencia pendiente. Con el nivel por artefacto disponible, la solución es mejor que cualquiera de las dos: la **capa de acuerdo del equipo** —revisión, cobertura acordada, documentación— es de nivel producto y se emite en la Fase A, dentro de `Acuerdo-Equipo.md` §5, porque es donde el equipo la acuerda; la **capa de verificación** —pirámide de testing, quality gates, matriz de cobertura— es de la unidad de entrega y vive en la 08, que **refina** la primera. La obligación de la Fase A hacia la Fase E desaparece porque no era una dependencia real: un equipo puede acordar cómo cierra su trabajo sin saber todavía qué pirámide de testing va a usar cada entrega.
+- **La cardinalidad de soluciones de código.** `PRODUCT-MANIFEST-template.md` §2.B agrupa los proyectos de código **por solución de código** cuando hay más de una, y §3 declara que hay **un grafo de compilación por solución**, porque la solución es lo que delimita un comando de construcción. Una dependencia entre proyectos de soluciones distintas no es una arista de ese grafo: es un consumo de artefacto publicado, y confundirlas produce un orden de build que ningún comando puede ejecutar.
+- **D9 y los recuentos en prosa.** Se decide **no** ampliarla, y la decisión queda escrita en `Root-Rules.md` §10 con su motivo, para que no vuelva a plantearse como pendiente: D9 está acotada a afirmaciones sobre el estado del sistema, y un recuento sobre una tabla del propio documento no lo es. Las cuatro reglas de §10 consiguen el mismo efecto sin tocar la invariante más cara de verificar del framework.
+
+Con eso, `Vocabulario-Rules.md` §8 pasa de «Pendiente declarado» a «Pendientes declarados y su cierre», y **el conjunto 8.0 se publica sin pendientes normativos abiertos**.
+
+### Impacto sobre destinos existentes
+
+| Qué deja de cumplir | Cómo se repara |
+| --- | --- |
+| El árbol entero de `SDD/Docs/Proyectos/` | Migración estructural de `Migracion-Rules.md` §4.3.2, con su detención de clasificación |
+| El `PRODUCT-INTAKE` en su Parte B y su Parte C | Migración del intake por §4.4, que es documento humano: el agente propone y el Product Owner aprueba |
+| El `PRODUCT-MANIFEST` completo | Se rederiva del intake migrado |
+| Todo documento que declare `tipo_proyecto_codigo` | Renombre a `tipo_unidad_entrega`, y retiro del valor en los proyectos de código que no son unidades de entrega |
+| La numeración, cuando dos árboles se funden en una unidad | Árbol de migración de §4.3.1, cuya comprobación de colisión de destino es la que lo detecta |
+
+Lo que **no** cambia: el contenido de los documentos. El salto cambia de qué nivel son y dónde viven, no lo que dicen. Un caso de uso migrado sigue diciendo lo mismo.
+
+---
+
+## [7.0] - 2026-08-15
+
+Intervención sobre los **doce reportes de evidencia** `00` a `11` emitidos durante corridas reales del orquestador. Sube major por tres motivos independientes: se modifica la invariante **D3** (ancho y ámbito de los identificadores), sube major `Rules-Plan-Sprint.md` (artefactos del equipo al nivel producto) y sube major `Migracion-Rules.md` (renumeración de identificadores). El conjunto D8 queda intacto, el orden de fases no cambia y la mecánica plan-then-confirm tampoco.
+
+**Qué tenían en común los doce reportes.** Ninguno era un error de un agente: en los doce, el agente cumplió la regla que tenía, o la única que había no se podía cumplir sin empeorar el resultado. El framework declaraba **qué** producir y con **qué forma**, y con menos frecuencia **qué propiedad tiene que conservarse** cuando eso que produjo cambia, se copia, se cuenta o entra en conflicto con otra cosa que también produjo.
+
+La nota de coherencia es [`Coherencia-Reportes-00-11.md`](SDD/Devs/Guides/Coherencia-Reportes-00-11.md).
+
+### Añadido — cuatro reglas transversales
+
+- **`Root-Rules.md` §9 Sistema de identificadores.** Declara lo que hasta acá no estaba: el **ámbito de unicidad** —el producto—, el **ancho** —cinco dígitos uniformes— con sus familias alcanzadas y sus dos exclusiones declaradas (`AG-XX` y el ordinal de iteración), la interacción entre estabilidad y capacidad —el rango se dimensiona por el total histórico, porque un identificador retirado no libera su número—, las **colecciones derivadas** que dimensionan sobre la suma de sus fuentes, y la **titularidad**: toda categoría declara el prefijo, la forma y el ámbito de lo que acuña, y ninguna acuña identificadores para artefactos de otra.
+- **`Root-Rules.md` §10 Datos derivados en la prosa.** Cuatro reglas, de la que más lejos llega a la que más verifica: preferir la forma que no cuenta, nombrar la fuente del recuento, anclar de modo que el número no admita otro referente —y si no se puede anclar, reescribir en lugar de verificar—, y registrar el recuento en el control de cambios cuando cambia. La métrica de éxito declarada no es cuántos recuentos se verifican: es cuántos dejaron de existir.
+- **`Root-Rules.md` §11 Apartamiento declarado.** Un artefacto obligatorio puede no emitirse con un ADR que lo declare, con sus alternativas descartadas y sus disparadores de revisión. Generaliza la figura que solo admitía `Rules-Documentacion.md` §2.5 y que **tres destinos distintos tuvieron que inventar por su cuenta**.
+- **`Root-Rules.md` §12 Referencia pendiente.** Forma para citar lo que todavía no existe, con su cierre obligatorio. Reemplaza a las dos salidas que rompían otra regla del framework: copiar el contenido, que crea una segunda fuente, y dejar la referencia colgada, que sella el hueco con el mecanismo que debería detectarlo.
+
+Las cuatro entran en los insumos de **todo** despacho de subagente (`Master-Prompt.md` §8), por la misma razón por la que la 5.1 sumó ahí `Vocabulario-Rules.md`: una regla que las reglas de categoría citan y que no llega al despacho no la lee nadie.
+
+### Añadido — verificación
+
+- **Compuerta mecánica previa al audit** (`Master-Prompt.md` §10.0), con cuatro comprobaciones enumerables —enlaces y anclas, recuentos anclados, idempotencia de generadores, forma y unicidad de identificadores—, su resultado como insumo del despacho del auditor, y la obligación de **declarar qué no mira**: una compuerta que se lee como aprobación es peor que ninguna. La medición que la origina: tres rondas de audit independiente sobre la misma fase produjeron 33 hallazgos, **22 de ellos detectables por un guion**, con rendimiento decreciente y no nulo.
+- **Criterio de corte de las rondas** (§10.1): una fase cierra cuando dos rondas seguidas no encuentran hallazgos interpretativos, con los enumerables en cero por la compuerta. Hasta acá una fase cerraba cuando el audit aprobaba, y si nunca aprobaba no había regla.
+- **Dos marcas ortogonales al nivel de hallazgo**: la de **origen**, que distingue el hallazgo *aguas arriba* —un defecto que la fase reprodujo fielmente de un artefacto anterior, que sin la marca no podía ser P0 ni P1 y terminaba en P3 por descarte—, y la de **detectabilidad**, que produce la métrica que gobierna la compuerta.
+- **Clasificación de los criterios de aceptación** de las diecisiete reglas como `[enumerable]` o `[interpretativo]`, con política conservadora declarada: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza.
+- **Cuatro criterios de audit nuevos**: conjuntos cerrados cruzando categorías como **P0** —el único que obliga a mirar fuera de la fase auditada—, recuentos anclados, referencias pendientes y apartamientos.
+
+### Añadido — arbitraje entre categorías
+
+- **Detención por extensión de un conjunto cerrado** y **registro único de decisiones pendientes del producto** (`Master-Prompt.md` §7.0), exhibido al cerrar **cada** fase y no solo en el handoff. El framework tenía titularidad por categoría y trazabilidad entre ellas, y no tenía arbitraje: la única salida disponible era una nota en prosa dentro de un artefacto, que no interrumpe a nadie y sobrevive a todos los audits.
+- **Comprobación del grafo de obligaciones contra el orden de fases**, con **reapertura obligatoria que trae el insumo y no solo el turno** (`Master-Prompt.md` §6), y la prohibición de que una categoría emita un artefacto de otra.
+- **Propagación por iteración** en la Fase B2, **regla de escape** de la matriz de propagación, fila para el caso en que la validación crea un proyecto de código, y el `PRODUCT-MANIFEST` incorporado a la regla de corte (`Maqueta-Rules.md` §3.5 y §3.6).
+
+### Cambiado — invariante D3
+
+- **El ancho pasa de dos a cinco dígitos uniformes y se declara el ámbito de unicidad: el producto.** La medición que lo obliga: una corrida real emitió **191 estados** de superficie y **374 sondas**, sobre una convención que llegaba hasta noventa y nueve, y el agente tuvo que elegir entre tres salidas —romper la uniformidad, fragmentar el identificador o comprimir el inventario— sin ningún criterio del método para preferir una. La tabla que el framework define como derivada de todas las otras era la que con más seguridad desbordaba.
+- El ámbito de unicidad no estaba declarado en ninguna regla ni en los dos orquestadores, y dos partes del framework exigían lecturas incompatibles. Se elige **producto**, que es la que hace resolver sin tocarla la tabla de trazabilidad de `Rules-Necesidades-Negocio.md` §4.4, que cita el caso de uso por identificador desnudo desde un artefacto de nivel producto.
+- El orquestador **deriva y publica el mapa de rangos** por proyecto de código antes de despachar la primera categoría (`Master-Prompt.md` §3.4), y lo incluye en cada despacho. En la corrida que lo originó, el orquestador tuvo que inventar la convención de rangos y declararla él mismo, y cinco prefijos de código de error colisionaron entre proyectos.
+
+### Cambiado — obligatoriedad y nivel
+
+- **La obligatoriedad se condiciona sobre el proyecto de código, no sobre el tipo.** `Rules-Arquitectura-Tecnica.md` alineó sus cuatro menciones del modelo lógico —que decían tres cosas distintas— sobre el flag `tiene_persistencia`, que el orquestador ya derivaba y cuyo impacto declarado ya era ése. `Rules-Examples.md` condiciona la categoría sobre `redistribuible` del manifiesto y da válvula al piso de tres samples.
+- **El nivel de aplicación se declara por artefacto** (`Vocabulario-Rules.md` §4 R3). `Rules-Plan-Sprint.md` mueve al nivel producto los cuatro artefactos que describen al equipo —velocidad, capacidad y las dos plantillas de ceremonia—, declara que la numeración de iteraciones es la del roadmap de la categoría 00, y reemplaza el criterio «mínimo Sprint 0 y Sprint 1», que era insatisfacible en un proyecto de código cuyo trabajo empieza en la cuarta iteración del producto.
+
+### Cambiado — el dato que se copia y el que se deriva
+
+- **Regla de transcripción fiel** en `PRODUCT-INTAKE-template.md` §20: si la fuente enuncia un número y la transcripción arroja otro, se declaran los dos y la razón de la diferencia. Y **coherencia intra-escenario** en `Intake-Rules.md` §5, bloqueante cuando la discrepancia no está declarada, acotada a conteos y enumeraciones del propio payload para que la validación no produzca ruido.
+
+### Cambiado — vocabulario del método
+
+- **El vocabulario del método vive en el glosario operativo** de `Master-Prompt.md` §15 y se cita sin redefinir. Generaliza la política que `Rules-Plan-Sprint.md` §6 ya enunciaba una sola vez, y sobre términos que **ya estaban resueltos**. Entran al glosario `sonda`, `pasada de diseño`, `pasada de ejecución` y `arnés`: `sonda` es la unidad del sensado de deriva, nombra las 376 filas de una matriz de un solo proyecto de código, y no estaba definida en ningún glosario del framework.
+- El criterio de gobierno de glosario, replicado en once reglas que mandaban a **nueve destinos distintos**, unifica su primera cláusula, y las dos reglas que no lo tenían —`Rules-Especificacion-Funcional.md` y `Rules-UX-UI-DX.md`— lo incorporan. `Rules-Calidad-Y-Pruebas.md` retira el noveno destino, que mandaba a definir `sonda` en línea en el cuerpo de un documento del producto.
+
+### Cambiado — migración
+
+- **`Migracion-Rules.md` §4.3.1**: la renumeración de identificadores y el renombre de archivos se hacen en **dos pasadas**. La primera construye el árbol de migración completo —cada identificador de origen con su destino, los archivos a renombrar y **todas** las referencias que los apuntan— y se confirma con el humano; la segunda aplica el árbol confirmado y cierra comprobando que ninguna referencia quedó colgada, que ningún destino colisiona y que no hay residuos de la forma vieja fuera de `_legacy/`. La evidencia de por qué no alcanza una pasada: renumerar treinta y nueve archivos en una corrida real produjo por sí solo dos hallazgos bloqueantes.
+
+### Añadido — el grafo de obligaciones, corrido
+
+La comprobación que el reporte `07` propone se **corrió** sobre las doce reglas de categoría, y no solo se incorporó como mecanismo. De 48 coincidencias brutas y 22 pares distintos, el triaje separó tres clases: obligación hacia adelante, que es el defecto; declaración de downstream, que D6 exige; y declaración de frontera, que evita el solapamiento entre categorías.
+
+Encontró **tres obligaciones que ninguna corrida había detectado**: `Acuerdo-Equipo.md` §6 referencia la condición de listo de la categoría 06 desde la Fase A, tres fases antes —el mismo documento y la sección contigua al incidente que el reporte `07` sí encontró—; la tabla de trazabilidad de un contrato de prompt referencia la categoría 08 desde la Fase B; y un contrato de prompt tiene que expresar un costo en una moneda que la categoría 09 declara cuatro fases después, que no es una referencia colgada sino un dato faltante y se trata distinto. Las tres quedan declaradas con la forma de `Root-Rules.md` §12, y la familia del glosario técnico —cinco categorías que apuntan a `Glosario-Tecnico.md` de la 11 desde fases anteriores, que el reporte `11` §4.3 ya había señalado— también.
+
+Es la evidencia de que la lista **no estaba cerrada**, tal como el reporte `07` advertía: cinco obligaciones conocidas por las corridas, ocho reales más la familia del glosario.
+
+### Impacto sobre destinos existentes
+
+| Qué deja de cumplir | Por qué | Cómo se repara |
+| --- | --- | --- |
+| Todo identificador emitido con dos dígitos, y todo archivo que lo lleva en el nombre | D3 fija cinco dígitos uniformes y ámbito de unicidad producto | Migración normativa con el árbol de `Migracion-Rules.md` §4.3.1 |
+| Identificadores repetidos entre proyectos de código del mismo producto | El ámbito de unicidad pasa a ser el producto | Ídem. La comprobación de colisión de destino del árbol es bloqueante |
+| La categoría 07 completa | `Velocidad-Equipo.md`, la capacidad y las plantillas de ceremonia pasan a nivel producto | Migración normativa, clasificación «regenerar contenido» |
+| La categoría 10 de proyectos de código no redistribuibles | El gating pasa de tipo D8 a `redistribuible` | Migración normativa. La condición nueva es más permisiva: puede haber artefactos que dejen de ser obligatorios, no al revés |
+| Los contratos de verificación de la categoría 10 | §4.6 suma campos obligatorios: qué pasos del flujo recorre la salida prometida, y el bloque `discrimina` | Migración normativa, clasificación «regenerar contenido» |
+| La línea de base visual y la matriz de sensado | El ancho de los identificadores y la declaración de colección derivada | Migración normativa |
+
+Lo que **no** deja de cumplir: las categorías 00, 01, 02, 03, 04, 05, 06, 08, 09 y 11 en su estructura y su contenido. Los cambios que las alcanzan son de criterio de aceptación y de vocabulario, y sus artefactos siguen siendo los mismos.
+
+### Alcance de la evidencia
+
+Los doce reportes salen de corridas reales sobre `Repos-RPIs/RPI.VidelControl`, un producto de cinco proyectos de código, entre el 2026-08-09 y el 2026-08-12. El análisis que ordenó la intervención en cinco familias, las correcciones propuestas por familia y el plan de aplicación viven en el repositorio de documentación, fuera de este repositorio.
+
+**Lo que esta intervención decidió no hacer**, con su motivo declarado: correr la comprobación del grafo de obligaciones sobre las diecisiete reglas y tratar cada caso; el inventario completo del vocabulario propio del framework; adelantar la condición de terminado a la Fase A; decidir si el «glosario de categoría» es un artefacto real; y declarar que un recuento en prosa es una afirmación bajo D9, que `Root-Rules.md` §10 consigue sin ampliar el alcance de la invariante.
+
+---
+
 ## [6.0] - 2026-07-29
 
 Capacidad de **migración normativa**: llevar un destino generado con una versión anterior del framework a la versión vigente, preservando su contenido. Sube major porque `PRODUCT-MANIFEST-template.md` sube major y un manifiesto ya emitido deja de cumplir. Ninguna invariante D1-D9 modificada, el conjunto D8 intacto, el orden de fases y la mecánica plan-then-confirm sin cambios.

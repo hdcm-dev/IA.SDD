@@ -1,6 +1,6 @@
 # PRODUCT-INTAKE-template
 
-**Versión de la plantilla:** 2.1
+**Versión de la plantilla:** 3.0
 
 Este campo versiona la **plantilla**. El campo `| Versión |` de la cabecera de abajo pertenece al documento de intake que la plantilla genera, y arranca en 1.0 en cada producto nuevo.
 
@@ -11,8 +11,8 @@ Reemplaza a las dos plantillas anteriores (`PROJECT-BRIEF-template.md` y `PROJEC
 Estructura en tres partes:
 
 - Parte A — Negocio del producto (§1 a §12). El qué y el porqué, en lenguaje del cliente. Es de nivel producto: el negocio es uno.
-- Parte B — Composición del producto (§13 a §16). La jerarquía de proyectos de código tipados, el estilo de producto, la descomposición y la estructura de repositorio. El §13 es la fuente de la que el orquestador deriva el manifiesto.
-- Parte C — Técnica por proyecto de código (§17 a §18). Las decisiones de construcción, en un bloque repetible por cada proyecto de código declarado en §13.
+- Parte B — Composición del producto (§13 a §16). **Los dos ejes del producto**: las unidades de entrega tipadas con D8 (§13.1), los proyectos de código con su stack (§13.2) y la matriz de composición que los cruza (§13.3), más el estilo de producto, la descomposición y la estructura de repositorio. El §13 es la fuente de la que el orquestador deriva el manifiesto.
+- Parte C — Técnica por unidad de entrega (§17 a §18). Las decisiones de construcción, en un bloque repetible por cada unidad de entrega declarada en §13.1.
 - Parte D — Anexos de datos (§20 a §21). Los escenarios y ejemplos de instancia (JSON completos, matrices de cobertura) que las Partes A y B citan por identificador. Es el único lugar del intake donde vive el dato crudo: el cuerpo referencia por ID, el anexo lo reproduce completo. **No es obligatoria: existe solo si las fuentes del intake aportan esos ejemplos. Pero si los aportan, el intake debe transcribirlos aquí en su totalidad, nunca dejar una referencia a un archivo externo que el orquestador después no pueda resolver.**
 
 ## Guía de uso de esta plantilla
@@ -20,13 +20,13 @@ Estructura en tres partes:
 1. Copiar este archivo como `PRODUCT-INTAKE-<Slug-Producto>.md` en `SDD/Intake/` del repositorio destino.
 2. **Emitir la tabla de contenido** inmediatamente después de la cabecera, con enlaces ancla a cada sección de primer y segundo nivel. Es obligatoria y se regenera antes de entregar el intake al orquestador: un intake real supera con facilidad las dos mil líneas, y sin índice ni el humano ni el agente que lo lee por partes pueden ubicar una sección. La misma exigencia rige para los documentos que el framework genera; el intake no es la excepción, es el caso donde más hace falta.
 3. Completar la cabecera y recorrer §1 a §19 en orden. Las preguntas guía marcadas con `(*)` son bloqueantes: el orquestador no avanza sin ellas.
-4. Replicar el bloque técnico de §17 una vez por cada proyecto de código declarado en §13.
+4. Replicar el bloque técnico de §17 una vez por cada unidad de entrega declarada en §13.1.
 5. Borrar los bloques `Ejemplo` y `Lo que NO va en esta sección` una vez completado cada apartado.
 6. Regla de autocontención: cuando una sección del cuerpo se apoye en un ejemplo de instancia (un escenario, un payload, un caso con datos), citarlo por identificador en el cuerpo (`E-1`, `E-2`, …) y transcribir su JSON completo en la Parte D (§20). Si las fuentes aportan esos ejemplos, la Parte D es obligatoria y debe contenerlos enteros; si no aportan ninguno, la Parte D se declara vacía con una línea que lo diga. **Prohibido dejar en el intake final una referencia a un archivo o repositorio externo como único respaldo de un dato: el orquestador aguas abajo no puede resolverla.**
 7. Validar el §19 (checklist) antes de pasar el intake al orquestador.
 8. Declarar `Versión: 1.0` en la cabecera en la primera emisión. El nombre del archivo no lleva la versión.
 
-Para un producto de un solo proyecto de código (caso degenerado), §13 tiene una sola fila y §17 se replica una vez: el orquestador aplana el layout y reproduce el comportamiento del template de tipo único.
+Para un producto de una sola unidad de entrega (caso degenerado), §13.1 tiene una sola fila y §17 se replica una vez: el orquestador aplana el layout. Si además hay un solo proyecto de código, §13.2 tiene una sola fila y el árbol resultante es idéntico al del template de tipo único.
 
 ---
 
@@ -301,27 +301,75 @@ Lo que NO va en esta sección:
 
 # Parte B — Composición del producto
 
-## §13 Proyectos de código del producto
+## §13 Composición del producto: los dos ejes
 
-Instrucción: Enumerar los proyectos de código que componen el producto. Cada proyecto de código lleva exactamente uno de los 8 valores cerrados D8. De esta tabla el orquestador deriva el `PRODUCT-MANIFEST` canónico; revisala con cuidado. No se elige un único tipo paral producto: el producto es compuesta. Un producto de un proyecto de código es el caso degenerado (una sola fila).
+Instrucción: Declarar los **dos ejes** del producto en tres tablas. El producto se compone de
+**unidades de entrega** —lo que se despliega o se publica— y se construye con **proyectos de
+código** —lo que se compila—. No son el mismo eje y su relación es de muchos a muchos: un proyecto de
+código puede componer varias unidades de entrega. De estas tablas el orquestador deriva el
+`PRODUCT-MANIFEST` canónico; revisalas con cuidado.
+
+**El criterio que decide qué es cada cosa**, y es lo único que hay que tener claro para completar
+esta sección:
+
+| Pregunta | Si la respuesta es sí |
+|---|---|
+| ¿Se despliega o se publica de forma independiente, y alguien lo consume directamente? | Es una **unidad de entrega** |
+| ¿Produce un artefacto de compilación propio y declara sus propias dependencias? | Es un **proyecto de código** |
+
+Las dos condiciones no se excluyen: una librería que se publica para que otros la instalen es un
+proyecto de código **y** una unidad de entrega. Una capa interna que viaja adentro de otro artefacto,
+no: es solo proyecto de código.
+
+### §13.1 Unidades de entrega
 
 Preguntas guía:
-- (*) ¿Qué proyectos de código componen el producto y qué valor D8 lleva cada uno?
-- (*) ¿Cuál es el proyecto de código principal (cabeza del producto)?
-- (*) ¿Qué dependencias hay entre proyectos de código? ¿El grafo es acíclico?
-- ¿Algún proyecto de código se publica como paquete redistribuible independiente del producto?
+- (*) ¿Qué piezas del producto se despliegan o se publican por separado, y qué valor D8 lleva cada una?
+- (*) ¿Cuál es la unidad de entrega principal (cabeza del producto)?
+- (*) ¿Cuáles integran con cuáles **en runtime**, y con qué protocolo?
+- ¿Alguna está en el roadmap pero no en esta etapa?
 
-Valores cerrados D8, exactamente 8:
+Valores cerrados D8, exactamente 8. **Son formas de entrega**, y por eso son atributo de esta tabla y
+no de la de proyectos de código:
 
 ```text
 library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service
 ```
 
-Tabla de proyectos de código (fuente del manifiesto derivado):
+| `Nombre-Unidad-Entrega` | `tipo_unidad_entrega` (D8) | Rol en el producto | Integra con (runtime) | `redistribuible` | Estado |
+|---|---|---|---|---|---|
+| [Nombre-Unidad-Entrega] (principal) | [uno de los 8 D8] | [una frase] | [lista o vacío] | [true / false] | [vigente / diferida] |
 
-| `Nombre-Proyecto-Codigo` | `tipo_proyecto_codigo` (D8) | Rol en el producto | Dependencias | `redistribuible` |
-|---|---|---|---|---|
-| [Nombre-Proyecto-Codigo] (principal) | [uno de los 8 D8] | [una frase] | [lista de Nombre-Proyecto-Codigo o vacío] | [true / false] |
+`Estado: diferida` declara una entrega planificada para otra etapa: se enumera en la vista de producto
+y en el roadmap, y no se le genera documentación en esta corrida.
+
+### §13.2 Proyectos de código
+
+Preguntas guía:
+- (*) ¿Qué proyectos de código se compilan, y con qué stack cada uno?
+- (*) ¿Qué dependencias de **compilación** hay entre ellos? ¿El grafo es acíclico?
+- (*) ¿Qué unidades de entrega compone cada uno?
+- ¿Pertenecen todos a la misma solución de código?
+
+| `Nombre-Proyecto-Codigo` | Solución de código | Stack | Rol en la arquitectura | Dependencias de compilación | Compone |
+|---|---|---|---|---|---|
+| [Nombre-Proyecto-Codigo] | [nombre de la solución] | [lenguaje y framework] | [una frase] | [lista o vacío] | [lista de Nombre-Unidad-Entrega] |
+
+**Los proyectos de código no llevan valor D8.** El tipo describe una forma de entrega, y un proyecto
+de código no se entrega: se compila. Lo que se entrega es la unidad que lo contiene.
+
+### §13.3 Matriz de composición
+
+El orquestador la deriva de la columna «Compone» de §13.2 y la publica en la vista de producto. Se
+declara acá para que quien complete el intake vea el resultado y lo revise:
+
+| | Proyecto-A | Proyecto-B | Proyecto-Compartido |
+|---|---|---|---|
+| Unidad-1 | X | | X |
+| Unidad-2 | | X | X |
+
+Una columna con más de una marca es un **proyecto compartido**, y es lo primero que hay que mirar
+antes de cambiarlo: su modificación alcanza a todas las entregas marcadas.
 
 Perfil de convención de nombres de código (el orquestador deriva los nombres `/src` con esta regla):
 
@@ -334,26 +382,38 @@ Perfil de convención de nombres de código (el orquestador deriva los nombres `
 
 Regla de nombres de código: cada proyecto de código se nombra `<Raiz-Codigo>.<Sufijo>` (por ejemplo `Contoso.Turnos.WebApi`, `Contoso.Turnos.Domain`); los redistribuibles arrancan con el prefijo de organización (`Aplicada.Validaciones`). La regla es agnóstica de stack a propósito.
 
-Los nombres de código resultantes deben coincidir con los directorios de `/src` de §16. Si el repositorio ya existe, `Raiz-Codigo` se toma de él y no se inventa: la identidad de código preexistente manda sobre cualquier derivación.
+Los nombres de código resultantes deben coincidir con los directorios de `/src` de §16. La regla de nombres se aplica a los proyectos de código de §13.2. Si el repositorio ya existe, `Raiz-Codigo` se toma de él y no se inventa: la identidad de código preexistente manda sobre cualquier derivación.
 
 Lo que NO va en esta sección:
-- Decisiones técnicas internas de cada proyecto de código (van a §17).
+- Decisiones técnicas internas de cada unidad de entrega (van a §17).
 - El árbol de carpetas completo (va a §16).
+- **Confundir los dos ejes**: una capa interna que no se despliega no es una unidad de entrega, y una unidad de entrega que se compila en varios proyectos no es un proyecto de código.
 
 ---
 
 ## §14 Estilo arquitectónico del producto
 
-Instrucción: Describir a alto nivel cómo se componen los proyectos de código entre sí: quién depende de quién, qué expone cada proyecto de código a sus dependientes y por qué la jerarquía es la elegida. El detalle interno de cada proyecto de código va a §17 P.2 y a `05-Arquitectura-Tecnica/`.
+Instrucción: Describir a alto nivel cómo se compone el producto, **distinguiendo los dos ejes**. Son
+dos clases de contrato distintas y confundirlas es el error frecuente:
+
+| Clase de contrato | Entre qué | Qué es | Ejemplo |
+|---|---|---|---|
+| **De integración** | Entre unidades de entrega | Lo que dos piezas desplegadas se prometen **en runtime** | Un front que llama a una API por HTTP con un esquema de respuesta |
+| **De compilación** | Entre proyectos de código | Lo que un proyecto expone a los que lo referencian **al construir** | Una librería de dominio que expone tipos y puertos |
+
+Un contrato de integración **no** aparece en las dependencias de compilación de §13.2 y no introduce
+ciclo en ellas: son dos grafos distintos.
 
 Preguntas guía:
-- (*) ¿Cómo se relacionan los proyectos de código y qué contrato expone cada uno a sus dependientes?
+- (*) ¿Qué contrato de integración expone cada unidad de entrega a las que la consumen, y con qué protocolo?
+- (*) ¿Qué contrato de compilación expone cada proyecto de código a los que lo referencian?
 - (*) ¿Por qué esta descomposición y no otra (un monolito, más microservicios)?
-- ¿Qué proyecto de código es el punto de entrada para el usuario final? ¿Hay proyectos de código compartidos (dominio, validaciones)?
+- ¿Qué unidad de entrega es el punto de entrada del usuario final? ¿Qué proyectos de código son compartidos entre unidades de entrega, y qué los hace compartibles?
 
 Lo que NO va en esta sección:
-- Detalle de capas internas de cada proyecto de código (va a §17 P.2 y a 05).
+- Detalle de capas internas (va a §17 P.2 y a 05).
 - Diagramas formales de despliegue (van a 05 y a la vista de producto).
+- Mezclar las dos clases de contrato en una sola lista.
 
 ---
 
@@ -396,7 +456,7 @@ Gestion-De-Turnos/
 ├── samples/
 └── SDD/
     ├── Intake/                         # PRODUCT-INTAKE y PRODUCT-MANIFEST derivado
-    ├── Docs/                           # categorías 00-11 (por proyecto de código bajo Proyectos/<Nombre-Proyecto-Codigo>/)
+    ├── Docs/                           # categorías 00-11 (por proyecto de código bajo Unidades-Entrega/<Nombre-Unidad-Entrega>/)
     └── Maquetas/                       # solo si algún proyecto de código ejecuta la Fase B2
 ```
 
@@ -419,9 +479,19 @@ Lo que NO va en esta sección:
 
 # Parte C — Técnica por proyecto de código
 
-## §17 Bloque técnico por proyecto de código (plantilla repetible)
+## §17 Bloque técnico por unidad de entrega (plantilla repetible)
 
-Instrucción: Para cada proyecto de código declarado en §13, copiar el bloque de identidad más las subsecciones P.1 a P.12 y completarlas. Si el producto tiene N proyectos de código, este bloque aparece N veces. Cada proyecto de código es autocontenido.
+Instrucción: Para cada **unidad de entrega** declarada en §13.1, copiar el bloque de identidad más las subsecciones P.1 a P.12 y completarlas. Si el producto tiene N unidades de entrega, este bloque aparece N veces. Cada unidad de entrega es autocontenida.
+
+**Por qué por unidad de entrega y no por proyecto de código.** Las doce subsecciones describen
+decisiones de lo que se entrega: su stack de ejecución, su persistencia, su seguridad, su pipeline,
+sus plataformas y sus requerimientos no funcionales. Un proyecto de código que no se despliega no
+tiene NFR de latencia ni plataformas objetivo propias: los hereda de la entrega que lo contiene. Lo
+que sí es propio de cada proyecto de código —su lenguaje, sus dependencias de compilación y su rol en
+la arquitectura— ya está declarado en §13.2, y se detalla en la categoría 05 de la entrega.
+
+Cuando una unidad de entrega se compone de varios proyectos de código con stacks distintos, P.1
+enumera los stacks con el proyecto de código al que corresponde cada uno.
 
 Identidad del proyecto de código (repetir por proyecto de código):
 
@@ -429,7 +499,7 @@ Identidad del proyecto de código (repetir por proyecto de código):
 |---|---|
 | `Nombre-Proyecto-Codigo` | [Nombre-Proyecto-Codigo] |
 | `Identidad-Codigo` | [`<Raiz-Codigo>.<Sufijo>` o `Aplicada.<X>`] |
-| `tipo_proyecto_codigo` (D8) | [uno de los 8] |
+| `tipo_unidad_entrega` (D8) | [uno de los 8] |
 | Rol | [una frase] |
 | `redistribuible` | [true / false] |
 
@@ -438,7 +508,7 @@ Instrucción: Lenguaje, versión, runtime, framework y plataformas target del pr
 Preguntas guía: (*) ¿Versión mínima del lenguaje y runtime? (*) ¿Dependencias core sin las que no compila?
 
 ### §17.P.2 Estilo arquitectónico del proyecto de código
-Instrucción: Estilo interno (capas, hexagonal, pipeline, event-driven) justificado contra dos alternativas. Coherente con su `tipo_proyecto_codigo` y con §14.
+Instrucción: Estilo interno (capas, hexagonal, pipeline, event-driven) justificado contra dos alternativas. Coherente con su `tipo_unidad_entrega` y con §14.
 Preguntas guía: (*) ¿Qué estilo y por qué? (*) ¿Qué dos alternativas se descartaron?
 
 ### §17.P.3 Comunicación e integración
@@ -466,7 +536,7 @@ Instrucción: Stages (build, test, lint, SCA, SBOM, firma, publicación), matriz
 Preguntas guía: (*) ¿Plataforma de CI? (*) ¿Quality gates bloqueantes para mergear? ¿Cómo se hace rollback?
 
 ### §17.P.9 Compatibilidad y plataformas target
-Instrucción: SO, runtimes, navegadores, dispositivos y versiones mínimas, coherentes con el `tipo_proyecto_codigo`. Toda combinación no listada se considera no soportada.
+Instrucción: SO, runtimes, navegadores, dispositivos y versiones mínimas, coherentes con el `tipo_unidad_entrega`. Toda combinación no listada se considera no soportada.
 Preguntas guía: (*) ¿Plataformas target? (*) ¿Versión mínima de cada runtime/SO?
 
 ### §17.P.10 Requerimientos no funcionales (NFR)
@@ -522,6 +592,43 @@ Instrucción: Transcribir, uno por subsección, cada escenario de instancia que 
 
 Un valor `reconstruido` **no es una medición** y nunca se presenta como tal. Cuando conviven en un mismo JSON, marcar los reconstruidos dentro del propio payload.
 
+**Regla de transcripción fiel.** El enum de arriba gobierna la relación entre el dato y su
+existencia. Falta la otra: la relación entre el dato y **lo que la fuente afirma sobre ese dato**. Se
+enuncia en una línea:
+
+> Si la fuente enuncia un número y tu transcripción arroja otro, **declarás los dos y por qué
+> difieren**, en lugar de elegir uno.
+
+El caso es frecuentísimo —cualquier tabla con celdas agrupadas, cualquier lista cuyo encabezado
+declare una cantidad, cualquier fuente que enuncie un total en prosa y lo detalle en una tabla— y no
+lo cubre la regla de no invención, porque nada se inventa: la tabla se copia bien y lo que se deriva
+mal es **el conteo sobre la tabla**, que es una operación intermedia. Tres obligaciones:
+
+1. Si la fuente enuncia un conteo, un total o una cardinalidad, el escenario lo reproduce **tal como
+   la fuente lo enuncia**.
+2. Si la transcripción arroja un valor distinto, el escenario declara **los dos valores y la razón de
+   la diferencia**, en un bloque propio. Elegir uno destruye información; declarar los dos la
+   conserva y expone la pregunta que nadie había hecho.
+3. Toda magnitud que el escenario **derive** de la fuente en lugar de copiarla se marca como
+   derivada, con su regla de cálculo, **aunque el escenario sea `medido` en su conjunto**. El
+   `Estado` del escenario no obliga a que todo su contenido tenga ese mismo estado: un escenario
+   puede ser legítimamente `medido` en cuanto a sus filas y `derivado` en cuanto a su conteo.
+
+Por qué es normativa y no una buena práctica: el bloque **Qué verificar** de este escenario es lo que
+`08-Calidad-Y-Pruebas` convierte en criterio de aceptación y `10-Examples` en contrato de
+verificación. El conteo de un escenario no es un dato ornamental: es un criterio de aceptación en
+camino.
+
+Forma sugerida del bloque de conteo, cuando hace falta:
+
+​```json
+"conteo": {
+  "filas_de_la_tabla_fuente": 9,
+  "elementos_derivados": 10,
+  "por_que_no_coinciden": "una fila agrupa dos elementos; las menciones en prosa de la fuente cuentan filas, no elementos"
+}
+​```
+
 Formato por escenario:
 
 ### §20.[ID] · [Título del escenario]
@@ -547,6 +654,8 @@ Lo que NO va en esta sección:
 - Escenarios no citados desde el cuerpo (un anexo huérfano es ruido).
 - Datos sintéticos presentados como medidos: un valor `reconstruido` se marca como tal.
 - JSON sin bloque **Qué verificar**: sin criterio, el dato no es utilizable aguas abajo.
+- **Un conteo derivado presentado como transcripto**: si el número no está en la fuente sino que sale de contar sobre ella, se marca como derivado con su regla de cálculo.
+- **Prosa y payload que se contradicen sin declararlo**: los cuatro bloques del escenario tienen consumidores distintos —`02` toma el modelo, `08` toma «qué verificar» como criterio de aceptación, `10` lo convierte en contrato— y si se contradicen, cada consumidor aguas abajo cree una cosa distinta sin saber que el otro leyó otra.
 
 ## §21 Anexo B — Cobertura de campos y trazabilidad de los ejemplos
 
@@ -602,7 +711,7 @@ Este documento alimenta las siguientes secciones SDD. La parte de negocio (A) es
 
 | Sección del intake | Destino | Documento downstream típico |
 |---|---|---|
-| §1 a §12 (negocio) | `00-Contexto/`, `01-Necesidades-Negocio/` | visión, alcance, NB-XX |
+| §1 a §12 (negocio) | `00-Contexto/`, `01-Necesidades-Negocio/` | visión, alcance, NB-XXXXX |
 | §13 (proyectos de código) | `PRODUCT-MANIFEST` derivado; todas las categorías por proyecto de código | manifiesto canónico; selector de variantes D8 |
 | §14 estilo de producto | `05-Arquitectura-Tecnica/` (vista de producto) | `Arquitectura-Proyecto-Codigo.md` |
 | §16 estructura | `05-Arquitectura-Tecnica/`, `11-Documentacion/` | árbol, README de carpeta |
@@ -624,3 +733,5 @@ Este documento alimenta las siguientes secciones SDD. La parte de negocio (A) es
 | 1.5 | 2026-07-29 | Product Owner declarado y correcciones de coherencia. La cabecera suma el campo **Product Owner** y una nota que declara quién es responsable del documento: el PO es el autor del contenido y quien aprueba, la redacción puede estar asistida por un agente, y las decisiones de producto de §4 y §9 son suyas. §2 desdobla la pregunta bloqueante, que fusionaba al Product Owner con la categoría de stakeholder «propietario», e incorpora la pregunta por la cantidad de personas del equipo, origen declarado del flag `equipo_n` que ninguna sección pedía. §16 corrige el árbol de ejemplo, que mostraba `docs/` y `devs/Intake/` en lugar de las rutas `SDD/Docs/` y `SDD/Intake/` que fija `Master-Prompt.md` §3.5. Ejemplos de `Slug-Producto` normalizados a Título-Con-Guiones. Checklist de §19 actualizado. | — |
 | 2.0 | 2026-07-29 | Renombre de vocabulario normativo (framework 5.0). El nivel superior pasa de «solución» a **producto** y la unidad de compilación de «proyecto» a **proyecto de código**; los cuatro planos de identidad se separan en `Nombre-Producto`, `Slug-Producto`, `Raiz-Codigo` y `Artefacto-Agrupacion`. | Reformulación SDD |
 | 2.1 | 2026-07-29 | Corrección de la sustitución global de cadena de la 5.0. La Parte D declaraba «Regla de **reproducto**», palabra inexistente producida al sustituir `soluci*` por `producto` sobre «re**soluci**ón». La clase de defecto y su prohibición quedan documentadas en `Vocabulario-Rules.md` §9.5. La restitución de las filas históricas de este control de cambios, que la migración había reescrito contra `SDD-Development-Guide.md` §VI.2, se registra una sola vez en `CHANGELOG.md` [5.1] por alcanzar a veintitrés archivos. | Revisión SDD |
+| 2.2 | 2026-08-15 | **Regla de transcripción fiel** en la Parte D (§20), incorporada por la intervención sobre los reportes 00 a 11. El enum de `Estado` gobierna la relación entre el dato y su existencia; faltaba la relación entre el dato y lo que la fuente afirma sobre ese dato. Tres obligaciones: reproducir el conteo que la fuente enuncia, declarar los dos valores y su razón cuando la transcripción arroja otro, y marcar como derivada toda magnitud que el escenario calcule en lugar de copiar, aunque el escenario sea `medido` en su conjunto. Se agrega el bloque de conteo como forma sugerida y dos anti-patrones: el conteo derivado presentado como transcripto, y la prosa que contradice al payload sin declararlo. Sube **minor**: incorpora una exigencia sin reestructurar el artefacto; un intake ya emitido no deja de cumplir por su forma, aunque pueda fallar la validación nueva de `Intake-Rules.md` §5, que es el efecto buscado. Origen: reporte `00`, huecos A y B, con el caso del escenario que afirmaba tres números distintos sobre la misma tabla. | Framework SDD (intervención reportes 00-11) |
+| 3.0 | 2026-08-15 | **La composición se declara en dos ejes** (framework 8.0). §13 pasa de una tabla de proyectos de código a tres subsecciones: §13.1 unidades de entrega con su `tipo_unidad_entrega` D8, su `redistribuible` y su estado —vigente o diferida—; §13.2 proyectos de código con su solución de código, su stack, sus dependencias de compilación y las unidades de entrega que componen; y §13.3 la matriz de composición, que hace visible el proyecto compartido. Se declara el criterio que decide qué es cada cosa, con la aclaración de que las dos condiciones no se excluyen: una librería que se publica es proyecto de código y unidad de entrega. §14 distingue los **contratos de integración** entre unidades de entrega de los **contratos de compilación** entre proyectos de código, y declara que son dos grafos distintos. §17 pasa a repetirse por unidad de entrega, con el motivo escrito: sus doce subsecciones describen decisiones de lo que se entrega, y un proyecto de código que no se despliega no tiene NFR de latencia ni plataformas propias. Sube **major**: cambia la estructura de la Parte B y la cardinalidad de la Parte C. |

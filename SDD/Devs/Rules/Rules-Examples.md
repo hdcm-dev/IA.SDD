@@ -1,19 +1,35 @@
 # Reglas constructivas — 10 Examples
 
-**Carpeta target (por proyecto de código):** `SDD/Docs/Proyectos/<Nombre-Proyecto-Codigo>/10-Examples/`
-**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Proyecto de código
+**Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/10-Examples/`
+**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Developer Advocate / Sample Engineer Senior (AG-10)
-**Versión de las reglas:** 4.1
+**Versión de las reglas:** 6.0
 
 ---
 
 ## 0. Posición en la cadena SDD
 
-La categoría 10 materializa el sistema en código ejecutable concreto. Recibe upstream de 02 (casos de uso que cada sample ilustra) y de 05 (arquitectura y contratos públicos que cada sample respeta). Su downstream metodológico dentro de SDD es la categoría 11, que explica, contextualiza y enlaza los samples sin duplicar su código. Fuera del ciclo de especificación la leen los integradores, los mantenedores nuevos del proyecto de código y los evaluadores técnicos del cliente.
+La categoría 10 materializa el sistema en código ejecutable concreto. Recibe upstream de 02 (casos de uso que cada sample ilustra) y de 05 (arquitectura y contratos públicos que cada sample respeta). Su downstream metodológico dentro de SDD es la categoría 11, que explica, contextualiza y enlaza los samples sin duplicar su código. Fuera del ciclo de especificación la leen los integradores, los mantenedores nuevos de la unidad de entrega y los evaluadores técnicos del cliente.
 
-A diferencia de la categoría 11, que explica los conceptos y guía el recorrido intercalando snippets, la categoría 10 produce proyectos de código completos y funcionales que se clonan, se ejecutan en un entorno limpio y se modifican como punto de partida. La diferencia es operativa: 10 demuestra con código ejecutable y verificable, 11 explica y referencia.
+A diferencia de la categoría 11, que explica los conceptos y guía el recorrido intercalando snippets, la categoría 10 produce unidades de entrega completos y funcionales que se clonan, se ejecutan en un entorno limpio y se modifican como punto de partida. La diferencia es operativa: 10 demuestra con código ejecutable y verificable, 11 explica y referencia.
 
-Esta categoría es opcional según el tipo D8. Es obligatoria para `library`, `cli-tool`, `mobile-app-maui`, `rest-api`, `desktop-app` y `web-microservices` porque el integrador del artefacto necesita ejemplos reproducibles para arrancar. Es recomendada para `web-monolith` y `worker-service` cuando el proyecto de código se expone como referencia para otros equipos. Es omisible cuando el proyecto de código es estrictamente interno y no hay nuevos integradores previsibles.
+Esta categoría se condiciona por **quién va a consumir el artefacto**, y no por el tipo D8. El motivo de la obligación es que «el integrador del artefacto necesita ejemplos reproducibles para arrancar»: donde no hay integrador previsible, la obligación no tiene a quién servir.
+
+La pregunta la responde un campo que el manifiesto ya declara por unidad de entrega: **`redistribuible`**.
+
+| Condición | Obligatoriedad de la categoría 10 |
+| --- | --- |
+| `redistribuible` == true | **Obligatoria**, con la progresión completa de §2.2 |
+| `redistribuible` == false y `tiene_portal_developers` == true | **Obligatoria**, con el piso reducido de §2.2 |
+| `redistribuible` == false y sin portal de developers | **Recomendada**. Su omisión no requiere ADR de apartamiento: la obligación está condicionada, no dispensada |
+
+Un unidad de entrega de tipo `library` que viaja adentro de la publicación autocontenida de otro
+proyecto del mismo producto no tiene integrador que lo consuma por gestor de paquetes, y no lo va a
+tener sin cambiar la decisión de empaquetado del producto entero. Condicionar sobre el tipo lo
+obligaba igual, y las tablas de §2.1 y §2.2 —que son las que el orquestador lee para filtrar
+documentos, por `Master-Prompt.md` §8— decían `library: obligatorio` sin condición alguna, mientras
+la cláusula de omisión vivía en la prosa de esta sección. Dos partes de la misma regla daban
+respuestas distintas, y la que el orquestador ejecutaba era la incondicional.
 
 La auditoría de Fase 0 (`Bootstrap/Audit-SDD1.md`) detectó dos déficits del fuente SDD 1.0 que SDD corrige aquí. Primero, los archivos del fuente nombran los ejemplos por dominio (`ejemplo-02-multa.md`, `ejemplo-03-multaapp-nuget.md`), atando el sample al producto particular y descartando la idea de progresión didáctica. SDD obliga a nombrar por nivel de complejidad o por capacidad demostrada (`ejemplo-01-basico`, `ejemplo-02-intermedio`, `ejemplo-03-avanzado`, o variantes por capacidad como `ejemplo-01-cliente-http-basico`, `ejemplo-02-postman-collection`). Segundo, los markdown del fuente no llevan sufijo de versión; SDD obliga al sufijo uniforme `.md` para todos los archivos versionables de esta categoría, incluyendo `README.md` cuando se considere artefacto versionable (en este caso se mantiene `README.md` sin sufijo por convención de índice).
 
@@ -23,7 +39,7 @@ Un sample ejecutable sirve para dos cosas distintas, y esta categoría exige amb
 
 | Arista | Qué hace el sample | A quién le sirve |
 | --- | --- | --- |
-| **A — Referencia de integración** | Demuestra cómo incorporar el proyecto de código en una aplicación propia: caso realista, autocontenido, ejecutable siguiendo su README local | Al integrador, que copia el patrón y lo adapta |
+| **A — Referencia de integración** | Demuestra cómo incorporar la unidad de entrega en una aplicación propia: caso realista, autocontenido, ejecutable siguiendo su README local | Al integrador, que copia el patrón y lo adapta |
 | **B — Arnés de autovalidación** | Verifica que cada incremento construido sigue satisfaciendo los casos de uso especificados. El sample declara, además de qué ilustra, **qué verifica** | Al equipo que construye, y a los agentes de IA que codifican contra la especificación |
 
 La arista A es el rol histórico de la categoría y no cambia. La arista B es lo que convierte al sample en instrumento de control: cada uno lleva un `Contrato de verificación` (§4.6) con una aserción evaluable por una máquina, y ese contrato se ejecuta durante la codificación. Un sample cuyo criterio de aceptación falla es un hallazgo, no un documento pendiente.
@@ -49,11 +65,11 @@ Declarar el criterio de aceptación antes de escribir el código es deliberado: 
 
 ### 1.1 Especialidad base
 
-Developer Advocate / Sample Engineer Senior, equivalente al AG-10 del catálogo SDD. Perfil profesional que construye aplicaciones de referencia ejecutables que demuestran cómo usar el producto en escenarios reales. A diferencia del Technical Writer (AG-11) que documenta conceptos y guías, el Developer Advocate produce código que se compila, se corre y se observa. Cada sample es un proyecto de código autocontenido con su propia documentación, sus prerequisitos, sus comandos de arranque y su resultado esperado verificable.
+Developer Advocate / Sample Engineer Senior, equivalente al AG-10 del catálogo SDD. Perfil profesional que construye aplicaciones de referencia ejecutables que demuestran cómo usar el producto en escenarios reales. A diferencia del Technical Writer (AG-11) que documenta conceptos y guías, el Developer Advocate produce código que se compila, se corre y se observa. Cada sample es una unidad de entrega autocontenido con su propia documentación, sus prerequisitos, sus comandos de arranque y su resultado esperado verificable.
 
-El rol combina Sample Engineering (construcción de proyectos de código de referencia progresivos) con curaduría editorial: decide qué capacidades exhibe cada sample, cómo escalan en complejidad, qué CU ilustran y qué punto de extensión del sistema cubren. Cuando el proyecto de código se expone públicamente, el rol también incluye Developer Relations (DevRel) y Developer Education, pero esas facetas se activan en proyectos de código con comunidad de integradores externos, no en todo proyecto de código interno.
+El rol combina Sample Engineering (construcción de unidades de entrega de referencia progresivos) con curaduría editorial: decide qué capacidades exhibe cada sample, cómo escalan en complejidad, qué CU ilustran y qué punto de extensión del sistema cubren. Cuando la unidad de entrega se expone públicamente, el rol también incluye Developer Relations (DevRel) y Developer Education, pero esas facetas se activan en unidades de entrega con comunidad de integradores externos, no en todo unidad de entrega interno.
 
-### 1.2 Variantes según tipo de proyecto de código (8 valores D8)
+### 1.2 Variantes según tipo de unidad de entrega (8 valores D8)
 
 | Tipo | Especialidad específica | Justificación |
 | --- | --- | --- |
@@ -66,7 +82,7 @@ El rol combina Sample Engineering (construcción de proyectos de código de refe
 | cli-tool | Sample Engineer | Recetas multi-OS (Windows, Linux, macOS) con scripts batch/bash equivalentes y casos de uso reales por subcomando. |
 | worker-service | Sample Engineer | docker-compose con broker (RabbitMQ, Kafka o equivalente) y productor de prueba que dispara mensajes representativos al worker. |
 
-El orquestador lee esta tabla y, según el `tipo_proyecto_codigo` del proyecto de código en curso (leído del manifiesto de producto), selecciona la variante correspondiente y la combina con la especialidad base. La variante se aplica una vez por cada proyecto de código del producto.
+El orquestador lee esta tabla y, según el `tipo_unidad_entrega` de la unidad de entrega en curso (leído del manifiesto de producto), selecciona la variante correspondiente y la combina con la especialidad base. La variante se aplica una vez por cada unidad de entrega del producto.
 
 ### 1.3 Multi-especialidad
 
@@ -88,13 +104,13 @@ El AG-10 mantiene titularidad de los artefactos. Las demás especialidades aport
 
 | Archivo | Obligatorio para | Recomendado | Omitir para | Descripción |
 | --- | --- | --- | --- | --- |
-| `README.md` | library, cli-tool, mobile-app-maui, rest-api, desktop-app, web-microservices | web-monolith, worker-service | Proyectos de código estrictamente internos sin integradores externos | Índice de samples con tabla maestra (nivel, tiempo de setup, CU ilustrados, ubicación en `/samples`). |
-| `ejemplo-01-basico.md` o `ejemplo-01-<Progresion>.md` | library, cli-tool, mobile-app-maui, rest-api, desktop-app, web-microservices | web-monolith, worker-service | — | Markdown explicativo del sample de nivel básico. |
-| `ejemplo-02-intermedio.md` o `ejemplo-02-<Progresion>.md` | library, cli-tool, mobile-app-maui, rest-api | desktop-app, web-microservices, web-monolith, worker-service | — | Markdown explicativo del sample de nivel intermedio. |
-| `ejemplo-03-avanzado.md` o `ejemplo-03-<Progresion>.md` | library, cli-tool, mobile-app-maui, rest-api | desktop-app, web-microservices | — | Markdown explicativo del sample de nivel avanzado o de integración. |
+| `README.md` | `redistribuible` == true, o `tiene_portal_developers` == true | Resto de las unidades de entrega | — | Índice de samples con tabla maestra (nivel, tiempo de setup, CU ilustrados, ubicación en `/samples`). |
+| `ejemplo-01-basico.md` o `ejemplo-01-<Progresion>.md` | `redistribuible` == true, o `tiene_portal_developers` == true | Resto de las unidades de entrega | — | Markdown explicativo del sample de nivel básico. |
+| `ejemplo-02-intermedio.md` o `ejemplo-02-<Progresion>.md` | `redistribuible` == true, en los tipos con progresión de tres de §2.2 | Resto | Proyectos de código con `redistribuible` == false | Markdown explicativo del sample de nivel intermedio. |
+| `ejemplo-03-avanzado.md` o `ejemplo-03-<Progresion>.md` | `redistribuible` == true, en los tipos con progresión de tres de §2.2 | Resto | Proyectos de código con `redistribuible` == false | Markdown explicativo del sample de nivel avanzado o de integración. |
 | `Imagenes/` (carpeta) | Cuando los markdown referencian screenshots o assets visuales | — | Samples sin UI | Carpeta de assets versionados (PNG, SVG). Sin assets binarios pesados; preferir vectoriales. |
 
-Cada markdown explicativo se acompaña de un proyecto de código ejecutable en `/samples/<carpeta-correspondiente>/` del repositorio. La categoría 10 documenta el sample; la materialización en código vive en `/samples` y se gobierna desde §16.1 del PRODUCT-INTAKE (materialización de `/samples`).
+Cada markdown explicativo se acompaña de una unidad de entrega ejecutable en `/samples/<carpeta-correspondiente>/` del repositorio. La categoría 10 documenta el sample; la materialización en código vive en `/samples` y se gobierna desde §16.1 del PRODUCT-INTAKE (materialización de `/samples`).
 
 ### 2.2 Cantidad mínima de samples por tipo
 
@@ -109,11 +125,19 @@ Cada markdown explicativo se acompaña de un proyecto de código ejecutable en `
 | cli-tool | 3 | recetas Windows + recetas Linux + recetas macOS |
 | worker-service | 2 | compose con broker + productor de prueba |
 
-Estos son pisos. Un proyecto de código puede agregar samples adicionales para cubrir capacidades extra (autenticación, multi-tenancy, observabilidad), siempre que cada uno mantenga la nomenclatura por progresión o por capacidad y declare su nivel.
+Estos son pisos, y **el piso rige cuando `redistribuible` == true**. Un unidad de entrega no
+redistribuible que emite la categoría por tener portal de developers, o por decisión del equipo, tiene
+piso de **un** sample: el que cubra el camino de entrada más frecuente. La progresión de tres existe
+para el integrador que arranca de cero y necesita subir de nivel; sin integrador externo, obligar a
+tres produce dos artefactos que existen para satisfacer un piso.
+
+Un unidad de entrega puede agregar samples adicionales para cubrir capacidades extra (autenticación,
+multi-tenancy, observabilidad), siempre que cada uno mantenga la nomenclatura por progresión o por
+capacidad y declare su nivel.
 
 ### 2.3 Matriz tipo D8 → carpetas en `/samples`
 
-La carpeta `/samples` del repositorio refleja directamente los archivos documentados en `docs/10-Examples/`. Hay correspondencia 1:1 entre cada `ejemplo-XX-<Nombre>.md` y una carpeta ejecutable en `/samples/`.
+La carpeta `/samples` del repositorio refleja directamente los archivos documentados en `docs/10-Examples/`. Hay correspondencia 1:1 entre cada `ejemplo-XXXXX-<Nombre>.md` y una carpeta ejecutable en `/samples/`.
 
 | Tipo D8 | Estructura mínima de `/samples` |
 | --- | --- |
@@ -134,17 +158,17 @@ Esta tabla es vinculante: el contenido de `/samples` no se inventa; se deriva de
 
 ### 3.1 Patrón de nombres
 
-- `ejemplo-XX-<Progresion>.md` para el markdown explicativo de cada sample.
-- `XX` es el número correlativo en dos dígitos, empezando en `01` y respetando la progresión.
+- `ejemplo-XXXXX-<Progresion>.md` para el markdown explicativo de cada sample.
+- `XXXXX` es el número correlativo con el ancho de `Root-Rules.md` §9.2, empezando en `00001` y respetando la progresión.
 - `<Progresion>` describe nivel de complejidad o capacidad demostrada, en Título-Con-Guiones estricto. Valores admitidos por nivel: `basico`, `intermedio`, `avanzado`. Valores admitidos por capacidad: `cliente-http-basico`, `postman-collection`, `sdk-tipado-generado`, `plugin-demo`, `tema-custom`, `compose-minimo`, `compose-end-to-end`, `recetas-windows`, `recetas-linux`, `recetas-mac`, `compose-broker`, `productor-de-prueba`, `app-basica`, `sync-offline`, `multiplatform-demo`, `datos-seed`, `con-extensiones`, `integracion-real`.
 - Sufijo `.md` obligatorio y uniforme. Queda prohibido el patrón heredado sin versión (por ejemplo `ejemplo-01-simple.md` del fuente). Queda prohibido el sufijo de dominio (por ejemplo `ejemplo-02-multa`, `ejemplo-03-multaapp-nuget`, `ejemplo-04-factura`, `ejemplo-05-recibo`, o cualquier otro nombre atado al producto particular).
 - `README.md` de la sección sin sufijo de versión. Es el índice navegable. Al archivarse sí recibe el sufijo: `_legacy/<YYYY-MM-DD>/README-v<X.Y>.md`, con la versión tomada del campo `Versión` de su cabecera, porque en el snapshot la versión es lo que lo identifica y sin ella dos archivados del mismo día colisionan. La regla general y su tabla de exenciones viven en `Master-Prompt.md` §5.1.
 
 ### 3.2 Reglas de progresión
 
-La numeración refleja un orden de lectura recomendado de menor a mayor complejidad. Sample 01 introduce el camino feliz mínimo; sample 02 agrega complejidad típica del caso intermedio (configuración, datos reales, integraciones simples); sample 03 demuestra el caso avanzado o el punto de extensión principal. Si el proyecto de código opta por progresión por capacidad en lugar de por nivel, cada sample debe igual declarar su nivel implícito en §2 del markdown (básico, intermedio o avanzado).
+La numeración refleja un orden de lectura recomendado de menor a mayor complejidad. Sample 01 introduce el camino feliz mínimo; sample 02 agrega complejidad típica del caso intermedio (configuración, datos reales, integraciones simples); sample 03 demuestra el caso avanzado o el punto de extensión principal. Si la unidad de entrega opta por progresión por capacidad en lugar de por nivel, cada sample debe igual declarar su nivel implícito en §2 del markdown (básico, intermedio o avanzado).
 
-Está prohibida la numeración por dominio del proyecto de código. La progresión `multa → multaapp-nuget` del fuente es exactamente lo que SDD corrige: ese par mezcla nombre de caso de uso con nombre de mecanismo de distribución, sin transmitir progresión didáctica. SDD obliga a que el slug responda a "qué demuestra el sample respecto al anterior", no a "qué dominio modela".
+Está prohibida la numeración por dominio de la unidad de entrega. La progresión `multa → multaapp-nuget` del fuente es exactamente lo que SDD corrige: ese par mezcla nombre de caso de uso con nombre de mecanismo de distribución, sin transmitir progresión didáctica. SDD obliga a que el slug responda a "qué demuestra el sample respecto al anterior", no a "qué dominio modela".
 
 ### 3.3 Vinculación cross-doc
 
@@ -174,7 +198,7 @@ Cada markdown explicativo inicia con un H1 y un bloque de metadatos uniforme:
 # Ejemplo XX — <Nombre descriptivo del sample>
 
 **Proyecto de código:** {{Nombre-Proyecto-Codigo}}
-**Documento:** ejemplo-XX-<Progresion>.md
+**Documento:** ejemplo-XXXXX-<Progresion>.md
 **Versión:** <X.Y>
 **Estado:** Borrador | Propuesto | Aprobado | Vigente | Superado | Archivado
 **Fecha:** YYYY-MM-DD
@@ -212,11 +236,11 @@ Tabla maestra del `README.md`:
 
 | Sample | Nivel | Tiempo de setup | CU ilustrados | Ubicación |
 | --- | --- | --- | --- | --- |
-| `Ejemplo-01-Basico.md` | Básico | < 5 min | CU-01, CU-02 | `/samples/01-basico/` |
-| `Ejemplo-02-Intermedio.md` | Intermedio | 10-15 min | CU-03, CU-04, CU-05 | `/samples/02-intermedio/` |
-| `Ejemplo-03-Avanzado.md` | Avanzado | 20-30 min | CU-06, CU-07, CU-08 | `/samples/03-avanzado/` |
+| `Ejemplo-01-Basico.md` | Básico | < 5 min | CU-00001, CU-00002 | `/samples/01-basico/` |
+| `Ejemplo-02-Intermedio.md` | Intermedio | 10-15 min | CU-00003, CU-00004, CU-00005 | `/samples/02-intermedio/` |
+| `Ejemplo-03-Avanzado.md` | Avanzado | 20-30 min | CU-00006, CU-00007, CU-00008 | `/samples/03-avanzado/` |
 
-Tabla tipo de proyecto de código vs estructura de `/samples` (replica resumida de §2.3 al pie del README):
+Tabla tipo de unidad de entrega vs estructura de `/samples` (replica resumida de §2.3 al pie del README):
 
 | Tipo D8 | Estructura de `/samples` |
 | --- | --- |
@@ -229,17 +253,17 @@ Tabla de trazabilidad por sample (en §8 de cada markdown):
 
 | Artefacto upstream | Tipo | Cómo lo ilustra este sample |
 | --- | --- | --- |
-| CU-XX | Caso de uso | El sample ejecuta el flujo principal del CU end-to-end. |
-| ADR-XX | Decisión arquitectónica | El sample materializa la decisión declarada en el ADR. |
-| NFR-XX | Requisito no funcional | El sample mide el SLA del NFR mediante un script o test. |
+| CU-XXXXX | Caso de uso | El sample ejecuta el flujo principal del CU end-to-end. |
+| ADR-XXXXX | Decisión arquitectónica | El sample materializa la decisión declarada en el ADR. |
+| NFR-XXXXX | Requisito no funcional | El sample mide el SLA del NFR mediante un script o test. |
 
 Tabla de contratos de verificación del `README.md` de la sección, que da la vista de conjunto de la arista B:
 
 | Sonda | Sample | Verifica | Comando | Estado | Última corrida |
 | --- | --- | --- | --- | --- | --- |
-| `VER-01` | `Ejemplo-01-Basico.md` | CU-01, CU-02 | `make sample-01` | Verificado | 2026-08-14 |
-| `VER-02` | `Ejemplo-02-Intermedio.md` | CU-03, US-12 | `make sample-02` | Falla | 2026-08-14 |
-| `VER-03` | `Ejemplo-03-Avanzado.md` | CU-06, CU-07 | `make sample-03` | No verificado — sin código | — |
+| `VER-00001` | `Ejemplo-01-Basico.md` | CU-00001, CU-00002 | `make sample-01` | Verificado | 2026-08-14 |
+| `VER-00002` | `Ejemplo-02-Intermedio.md` | CU-00003, US-00012 | `make sample-02` | Falla | 2026-08-14 |
+| `VER-00003` | `Ejemplo-03-Avanzado.md` | CU-00006, CU-00007 | `make sample-03` | No verificado — sin código | — |
 
 El estado `Falla` no se oculta ni se resuelve borrando la fila: se escala como hallazgo del incremento en curso.
 
@@ -247,7 +271,7 @@ El estado `Falla` no se oculta ni se resuelve borrando la fila: se escala como h
 
 | Anti-patrón | Problema | Solución |
 | --- | --- | --- |
-| Samples nombrados por dominio del proyecto de código | Atan el ejemplo al producto particular y rompen la progresión didáctica (lección del fuente: `multa`, `multaapp-nuget`) | Nombrar por nivel o por capacidad, nunca por entidad del dominio |
+| Samples nombrados por dominio de la unidad de entrega | Atan el ejemplo al producto particular y rompen la progresión didáctica (lección del fuente: `multa`, `multaapp-nuget`) | Nombrar por nivel o por capacidad, nunca por entidad del dominio |
 | Samples sin nivel declarado | El lector no sabe qué orden seguir y no hay progresión | Cada sample declara nivel explícito en §2 |
 | Samples no ejecutables o desactualizados | El dev clona y no le compila; la documentación pierde credibilidad | CI que compila y ejecuta cada sample en cada push |
 | Samples que duplican el `/src` sin agregar valor demostrativo | Inflan el repositorio sin enseñar nada nuevo | Cada sample demuestra una capacidad distinta o un punto de extensión |
@@ -257,7 +281,7 @@ El estado `Falla` no se oculta ni se resuelve borrando la fila: se escala como h
 | Dependencias externas no documentadas | El sample falla en máquinas limpias y nadie sabe por qué | Prerequisites exhaustivos con versión mínima |
 | Output esperado no documentado | El dev no sabe si su ejecución fue exitosa | §6 con output exacto o screenshot |
 | Samples sólo en un OS sin justificar | Excluye a parte de los integradores objetivo | Cubrir al menos los OS declarados en §17 P.9 del PRODUCT-INTAKE |
-| Mezclar progresión por nivel y por dominio en un mismo proyecto de código | El lector pierde el hilo de lectura | Elegir una progresión (nivel o capacidad) y aplicarla consistentemente |
+| Mezclar progresión por nivel y por dominio en un misma unidad de entrega | El lector pierde el hilo de lectura | Elegir una progresión (nivel o capacidad) y aplicarla consistentemente |
 | `criterio_aceptacion` redactado como prosa | «Verificar que el servicio responda correctamente» obliga a que alguien interprete qué es correcto; el contrato deja de ser evaluable y la arista B se cae | Exit code, código y cuerpo de respuesta HTTP, o snapshot comparable |
 | Sample sin `Contrato de verificación` | Vuelve a ser una demo: ilustra pero no prueba nada, y no aporta sonda a la matriz de sensado | Sección 9 obligatoria en los diez apartados del markdown explicativo |
 | `evidencia` inventada o copiada de otro sample | Documenta una corrida que nunca ocurrió; es exactamente lo que D9 prohíbe | Pegar la salida textual de la última ejecución real, con su fecha |
@@ -272,11 +296,37 @@ Sección 9 obligatoria de todo markdown explicativo. Declara qué verifica el sa
 
 | Campo | Contenido | Obligatorio |
 | --- | --- | --- |
-| `verifica` | Lista de identificadores de casos de uso (`CU-XX`) y user stories (`US-XX`) que el sample ejercita, tomados de 02 y de 06 | Sí |
+| `verifica` | Lista de identificadores de casos de uso (`CU-XXXXX`) y user stories (`US-XXXXX`) que el sample ejercita, tomados de 02 y de 06. Cada entrada declara además **qué pasos del flujo principal recorre la salida prometida y cuáles no** | Sí |
+| `discrimina` | Por cada aserción del `criterio_aceptacion`, qué caso de uso deja de cumplirse si esa aserción falla | Sí |
 | `comando` | Comando exacto de ejecución, copy-paste, desde la raíz del repositorio | Sí |
 | `precondiciones` | Estado mínimo requerido: servicios levantados, datos seed, variables de entorno | Sí |
 | `criterio_aceptacion` | Aserción evaluable, no prosa. Exit code esperado, respuesta HTTP con código y cuerpo, o snapshot de salida comparable | Sí |
 | `evidencia` | Salida real obtenida en la última corrida, con fecha | Sí, una vez que existe código |
+
+**Regla dura de la declaración: ejercitar no es nombrar, y verdadero no es verificable.**
+
+Un caso de uso está **recorrido** cuando alguna línea de la salida prometida **cambia como
+consecuencia** de un paso de su flujo principal, de modo que si ese paso se rompe, la aserción falla.
+Si ninguna línea depende de él, correr el sample y verificar su criterio no dice nada sobre ese caso
+de uso: el sample pasa igual con el caso de uso enteramente roto.
+
+De ahí las dos obligaciones del contrato, que son dos y no una porque la primera sola no alcanza:
+
+1. **Declaración falsable.** Cada caso de uso declarado dice qué pasos de su flujo recorre la salida
+   prometida y cuáles no. «Ilustra `CU-00025`» no se puede refutar sin discutir qué significa
+   ilustrar; «recorre los pasos 3 a 7 y no el 2» se refuta leyendo siete renglones.
+2. **Declaración verificable.** Cada aserción declara en `discrimina` qué caso de uso deja de
+   cumplirse si ella falla, y **no se admite un caso de uso declarado que ninguna aserción
+   discrimine**. Sin esto la declaración puede ser verdadera y seguir sin ser verificable: la sonda
+   pasa en verde con el caso de uso roto.
+
+**Cómo se produce la declaración falsa, para reconocerla al escribirla.** No se inventa un caso de
+uso: se confunde **precondición con flujo ejercitado**. El sample necesita que ese caso de uso haya
+ocurrido para poder correr, y de «lo necesita» se pasa a «lo ejercita» sin que medie ninguna
+comprobación. El salto es cómodo de dar porque las dos cosas son ciertas por separado. Lo empuja la
+**afinidad de tema** —el sample y el caso de uso hablan de lo mismo, así que la elección se siente
+evidente y no se verifica—, y en la pasada de diseño no hay **código que desmienta**: la salida
+prometida la escribe la misma mano que escribe la trazabilidad, en el mismo rato.
 
 **Regla dura de la aserción.** El `criterio_aceptacion` debe ser evaluable por una máquina sin interpretación. Es válido `curl -sf localhost:8080/health` con exit code `0` y cuerpo `{"status":"healthy"}`. No es válido «verificar que el servicio responda correctamente»: eso obliga a que alguien decida qué significa «correctamente», y esa decisión es exactamente lo que el contrato debe fijar por escrito.
 
@@ -284,15 +334,30 @@ Formato del bloque, en YAML para que un agente lo parsee sin ambigüedad:
 
 ```yaml
 verificacion:
-  id: VER-01
-  verifica: [CU-03, CU-04, US-12]
+  id: VER-00001
+  verifica:
+    - id: CU-00003
+      recorre: "pasos 2 a 5 del flujo principal"
+      no_recorre: "paso 6, la notificación diferida"
+    - id: CU-00004
+      recorre: "paso 1, la validación de entrada"
+      no_recorre: "pasos 2 a 4"
+    - id: US-00012
+      recorre: "el criterio de aceptación 1"
+      no_recorre: "los criterios 2 y 3"
   comando: "dotnet run --project samples/02-intermedio"
   precondiciones:
     - "Servicio de persistencia levantado en el puerto declarado en §17 P.9"
     - "Variable de entorno APP_ENV=local"
+    - "La publicación de la fuente está activa: es estado previo y no algo que este sample ejercite"
   criterio_aceptacion:
     exit_code: 0
     stdout_contiene: "Filas procesadas: 1250"
+  discrimina:
+    - asercion: "exit_code: 0"
+      rompe: CU-00004
+    - asercion: "stdout_contiene: Filas procesadas: 1250"
+      rompe: CU-00003
   evidencia:
     fecha: 2026-08-14
     salida: "Filas procesadas: 1250\nTiempo: 0.84s"
@@ -303,8 +368,8 @@ En la pasada de diseño, cuando todavía no hay código, el mismo contrato se de
 
 ```yaml
 verificacion:
-  id: VER-01
-  verifica: [CU-03, CU-04, US-12]
+  id: VER-00001
+  verifica: [CU-00003, CU-00004, US-00012]
   comando: "dotnet run --project samples/02-intermedio"
   precondiciones:
     - "Servicio de persistencia levantado en el puerto declarado en §17 P.9"
@@ -318,9 +383,9 @@ verificacion:
 
 Lo único que cambia entre una pasada y la otra es el bloque `evidencia`. El resto del contrato se escribe una vez y no se retoca, salvo que cambie la especificación que verifica.
 
-**Identificador.** Cada contrato lleva un `VER-XX` único dentro del proyecto de código. Los enlaces y las trazas apuntan a ese identificador, no a la ruta del archivo. Es el mismo criterio que ya rige para `CU-XX`, `ADR-XX` y `SUP-XX`.
+**Identificador.** Cada contrato lleva un `VER-XXXXX` único dentro de la unidad de entrega. Los enlaces y las trazas apuntan a ese identificador, no a la ruta del archivo. Es el mismo criterio que ya rige para `CU-XXXXX`, `ADR-XXXXX` y `SUP-XXXXX`.
 
-**Vinculación con el sensado de deriva.** Los contratos de verificación de esta categoría son sondas de la matriz de sensado de deriva, gobernada por `Deriva-Rules.md`. La matriz cubría hasta ahora superficies de UX aprobadas en la maqueta (`SUP-XX`, `CMP-XX`, `EST-XX`, `NAV-XX`, `DM-XX`); con `VER-XX` pasa a cubrir también contratos y comportamiento. La mecánica de sensado vive en `Deriva-Rules.md` §2 y §4; estas reglas solo declaran qué aporta la categoría 10.
+**Vinculación con el sensado de deriva.** Los contratos de verificación de esta categoría son sondas de la matriz de sensado de deriva, gobernada por `Deriva-Rules.md`. La matriz cubría hasta ahora superficies de UX aprobadas en la maqueta (`SUP-XXXXX`, `CMP-XXXXX`, `EST-XXXXX`, `NAV-XXXXX`, `DM-XXXXX`); con `VER-XXXXX` pasa a cubrir también contratos y comportamiento. La mecánica de sensado vive en `Deriva-Rules.md` §2 y §4; estas reglas solo declaran qué aporta la categoría 10.
 ---
 
 ## 5. Preguntas guía para el subagente
@@ -359,7 +424,7 @@ Lo único que cambia entre una pasada y la otra es el bloque `evidencia`. El res
 - ¿El `criterio_aceptacion` es evaluable por una máquina, o encubre un juicio humano bajo palabras como «correctamente», «adecuado» o «razonable»?
 - ¿El `comando` corre desde la raíz del repositorio y es copy-paste, sin pasos implícitos?
 - ¿Las `precondiciones` alcanzan para que el comando funcione en una máquina limpia, o dan por sabido algo del entorno del que las escribió?
-- ¿El conjunto de sondas `VER-XX` cubre los CU críticos del proyecto de código, o quedan casos de uso sin ninguna sonda que los ejercite?
+- ¿El conjunto de sondas `VER-XXXXX` cubre los CU críticos de la unidad de entrega, o quedan casos de uso sin ninguna sonda que los ejercite?
 - ¿Hay dos sondas que verifican lo mismo? ¿Está justificada la redundancia?
 - En la pasada de ejecución: ¿la `evidencia` es la salida real de la última corrida, con su fecha, o se arrastra de una corrida anterior?
 - ¿Algún contrato está en estado `Falla` sin hallazgo abierto que le corresponda?
@@ -374,35 +439,47 @@ Lo único que cambia entre una pasada y la otra es el bloque `evidencia`. El res
 
 ## 6. Criterios de aceptación
 
-- [ ] Existe `README.md` con tabla maestra de samples, columnas nivel, tiempo de setup, CU ilustrados, ubicación.
-- [ ] Existen al menos los samples mínimos declarados en §2.2 para el tipo D8 del proyecto de código.
-- [ ] Cada sample tiene su markdown explicativo `ejemplo-XX-<Progresion>.md` con las diez secciones obligatorias.
-- [ ] Cada sample es ejecutable con comandos copiables en entorno limpio en menos o igual a cinco pasos.
-- [ ] Cada sample declara su nivel (básico, intermedio o avanzado) explícitamente en §2.
-- [ ] Cada sample declara trazabilidad a CU, ADR o NFR en §8 con al menos una fila.
-- [ ] Los nombres de archivo usan progresión por nivel o por capacidad, nunca por dominio del proyecto de código.
-- [ ] Todos los markdown explicativos declaran su versión en el campo `Versión` de su cabecera; ninguno la lleva en el nombre.
-- [ ] El README de la carpeta lista los samples en tabla con todas las columnas declaradas en §4.4.
-- [ ] Cada sample declara tiempo de setup estimado en la tabla maestra del README.
-- [ ] Cada sample documenta el output esperado en §6 con texto exacto o screenshot.
-- [ ] Cada sample documenta prerequisites con versiones mínimas en §3.
-- [ ] La estructura de `/samples/` del repositorio coincide con la matriz declarada en §2.3 para el tipo D8 del proyecto de código.
-- [ ] Existe pipeline CI que valida que los samples compilan y ejecutan (recomendado fuerte; obligatorio para `library`, `rest-api` y `cli-tool`).
+**Naturaleza de cada criterio.** Cada ítem lleva su marca: `[enumerable]` si se decide contando o
+comparando —existencia, forma, recuento, resolución de un enlace— y `[interpretativo]` si solo se
+decide leyendo los dos lados. Los enumerables son los que la compuerta mecánica de
+`Master-Prompt.md` §10.0 tiene que cubrir; los interpretativos son para lo que el audit existe.
+
+La clasificación es **conservadora por diseño**: ante la duda, un criterio se marca interpretativo.
+El error no es simétrico —declarar mecanizable algo que no lo es produce falsa confianza, que es peor
+que la ausencia de verificación—, así que marcar de más un interpretativo solo cuesta atención del
+auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
+
+- [ ] [enumerable] Existe `README.md` con tabla maestra de samples, columnas nivel, tiempo de setup, CU ilustrados, ubicación.
+- [ ] [enumerable] Existen al menos los samples mínimos declarados en §2.2 para el tipo D8 de la unidad de entrega.
+- [ ] [interpretativo] Cada sample tiene su markdown explicativo `ejemplo-XXXXX-<Progresion>.md` con las diez secciones obligatorias.
+- [ ] [interpretativo] Cada sample es ejecutable con comandos copiables en entorno limpio en menos o igual a cinco pasos.
+- [ ] [interpretativo] Cada sample declara su nivel (básico, intermedio o avanzado) explícitamente en §2.
+- [ ] [interpretativo] Cada sample declara trazabilidad a CU, ADR o NFR en §8 con al menos una fila.
+- [ ] [interpretativo] Los nombres de archivo usan progresión por nivel o por capacidad, nunca por dominio de la unidad de entrega.
+- [ ] [interpretativo] Todos los markdown explicativos declaran su versión en el campo `Versión` de su cabecera; ninguno la lleva en el nombre.
+- [ ] [interpretativo] El README de la carpeta lista los samples en tabla con todas las columnas declaradas en §4.4.
+- [ ] [interpretativo] Cada sample declara tiempo de setup estimado en la tabla maestra del README.
+- [ ] [interpretativo] Cada sample documenta el output esperado en §6 con texto exacto o screenshot.
+- [ ] [interpretativo] Cada sample documenta prerequisites con versiones mínimas en §3.
+- [ ] [interpretativo] La estructura de `/samples/` del repositorio coincide con la matriz declarada en §2.3 para el tipo D8 de la unidad de entrega.
+- [ ] [enumerable] Existe pipeline CI que valida que los samples compilan y ejecutan (recomendado fuerte; obligatorio para `library`, `rest-api` y `cli-tool`).
 
 Criterios propios de la arista B:
 
-- [ ] Cada sample declara su `Contrato de verificación` en §9 con los cinco campos de §4.6, y un identificador `VER-XX` único dentro del proyecto de código.
-- [ ] Ningún `criterio_aceptacion` está redactado como prosa: todos son exit code, respuesta HTTP con código y cuerpo, o snapshot de salida comparable.
-- [ ] El `comando` de cada contrato se ejecuta desde la raíz del repositorio y es copy-paste.
-- [ ] Las `precondiciones` de cada contrato bastan para reproducir la corrida en una máquina limpia.
-- [ ] Todo CU declarado crítico en 02 tiene al menos una sonda `VER-XX` que lo ejercita, o la ausencia está justificada en `Decisiones-Proyecto.md`.
-- [ ] En la pasada de diseño: el campo `evidencia` de cada contrato declara `No verificado — sin código`, y ninguna carpeta de `/samples` promete una corrida que no se hizo.
-- [ ] En la pasada de ejecución: cada `evidencia` contiene la salida textual real de la última corrida con su fecha, y ningún contrato queda en estado `Falla` sin hallazgo abierto.
-- [ ] El `README.md` de la sección incluye la tabla de contratos de verificación de §4.4 con el estado de cada sonda.
-- [ ] Las sondas `VER-XX` están incorporadas a la matriz de sensado de deriva según `Deriva-Rules.md` §2 y §4.
-- [ ] Todo término que esta categoría acuña o precisa, y que aparece en más de uno de sus artefactos, está declarado en `Glosario-Funcional.md` de 02 y `Glosario-Tecnico.md` de 11, con sus referentes cuando tiene más de uno. Un sample no acuña vocabulario: si necesita un término que no está declarado, el defecto está aguas arriba.
-- [ ] Ninguna forma desnuda de un término polisémico queda sin resolver en un artefacto que se lee por secciones (`Vocabulario-Rules.md` §9.2).
-- [ ] Ninguna polisemia con contextos disjuntos se reporta como defecto ni se corrige calificando todas las ocurrencias (criterio negativo de `Vocabulario-Rules.md` §9.1).
+- [ ] [interpretativo] Cada sample declara su `Contrato de verificación` en §9 con los cinco campos de §4.6, y un identificador `VER-XXXXX` único dentro de la unidad de entrega.
+- [ ] [interpretativo] Ningún `criterio_aceptacion` está redactado como prosa: todos son exit code, respuesta HTTP con código y cuerpo, o snapshot de salida comparable.
+- [ ] [interpretativo] El `comando` de cada contrato se ejecuta desde la raíz del repositorio y es copy-paste.
+- [ ] [interpretativo] Las `precondiciones` de cada contrato bastan para reproducir la corrida en una máquina limpia.
+- [ ] [interpretativo] Todo CU declarado crítico en 02 tiene al menos una sonda `VER-XXXXX` que lo ejercita, o la ausencia está justificada en `Decisiones-Proyecto.md`.
+- [ ] [interpretativo] En la pasada de diseño: el campo `evidencia` de cada contrato declara `No verificado — sin código`, y ninguna carpeta de `/samples` promete una corrida que no se hizo.
+- [ ] [interpretativo] En la pasada de ejecución: cada `evidencia` contiene la salida textual real de la última corrida con su fecha, y ningún contrato queda en estado `Falla` sin hallazgo abierto.
+- [ ] [interpretativo] El `README.md` de la sección incluye la tabla de contratos de verificación de §4.4 con el estado de cada sonda.
+- [ ] [interpretativo] Las sondas `VER-XXXXX` están incorporadas a la matriz de sensado de deriva según `Deriva-Rules.md` §2 y §4.
+- [ ] [interpretativo] **El vocabulario del método va al glosario operativo de `Master-Prompt.md` §15 y se cita sin redefinir; el del producto, al glosario que corresponda.** Los términos que el framework acuña e impone a esta categoría no son vocabulario que la categoría acuñe: no van a un glosario del producto.
+- [ ] [interpretativo] Todo término que esta categoría acuña o precisa, y que aparece en más de uno de sus artefactos, está declarado en `Glosario-Funcional.md` de 02 y `Glosario-Tecnico.md` de 11, con sus referentes cuando tiene más de uno. Un sample no acuña vocabulario: si necesita un término que no está declarado, el defecto está aguas arriba.
+- [ ] [interpretativo] El apuntamiento a `Glosario-Tecnico.md` de la 11 se declara como **referencia pendiente** (`Root-Rules.md` §12) mientras esa categoría no se haya emitido: la 11 se emite en la Fase H y esta categoría es anterior. Al emitirse, la reapertura de `Master-Prompt.md` §6 cierra la referencia.
+- [ ] [interpretativo] Ninguna forma desnuda de un término polisémico queda sin resolver en un artefacto que se lee por secciones (`Vocabulario-Rules.md` §9.2).
+- [ ] [interpretativo] Ninguna polisemia con contextos disjuntos se reporta como defecto ni se corrige calificando todas las ocurrencias (criterio negativo de `Vocabulario-Rules.md` §9.1).
 
 ---
 
@@ -435,7 +512,7 @@ Intermedio. Asume que el lector ya completó el ejemplo 01 (lectura básica de C
 
 - Runtime objetivo, versión mínima declarada en §17 P.9 del PRODUCT-INTAKE.
 - Gestor de paquetes del ecosistema.
-- Editor con soporte para el lenguaje del proyecto de código.
+- Editor con soporte para el lenguaje de la unidad de entrega.
 
 ## 4. Cómo correrlo
 
@@ -479,15 +556,15 @@ Errores de parsing: 0
 
 | Artefacto upstream | Tipo | Cómo lo ilustra este sample |
 | --- | --- | --- |
-| CU-03 | Caso de uso | Implementa el flujo "registrar parser custom" |
-| ADR-04 | Decisión arquitectónica | Materializa el patrón de extensión por interfaz |
+| CU-00003 | Caso de uso | Implementa el flujo "registrar parser custom" |
+| ADR-00004 | Decisión arquitectónica | Materializa el patrón de extensión por interfaz |
 
 ## 9. Contrato de verificación
 
 ```yaml
 verificacion:
-  id: VER-02
-  verifica: [CU-03, US-12]
+  id: VER-00002
+  verifica: [CU-00003, US-00012]
   comando: "dotnet run --project samples/02-intermedio-con-extensiones"
   precondiciones:
     - "SDK del runtime instalado, versión mínima declarada en §3"
@@ -534,7 +611,7 @@ Básico. Punto de entrada absoluto. No requiere SDK, sólo curl y una clave de A
 ## 3. Prerequisites
 
 - curl (cualquier versión moderna).
-- Una clave de API obtenida desde el portal del proyecto de código.
+- Una clave de API obtenida desde el portal de la unidad de entrega.
 - Endpoint base del ambiente sandbox.
 
 ## 4. Cómo correrlo
@@ -579,16 +656,16 @@ Respuesta del POST:
 
 | Artefacto upstream | Tipo | Cómo lo ilustra este sample |
 | --- | --- | --- |
-| CU-01 | Caso de uso | Confirma un pago válido end-to-end |
-| CU-03 | Caso de uso | Consulta el estado de un pago confirmado |
-| NFR-01 | Latencia p95 | El sample mide latencia con `curl -w` |
+| CU-00001 | Caso de uso | Confirma un pago válido end-to-end |
+| CU-00003 | Caso de uso | Consulta el estado de un pago confirmado |
+| NFR-00001 | Latencia p95 | El sample mide latencia con `curl -w` |
 
 ## 9. Contrato de verificación
 
 ```yaml
 verificacion:
-  id: VER-01
-  verifica: [CU-01, CU-03]
+  id: VER-00001
+  verifica: [CU-00001, CU-00003]
   comando: "./samples/01-cliente-http-basico/run.sh"
   precondiciones:
     - "API levantada en el puerto declarado en §3"
@@ -609,24 +686,24 @@ verificacion:
 | 1.0 | 2026-05-17 | Versión inicial de las reglas constructivas de la categoría 11. Define el README de la sección y los markdown explicativos por sample con sufijo uniforme `.md`, fija la matriz tipo D8 vs estructura de `/samples`, establece cantidades mínimas de samples por tipo, formaliza las nueve secciones obligatorias del markdown explicativo y corrige dos antecedentes del fuente SDD 1.0: la nomenclatura por dominio (`multa`, `multaapp-nuget`) se reemplaza por progresión de complejidad o capacidad, y la ausencia de sufijo de versión se reemplaza por `.md` obligatorio en todos los archivos versionables. |
 ```
 
-Los dos fragmentos son ilustrativos. Cada proyecto de código adapta el dominio respetando la estructura, la nomenclatura por progresión y el sufijo de versión obligatorio.
+Los dos fragmentos son ilustrativos. Cada unidad de entrega adapta el dominio respetando la estructura, la nomenclatura por progresión y el sufijo de versión obligatorio.
 
 ---
 
 ## 8. Prompt-snippet sugerido
 
 ```text
-Sos un {{ESPECIALIDAD-VARIANTE-10}} responsable de redactar los markdown explicativos de los samples del proyecto de código {{NOMBRE_PROYECTO_CODIGO}}, de definir su contrato de verificación y de coordinar la materialización en código en /samples.
+Sos un {{ESPECIALIDAD-VARIANTE-10}} responsable de redactar los markdown explicativos de los samples de la unidad de entrega {{NOMBRE_PROYECTO_CODIGO}}, de definir su contrato de verificación y de coordinar la materialización en código en /samples.
 
 Insumos:
 - PRODUCT-INTAKE: {{path}} (sección §13 tipo D8, §16 estructura de repo, §18 estrategia de samples)
 - Upstream: 02 (CU que cada sample ilustra), 05 (arquitectura y puntos de extensión), 06 (US que cada sample verifica).
 
-A generar (según el `tipo_proyecto_codigo` del proyecto de código, leído del manifiesto):
+A generar (según el `tipo_unidad_entrega` de la unidad de entrega, leído del manifiesto):
 - README.md con tabla maestra de samples.
-- ejemplo-XX-<Progresion>.md por cada sample (mínimo según §2.2 de Rules-Examples.md).
+- ejemplo-XXXXX-<Progresion>.md por cada sample (mínimo según §2.2 de Rules-Examples.md).
 - Carpeta /samples/XX-<Progresion>/ con código ejecutable, README propio, tests de verificación.
-- Contrato de verificación VER-XX por sample, en la sección 9 del markdown explicativo.
+- Contrato de verificación VER-XXXXX por sample, en la sección 9 del markdown explicativo.
 
 Reglas de redacción: §4 de Rules-Examples.md (diez secciones obligatorias por markdown).
 Nomenclatura: sufijo uniforme `.md` (corrección obligatoria del fuente, que omitía la versión). Progresión por nivel (basico/intermedio/avanzado) o por capacidad. Prohibido nombrar por dominio del proyecto de código (corrección obligatoria respecto al fuente: nada de `multa`, `multaapp-nuget`, `factura`, `recibo`).
@@ -654,8 +731,10 @@ Salida: SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/10-Examples/<estructura> +
 | 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `Proyectos/<Nombre-Proyecto>/11-Examples/`; la frase de cierre de §1.2 y la ruta de salida del prompt-snippet referencian el `project_type` del proyecto en curso (manifiesto), y la referencia a la materialización de `/samples` apunta a §4.1 del PROJECT-README. Tablas §1.2 sin reescritura. |
 | 1.2 | 2026-06-10 | Migración de referencias de intake al documento unificado SOLUTION-INTAKE (unificación de intake). |
 | 1.3 | 2026-07-26 | Intercambio de categorías 10 ↔ 11. La categoría de ejemplos pasa de 11 a 10 y su carpeta target de `11-Examples/` a `10-Examples/`; el subagente titular pasa de AG-11 a AG-10. Se invierte la dependencia declarada con la categoría de documentación: los ejemplos dejan de recibir upstream de la guía y pasan a ser upstream del cuerpo documental de entrega, con la formulación «10 demuestra con código ejecutable y verificable, 11 explica, referencia y enlaza». Se normaliza el vocabulario de actores: «consumidor» pasa a «integrador» y «audiencia» a rol de intervención donde designaban un actor. Las filas 1.0 y 1.1 conservan su redacción original por ser registro histórico. |
-| 2.0 | 2026-07-26 | Redefinición de la categoría con doble arista (S2). Nuevo §0.1 con las aristas A de referencia de integración y B de arnés de autovalidación, y regla dura de no bifurcar el sample. Nuevo §0.2 con las dos pasadas de generación, de diseño pre-código y de ejecución durante la codificación. Nuevo §4.6 `Contrato de verificación` con sus cinco campos, su formato YAML, la regla de aserción evaluable y el identificador `VER-XX`. §4.2 pasa de nueve a diez secciones obligatorias del markdown explicativo. §4.4 suma la tabla de contratos del README de sección. §4.5 suma siete anti-patrones propios de la arista B. Nuevo §5.5 de preguntas guía, con renumeración de mantenimiento a §5.6. §6 suma nueve criterios de aceptación. Los dos ejemplos de §7 incorporan su contrato, uno verificado y otro sin código todavía. §8 refleja la doble arista y la pasada en curso. Sube major porque la categoría incorpora un rol nuevo y un artefacto obligatorio; lo ya definido se conserva íntegro. |
+| 2.0 | 2026-07-26 | Redefinición de la categoría con doble arista (S2). Nuevo §0.1 con las aristas A de referencia de integración y B de arnés de autovalidación, y regla dura de no bifurcar el sample. Nuevo §0.2 con las dos pasadas de generación, de diseño pre-código y de ejecución durante la codificación. Nuevo §4.6 `Contrato de verificación` con sus cinco campos, su formato YAML, la regla de aserción evaluable y el identificador `VER-XXXXX`. §4.2 pasa de nueve a diez secciones obligatorias del markdown explicativo. §4.4 suma la tabla de contratos del README de sección. §4.5 suma siete anti-patrones propios de la arista B. Nuevo §5.5 de preguntas guía, con renumeración de mantenimiento a §5.6. §6 suma nueve criterios de aceptación. Los dos ejemplos de §7 incorporan su contrato, uno verificado y otro sin código todavía. §8 refleja la doble arista y la pasada en curso. Sube major porque la categoría incorpora un rol nuevo y un artefacto obligatorio; lo ya definido se conserva íntegro. |
 | 2.1 | 2026-07-28 | Reparación de la política de archivado (Revisión SDD): §3.1 declara que el `README.md` índice de la sección recibe el sufijo de versión al archivarse, pese a emitirse sin sufijo. La regla general y su tabla de exenciones viven en `Master-Prompt.md` §5.1. |
 | 3.0 | 2026-07-28 | Normalización del versionado (framework 4.0). El archivo vivo pierde el sufijo de versión del nombre y pasa a declarar su versión en el campo `Versión` de su cabecera; el sufijo `-v<X.Y>.md` queda reservado a las copias archivadas en `_legacy/`. Se actualizan los patrones de nombre, los ejemplos, las cabeceras modelo, los anti-patrones y los criterios de aceptación de la categoría. Sube major porque la documentación generada con la nomenclatura anterior deja de cumplir. Deriva de la reformulación de D4 y D5 en el `README.md` del framework. |
 | 4.0 | 2026-07-29 | Renombre de vocabulario normativo (framework 5.0). El nivel superior pasa de «solución» a **producto**, la unidad de compilación de «proyecto» a **proyecto de código**, y los cuatro planos de identidad del producto se separan en campos propios (`Nombre-Producto`, `Slug-Producto`, `Raiz-Codigo`, `Artefacto-Agrupacion`). Se declara el nivel de aplicación de la regla en su cabecera, según `Vocabulario-Rules.md` §4 R3. Sube major porque los identificadores y los nombres de artefacto cambian, y la documentación generada con la nomenclatura anterior deja de cumplir. |
 | 4.1 | 2026-07-29 | Criterio de gobierno del glosario en §6. Sube minor: agrega criterios de aceptación verificables sin cambiar el conjunto de artefactos de la categoría ni ninguna invariante, y ninguna documentación ya emitida deja de cumplir por sí sola. Los tres criterios exigen que todo término que la categoría acuña o precisa y usa en más de uno de sus artefactos esté declarado en el glosario que le corresponde, que ninguna forma desnuda de un término polisémico quede sin resolver en un artefacto que se lee por secciones, y —criterio negativo— que ninguna polisemia con contextos disjuntos se reporte como defecto. Materializan `Vocabulario-Rules.md` §9 en la categoría. **Origen**: el audit verificaba «glosario sin contradicciones», que un glosario incompleto cumple trivialmente, y esta regla no mencionaba la palabra «glosario» ni una vez. |
+| 5.0 | 2026-08-15 | Obligatoriedad por consumidor y trazabilidad verificable (intervención reportes 00 a 11). **§0** deja de condicionar la categoría por tipo D8 y la condiciona por `redistribuible` del manifiesto y por `tiene_portal_developers`: el motivo de la obligación es que «el integrador del artefacto necesita ejemplos reproducibles», y donde no hay integrador previsible la obligación no tiene a quién servir. La cláusula de omisión, que vivía en la prosa de §0 mientras §2.1 y §2.2 —las tablas que el orquestador ejecuta— decían `library: obligatorio` sin condición, sube a las tablas. **§2.2** gana válvula: el piso de tres samples rige cuando `redistribuible` es true, y un proyecto de código no redistribuible tiene piso de uno. **§4.6** exige que cada caso de uso declarado diga qué pasos del flujo principal recorre la salida prometida y cuáles no, y agrega el bloque `discrimina`, que declara por aserción qué caso de uso deja de cumplirse si ella falla; no se admite un caso de uso que ninguna aserción discrimine. Se documenta cómo se produce la declaración falsa —confundir precondición con flujo ejercitado, elegir por afinidad de tema, y no tener código que desmienta en la pasada de diseño—. **§6** suma la primera cláusula del gobierno de glosario. Sube **major**: cambia el gating de la categoría por tipo D8 y el conjunto de campos obligatorios del contrato de verificación, de modo que la documentación generada con la versión anterior deja de cumplir. Origen: reportes `06` §6.1, `10` y `11`. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. Se incorpora además el tratamiento de las obligaciones hacia una fase posterior que la comprobación del grafo de `Master-Prompt.md` §6 detectó al correrse sobre las doce reglas: las referencias afectadas se declaran con la forma de `Root-Rules.md` §12. |
+| 6.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |

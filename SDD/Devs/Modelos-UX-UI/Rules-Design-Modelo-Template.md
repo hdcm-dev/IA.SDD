@@ -42,7 +42,7 @@ Los bloques `<...>` son placeholders a reemplazar. Los bloques rotulados como or
 | Campo | Valor |
 | --- | --- |
 | Qué resuelve, en una línea | `<el problema de experiencia que este modelo resuelve bien>` |
-| `tipo_proyecto_codigo` de origen | `<uno de los ocho valores D8>` |
+| `tipo_unidad_entrega` de origen | `<uno de los ocho valores D8>` |
 | Variante de 03 | UX/UI o DX |
 | Extensiones por capacidad que asumía el original | `<lista de References/Design/ o ninguna>` |
 | Cuándo conviene elegirlo | `<condiciones del proyecto de código en que este modelo aplica bien>` |

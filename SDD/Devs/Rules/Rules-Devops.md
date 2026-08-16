@@ -1,9 +1,9 @@
 # Reglas constructivas — 09 DevOps
 
-**Carpeta target (por proyecto de código):** `SDD/Docs/Proyectos/<Nombre-Proyecto-Codigo>/09-Devops/`
-**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Proyecto de código + Producto
+**Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/09-Devops/`
+**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto
 **Subagente target del orquestador:** Ingeniero DevOps Senior (AG-09)
-**Versión de las reglas:** 3.1
+**Versión de las reglas:** 4.0
 
 ---
 
@@ -11,14 +11,14 @@
 
 La categoría 09 ancla la disciplina de automatización del ciclo de vida del artefacto: build, validación, empaquetado, firma, publicación y rollback. Recibe upstream de 05 (arquitectura, componentes, contratos y NFR con métricas numéricas que el pipeline debe verificar) y de 08 (quality gates, Definition of Done, cobertura mínima por capa). Alimenta a 10 (developer guide de release, instalación local y workflow de versionado consumido por los autores) y a 11 (samples publicados que se consumen desde los canales de distribución declarados acá).
 
-Esta categoría es **obligatoria para los ocho tipos D8**. Ningún proyecto de código está exento de declarar su pipeline, su estrategia de versionado, sus ambientes o canales de distribución, su guía de publicación y su política de supply chain. Cambia el tipo de artefacto publicado y la arquitectura del pipeline, pero la categoría siempre existe.
+Esta categoría es **obligatoria para los ocho tipos D8**. Ningún unidad de entrega está exento de declarar su pipeline, su estrategia de versionado, sus ambientes o canales de distribución, su guía de publicación y su política de supply chain. Cambia el tipo de artefacto publicado y la arquitectura del pipeline, pero la categoría siempre existe.
 
 La auditoría de Fase 0 (`Bootstrap/Audit-SDD1.md`) detectó tres déficits del fuente SDD 1.0 que SDD corrige aquí. Primero, el documento `Guia-Publicacion-Nuget.md` ata el nombre del artefacto a un gestor de paquetes específico (.NET); SDD generaliza el nombre con el patrón `guia-publicacion-<tipo-artefacto>.md` parametrizado por el tipo de artefacto del proyecto de código. Segundo, las reglas de supply chain (SBOM, firma, SLSA, dependency scanning) no estaban formalizadas en un documento dedicado; SDD incorpora `supply-chain-seguridad.md` como artefacto obligatorio. Tercero, el modelo de "entornos" del fuente confundía publicación de paquete con despliegue de servicio: SDD declara explícitamente que el modelo de ambientes depende del tipo D8 (canales preview/stable para library; DEV/QA/STAGING/PROD para servicios desplegables).
 
-La categoría 09 opera en dos niveles dentro de un producto con jerarquía de proyectos de código:
+La categoría 09 opera en dos niveles, y los dos ejes del producto intervienen en distinto lugar: **se construye por unidad de entrega y se publica por unidad de entrega**.
 
-- Nivel proyecto de código. Se genera una vez por cada proyecto de código del manifiesto, bajo `Proyectos/<Nombre-Proyecto-Codigo>/09-Devops/`, con la variante de §1.2 según su `tipo_proyecto_codigo`. Es el pipeline, el versionado, los ambientes, la guía de publicación y el supply chain de ese proyecto de código. No cambia respecto del template de tipo único.
-- Nivel producto. Se genera una vez para todo el producto, bajo `Producto/`, y orquesta el build y la publicación multi-proyecto: el orden de construcción derivado de las dependencias del manifiesto, la matriz de artefactos publicables por proyecto de código y la coordinación inter-proyecto. Es obligatoria para productos con más de un proyecto de código. Para un producto de un único proyecto de código (caso degenerado) se omite: el pipeline del único proyecto de código basta.
+- Nivla unidad de entrega. Se genera una vez por cada unidad de entrega del manifiesto, bajo `Unidades-Entrega/<Nombre-Unidad-Entrega>/09-Devops/`. Es el nivel correcto porque un pipeline **publica**, y publicar de forma independiente es la definición misma de unidad de entrega, con la variante de §1.2 según su `tipo_unidad_entrega`. Es el pipeline, el versionado, los ambientes, la guía de publicación y el supply chain de esa unidad de entrega. No cambia respecto del template de tipo único.
+- Nivel producto. Se genera una vez para todo el producto, bajo `Producto/`, y orquesta el build y la publicación del producto: el orden de construcción derivado del **grafo de compilación** entre proyectos de código, y la matriz de artefactos publicables por **unidad de entrega**, la matriz de artefactos publicables por proyecto de código y la coordinación inter-proyecto. Es obligatoria para productos con más de un proyecto de código. Para un producto de un único proyecto de código (caso degenerado) se omite: el pipeline del único proyecto de código basta.
 
 **Frontera con la categoría 11.** Esta categoría documenta la *política*: qué ambientes existen, cómo se promociona entre ellos, cómo se firma y se publica el artefacto. Su lector participa del diseño, dentro de la cadena de especificación. La categoría 11 documenta el *procedimiento verificado* sobre el sistema ya construido —qué comando corro, en qué orden, qué tiene que responder— en `Guia-Despliegue`, `Guia-Inicio-Rapido` y `Guia-Contenedor`, para quien llega de afuera. No duplicar: 11 cita la política de acá y no define una segunda paralela. Un valor de configuración que aparece en ambas categorías con contenido distinto es un hallazgo; el de 09 es el que rige.
 ---
@@ -29,9 +29,9 @@ La categoría 09 opera en dos niveles dentro de un producto con jerarquía de pr
 
 Ingeniero DevOps Senior, equivalente al AG-09 del catálogo SDD. Perfil profesional que diseña, implementa y mantiene la infraestructura de automatización que permite al equipo construir, probar, empaquetar, publicar y desplegar software de manera confiable y repetible. Combina conocimientos de desarrollo, operaciones, seguridad y gestión de configuración. Trata el pipeline como un artefacto de software con su propia estrategia de testing, su control de versiones y su trazabilidad. Se alinea con SemVer 2.0.0 para versionado, con Conventional Commits 1.0.0 para semántica de cambios, con Keep a Changelog 1.1.0 para comunicación al integrador, con SLSA y NIST SSDF (SP 800-218) para supply chain, con OWASP SCVS para verificación de componentes y con la práctica industrial 2024-2026 de release engineering.
 
-Combina varias facetas que el catálogo de disciplinas separa. CI/CD Engineering diseña stages, triggers, quality gates y artefactos. Release Engineering define versionado, canales, branching y política de breaking changes. Platform Engineering provisiona ambientes con IaC y opera promoción entre ellos. DevSecOps integra SBOM, firma, SCA, SAST y DAST en el pipeline. Operations Engineering define drain, replay y rollback para workloads vivos. Según el tipo D8 del proyecto de código, una o varias facetas dominan.
+Combina varias facetas que el catálogo de disciplinas separa. CI/CD Engineering diseña stages, triggers, quality gates y artefactos. Release Engineering define versionado, canales, branching y política de breaking changes. Platform Engineering provisiona ambientes con IaC y opera promoción entre ellos. DevSecOps integra SBOM, firma, SCA, SAST y DAST en el pipeline. Operations Engineering define drain, replay y rollback para workloads vivos. Según el tipo D8 de la unidad de entrega, una o varias facetas dominan.
 
-### 1.2 Variantes según tipo de proyecto de código (8 valores D8)
+### 1.2 Variantes según tipo de unidad de entrega (8 valores D8)
 
 | Tipo | Especialidad específica | Justificación |
 | --- | --- | --- |
@@ -44,7 +44,7 @@ Combina varias facetas que el catálogo de disciplinas separa. CI/CD Engineering
 | cli-tool | DevOps + Release Engineer | Binarios multi-OS (linux-x64, win-x64, darwin-arm64, etc.); publicación en múltiples gestores (Homebrew, Scoop, Chocolatey, paquete del runtime, GitHub Releases); checksum y firma. |
 | worker-service | DevOps + Operations Engineer | Despliegue por consumer groups con drain y replay; coordinación con la cola de mensajes durante rollouts; rollback por revert de la versión del consumer y reproceso desde el offset previo. |
 
-El orquestador lee esta tabla y, según el `tipo_proyecto_codigo` del proyecto de código en curso (leído del manifiesto de producto), selecciona la variante correspondiente y la combina con la especialidad base. La variante se aplica una vez por cada proyecto de código del producto. Para el build y la publicación de nivel producto (bajo `Producto/`), el orquestador asume la especialidad base de Ingeniero DevOps Senior con foco en Release Engineering y Platform Engineering, y produce el artefacto una sola vez, al cierre del bucle de proyectos de código.
+El orquestador lee esta tabla y, según el `tipo_unidad_entrega` de la unidad de entrega en curso (leído del manifiesto de producto), selecciona la variante correspondiente y la combina con la especialidad base. La variante se aplica una vez por cada proyecto de código del producto. Para el build y la publicación de nivel producto (bajo `Producto/`), el orquestador asume la especialidad base de Ingeniero DevOps Senior con foco en Release Engineering y Platform Engineering, y produce el artefacto una sola vez, al cierre del bucle de proyectos de código.
 
 ### 1.3 Multi-especialidad
 
@@ -68,7 +68,7 @@ El AG-09 mantiene titularidad de los artefactos. Las demás especialidades aport
 | --- | --- | --- | --- | --- |
 | `pipeline-ci-cd.md` | Todos los tipos D8 | — | — | Definición del pipeline CI/CD con stages, triggers, matriz de runners, caché, artefactos, quality gates, promotion rules, rollback y notificaciones. |
 | `estrategia-versionado.md` | Todos los tipos D8 | — | — | SemVer 2.0.0, Conventional Commits, herramienta de auto-versioning (MinVer, GitVersion, semantic-release o equivalente), branching, canales, deprecation policy. |
-| `entornos-deploy.md` | Todos los tipos D8 | — | — | Ambientes o canales de distribución del proyecto de código, IaC, configuración 12-factor, secretos y promoción. El modelo concreto depende del tipo D8. |
+| `entornos-deploy.md` | Todos los tipos D8 | — | — | Ambientes o canales de distribución de la unidad de entrega, IaC, configuración 12-factor, secretos y promoción. El modelo concreto depende del tipo D8. |
 | `guia-publicacion-<tipo-artefacto>.md` | Todos los tipos D8 con artefacto publicable | — | Tipos cuyo artefacto no se publica externamente | Pre-requisitos, comando o stage de publicación, verificación post-publish, rollback y métricas. Un documento por tipo de artefacto publicado. |
 | `supply-chain-seguridad.md` | Todos los tipos D8 | — | — | SBOM (CycloneDX o SPDX), firma (sigstore/cosign u homólogos), nivel SLSA objetivo, dependency scanning, SAST y DAST, política de CVE. |
 | `README.md` de la sección | Recomendado para todos | — | — | Índice navegable de los artefactos DevOps con orden de lectura sugerido. |
@@ -77,7 +77,7 @@ Artefactos de nivel producto (una vez para todo el producto, bajo `Producto/`):
 
 | Archivo | Obligatorio para | Recomendado | Omitir para | Descripción |
 | --- | --- | --- | --- | --- |
-| `pipeline-producto.md` | Productos con más de un proyecto de código | — | Producto de un único proyecto de código (caso degenerado) | Orquestación de build y publicación del producto: orden de construcción derivado del grafo de dependencias del manifiesto, matriz de artefactos publicables por proyecto de código, coordinación inter-proyecto, versionado del producto, gate de integración y rollback coordinado. |
+| `pipeline-producto.md` | Productos con más de una unidad de entrega **o** con más de un proyecto de código | — | Producto de una unidad de entrega y un solo proyecto de código | Orquestación de build y publicación del producto: orden de construcción derivado del grafo de dependencias del manifiesto, matriz de artefactos publicables por proyecto de código, coordinación inter-proyecto, versionado del producto, gate de integración y rollback coordinado. |
 
 ### 2.2 Reglas de inclusión y exclusión por tipo
 
@@ -94,7 +94,7 @@ Artefactos de nivel producto (una vez para todo el producto, bajo `Producto/`):
 
 Los modelos son piso. El equipo puede agregar ambientes intermedios cuando el dominio lo exija, pero no quitar ninguno sin un ADR que lo justifique.
 
-En un producto multi-proyecto, el orden de construcción y de publicación lo fija el grafo de dependencias del manifiesto: se construye y publica cada proyecto de código antes que sus dependientes, y los paquetes redistribuibles se publican antes que los proyectos de código que los consumen. Ese orden y la matriz de artefactos se documentan en `Pipeline-Producto.md` (§4.9).
+Los dos ejes intervienen en distinto lugar: **el orden de construcción lo fija el grafo de compilación entre proyectos de código, y la publicación es por unidad de entrega**. Se construye cada proyecto de código antes que sus dependientes, y los paquetes redistribuibles se publican antes que los proyectos de código que los consumen. Ese orden y la matriz de artefactos se documentan en `Pipeline-Producto.md` (§4.9).
 
 ---
 
@@ -114,17 +114,17 @@ El archivo vivo lleva su nombre lógico estable, sin sufijo de versión, y decla
 
 ### 3.2 Convenciones de identificadores internos
 
-- `STAGE-XX`: stage del pipeline. Numeración contigua con dos dígitos cuando se necesita ordenar; opcional para pipelines simples.
-- `ENV-XX` o nombre semántico (`DEV`, `QA`, `STAGING`, `PROD`, `preview`, `stable`): identificador de ambiente o canal.
-- `NFR-XX`: las NFR provienen de 05; en 09 sólo se referencian.
-- `DOD-XX`: criterios de DoD provienen de 08; en 09 se ejecutan como gates.
+- `STAGE-XXXXX`: stage del pipeline. Numeración contigua con el ancho de `Root-Rules.md` §9.2 cuando se necesita ordenar; opcional para pipelines simples.
+- `ENV-XXXXX` o nombre semántico (`DEV`, `QA`, `STAGING`, `PROD`, `preview`, `stable`): identificador de ambiente o canal.
+- `NFR-XXXXX`: las NFR provienen de 05; en 09 sólo se referencian.
+- `DOD-XXXXX`: criterios de DoD provienen de 08; en 09 se ejecutan como gates.
 
 ### 3.3 Vinculación cross-doc
 
 - Upstream: cada quality gate del pipeline referencia el criterio DoD o el NFR que verifica; cada ambiente referencia los NFR de disponibilidad y latencia objetivo declarados en 05.
 - Downstream: la developer guide de 10 cita los comandos exactos del pipeline para reproducción local; los examples de 11 referencian los canales declarados en `entornos-deploy.md`.
 - La estrategia de versionado es el documento bisagra: marca la frontera entre código (Conventional Commits, branching) y artefacto publicado (SemVer, canales, deprecation), y la consumen tanto los autores como los integradores.
-- Nivel producto: el orden de build y publicación del `pipeline-producto` referencia el grafo de dependencias del manifiesto; cada artefacto publicable de su matriz referencia la `guia-publicacion-<tipo-artefacto>` del proyecto de código que lo produce. No puede haber un orden de build que contradiga las dependencias del manifiesto.
+- Nivel producto: el orden de build del `pipeline-producto` referencia el **grafo de compilación** del manifiesto y su matriz de publicación referencia las **unidades de entrega**; cada artefacto publicable de su matriz referencia la `guia-publicacion-<tipo-artefacto>` del proyecto de código que lo produce. No puede haber un orden de build que contradiga las dependencias del manifiesto.
 
 ### 3.4 Política de versionado
 
@@ -234,7 +234,7 @@ Reglas SemVer:
 | `feat!` o `BREAKING CHANGE` en footer | MAJOR | 1.2.3 → 2.0.0 |
 | `refactor`, `perf`, `test`, `chore`, `docs`, `style`, `build`, `ci` | Ninguno | 1.2.3 → 1.2.3 |
 
-Tipo de proyecto de código D8 y tipo de artefacto a publicar:
+Tipo de unidad de entrega D8 y tipo de artefacto a publicar:
 
 | Tipo D8 | Tipo de artefacto principal | Tipos de artefacto secundarios admitidos |
 | --- | --- | --- |
@@ -266,18 +266,18 @@ Tipo de proyecto de código D8 y tipo de artefacto a publicar:
 
 ### 4.9 Estructura de `Pipeline-Producto.md`
 
-Aplica solo a productos con más de un proyecto de código. Orquesta el build y la publicación del producto completo por encima del pipeline de cada proyecto de código; no duplica el `pipeline-ci-cd` de cada proyecto de código, lo referencia.
+Aplica a productos con más de una unidad de entrega o con más de un proyecto de código. Orquesta el build y la publicación del producto completo por encima del pipeline de cada unidad de entrega; no duplica el `pipeline-ci-cd` de cada proyecto de código, lo referencia.
 
-1. Objetivo y alcance. Qué orquesta el documento y qué queda en el pipeline de cada proyecto de código. Aclara que el detalle de stages internos vive en el `pipeline-ci-cd` de cada proyecto de código.
+1. Objetivo y alcance. Qué orquesta el documento y qué queda en el pipeline de cada unidad de entrega. Aclara que el detalle de stages internos vive en el `pipeline-ci-cd` de cada unidad de entrega.
 2. Orden de construcción. Derivado del grafo de dependencias del manifiesto, en orden topológico: primero los proyectos de código sin dependencias (incluidos los paquetes redistribuibles), luego los dependientes. Tabla con el nivel topológico de cada proyecto de código y los proyectos de código paralelizables del mismo nivel.
-3. Matriz de build y publicación multi-proyecto. Por proyecto de código: `tipo_proyecto_codigo`, tipo de artefacto publicable, canal o feed de publicación, y si su artefacto es consumido por otros proyectos de código del producto. Refleja la tabla de §2.2 aplicada a cada proyecto de código del manifiesto.
+3. Matriz de build y de publicación. **Por proyecto de código**, lo que se construye: su stack y su orden en el grafo de compilación. **Por unidad de entrega**, lo que se publica: `tipo_unidad_entrega`, tipo de artefacto publicable, canal o feed de publicación, y si su artefacto es consumido por otros proyectos de código del producto. Refleja la tabla de §2.2 aplicada a cada proyecto de código del manifiesto.
 4. Coordinación inter-proyecto. Por cada arista de dependencia, cómo el proyecto de código consumidor obtiene el artefacto del productor: por referencia al paquete publicado (el redistribuible se publica primero) o por build conjunto en el repositorio. Declara la política para cada dependencia.
-5. Versionado del producto. Independiente por proyecto de código o lockstep; cómo se coordinan los bumps cuando un cambio en un proyecto de código productor obliga a versionar a sus consumidores.
-6. Gate de integración de producto. Verificación end-to-end de que los proyectos de código integrados funcionan juntos antes de publicar el producto (smoke test del producto levantada con sus artefactos).
+5. Versionado del producto. Independiente por unidad de entrega o lockstep; cómo se coordinan los bumps cuando un cambio en una unidad de entrega productor obliga a versionar a sus consumidores.
+6. Gate de integración de producto. Verificación end-to-end de que las unidades de entrega integrados funcionan juntos antes de publicar el producto (smoke test del producto levantada con sus artefactos).
 7. Rollback coordinado. Orden de rollback inverso al de build y manejo de un artefacto compartido roto que afecta a varios consumidores.
-8. Trazabilidad. Liga el orden de build a las dependencias del manifiesto y cada artefacto publicable a la `guia-publicacion-<tipo-artefacto>` del proyecto de código que lo produce.
+8. Trazabilidad. Liga el orden de build al grafo de compilación del manifiesto y cada artefacto publicable a la `guia-publicacion-<tipo-artefacto>` de la unidad de entrega que lo produce.
 
-Para un producto de un único proyecto de código, este artefacto se omite: el orden de build es trivial y la publicación se resuelve con el pipeline del único proyecto de código.
+Para un producto de una sola unidad de entrega y un solo proyecto de código, este artefacto se omite: el orden de build es trivial y la publicación se resuelve con el pipeline de la única unidad de código.
 
 ---
 
@@ -292,8 +292,8 @@ Para un producto de un único proyecto de código, este artefacto se omite: el o
 
 ### 5.2 Scope
 
-- ¿El modelo de ambientes o canales es el adecuado al tipo D8 del proyecto de código?
-- ¿La guía de publicación cubre todos los tipos de artefacto producidos por el proyecto de código y no más?
+- ¿El modelo de ambientes o canales es el adecuado al tipo D8 de la unidad de entrega?
+- ¿La guía de publicación cubre todos los tipos de artefacto producidos por la unidad de entrega y no más?
 - ¿El nombre del documento de publicación usa el patrón `guia-publicacion-<tipo-artefacto>.md` y `<tipo-artefacto>` es un valor admitido?
 
 ### 5.3 Trazabilidad
@@ -315,31 +315,43 @@ Para un producto de un único proyecto de código, este artefacto se omite: el o
 
 ## 6. Criterios de aceptación
 
-- [ ] Existe `Pipeline-CI-CD.md` con stages obligatorios (lint, build, test, SCA, SBOM, firma, publish), matriz de SO/runtime, caché, artefactos, promotion rules, rollback y notificaciones.
-- [ ] Existe `Estrategia-Versionado.md` con SemVer 2.0.0, Conventional Commits 1.0.0, herramienta de versionado declarada, branching alineado al acuerdo de equipo, canales y deprecation policy.
-- [ ] Existe `Entornos-Deploy.md` con el modelo correcto para el tipo D8 (canales para library/cli-tool; DEV/QA/STAGING/PROD para web-monolith/microservices/rest-api/worker-service; canales + ambientes internos para desktop-app y mobile-app-maui).
-- [ ] Existe al menos una `guia-publicacion-<tipo-artefacto>.md` con pre-requisitos, comando o stage, verificación post-publish, rollback y métricas.
-- [ ] Existe `Supply-Chain-Seguridad.md` con SBOM, firma, nivel SLSA objetivo, dependency scanning, SAST/DAST y política de CVE.
-- [ ] Ningún archivo hardcodea un gestor de paquetes en el nombre genérico de la categoría; el patrón es `guia-publicacion-<tipo-artefacto>.md` con `<tipo-artefacto>` parametrizado.
-- [ ] El pipeline ejecuta exactamente la DoD de 08 como gates, sin redefinir criterios localmente.
-- [ ] Cada NFR con objetivo numérico de 05 tiene un stage o gate que lo verifica antes de promover.
-- [ ] Cada ambiente y canal declara aprobador y SLA o ventana de soak cuando corresponde.
-- [ ] El procedimiento de rollback está documentado por tipo de artefacto con comando concreto.
-- [ ] El SBOM y la firma se generan automáticamente en el pipeline y se adjuntan al release.
-- [ ] No aparecen menciones de stacks o protocolos del dominio fuente fuera de la tabla `Tipo D8 → Tipo de artefacto` cuando el proyecto de código efectivamente los utiliza.
+**Naturaleza de cada criterio.** Cada ítem lleva su marca: `[enumerable]` si se decide contando o
+comparando —existencia, forma, recuento, resolución de un enlace— y `[interpretativo]` si solo se
+decide leyendo los dos lados. Los enumerables son los que la compuerta mecánica de
+`Master-Prompt.md` §10.0 tiene que cubrir; los interpretativos son para lo que el audit existe.
 
-Criterios adicionales de nivel producto (solo si el producto tiene más de un proyecto de código):
+La clasificación es **conservadora por diseño**: ante la duda, un criterio se marca interpretativo.
+El error no es simétrico —declarar mecanizable algo que no lo es produce falsa confianza, que es peor
+que la ausencia de verificación—, así que marcar de más un interpretativo solo cuesta atención del
+auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
 
-- [ ] Existe `Producto/Pipeline-Producto.md` con las ocho secciones del §4.9.
-- [ ] El orden de construcción respeta el grafo de dependencias del manifiesto y publica los redistribuibles antes que sus consumidores.
-- [ ] La matriz de build y publicación lista, por proyecto de código, su tipo de artefacto publicable y su canal o feed.
-- [ ] Cada artefacto publicable referencia la `guia-publicacion-<tipo-artefacto>` del proyecto de código que lo produce.
-- [ ] Existe un gate de integración de producto antes de publicar el producto.
-- [ ] Para un producto de un único proyecto de código, `pipeline-producto` se omitió correctamente.
-- [ ] Todo documento con más de tres secciones de primer nivel incluye tabla de contenido inmediatamente después de la cabecera, con enlaces ancla a las secciones de primer y de segundo nivel. Los documentos breves quedan exceptuados.
-- [ ] Todo término que esta categoría acuña o precisa, y que aparece en más de uno de sus artefactos, está declarado en `Glosario-Tecnico.md` de 11, con sus referentes cuando tiene más de uno. Los términos de entorno, canal y artefacto publicable son técnicos y se declaran una sola vez en el glosario técnico, no en cada pipeline.
-- [ ] Ninguna forma desnuda de un término polisémico queda sin resolver en un artefacto que se lee por secciones (`Vocabulario-Rules.md` §9.2).
-- [ ] Ninguna polisemia con contextos disjuntos se reporta como defecto ni se corrige calificando todas las ocurrencias (criterio negativo de `Vocabulario-Rules.md` §9.1).
+- [ ] [enumerable] Existe `Pipeline-CI-CD.md` con stages obligatorios (lint, build, test, SCA, SBOM, firma, publish), matriz de SO/runtime, caché, artefactos, promotion rules, rollback y notificaciones.
+- [ ] [enumerable] Existe `Estrategia-Versionado.md` con SemVer 2.0.0, Conventional Commits 1.0.0, herramienta de versionado declarada, branching alineado al acuerdo de equipo, canales y deprecation policy.
+- [ ] [enumerable] Existe `Entornos-Deploy.md` con el modelo correcto para el tipo D8 (canales para library/cli-tool; DEV/QA/STAGING/PROD para web-monolith/microservices/rest-api/worker-service; canales + ambientes internos para desktop-app y mobile-app-maui).
+- [ ] [enumerable] Existe al menos una `guia-publicacion-<tipo-artefacto>.md` con pre-requisitos, comando o stage, verificación post-publish, rollback y métricas.
+- [ ] [enumerable] Existe `Supply-Chain-Seguridad.md` con SBOM, firma, nivel SLSA objetivo, dependency scanning, SAST/DAST y política de CVE.
+- [ ] [enumerable] Ningún archivo hardcodea un gestor de paquetes en el nombre genérico de la categoría; el patrón es `guia-publicacion-<tipo-artefacto>.md` con `<tipo-artefacto>` parametrizado.
+- [ ] [interpretativo] El pipeline ejecuta exactamente la DoD de 08 como gates, sin redefinir criterios localmente.
+- [ ] [interpretativo] Cada NFR con objetivo numérico de 05 tiene un stage o gate que lo verifica antes de promover.
+- [ ] [interpretativo] Cada ambiente y canal declara aprobador y SLA o ventana de soak cuando corresponde.
+- [ ] [interpretativo] El procedimiento de rollback está documentado por tipo de artefacto con comando concreto.
+- [ ] [interpretativo] El SBOM y la firma se generan automáticamente en el pipeline y se adjuntan al release.
+- [ ] [interpretativo] No aparecen menciones de stacks o protocolos del dominio fuente fuera de la tabla `Tipo D8 → Tipo de artefacto` cuando el proyecto de código efectivamente los utiliza.
+
+Criterios adicionales de nivel producto (solo si el producto tiene más de una unidad de entrega):
+
+- [ ] [enumerable] Existe `Producto/Pipeline-Producto.md` con las ocho secciones del §4.9.
+- [ ] [interpretativo] El orden de construcción respeta el grafo de dependencias del manifiesto y publica los redistribuibles antes que sus consumidores.
+- [ ] [interpretativo] La matriz de build lista, por proyecto de código, su orden en el grafo de compilación; y la matriz de publicación lista, por unidad de entrega, su tipo de artefacto publicable y su canal o feed.
+- [ ] [interpretativo] Cada artefacto publicable referencia la `guia-publicacion-<tipo-artefacto>` de la unidad de entrega que lo produce.
+- [ ] [enumerable] Existe un gate de integración de producto antes de publicar el producto.
+- [ ] [interpretativo] Para un producto de un único unidad de entrega, `pipeline-producto` se omitió correctamente.
+- [ ] [enumerable] Todo documento con más de tres secciones de primer nivel incluye tabla de contenido inmediatamente después de la cabecera, con enlaces ancla a las secciones de primer y de segundo nivel. Los documentos breves quedan exceptuados.
+- [ ] [interpretativo] **El vocabulario del método va al glosario operativo de `Master-Prompt.md` §15 y se cita sin redefinir; el del producto, al glosario que corresponda.** Los términos que el framework acuña e impone a esta categoría no son vocabulario que la categoría acuñe: no van a un glosario del producto.
+- [ ] [interpretativo] Todo término que esta categoría acuña o precisa, y que aparece en más de uno de sus artefactos, está declarado en `Glosario-Tecnico.md` de 11, con sus referentes cuando tiene más de uno. Los términos de entorno, canal y artefacto publicable son técnicos y se declaran una sola vez en el glosario técnico, no en cada pipeline.
+- [ ] [interpretativo] El apuntamiento a `Glosario-Tecnico.md` de la 11 se declara como **referencia pendiente** (`Root-Rules.md` §12) mientras esa categoría no se haya emitido: la 11 se emite en la Fase H y esta categoría es anterior. Al emitirse, la reapertura de `Master-Prompt.md` §6 cierra la referencia.
+- [ ] [interpretativo] Ninguna forma desnuda de un término polisémico queda sin resolver en un artefacto que se lee por secciones (`Vocabulario-Rules.md` §9.2).
+- [ ] [interpretativo] Ninguna polisemia con contextos disjuntos se reporta como defecto ni se corrige calificando todas las ocurrencias (criterio negativo de `Vocabulario-Rules.md` §9.1).
 
 ---
 
@@ -441,14 +453,14 @@ Trunk-based development con `main` protegida; ramas `feature/<slug>` cortas (men
 - Se anuncia en CHANGELOG y en la documentación pública del contrato OpenAPI.
 ```
 
-Los dos fragmentos son ilustrativos. Cada proyecto de código adapta el dominio respetando la estructura.
+Los dos fragmentos son ilustrativos. Cada unidad de entrega adapta el dominio respetando la estructura.
 
 ---
 
 ## 8. Prompt-snippet sugerido
 
 ```text
-Sos un {{ESPECIALIDAD-VARIANTE-09}} responsable de redactar los artefactos DevOps del proyecto de código {{NOMBRE_PROYECTO_CODIGO}}.
+Sos un {{ESPECIALIDAD-VARIANTE-09}} responsable de redactar los artefactos DevOps de la unidad de entrega {{NOMBRE_PROYECTO_CODIGO}}.
 
 Insumos:
 - PRODUCT-INTAKE: {{path}}
@@ -474,19 +486,19 @@ Restricciones: no introducir productos comerciales ni protocolos del dominio fue
 Salida: SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/09-Devops/<estructura>.
 ```
 
-Prompt-snippet de la orquestación de nivel producto (se despacha una sola vez, al cierre del bucle de proyectos de código, solo si el producto tiene más de un proyecto de código):
+Prompt-snippet de la orquestación de nivel producto (se despacha una sola vez, al cierre del bucle de unidades de entrega, solo si el producto tiene más de una unidad de entrega):
 
 ```text
 Sos un Ingeniero DevOps Senior con foco en Release Engineering y Platform Engineering, responsable de la orquestación de build y publicación del producto {{NOMBRE_PRODUCTO}}.
 
 Insumos:
 - PRODUCT-MANIFEST: {{path}} (grafo de dependencias, tipos de artefacto, nombres de código).
-- Los artefactos 09-Devops de cada proyecto de código ya generados en Proyectos/<Nombre>/09-Devops/.
+- Los artefactos 09-Devops de cada unidad de entrega ya generados en Proyectos/<Nombre>/09-Devops/.
 
 A generar:
 - Producto/Pipeline-Producto.md con las ocho secciones del §4.9.
 
-Reglas: el orden de construcción respeta el grafo del manifiesto (dependencias antes que dependientes; redistribuibles antes que consumidores); la matriz refleja §2.2 aplicada por proyecto de código; cada artefacto publicable referencia la guia-publicacion del proyecto de código productor; no duplicar el pipeline interno de cada proyecto de código.
+Reglas: el orden de construcción respeta el grafo del manifiesto (dependencias antes que dependientes; redistribuibles antes que consumidores); la matriz refleja §2.2 aplicada por unidad de entrega; cada artefacto publicable referencia la guia-publicacion de la unidad de entrega productor; no duplicar el pipeline interno de cada unidad de entrega.
 Criterios de calidad: §6 de Rules-Devops.md (criterios de nivel producto).
 
 Salida: SDD/Docs/Producto/Pipeline-Producto.md.
@@ -508,3 +520,5 @@ Salida: SDD/Docs/Producto/Pipeline-Producto.md.
 | 2.0 | 2026-07-28 | Normalización del versionado (framework 4.0). El archivo vivo pierde el sufijo de versión del nombre y pasa a declarar su versión en el campo `Versión` de su cabecera; el sufijo `-v<X.Y>.md` queda reservado a las copias archivadas en `_legacy/`. Se actualizan los patrones de nombre, los ejemplos, las cabeceras modelo, los anti-patrones y los criterios de aceptación de la categoría. Sube major porque la documentación generada con la nomenclatura anterior deja de cumplir. Deriva de la reformulación de D4 y D5 en el `README.md` del framework. |
 | 3.0 | 2026-07-29 | Renombre de vocabulario normativo (framework 5.0). El nivel superior pasa de «solución» a **producto**, la unidad de compilación de «proyecto» a **proyecto de código**, y los cuatro planos de identidad del producto se separan en campos propios (`Nombre-Producto`, `Slug-Producto`, `Raiz-Codigo`, `Artefacto-Agrupacion`). Se declara el nivel de aplicación de la regla en su cabecera, según `Vocabulario-Rules.md` §4 R3. Sube major porque los identificadores y los nombres de artefacto cambian, y la documentación generada con la nomenclatura anterior deja de cumplir. |
 | 3.1 | 2026-07-29 | Criterio de gobierno del glosario en §6. Sube minor: agrega criterios de aceptación verificables sin cambiar el conjunto de artefactos de la categoría ni ninguna invariante, y ninguna documentación ya emitida deja de cumplir por sí sola. Los tres criterios exigen que todo término que la categoría acuña o precisa y usa en más de uno de sus artefactos esté declarado en el glosario que le corresponde, que ninguna forma desnuda de un término polisémico quede sin resolver en un artefacto que se lee por secciones, y —criterio negativo— que ninguna polisemia con contextos disjuntos se reporte como defecto. Materializan `Vocabulario-Rules.md` §9 en la categoría. **Origen**: el audit verificaba «glosario sin contradicciones», que un glosario incompleto cumple trivialmente, y esta regla no mencionaba la palabra «glosario» ni una vez. |
+| 3.2 | 2026-08-15 | Criterio de gobierno de glosario, primera cláusula (intervención reportes 00 a 11). §6 pasa a distinguir el **vocabulario del método** —el que el framework acuña e impone a la categoría, que vive en el glosario operativo de `Master-Prompt.md` §15 y se cita sin redefinir— del **vocabulario del producto**, que va al glosario que corresponda. El criterio estaba replicado en once reglas mandando a nueve destinos distintos, casi todos glosarios del producto, y la política correcta estaba escrita una sola vez, en `Rules-Plan-Sprint.md` §6 y sobre términos que ya estaban resueltos. Sube **minor**: precisa un criterio existente. Origen: reporte `11`, propuesta 1. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. Se incorpora además el tratamiento de las obligaciones hacia una fase posterior que la comprobación del grafo de `Master-Prompt.md` §6 detectó al correrse sobre las doce reglas: las referencias afectadas se declaran con la forma de `Root-Rules.md` §12. |
+| 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |

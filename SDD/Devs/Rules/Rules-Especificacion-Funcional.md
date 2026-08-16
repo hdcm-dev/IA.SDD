@@ -1,15 +1,15 @@
 # Reglas constructivas — 02 Especificación funcional
 
-**Carpeta target (por proyecto de código):** `SDD/Docs/Proyectos/<Nombre-Proyecto-Codigo>/02-Especificacion-Funcional/`
-**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Proyecto de código
+**Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/02-Especificacion-Funcional/`
+**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Analista Funcional / Ingeniero de Requisitos (AG-02)
-**Versión de las reglas:** 4.0
+**Versión de las reglas:** 5.0
 
 ---
 
 ## 0. Posición en la cadena SDD
 
-La categoría 02 es el nodo central de la cadena de trazabilidad D6. Recibe insumos de 00 (visión, alcance) y 01 (necesidades de negocio NB-XX) y produce los artefactos que sirven como ancla para 03 (UX/UI), 04 (prompts si aplica), 05 (arquitectura y ADR), 06 (US/BT), 07 (sprints), 08 (tests) y 10 (ejemplos). Su salida define el qué del sistema sin invadir el cómo. Aplica de manera obligatoria a los ocho tipos D8.
+La categoría 02 es el nodo central de la cadena de trazabilidad D6. Recibe insumos de 00 (visión, alcance) y 01 (necesidades de negocio NB-XXXXX) y produce los artefactos que sirven como ancla para 03 (UX/UI), 04 (prompts si aplica), 05 (arquitectura y ADR), 06 (US/BT), 07 (sprints), 08 (tests) y 10 (ejemplos). Su salida define el qué del sistema sin invadir el cómo. Aplica de manera obligatoria a los ocho tipos D8.
 
 ---
 
@@ -17,9 +17,9 @@ La categoría 02 es el nodo central de la cadena de trazabilidad D6. Recibe insu
 
 ### 1.1 Especialidad base
 
-Analista Funcional senior, equivalente AG-02 del catálogo SDD. Su perfil profesional combina elicitación, formalización y modelado de requisitos. Traduce cada NB-XX en uno o más casos de uso (CU) verificables, identifica las reglas de negocio (RN) que restringen el dominio y, cuando aplica, levanta el modelo conceptual de datos junto con sus reglas conceptuales (RC). Se alinea con IREB CPRE para elicitación y gestión, con formato de casos de uso al estilo Cockburn y con criterios de aceptación en BDD (Given/When/Then).
+Analista Funcional senior, equivalente AG-02 del catálogo SDD. Su perfil profesional combina elicitación, formalización y modelado de requisitos. Traduce cada NB-XXXXX en uno o más casos de uso (CU) verificables, identifica las reglas de negocio (RN) que restringen el dominio y, cuando aplica, levanta el modelo conceptual de datos junto con sus reglas conceptuales (RC). Se alinea con IREB CPRE para elicitación y gestión, con formato de casos de uso al estilo Cockburn y con criterios de aceptación en BDD (Given/When/Then).
 
-### 1.2 Variantes según tipo de proyecto de código (8 valores D8)
+### 1.2 Variantes según tipo de unidad de entrega (8 valores D8)
 
 | Tipo | Especialidad específica | Justificación |
 | --- | --- | --- |
@@ -36,7 +36,7 @@ Analista Funcional senior, equivalente AG-02 del catálogo SDD. Su perfil profes
 
 La categoría 02 se combina con otras especialidades cuando el dominio lo requiere:
 
-- AG-05 Arquitecto, en proyectos de código con DDD o con bounded contexts múltiples, para alinear el modelo conceptual con el modelo lógico que se produce en 05.
+- AG-05 Arquitecto, en unidades de entrega con DDD o con bounded contexts múltiples, para alinear el modelo conceptual con el modelo lógico que se produce en 05.
 - AG-04 Ingeniero de Prompts, cuando algún CU delega parte del flujo en un LLM (clasificación, extracción, generación), para fijar contratos de prompt y criterios de evaluación.
 - AG-03 DX/UX, cuando el CU describe interacción humana significativa, para que las decisiones de experiencia no contaminen el flujo funcional.
 - AG-08 QA, para revisar que cada criterio Given/When/Then sea automatizable y trazable a un test en 08.
@@ -53,10 +53,10 @@ El AG-02 mantiene siempre la titularidad del artefacto; las demás especialidade
 | --- | --- | --- | --- | --- |
 | `Especificacion-Funcional.md` | Todos los tipos D8 | — | — | Índice maestro de CU, RN y referencia al modelo. Incluye matriz NB→CU→RN→US. |
 | `Definicion-<Concepto-Central>.md` | Proyectos de código con un concepto técnico central (por ejemplo lenguaje declarativo, modelo de pagos, taxonomía de eventos) | library con superficie estrecha | Tipos sin concepto central | Define vocabulario, semántica y elementos del concepto en un único documento. |
-| `Casos-De-Uso/CU-XX-<Nombre>.md` | Todos los tipos D8, con un mínimo declarado en §2.2 | — | — | Un caso de uso por archivo. |
-| `Reglas-De-Negocio/RN-XX-<Nombre>.md` | Proyectos de código con reglas regulatorias o dominio fuerte | Resto de los proyectos de código | Proyectos de código triviales sin estado ni invariantes | Una regla de negocio por archivo. Invariante atemporal. |
+| `Casos-De-Uso/CU-XXXXX-<Nombre>.md` | Todos los tipos D8, con un mínimo declarado en §2.2 | — | — | Un caso de uso por archivo. |
+| `Reglas-De-Negocio/RN-XXXXX-<Nombre>.md` | Proyectos de código con reglas regulatorias o dominio fuerte | Resto de las unidades de entrega | Proyectos de código triviales sin estado ni invariantes | Una regla de negocio por archivo. Invariante atemporal. |
 | `Modelo-Datos/Modelo-Conceptual.md` | Proyectos de código con persistencia (web-monolith, web-microservices, rest-api, worker-service, mobile-app-maui) | desktop-app si guarda local | library puro sin estado, cli-tool sin estado | Modelo conceptual estilo ER o de clases de dominio. |
-| `Modelo-Datos/reglas-conceptuales-de-modelo/RC-XX-<Nombre>.md` | Proyectos de código con modelo rico (más de diez entidades o invariantes de integridad explícitas) | — | Resto | Una regla conceptual por archivo, focalizada en integridad de dominio. |
+| `Modelo-Datos/reglas-conceptuales-de-modelo/RC-XXXXX-<Nombre>.md` | Proyectos de código con modelo rico (más de diez entidades o invariantes de integridad explícitas) | — | Resto | Una regla conceptual por archivo, focalizada en integridad de dominio. |
 | `Glosario-Funcional.md` | **Todos los tipos D8** | — | — | Vocabulario del dominio que esta categoría acuña. Regla de inclusión en §3.3. Es artefacto propio y no sección de otro documento: la categoría 02 es la que más vocabulario introduce y alimenta a las siete siguientes, así que su glosario no puede depender de un flag. |
 | `README.md` de la sección | Recomendado para todos | — | — | Índice navegable de CU, RN, modelo, RC y glosario con su estado actual. |
 
@@ -73,7 +73,7 @@ El AG-02 mantiene siempre la titularidad del artefacto; las demás especialidade
 | cli-tool | 1 por comando + 3 transversales | Recomendadas | No (salvo persistencia local) | No |
 | worker-service | 1 por tipo de mensaje + 3 transversales | Sí | Sí, si guarda estado | Sí, si modelo > 10 entidades |
 
-El mínimo es piso, no techo. La cota superior queda definida por la cobertura completa de las NB-XX declaradas en 01.
+El mínimo es piso, no techo. La cota superior queda definida por la cobertura completa de las NB-XXXXX declaradas en 01.
 
 ---
 
@@ -81,9 +81,9 @@ El mínimo es piso, no techo. La cota superior queda definida por la cobertura c
 
 ### 3.1 Patrón de nombres
 
-- `CU-XX-<Nombre>.md`, con dos dígitos en `XX`, Título-Con-Guiones en el slug y guion medio antes de la versión.
-- `RN-XX-<Nombre>.md`, mismas reglas.
-- `RC-XX-<Nombre>.md` para reglas conceptuales del modelo.
+- `CU-XXXXX-<Nombre>.md`, con cinco dígitos en `XXXXX` (`Root-Rules.md` §9.2), Título-Con-Guiones en el slug y guion medio antes de la versión.
+- `RN-XXXXX-<Nombre>.md`, mismas reglas.
+- `RC-XXXXX-<Nombre>.md` para reglas conceptuales del modelo.
 - `Modelo-Conceptual.md` para el modelo conceptual de datos.
 - `Definicion-<Concepto>.md` para el documento opcional de concepto central.
 - `Especificacion-Funcional.md` para el índice maestro.
@@ -96,7 +96,30 @@ Queda prohibido el patrón heredado `nb-01-desacople.v1.0.md` u homólogos. La v
 - `CU-`: caso de uso. Acción funcional con flujo, actores y criterios de aceptación.
 - `RN-`: regla de negocio. Invariante atemporal del dominio. No describe acción; describe restricción.
 - `RC-`: regla conceptual del modelo. Restricción de integridad expresada sobre entidades y relaciones.
+- `E-`: **código de error**. Ver abajo.
 - Nombre lógico sin sufijo de versión en el nombre; la versión vive en el campo `Versión` de la cabecera (D4). La versión menor avanza por aclaración o corrección; la mayor avanza por cambio de alcance del CU/RN/RC.
+
+**Forma y ámbito de los códigos de error.** §4.2 punto 6 exige que cada error de un caso de uso lleve
+código, y hasta acá no declaraba qué forma tiene ese código, en qué ámbito es único ni quién lo
+asigna. Un identificador cuya forma no está declarada lo inventa quien lo necesita primero: con un
+solo agente redactando el resultado es consistente por accidente, y con varios subagentes generando
+en paralelo sobre el mismo dominio los prefijos naturales coinciden con certeza y no por azar.
+
+- **Forma**: `E-<DOMINIO>-NNNNN`, donde `<DOMINIO>` es un segmento corto en mayúsculas que nombra el
+  área funcional del error, y el número sigue el ancho de `Root-Rules.md` §9.2.
+- **Ámbito**: producto, como todo identificador (`Root-Rules.md` §9.1). Dos unidades de entrega del
+  mismo producto no pueden emitir el mismo código de error, ni siquiera para situaciones análogas.
+  Un prefijo que coincide **parcialmente** entre proyectos es peor que la divergencia total, porque
+  invita a suponer una correspondencia que no existe.
+- **Quién lo asigna**: la categoría 02 de la unidad de entrega **dueño del error**, dentro del rango
+  que el mapa de `Master-Prompt.md` §3.4 le asignó. Ninguna otra categoría acuña códigos de error, ni
+  siquiera cuando los necesita para citarlos: los escala (`Root-Rules.md` §9.5).
+
+**Identificadores de los flujos alternativos.** Cada flujo alternativo de un caso de uso lleva su
+identificador `FA-NN` dentro del caso de uso que lo contiene, para que otra categoría pueda citarlo
+sin tener que ponerle nombre. Un identificador que una categoría necesita y que su categoría de
+origen no emite termina inventado aguas abajo, que es el peor lugar posible: el que lo acuña no es su
+dueño.
 
 ### 3.3 Vinculación cross-doc
 
@@ -118,7 +141,7 @@ Recomendado para todos los tipos. Debe listar CU, RN, modelo y RC vigentes con p
 
 Una sola versión vigente por nombre lógico. Cuando un CU pasa de `v1.0` a `v2.0`:
 
-1. Se crea `CU-XX-<Nombre>.md` en la carpeta principal.
+1. Se crea `CU-XXXXX-<Nombre>.md` en la carpeta principal.
 2. La versión `v1.0` se mueve a `Casos-De-Uso/_legacy/` con estado `Superado` y una nota al inicio que apunte a la versión vigente.
 3. El índice `Especificacion-Funcional.md` referencia únicamente la versión vigente.
 4. Las RN, RC y referencias downstream se actualizan en la misma operación.
@@ -134,10 +157,10 @@ Un nombre lógico tiene un solo archivo en la carpeta principal. Al superarse, s
 Cada artefacto inicia con un H1 y un bloque markdown de metadatos:
 
 ```markdown
-# CU-XX — <Nombre del caso de uso>
+# CU-XXXXX — <Nombre del caso de uso>
 
 **Proyecto de código:** {{Nombre-Proyecto-Codigo}}
-**Documento:** CU-XX-<Nombre>.md
+**Documento:** CU-XXXXX-<Nombre>.md
 **Versión:** <X.Y>
 **Estado:** Borrador | Propuesto | Aprobado | Vigente | Superado | Archivado
 **Fecha:** YYYY-MM-DD
@@ -156,13 +179,32 @@ El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente
 2. Actores. Tabla con actor, tipo (primario/secundario/sistema) y rol.
 3. Precondiciones. Lista de condiciones previas verificables.
 4. Flujo principal. Pasos numerados con actor y acción.
-5. Flujos alternativos. Cada uno con su disparador y punto de retorno.
-6. Excepciones y errores. Cada error con código, causa y respuesta del sistema.
+5. Flujos alternativos. Cada uno con su identificador `FA-NN`, su disparador y su punto de retorno.
+6. Excepciones y errores. Cada error con su código en la forma de §3.2, causa y respuesta del sistema.
 7. Postcondiciones. Estado del sistema en caso de éxito y de fallo.
 8. Criterios de aceptación Given/When/Then. Mínimo tres por CU, con valores concretos.
 9. Trazabilidad. Tabla con NB upstream, RN aplicables, US a generar en 06, componentes en 05, tests en 08.
 10. Notas y supuestos. Decisiones explícitas de alcance y dependencias externas.
 11. Control de cambios. Tabla con versión, fecha y descripción.
+
+**Conjuntos cerrados, marcados como tales.** Cuando un caso de uso, una regla de negocio o el modelo
+conceptual declaran un conjunto cerrado —los valores admitidos de un campo, los estados de una
+entidad, los códigos de resultado de una operación, una clasificación—, el conjunto se **marca
+explícitamente como cerrado** en lugar de enumerarse en prosa, con la lista completa de sus valores y
+el artefacto que lo declara.
+
+Un conjunto cerrado marcado es identificable, y por lo tanto verificable entre categorías. Sin la
+marca, otra categoría puede necesitar un valor más para que su parte funcione, especificarlo, y
+quedar vigente y aprobada al mismo tiempo que ésta: cada categoría internamente coherente y el
+producto documentado incoherente, sin que ningún audit lo detecte, porque los audits verifican cada
+categoría contra su regla y su upstream y ninguno cruzaba dos buscando contradicciones sobre el mismo
+referente.
+
+**Extender un conjunto cerrado de otra categoría no lo decide un subagente.** Si esta categoría
+necesita un valor que otra declaró cerrado, aplica la detención por arbitraje de `Master-Prompt.md`
+§7.0: la pregunta va al humano y queda en el registro de decisiones pendientes. Escribir la
+divergencia como nota dentro del artefacto no alcanza: una nota tiene el mismo peso visual que el
+resto del texto y no interrumpe a nadie.
 
 #### 4.2.1 Secciones obligatorias de una RN
 
@@ -180,8 +222,8 @@ El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente
 2. Atributos clave. Sin tipos físicos (eso vive en 05). Solo nombre y semántica.
 3. Relaciones. Verbalizadas en lenguaje natural.
 4. Cardinalidades. Notación uniforme (1, N, 0..1, 1..N).
-5. Reglas conceptuales. Enlace a cada RC-XX que el modelo invoca.
-6. Referencia al glosario. Puntero a `Glosario-Funcional.md`, con la lista de los términos del modelo que ese glosario declara. El glosario **no vive acá**: este documento es condicional según §2.1 y el vocabulario de la categoría no puede depender de que el proyecto de código tenga persistencia.
+5. Reglas conceptuales. Enlace a cada RC-XXXXX que el modelo invoca.
+6. Referencia al glosario. Puntero a `Glosario-Funcional.md`, con la lista de los términos del modelo que ese glosario declara. El glosario **no vive acá**: este documento es condicional según §2.1 y el vocabulario de la categoría no puede depender de que la unidad de entrega tenga persistencia.
 7. Diagrama. Mermaid embebido o referencia a archivo aparte.
 8. Trazabilidad. Tabla que liga cada entidad a los CU y RN que la consumen.
 9. Control de cambios.
@@ -205,7 +247,7 @@ El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente
 
 Un glosario cuya tabla de términos está vacía no cumple: la categoría 02 acuña vocabulario por construcción, y cinco casos de uso mínimos no se escriben sin nombrar entidades ni actores.
 
-### 4.3 Secciones opcionales por tipo de proyecto de código
+### 4.3 Secciones opcionales por tipo de unidad de entrega
 
 Se permiten secciones adicionales según el tipo D8, sin desplazar las obligatorias:
 
@@ -230,9 +272,9 @@ Tabla de trazabilidad del CU:
 
 | Dimensión | Referencia |
 | --- | --- |
-| Necesidad de negocio | NB-XX |
-| Reglas de negocio aplicables | RN-XX, RN-YY |
-| Historias de usuario a generar | US-XX (en 06) |
+| Necesidad de negocio | NB-XXXXX |
+| Reglas de negocio aplicables | RN-XXXXX, RN-YY |
+| Historias de usuario a generar | US-XXXXX (en 06) |
 | Componentes esperados | <referencia tentativa a 05> |
 | Tests previstos | <referencia tentativa a 08> |
 
@@ -251,14 +293,14 @@ Diagrama de flujo del CU expresado como pasos numerados o Mermaid sequenceDiagra
 | RN escrita como CU | Confunde acción con invariante; rompe la trazabilidad | Reescribir como enunciado declarativo atemporal |
 | Modelo conceptual con tipos físicos (varchar(255), int(11)) | Invade 05 modelo lógico | Mantener nombres y semántica; los tipos viven en 05 |
 | Sufijo de versión en el nombre del archivo vivo | Reintroduce la segunda lógica de versionado que D4 eliminó, y con ella la colisión silenciosa al archivar | Un solo archivo por nombre lógico; la versión en la cabecera y el sufijo solo en `_legacy/` |
-| Casing inconsistente (`NB-01-Desacople` vs `NB-02-estandarizacion`) | Inconsistencia que rompe automatizaciones | Forzar Título-Con-Guiones estricto |
+| Casing inconsistente (`NB-00001-Desacople` vs `NB-00002-estandarizacion`) | Inconsistencia que rompe automatizaciones | Forzar Título-Con-Guiones estricto |
 | Sufijo de versión en el nombre del archivo vivo | Reintroduce la segunda lógica de versionado que D4 eliminó, y con ella la colisión al archivar | El archivo vivo no lleva sufijo; la versión va en la cabecera |
 | CU sin escenarios de error | Solo flujo feliz; el sistema queda subdefinido | Agregar al menos una excepción por CU |
 | Criterios de aceptación narrativos sin valores concretos | No automatizables; no anclan tests | Reescribir Given/When/Then con valores explícitos |
 | CU con más de un actor primario | Ambigüedad de responsabilidad | Separar en dos CU o reorganizar el flujo |
 | RN ambigua o subjetiva | No verificable | Reescribir hasta que un test pueda decidir cumplimiento |
 | Numeración no contigua de CU sin justificación | Huecos confusos en el catálogo | Documentar la causa o renumerar |
-| Glosario ausente porque el proyecto de código no tiene modelo conceptual | El vocabulario de la categoría queda sin declarar en `library` y `cli-tool`, que igual acuñan sus casos de uso y sus reglas | `Glosario-Funcional.md` es obligatorio para los ocho tipos D8 y no depende de ningún flag |
+| Glosario ausente porque la unidad de entrega no tiene modelo conceptual | El vocabulario de la categoría queda sin declarar en `library` y `cli-tool`, que igual acuñan sus casos de uso y sus reglas | `Glosario-Funcional.md` es obligatorio para los ocho tipos D8 y no depende de ningún flag |
 | Término polisémico fuera del glosario | Un subagente aguas abajo que lee una sección suelta no puede resolver a qué referente apunta, y elige uno | Entrada de glosario que enumera los referentes, o forma calificada en las ocurrencias que colisionan |
 | Calificar todas las ocurrencias de un término cuyos contextos son disjuntos | Carga el texto sin resolver nada; es la corrección típica de un falso positivo | Verificar la colisión antes de corregir (`Vocabulario-Rules.md` §9.1) |
 | Glosario que redefine términos ya declarados en 00 | Dos definiciones del mismo término en la misma cadena documental | Referenciar el término de 00 y declarar solo la diferencia, si la hay |
@@ -269,13 +311,13 @@ Diagrama de flujo del CU expresado como pasos numerados o Mermaid sequenceDiagra
 
 ### 5.1 Upstream
 
-- ¿Cada CU cubre al menos una NB del proyecto de código? ¿Hay NB sin CU? Esto último debe disparar una alerta y no un silencio.
+- ¿Cada CU cubre al menos una NB de la unidad de entrega? ¿Hay NB sin CU? Esto último debe disparar una alerta y no un silencio.
 - ¿Qué partes de la visión y del alcance (00) y de las NB (01) se materializan como CU? ¿Cuáles quedan deliberadamente fuera y por qué?
 - ¿Existe un concepto técnico central que merezca un documento `Definicion-<Concepto>.md` propio?
 
 ### 5.2 Scope
 
-- ¿Cuántos CU son razonables para el tipo D8 del proyecto de código? Library con menos de diez; microservicios con más de quince repartidos por bounded context.
+- ¿Cuántos CU son razonables para el tipo D8 de la unidad de entrega? Library con menos de diez; microservicios con más de quince repartidos por bounded context.
 - ¿Hay CU que en realidad son sub-flujos de otros? Si la respuesta es sí, fusionarlos o anidarlos como flujo alternativo.
 - ¿Hay flujos de error que se repiten en varios CU? Si la respuesta es sí, considerar un CU transversal de manejo de errores.
 
@@ -305,24 +347,39 @@ Diagrama de flujo del CU expresado como pasos numerados o Mermaid sequenceDiagra
 
 ## 6. Criterios de aceptación
 
-- [ ] Existe `Especificacion-Funcional.md` con índice maestro y matriz NB→CU→RN→US.
-- [ ] La cantidad de CU cumple el mínimo declarado para el tipo D8 del proyecto de código.
-- [ ] Cada CU contiene las once secciones obligatorias del §4.2.
-- [ ] Cada CU declara trazabilidad NB→CU→US y al menos tres criterios Given/When/Then con valores concretos.
-- [ ] Cada RN contiene las siete secciones obligatorias del §4.2.1 y enumera CU afectados explícitos.
-- [ ] Si el tipo D8 exige modelo de datos, existe `Modelo-Datos/Modelo-Conceptual.md` con diagrama o tabla equivalente.
-- [ ] Si el modelo supera diez entidades, existen RC-XX en `Modelo-Datos/reglas-conceptuales-de-modelo/` con las seis secciones obligatorias del §4.2.3.
-- [ ] Existe `Glosario-Funcional.md` con las cinco secciones obligatorias de §4.2.4 y su tabla de términos no está vacía.
-- [ ] Todo término del dominio que aparece en más de un artefacto de 02 está declarado en el glosario, con sus referentes cuando tiene más de uno.
-- [ ] Ningún término del glosario redefine con otra semántica un término ya declarado en el glosario del dominio de 00; los reusados se referencian.
-- [ ] Ninguna forma desnuda de un término polisémico queda sin resolver en un artefacto que se lee por secciones, según `Vocabulario-Rules.md` §9.2.
-- [ ] Ninguna polisemia con contextos disjuntos se reporta como defecto ni se corrige calificando todas las ocurrencias (criterio negativo de `Vocabulario-Rules.md` §9.1).
-- [ ] Ningún archivo de la carpeta de trabajo lleva sufijo de versión en el nombre; cada uno declara su versión en el campo `Versión` de su cabecera (D4).
-- [ ] Ningún slug contiene mayúsculas, espacios, acentos ni caracteres no permitidos.
-- [ ] Existe un solo archivo por nombre lógico en la carpeta principal; las versiones superadas viven en `_legacy/` con su sufijo de versión.
-- [ ] No hay menciones a stacks concretos, productos comerciales ni protocolos específicos del dominio fuente.
-- [ ] Existe `README.md` de la sección si así lo decide el equipo (recomendado).
-- [ ] Todo documento con más de tres secciones de primer nivel incluye tabla de contenido inmediatamente después de la cabecera, con enlaces ancla a las secciones de primer y de segundo nivel. Los documentos breves quedan exceptuados.
+**Naturaleza de cada criterio.** Cada ítem lleva su marca: `[enumerable]` si se decide contando o
+comparando —existencia, forma, recuento, resolución de un enlace— y `[interpretativo]` si solo se
+decide leyendo los dos lados. Los enumerables son los que la compuerta mecánica de
+`Master-Prompt.md` §10.0 tiene que cubrir; los interpretativos son para lo que el audit existe.
+
+La clasificación es **conservadora por diseño**: ante la duda, un criterio se marca interpretativo.
+El error no es simétrico —declarar mecanizable algo que no lo es produce falsa confianza, que es peor
+que la ausencia de verificación—, así que marcar de más un interpretativo solo cuesta atención del
+auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
+
+- [ ] [enumerable] Existe `Especificacion-Funcional.md` con índice maestro y matriz NB→CU→RN→US.
+- [ ] [enumerable] La cantidad de CU cumple el mínimo declarado para el tipo D8 de la unidad de entrega.
+- [ ] [enumerable] Cada CU contiene las once secciones obligatorias del §4.2.
+- [ ] [interpretativo] Cada CU declara trazabilidad NB→CU→US y al menos tres criterios Given/When/Then con valores concretos.
+- [ ] [enumerable] Cada RN contiene las siete secciones obligatorias del §4.2.1 y enumera CU afectados explícitos.
+- [ ] [interpretativo] Si el tipo D8 exige modelo de datos, existe `Modelo-Datos/Modelo-Conceptual.md` con diagrama o tabla equivalente.
+- [ ] [interpretativo] Si el modelo supera diez entidades, existen RC-XXXXX en `Modelo-Datos/reglas-conceptuales-de-modelo/` con las seis secciones obligatorias del §4.2.3.
+- [ ] [enumerable] Existe `Glosario-Funcional.md` con las cinco secciones obligatorias de §4.2.4 y su tabla de términos no está vacía.
+- [ ] [enumerable] Cada error declarado en §4.2 punto 6 lleva código en la forma `E-<DOMINIO>-NNNNN` de §3.2, dentro del rango asignado al unidad de entrega, y ningún código colisiona con el de otra unidad de entrega del producto.
+- [ ] [enumerable] Cada flujo alternativo lleva su identificador `FA-NN`.
+- [ ] [enumerable] Ningún identificador de esta categoría fue acuñado por otra categoría, y esta categoría no acuñó identificadores para artefactos de otra (`Root-Rules.md` §9.5).
+- [ ] [interpretativo] Todo conjunto cerrado que esta categoría declara está marcado como tal, con su lista completa de valores.
+- [ ] [interpretativo] Ninguna otra categoría del árbol afirma algo incompatible sobre un conjunto cerrado que esta categoría declaró; si alguna lo necesita, la extensión está en el registro de decisiones pendientes y no como nota dentro de un artefacto.
+- [ ] [interpretativo] Todo término del dominio que aparece en más de un artefacto de 02 está declarado en el glosario, con sus referentes cuando tiene más de uno. **El vocabulario del método** —el que el framework acuña e impone a la categoría, como `sonda` o `pasada de diseño`— no va en este glosario: vive en el glosario operativo de `Master-Prompt.md` §15 y se cita sin redefinir. `Glosario-Funcional.md` es del dominio del cliente.
+- [ ] [interpretativo] Ningún término del glosario redefine con otra semántica un término ya declarado en el glosario del dominio de 00; los reusados se referencian.
+- [ ] [interpretativo] Ninguna forma desnuda de un término polisémico queda sin resolver en un artefacto que se lee por secciones, según `Vocabulario-Rules.md` §9.2.
+- [ ] [interpretativo] Ninguna polisemia con contextos disjuntos se reporta como defecto ni se corrige calificando todas las ocurrencias (criterio negativo de `Vocabulario-Rules.md` §9.1).
+- [ ] [enumerable] Ningún archivo de la carpeta de trabajo lleva sufijo de versión en el nombre; cada uno declara su versión en el campo `Versión` de su cabecera (D4).
+- [ ] [interpretativo] Ningún slug contiene mayúsculas, espacios, acentos ni caracteres no permitidos.
+- [ ] [enumerable] Existe un solo archivo por nombre lógico en la carpeta principal; las versiones superadas viven en `_legacy/` con su sufijo de versión.
+- [ ] [interpretativo] No hay menciones a stacks concretos, productos comerciales ni protocolos específicos del dominio fuente.
+- [ ] [enumerable] Existe `README.md` de la sección si así lo decide el equipo (recomendado).
+- [ ] [enumerable] Todo documento con más de tres secciones de primer nivel incluye tabla de contenido inmediatamente después de la cabecera, con enlaces ancla a las secciones de primer y de segundo nivel. Los documentos breves quedan exceptuados.
 
 ---
 
@@ -333,10 +390,10 @@ Diagrama de flujo del CU expresado como pasos numerados o Mermaid sequenceDiagra
 Fragmento ilustrativo, no documento completo:
 
 ```markdown
-# CU-03 — Asignar turno médico
+# CU-00003 — Asignar turno médico
 
 **Proyecto de código:** {{Nombre-Proyecto-Codigo}}
-**Documento:** CU-03-Asignar-Turno-Medico.md
+**Documento:** CU-00003-Asignar-Turno-Medico.md
 **Versión:** 1.0
 **Estado:** Propuesto
 **Fecha:** 2026-05-17
@@ -362,18 +419,18 @@ Permitir que un agente administrativo asigne un turno a un paciente sobre la age
 ## 9. Trazabilidad
 | Dimensión | Referencia |
 | --- | --- |
-| Necesidad de negocio | NB-02 |
-| Reglas de negocio aplicables | RN-02, RN-04 |
-| Historias de usuario | US-05, US-06 |
+| Necesidad de negocio | NB-00002 |
+| Reglas de negocio aplicables | RN-00002, RN-00004 |
+| Historias de usuario | US-00005, US-00006 |
 ```
 
 ### 7.2 Ejemplo 2 — Fragmento de RN para un rest-api de pagos
 
 ```markdown
-# RN-02 — Validez del identificador de pago
+# RN-00002 — Validez del identificador de pago
 
 **Proyecto de código:** {{Nombre-Proyecto-Codigo}}
-**Documento:** RN-02-Validez-Identificador-Pago.md
+**Documento:** RN-00002-Validez-Identificador-Pago.md
 **Versión:** 1.0
 **Estado:** Aprobada
 **Fecha:** 2026-05-17
@@ -385,15 +442,15 @@ Todo identificador de pago aceptado por el sistema debe ser único, opaco al cli
 Auditoría regulatoria del proceso de cobro. Evita colisiones de cobro y permite reconciliación trazable.
 
 ## 3. Ámbito de aplicación
-- CU-01 Registrar intento de pago.
-- CU-04 Confirmar pago.
-- CU-07 Reembolsar pago.
+- CU-00001 Registrar intento de pago.
+- CU-00004 Confirmar pago.
+- CU-00007 Reembolsar pago.
 
 ## 4. Consecuencia si se viola
 El sistema rechaza la operación con el código IDENTIFICADOR_INVALIDO y no registra el intento.
 
 ## 5. CU afectados
-CU-01, CU-04, CU-07.
+CU-00001, CU-00004, CU-00007.
 ```
 
 ### 7.3 Ejemplo 3 — Fragmento del modelo conceptual para un worker-service
@@ -415,33 +472,33 @@ Un mensaje recibido produce uno y solo un resultado de procesamiento.
 **Cardinalidad:** MensajeRecibido (1) —— (1) ResultadoProcesamiento
 
 ## 5. Reglas conceptuales
-- RC-01: IdentificadorMensaje es único en toda la historia del worker (idempotencia).
-- RC-02: Todo MensajeRecibido referencia un TipoEvento del catálogo vigente.
+- RC-00001: IdentificadorMensaje es único en toda la historia del worker (idempotencia).
+- RC-00002: Todo MensajeRecibido referencia un TipoEvento del catálogo vigente.
 ```
 
-Los tres fragmentos son ilustrativos. Cada proyecto de código adapta el dominio respetando la estructura.
+Los tres fragmentos son ilustrativos. Cada unidad de entrega adapta el dominio respetando la estructura.
 
 ---
 
 ## 8. Prompt-snippet sugerido
 
 ```text
-Sos un {{ESPECIALIDAD-VARIANTE}} responsable de redactar la especificación funcional del proyecto de código {{NOMBRE_PROYECTO_CODIGO}}.
+Sos un {{ESPECIALIDAD-VARIANTE}} responsable de redactar la especificación funcional de la unidad de entrega {{NOMBRE_PROYECTO_CODIGO}}.
 
 Insumos:
 - PRODUCT-INTAKE: {{path}}
-- Upstream: 00 (visión, alcance), 01 (NB-XX).
+- Upstream: 00 (visión, alcance), 01 (NB-XXXXX).
 
 A generar (según tipo {{TIPO}} de D8):
 - Especificacion-Funcional.md (índice maestro con matriz NB→CU→RN→US).
-- Casos-De-Uso/CU-XX-<Nombre>.md (mínimo según §2.2).
-- Reglas-De-Negocio/RN-XX-<Nombre>.md (si aplica).
+- Casos-De-Uso/CU-XXXXX-<Nombre>.md (mínimo según §2.2).
+- Reglas-De-Negocio/RN-XXXXX-<Nombre>.md (si aplica).
 - Modelo-Datos/Modelo-Conceptual.md (si aplica).
-- Modelo-Datos/reglas-conceptuales-de-modelo/RC-XX-<Nombre>.md (si el modelo supera 10 entidades).
+- Modelo-Datos/reglas-conceptuales-de-modelo/RC-XXXXX-<Nombre>.md (si el modelo supera 10 entidades).
 - README.md de la sección (recomendado).
 
 Reglas de redacción: §4 de Rules-Especificacion-Funcional.md.
-Nomenclatura: `CU-XX-<Nombre>.md` con guion medio `-v` (no `_v` ni `.v`); slug en Título-Con-Guiones estricto.
+Nomenclatura: `CU-XXXXX-<Nombre>.md` con guion medio `-v` (no `_v` ni `.v`); slug en Título-Con-Guiones estricto.
 Trazabilidad: cada CU debe enlazar a una NB y enumerar US a generar en 06.
 Criterios de calidad: §6 de Rules-Especificacion-Funcional.md.
 Política de versionado: §3.5; una sola versión vigente; anteriores a `_legacy/` con estado Superado.
@@ -464,3 +521,5 @@ Salida: SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/02-Especificacion-Funciona
 | 2.0 | 2026-07-28 | Normalización del versionado (framework 4.0). El archivo vivo pierde el sufijo de versión del nombre y pasa a declarar su versión en el campo `Versión` de su cabecera; el sufijo `-v<X.Y>.md` queda reservado a las copias archivadas en `_legacy/`. Se actualizan los patrones de nombre, los ejemplos, las cabeceras modelo, los anti-patrones y los criterios de aceptación de la categoría. Sube major porque la documentación generada con la nomenclatura anterior deja de cumplir. Deriva de la reformulación de D4 y D5 en el `README.md` del framework. |
 | 3.0 | 2026-07-29 | Renombre de vocabulario normativo (framework 5.0). El nivel superior pasa de «solución» a **producto**, la unidad de compilación de «proyecto» a **proyecto de código**, y los cuatro planos de identidad del producto se separan en campos propios (`Nombre-Producto`, `Slug-Producto`, `Raiz-Codigo`, `Artefacto-Agrupacion`). Se declara el nivel de aplicación de la regla en su cabecera, según `Vocabulario-Rules.md` §4 R3. Sube major porque los identificadores y los nombres de artefacto cambian, y la documentación generada con la nomenclatura anterior deja de cumplir. |
 | 4.0 | 2026-07-29 | **Gobierno del glosario de la categoría.** Sube major porque incorpora un artefacto obligatorio para los ocho tipos D8 y la documentación de 02 emitida sin él deja de cumplir. §2.1 declara `Glosario-Funcional.md` como artefacto propio: el glosario deja de ser el punto 6 de `Modelo-Conceptual.md`, que es condicional a la persistencia, de modo que un `library` o un `cli-tool` ya no queda sin glosario aunque acuñe sus cinco casos de uso mínimos y sus reglas de negocio. §4.2.2 punto 6 pasa a ser referencia al artefacto. §4.2.4 nueva fija sus cinco secciones obligatorias, incluida la de términos con más de un referente, que no se omite: si ninguno lo requiere, declara «ninguno verificado». §3.3 suma la regla de inclusión (todo término en más de un artefacto de 02), la de no duplicación frente al glosario del dominio de 00 y la de polisemia, que remite al criterio de `Vocabulario-Rules.md` §9. §5.4 suma tres preguntas guía y §4.5 cuatro anti-patrones, entre ellos calificar todas las ocurrencias de un término cuyos contextos son disjuntos. §6 suma cinco criterios verificables. **Corregido**: §0 citaba «11 (ejemplos)», número nuevo con el significado viejo, residuo del intercambio 10 ↔ 11; y §3.1, §3.5 y §5.1 nombraban `especificacion-funcional.md`, `modelo-conceptual.md` y `definicion-<concepto>.md` en todo-minúsculas, variante que el párrafo siguiente de la propia §3.1 prohíbe y que contradecía a §2.1. **Origen**: la categoría 02 es la que más vocabulario acuña y la única de las trece cuya palabra «glosario» aparecía una sola vez en todo el archivo, sin criterio de inclusión y sin verificación en §6. |
+| 4.1 | 2026-08-15 | Identificadores, conjuntos cerrados y vocabulario del método (intervención reportes 00 a 11). **§3.2** declara la forma, el ámbito y el asignador de los **códigos de error**, que §4.2 punto 6 exigía sin regular: forma `E-<DOMINIO>-NNNNN`, ámbito producto, y los asigna la 02 del proyecto de código dueño del error dentro de su rango. Se agrega el identificador `FA-NN` de los flujos alternativos, que otra categoría necesitaba citar y terminaba acuñando aguas abajo. **§4.2** exige marcar como tales los **conjuntos cerrados** que la categoría declara, y remite la extensión de un conjunto ajeno a la detención por arbitraje de `Master-Prompt.md` §7.0 en lugar de admitir una nota dentro del artefacto. **§6** suma seis criterios, marcados por naturaleza, y precisa que el vocabulario del método no va en `Glosario-Funcional.md`, que es del dominio del cliente. Sube **minor**: agrega criterios y declaraciones sin cambiar el conjunto de artefactos de la categoría. Origen: reportes `01` (cinco incidentes de numeración, con cinco prefijos de código de error colisionando entre proyectos), `03` y `11`. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. |
+| 5.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |

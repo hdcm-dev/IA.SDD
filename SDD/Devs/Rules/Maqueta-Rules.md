@@ -1,15 +1,15 @@
 # Reglas constructivas — Fase B2 Validación visual de maqueta
 
-**Carpeta target (por proyecto de código visual):** `SDD/Maquetas/<Nombre-Proyecto-Codigo>/` del repositorio destino
-**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Proyecto de código
+**Carpeta target (por unidad de entrega visual):** `SDD/Maquetas/<Nombre-Unidad-Entrega>/` del repositorio destino
+**Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Maquetador de validación visual (AG-03M)
-**Versión de las reglas:** 3.1
+**Versión de las reglas:** 4.0
 
 ---
 
 ## 0. Posición en la cadena SDD
 
-La Fase B2 es una fase opcional del bucle por proyecto de código que se ejecuta entre la Fase B (02, 03, 04 y su audit) y la Fase C (05). No es una categoría documental nueva: no agrega una carpeta a la numeración `00` a `11`. Es una fase de validación que toma la especificación de experiencia ya redactada por AG-03 y la materializa en una maqueta navegable, para que el humano vea antes de que se codifique.
+La Fase B2 es una fase opcional del bucle por unidad de entrega que se ejecuta entre la Fase B (02, 03, 04 y su audit) y la Fase C (05). No es una categoría documental nueva: no agrega una carpeta a la numeración `00` a `11`. Es una fase de validación que toma la especificación de experiencia ya redactada por AG-03 y la materializa en una maqueta navegable, para que el humano vea antes de que se codifique.
 
 Resuelve tres problemas concretos del flujo:
 
@@ -17,9 +17,9 @@ Resuelve tres problemas concretos del flujo:
 2. La especificación de UX y UI no se puede apreciar en prosa. Lo que el humano aprueba en `Experiencia-De-Uso` y en los `wireframes-<superficie>` no es necesariamente lo que imaginó.
 3. El resultado de la codificación no tiene contra qué contrastarse. La maqueta aprobada, junto con el modelo de datos que exhibe, es la línea de base verificable del sensado de deriva (ver `Deriva-Rules.md`).
 
-Insumos: 02 del proyecto de código (casos de uso, reglas de negocio, modelo conceptual de datos), 03 del proyecto de código (`Experiencia-De-Uso`, `wireframes-<superficie>`, `representacion-<concepto>`, `Glosario-UX`), 00 (persona objetivo), el catálogo de diseño de `References/Design/` y el catálogo de modelos UX-UI de `Modelos-UX-UI/`.
+Insumos: 02 de la unidad de entrega (casos de uso, reglas de negocio, modelo conceptual de datos), 03 de la unidad de entrega (`Experiencia-De-Uso`, `wireframes-<superficie>`, `representacion-<concepto>`, `Glosario-UX`), 00 (persona objetivo), el catálogo de diseño de `References/Design/` y el catálogo de modelos UX-UI de `Modelos-UX-UI/`.
 
-Salida: la maqueta en `SDD/Maquetas/<Nombre-Proyecto-Codigo>/` del destino, la retroalimentación de los documentos de 03 (y la propagación al resto de las categorías afectadas), los artefactos de línea de base del sensado de deriva y, si el humano lo aprueba, un modelo nuevo en el catálogo `Modelos-UX-UI/` del template más su ejemplo ofuscado en `Templates/`.
+Salida: la maqueta en `SDD/Maquetas/<Nombre-Unidad-Entrega>/` del destino, la retroalimentación de los documentos de 03 (y la propagación al resto de las categorías afectadas), los artefactos de línea de base del sensado de deriva y, si el humano lo aprueba, un modelo nuevo en el catálogo `Modelos-UX-UI/` del template más su ejemplo ofuscado en `Templates/`.
 
 ---
 
@@ -31,7 +31,7 @@ Maquetador de validación visual, equivalente AG-03M del catálogo SDD. Perfil p
 
 AG-03M no redefine la experiencia: la materializa. La titularidad de la especificación de experiencia sigue siendo de AG-03. Cuando la maqueta revela que la especificación estaba equivocada o incompleta, AG-03M no la corrige por su cuenta: emite el hallazgo y la corrección se aplica al documento de 03 en el paso de retroalimentación (§6).
 
-### 1.2 Variantes según tipo de proyecto de código (8 valores D8)
+### 1.2 Variantes según tipo de unidad de entrega (8 valores D8)
 
 | Tipo | ¿Se maqueta? | Superficie de la maqueta | Especialidad específica |
 | --- | --- | --- | --- |
@@ -45,7 +45,7 @@ AG-03M no redefine la experiencia: la materializa. La titularidad de la especifi
 | cli-tool | No | — | — |
 | worker-service | No | — | — |
 
-La maqueta es siempre HTML, CSS y JavaScript ejecutados en un navegador, cualquiera sea el `tipo_proyecto_codigo`. Para `desktop-app` y `mobile-app-maui` la maqueta emula la superficie de destino en el navegador; no se maqueta con el toolkit nativo. La razón es la del §7: la maqueta tiene que poder editarse a mano y abrirse sin toolchain.
+La maqueta es siempre HTML, CSS y JavaScript ejecutados en un navegador, cualquiera sea el `tipo_unidad_entrega`. Para `desktop-app` y `mobile-app-maui` la maqueta emula la superficie de destino en el navegador; no se maqueta con el toolkit nativo. La razón es la del §7: la maqueta tiene que poder editarse a mano y abrirse sin toolchain.
 
 ### 1.3 Multi-especialidad
 
@@ -60,37 +60,37 @@ La maqueta es siempre HTML, CSS y JavaScript ejecutados en un navegador, cualqui
 
 ### 2.1 Condición de activación
 
-La Fase B2 se activa para un proyecto de código cuando el flag `requiere_maqueta` del proyecto de código es `true`. El orquestador lo deriva así:
+La Fase B2 se activa para una unidad de entrega cuando el flag `requiere_maqueta` de la unidad de entrega es `true`. El orquestador lo deriva así:
 
-- Valor propuesto: `true` cuando `tiene_ui_final == true`, o cuando el proyecto de código es `library` de componentes visuales, o cuando es `rest-api` con `tiene_portal_developers == true` y portal visible.
+- Valor propuesto: `true` cuando `tiene_ui_final == true`, o cuando la unidad de entrega es `library` de componentes visuales, o cuando es `rest-api` con `tiene_portal_developers == true` y portal visible.
 - Valor propuesto: `false` en cualquier otro caso.
-- El humano confirma o invierte el valor propuesto al aprobar el plan inicial. La fase es opcional por diseño: un proyecto de código visual puede saltearla si el humano lo decide.
+- El humano confirma o invierte el valor propuesto al aprobar el plan inicial. La fase es opcional por diseño: una unidad de entrega visual puede saltearla si el humano lo decide.
 
-La confirmación en el plan inicial habilita la fase, pero no la arranca. El arranque es una segunda pregunta explícita, en el paso 1 (§3.1), al cerrar la Fase B del proyecto de código con su audit aprobado. Recién en ese momento la especificación de UX y UI está completa y el orquestador tiene todo lo que necesita para maquetar, y recién en ese momento el humano tiene la información para decidir bien. El humano puede declinar ahí aunque el flag esté en `true`.
+La confirmación en el plan inicial habilita la fase, pero no la arranca. El arranque es una segunda pregunta explícita, en el paso 1 (§3.1), al cerrar la Fase B de la unidad de entrega con su audit aprobado. Recién en ese momento la especificación de UX y UI está completa y el orquestador tiene todo lo que necesita para maquetar, y recién en ese momento el humano tiene la información para decidir bien. El humano puede declinar ahí aunque el flag esté en `true`.
 
-Si el humano desactiva la fase en un proyecto de código con `tiene_ui_final == true`, la omisión se registra como ADR en 05 del proyecto de código, con el motivo declarado. Si la activa en un proyecto de código sin UI final, se registra el motivo en el log del orquestador.
+Si el humano desactiva la fase en una unidad de entrega con `tiene_ui_final == true`, la omisión se registra como ADR en 05 de la unidad de entrega, con el motivo declarado. Si la activa en una unidad de entrega sin UI final, se registra el motivo en el log del orquestador.
 
 ### 2.2 Tabla maestra de artefactos
 
 | Artefacto | Ubicación | Obligatorio | Descripción |
 | --- | --- | --- | --- |
-| `index.html` | `SDD/Maquetas/<Nombre-Proyecto-Codigo>/` | Sí | Punto de entrada de la maqueta. Contiene la navegación a todas las superficies maquetadas. |
-| `<Superficie>.html` | `SDD/Maquetas/<Nombre-Proyecto-Codigo>/` | Uno por superficie clave de 03 | Una superficie por archivo, con el mismo nombre canónico que su `wireframes-<superficie>`. |
-| `assets/css/Estilos-Maqueta.css` | `SDD/Maquetas/<Nombre-Proyecto-Codigo>/assets/css/` | Sí | Materialización de los tokens del catálogo de diseño como variables CSS. Sin literales sueltos. |
-| `assets/js/Datos-Maqueta.js` | `SDD/Maquetas/<Nombre-Proyecto-Codigo>/assets/js/` | Sí | Fuente única de los datos de ejemplo hardcodeados y del contrato de campos. Ningún HTML hardcodea datos. |
-| `assets/js/Maqueta.js` | `SDD/Maquetas/<Nombre-Proyecto-Codigo>/assets/js/` | Sí | Render de los datos, navegación y conmutación de estados. |
-| `assets/img/` | `SDD/Maquetas/<Nombre-Proyecto-Codigo>/assets/img/` | Si hay assets | Imágenes de la maqueta. Los íconos van SVG inline, no acá. |
-| `README.md` | `SDD/Maquetas/<Nombre-Proyecto-Codigo>/` | Sí | Cómo se abre, qué superficies cubre, qué CU materializa, cómo se corrige a mano y cómo se le avisa al orquestador. |
-| `Linea-Base-Visual.md` | `SDD/Docs/Proyectos/<Nombre-Proyecto-Codigo>/03-UX-UI-DX/` | Sí, al aprobar | Inventario identificado de superficies, componentes, estados y rutas de navegación de la maqueta aprobada. Insumo del sensado de deriva. |
-| `Contrato-Datos-Maqueta.md` | `SDD/Docs/Proyectos/<Nombre-Proyecto-Codigo>/03-UX-UI-DX/` | Sí, al aprobar | Los campos del modelo de datos que la maqueta exhibe, con tipo, ejemplo y trazabilidad al modelo conceptual de 02. |
-| `Bitacora-Validacion-Maqueta.md` | `SDD/Docs/Proyectos/<Nombre-Proyecto-Codigo>/03-UX-UI-DX/` | Sí | Registro de las iteraciones de validación: qué observó el humano, cómo se corrigió, qué documento se retroalimentó. |
+| `index.html` | `SDD/Maquetas/<Nombre-Unidad-Entrega>/` | Sí | Punto de entrada de la maqueta. Contiene la navegación a todas las superficies maquetadas. |
+| `<Superficie>.html` | `SDD/Maquetas/<Nombre-Unidad-Entrega>/` | Uno por superficie clave de 03 | Una superficie por archivo, con el mismo nombre canónico que su `wireframes-<superficie>`. |
+| `assets/css/Estilos-Maqueta.css` | `SDD/Maquetas/<Nombre-Unidad-Entrega>/assets/css/` | Sí | Materialización de los tokens del catálogo de diseño como variables CSS. Sin literales sueltos. |
+| `assets/js/Datos-Maqueta.js` | `SDD/Maquetas/<Nombre-Unidad-Entrega>/assets/js/` | Sí | Fuente única de los datos de ejemplo hardcodeados y del contrato de campos. Ningún HTML hardcodea datos. |
+| `assets/js/Maqueta.js` | `SDD/Maquetas/<Nombre-Unidad-Entrega>/assets/js/` | Sí | Render de los datos, navegación y conmutación de estados. |
+| `assets/img/` | `SDD/Maquetas/<Nombre-Unidad-Entrega>/assets/img/` | Si hay assets | Imágenes de la maqueta. Los íconos van SVG inline, no acá. |
+| `README.md` | `SDD/Maquetas/<Nombre-Unidad-Entrega>/` | Sí | Cómo se abre, qué superficies cubre, qué CU materializa, cómo se corrige a mano y cómo se le avisa al orquestador. |
+| `Linea-Base-Visual.md` | `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/03-UX-UI-DX/` | Sí, al aprobar | Inventario identificado de superficies, componentes, estados y rutas de navegación de la maqueta aprobada. Insumo del sensado de deriva. |
+| `Contrato-Datos-Maqueta.md` | `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/03-UX-UI-DX/` | Sí, al aprobar | Los campos del modelo de datos que la maqueta exhibe, con tipo, ejemplo y trazabilidad al modelo conceptual de 02. |
+| `Bitacora-Validacion-Maqueta.md` | `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/03-UX-UI-DX/` | Sí | Registro de las iteraciones de validación: qué observó el humano, cómo se corrigió, qué documento se retroalimentó. |
 
-Los tres documentos markdown viven en la categoría 03 del proyecto de código porque son especificación de experiencia, no salida de maqueta. La maqueta en sí vive en `SDD/Maquetas/`, fuera de `SDD/Docs/`, porque `SDD/Docs/` es exclusivamente prosa generada por el orquestador y la maqueta es material ejecutable que el humano edita a mano.
+Los tres documentos markdown viven en la categoría 03 de la unidad de entrega porque son especificación de experiencia, no salida de maqueta. La maqueta en sí vive en `SDD/Maquetas/`, fuera de `SDD/Docs/`, porque `SDD/Docs/` es exclusivamente prosa generada por el orquestador y la maqueta es material ejecutable que el humano edita a mano.
 
 ### 2.3 Nomenclatura
 
-- Carpeta del proyecto de código: `SDD/Maquetas/<Nombre-Proyecto-Codigo>/`, con el `Nombre-Proyecto-Codigo` derivado en §3.2 del master-prompt.
-- Archivos HTML de superficie: Título-Con-Guiones, sin sufijo de versión. Ejemplo: `Pantalla-Asignacion-Turno.html`. La maqueta se versiona con el repositorio, no con sufijo de archivo: hay una sola maqueta vigente por proyecto de código.
+- Carpeta de la unidad de entrega: `SDD/Maquetas/<Nombre-Unidad-Entrega>/`, con el `Nombre-Unidad-Entrega` derivado en §3.2 del master-prompt.
+- Archivos HTML de superficie: Título-Con-Guiones, sin sufijo de versión. Ejemplo: `Pantalla-Asignacion-Turno.html`. La maqueta se versiona con el repositorio, no con sufijo de archivo: hay una sola maqueta vigente por unidad de entrega.
 - Archivos de assets: Título-Con-Guiones. Ejemplo: `Estilos-Maqueta.css`, `Datos-Maqueta.js`.
 - Documentos markdown de la fase: Título-Con-Guiones sin sufijo de versión en el nombre; la versión vive en el campo `Versión` de la cabecera (D4), como cualquier artefacto de `SDD/Docs/`.
 - `index.html` es la única excepción en minúscula: es la convención universal del punto de entrada de un sitio estático y romperla rompe el servido por defecto.
@@ -103,35 +103,35 @@ La Fase B2 tiene siete pasos. Los pasos 1, 2 y 5 son puntos de detención con co
 
 ### 3.1 Paso 1 — Oferta de maqueta y elección del modelo UX-UI (detención)
 
-El disparador de este paso es el cierre de la Fase B con su audit aprobado. En ese momento la especificación de UX y UI del proyecto de código ya está redactada y auditada, y el orquestador tiene todo lo que necesita para maquetar: las superficies de los wireframes, sus estados, los flujos de `Experiencia-De-Uso` y el modelo conceptual de datos con sus ejemplos. Recién ahí ofrece.
+El disparador de este paso es el cierre de la Fase B con su audit aprobado. En ese momento la especificación de UX y UI de la unidad de entrega ya está redactada y auditada, y el orquestador tiene todo lo que necesita para maquetar: las superficies de los wireframes, sus estados, los flujos de `Experiencia-De-Uso` y el modelo conceptual de datos con sus ejemplos. Recién ahí ofrece.
 
-La oferta es explícita aunque el flag `requiere_maqueta` ya se haya confirmado en el plan inicial. El flag habilita la fase; esta pregunta la arranca. La razón es práctica: entre la aprobación del plan inicial y el cierre de la Fase B del proyecto de código pasaron varias fases, y el humano tiene ahora información que no tenía entonces.
+La oferta es explícita aunque el flag `requiere_maqueta` ya se haya confirmado en el plan inicial. El flag habilita la fase; esta pregunta la arranca. La razón es práctica: entre la aprobación del plan inicial y el cierre de la Fase B de la unidad de entrega pasaron varias fases, y el humano tiene ahora información que no tenía entonces.
 
 En la misma pregunta va de qué modelo partir. El orquestador lee el índice `../IA.SDD/SDD/Devs/Modelos-UX-UI/Index-Modelos-UX-UI.md` y presenta:
 
 - Opción por defecto: las reglas constructivas del catálogo `References/Design/` (documento base más la especialización de stack más las extensiones por capacidad que correspondan, según `Index-Design-Rules.md` §4).
-- Opciones alternativas: cada modelo registrado en `Modelos-UX-UI/`, con su nombre, en una línea qué resuelve y para qué tipo de proyecto de código se capturó.
+- Opciones alternativas: cada modelo registrado en `Modelos-UX-UI/`, con su nombre, en una línea qué resuelve y para qué tipo de unidad de entrega se capturó.
 
 Bloque de salida obligatorio:
 
 ```text
-Fase B del proyecto de código <Nombre-Proyecto-Codigo> cerrada y auditada. La especificación de
+Fase B de la unidad de entrega <Nombre-Unidad-Entrega> cerrada y auditada. La especificación de
 UX y UI está completa: <N> superficies especificadas en 03, <M> casos de uso con
 interacción humana en 02, modelo conceptual con <K> entidades.
 
-¿Generamos la maqueta de validación visual para este proyecto de código?
+¿Generamos la maqueta de validación visual para esta unidad de entrega?
 
 Si aceptás, indicá de qué modelo de diseño partir:
 - [por defecto] Catálogo base: Design-Rules-Web-Generico + <especializacion-stack> + <extensiones>
-- <Nombre-Modelo-1>: <qué resuelve> (capturado para <tipo_proyecto_codigo>)
-- <Nombre-Modelo-2>: <qué resuelve> (capturado para <tipo_proyecto_codigo>)
+- <Nombre-Modelo-1>: <qué resuelve> (capturado para <tipo_unidad_entrega>)
+- <Nombre-Modelo-2>: <qué resuelve> (capturado para <tipo_unidad_entrega>)
 
 El modelo elegido no reemplaza al catálogo base: se aplica por encima.
 Si preferís saltear la maqueta, seguimos con la Fase C y registro la omisión
 como ADR en 05.
 ```
 
-El humano decide las dos cosas en una sola respuesta. Si saltea, la fase termina acá y la omisión se registra como ADR en 05 del proyecto de código, con el motivo declarado.
+El humano decide las dos cosas en una sola respuesta. Si saltea, la fase termina acá y la omisión se registra como ADR en 05 de la unidad de entrega, con el motivo declarado.
 
 Un modelo del catálogo nunca reemplaza al documento base de `References/Design/`: se aplica por encima, igual que una especialización por stack. Ante conflicto entre el modelo y el base, manda el base, salvo que el modelo documente la desviación con su justificación.
 
@@ -160,7 +160,7 @@ AG-03M construye la maqueta según §4. Reglas duras de este paso:
 
 Terminada la construcción, el orquestador no se limita a avisar que la maqueta existe: intenta abrirla. El procedimiento tiene tres tramos y ninguno puede bloquear la fase.
 
-1. Levanta un servidor estático local en segundo plano sobre `SDD/Maquetas/<Nombre-Proyecto-Codigo>/`, en un puerto libre a partir de 8080, y registra el puerto y el identificador del proceso para poder apagarlo al cerrar la fase.
+1. Levanta un servidor estático local en segundo plano sobre `SDD/Maquetas/<Nombre-Unidad-Entrega>/`, en un puerto libre a partir de 8080, y registra el puerto y el identificador del proceso para poder apagarlo al cerrar la fase.
 2. Intenta abrir la URL en el navegador del humano con el abridor del sistema operativo: `xdg-open` en Linux, `start` en Windows, `open` en macOS. Si el entorno declara un navegador preferido para la validación, lo usa; si no, respeta el navegador por defecto del sistema.
 3. Si el paso 2 no puede completarse (no hay entorno gráfico alcanzable desde donde corre el orquestador, no hay abridor disponible, o el comando falla), no se detiene ni lo trata como error: informa la URL y el comando para abrirla a mano, y sigue.
 
@@ -171,7 +171,7 @@ Cuando el humano va a corregir a mano (vía B del §3.5), el orquestador le reco
 Bloque de salida obligatorio:
 
 ```text
-Maqueta del proyecto de código <Nombre-Proyecto-Codigo> lista en SDD/Maquetas/<Nombre-Proyecto-Codigo>/index.html
+Maqueta de la unidad de entrega <Nombre-Unidad-Entrega> lista en SDD/Maquetas/<Nombre-Unidad-Entrega>/index.html
 Superficies: <lista>
 
 <si el auto-lanzado funcionó>
@@ -206,13 +206,33 @@ Vía A, corrección por prompt. El humano describe el cambio; AG-03M lo aplica s
 
 Vía B, corrección manual del humano. El humano edita a mano los HTML, el CSS, el JavaScript o las imágenes y le pide al orquestador que reevalúe. El orquestador:
 
-1. Relee íntegros los archivos de `SDD/Maquetas/<Nombre-Proyecto-Codigo>/`.
+1. Relee íntegros los archivos de `SDD/Maquetas/<Nombre-Unidad-Entrega>/`.
 2. Los compara contra el estado que él mismo había dejado. Si el repositorio destino tiene control de versiones, usa el diff; si no, compara contra el inventario que registró en la bitácora al cerrar la iteración anterior.
 3. Enumera las diferencias encontradas y las interpreta como decisiones de diseño del humano: qué cambió, en qué superficie, y qué implica para la especificación.
 4. Presenta esa lectura al humano para que confirme la interpretación antes de propagarla. Una corrección manual mal interpretada que se propaga a la documentación es peor que no haberla tomado.
 5. Preserva las correcciones manuales: en las iteraciones siguientes AG-03M no las pisa. Si un cambio pedido por prompt entra en conflicto con una corrección manual previa, AG-03M se detiene y pregunta.
 
 Cada iteración, por cualquiera de las dos vías, agrega una entrada a `Bitacora-Validacion-Maqueta.md` con fecha, vía, observación del humano, cambio aplicado y documento a retroalimentar.
+
+**Propagación por iteración.** Al cerrar cada iteración, el orquestador **propaga lo aprobado en
+ella** según la matriz de §3.6, **o registra en la bitácora qué queda diferido y por qué**. No se
+espera a la aprobación de la maqueta para hacer las dos cosas.
+
+Este paso es iterativo y la propagación de §3.6 se dispara con la aprobación final: las dos cosas son
+correctas por separado y juntas producen un intervalo, tan largo como dure la validación, en el que
+la documentación describe un producto y lo que el humano ya aprobó describe otro. La regla se cumple
+y la documentación miente igual. De ahí salen dos consecuencias que hay que evitar:
+
+- **La deriva se acumula.** Cada iteración agrega distancia entre lo aprobado y lo documentado, y la
+  distancia se paga toda junta al final, cuando ya nadie recuerda de qué iteración salió cada cambio
+  y hay que reconstruirlo leyendo la maqueta contra los wireframes.
+- **Un audit que corra en el intervalo no puede distinguir** «esto todavía no se propagó porque la
+  fase está abierta» de «esto no se propagó y nadie se dio cuenta». Con el diferimiento declarado en
+  la bitácora, la distinción está escrita.
+
+Criterio verificable al cerrar cada iteración, y no solo al cerrar la fase: los estados que la
+maqueta demuestra y los que los wireframes de 03 declaran coinciden, o su diferencia está diferida
+con motivo.
 
 El paso cierra cuando el humano responde con la aprobación explícita de la maqueta.
 
@@ -222,7 +242,7 @@ Con la maqueta aprobada, el orquestador propaga lo aprendido a la documentación
 
 Orden de propagación:
 
-1. Primero 03 del proyecto de código, que es la categoría dueña de la experiencia. Se actualizan `Experiencia-De-Uso` (flujos, estados, accesibilidad, performance percibida) y cada `wireframes-<superficie>` afectado, subiendo minor. Se crean `Linea-Base-Visual`, `Contrato-Datos-Maqueta` y `Bitacora-Validacion-Maqueta`.
+1. Primero 03 de la unidad de entrega, que es la categoría dueña de la experiencia. Se actualizan `Experiencia-De-Uso` (flujos, estados, accesibilidad, performance percibida) y cada `wireframes-<superficie>` afectado, subiendo minor. Se crean `Linea-Base-Visual`, `Contrato-Datos-Maqueta` y `Bitacora-Validacion-Maqueta`.
 2. Después hacia atrás, si la validación tocó algo que vive aguas arriba.
 3. Después hacia adelante, si ya había categorías generadas que dependen de lo que cambió. En el orden normal de ejecución la Fase B2 corre antes de la Fase C, así que hacia adelante no suele haber nada generado todavía; si la fase se ejecuta fuera de orden por una regeneración parcial, aplica la matriz completa.
 
@@ -238,10 +258,27 @@ Matriz de propagación:
 | Un criterio de accesibilidad o de performance percibida | 03, 08 (tests de accesibilidad), 05 (NFR de presentación) | atrás y adelante |
 | Un patrón o token visual nuevo, transversal | Catálogo `References/Design/` o modelo en `Modelos-UX-UI/` | template |
 | Alcance funcional que la maqueta mostró faltante | 00 (alcance), 01 (NB), 02 (CU), 06, 07 | atrás y adelante |
+| **La validación creó una unidad de entrega** —una pieza resultó ser un componente empaquetado con contrato propio y no parte de la maqueta— | `PRODUCT-INTAKE` §13, §16, §17 y §18; `PRODUCT-MANIFEST` §2, §3 y §4; y una corrida de Fase B para el árbol nuevo | atrás y adelante |
 
-Regla de corte: si la propagación alcanza al `PRODUCT-INTAKE`, no se edita libremente. Aplica §13 del master-prompt (control de cambios, versión, archivado de la versión anterior). Si alcanza a 00 o 01, que son de nivel producto y ya fueron auditadas en la Fase A, el orquestador se detiene, informa el alcance real del cambio y pide confirmación antes de tocarlas: un hallazgo de maqueta de un proyecto de código no reescribe la visión del producto sin que el humano lo sepa.
+**Regla de escape de la matriz.** Todo hallazgo de la validación que **no encaje en ninguna fila** se
+declara explícitamente en la bitácora, con su destino propuesto, en lugar de no propagarse. Las filas
+de esta matriz enumeran lo previsto, no lo único que existe: una matriz cerrada sin escape convierte
+cada caso no previsto en una omisión silenciosa, y la Fase B2 es justamente la fase que más descubre
+cosas que las fases anteriores no podían saber, porque es la única donde el humano ve el producto
+antes de que exista.
 
-Cada documento retroalimentado suma una entrada a su control de cambios con el motivo `Retroalimentación de la Fase B2 de validación de maqueta del proyecto de código <Nombre-Proyecto-Codigo>`.
+**Propagar no es lo mismo que contradecir.** Las filas de arriba dicen **a dónde** llevar lo
+aprendido, y suponen que la categoría de destino lo incorpora. Cuando lo que hay que propagar
+**contradice una decisión ya aprobada** de la categoría de destino —típicamente porque la validación
+necesita extender un conjunto cerrado que otra categoría declaró—, no se resuelve escribiendo una
+nota dentro del artefacto: aplica la detención por arbitraje de `Master-Prompt.md` §7.0, y la
+decisión queda en el registro de decisiones pendientes del producto hasta que el humano la tome. Una
+nota en prosa dentro de un documento tiene el mismo peso visual que el resto del texto, no interrumpe
+a nadie y sobrevive a todos los audits.
+
+Regla de corte: si la propagación alcanza al `PRODUCT-INTAKE`, no se edita libremente. Aplica §13 del master-prompt (control de cambios, versión, archivado de la versión anterior). **Y si alcanza a §13 del intake, obliga a rederivar el `PRODUCT-MANIFEST` en la misma corrida**: es documento derivado del intake y, si no se lo nombra, queda desincronizado en silencio. Al rederivarlo se revisan además sus **afirmaciones derivadas** —las que describen la forma del grafo, como que la cadena sea lineal o que un nivel tenga un solo unidad de entrega—, que dejan de ser ciertas al cambiar la composición y que nadie revisa porque nadie las marcó como derivadas (`Root-Rules.md` §10). Si alcanza a 00 o 01, que son de nivel producto y ya fueron auditadas en la Fase A, el orquestador se detiene, informa el alcance real del cambio y pide confirmación antes de tocarlas: un hallazgo de maqueta de una unidad de entrega no reescribe la visión del producto sin que el humano lo sepa.
+
+Cada documento retroalimentado suma una entrada a su control de cambios con el motivo `Retroalimentación de la Fase B2 de validación de maqueta de la unidad de entrega <Nombre-Unidad-Entrega>`.
 
 ### 3.7 Paso 7 — Captura de conocimiento (detención)
 
@@ -258,10 +295,10 @@ Si aceptás, se generan dos artefactos en el repositorio fuente IA.SDD:
    Templates/<Nombre-Modelo>/
 
 Necesito un nombre para el modelo (Título-Con-Guiones, sin datos del cliente
-ni del dominio del proyecto de código). Propuesta: <Nombre-Propuesto>.
+ni del dominio de la unidad de entrega). Propuesta: <Nombre-Propuesto>.
 
 Si preferís no capitalizarlo, la fase cierra acá y el diseño queda solo en el
-proyecto de código.
+unidad de entrega.
 ```
 
 Si el humano acepta, AG-03M produce los dos artefactos según §5 y §6. Si no, la fase cierra.
@@ -284,10 +321,10 @@ Nota operativa: los dos artefactos se escriben en el repositorio fuente `IA.SDD`
 
 ### 4.2 Datos de ejemplo
 
-- Fuente única: `assets/js/Datos-Maqueta.js`, que expone un objeto global con el arreglo de datos de ejemplo, el contrato de campos (nombre, tipo, ejemplo, entidad de origen) y, si el proyecto de código tiene superficies de configuración, los descriptores de configuración.
+- Fuente única: `assets/js/Datos-Maqueta.js`, que expone un objeto global con el arreglo de datos de ejemplo, el contrato de campos (nombre, tipo, ejemplo, entidad de origen) y, si la unidad de entrega tiene superficies de configuración, los descriptores de configuración.
 - Ningún HTML hardcodea datos. Los renderiza el JavaScript desde esa fuente. La razón es funcional: si los datos están dispersos en el HTML, la maqueta no sirve para validar el modelo de datos, que es uno de sus dos propósitos.
 - Los datos salen de los ejemplos de la documentación de 02. Cantidad suficiente para que se vean los casos límite declarados en los CU: la fila más larga, el valor nulo, la categoría con muchos elementos, el estado de error.
-- Los datos de ejemplo son verosímiles dentro del dominio del proyecto de código pero no son datos reales del cliente. La maqueta vive en el repositorio destino; los datos reales no entran ahí ni siquiera en una maqueta.
+- Los datos de ejemplo son verosímiles dentro del dominio de la unidad de entrega pero no son datos reales del cliente. La maqueta vive en el repositorio destino; los datos reales no entran ahí ni siquiera en una maqueta.
 
 ### 4.3 Estados y barra de validación
 
@@ -322,7 +359,7 @@ WCAG 2.2 nivel AA es piso obligatorio también en la maqueta, no solo en el prod
 
 ### 4.6 Sello de versión
 
-La maqueta exhibe en el pie de cada superficie el nombre del proyecto de código, el modelo UX-UI aplicado y la fecha de la iteración vigente. Es lo que permite al humano saber qué está mirando cuando vuelve a la maqueta días después.
+La maqueta exhibe en el pie de cada superficie el nombre de la unidad de entrega, el modelo UX-UI aplicado y la fecha de la iteración vigente. Es lo que permite al humano saber qué está mirando cuando vuelve a la maqueta días después.
 
 ---
 
@@ -352,10 +389,10 @@ Cada regla capturada se escribe como una regla accionable, no como una descripci
 
 Prohibiciones de la captura, no negociables porque `IA.SDD` es público:
 
-- Ningún nombre de cliente, de producto comercial del cliente, de persona, de dominio, de sistema interno ni de proyecto de código del destino.
+- Ningún nombre de cliente, de producto comercial del cliente, de persona, de dominio, de sistema interno ni de unidad de entrega del destino.
 - Ningún literal de datos reales, ni siquiera de ejemplo, si proviene del dominio del cliente.
-- Ninguna captura de pantalla ni asset gráfico del proyecto de código destino.
-- Ninguna decisión que solo tenga sentido en el dominio del proyecto de código. Si una regla no se puede formular de manera agnóstica del dominio, no se captura.
+- Ninguna captura de pantalla ni asset gráfico de la unidad de entrega destino.
+- Ninguna decisión que solo tenga sentido en el dominio de la unidad de entrega. Si una regla no se puede formular de manera agnóstica del dominio, no se captura.
 
 El documento nuevo se registra en `Index-Modelos-UX-UI.md` en la misma operación. Un modelo que no está en el índice no existe para el orquestador: el paso 1 de §3.1 lee el índice.
 
@@ -372,7 +409,7 @@ Regla de ofuscación, bloqueante:
 1. El dominio se sustituye íntegro por un dominio sintético neutro. No se renombra: se reemplaza. Las entidades pasan a ser genéricas, los campos pasan a ser genéricos, los valores pasan a ser genéricos.
 2. Se preserva la forma, se descarta el contenido: la estructura del HTML, los nombres de clase, la organización del CSS, la estrategia de render del JavaScript, la cantidad y el tipo de campos por entidad. Nada del significado del dominio original.
 3. Los textos de interfaz se reescriben en términos genéricos, conservando el tono y la longitud aproximada, porque la longitud del texto es una decisión de diseño.
-4. Se eliminan todos los assets de imagen que provengan del proyecto de código; se reemplazan por SVG neutros generados para el template.
+4. Se eliminan todos los assets de imagen que provengan de la unidad de entrega; se reemplazan por SVG neutros generados para el template.
 5. Antes de escribir, AG-03M hace una pasada de verificación explícita contra la lista de prohibiciones de §5 y declara su resultado en el bloque de devolución. Si la verificación no puede completarse con certeza, no se genera el template.
 
 El template incluye su propio `README.md` con qué patrones demuestra, cómo se relanza y qué hay que reemplazar al derivarlo.
@@ -395,11 +432,11 @@ Los cuatro sirven exactamente los mismos archivos. La maqueta no depende de ning
    python3 -m http.server 8080
    ```
    y abrir `http://localhost:8080`. No recarga sola.
-4. **Abrir el archivo directamente.** `SDD/Maquetas/<Nombre-Proyecto-Codigo>/index.html` en el navegador, sin nada. Sirve para una mirada rápida, pero algunos navegadores restringen operaciones sobre `file://`, así que no es el método para una sesión de validación larga. Con este método la recarga automática de la propia maqueta (§4.3) no funciona.
+4. **Abrir el archivo directamente.** `SDD/Maquetas/<Nombre-Unidad-Entrega>/index.html` en el navegador, sin nada. Sirve para una mirada rápida, pero algunos navegadores restringen operaciones sobre `file://`, así que no es el método para una sesión de validación larga. Con este método la recarga automática de la propia maqueta (§4.3) no funciona.
 
 Para los métodos 1, 2 y 3 la maqueta ofrece además su propia recarga automática, en la barra de validación (§4.3). Cubre el caso de quien no usa la extensión del editor y no quiere refrescar a mano.
 
-El `README.md` de cada maqueta documenta el método que el proyecto de código haya adoptado.
+El `README.md` de cada maqueta documenta el método que la unidad de entrega haya adoptado.
 
 ### 7.2 Sin proceso de build
 
@@ -413,30 +450,40 @@ La maqueta no usa empaquetador ni transpilador. La decisión no es contra ningun
 
 A eso se suma que un empaquetador acá no aporta nada: no hay módulos que resolver, ni sintaxis que transpilar, ni tamaño que optimizar. La recarga automática, que sí es útil, la da el servidor del editor sin build.
 
-Si un proyecto de código futuro necesitara compilar para maquetar (por ejemplo, una librería de componentes que solo se puede demostrar compilada), se registra como ADR en 05 del proyecto de código y la maqueta documenta su propio comando de build en su `README.md`. Es la excepción, no el camino.
+Si una unidad de entrega futura necesitara compilar para maquetar (por ejemplo, una librería de componentes que solo se puede demostrar compilada), se registra como ADR en 05 del proyecto de código y la maqueta documenta su propio comando de build en su `README.md`. Es la excepción, no el camino.
 
 ---
 
 ## 8. Criterios de aceptación
 
-- [ ] La fase se ejecutó solo si `requiere_maqueta` del proyecto de código es `true`, y su valor fue confirmado por el humano en el plan inicial.
-- [ ] El paso 1 ofreció explícitamente el catálogo base y los modelos de `Modelos-UX-UI/` registrados en el índice, y el humano eligió.
-- [ ] Existe una superficie maquetada por cada `wireframes-<superficie>` de 03, con el mínimo por tipo del §4.4 cumplido.
-- [ ] Toda superficie demuestra al menos los estados vacío, cargando, con datos y error, conmutables desde la barra de validación.
-- [ ] Los datos de ejemplo viven exclusivamente en `assets/js/Datos-Maqueta.js` y ningún HTML los hardcodea.
-- [ ] Todo valor visual sale del catálogo de diseño o del modelo elegido, materializado como token; no hay literales visuales ad hoc.
-- [ ] La maqueta cumple WCAG 2.2 AA en los mínimos verificables del §4.5.
-- [ ] La maqueta abre sin toolchain, con cualquiera de los métodos del §7.1.
-- [ ] El paso 4 intentó el auto-lanzado y, si no pudo, informó la URL y el comando sin tratar el fallo como error ni detener la fase.
-- [ ] La barra de validación ofrece el interruptor de recarga automática, apagado por defecto y degradado con su razón cuando la maqueta se abre desde `file://`.
-- [ ] Al cerrar la fase, el servidor estático levantado por el orquestador quedó apagado y se lo informó.
-- [ ] Las dos vías de corrección del §3.5 se ofrecieron explícitamente al humano, y las correcciones manuales fueron releídas, interpretadas y confirmadas antes de propagarse.
-- [ ] `Bitacora-Validacion-Maqueta.md` tiene una entrada por iteración, con vía, observación, cambio y documento retroalimentado.
-- [ ] La aprobación de la maqueta es explícita del humano; no se infiere del silencio.
-- [ ] Todo documento afectado por la matriz de propagación del §3.6 fue retroalimentado y subió versión con su entrada de control de cambios.
-- [ ] Existen `Linea-Base-Visual.md` y `Contrato-Datos-Maqueta.md` con los identificadores del §2 de `Deriva-Rules.md`.
-- [ ] Si el humano aceptó capitalizar, existen el documento de modelo en `Modelos-UX-UI/`, su entrada en el índice y el template en `Templates/`, y la verificación de ofuscación del §6 punto 5 está declarada.
-- [ ] Ningún artefacto escrito en `IA.SDD` contiene nombres, datos, assets ni decisiones del dominio del proyecto de código destino.
+**Naturaleza de cada criterio.** Cada ítem lleva su marca: `[enumerable]` si se decide contando o
+comparando —existencia, forma, recuento, resolución de un enlace— y `[interpretativo]` si solo se
+decide leyendo los dos lados. Los enumerables son los que la compuerta mecánica de
+`Master-Prompt.md` §10.0 tiene que cubrir; los interpretativos son para lo que el audit existe.
+
+La clasificación es **conservadora por diseño**: ante la duda, un criterio se marca interpretativo.
+El error no es simétrico —declarar mecanizable algo que no lo es produce falsa confianza, que es peor
+que la ausencia de verificación—, así que marcar de más un interpretativo solo cuesta atención del
+auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
+
+- [ ] [interpretativo] La fase se ejecutó solo si `requiere_maqueta` de la unidad de entrega es `true`, y su valor fue confirmado por el humano en el plan inicial.
+- [ ] [interpretativo] El paso 1 ofreció explícitamente el catálogo base y los modelos de `Modelos-UX-UI/` registrados en el índice, y el humano eligió.
+- [ ] [enumerable] Existe una superficie maquetada por cada `wireframes-<superficie>` de 03, con el mínimo por tipo del §4.4 cumplido.
+- [ ] [interpretativo] Toda superficie demuestra al menos los estados vacío, cargando, con datos y error, conmutables desde la barra de validación.
+- [ ] [interpretativo] Los datos de ejemplo viven exclusivamente en `assets/js/Datos-Maqueta.js` y ningún HTML los hardcodea.
+- [ ] [interpretativo] Todo valor visual sale del catálogo de diseño o del modelo elegido, materializado como token; no hay literales visuales ad hoc.
+- [ ] [interpretativo] La maqueta cumple WCAG 2.2 AA en los mínimos verificables del §4.5.
+- [ ] [interpretativo] La maqueta abre sin toolchain, con cualquiera de los métodos del §7.1.
+- [ ] [interpretativo] El paso 4 intentó el auto-lanzado y, si no pudo, informó la URL y el comando sin tratar el fallo como error ni detener la fase.
+- [ ] [interpretativo] La barra de validación ofrece el interruptor de recarga automática, apagado por defecto y degradado con su razón cuando la maqueta se abre desde `file://`.
+- [ ] [interpretativo] Al cerrar la fase, el servidor estático levantado por el orquestador quedó apagado y se lo informó.
+- [ ] [interpretativo] Las dos vías de corrección del §3.5 se ofrecieron explícitamente al humano, y las correcciones manuales fueron releídas, interpretadas y confirmadas antes de propagarse.
+- [ ] [interpretativo] `Bitacora-Validacion-Maqueta.md` tiene una entrada por iteración, con vía, observación, cambio y documento retroalimentado.
+- [ ] [interpretativo] La aprobación de la maqueta es explícita del humano; no se infiere del silencio.
+- [ ] [interpretativo] Todo documento afectado por la matriz de propagación del §3.6 fue retroalimentado y subió versión con su entrada de control de cambios.
+- [ ] [enumerable] Existen `Linea-Base-Visual.md` y `Contrato-Datos-Maqueta.md` con los identificadores del §2 de `Deriva-Rules.md`.
+- [ ] [interpretativo] Si el humano aceptó capitalizar, existen el documento de modelo en `Modelos-UX-UI/`, su entrada en el índice y el template en `Templates/`, y la verificación de ofuscación del §6 punto 5 está declarada.
+- [ ] [interpretativo] Ningún artefacto escrito en `IA.SDD` contiene nombres, datos, assets ni decisiones del dominio de la unidad de entrega destino.
 
 ---
 
@@ -465,14 +512,14 @@ Si un proyecto de código futuro necesitara compilar para maquetar (por ejemplo,
 
 ```text
 Sos un {{ESPECIALIDAD-VARIANTE}} responsable de la Fase B2 de validación visual de maqueta
-del proyecto de código {{NOMBRE_PROYECTO_CODIGO}} del producto {{NOMBRE_PRODUCTO}}.
+de la unidad de entrega {{NOMBRE_PROYECTO_CODIGO}} del producto {{NOMBRE_PRODUCTO}}.
 
-Tipo de proyecto de código: {{TIPO}} (uno de los ocho valores D8).
+Tipo de unidad de entrega: {{TIPO}} (uno de los ocho valores D8).
 Modelo UX-UI elegido por el humano: {{MODELO_ELEGIDO}}.
 
 Insumos obligatorios:
-- 02 del proyecto de código: CU, RN, modelo conceptual de datos y sus ejemplos.
-- 03 del proyecto de código: Experiencia-De-Uso, wireframes-<superficie>, representacion-<concepto>, Glosario-UX.
+- 02 de la unidad de entrega: CU, RN, modelo conceptual de datos y sus ejemplos.
+- 03 de la unidad de entrega: Experiencia-De-Uso, wireframes-<superficie>, representacion-<concepto>, Glosario-UX.
 - 00: persona objetivo.
 - Catálogo de diseño: ../IA.SDD/SDD/Devs/References/Design/Index-Design-Rules.md, el documento base,
   la especialización de stack y las extensiones por capacidad que apliquen.
@@ -516,3 +563,5 @@ Devolución:
 | 2.0 | 2026-07-28 | Normalización del versionado (framework 4.0). El archivo vivo pierde el sufijo de versión del nombre y pasa a declarar su versión en el campo `Versión` de su cabecera; el sufijo `-v<X.Y>.md` queda reservado a las copias archivadas en `_legacy/`. Se actualizan los patrones de nombre, los ejemplos, las cabeceras modelo, los anti-patrones y los criterios de aceptación de la categoría. Sube major porque la documentación generada con la nomenclatura anterior deja de cumplir. Deriva de la reformulación de D4 y D5 en el `README.md` del framework. |
 | 3.0 | 2026-07-29 | Renombre de vocabulario normativo (framework 5.0). El nivel superior pasa de «solución» a **producto**, la unidad de compilación de «proyecto» a **proyecto de código**, y los cuatro planos de identidad del producto se separan en campos propios (`Nombre-Producto`, `Slug-Producto`, `Raiz-Codigo`, `Artefacto-Agrupacion`). Se declara el nivel de aplicación de la regla en su cabecera, según `Vocabulario-Rules.md` §4 R3. Sube major porque los identificadores y los nombres de artefacto cambian, y la documentación generada con la nomenclatura anterior deja de cumplir. |
 | 3.1 | 2026-07-29 | Corrección de la sustitución global de cadena de la 5.0. La tercera columna de la cabecera de la tabla de anti-patrones decía «Producto», cuando contiene el remedio y se llama «Solución»; `Vocabulario-Rules.md` §4 R2 conserva ese uso de la palabra. La clase de defecto y su prohibición quedan documentadas en `Vocabulario-Rules.md` §9.5. La restitución de las filas históricas de este control de cambios, que la migración había reescrito contra `SDD-Development-Guide.md` §VI.2, se registra una sola vez en `CHANGELOG.md` [5.1] por alcanzar a veintitrés archivos. |
+| 3.2 | 2026-08-15 | Propagación por iteración y matriz con escape (intervención reportes 00 a 11). **§3.5** exige propagar lo aprobado al cerrar cada iteración, o registrar en la bitácora qué queda diferido y por qué: la fase es un bucle y la propagación de §3.6 se disparaba con la aprobación final, de modo que entre las dos quedaba un intervalo en el que la regla se cumplía y la documentación mentía igual. Se agrega el criterio verificable por iteración —los estados que la maqueta demuestra y los que los wireframes declaran coinciden, o su diferencia está diferida con motivo—. **§3.6** suma una novena fila a la matriz para el caso en que la validación crea un proyecto de código, con sus destinos en el intake, en el manifiesto y en una corrida de Fase B para el árbol nuevo; una **regla de escape** para todo hallazgo que no encaje en ninguna fila; la distinción entre **propagar y contradecir**, con remisión a la detención por arbitraje de `Master-Prompt.md` §7.0; y la regla de corte pasa a nombrar el `PRODUCT-MANIFEST`, que es derivado del intake y quedaba desincronizado en silencio, con la revisión de sus afirmaciones derivadas. Sube **minor**: agrega filas y procedimientos sin cambiar los artefactos que la fase produce. Origen: reportes `02` y `03`. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. |
+| 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |

@@ -30,7 +30,7 @@ Ante conflicto entre un modelo de este catálogo y el documento base de `Referen
 
 ## 2. Catálogo de modelos
 
-| Modelo | Capturado de | `tipo_proyecto_codigo` de origen | Qué resuelve | Estado |
+| Modelo | Capturado de | `tipo_unidad_entrega` de origen | Qué resuelve | Estado |
 | --- | --- | --- | --- | --- |
 | — | — | — | El catálogo arranca vacío. El primer modelo se registra al cerrar la primera Fase B2 en la que el humano acepte capitalizar el diseño. | — |
 
@@ -68,8 +68,8 @@ El subagente AG-03M no elige: ofrece y el humano decide. La secuencia está en `
 
 Criterios que el orquestador usa para ordenar las opciones que presenta:
 
-1. Modelos capturados del mismo `tipo_proyecto_codigo` que el proyecto de código en curso, primero.
-2. Después, modelos capturados de un `tipo_proyecto_codigo` con la misma variante de 03 (UX/UI o DX).
+1. Modelos capturados del mismo `tipo_unidad_entrega` que el proyecto de código en curso, primero.
+2. Después, modelos capturados de un `tipo_unidad_entrega` con la misma variante de 03 (UX/UI o DX).
 3. Al final, el resto, con la advertencia de que su origen es de otro tipo de proyecto de código.
 
 La opción por defecto (catálogo base sin modelo) se presenta siempre y primero. Un modelo se aplica por encima del base, con las extensiones por capacidad que correspondan según `Index-Design-Rules.md` §4; las tres capas son ortogonales.

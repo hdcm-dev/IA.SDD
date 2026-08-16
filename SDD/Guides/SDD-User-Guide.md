@@ -2,8 +2,8 @@
 
 ```yaml
 Documento: Guia-Usuario-SDD.md
-Versión: 1.9
-Fecha: 2026-07-26
+Versión: 1.11
+Fecha: 2026-08-15
 Audiencia: profesionales y estudiantes que usan el template para un producto real
 Idioma: español rioplatense neutro técnico
 Estado: vigente
@@ -17,12 +17,12 @@ Estado: vigente
 ## Tabla de contenido
 
 - [§1 ¿Qué es el template SDD?](#1-qué-es-el-template-sdd)
-  - [Producto y proyecto de código: el modelo de trabajo](#producto-y-proyecto-el-modelo-de-trabajo)
+  - [Los dos ejes del producto: el modelo de trabajo](#los-dos-ejes-del-producto-el-modelo-de-trabajo)
 - [§2 Prerequisitos](#2-prerequisitos)
 - [§3 Cuándo usar este template y cuándo no](#3-cuándo-usar-este-template-y-cuándo-no)
   - [3.1 Perfilado por tamaño de equipo](#31-perfilado-por-tamaño-de-equipo)
   - [3.2 Perfilado por complejidad](#32-perfilado-por-complejidad)
-  - [3.3 Perfilado por tipo de proyecto de código (D8)](#33-perfilado-por-tipo-de-proyecto-d8)
+  - [3.3 Perfilado por tipo de unidad de entrega (D8)](#33-perfilado-por-tipo-de-proyecto-d8)
   - [3.4 Perfilado por plazo](#34-perfilado-por-plazo)
   - [3.5 Tabla de recomendación combinada](#35-tabla-de-recomendación-combinada)
 - [§4 Recorrido paso a paso de la metodología](#4-recorrido-paso-a-paso-de-la-metodología)
@@ -38,11 +38,11 @@ Estado: vigente
   - [5.1 Caso "API REST de gestión de turnos médicos"](#51-caso-api-rest-de-gestión-de-turnos-médicos-rest-api-producto-de-un-proyecto)
   - [5.2 Caso "Librería utilitaria para parsing de archivos CSV"](#52-caso-librería-utilitaria-para-parsing-de-archivos-csv-library-producto-de-un-proyecto)
   - [5.3 Caso "App móvil de inventario de almacén"](#53-caso-app-móvil-de-inventario-de-almacén-mobile-app-maui-producto-de-un-proyecto)
-  - [5.4 Caso "Producto de gestión de turnos con cuatro proyectos de código"](#54-caso-producto-de-gestión-de-turnos-con-cuatro-proyectos-producto-multi-proyecto)
+  - [5.4 Caso "Producto de gestión de turnos con cuatro unidades de entrega"](#54-caso-producto-de-gestión-de-turnos-con-cuatro-proyectos-producto-multi-proyecto)
 - [§6 Resolución de problemas frecuentes](#6-resolución-de-problemas-frecuentes)
 - [§7 Cómo extender el template](#7-cómo-extender-el-template)
   - [7.1 Agregar una categoría nueva](#71-agregar-una-categoría-nueva)
-  - [7.2 Agregar un tipo de proyecto de código nuevo a D8](#72-agregar-un-tipo-de-proyecto-nuevo-a-d8)
+  - [7.2 Agregar un tipo de unidad de entrega nuevo a D8](#72-agregar-un-tipo-de-proyecto-nuevo-a-d8)
   - [7.3 Agregar una variante de especialidad](#73-agregar-una-variante-de-especialidad)
   - [7.4 Agregar un modelo UX-UI al catálogo](#74-agregar-un-modelo-ux-ui-al-catálogo)
 - [§8 Cómo regenerar parcialmente](#8-cómo-regenerar-parcialmente)
@@ -55,7 +55,7 @@ Estado: vigente
 
 ## §1 ¿Qué es el template SDD?
 
-El template SDD es un kit de trabajo orientado a equipos de desarrollo que necesitan generar la documentación viva de un proyecto de código de software antes de escribir la primera línea de código. SDD se lee como "Specification-Driven Development", desarrollo guiado por la especificación. La idea es simple: si el problema está bien capturado, las decisiones técnicas están justificadas y la trazabilidad entre necesidades, casos de uso y tareas está cerrada, la codificación pasa a ser una consecuencia ordenada del diseño, no una serie de improvisaciones.
+El template SDD es un kit de trabajo orientado a equipos de desarrollo que necesitan generar la documentación viva de una unidad de entrega de software antes de escribir la primera línea de código. SDD se lee como "Specification-Driven Development", desarrollo guiado por la especificación. La idea es simple: si el problema está bien capturado, las decisiones técnicas están justificadas y la trazabilidad entre necesidades, casos de uso y tareas está cerrada, la codificación pasa a ser una consecuencia ordenada del diseño, no una serie de improvisaciones.
 
 El template resuelve un dolor concreto y repetido: el equipo arranca a codear sin haber escrito la especificación, descubre los huecos del problema a mitad del sprint, paga los costos de retrabajo y termina con una documentación post-facto que nadie mantiene. SDD invierte el orden. Primero conversación con el cliente, después un intake estructurado unificado, después documentación auditada por categorías, después codificación.
 
@@ -65,19 +65,36 @@ A diferencia de plantillas ad-hoc o de un README inflado, SDD se apoya en tres p
 - Un conjunto de 12 categorías documentales numeradas (`00-Contexto/` a `11-Documentacion/`) más un README raíz, cada una con su propio archivo de reglas constructivas que codifica especialidad, documentos a producir, criterios de aceptación y prompts ejemplares.
 - Un master-prompt orquestador que se ejecuta una sola vez por producto en Claude Code y va despachando subagentes especializados con audits independientes entre fases.
 
-### Producto y proyecto de código: el modelo de trabajo
+### Los dos ejes del producto: el modelo de trabajo
 
-SDD distingue dos niveles. Un producto agrupa una jerarquía de N proyectos de código (con N mayor o igual a 1). Cada proyecto de código lleva exactamente uno de los 8 tipos cerrados D8 (`library`, `web-monolith`, `web-microservices`, `desktop-app`, `mobile-app-maui`, `rest-api`, `cli-tool`, `worker-service`); el tipo se elige por proyecto de código, no por el producto. El producto en sí no tiene un D8 propio: es el contenedor que enumera sus proyectos de código, sus roles, sus dependencias y sus nombres de código.
+SDD distingue dos niveles. Un producto agrupa una jerarquía de N unidades de entrega (con N mayor o igual a 1). Cada unidad de entrega lleva exactamente uno de los 8 tipos cerrados D8 (`library`, `web-monolith`, `web-microservices`, `desktop-app`, `mobile-app-maui`, `rest-api`, `cli-tool`, `worker-service`); el tipo se elige por unidad de entrega, no por el producto. El producto en sí no tiene un D8 propio: es el contenedor que enumera sus unidades de entrega, sus roles, sus dependencias y sus nombres de código.
 
-El intake describe el producto completo en un único documento: el `PRODUCT-INTAKE`, organizado en tres partes (A negocio, B composición, C técnica por proyecto de código). Su Parte B incluye la tabla de proyectos de código (§13) con el grafo de dependencias acíclico, y su Parte C repite un bloque técnico por proyecto de código. El usuario completa solo ese documento; ya no llena un manifiesto a mano. El orquestador, antes de la Fase A, valida el intake y deriva de su §13 el `PRODUCT-MANIFEST` de producto; recién con el manifiesto derivado y confirmado lee la jerarquía, la valida, ordena los proyectos de código en orden topológico y genera la documentación proyecto de código por proyecto de código, respetando que ninguno arranca antes que sus dependencias.
+**Un producto tiene dos ejes, y conviene tenerlos separados desde el principio.**
 
-Un producto de un solo proyecto de código es perfectamente válida: es el caso degenerado y reproduce exactamente el comportamiento del template de tipo único anterior. En ese caso el orquestador aplana el layout y genera las categorías `00` a `11` directamente bajo `SDD/Docs/`, sin el subnivel `Proyectos/<Nombre>/` ni la carpeta `Producto/`. Esa equivalencia es la garantía de no ruptura: si tu trabajo es un proyecto de código único, no cambia nada respecto de la versión anterior.
+- El **eje de entrega**: qué piezas se despliegan o se publican por separado y alguien consume. Cada una es una **unidad de entrega** y lleva su tipo D8. Una app móvil, un portal, un panel, una API pública, una librería que se publica en un repositorio de paquetes.
+- El **eje de construcción**: qué se compila. Cada pieza es un **proyecto de código**, con su stack y sus dependencias. Un bundle de front, un backend, una librería de dominio.
+
+Los dos no coinciden y su relación es de muchos a muchos: **una unidad de entrega se compone de varios proyectos de código, y un proyecto de código puede componer varias unidades de entrega**. Un proyecto de contratos compartido entre un portal y una API es el caso típico: uno solo, usado por dos entregas.
+
+Las once categorías documentales cuelgan de la **unidad de entrega**, porque es lo que alguien usa. Los proyectos de código se inventarían una sola vez, a nivel producto, en la vista de producto.
+
+**Cómo saber si algo es un producto o dos.** Tres preguntas, y la primera suele alcanzar:
+
+1. ¿Hay alguna necesidad de negocio que solo se cumple si las dos piezas están? Si sí, es **un** producto.
+2. ¿Podrías publicar una sin coordinar con la otra? Si sí, apunta a dos productos.
+3. ¿Quién decide en qué se trabaja esta semana? Si es la misma persona, es un producto.
+
+El precio de partir en dos productos, para que lo decidas con el dato a la vista: la trazabilidad se corta en la frontera. Una necesidad que atraviesa los dos no tiene dónde vivir, y cada intake declara su mitad más un contrato con el otro.
+
+El intake describe el producto completo en un único documento: el `PRODUCT-INTAKE`, organizado en tres partes (A negocio, B composición, C técnica por unidad de entrega). Su Parte B incluye la tabla de unidades de entrega (§13) con el grafo de dependencias acíclico, y su Parte C repite un bloque técnico por unidad de entrega. El usuario completa solo ese documento; ya no llena un manifiesto a mano. El orquestador, antes de la Fase A, valida el intake y deriva de su §13 el `PRODUCT-MANIFEST` de producto; recién con el manifiesto derivado y confirmado lee la jerarquía, la valida, ordena las unidades de entrega en orden topológico y genera la documentación unidad de entrega por unidad de entrega, respetando que ninguno arranca antes que sus dependencias.
+
+Un producto de un solo unidad de entrega es perfectamente válida: es el caso degenerado y reproduce exactamente el comportamiento del template de tipo único anterior. En ese caso el orquestador aplana el layout y genera las categorías `00` a `11` directamente bajo `SDD/Docs/`, sin el subnivel `Unidades-Entrega/<Nombre>/` ni la carpeta `Producto/`. Esa equivalencia es la garantía de no ruptura: si tu trabajo es una unidad de entrega único, no cambia nada respecto de la versión anterior.
 
 La audiencia primaria son desarrolladores, analistas, líderes técnicos y estudiantes avanzados que quieren producir documentación de calidad profesional sin pelearse con plantillas frías. El template asume que vas a usar Claude.ai web para conversar con el cliente y consolidar la idea, y Claude Code para ejecutar el orquestador y materializar la documentación en el repositorio.
 
 Si el lector necesita la fundamentación teórica (por qué se eligió plan-then-confirm, por qué el principio de delegación de la especialidad, qué nodos cubre la cadena D6, qué invariantes globales D1 a D9 se aplican), eso se documenta en el marco teórico del template. Esta guía es operativa.
 
-Un producto típica que usa SDD termina con una carpeta `SDD/Docs/` poblada por categoría (a nivel producto y por proyecto de código), un informe de audit por cada fase, un README raíz consolidado y un Sprint 1 listo para arrancar codificación. El handoff a codificación es explícito: el orquestador no escribe código sin confirmación humana.
+Un producto típica que usa SDD termina con una carpeta `SDD/Docs/` poblada por categoría (a nivel producto y por unidad de entrega), un informe de audit por cada fase, un README raíz consolidado y un Sprint 1 listo para arrancar codificación. El handoff a codificación es explícito: el orquestador no escribe código sin confirmación humana.
 
 ---
 
@@ -85,7 +102,7 @@ Un producto típica que usa SDD termina con una carpeta `SDD/Docs/` poblada por 
 
 Antes de arrancar con el template, asegurate de tener lo siguiente:
 
-- Cuenta de Claude.ai web con plan que admita proyectos de código y archivos adjuntos. El template fue diseñado para Claude Pro o equivalente con la capacidad de subir documentos largos al chat y mantener proyectos de código persistentes.
+- Cuenta de Claude.ai web con plan que admita unidades de entrega y archivos adjuntos. El template fue diseñado para Claude Pro o equivalente con la capacidad de subir documentos largos al chat y mantener unidades de entrega persistentes.
 - Claude Code instalado y autenticado en tu máquina local. Claude Code es la CLI que ejecuta el master-prompt sobre tu repositorio. Verificá que `claude --version` o el equivalente de tu instalación respondan sin error.
 - Repositorio Git inicializado en local. SDD trabaja sobre archivos versionados; el orquestador asume que vas a poder hacer commits intermedios entre fases.
 - Editor de texto con soporte de markdown (Visual Studio Code, Cursor, Zed o cualquier otro). Es muy útil tener vista previa de markdown mientras revisás los entregables.
@@ -118,14 +135,14 @@ Si los tres comandos responden, estás listo.
 
 ## §3 Cuándo usar este template y cuándo no
 
-SDD no es universal. Está pensado para proyectos de código donde el esfuerzo de documentación inicial se paga con creces en el flujo posterior. Las siguientes dimensiones ayudan a perfilar si te conviene.
+SDD no es universal. Está pensado para unidades de entrega donde el esfuerzo de documentación inicial se paga con creces en el flujo posterior. Las siguientes dimensiones ayudan a perfilar si te conviene.
 
 ### 3.1 Perfilado por tamaño de equipo
 
 - 1 persona (solo dev / freelance): conviene una versión liviana. Saltearse el `acuerdo-equipo` y el sprint plan completo (se usa `Mini-Plan.md`). Igual generar visión, alcance, NB, CU, ADR mínimas y backlog.
 - 2 a 5 personas (equipo chico): caso canónico del template, todo el flujo aplica.
 - 6 a 15 personas (equipo mediano): caso canónico también. Se recomienda fuerte ejecutar la fase H final (audit consolidado) con un revisor externo al equipo.
-- Más de 15 personas (equipo grande): el template aplica como base. La coordinación entre múltiples bounded contexts se modela como un producto multi-proyecto (un proyecto de código por contexto dentro de la misma tabla de proyectos de código del intake, §13) en lugar de un único proyecto de código monolítico.
+- Más de 15 personas (equipo grande): el template aplica como base. La coordinación entre múltiples bounded contexts se modela como un producto multi-proyecto (una unidad de entrega por contexto dentro de la misma tabla de unidades de entrega del intake, §13) en lugar de un único unidad de entrega monolítico.
 
 ### 3.2 Perfilado por complejidad
 
@@ -133,9 +150,9 @@ SDD no es universal. Está pensado para proyectos de código donde el esfuerzo d
 - Proyecto de código normal (semanas a pocos meses, un equipo, un dominio acotado): caso canónico, todo el template aplica.
 - Proyecto de código complejo (varios trimestres, múltiples integraciones, regulación, varios integradores): el template es la base mínima. Probablemente necesités complementarlo con documentos específicos del dominio (compliance, contratos legales, runbooks operativos extensos).
 
-### 3.3 Perfilado por tipo de proyecto de código (D8)
+### 3.3 Perfilado por tipo de unidad de entrega (D8)
 
-El template soporta 8 tipos cerrados (D8). El tipo se elige por proyecto de código, no por repositorio ni por producto: cada proyecto de código de la jerarquía declara exactamente uno de los 8 valores en la tabla de proyectos de código del intake (§13), y un producto puede combinar varios tipos distintos (por ejemplo, un `rest-api` principal que depende de dos `library`). La elección del tipo de cada proyecto de código gobierna qué documentos se generan en cada categoría para ese proyecto de código y qué especialidad se invoca en cada subagente. Los 8 tipos confirmados son:
+El template soporta 8 tipos cerrados (D8). El tipo se elige por unidad de entrega, no por repositorio ni por producto: cada unidad de entrega de la jerarquía declara exactamente uno de los 8 valores en la tabla de unidades de entrega del intake (§13), y un producto puede combinar varios tipos distintos (por ejemplo, un `rest-api` principal que depende de dos `library`). La elección del tipo de cada unidad de entrega gobierna qué documentos se generan en cada categoría para ese unidad de entrega y qué especialidad se invoca en cada subagente. Los 8 tipos confirmados son:
 
 1. `library`: librería reutilizable, distribuida via package manager del ecosistema.
 2. `web-monolith`: aplicación web monolítica con frontend y backend acoplados.
@@ -146,7 +163,7 @@ El template soporta 8 tipos cerrados (D8). El tipo se elige por proyecto de cód
 7. `cli-tool`: herramienta de línea de comandos.
 8. `worker-service`: servicio de procesamiento asincrónico orientado a eventos o colas.
 
-El conjunto D8 sigue teniendo exactamente 8 valores. Lo que cambió respecto del modelo anterior es la cardinalidad: antes había un solo tipo por proyecto de código único; ahora hay N proyectos de código por producto, cada uno con su tipo. El conjunto cerrado no se amplía ni se reduce.
+El conjunto D8 sigue teniendo exactamente 8 valores. Lo que cambió respecto del modelo anterior es la cardinalidad: antes había un solo tipo por unidad de entrega único; ahora hay N unidades de entrega por producto, cada uno con su tipo. El conjunto cerrado no se amplía ni se reduce.
 
 ### 3.4 Perfilado por plazo
 
@@ -165,8 +182,8 @@ El conjunto D8 sigue teniendo exactamente 8 valores. Lo que cambió respecto del
 | 2-5 | Compleja | Normal | rest-api, web-microservices | Template completo + ADR por bounded context |
 | 2-5 | Compleja | Largo | cualquiera | Template completo + audit externo |
 | 6-15 | Normal | Normal | web-monolith, rest-api | Template completo, audits cada fase |
-| 6-15 | Compleja | Largo | web-microservices | Template completo + producto multi-proyecto, un proyecto de código por contexto |
-| >15 | Compleja | Largo | web-microservices | Producto multi-proyecto, un proyecto de código por bounded context |
+| 6-15 | Compleja | Largo | web-microservices | Template completo + producto multi-proyecto, una unidad de entrega por contexto |
+| >15 | Compleja | Largo | web-microservices | Producto multi-proyecto, una unidad de entrega por bounded context |
 | cualquiera | Trivial | Urgente | cualquiera | No usar template |
 | cualquiera | Normal | Urgente | cualquiera | Template recortado: 00, 02, 06, 07 con `mini-plan` |
 
@@ -183,11 +200,11 @@ En esos casos, el costo de armar la documentación inicial supera el beneficio. 
 
 ## §4 Recorrido paso a paso de la metodología
 
-El flujo completo del usuario tiene 6 pasos, más un paso intermedio opcional (el 5b) que aparece solo en proyectos de código con interfaz visual. La narración asume que ya cumpliste los prerequisitos de §2 y que decidiste que el template aplica a tu producto según §3.
+El flujo completo del usuario tiene 6 pasos, más un paso intermedio opcional (el 5b) que aparece solo en unidades de entrega con interfaz visual. La narración asume que ya cumpliste los prerequisitos de §2 y que decidiste que el template aplica a tu producto según §3.
 
 ### 4.1 Paso 1 — Chat informal en Claude.ai web
 
-El objetivo de este paso es armar contexto. Vas a Claude.ai en el navegador, abrís un proyecto de código nuevo (o un chat fresco si no querés persistir), y empezás una conversación sobre el problema que vas a resolver. La regla de oro es no apurar a Claude a decidir: queremos que pregunte, que haga repreguntas y que te ayude a aclarar lo que el cliente todavía no dijo.
+El objetivo de este paso es armar contexto. Vas a Claude.ai en el navegador, abrís una unidad de entrega nuevo (o un chat fresco si no querés persistir), y empezás una conversación sobre el problema que vas a resolver. La regla de oro es no apurar a Claude a decidir: queremos que pregunte, que haga repreguntas y que te ayude a aclarar lo que el cliente todavía no dijo.
 
 Un prompt inicial que funciona bien:
 
@@ -230,7 +247,7 @@ Prompt sugerido:
 
 ```text
 A partir de toda esta conversación, generá un único documento en
-markdown que reúna ordenadamente el contexto del proyecto de código.
+markdown que reúna ordenadamente el contexto de la unidad de entrega.
 Estructura sugerida:
 1. Visión del cliente en dos párrafos.
 2. Problema concreto y consecuencias de no resolverlo.
@@ -262,10 +279,10 @@ Acá entra en juego una única plantilla oficial del template, a nivel producto,
 
 - `PRODUCT-INTAKE-template.md`: el intake unificado del producto. Reemplaza a las antiguas `PROJECT-BRIEF-template.md` y `PROJECT-README-template.md` (deprecadas). Está organizado en tres partes:
   - Parte A — Negocio (§1 a §12): idea y problema, audiencia y stakeholders, propuesta de valor, alcance funcional MoSCoW, historias de usuario, flujos típicos, casos límite, métricas de éxito, exclusiones, restricciones, riesgos y glosario del dominio. Todo en lenguaje de negocio, sin decisiones técnicas.
-  - Parte B — Composición (§13 a §16): §13 la tabla de proyectos de código tipados (cada fila un proyecto de código con su tipo D8, rol, bandera `redistribuible` y dependencias), §14 el estilo del producto y los contratos entre proyectos de código, §15 el esquema de descomposición y delivery, §16 la estructura de repositorio.
+  - Parte B — Composición (§13 a §16): §13 la tabla de unidades de entrega tipados (cada fila una unidad de entrega con su tipo D8, rol, bandera `redistribuible` y dependencias), §14 el estilo del producto y los contratos entre unidades de entrega, §15 el esquema de descomposición y delivery, §16 la estructura de repositorio.
   - Parte C — Técnica por proyecto de código (§17): un bloque técnico repetible P.1 a P.12 por cada proyecto de código (stack, arquitectura, comunicación, persistencia, seguridad, testing, versionado, pipeline, compatibilidad, NFR, pre-ADR, trade-offs). Cierra con §18 estrategia de demo/samples y §19 el checklist de completitud.
 
-El tipo D8 se declara por proyecto de código en la tabla de §13, no por el producto: el producto no tiene un D8 propio. No completás un manifiesto a mano: el `PRODUCT-MANIFEST` lo deriva el orquestador a partir de §13 (ver paso 5).
+El tipo D8 se declara por unidad de entrega en la tabla de §13, no por el producto: el producto no tiene un D8 propio. No completás un manifiesto a mano: el `PRODUCT-MANIFEST` lo deriva el orquestador a partir de §13 (ver paso 5).
 
 Subí la plantilla al chat de Claude.ai como archivo adjunto. Después le decís:
 
@@ -277,12 +294,12 @@ Quiero que tomes la información del documento consolidado que generamos
 antes y completes la plantilla entera. Reglas:
 
 1. No inventes datos que no estén en el documento consolidado.
-2. En la Parte B, §13, enumerá todos los proyectos de código del producto, cada
-   uno con su tipo D8 (uno de los 8 cerrados por proyecto de código), su rol, su
+2. En la Parte B, §13, enumerá todos las unidades de entrega del producto, cada
+   uno con su tipo D8 (uno de los 8 cerrados por unidad de entrega), su rol, su
    bandera redistribuible y sus dependencias. Verificá que el grafo de
-   dependencias sea acíclico y que haya exactamente un proyecto de código principal.
+   dependencias sea acíclico y que haya exactamente una unidad de entrega principal.
 3. En la Parte C, §17, repetí el bloque técnico P.1 a P.12 por cada
-   proyecto de código declarado en §13.
+   unidad de entrega declarado en §13.
 4. Si falta información para algún campo, marcalo como PENDIENTE y
    listá al final las preguntas concretas que necesitás que yo le
    responda antes de seguir.
@@ -290,13 +307,13 @@ antes y completes la plantilla entera. Reglas:
    "Caso degenerado" y "Lo que NO va en esta sección" del output final.
 6. Respetá el checklist final de §19.
 
-Si el producto tiene un solo proyecto de código, §13 tiene una sola fila
+Si el producto tiene un solo unidad de entrega, §13 tiene una sola fila
 (caso degenerado) y el resto del flujo no cambia.
 ```
 
 Claude genera el documento. Lo va a sacar con muchas secciones tildadas y, casi seguro, con algunos PENDIENTES que requieren ida y vuelta con el cliente real o con tu propio criterio.
 
-Hacé la ronda de preguntas pendientes (las podés llevar al cliente si las hay), volvés a Claude con las respuestas y le pedís que regenere el intake con esas nuevas respuestas incorporadas. Repetí hasta que el checklist final de §19 esté íntegramente tildado y la Parte C tenga un bloque P.1 a P.12 por cada proyecto de código de §13.
+Hacé la ronda de preguntas pendientes (las podés llevar al cliente si las hay), volvés a Claude con las respuestas y le pedís que regenere el intake con esas nuevas respuestas incorporadas. Repetí hasta que el checklist final de §19 esté íntegramente tildado y la Parte C tenga un bloque P.1 a P.12 por cada unidad de entrega de §13.
 
 No completás ningún manifiesto en este paso: el `PRODUCT-MANIFEST` no lo llena el usuario. Lo deriva el orquestador automáticamente a partir de §13 del intake, en la Fase de validación de intake, y te lo presenta para confirmación (ver paso 5).
 
@@ -304,11 +321,11 @@ Output del paso: un único archivo markdown personalizado al producto, listo par
 
 - `PRODUCT-INTAKE-<Slug-Producto>.md`
 
-Donde `<Slug-Producto>` es el nombre del producto en Título-Con-Guiones (cada palabra capitalizada, sin acentos, guion medio como separador), según D3 y el algoritmo de normalización de `Master-Prompt.md` §3.2. Ejemplo: para "Gestión de Turnos", el slug es `Gestion-De-Turnos`. Los nombres de cada proyecto de código siguen el mismo criterio Título-Con-Guiones (por ejemplo `Gestion-De-Turnos-API`, donde `API` va en mayúscula completa por ser una de las siglas conocidas que declara §3.2).
+Donde `<Slug-Producto>` es el nombre del producto en Título-Con-Guiones (cada palabra capitalizada, sin acentos, guion medio como separador), según D3 y el algoritmo de normalización de `Master-Prompt.md` §3.2. Ejemplo: para "Gestión de Turnos", el slug es `Gestion-De-Turnos`. Los nombres de cada unidad de entrega siguen el mismo criterio Título-Con-Guiones (por ejemplo `Gestion-De-Turnos-API`, donde `API` va en mayúscula completa por ser una de las siglas conocidas que declara §3.2).
 
 ### 4.4 Paso 4 — Preparar el workspace de dos repositorios
 
-A diferencia del modelo anterior, ya no copiás el template dentro del repositorio de tu proyecto de código. Trabajás con dos repositorios ubicados como hermanos en un workspace común: el repositorio fuente `IA.SDD` (este template, de solo lectura) y el repositorio destino de tu producto (donde se generará la documentación).
+A diferencia del modelo anterior, ya no copiás el template dentro del repositorio de tu unidad de entrega. Trabajás con dos repositorios ubicados como hermanos en un workspace común: el repositorio fuente `IA.SDD` (este template, de solo lectura) y el repositorio destino de tu producto (donde se generará la documentación).
 
 Si todavía no los tenés, cloná ambos en el mismo directorio de workspace:
 
@@ -360,7 +377,7 @@ Debería listar los dos master-prompts en `Orchestrator/` de la fuente —`Maste
 
 ### 4.5 Paso 5 — Ejecutar el master-prompt en Claude Code
 
-Acá empieza la parte más interesante: el orquestador valida tu intake, deriva de él el manifiesto de producto, valida la jerarquía y genera la documentación completa en `SDD/Docs/`, proyecto de código por proyecto de código, en orden topológico.
+Acá empieza la parte más interesante: el orquestador valida tu intake, deriva de él el manifiesto de producto, valida la jerarquía y genera la documentación completa en `SDD/Docs/`, unidad de entrega por unidad de entrega, en orden topológico.
 
 Abrí una terminal en la raíz del repositorio destino y lanzá Claude Code:
 
@@ -379,26 +396,26 @@ en SDD/Intake/. El producto se llama [nombre del producto].
 
 Claude Code arranca con una Fase de validación de intake, previa a la Fase A y dirigida por `../IA.SDD/SDD/Devs/Rules/Intake-Rules.md`. En ella va a:
 
-1. Leer tu único `PRODUCT-INTAKE` (las tres partes: negocio, composición, técnica por proyecto de código).
-2. Validar la completitud del intake: campos bloqueantes presentes, ausencia de placeholders sin completar (`PENDIENTE`, `[Nombre]`, etc.) y coherencia entre partes (por ejemplo, que la Parte C tenga un bloque P.1 a P.12 por cada proyecto de código de §13).
-3. Derivar el `PRODUCT-MANIFEST` a partir de la tabla de proyectos de código de §13: enumeración de proyectos de código, su `tipo_proyecto_codigo` D8, rol, bandera `redistribuible`, dependencias y, derivados, los `Identidad-Codigo` según el perfil de convención de nombres. Validar que cada `tipo_proyecto_codigo` sea uno de los 8 valores D8, que haya exactamente un proyecto de código principal, que no haya colisión de nombres, que cada dependencia apunte a un proyecto de código existente y que el grafo sea acíclico.
+1. Leer tu único `PRODUCT-INTAKE` (las tres partes: negocio, composición, técnica por unidad de entrega).
+2. Validar la completitud del intake: campos bloqueantes presentes, ausencia de placeholders sin completar (`PENDIENTE`, `[Nombre]`, etc.) y coherencia entre partes (por ejemplo, que la Parte C tenga un bloque P.1 a P.12 por cada unidad de entrega de §13).
+3. Derivar el `PRODUCT-MANIFEST` a partir de la tabla de proyectos de código de §13: enumeración de proyectos de código, su `tipo_unidad_entrega` D8, rol, bandera `redistribuible`, dependencias y, derivados, los `Identidad-Codigo` según el perfil de convención de nombres. Validar que cada `tipo_unidad_entrega` sea uno de los 8 valores D8, que haya exactamente un proyecto de código principal, que no haya colisión de nombres, que cada dependencia apunte a un proyecto de código existente y que el grafo sea acíclico.
 4. Si falta completar algo bloqueante o una validación falla, se detiene y te emite una batería consolidada de preguntas (agrupadas por sección del intake) en lugar de avanzar a ciegas. Respondés, el orquestador actualiza el intake y revalida.
 5. Presentar el manifiesto derivado y esperar tu confirmación explícita antes de tratarlo como artefacto canónico. El manifiesto no se completa a mano: se deriva y se confirma.
 
 Con el manifiesto derivado y confirmado, el orquestador entra a la planificación:
 
 6. Derivar `Slug-Producto` del `Nombre-Producto` y, por proyecto de código, el `Nombre-Proyecto-Codigo`. **`Raiz-Codigo` no se deriva: se lee del perfil de convención que declaraste en §13 del intake**, y admite separadores de segmento (`Contoso.Turnos`). El orquestador solo la deriva si no la declaraste. Con `Raiz-Codigo` compone el `Artefacto-Agrupacion` y el `Identidad-Codigo` de cada proyecto de código. Los cuatro planos de identidad son independientes: si `Slug-Producto` y `Raiz-Codigo` resultan la misma cadena con los puntos cambiados por guiones, el orquestador se detiene, porque es la señal de que completaste el nombre de negocio con un nombre de artefacto de código (`Vocabulario-Rules.md` §3).
-7. Ordenar los proyectos de código en orden topológico (primero los sin dependencias) y derivar, por proyecto de código, los flags de gating (usa_llm, tiene_ui_final, multi_tenant, etc.).
+7. Ordenar las unidades de entrega en orden topológico (primero los sin dependencias) y derivar, por unidad de entrega, los flags de gating (usa_llm, tiene_ui_final, multi_tenant, etc.).
 8. Recolectar invariantes del producto (idioma, encoding, fecha, etc.).
-9. Presentar el plan de generación: el orden de proyectos de código y, por proyecto de código, las categorías a producir.
+9. Presentar el plan de generación: el orden de unidades de entrega y, por unidad de entrega, las categorías a producir.
 10. Esperar tu confirmación explícita antes de despachar el primer subagente.
 
 Cuando veas el plan, revisalo con calma. Verificá:
 
-- Que la enumeración de proyectos de código, sus tipos D8 y el proyecto de código principal son los correctos.
+- Que la enumeración de unidades de entrega, sus tipos D8 y la unidad de entrega principal son los correctos.
 - Que el orden topológico respeta las dependencias declaradas.
-- Que la lista de documentos a generar por proyecto de código y categoría tiene sentido.
-- Que los flags por proyecto de código están bien (si dice `usa_llm: false` en un proyecto de código que sí usa LLM, hay un problema en el intake).
+- Que la lista de documentos a generar por unidad de entrega y categoría tiene sentido.
+- Que los flags por unidad de entrega están bien (si dice `usa_llm: false` en una unidad de entrega que sí usa LLM, hay un problema en el intake).
 
 Si todo está bien, respondés:
 
@@ -415,24 +432,24 @@ el sistema sí usa un LLM para clasificar tickets entrantes.
 
 Y el orquestador ajusta antes de arrancar.
 
-A partir de ahí, el orquestador despacha subagentes fase por fase. La Fase de validación de intake ya corrió antes de todo esto (validó el intake y derivó el manifiesto). La Fase A es a nivel producto y se corre una sola vez; las Fases B a G se repiten por proyecto de código en orden topológico (un proyecto de código no arranca antes que sus dependencias); la Fase H consolidal producto:
+A partir de ahí, el orquestador despacha subagentes fase por fase. La Fase de validación de intake ya corrió antes de todo esto (validó el intake y derivó el manifiesto). La Fase A es a nivel producto y se corre una sola vez; las Fases B a G se repiten por unidad de entrega en orden topológico (una unidad de entrega no arranca antes que sus dependencias); la Fase H consolidal producto:
 
 - Reconciliación normativa (solo si el destino ya tiene documentación de una corrida anterior): el orquestador compara con qué versión del framework se generó ese árbol contra la vigente, te muestra qué documentos quedaron potencialmente invalidados y te deja elegir entre un plan de migración normativa, regenerar desde cero o continuar bajo la versión anterior. Sobre un destino vacío no corre. Ejecutar el plan es una corrida aparte, con el orquestador de migración normativa.
 - Fase de validación de intake (una vez, previa a A): validación de completitud del `PRODUCT-INTAKE` y derivación del `PRODUCT-MANIFEST` desde §13, con batería de preguntas si falta algo bloqueante y confirmación del manifiesto derivado.
 - Fase A (nivel producto, una vez): 00-Contexto + 01-Necesidades-Negocio + audit A.
-- Fase B (por proyecto de código): 02-Especificacion-Funcional + 03-UX-UI-DX + 04-Prompts-AI (si aplica) + audit B.
-- Fase B2 (por proyecto de código, opcional): validación visual de maqueta, solo si el proyecto de código tiene interfaz visual y vos confirmás el flag `requiere_maqueta`. Es el paso 5b de §4.6.
-- Fase C (por proyecto de código): 05-Arquitectura-Tecnica + audit C.
-- Fase D (por proyecto de código): 06-Backlog-Tecnico + 07-Plan-Sprint + audit D.
-- Fase E (por proyecto de código): 08-Calidad-Y-Pruebas + audit E.
-- Fase F (por proyecto de código): 09-Devops + audit F.
-- Fase G (por proyecto de código): 10-Examples, pasada de diseño + audit G.
+- Fase B (por unidad de entrega): 02-Especificacion-Funcional + 03-UX-UI-DX + 04-Prompts-AI (si aplica) + audit B.
+- Fase B2 (por unidad de entrega, opcional): validación visual de maqueta, solo si la unidad de entrega tiene interfaz visual y vos confirmás el flag `requiere_maqueta`. Es el paso 5b de §4.6.
+- Fase C (por unidad de entrega): 05-Arquitectura-Tecnica + audit C.
+- Fase D (por unidad de entrega): 06-Backlog-Tecnico + 07-Plan-Sprint + audit D.
+- Fase E (por unidad de entrega): 08-Calidad-Y-Pruebas + audit E.
+- Fase F (por unidad de entrega): 09-Devops + audit F.
+- Fase G (por unidad de entrega): 10-Examples, pasada de diseño + audit G.
 - Fase H (consolidación): vista de producto + pipeline + README raíz + plan documental de 11 + audit final consolidado.
 - Paso 6 (humano): handoff a codificación. A partir de acá el sistema se construye.
 - Fase I (por incremento, re-ejecutable): 10 pasada de ejecución + 11 actualización incremental + `AGENTS.md` + ensayo automatizado + audit acotado al incremento.
 - Fase J (una vez, al cierre): 11 consolidación + `AGENTS.md` definitivo + ensayo humano como gate + audit final de entrega.
 
-Si el producto es de un solo proyecto de código (caso degenerado), el orquestador aplana el layout: genera las categorías `00` a `11` directo bajo `SDD/Docs/` más el README raíz, sin el subnivel `Proyectos/<Nombre>/` ni la carpeta `Producto/`, y la Fase H omite la vista y el pipeline de producto. El resultado es idéntico al template de tipo único.
+Si el producto es de un solo unidad de entrega (caso degenerado), el orquestador aplana el layout: genera las categorías `00` a `11` directo bajo `SDD/Docs/` más el README raíz, sin el subnivel `Unidades-Entrega/<Nombre>/` ni la carpeta `Producto/`, y la Fase H omite la vista y el pipeline de producto. El resultado es idéntico al template de tipo único.
 
 Entre cada fase, el orquestador se detiene, presenta el informe del audit (`SDD/Docs/Audit/<fase>-<categoria>.md`) y espera tu confirmación para continuar.
 
@@ -440,11 +457,11 @@ Si un audit devuelve `RECHAZADO` por hallazgos P0, el orquestador no avanza. Hay
 
 Si un subagente detecta una ambigüedad legítima (por ejemplo, falta una métrica numérica en el intake), se detiene y devuelve una pregunta estructurada. Vos respondés, el orquestador actualiza el intake siguiendo §13 del master-prompt y reanuda.
 
-Tiempo total estimado del paso 5 para un proyecto de código normal: entre 2 y 6 horas de ejecución del modelo, distribuidas en sesiones. Es perfectamente normal pausar y retomar.
+Tiempo total estimado del paso 5 para una unidad de entrega normal: entre 2 y 6 horas de ejecución del modelo, distribuidas en sesiones. Es perfectamente normal pausar y retomar.
 
 ### 4.6 Paso 5b — Validar la maqueta visual (Fase B2, opcional)
 
-Este paso aparece solamente en proyectos de código con interfaz visual. Es opcional: al aprobar el plan inicial vas a ver un flag `requiere_maqueta` por proyecto de código, y lo confirmás o lo invertís.
+Este paso aparece solamente en unidades de entrega con interfaz visual. Es opcional: al aprobar el plan inicial vas a ver un flag `requiere_maqueta` por unidad de entrega, y lo confirmás o lo invertís.
 
 Para qué sirve. La especificación de UX y UI que produce la categoría 03 es texto: marco de experiencia, wireframes en ASCII, tablas de estados. Leerlo y decidir si eso es lo que querías es caro y poco confiable. La Fase B2 toma esa especificación y la materializa en una maqueta navegable, con HTML, CSS, Bootstrap 5 y JavaScript, que se abre en tu navegador y se recorre. Validás en minutos lo que en prosa te llevaría una tarde, y aparecen los huecos que el texto esconde.
 
@@ -452,7 +469,7 @@ Además, la maqueta muestra tus modelos de datos con ejemplos concretos, así qu
 
 Qué pasa, en orden:
 
-1. Al cerrar la Fase B del proyecto de código, con la documentación de UX y UI ya generada y auditada, el orquestador te pregunta dos cosas juntas: si querés que genere la maqueta, y de qué modelo de diseño partir. La opción por defecto es el catálogo base del template; las alternativas son los modelos capturados de maquetas anteriores, si el catálogo `Modelos-UX-UI/` tiene alguno. Podés declinar acá aunque hayas dejado el flag activo al principio: el flag habilita la fase, esta pregunta la arranca.
+1. Al cerrar la Fase B de la unidad de entrega, con la documentación de UX y UI ya generada y auditada, el orquestador te pregunta dos cosas juntas: si querés que genere la maqueta, y de qué modelo de diseño partir. La opción por defecto es el catálogo base del template; las alternativas son los modelos capturados de maquetas anteriores, si el catálogo `Modelos-UX-UI/` tiene alguno. Podés declinar acá aunque hayas dejado el flag activo al principio: el flag habilita la fase, esta pregunta la arranca.
 2. Te presenta el plan de maqueta: qué superficies va a construir, qué rutas de navegación, qué campos del modelo va a exhibir y con qué datos de ejemplo, y qué estados va a demostrar por superficie. Aprobás o pedís cambios.
 3. Construye la maqueta en `SDD/Maquetas/<Nombre-Proyecto-Codigo>/` del repositorio destino.
 4. La abre en tu navegador y te dice qué mirar: navegación, datos, estados y apariencia. Levanta un servidor local y lanza el navegador solo; si desde donde corre no alcanza tu entorno gráfico, no falla: te deja la URL y el comando para abrirla vos.
@@ -494,8 +511,8 @@ Antes de autorizar el handoff a codificación, hacé una revisión humana en est
 
 - Trazabilidad: abrí 3 o 4 user stories al azar y verificá que la cadena US → CU → NB → Visión cierra de punta a punta.
 - Ambigüedades pendientes: revisá la lista de decisiones pendientes. Cerralas antes del Sprint 1 o documentalas como riesgos asumidos.
-- Completitud: pasá por las 12 categorías de cada proyecto de código (bajo `Proyectos/<Nombre>/` en un producto multi-proyecto, o directo bajo `docs/` en el caso degenerado) y abrí el README de cada una. Si alguno está vacío o trivial, falló algo en la generación. En un producto multi-proyecto, revisá además la vista de producto y el pipeline de producto en `Producto/`.
-- Coherencia: leé la visión, leé los CU del Sprint 1, leé el ADR-001 del proyecto de código que estés revisando. ¿Cuentan la misma historia?
+- Completitud: pasá por las 12 categorías de cada unidad de entrega (bajo `Unidades-Entrega/<Nombre>/` en un producto multi-proyecto, o directo bajo `docs/` en el caso degenerado) y abrí el README de cada una. Si alguno está vacío o trivial, falló algo en la generación. En un producto multi-proyecto, revisá además la vista de producto y el pipeline de producto en `Producto/`.
+- Coherencia: leé la visión, leé los CU del Sprint 1, leé el ADR-001 de la unidad de entrega que estés revisando. ¿Cuentan la misma historia?
 
 Si encontrás algo que arreglar, podés:
 
@@ -539,11 +556,11 @@ Con el sistema en construcción, el orquestador vuelve a entrar en juego una vez
 
 ## §5 Ejemplos aplicados
 
-Cuatro mini-casos sintéticos que muestran el flujo completo end-to-end. Los tres primeros son productos de un proyecto de código (caso degenerado): ilustran un `tipo_proyecto_codigo` distinto cada uno y muestran los cuatro sub-bloques (resumen del chat de Claude.ai, fragmentos clave del intake, output del orquestador, y muestras de los documentos generados). El cuarto es un producto multi-proyecto que combina varios tipos D8 en una sola jerarquía y muestra la tabla de proyectos de código del intake (§13), el manifiesto derivado, el grafo de dependencias y el orden topológico de generación.
+Cuatro mini-casos sintéticos que muestran el flujo completo end-to-end. Los tres primeros son productos de una unidad de entrega (caso degenerado): ilustran un `tipo_unidad_entrega` distinto cada uno y muestran los cuatro sub-bloques (resumen del chat de Claude.ai, fragmentos clave del intake, output del orquestador, y muestras de los documentos generados). El cuarto es un producto multi-proyecto que combina varios tipos D8 en una sola jerarquía y muestra la tabla de unidades de entrega del intake (§13), el manifiesto derivado, el grafo de dependencias y el orden topológico de generación.
 
-### 5.1 Caso "API REST de gestión de turnos médicos" (rest-api, producto de un proyecto de código)
+### 5.1 Caso "API REST de gestión de turnos médicos" (rest-api, producto de una unidad de entrega)
 
-Contexto: un consultorio mediano (12 médicos, 3 administrativos, 600 turnos por semana) quiere reemplazar su sistema actual de turnos por teléfono con una API REST consumida por un portal web y una app móvil de pacientes. Es un producto de un solo proyecto de código: la tabla de proyectos de código del intake (§13) tiene una única fila (caso degenerado), el orquestador deriva un manifiesto de una sola entrada y aplana el layout, generando `00` a `11` directo bajo `SDD/Docs/`.
+Contexto: un consultorio mediano (12 médicos, 3 administrativos, 600 turnos por semana) quiere reemplazar su sistema actual de turnos por teléfono con una API REST consumida por un portal web y una app móvil de pacientes. Es un producto de un solo unidad de entrega: la tabla de unidades de entrega del intake (§13) tiene una única fila (caso degenerado), el orquestador deriva un manifiesto de una sola entrada y aplana el layout, generando `00` a `11` directo bajo `SDD/Docs/`.
 
 #### Chat resumido en Claude.ai
 
@@ -573,7 +590,7 @@ PRODUCT-INTAKE, §4 Alcance funcional (extracto):
 | F-06 | Lista de espera automática para turnos liberados | Could Have |
 | F-07 | App móvil nativa | Won't Have v1 |
 
-PRODUCT-INTAKE, §13 Tipo de proyecto de código (tabla de proyectos de código): `rest-api`.
+PRODUCT-INTAKE, §13 Tipo de unidad de entrega (tabla de unidades de entrega): `rest-api`.
 
 PRODUCT-INTAKE, §17 P.2 Estilo arquitectónico: Clean Architecture con 4 capas. Se descartan monolito en capas tradicional y microservicios (over-engineering para un dominio acotado con un equipo de 4 personas).
 
@@ -586,7 +603,7 @@ PRODUCT-INTAKE, §17 P.10 NFR: latencia p99 ≤ 300 ms en endpoints de consulta,
 Claude Code, leyendo el master-prompt, detecta:
 
 ```text
-tipo_proyecto_codigo: rest-api
+tipo_unidad_entrega: rest-api
 nombre-proyecto: Api-Turnos-Medicos
 usa_llm: false
 tiene_ui_final: false
@@ -606,10 +623,10 @@ Fases ejecutadas en orden: A, B, C, D, E, F, G, H. Cada una con su audit. La fas
 
 #### Muestras de documentos generados
 
-Extracto de `SDD/Docs/02-Especificacion-Funcional/Casos-De-Uso/CU-03-Reservar-Turno.md`:
+Extracto de `SDD/Docs/02-Especificacion-Funcional/Casos-De-Uso/CU-00003-Reservar-Turno.md`:
 
 ```markdown
-# CU-03 — Reservar turno
+# CU-00003 — Reservar turno
 
 ## Actor primario
 Paciente registrado
@@ -636,8 +653,8 @@ Paciente registrado
   Then el sistema devuelve HTTP 409 con código TURNO_NO_DISPONIBLE.
 
 ## Trazabilidad
-- Upstream: NB-01 (acceso 24/7 a la reserva), Visión §2
-- Downstream: US-08, BT-12, RC-04, TC-15
+- Upstream: NB-00001 (acceso 24/7 a la reserva), Visión §2
+- Downstream: US-00008, BT-00012, RC-00004, TC-00015
 ```
 
 Extracto de `SDD/Docs/05-Arquitectura-Tecnica/Adrs/ADR-002-Estilo-Clean-Architecture.md`:
@@ -670,9 +687,9 @@ Negativas: más boilerplate inicial, curva de aprendizaje para el junior
 del equipo.
 ```
 
-### 5.2 Caso "Librería utilitaria para parsing de archivos CSV" (library, producto de un proyecto de código)
+### 5.2 Caso "Librería utilitaria para parsing de archivos CSV" (library, producto de una unidad de entrega)
 
-Contexto: el equipo de plataforma de una empresa tecnológica necesita una librería interna para parsear archivos CSV con varias particularidades (delimitadores distintos, encoding detectable, manejo de filas con error sin frenar la lectura completa). Hoy cada proyecto de código resuelve el problema con scripts ad-hoc y eso genera mucho retrabajo. También es un producto de un proyecto de código (caso degenerado): la tabla de proyectos de código del intake (§13) tiene una sola fila de tipo `library`.
+Contexto: el equipo de plataforma de una empresa tecnológica necesita una librería interna para parsear archivos CSV con varias particularidades (delimitadores distintos, encoding detectable, manejo de filas con error sin frenar la lectura completa). Hoy cada unidad de entrega resuelve el problema con scripts ad-hoc y eso genera mucho retrabajo. También es un producto de una unidad de entrega (caso degenerado): la tabla de unidades de entrega del intake (§13) tiene una sola fila de tipo `library`.
 
 #### Chat resumido en Claude.ai
 
@@ -690,7 +707,7 @@ PRODUCT-INTAKE, §3 Propuesta de valor:
 
 > Hoy cada equipo resuelve el parsing de CSV con scripts ad-hoc, lo que genera bugs repetidos y mantenimiento disperso. La promesa de esta librería es ofrecer una API pequeña y predecible que soporta los escenarios más comunes (delimitadores configurables, manejo de errores fila por fila, streaming de archivos grandes) y deja documentadas las extensiones para casos avanzados. Frente a librerías comerciales o externas con licencias o trade-offs, el diferenciador es que la API se ajusta al estilo idiomático del lenguaje del equipo y se integra al pipeline interno de CI sin fricción.
 
-PRODUCT-INTAKE, §13 Tipo de proyecto de código (tabla de proyectos de código): `library`.
+PRODUCT-INTAKE, §13 Tipo de unidad de entrega (tabla de unidades de entrega): `library`.
 
 PRODUCT-INTAKE, §17 P.2 Estilo arquitectónico: Pipeline / Clean Architecture liviana. Descartado: monolito (no aplica, es librería), event-driven (innecesario).
 
@@ -703,7 +720,7 @@ PRODUCT-INTAKE, §17 P.9 Compatibilidad: soporte para las versiones LTS actuales
 #### Output del orquestador
 
 ```text
-tipo_proyecto_codigo: library
+tipo_unidad_entrega: library
 nombre-proyecto: Csv-Parser-Lib
 usa_llm: false
 tiene_ui_final: false
@@ -757,7 +774,7 @@ Extracto de `SDD/Docs/10-Examples/README.md`:
 ```markdown
 # Samples — csv-parser-lib
 
-Esta carpeta contiene tres proyectos de código integradores que ilustran el uso
+Esta carpeta contiene tres unidades de entrega integradores que ilustran el uso
 progresivo de la librería.
 
 | Nivel | Carpeta | Qué demuestra |
@@ -770,9 +787,9 @@ Cada sample es autocontenido. Para ejecutarlo, abrir la carpeta,
 seguir el README local y correr el comando de la sección "Ejecutar".
 ```
 
-### 5.3 Caso "App móvil de inventario de almacén" (mobile-app-maui, producto de un proyecto de código)
+### 5.3 Caso "App móvil de inventario de almacén" (mobile-app-maui, producto de una unidad de entrega)
 
-Contexto: una empresa logística con 4 depósitos y 30 empleados de campo quiere reemplazar el método actual (planillas en papel y planilla de cálculo) por una app móvil multiplataforma de inventario que soporte escaneo de código de barras, sincronización con un sistema central y modo offline. Es la tercera producto de un proyecto de código (caso degenerado), esta vez de tipo `mobile-app-maui`.
+Contexto: una empresa logística con 4 depósitos y 30 empleados de campo quiere reemplazar el método actual (planillas en papel y planilla de cálculo) por una app móvil multiplataforma de inventario que soporte escaneo de código de barras, sincronización con un sistema central y modo offline. Es la tercera producto de una unidad de entrega (caso degenerado), esta vez de tipo `mobile-app-maui`.
 
 #### Chat resumido en Claude.ai
 
@@ -792,7 +809,7 @@ PRODUCT-INTAKE, §5 Historias de usuario (extracto):
 >
 > Como dueño del almacén, quiero recibir una notificación cuando el stock de un producto cae por debajo del mínimo, para generar el pedido al proveedor a tiempo.
 
-PRODUCT-INTAKE, §13 Tipo de proyecto de código (tabla de proyectos de código): `mobile-app-maui`.
+PRODUCT-INTAKE, §13 Tipo de unidad de entrega (tabla de unidades de entrega): `mobile-app-maui`.
 
 PRODUCT-INTAKE, §17 P.4 Persistencia: motor embebido local en el dispositivo + sincronización HTTP con el backend central. Estrategia de conflicto last-write-wins con override manual via UI.
 
@@ -803,7 +820,7 @@ PRODUCT-INTAKE, §17 P.10 NFR: tiempo de respuesta del escáner < 1 segundo, sin
 #### Output del orquestador
 
 ```text
-tipo_proyecto_codigo: mobile-app-maui
+tipo_unidad_entrega: mobile-app-maui
 nombre-proyecto: Inventario-Almacen
 usa_llm: false
 tiene_ui_final: true
@@ -871,13 +888,13 @@ Métrica de freno automático: tasa de crashes > 1% en los primeros
 1000 usuarios.
 ```
 
-### 5.4 Caso "Producto de gestión de turnos con cuatro proyectos de código" (producto multi-proyecto)
+### 5.4 Caso "Producto de gestión de turnos con cuatro unidades de entrega" (producto multi-proyecto)
 
 Contexto: el mismo dominio de turnos médicos del caso 5.1, pero esta vez el equipo no entrega una sola API: arma un producto con cuatro proyectos de código que se construyen y publican como una jerarquía. El producto se llama "Gestión de Turnos" (`Gestion-De-Turnos`, `Raiz-Codigo` = `GestionDeTurnos`). Este caso muestra qué cambia respecto del degenerado: la tabla de proyectos de código del intake (§13) tiene cuatro filas, hay dependencias entre proyectos de código, el orquestador deriva un manifiesto de cuatro entradas, genera en orden topológico y aparecen los artefactos de nivel producto.
 
-Los cuatro proyectos de código:
+Los cuatro unidades de entrega:
 
-- `Gestion-De-Turnos-API` (`rest-api`, proyecto de código principal): la API pública de turnos.
+- `Gestion-De-Turnos-API` (`rest-api`, unidad de entrega principal): la API pública de turnos.
 - `Gestion-De-Turnos-Domain` (`library`): el dominio y las reglas de negocio compartidas.
 - `Gestion-De-Turnos-Notificaciones` (`worker-service`): el envío asincrónico de recordatorios.
 - `Aplicada-Validaciones` (`library`, redistribuible): un paquete reusable de validaciones, independiente del producto que lo consume.
@@ -897,7 +914,7 @@ Perfil de convención: PascalCase; separador `.`; prefijo de redistribuibles `Ap
 
 Tabla de proyectos de código (§13). Es lo único que completás; el `Identidad-Codigo` lo deriva el orquestador al construir el manifiesto:
 
-| `Nombre-Proyecto-Codigo` | `Identidad-Codigo` | `tipo_proyecto_codigo` | Rol | `redistribuible` | Dependencias |
+| `Nombre-Proyecto-Codigo` | `Identidad-Codigo` | `tipo_unidad_entrega` | Rol | `redistribuible` | Dependencias |
 |---|---|---|---|---|---|
 | `Gestion-De-Turnos-API` | `GestionDeTurnos.WebApi` | `rest-api` | API pública de turnos (principal) | false | `Gestion-De-Turnos-Domain`, `Aplicada-Validaciones` |
 | `Gestion-De-Turnos-Domain` | `GestionDeTurnos.Domain` | `library` | Dominio y reglas de negocio compartidas | false | `Aplicada-Validaciones` |
@@ -926,13 +943,13 @@ nivel 2: Gestion-De-Turnos-API, Gestion-De-Turnos-Notificaciones   (paralelizabl
 
 #### Output del orquestador
 
-El orquestador lee §13 del intake, valida (tipos D8 válidos, un único proyecto de código principal, sin colisión de nombres, dependencias resueltas, grafo acíclico), deriva el manifiesto y los nombres de código, te lo presenta para confirmación y planifica:
+El orquestador lee §13 del intake, valida (tipos D8 válidos, un único unidad de entrega principal, sin colisión de nombres, dependencias resueltas, grafo acíclico), deriva el manifiesto y los nombres de código, te lo presenta para confirmación y planifica:
 
 ```text
 producto: Gestion-De-Turnos
 Raiz-Codigo: GestionDeTurnos
 proyecto-principal: Gestion-De-Turnos-API
-proyectos de código: 4 (orden topologico: Aplicada-Validaciones, Gestion-De-Turnos-Domain,
+unidades de entrega: 4 (orden topologico: Aplicada-Validaciones, Gestion-De-Turnos-Domain,
               Gestion-De-Turnos-API, Gestion-De-Turnos-Notificaciones)
 ```
 
@@ -974,9 +991,9 @@ Pasos:
 3. Si la respuesta requiere consultar al cliente, anotala como pendiente, hacé la consulta, y respondé cuando tengas la información.
 4. Si decidís que la información no es bloqueante, podés pedir al orquestador que asuma un valor por defecto justificado, pero queda como decisión documentada en el log.
 
-### F-02 — Generó un documento que no aplica al tipo de un proyecto de código, ¿cómo lo saco?
+### F-02 — Generó un documento que no aplica al tipo de una unidad de entrega, ¿cómo lo saco?
 
-Revisá primero el `tipo_proyecto_codigo` del proyecto de código en §13 del `PRODUCT-INTAKE` (la tabla de proyectos de código). Si el tipo está mal, corregilo en §13 del intake; el orquestador re-deriva el manifiesto y regenera lo afectado de ese proyecto de código. Si está bien, abrí el archivo de reglas correspondiente (`Rules-<Categoria>.md`), verificá §2.1 y §2.2 (tabla maestra de documentos y reglas por tipo). Si el documento estaba marcado como "Omitir" para ese tipo y aun así se generó, es un bug del subagente. Pedile al orquestador que regenere esa categoría para ese proyecto de código con instrucciones explícitas.
+Revisá primero el `tipo_unidad_entrega` de la unidad de entrega en §13 del `PRODUCT-INTAKE` (la tabla de unidades de entrega). Si el tipo está mal, corregilo en §13 del intake; el orquestador re-deriva el manifiesto y regenera lo afectado de ese unidad de entrega. Si está bien, abrí el archivo de reglas correspondiente (`Rules-<Categoria>.md`), verificá §2.1 y §2.2 (tabla maestra de documentos y reglas por tipo). Si el documento estaba marcado como "Omitir" para ese tipo y aun así se generó, es un bug del subagente. Pedile al orquestador que regenere esa categoría para ese unidad de entrega con instrucciones explícitas.
 
 Si simplemente decidiste que no querés ese documento aunque la regla lo recomiende, eliminalo a mano y registrá un ADR en `SDD/Docs/05-Arquitectura-Tecnica/` documentando la omisión.
 
@@ -1003,11 +1020,11 @@ Pasos:
 4. Si es un error de trazabilidad, revisá los documentos upstream o downstream y arreglá las referencias.
 5. Una vez corregido, pedile al orquestador que re-auditar la fase. Si pasa, avanzás.
 
-### F-05 — Mi proyecto de código está en otro idioma, ¿puedo usar el template?
+### F-05 — Mi unidad de entrega está en otro idioma, ¿puedo usar el template?
 
 Sí, pero requiere preparación. Las reglas constructivas y el master-prompt están escritos en español rioplatense neutro. Para usar el template en otro idioma:
 
-1. Modificá la sección §5 del master-prompt (Recolección de invariantes del proyecto de código) para declarar el idioma de salida deseado.
+1. Modificá la sección §5 del master-prompt (Recolección de invariantes de la unidad de entrega) para declarar el idioma de salida deseado.
 2. Pedile al orquestador que aplique ese idioma a todos los entregables.
 3. Tené en cuenta que las preguntas guía y los ejemplos de cada archivo de reglas siguen en español: van a quedar en español en el material interno aunque la documentación de salida esté traducida.
 
@@ -1042,7 +1059,7 @@ Es el comportamiento correcto. El intake incompleto es la principal fuente de do
 2. Volvé a Claude.ai web o respondé directamente al orquestador con los datos faltantes.
 3. Si la información no existe (no sabés la respuesta y no podés consultar al cliente), tenés dos opciones: documentar un valor por defecto asumido explícitamente (queda como decisión a confirmar) o pausar la generación hasta tener la respuesta. No inventes.
 
-### F-09 — ¿Cómo agrego información nueva al proyecto de código a mitad del flujo?
+### F-09 — ¿Cómo agrego información nueva al unidad de entrega a mitad del flujo?
 
 Si la información nueva afecta el intake (por ejemplo, el cliente cambió el alcance o agregó una restricción nueva):
 
@@ -1059,29 +1076,29 @@ Primer paso: leé el archivo de reglas de la categoría y verificá qué pide. E
 Segundo paso: si el subagente realmente se desvió, pedile al orquestador que regenere el documento citando explícitamente la sección de la regla que no se respetó. Ejemplo:
 
 ```text
-Regenerá CU-04-Cancelar-Turno.md respetando estrictamente la
+Regenerá CU-00004-Cancelar-Turno.md respetando estrictamente la
 estructura de §4.2 de ../IA.SDD/SDD/Devs/Rules/Rules-Especificacion-Funcional.md.
 El documento actual omite la sección de criterios Given/When/Then.
 ```
 
-### F-11 — Tengo varios proyectos de código relacionados (API, dominio, worker), ¿cómo los manejo?
+### F-11 — Tengo varias unidades de entrega relacionados (API, dominio, worker), ¿cómo los manejo?
 
-Esa es justamente la jerarquía de proyectos de código que modela un producto. No necesitás N carpetas `SDD` separadas: declarás los proyectos de código como filas de la tabla de §13 de tu `PRODUCT-INTAKE`, con sus dependencias, y el orquestador deriva el manifiesto y genera la documentación de todos en una sola ejecución, proyecto de código por proyecto de código en orden topológico, bajo `Proyectos/<Nombre>/`. Ver F-16 para cómo se declaran.
+Esa es justamente la jerarquía de unidades de entrega que modela un producto. No necesitás N carpetas `SDD` separadas: declarás las unidades de entrega como filas de la tabla de §13 de tu `PRODUCT-INTAKE`, con sus dependencias, y el orquestador deriva el manifiesto y genera la documentación de todos en una sola ejecución, unidad de entrega por unidad de entrega en orden topológico, bajo `Unidades-Entrega/<Nombre>/`. Ver F-16 para cómo se declaran.
 
 Solo conviene separar en productos SDD distintos cuando se trata de conjuntos de capacidades verdaderamente independientes, con clientes, roadmaps y ciclos de vida desacoplados, que no comparten un intake de negocio ni un grafo de dependencias. Es el criterio de frontera que fija `Vocabulario-Rules.md` §2. En ese caso sí, cada producto tiene su propia carpeta `SDD` y su propio `PRODUCT-INTAKE`.
 
 ### F-12 — La generación de una fase tarda mucho, ¿es normal?
 
-Sí, dentro de cierto rango. Una fase típica con 3 a 8 documentos y un audit puede demorar entre 5 y 30 minutos según el tamaño del proyecto de código y la velocidad del modelo. Si una fase tarda más de una hora, abortá, revisá el intake (probablemente hay ambigüedades que estén haciendo retroceder al subagente repetidamente) y reanudá.
+Sí, dentro de cierto rango. Una fase típica con 3 a 8 documentos y un audit puede demorar entre 5 y 30 minutos según el tamaño de la unidad de entrega y la velocidad del modelo. Si una fase tarda más de una hora, abortá, revisá el intake (probablemente hay ambigüedades que estén haciendo retroceder al subagente repetidamente) y reanudá.
 
 ### F-13 — El orquestador me pidió aprobar el plan inicial, ¿qué reviso?
 
 Mínimo checklist antes de aprobar:
 
-- `tipo_proyecto_codigo` correcto.
+- `tipo_unidad_entrega` correcto.
 - Lista de documentos por categoría coherente con el alcance.
 - Flags activos correctos (especialmente `usa_llm`, `tiene_auth`, `equipo_n`).
-- Invariantes del proyecto de código (idioma, encoding, política de versionado) alineadas con tu organización.
+- Invariantes de la unidad de entrega (idioma, encoding, política de versionado) alineadas con tu organización.
 
 Si todo está bien, aprobás. Si querés cambios, los pedís en la misma respuesta con justificación.
 
@@ -1097,27 +1114,27 @@ El cliente típicamente no lee toda la documentación, pero sí lee el README ra
 2. Si son cambios de forma (claridad, ortografía, ejemplos), aplicalos directamente al documento generado, sin tocar el intake.
 3. Después de cambios, regenerá el README raíz para asegurar que los enlaces y referencias siguen coherentes.
 
-### F-16 — ¿Cómo declaro varios proyectos de código en un producto?
+### F-16 — ¿Cómo declaro varias unidades de entrega en un producto?
 
-En §13 de tu `PRODUCT-INTAKE`. Esa sección tiene una tabla de proyectos de código donde cada fila es un proyecto de código: su `Nombre-Proyecto-Codigo`, su `tipo_proyecto_codigo` (uno de los 8 D8), su rol, su bandera `redistribuible` y sus dependencias hacia otros proyectos de código de la mismo producto. Declarás un único proyecto de código principal y armás el grafo de dependencias listando, en la columna Dependencias, los proyectos de código de los que depende cada uno. El grafo tiene que ser acíclico. Además, por cada proyecto de código declarado en §13 repetís el bloque técnico P.1 a P.12 en §17. No completás un manifiesto a mano: durante la Fase de validación de intake, el orquestador valida §13 (tipos válidos, un solo principal, sin colisiones de nombre, dependencias resueltas, grafo acíclico), deriva el `PRODUCT-MANIFEST` con los `Identidad-Codigo` y te lo presenta para confirmación. Recién entonces ordena los proyectos de código en orden topológico y genera la documentación de cada uno.
+En §13 de tu `PRODUCT-INTAKE`. Esa sección tiene una tabla de proyectos de código donde cada fila es un proyecto de código: su `Nombre-Proyecto-Codigo`, su `tipo_unidad_entrega` (uno de los 8 D8), su rol, su bandera `redistribuible` y sus dependencias hacia otros proyectos de código de la mismo producto. Declarás un único proyecto de código principal y armás el grafo de dependencias listando, en la columna Dependencias, los proyectos de código de los que depende cada uno. El grafo tiene que ser acíclico. Además, por cada proyecto de código declarado en §13 repetís el bloque técnico P.1 a P.12 en §17. No completás un manifiesto a mano: durante la Fase de validación de intake, el orquestador valida §13 (tipos válidos, un solo principal, sin colisiones de nombre, dependencias resueltas, grafo acíclico), deriva el `PRODUCT-MANIFEST` con los `Identidad-Codigo` y te lo presenta para confirmación. Recién entonces ordena los proyectos de código en orden topológico y genera la documentación de cada uno.
 
-### F-17 — ¿Qué pasa si mi producto es un solo proyecto de código?
+### F-17 — ¿Qué pasa si mi producto es un solo unidad de entrega?
 
-Es el caso degenerado y es totalmente válido: la tabla de proyectos de código de §13 tiene una sola fila y el orquestador deriva un manifiesto de una sola entrada. El orquestador aplana el layout y genera las categorías `00` a `11` directo bajo `SDD/Docs/` más el README raíz, sin el subnivel `Proyectos/<Nombre>/` ni la carpeta `Producto/`, y la Fase H omite la vista y el pipeline de producto. El resultado es idéntico al del template de tipo único anterior: si venías trabajando con un proyecto de código único, no cambia nada para vos. Esta equivalencia es la garantía de no ruptura del modelo.
+Es el caso degenerado y es totalmente válido: la tabla de unidades de entrega de §13 tiene una sola fila y el orquestador deriva un manifiesto de una sola entrada. El orquestador aplana el layout y genera las categorías `00` a `11` directo bajo `SDD/Docs/` más el README raíz, sin el subnivel `Unidades-Entrega/<Nombre>/` ni la carpeta `Producto/`, y la Fase H omite la vista y el pipeline de producto. El resultado es idéntico al del template de tipo único anterior: si venías trabajando con una unidad de entrega único, no cambia nada para vos. Esta equivalencia es la garantía de no ruptura del modelo.
 
-### F-18 — ¿Cómo se nombran los proyectos de código en /src?
+### F-18 — ¿Cómo se nombran las unidades de entrega en /src?
 
 Por convención `<Raiz-Codigo>.<Sufijo>`, donde `<Raiz-Codigo>` es la raíz de código que **declarás** en el perfil de convención del intake —no una forma tipográfica del nombre de negocio, y admite segmentos, como `Contoso.Turnos`— y `<Sufijo>` identifica el rol del proyecto de código. Ejemplos: `GestionDeTurnos.WebApi`, `GestionDeTurnos.Domain`, `GestionDeTurnos.Worker`. La excepción son los paquetes redistribuibles (`redistribuible: true`): en lugar de la raíz del producto, arrancan con el prefijo de organización del perfil (`Aplicada` por defecto), para tener un espacio de nombres estable e independiente del producto que los consume. Por ejemplo, un paquete de validaciones reusable se llama `Aplicada.Validaciones`, no `GestionDeTurnos.Validaciones`. Esta convención aplica solo al plano de código en `/src`; el plano de documentación sigue en Título-Con-Guiones sin cambios (por ejemplo `Gestion-De-Turnos-API`).
 
 ### F-19 — ¿Cuántos documentos de intake completo?
 
-Uno solo: el `PRODUCT-INTAKE`. Es el intake unificado que reemplaza a las antiguas plantillas `PROJECT-BRIEF` y `PROJECT-README` (deprecadas). En él va todo: negocio (Parte A, §1 a §12), composición del producto con la tabla de proyectos de código (Parte B, §13 a §16) y la técnica por proyecto de código (Parte C, §17, bloque P.1 a P.12 repetido por proyecto de código). No completás un `PRODUCT-MANIFEST` a mano: el orquestador lo deriva de §13 durante la Fase de validación de intake, lo valida y te lo presenta para confirmación. El manifiesto queda como artefacto derivado, no como plantilla a llenar.
+Uno solo: el `PRODUCT-INTAKE`. Es el intake unificado que reemplaza a las antiguas plantillas `PROJECT-BRIEF` y `PROJECT-README` (deprecadas). En él va todo: negocio (Parte A, §1 a §12), composición del producto con la tabla de unidades de entrega (Parte B, §13 a §16) y la técnica por unidad de entrega (Parte C, §17, bloque P.1 a P.12 repetido por unidad de entrega). No completás un `PRODUCT-MANIFEST` a mano: el orquestador lo deriva de §13 durante la Fase de validación de intake, lo valida y te lo presenta para confirmación. El manifiesto queda como artefacto derivado, no como plantilla a llenar.
 
 ### F-20 — ¿Puedo saltearme la validación de maqueta?
 
-Sí. La Fase B2 es opcional por diseño. Al aprobar el plan inicial vas a ver el flag `requiere_maqueta` por proyecto de código; lo ponés en `false` y el flujo sigue como siempre, de la Fase B directo a la C. La omisión queda registrada como ADR en la categoría 05 del proyecto de código, con el motivo que declares.
+Sí. La Fase B2 es opcional por diseño. Al aprobar el plan inicial vas a ver el flag `requiere_maqueta` por unidad de entrega; lo ponés en `false` y el flujo sigue como siempre, de la Fase B directo a la C. La omisión queda registrada como ADR en la categoría 05 de la unidad de entrega, con el motivo que declares.
 
-Conviene saltearla cuando el proyecto de código no tiene interfaz visual, cuando estás reproduciendo un diseño ya validado en otro proyecto de código de la mismo producto, o cuando el plazo es tan corto que no hay margen para iterar. Conviene hacerla cuando el cliente todavía no tiene claro qué espera ver, cuando el modelo de datos es grande, o cuando el equipo que va a codear no participó del análisis.
+Conviene saltearla cuando la unidad de entrega no tiene interfaz visual, cuando estás reproduciendo un diseño ya validado en otra unidad de entrega de la mismo producto, o cuando el plazo es tan corto que no hay margen para iterar. Conviene hacerla cuando el cliente todavía no tiene claro qué espera ver, cuando el modelo de datos es grande, o cuando el equipo que va a codear no participó del análisis.
 
 ### F-21 — Modifiqué la maqueta a mano y el orquestador no toma mis cambios
 
@@ -1136,7 +1153,7 @@ Si un cambio que le pedís por prompt entra en conflicto con algo que corregiste
 
 Son el instrumento de control que te llevás a la codificación, y viven fuera del alcance de SDD, que termina en el handoff.
 
-Qué son. La línea de base es el inventario de lo que aprobaste al mirar la maqueta: cada superficie, componente, estado y ruta de navegación con su identificador (`SUP-XX`, `CMP-XX`, `EST-XX`, `NAV-XX`), más el contrato de los campos que la maqueta exhibía (`DM-XX`). La matriz (`Matriz-Sensado-Deriva.md`, en la categoría 08) convierte ese inventario en una lista de comprobaciones, cada una con su método de verificación, la evidencia que la respalda y el umbral a partir del cual la diferencia deja de ser aceptable.
+Qué son. La línea de base es el inventario de lo que aprobaste al mirar la maqueta: cada superficie, componente, estado y ruta de navegación con su identificador (`SUP-XXXXX`, `CMP-XXXXX`, `EST-XXXXX`, `NAV-XXXXX`), más el contrato de los campos que la maqueta exhibía (`DM-XXXXX`). La matriz (`Matriz-Sensado-Deriva.md`, en la categoría 08) convierte ese inventario en una lista de comprobaciones, cada una con su método de verificación, la evidencia que la respalda y el umbral a partir del cual la diferencia deja de ser aceptable.
 
 Cómo se usa. Al cierre de cada sprint, recorrés las filas de la matriz cuyos elementos tocó el sprint y las marcás como `Conforme`, `Deriva menor` o `Deriva mayor`. Una deriva menor se registra y sigue. Una deriva mayor se resuelve de una de dos maneras, nunca por omisión: se corrige el sistema para volver a la línea de base, o se actualiza la línea de base con tu aprobación explícita porque la construcción reveló que la línea de base estaba equivocada. Lo que no vale es que las dos se separen sin que nadie lo declare: eso es la deriva.
 
@@ -1144,11 +1161,11 @@ Para qué sirve de verdad. Le da a vos y al agente un punto de comparación exte
 
 ### F-23 — ¿Qué es un modelo UX-UI y cuándo conviene capturar uno?
 
-Un modelo UX-UI es un diseño completo, capturado de una maqueta que ya validaste y aprobaste, escrito como reglas constructivas para que un agente pueda reproducir algo equivalente en otro proyecto de código sin haber visto el original. Vive en `../IA.SDD/SDD/Devs/Modelos-UX-UI/` con su ejemplo ejecutable en `../IA.SDD/Templates/`.
+Un modelo UX-UI es un diseño completo, capturado de una maqueta que ya validaste y aprobaste, escrito como reglas constructivas para que un agente pueda reproducir algo equivalente en otra unidad de entrega sin haber visto el original. Vive en `../IA.SDD/SDD/Devs/Modelos-UX-UI/` con su ejemplo ejecutable en `../IA.SDD/Templates/`.
 
 No es lo mismo que el catálogo de reglas de diseño de `References/Design/`. Ese catálogo es el piso obligatorio y siempre aplica. Un modelo es opcional, se aplica por encima del piso y sale de la práctica, no del diseño metodológico.
 
-Conviene capturar uno cuando el diseño que aprobaste resuelve bien un problema que se te va a repetir: un panel operativo denso, un flujo de alta guiado, un catálogo de consulta. No conviene cuando el diseño es muy específico del dominio del proyecto de código, porque entonces las reglas no se pueden formular de manera agnóstica y el modelo no sirve para reusar.
+Conviene capturar uno cuando el diseño que aprobaste resuelve bien un problema que se te va a repetir: un panel operativo denso, un flujo de alta guiado, un catálogo de consulta. No conviene cuando el diseño es muy específico del dominio de la unidad de entrega, porque entonces las reglas no se pueden formular de manera agnóstica y el modelo no sirve para reusar.
 
 Tené presente que `IA.SDD` es un repositorio público. Cuando aceptás capitalizar un modelo, el orquestador ofusca todo el dominio antes de escribir: reemplaza entidades, campos, valores, textos y assets por equivalentes sintéticos, y preserva solo la forma. Si no puede completar esa verificación con certeza, no escribe nada.
 
@@ -1182,7 +1199,7 @@ Formalmente, la actualización de la categoría 11 forma parte de la Definition 
 
 `AGENTS.md` es el contrato de contexto para agentes de codificación, y vive en la **raíz de tu repositorio**, no dentro de `SDD/Docs/`. Es la única salida del orquestador que queda fuera de `SDD/`, y es a propósito: su valor depende de que las herramientas de agentes lo encuentren en la ruta convencional donde lo buscan.
 
-Contiene lo que un agente necesita para trabajar en tu repositorio sin romper nada: cómo se construye el proyecto de código, cómo se corren los tests, convenciones de código y de commits, comandos de validación, límites de intervención, y punteros a los documentos de la categoría 11 por intención.
+Contiene lo que un agente necesita para trabajar en tu repositorio sin romper nada: cómo se construye la unidad de entrega, cómo se corren los tests, convenciones de código y de commits, comandos de validación, límites de intervención, y punteros a los documentos de la categoría 11 por intención.
 
 No se escribe a mano. Se **deriva** de `Contrato-Agentes.md`, que vive dentro de la carpeta de la categoría 11 y sí sigue la convención de nomenclatura del framework. Si los dos divergen, el contrato es la fuente y el `AGENTS.md` se regenera.
 
@@ -1207,7 +1224,7 @@ El ensayo humano es un **gate**: sin él aprobado, la Fase J no cierra. Y no lo 
 - **Mantenedor**: ubicá una porción de código concreta e introducí una mejora acotada, siguiendo únicamente `Recorrido-Codigo` y `Guia-Contribucion`.
 - **Integrador**: consumí una capacidad del sistema desde un cliente nuevo, siguiendo únicamente el cuerpo integrador.
 
-**La regla de oro**: durante la corrida solo se lee la documentación. No le preguntás al equipo, no leés código fuera de lo que la documentación te indica leer, no usás lo que ya sabés del proyecto de código. **El momento en que tenés que salirte de la documentación es, exactamente, el hallazgo.**
+**La regla de oro**: durante la corrida solo se lee la documentación. No le preguntás al equipo, no leés código fuera de lo que la documentación te indica leer, no usás lo que ya sabés de la unidad de entrega. **El momento en que tenés que salirte de la documentación es, exactamente, el hallazgo.**
 
 **Qué hacer si no se completa.** Un ensayo que no se completa es un hallazgo P0 y no se cierra el corte con él abierto. El procedimiento es directo: anotá en qué paso te trabaste y qué tuviste que averiguar por fuera; convertí cada trabada en un hallazgo con **destino asignado**, es decir qué documento y qué sección lo tiene que absorber; corregí esos documentos; y volvé a correr el ensayo. El resultado queda registrado en el informe de audit de la fase, en `SDD/Docs/Audit/`.
 
@@ -1217,7 +1234,7 @@ Lo que no vale es completar la tarea usando conocimiento propio y declarar el en
 
 Una **eventualidad** es una situación que aparece al ejecutar el sistema en un entorno real y que ninguna vista de diseño podía anticipar. No es deriva: la deriva es apartarse de algo acordado, y acá no hay línea de base de la cual apartarse. Es conocimiento nuevo que hay que capturar antes de que se pierda.
 
-Se registran en `Bitacora-Eventualidades.md`, de nivel producto, con identificador `EVE-XX`.
+Se registran en `Bitacora-Eventualidades.md`, de nivel producto, con identificador `EVE-XXXXX`.
 
 **Un caso completo, de punta a punta.** Un servicio se comunica con un dispositivo físico conectado por USB al host.
 
@@ -1232,13 +1249,25 @@ Se registran en `Bitacora-Eventualidades.md`, de nivel producto, con identificad
 **Triaje.** Acá está el punto de toda la mecánica: la bitácora es un buffer de captura, **no el destino final**. Esta eventualidad es un requisito del entorno no declarado, así que se propaga a dos documentos permanentes:
 
 1. `Guia-Contenedor.md`, sección «Dispositivos del host requeridos»: la ruta del dispositivo, la regla de acceso y cómo verificar que está disponible.
-2. `Runbook-Operacion.md`, entrada `OPS-07` «El servicio no registra lecturas»: síntoma observable, diagnóstico paso a paso y resolución.
+2. `Runbook-Operacion.md`, entrada `OPS-00007` «El servicio no registra lecturas»: síntoma observable, diagnóstico paso a paso y resolución.
 
-La entrada `EVE-03` de la bitácora queda con su campo `destino` apuntando a esos dos lugares.
+La entrada `EVE-00003` de la bitácora queda con su campo `destino` apuntando a esos dos lugares.
 
 **Regla dura**: ninguna eventualidad se cierra sin destino asignado. Si de verdad no aplica a ningún documento —porque no es reproducible o es un caso único sin valor para terceros— se marca explícitamente `No absorbida` con el motivo escrito. «Sin destino» no es un estado de cierre válido.
 
 El triaje se ejecuta en cada corte de la Fase I, junto con la actualización incremental. Una eventualidad abierta desde hace más de un corte sin triaje es un hallazgo P0.
+
+### F-30 — ¿Por qué los identificadores tienen cinco dígitos si mi proyecto tiene doce casos de uso?
+
+Porque el ancho es una decisión de capacidad tomada una sola vez para todo el framework, y no una convención tipográfica que cada corrida ajusta a su tamaño. Con dos dígitos, las colecciones enumeradas a mano sobraban y las **derivadas** desbordaban: una corrida real emitió 191 estados de superficie y 374 sondas en un solo unidad de entrega, y el agente tuvo que elegir entre romper la uniformidad, fragmentar el identificador o comprimir el inventario, sin ningún criterio del método para preferir una. Dos corridas del mismo framework habrían elegido distinto y sus líneas de base habrían quedado incomparables.
+
+Lo que ganás a cambio: los identificadores ordenan igual lexicográfica y numéricamente, alinean en columna y se reconocen de un vistazo, en todas las familias por igual. Y como son únicos en el producto, una necesidad de negocio puede citar `CU-00014` sin decir de qué unidad de entrega es.
+
+### F-31 — Migré un destino generado con la versión anterior y los identificadores cambiaron de forma. ¿Se me rompen los enlaces?
+
+No, si usás la migración normativa. El salto a la versión 7.0 cambia el ancho, y `CU-XX-<Nombre>.md` es un nombre de archivo, no solo texto. Por eso la migración lo hace en **dos pasadas**: primero construye el árbol completo —cada identificador viejo con su nuevo, cada archivo a renombrar y **todas** las referencias que lo apuntan— y te lo presenta para confirmar; recién después lo aplica, y cierra comprobando que ninguna referencia quedó colgada, que ningún identificador nuevo colisiona y que no quedan residuos de la forma vieja fuera de `_legacy/`, que no se toca.
+
+La mecánica vive en `Migracion-Rules.md` §4.3.1.
 
 ---
 
@@ -1248,7 +1277,7 @@ El template está diseñado para evolucionar. Cualquier extensión sigue tres pr
 
 ### 7.1 Agregar una categoría nueva
 
-Imaginemos que querés agregar una categoría `12-Observabilidad/` para proyectos de código con requerimientos fuertes de observabilidad operativa.
+Imaginemos que querés agregar una categoría `12-Observabilidad/` para unidades de entrega con requerimientos fuertes de observabilidad operativa.
 
 Pasos:
 
@@ -1257,11 +1286,11 @@ Pasos:
 3. Listá los documentos a producir: `Estrategia-Observabilidad.md`, `Dashboards.md`, `Alertas.md`, `runbooks/RB-XX-<Nombre>.md`, `README.md`.
 4. Actualizá `../IA.SDD/SDD/Devs/Orchestrator/Master-Prompt.md` §6 (plan de generación por categoría) para incluir la nueva categoría. Subí minor del master-prompt.
 5. Decidí en qué fase entra (si es transversal, queda como fase F o G; si es post-DevOps, queda como fase F2 nueva).
-6. Probá el flujo completo con un proyecto de código piloto.
+6. Probá el flujo completo con una unidad de entrega piloto.
 
 Tiempo estimado: medio día para la definición, otro medio día para la prueba.
 
-### 7.2 Agregar un tipo de proyecto de código nuevo a D8
+### 7.2 Agregar un tipo de unidad de entrega nuevo a D8
 
 D8 son los 8 valores cerrados: `library`, `web-monolith`, `web-microservices`, `desktop-app`, `mobile-app-maui`, `rest-api`, `cli-tool`, `worker-service`. Agregar un tipo nuevo (por ejemplo `embedded-firmware`) implica:
 
@@ -1274,7 +1303,7 @@ Es un cambio de mayor envergadura, no se hace casual. Conviene mantener D8 estab
 
 ### 7.3 Agregar una variante de especialidad
 
-Caso más simple: dentro de una categoría existente, querés una variante adicional. Por ejemplo, en `Rules-Contexto.md` querés agregar "Product Manager + Compliance Officer" como variante para proyectos de código regulados.
+Caso más simple: dentro de una categoría existente, querés una variante adicional. Por ejemplo, en `Rules-Contexto.md` querés agregar "Product Manager + Compliance Officer" como variante para unidades de entrega regulados.
 
 Pasos:
 
@@ -1288,12 +1317,12 @@ Pasos:
 
 La vía normal es aceptar la oferta del paso 7 de la Fase B2 (ver §4.6 y F-23): el orquestador extrae las reglas de la maqueta que aprobaste, las ofusca y las registra. No hace falta hacer nada a mano.
 
-Si querés agregar un modelo por fuera de ese flujo, por ejemplo porque tenés un diseño validado en un proyecto de código anterior a la existencia de la fase:
+Si querés agregar un modelo por fuera de ese flujo, por ejemplo porque tenés un diseño validado en una unidad de entrega anterior a la existencia de la fase:
 
 1. Copiá `../IA.SDD/SDD/Devs/Modelos-UX-UI/Rules-Design-Modelo-Template.md` y completalo como `Rules-Design-<Nombre-Modelo>.md` en el mismo directorio. El criterio de qué incluir está en el encabezado de la plantilla: se escriben reglas accionables, no descripciones, y una regla entra si su ausencia haría que un diseño posterior salga distinto de forma perceptible.
 2. Construí el ejemplo ejecutable en `../IA.SDD/Templates/<Nombre-Modelo>/`, derivándolo de `Templates/Modelo-Generico/`, que fija la estructura y el nivel de detalle esperados.
 3. Registrá el modelo en la tabla de `../IA.SDD/SDD/Devs/Modelos-UX-UI/Index-Modelos-UX-UI.md` §2. Un modelo que no está en el índice no existe para el orquestador.
-4. Verificá la ofuscación antes de commitear: ni nombres de clientes, ni datos reales, ni assets del proyecto de código de origen, ni decisiones que solo tengan sentido en su dominio.
+4. Verificá la ofuscación antes de commitear: ni nombres de clientes, ni datos reales, ni assets de la unidad de entrega de origen, ni decisiones que solo tengan sentido en su dominio.
 
 Tiempo estimado: media jornada si partís de una maqueta ya construida.
 
@@ -1301,9 +1330,9 @@ Tiempo estimado: media jornada si partís de una maqueta ya construida.
 
 ## §8 Cómo regenerar parcialmente
 
-**Antes de seguir, distinguí los dos motivos por los que la documentación puede quedar desactualizada, porque se resuelven con instrumentos distintos.** Si cambió **el producto** —el alcance, un tipo de proyecto de código, una restricción—, es esta sección: actualizás el intake y regenerás las categorías afectadas. Si cambió **el framework** —tu destino se generó con una versión anterior y hay una vigente más nueva—, la sección no aplica: eso lo resuelve la **migración normativa**, con `PROMPT-Agente-Migracion-SDD.md`, que re-expresa lo que el destino ya decía bajo la normativa vigente en lugar de regenerarlo desde el intake. Confundirlas hace trabajo de más: regenerar por un salto de framework tira contenido que la migración habría preservado.
+**Antes de seguir, distinguí los dos motivos por los que la documentación puede quedar desactualizada, porque se resuelven con instrumentos distintos.** Si cambió **el producto** —el alcance, un tipo de unidad de entrega, una restricción—, es esta sección: actualizás el intake y regenerás las categorías afectadas. Si cambió **el framework** —tu destino se generó con una versión anterior y hay una vigente más nueva—, la sección no aplica: eso lo resuelve la **migración normativa**, con `PROMPT-Agente-Migracion-SDD.md`, que re-expresa lo que el destino ya decía bajo la normativa vigente en lugar de regenerarlo desde el intake. Confundirlas hace trabajo de más: regenerar por un salto de framework tira contenido que la migración habría preservado.
 
-Caso típico de esta sección: el cliente cambia el alcance a mitad del proyecto de código. Por ejemplo, en el caso "API REST de turnos médicos", el cliente decide en el sprint 2 que sí va a haber app móvil nativa en v1 (estaba como Won't Have).
+Caso típico de esta sección: el cliente cambia el alcance a mitad de la unidad de entrega. Por ejemplo, en el caso "API REST de turnos médicos", el cliente decide en el sprint 2 que sí va a haber app móvil nativa en v1 (estaba como Won't Have).
 
 ### 8.1 Identificar qué documentos están afectados
 
@@ -1318,7 +1347,7 @@ Pasos:
 | §4 Alcance funcional | 00, 01, 02, 06, 07, 11 |
 | §8 Métricas de éxito | 00, §17 P.10 (NFR) |
 | §10 Restricciones | 00, 09 |
-| §13 Tipo de un proyecto de código (tabla de proyectos de código) | TODAS las del proyecto de código afectado (es bloqueante, re-deriva el manifiesto) |
+| §13 Tipo de una unidad de entrega (tabla de unidades de entrega) | TODAS las de la unidad de entrega afectado (es bloqueante, re-deriva el manifiesto) |
 | §17 P.2 Estilo arquitectónico | 05 |
 | §17 P.4 Persistencia | 02 (modelo conceptual), 05 (modelo lógico), 07 |
 | §17 P.6 Testing | 08 |
@@ -1358,7 +1387,7 @@ Tres recorridos según tu perfil al acercarte al template.
 Si nunca usaste SDD ni un template parecido, este es el orden de lectura recomendado:
 
 1. Esta guía completa (§1 a §10). Tiempo estimado: 1 hora.
-2. La plantilla `PRODUCT-INTAKE-template.md`. Leela completa, recorriendo sus tres partes: negocio (§1 a §12), composición con la tabla de proyectos de código de §13 (tipo D8 por proyecto de código) que define la jerarquía, y técnica por proyecto de código (§17, bloque P.1 a P.12). Mirá el ejemplo aplicado multi-proyecto y el caso degenerado. Tiempo estimado: 1 hora.
+2. La plantilla `PRODUCT-INTAKE-template.md`. Leela completa, recorriendo sus tres partes: negocio (§1 a §12), composición con la tabla de unidades de entrega de §13 (tipo D8 por unidad de entrega) que define la jerarquía, y técnica por unidad de entrega (§17, bloque P.1 a P.12). Mirá el ejemplo aplicado multi-proyecto y el caso degenerado. Tiempo estimado: 1 hora.
 3. La regla `Intake-Rules.md`. Es la que dirige la Fase de validación de intake: cómo se valida la completitud del intake y cómo se deriva el `PRODUCT-MANIFEST` de §13. Tiempo estimado: 20 minutos.
 4. La plantilla `PRODUCT-MANIFEST-template.md`. Leela como referencia del formato del artefacto que el orquestador deriva (no es una plantilla a llenar a mano). Tiempo estimado: 15 minutos.
 5. Tres archivos de reglas a elección: `Rules-Contexto.md`, `Rules-Especificacion-Funcional.md` y `Rules-Arquitectura-Tecnica.md`. Tiempo estimado: 1 hora.
@@ -1366,8 +1395,8 @@ Si nunca usaste SDD ni un template parecido, este es el orden de lectura recomen
 
 Ejercicios sugeridos:
 
-- Ejercicio 1: tomá un proyecto de código chico que ya hayas hecho y completá manualmente el `PRODUCT-INTAKE` entero (Parte A negocio, Parte B composición, Parte C técnica). No corras el orquestador, solo hacé el intake. Ves dónde te trabás.
-- Ejercicio 2: corré el orquestador sobre un proyecto de código sintético (podés usar el caso 5.2 de esta guía como inspiración). Hacé un commit por fase.
+- Ejercicio 1: tomá una unidad de entrega chico que ya hayas hecho y completá manualmente el `PRODUCT-INTAKE` entero (Parte A negocio, Parte B composición, Parte C técnica). No corras el orquestador, solo hacé el intake. Ves dónde te trabás.
+- Ejercicio 2: corré el orquestador sobre una unidad de entrega sintético (podés usar el caso 5.2 de esta guía como inspiración). Hacé un commit por fase.
 - Ejercicio 3: leé los audits que genera el orquestador y verificá si coincidís con sus hallazgos.
 
 Total estimado de onboarding: una jornada y media de trabajo enfocado, sin contar la ejecución del orquestador.
@@ -1382,7 +1411,7 @@ Si ya trabajaron con la versión 1.0 del template (la del Motor DSL, referenciad
 - Auditoría independiente entre fases con veredicto bloqueante.
 - Patrón de manejo de ambigüedad con detención / pregunta / reanudación.
 - Reglas de no-modificación de intake con flujo controlado.
-- Tabla de adaptabilidad por tipo de proyecto de código.
+- Tabla de adaptabilidad por tipo de unidad de entrega.
 
 Pueden saltearse:
 
@@ -1430,52 +1459,57 @@ Términos esenciales para usar el template. Para el glosario exhaustivo del marc
 
 | Término | Definición breve |
 |---|---|
-| Producto | Aquello que entregás y que alguien usa para obtener valor. Lo delimita una frontera clara: stakeholders conocidos, usuarios o clientes definidos, un roadmap y un ciclo de vida propios. **La prueba práctica**: dos conjuntos de capacidades con clientes, roadmaps y ciclos de vida desacoplados son dos productos y llevan dos intakes. No tiene un D8 propio: lo declaran sus proyectos de código. Definición normativa en `Vocabulario-Rules.md` §2. |
+| Producto | Aquello que entregás y que alguien usa para obtener valor. Lo delimita una frontera clara: stakeholders conocidos, usuarios o clientes definidos, un roadmap y un ciclo de vida propios. **La prueba práctica**: dos conjuntos de capacidades con clientes, roadmaps y ciclos de vida desacoplados son dos productos y llevan dos intakes. No tiene un D8 propio: lo declaran sus unidades de entrega. Definición normativa en `Vocabulario-Rules.md` §2. |
 | Unidad de entrega | Cada pieza del producto que se despliega o se distribuye por separado y que alguien consume directamente. Un producto monolítico tiene una sola. Está definida pero **todavía no es un nivel del árbol de salida**: el pendiente está declarado en `Vocabulario-Rules.md` §8. |
 | Módulo | Área funcional dentro de una unidad de entrega: un agrupamiento de capacidades con sentido para quien usa el producto. **No se despliega por separado.** Un panel con nueve módulos en su barra de navegación es una sola unidad de entrega. |
 | Solución de código | El artefacto del ecosistema que agrupa la construcción: el archivo de solución en .NET, el POM agregador en Maven, el *workspace* en Cargo o npm. Se escribe siempre completo; «solución» a secas no nombra ningún concepto del framework. |
 | Proyecto de código | La unidad de compilación dentro de una solución de código: lo que tu ecosistema llama *project*, *module*, *subproject* o *package*. Lo delimita producir un artefacto de compilación propio y declarar sus propias dependencias. Lleva exactamente uno de los 8 tipos D8, y sobre cada uno se generan las categorías 02 a 11. |
 | Proyecto | El emprendimiento: el esfuerzo temporal de construir o evolucionar el producto. Tiene principio, fin y alcance acordado; el producto no. **«Proyecto» a secas siempre significa esto**, nunca la unidad de compilación. Excepción única: los compuestos `multi-proyecto`, `inter-proyecto` y `cross-proyecto`. |
 | Los cuatro planos de identidad | Un producto se nombra distinto en cada plano y los cuatro nombres son independientes: `Nombre-Producto` (prosa de negocio, «Gestión de Turnos»), `Slug-Producto` (Título-Con-Guiones para archivos y rutas, `Gestion-De-Turnos`, el único que se deriva), `Raiz-Codigo` (identidad de código, **la declarás vos** en el perfil de convención y admite segmentos, `Contoso.Turnos`) y `Artefacto-Agrupacion` (el agrupador de construcción, `Contoso.Turnos.sln`). Dos de ellos no pueden distinguirse solo por puntuación: es validación bloqueante. |
+| Identificador | Toda pieza catalogada lleva prefijo y **cinco dígitos uniformes** (`CU-00014`, `NB-00003`), y es **única en el producto**: si tenés varias unidades de entrega, el orquestador les reparte rangos antes de generar y ningún subagente inventa el suyo. El ancho es holgado a propósito: las colecciones que salen de combinar otras —los estados de las superficies, las sondas de la matriz de sensado— crecen mucho más rápido de lo que parece. Quedan fuera `AG-XX`, que nombra los roles del framework, y el número de iteración, que lo fija el roadmap. |
+| Compuerta mecánica | Comprobación automática que corre **antes** de cada audit y verifica lo que se decide contando: enlaces que resuelven, recuentos que coinciden con lo que cuentan, generadores idempotentes e identificadores bien formados. Sirve para que el auditor gaste su atención en lo único que un guion no puede hacer, que es leer el documento citado y ver si dice lo que el que lo cita afirma. Su salida **declara qué no miró**: una compuerta en verde no es una aprobación. |
+| Decisiones pendientes | Registro único del producto, fuera de los documentos que originan las preguntas, que el orquestador te muestra **al cerrar cada fase** y no solo al final. Ahí van las ambigüedades diferidas, las extensiones de un conjunto cerrado sin arbitrar, las referencias a categorías todavía no emitidas y los apartamientos propuestos. Una decisión pendiente escrita como nota dentro de un documento no interrumpe a nadie: por eso tiene registro propio. |
+| Referencia pendiente | Forma con la que un documento cita algo que todavía no existe, porque lo emite una categoría de una fase posterior. Declara que no existe, qué rige mientras tanto y cuándo se cierra. Al emitirse la categoría referenciada, el orquestador reabre los documentos que la esperaban **y les lleva el insumo que les faltaba**, no solo el turno. |
+| Apartamiento declarado | Un artefacto obligatorio puede no emitirse si existe un ADR que lo declare, con sus alternativas descartadas y los disparadores que lo revisarían. No aplica cuando la obligación ya está condicionada por un flag del proyecto: ahí simplemente no corresponde emitirlo. |
 | Contexto de lectura | Lo que un lector tiene efectivamente delante. Para vos es el documento; **para un subagente es la sección**, porque el orquestador le entrega secciones nombradas y no archivos completos. De ahí sale el criterio de cuándo una palabra ambigua es un problema real: si sus sentidos se distinguen solo leyendo el documento entero, para el subagente colisionan. |
 | Glosario de categoría | Cada categoría declara los términos que acuña y que usa en más de uno de sus artefactos: `Glosario-Funcional.md` en 02, `Glosario-UX.md` en 03, `Glosario-Tecnico.md` en 11. No se duplican entre sí: el término ya declarado se referencia. Un término con más de un referente los enumera. El criterio de cuándo desambiguar vive en `Vocabulario-Rules.md` §9. |
-| Manifiesto de producto | Documento `PRODUCT-MANIFEST-<Slug-Producto>.md`. Artefacto derivado por el orquestador a partir de §13 del intake (no lo completa el usuario): enumeración de proyectos de código, su D8, rol, dependencias, nombres de código derivados y perfil de nombres. Su grafo es acíclico (DAG). El usuario lo confirma; no lo escribe a mano. |
-| Proyecto de código principal | El proyecto de código cabeza del producto. El manifiesto declara exactamente uno; es una validación bloqueante. |
+| Manifiesto de producto | Documento `PRODUCT-MANIFEST-<Slug-Producto>.md`. Artefacto derivado por el orquestador a partir de §13 del intake (no lo completa el usuario): enumeración de unidades de entrega, su D8, rol, dependencias, nombres de código derivados y perfil de nombres. Su grafo es acíclico (DAG). El usuario lo confirma; no lo escribe a mano. |
+| Proyecto de código principal | El unidad de entrega cabeza del producto. El manifiesto declara exactamente uno; es una validación bloqueante. |
 | Orden topológico | Orden de generación y build derivado del grafo de dependencias: primero los proyectos de código sin dependencias, luego los que dependen de proyectos de código ya resueltos. Ninguno arranca antes que sus dependencias. |
-| Caso degenerado | Producto de un solo proyecto de código. El orquestador aplana el layout (00..11 directo bajo `docs/`, sin `Proyectos/<Nombre>/` ni `Producto/`). Equivale al template de tipo único anterior. |
-| Vista de producto | Artefacto de nivel producto (`Producto/Vista-Producto.md`), solo si hay más de un proyecto de código. Contiene el mapa de proyectos de código, los contratos inter-proyecto y el grafo de dependencias. |
+| Caso degenerado | Producto de un solo unidad de entrega. El orquestador aplana el layout (00..11 directo bajo `docs/`, sin `Unidades-Entrega/<Nombre>/` ni `Producto/`). Equivale al template de tipo único anterior. |
+| Vista de producto | Artefacto de nivel producto (`Producto/Vista-Producto.md`), solo si hay más de una unidad de entrega. Contiene el mapa de unidades de entrega, los contratos inter-proyecto y el grafo de dependencias. |
 | Pipeline de producto | Artefacto de nivel producto (`Producto/Pipeline-Producto.md`), solo si hay más de un proyecto de código. Contiene el orden de build topológico y la matriz de artefactos publicables por proyecto de código. |
 | Intake | Documento único de entrada del producto: el `PRODUCT-INTAKE`. Es fuente de verdad. Reemplaza a las antiguas plantillas PROJECT-BRIEF y PROJECT-README, hoy deprecadas. |
 | Product Owner | Rol humano, aguas arriba del intake y fuera de la cadena AG-XX. Conoce el producto, reúne el material que lo define, arbitra entre intereses en conflicto y declara las decisiones de producto en el intake: la priorización MoSCoW (§4) y las exclusiones (§9). Es el autor responsable del intake y quien lo aprueba. No es AG-00: AG-00 es Product Manager y opera aguas abajo, formalizando lo ya decidido. |
 | Stakeholder | Categoría de relación con el producto, no un puesto. Plural y parcial por definición: aporta un interés o una restricción y puede pedir cosas incompatibles con las de otro stakeholder. No arbitra: produce el material que el Product Owner arbitra. La tríada propietario / implementador / beneficiario clasifica stakeholders; el Product Owner cae en «propietario» sin agotar la categoría. |
-| PRODUCT-INTAKE | Plantilla de intake unificada `PRODUCT-INTAKE-<Slug-Producto>.md`, una por producto. Tres partes: A negocio (§1-§12), B composición con la tabla de proyectos de código de §13 (§13-§16), C técnica por proyecto de código (§17, bloque P.1-P.12), más §18 samples y §19 checklist. El único documento que completa el usuario. |
+| PRODUCT-INTAKE | Plantilla de intake unificada `PRODUCT-INTAKE-<Slug-Producto>.md`, una por producto. Tres partes: A negocio (§1-§12), B composición con la tabla de unidades de entrega de §13 (§13-§16), C técnica por unidad de entrega (§17, bloque P.1-P.12), más §18 samples y §19 checklist. El único documento que completa el usuario. |
 | Reconciliación normativa | Fase previa a todo, dirigida por `Master-Prompt.md` §2.1. Solo corre si `SDD/Docs/` del destino ya tiene contenido. Compara la versión del framework declarada en el bloque de procedencia del manifiesto contra la vigente, enumera los documentos potencialmente invalidados por los saltos major y ofrece tres salidas: plan de migración normativa, regeneración desde cero o continuar bajo la versión de origen. No modifica nada. |
 | Migración normativa | Llevar un destino de la versión del framework con la que se generó a la vigente, **preservando su contenido**. Es el instrumento que ejecuta la salida A de la reconciliación normativa, en una corrida aparte con `PROMPT-Agente-Migracion-SDD.md`. Su mecánica vive en `Migracion-Rules.md` y sus fases M0 a M6 en `Master-Prompt-Migracion.md`. No inventa contenido: lo que la normativa vigente exige y el destino no tiene se pregunta, no se rellena. |
 | Procedencia del framework | Bloque del `PRODUCT-MANIFEST` que declara bajo qué versión del framework, de qué reglas y de qué plantillas de intake se generó la documentación del destino. Es lo que hace posible la reconciliación normativa, y lo que la migración normativa reescribe al cerrar. |
 | Fase de validación de intake | Fase previa a la Fase A, dirigida por `Intake-Rules.md`. El orquestador valida la completitud del intake, emite una batería consolidada de preguntas si falta algo bloqueante, deriva el `PRODUCT-MANIFEST` de §13 y lo presenta para confirmación. |
 | Master-prompt | El archivo que ejecuta un orquestador; es la instrucción que se pega en Claude Code. Hay **dos** en `../IA.SDD/SDD/Devs/Orchestrator/`: `Master-Prompt.md`, que genera la documentación de un producto, y `Master-Prompt-Migracion.md`, que lleva un destino ya especificado a la versión vigente del framework. |
-| Orquestador | Agente principal que coordina la generación de la documentación. Valida el intake, deriva el manifiesto de §13, valida la jerarquía, deriva nombres, ordena los proyectos de código en orden topológico, planifica, despacha subagentes y audita. |
+| Orquestador | Agente principal que coordina la generación de la documentación. Valida el intake, deriva el manifiesto de §13, valida la jerarquía, deriva nombres, ordena las unidades de entrega en orden topológico, planifica, despacha subagentes y audita. |
 | Subagente | Agente especializado que produce los documentos de una categoría. Su especialidad vive en §1 del archivo de reglas correspondiente. |
 | Audit independiente | Revisión cierre de fase por un subagente auditor sin contexto previo. Veredicto bloqueante: APROBADO, APROBADO CON OBSERVACIONES o RECHAZADO. |
 | Plan-then-confirm | Modo operativo: cada fase se planifica, se confirma con el usuario, se ejecuta, se audita, se detiene. |
-| D8 | Conjunto cerrado de 8 tipos de proyecto de código: library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service. Se elige uno por proyecto de código. El conjunto no cambia: siguen siendo 8. |
+| D8 | Conjunto cerrado de 8 tipos de unidad de entrega: library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service. Se elige uno por unidad de entrega. El conjunto no cambia: siguen siendo 8. |
 | Convención de nombres de código | Regla de nombres en `/src`: `<Raiz-Codigo>.<Sufijo>` (por ejemplo `GestionDeTurnos.WebApi`). Excepción para redistribuibles: arrancan con el prefijo de organización `Aplicada` (por ejemplo `Aplicada.Validaciones`). El plano de documentación sigue en Título-Con-Guiones. |
 | Flag de gating | Variable derivada del intake que condiciona qué documentos se generan. Ejemplos: usa_llm, tiene_persistencia, equipo_n. |
 | Cadena D6 | Cadena de trazabilidad: Visión → NB → CU → RN → ADR → US → BT → Sprint → Test → Pipeline. |
-| Invariante | Decisión que no se renegocia durante la generación. Hay invariantes globales (D1 a D9) y propias del proyecto de código. |
+| Invariante | Decisión que no se renegocia durante la generación. Hay invariantes globales (D1 a D9) y propias de la unidad de entrega. |
 | Ambigüedad legítima | Falta concreta de un dato bloqueante en el intake que dispara detención / pregunta / reanudación. |
 | Handoff a codificación | Punto en el que el orquestador entrega la documentación auditada y espera confirmación humana para arrancar Sprint 1. |
 | Regla constructiva | Archivo `Rules-<Categoria>.md` (o `Root-Rules.md`) que codifica especialidad, documentos, nomenclatura, estructura, criterios y prompt-snippet de la categoría. |
-| Fase B2 | Fase opcional de validación visual de maqueta, por proyecto de código, entre la Fase B y la Fase C. Se activa con el flag `requiere_maqueta`. Materializa la especificación de 03 en una maqueta navegable, la valida con vos, retroalimenta la documentación y emite la línea de base del sensado de deriva. Su regla es `Maqueta-Rules.md`. |
+| Fase B2 | Fase opcional de validación visual de maqueta, por unidad de entrega, entre la Fase B y la Fase C. Se activa con el flag `requiere_maqueta`. Materializa la especificación de 03 en una maqueta navegable, la valida con vos, retroalimenta la documentación y emite la línea de base del sensado de deriva. Su regla es `Maqueta-Rules.md`. |
 | Maqueta | Sitio estático navegable en `SDD/Maquetas/<Nombre-Proyecto-Codigo>/`: HTML, CSS, Bootstrap 5 y JavaScript, sin proceso de build, con los datos de ejemplo de la documentación hardcodeados. Sirve para validar de una sola vez la experiencia y el modelo de datos. No es el producto ni documentación viva: es la línea de base de un momento, aprobada explícitamente. |
 | Modelo UX-UI | Diseño capturado de una maqueta aprobada, escrito como reglas constructivas en `Modelos-UX-UI/` con su ejemplo ofuscado en `Templates/`. Opcional; se aplica por encima del catálogo base de `References/Design/`, nunca en su reemplazo. |
-| Línea de base visual | Inventario identificado (`SUP-XX` superficies, `CMP-XX` componentes, `EST-XX` estados, `NAV-XX` rutas) de lo aprobado en la maqueta, más el contrato de datos (`DM-XX`) que exhibía. Punto de comparación externo del sensado de deriva. |
+| Línea de base visual | Inventario identificado (`SUP-XXXXX` superficies, `CMP-XXXXX` componentes, `EST-XXXXX` estados, `NAV-XXXXX` rutas) de lo aprobado en la maqueta, más el contrato de datos (`DM-XXXXX`) que exhibía. Punto de comparación externo del sensado de deriva. |
 | Sensado de deriva | Mecanismo de control que contrasta lo construido contra la línea de base visual y el contrato de datos, con umbrales declarados de deriva menor y mayor. Se opera con la `Matriz-Sensado-Deriva.md` de la categoría 08, sprint a sprint. Su regla es `Deriva-Rules.md`. |
 | Evidencia verificable (D9) | Invariante global: toda afirmación sobre el estado del sistema cita un artefacto localizable, reproducible, contemporáneo e independiente de quien afirma. No aplica a afirmaciones de diseño, de especificación ni de contexto, que necesitan justificación y no evidencia. Rige hacia adelante desde su incorporación. |
 
 ### 10.2 Mapa visual de la estructura de carpetas
 
-Árbol esperado de un producto multi-proyecto que aplica el template SDD. Para el caso degenerado (un solo proyecto de código), ver la nota al final.
+Árbol esperado de un producto multi-proyecto que aplica el template SDD. Para el caso degenerado (un solo unidad de entrega), ver la nota al final.
 
 ```text
 mi-proyecto/
@@ -1539,10 +1573,10 @@ mi-proyecto/
 │   │   │   ├── README.md
 │   │   │   ├── Necesidades-Negocio.md
 │   │   │   └── Necesidades-De-Negocio/
-│   │   │       ├── NB-01-<Nombre>.md
-│   │   │       ├── NB-02-<Nombre>.md
-│   │   │       └── NB-XX-<Nombre>.md
-│   │   ├── Producto/                                    # Solo si hay más de un proyecto de código (Fase H)
+│   │   │       ├── NB-00001-<Nombre>.md
+│   │   │       ├── NB-00002-<Nombre>.md
+│   │   │       └── NB-XXXXX-<Nombre>.md
+│   │   ├── Producto/                                    # Solo si hay más de una unidad de entrega (Fase H)
 │   │   │   ├── Vista-Producto.md                    # AG-05: mapa, contratos, grafo
 │   │   │   ├── Pipeline-Producto.md                 # AG-09: build topológico, artefactos
 │   │   │   └── 11-Documentacion/                         # AG-11: artefactos de nivel producto
@@ -1552,16 +1586,16 @@ mi-proyecto/
 │   │   │       ├── Guia-Despliegue.md
 │   │   │       ├── Bitacora-Eventualidades.md
 │   │   │       └── Contrato-Agentes.md              # De acá se deriva AGENTS.md
-│   │   ├── Proyectos/                                    # Un subárbol 02..11 por proyecto de código
-│   │   │   └── <Nombre-Proyecto-Codigo>/                  # Repetido por cada proyecto de código del manifiesto
+│   │   ├── Unidades-Entrega/                                    # Un subárbol 02..11 por unidad de entrega
+│   │   │   └── <Nombre-Unidad-Entrega>/                  # Repetido por cada unidad de entrega del manifiesto
 │   │   │       ├── 02-Especificacion-Funcional/
 │   │   │       │   ├── README.md
 │   │   │       │   ├── Especificacion-Funcional.md
 │   │   │       │   ├── Casos-De-Uso/
-│   │   │       │   │   ├── CU-01-<Nombre>.md
-│   │   │       │   │   └── CU-XX-<Nombre>.md
+│   │   │       │   │   ├── CU-00001-<Nombre>.md
+│   │   │       │   │   └── CU-XXXXX-<Nombre>.md
 │   │   │       │   ├── Reglas-De-Negocio/
-│   │   │       │   │   └── RN-XX-<Nombre>.md
+│   │   │       │   │   └── RN-XXXXX-<Nombre>.md
 │   │   │       │   └── Modelo-Datos/
 │   │   │       │       └── Modelo-Conceptual.md
 │   │   │       ├── 03-UX-UI-DX/
@@ -1576,7 +1610,7 @@ mi-proyecto/
 │   │   │       │   ├── Decisiones-Arquitectura.md
 │   │   │       │   └── Adrs/
 │   │   │       │       ├── ADR-001-<Nombre>.md
-│   │   │       │       └── ADR-XX-<Nombre>.md
+│   │   │       │       └── ADR-XXXXX-<Nombre>.md
 │   │   │       ├── 06-Backlog-Tecnico/
 │   │   │       │   ├── README.md
 │   │   │       │   ├── Product-Backlog.md
@@ -1604,7 +1638,7 @@ mi-proyecto/
 │   │   │       │   ├── Estrategia-Versionado.md
 │   │   │       │   ├── Entornos-Deploy.md
 │   │   │       │   └── Supply-Chain-Seguridad.md
-│   │   │       ├── 10-Examples/                          # Según gating y tipo; con contratos de verificación VER-XX
+│   │   │       ├── 10-Examples/                          # Según gating y tipo; con contratos de verificación VER-XXXXX
 │   │   │       │   ├── README.md
 │   │   │       │   ├── ejemplo-01-<Nombre>.md
 │   │   │       │   ├── ejemplo-02-<Nombre>.md
@@ -1616,8 +1650,8 @@ mi-proyecto/
 │   │   │           ├── Referencia-API.md
 │   │   │           └── Troubleshooting.md
 │   │   └── README.md                                     # README raíz consolidado del producto
-│   └── Maquetas/                                         # Solo si algún proyecto de código ejecutó la Fase B2
-│       └── <Nombre-Proyecto-Codigo>/                            # Una maqueta por proyecto de código visual
+│   └── Maquetas/                                         # Solo si algún unidad de entrega ejecutó la Fase B2
+│       └── <Nombre-Unidad-Entrega>/                            # Una maqueta por unidad de entrega visual
 │           ├── index.html                                # Punto de entrada con la navegación
 │           ├── <Superficie>.html                         # Una superficie por archivo
 │           ├── README.md
@@ -1639,13 +1673,13 @@ Notas sobre el árbol:
 - Las carpetas marcadas con "según gating" se generan solo si los flags del intake las habilitan.
 - Cada categoría tiene un README.md propio que es el índice navegable.
 - `SDD/Docs/Audit/` se popula a medida que avanzan las fases.
-- Las categorías `00-Contexto/` y `01-Necesidades-Negocio/` viven a nivel producto (se generan una vez en la Fase A). Las categorías `02` a `11` se repiten bajo `Proyectos/<Nombre-Proyecto-Codigo>/`, un subárbol por proyecto de código del manifiesto.
-- La carpeta `Producto/` y sus dos artefactos (vista de producto y pipeline de producto) se generan solo cuando hay más de un proyecto de código.
-- Caso degenerado (producto de un solo proyecto de código): el orquestador aplana el layout. Las categorías `00` a `11` van directo bajo `SDD/Docs/` (sin el subnivel `Proyectos/<Nombre>/` y sin la carpeta `Producto/`), igual que en el árbol del template de tipo único. El README raíz se genera siempre.
+- Las categorías `00-Contexto/` y `01-Necesidades-Negocio/` viven a nivel producto (se generan una vez en la Fase A). Las categorías `02` a `11` se repiten bajo `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, un subárbol por unidad de entrega del manifiesto.
+- La carpeta `Producto/` y sus dos artefactos (vista de producto y pipeline de producto) se generan solo cuando hay más de una unidad de entrega.
+- Caso degenerado (producto de un solo unidad de entrega): el orquestador aplana el layout. Las categorías `00` a `11` van directo bajo `SDD/Docs/` (sin el subnivel `Unidades-Entrega/<Nombre>/` y sin la carpeta `Producto/`), igual que en el árbol del template de tipo único. El README raíz se genera siempre.
 - `AGENTS.md` vive en la raíz del repositorio, fuera de `SDD/`. Es la única salida del orquestador que no está bajo `SDD/`, y es a propósito: las herramientas de agentes lo buscan ahí. Se emite en la primera corrida de la Fase I.
-- `SDD/Maquetas/` aparece solo si algún proyecto de código ejecutó la Fase B2. Es hermana de `SDD/Docs/` y no está dentro de ella: `SDD/Docs/` es exclusivamente prosa generada por el orquestador, y la maqueta es material ejecutable que vos editás a mano durante la validación.
+- `SDD/Maquetas/` aparece solo si algún unidad de entrega ejecutó la Fase B2. Es hermana de `SDD/Docs/` y no está dentro de ella: `SDD/Docs/` es exclusivamente prosa generada por el orquestador, y la maqueta es material ejecutable que vos editás a mano durante la validación.
 - El catálogo de modelos UX-UI (`Devs/Modelos-UX-UI/`) y sus ejemplos ejecutables (`Templates/`, en la raíz del repositorio fuente `IA.SDD`, hermana de `SDD/`) viven del lado del template, no del repositorio destino. Se poblan solo si aceptás capitalizar el diseño de una maqueta aprobada.
-- El árbol mostrado es el caso completo; tu producto va a tener algunas omisiones por proyecto de código según el `tipo_proyecto_codigo` de cada uno y sus flags.
+- El árbol mostrado es el caso completo; tu producto va a tener algunas omisiones por unidad de entrega según el `tipo_unidad_entrega` de cada uno y sus flags.
 
 ---
 
@@ -1668,6 +1702,8 @@ Esta guía de usuario está distribuida en 10 capítulos completos según la est
 | 1.7 | 2026-07-29 | Vocabulario normativo (framework 5.0 y 5.1), registrado en una sola fila porque la migración de la 5.0 modificó el archivo sin subir versión. **Corregida una contradicción con el orquestador**: §4.5 paso 6 decía «Derivar `Slug-Producto`, `Raiz-Codigo` (PascalCase)» y F-18 que `Raiz-Codigo` «es la forma PascalCase del nombre del producto», cuando `Master-Prompt.md` §3.2 y `Vocabulario-Rules.md` §3 declaran desde la 5.0 que **se declara en el perfil de convención del intake y admite separadores de segmento**; un usuario que siguiera la guía disparaba la validación bloqueante de independencia entre planos. **§10.1** pasa de dos entradas de vocabulario a nueve: los seis términos normativos con definición por frontera, los cuatro planos de identidad, el contexto de lectura y el glosario de categoría; la entrada *Producto* abandona la definición «contenedor de nivel superior que agrupa una jerarquía de proyectos de código». **§4.4** deja de listar dos de las cinco reglas transversales y §10.2 suma `Vocabulario-Rules.md` al árbol. **Corregidas siete ocurrencias de «reproducto»** por sustitución global de la cadena en la 5.0, entre ellas el título de §6 y su ancla en la tabla de contenido, más «saltando a productos técnicas» en §4.1 y «productos SDD distintas» en F-11, que además pasa a enunciar la frontera de producto con el criterio de `Vocabulario-Rules.md` §2. El resumen ejecutivo declaraba 23 entradas de FAQ y hay 29, defecto arrastrado desde la 1.5. |
 | 1.8 | 2026-07-29 | Ruteo a la migración normativa. **§4** nombra la salida A de la reconciliación con su nombre vigente, «plan de migración normativa», y declara que ejecutarlo es una corrida aparte. **§10** hace lo mismo en la entrada de glosario de «Reconciliación normativa» y suma la entrada **Migración normativa**, que declara qué hace, con qué prompt de entrada se invoca, dónde vive su mecánica y sus fases, y su regla de no invención: lo que la normativa vigente exige y el destino no tiene se pregunta, no se rellena. Sube minor: agrega el instrumento que ejecuta una salida que la guía ya describía, sin cambiar ninguna fase ni ningún paso del recorrido. | Framework SDD (migración normativa) |
 | 1.9 | 2026-07-29 | Puesta al día del árbol de la fuente contra el conjunto 6.0. **§4.4** listaba «el `Master-Prompt.md` en `Orchestrator/`» y «las cinco reglas transversales … diecisiete archivos en total»: pasa a los dos master-prompts, con la distinción entre el que genera y el que migra, y a las seis transversales con `Migracion-Rules.md`, dieciocho en total. El comentario del comando `ls` de esa sección también nombraba un solo archivo de `Orchestrator/`, así que el usuario que corría la verificación veía dos archivos donde la guía le anunciaba uno. **§10 corrige una afirmación falsa**: la entrada de glosario *Master-prompt* declaraba «Archivo único `Master-Prompt.md`», y hay dos en esa carpeta; pasa a declarar los dos con su función. La entrada *Procedencia del framework* suma las plantillas de intake al contenido del bloque, y declara que la migración normativa lo reescribe al cerrar. **§8 suma su nota de ruteo**: distingue el motivo por el que se regenera parcialmente —cambió el producto— del motivo por el que se migra —cambió el framework—, porque confundirlos hace regenerar contenido que la migración habría preservado, y la sección era el lugar donde un usuario con documentación desactualizada iba a buscar. Sube minor: corrige conteos y una afirmación falsa, y agrega ruteo, sin cambiar ningún paso. | Framework SDD (migración normativa) |
+| 1.10 | 2026-08-15 | Actualización de cara al usuario por la intervención sobre los reportes 00 a 11 (framework 7.0). §10.1 suma cinco entradas al glosario rápido: **identificador**, con el ancho de cinco dígitos y el ámbito de unicidad producto; **compuerta mecánica**, que corre antes de cada audit y declara qué no miró; **decisiones pendientes**, el registro único que el orquestador exhibe al cerrar cada fase; **referencia pendiente**, la forma de citar algo que todavía no se emitió, con su cierre que trae el insumo; y **apartamiento declarado**, el ADR que admite no emitir un artefacto obligatorio. §6 suma F-30, sobre por qué el ancho es una decisión de capacidad y no una convención tipográfica, con la medición de 191 estados y 374 sondas que lo originó, y F-31, sobre qué le pasa a un destino migrado cuando cambia la forma de los identificadores y por qué la migración se hace en dos pasadas. Los identificadores de ejemplo del documento pasan a cinco dígitos. |
+| 1.11 | 2026-08-15 | Actualización de cara al usuario por el nivel de unidad de entrega (framework 8.0). §1 reemplaza «Producto y proyecto de código» por **los dos ejes del producto**, con la relación de muchos a muchos entre ellos, el caso del proyecto compartido y la aclaración de que las once categorías cuelgan de la unidad de entrega. Se incorpora el **test de tres preguntas** para decidir si un conjunto de capacidades es un producto o varios, con el precio declarado de partir en dos: la trazabilidad se corta en la frontera. El resto de la guía pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, y conserva el proyecto de código donde el referente es la unidad de compilación. |
 
 ---
 
