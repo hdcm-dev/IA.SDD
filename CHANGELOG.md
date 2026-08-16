@@ -3,6 +3,23 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.2] - 2026-08-15
+
+**El árbol de migración declara las familias de identificador que el destino acuñó.** Segunda corrección encontrada al ejecutar la migración de un destino real, y de la misma clase que la 8.1: ninguna comprobación estática podía detectarla.
+
+**Qué faltaba.** `Migracion-Rules.md` §4.3.1 construía el árbol sobre las familias del catálogo del framework y no decía nada sobre las que el destino inventa. Un destino que se choca con un hueco normativo **acuña un identificador para poder seguir**, y esa invención es justamente la evidencia de qué le faltaba al método. Si la migración las ignora, quedan identificadores huérfanos que ninguna regla gobierna y que ninguna comprobación de referencias detecta, porque resuelven entre sí.
+
+**El caso que lo originó.** Un destino de siete proyectos de código había acuñado `P·CU-XX`, con **166 ocurrencias**, para nombrar una numeración de casos de uso de nivel producto que su documento de necesidades preveía. La inventó porque con ámbito de unicidad por proyecto la previsión no podía coincidir con lo emitido: es el incidente que el reporte `01` documenta, resuelto por el destino con un identificador propio. **La 7.0 volvió innecesaria esa invención** al fijar el ámbito en el producto, y sin la pasada nueva la migración la habría arrastrado.
+
+### Añadido
+
+- **`Migracion-Rules.md` §4.3.1, pasada 1.b**: buscar prefijos con forma de identificador que ninguna regla declare y formas calificadas inventadas por el destino; declarar cada una con su forma, sus ocurrencias, el hueco que vino a llenar y su resolución. Las tres resoluciones se evalúan en orden: **retirarla** porque la versión vigente ya cubrió el hueco —la preferible, y la más frecuente—, **adoptarla** como familia del destino con prefijo y ámbito declarados, o **escalarla** como hueco del framework sin resolverla, porque no es una decisión de destino.
+- Un criterio de aceptación en §6.
+
+Ninguna documentación emitida deja de cumplir. El conjunto superado se archiva en `_legacy/8.1/`.
+
+---
+
 ## [8.1] - 2026-08-15
 
 **El reparto de rangos de identificadores es por familia.** Corrección encontrada al **migrar un destino real** con la versión 8.0, antes de aplicar la migración: es el primer defecto que la validación en corrida destapa, y por eso su origen se declara.
