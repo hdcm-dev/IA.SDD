@@ -25,7 +25,7 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
 ### Cambiado
 
-- **`Coherencia-Referencias-Derivadas.md` 1.0 → 1.1.** §5 pasa de «lo que queda anotado» a **cómo se cerró**, y **§5.1** es nueva con la medición completa, su desglose por destino y la salvedad de que los tres corpus están generados contra el conjunto 6.0 —anterior a la condición que hace posible la variante—, con el argumento de por qué la medición sigue valiendo: captura **cómo se escribe**, y nadie escribió esas 34 489 citas porque una regla se lo pidiera.
+- **`Coherencia-Referencias-Derivadas.md` 1.1 → 1.2.** §5 pasa de «lo que queda anotado» a **cómo se cerró**, y **§5.1** es nueva con la medición completa, su desglose por destino y la salvedad de que los tres corpus están generados contra el conjunto 6.0 —anterior a la condición que hace posible la variante—, con el argumento de por qué la medición sigue valiendo: captura **cómo se escribe**, y nadie escribió esas 34 489 citas porque una regla se lo pidiera.
 
 **Ninguna regla, plantilla ni orquestador cambia**, y por eso el conjunto sube **patch**. El conjunto superado se archiva en `_legacy/8.15/`.
 
