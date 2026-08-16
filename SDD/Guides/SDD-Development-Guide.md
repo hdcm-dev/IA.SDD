@@ -17,7 +17,7 @@ traces:
 # Guía de desarrollo y extensibilidad del framework SDD
 
 **Documento:** SDD-Development-Guide.md
-**Versión:** 1.13
+**Versión:** 1.14
 **Estado:** Vigente
 **Fecha:** 2026-07-29
 **Rol de intervención:** Mantenedor del framework
@@ -594,7 +594,7 @@ Lista de comprobación mínima:
 | --- | --- | --- |
 | 1 | Invariantes D1–D9 intactas en todo archivo tocado | Sin violaciones |
 | 2 | Autosuficiencia: cero referencias fuera del árbol de este repositorio | Cero ocurrencias |
-| 3 | Referencias internas: todo archivo, carpeta y sección citada existe | Cero enlaces rotos |
+| 3 | Referencias internas: todo archivo, carpeta y sección citada existe. **Se excluyen las rutas ilustrativas dentro de los ejemplos de las reglas**, que describen el árbol de un destino y no resuelven desde el framework | Cero enlaces rotos fuera de esa exclusión |
 | 4 | Sin contradicción entre lo escrito y lo que ya estaba | Sin contradicciones, o reportadas |
 | 5 | Control de cambios actualizado en cada archivo modificado | Una fila por archivo |
 | 6 | El caso degenerado sigue produciendo el layout aplanado | Verificado |
@@ -602,6 +602,12 @@ Lista de comprobación mínima:
 | 8 | **Barrido por concepto**: todo lugar donde aparece el concepto que la intervención cambió está enumerado y verificado, **incluido el interior de los archivos ya tocados** | Cero apariciones sin revisar |
 | 9 | **Coherencia interna de cada artefacto tocado**: ninguna sección contradice a otra del mismo archivo | Sin contradicciones internas |
 | 10 | **Integridad del registro** de cada archivo tocado: la versión de cabecera **es** la mayor fila del control de cambios, las filas están **en orden** y **ninguna está repetida** | Cabecera igual a la última fila, tabla ordenada |
+
+**Por qué la comprobación 3 excluye los ejemplos.** Las reglas ilustran el árbol de un destino con
+enlaces como `[00-Contexto](00-Contexto/)`, que **no resuelven desde la ubicación de la regla y no
+tienen por qué**: describen la salida, no la navegación del framework. Sin la exclusión son catorce
+avisos permanentes, y una comprobación que avisa siempre **es una comprobación apagada** —es el mismo
+argumento con el que la 8.3 excluyó `_legacy/` como origen—.
 
 **Por qué la comprobación 10 existe y la 5 no alcanzaba.** La 5 pide «una fila por archivo», y se cumple
 escribiendo la fila **en cualquier lado**. Insertarla antes de la última en lugar de después deja la tabla
@@ -646,6 +652,11 @@ artefacto, el dueño de un campo, un conjunto cerrado, el nombre de un término 
 4. **Verificar contra la propia intervención.** La pregunta final no es «¿toqué todo lo que había que
    tocar?» sino **«¿mi intervención cometió el defecto que corrige?»**. Las tres veces la respuesta
    era sí, y las tres veces se podía haber contestado antes de publicar.
+5. **Entrar en los bloques de ejemplo.** Un cerco de código no es un límite del barrido: las
+   **plantillas de cabecera** de las diez reglas de categoría viven ahí, y son lo que cada documento
+   generado copia literal. Tres barridos seguidos las pasaron de largo porque buscaban en rutas, en
+   prosa y en tablas, y **veintiséis cabeceras siguieron declarando el nivel que la 8.0 había
+   cambiado**. Un ejemplo que enseña mal se propaga a todo lo que se genera con él.
 
 **Por qué una plantilla es el peor lugar para dejar una contradicción.** No rompe nada hasta que
 alguien la completa, y para entonces el producto ya arrastra el dato mal declarado. Es el artefacto
@@ -766,3 +777,4 @@ que diga otra cosa.
 | 1.11 | 2026-08-16 | **§VI.5 declara cuándo se toma el snapshot de `_legacy/`**, que era lo único que la sección no decía y donde efectivamente se rompía: el conjunto se copia **antes** de aplicar la intervención, y copiarlo después produce una carpeta con el nombre de una versión y el contenido de la siguiente. Se declara la consecuencia —el diff normativo de ese salto **sale vacío** y la migración se declara completa sin aplicar nada—, la verificación mecánica por versión de cabecera de los archivos tocados, y que la regla de intocabilidad **no cubre** una carpeta que archivó el conjunto equivocado: reconstruirla la restituye. Origen: **cuatro de los cinco snapshots más recientes estaban corridos un lugar**, detectado al tomar el sexto. |
 | 1.12 | 2026-08-16 | **§VI.3 suma la comprobación 10, integridad del registro**: la versión de cabecera es la mayor fila del control de cambios, las filas están en orden y ninguna se repite. La comprobación 5 pedía «una fila por archivo» y se cumplía escribiéndola en cualquier lado; **seis archivos tenían el registro inconsistente**, repartidos entre cuatro intervenciones, y ninguna verificación los miraba —incluido este archivo, cuya cabecera decía **1.7** mientras su tabla llegaba a **1.10**—. Concordancias de género de la sustitución léxica de la 8.0 (`Vocabulario-Rules.md` §9.5), en el barrido del layout. | Framework SDD (barrido del layout 8.0) |
 | 1.13 | 2026-08-16 | La Parte IV suma el bloque **«sobre las fuentes declarativas que declares»**, con sus cuatro preguntas: que el documento **nombre a su responsable** y no sólo el evento; que si ningún rol corresponde se ponga uno **genérico** en lugar de dejarlo vacío; que se prefiera el **subproducto del acto** al documento que hay que acordarse de actualizar; y que, si la fuente no es un subproducto, se declare contra qué se la contrasta. Cierra el pendiente de `Coherencia-Orquestador-Reanudacion.md` §7. | Framework SDD (dueño de las fuentes declarativas) |
+| 1.14 | 2026-08-16 | **§VI.3.1 suma la quinta regla del barrido: entrar en los bloques de ejemplo.** Un cerco de código no es un límite del barrido, y **tres barridos seguidos los pasaron de largo**: las plantillas de cabecera de las diez reglas de categoría viven ahí y son lo que cada documento generado copia literal. **§VI.3 comprobación 3** excluye las rutas ilustrativas de los ejemplos de las reglas, que describen el árbol de un destino y no resuelven desde el framework: sin la exclusión son catorce avisos permanentes, y una comprobación que avisa siempre es una comprobación apagada. | Framework SDD (cabecera de nivel unidad de entrega) |

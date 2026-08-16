@@ -2,7 +2,7 @@
 
 ```yaml
 Documento: Guia-Usuario-SDD.md
-Versión: 1.13
+Versión: 1.14
 Fecha: 2026-08-15
 Audiencia: profesionales y estudiantes que usan el template para un producto real
 Idioma: español rioplatense neutro técnico
@@ -1606,7 +1606,7 @@ mi-proyecto/
 │   │   │       │   └── prompt-<tarea>.md
 │   │   │       ├── 05-Arquitectura-Tecnica/
 │   │   │       │   ├── README.md
-│   │   │       │   ├── Arquitectura-Proyecto-Codigo.md
+│   │   │       │   ├── Arquitectura-Unidad-Entrega.md
 │   │   │       │   ├── Decisiones-Arquitectura.md
 │   │   │       │   └── Adrs/
 │   │   │       │       ├── ADR-001-<Nombre>.md
@@ -1706,6 +1706,7 @@ Esta guía de usuario está distribuida en 10 capítulos completos según la est
 | 1.11 | 2026-08-15 | Actualización de cara al usuario por el nivel de unidad de entrega (framework 8.0). §1 reemplaza «Producto y proyecto de código» por **los dos ejes del producto**, con la relación de muchos a muchos entre ellos, el caso del proyecto compartido y la aclaración de que las once categorías cuelgan de la unidad de entrega. Se incorpora el **test de tres preguntas** para decidir si un conjunto de capacidades es un producto o varios, con el precio declarado de partir en dos: la trazabilidad se corta en la frontera. El resto de la guía pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, y conserva el proyecto de código donde el referente es la unidad de compilación. |
 | 1.12 | 2026-08-16 | Barrido del layout de la 8.0. El árbol del caso multi-unidad de §5.2 y el mapa ASCII del resumen ejecutivo seguían mostrando `Proyectos/<Nombre>/`, que es el layout que la 8.0 reemplazó, con lo cual la guía le enseñaba al usuario una estructura que el framework ya no genera. El resumen ejecutivo declara además la Parte B con **sus dos tablas** y la Parte C **por unidad de entrega**. Doce concordancias de género de la sustitución léxica de la 8.0 (`Vocabulario-Rules.md` §9.5). |
 | 1.13 | 2026-08-16 | Barrido retroactivo del concepto de la 8.0. §5.2 decía que las Fases B a G se recorren **por proyecto de código**, cuando desde la 8.0 se recorren **por unidad de entrega** y en el orden topológico del **grafo de integración**, que no es el de compilación. El glosario declaraba la matriz de artefactos publicables por proyecto de código: se publica por unidad de entrega. |
+| 1.14 | 2026-08-16 | El árbol de ejemplo del capítulo 5 mostraba `Arquitectura-Proyecto-Codigo.md`, nombre que la regla de la categoría 05 ya había cambiado a `Arquitectura-Unidad-Entrega.md`. |
 
 ---
 

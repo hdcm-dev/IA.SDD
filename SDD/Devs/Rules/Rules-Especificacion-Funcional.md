@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/02-Especificacion-Funcional/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Analista Funcional / Ingeniero de Requisitos (AG-02)
-**Versión de las reglas:** 5.1
+**Versión de las reglas:** 5.2
 
 ---
 
@@ -159,7 +159,7 @@ Cada artefacto inicia con un H1 y un bloque markdown de metadatos:
 ```markdown
 # CU-XXXXX — <Nombre del caso de uso>
 
-**Proyecto de código:** {{Nombre-Proyecto-Codigo}}
+**Unidad de entrega:** {{Nombre-Unidad-Entrega}}
 **Documento:** CU-XXXXX-<Nombre>.md
 **Versión:** <X.Y>
 **Estado:** Borrador | Propuesto | Aprobado | Vigente | Superado | Archivado
@@ -392,7 +392,7 @@ Fragmento ilustrativo, no documento completo:
 ```markdown
 # CU-00003 — Asignar turno médico
 
-**Proyecto de código:** {{Nombre-Proyecto-Codigo}}
+**Unidad de entrega:** {{Nombre-Unidad-Entrega}}
 **Documento:** CU-00003-Asignar-Turno-Medico.md
 **Versión:** 1.0
 **Estado:** Propuesto
@@ -429,7 +429,7 @@ Permitir que un agente administrativo asigne un turno a un paciente sobre la age
 ```markdown
 # RN-00002 — Validez del identificador de pago
 
-**Proyecto de código:** {{Nombre-Proyecto-Codigo}}
+**Unidad de entrega:** {{Nombre-Unidad-Entrega}}
 **Documento:** RN-00002-Validez-Identificador-Pago.md
 **Versión:** 1.0
 **Estado:** Aprobada
@@ -524,3 +524,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/02-Especificacion-Fu
 | 4.1 | 2026-08-15 | Identificadores, conjuntos cerrados y vocabulario del método (intervención reportes 00 a 11). **§3.2** declara la forma, el ámbito y el asignador de los **códigos de error**, que §4.2 punto 6 exigía sin regular: forma `E-<DOMINIO>-NNNNN`, ámbito producto, y los asigna la 02 del proyecto de código dueño del error dentro de su rango. Se agrega el identificador `FA-NN` de los flujos alternativos, que otra categoría necesitaba citar y terminaba acuñando aguas abajo. **§4.2** exige marcar como tales los **conjuntos cerrados** que la categoría declara, y remite la extensión de un conjunto ajeno a la detención por arbitraje de `Master-Prompt.md` §7.0 en lugar de admitir una nota dentro del artefacto. **§6** suma seis criterios, marcados por naturaleza, y precisa que el vocabulario del método no va en `Glosario-Funcional.md`, que es del dominio del cliente. Sube **minor**: agrega criterios y declaraciones sin cambiar el conjunto de artefactos de la categoría. Origen: reportes `01` (cinco incidentes de numeración, con cinco prefijos de código de error colisionando entre proyectos), `03` y `11`. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. |
 | 5.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
 | 5.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |
+| 5.2 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |

@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/09-Devops/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto
 **Subagente target del orquestador:** Ingeniero DevOps Senior (AG-09)
-**Versión de las reglas:** 4.3
+**Versión de las reglas:** 4.4
 
 ---
 
@@ -145,7 +145,7 @@ Cada artefacto inicia con un H1 y un bloque markdown de metadatos uniforme:
 ```markdown
 # <Título del documento>
 
-**Proyecto de código:** {{Nombre-Proyecto-Codigo}}
+**Unidad de entrega:** {{Nombre-Unidad-Entrega}}
 **Documento:** <nombre-archivo>.md
 **Versión:** <X.Y>
 **Estado:** Borrador | Propuesto | Aprobado | Vigente | Superado | Archivado
@@ -367,7 +367,7 @@ Fragmento ilustrativo, no documento completo:
 ```markdown
 # Pipeline CI/CD — Librería de parsing CSV
 
-**Proyecto de código:** {{Nombre-Proyecto-Codigo}}
+**Unidad de entrega:** {{Nombre-Unidad-Entrega}}
 **Documento:** Pipeline-CI-CD.md
 **Versión:** 1.0
 **Estado:** Aprobado
@@ -417,7 +417,7 @@ Fragmento ilustrativo, no documento completo:
 ```markdown
 # Estrategia de versionado — REST API de pagos
 
-**Proyecto de código:** {{Nombre-Proyecto-Codigo}}
+**Unidad de entrega:** {{Nombre-Unidad-Entrega}}
 **Documento:** Estrategia-Versionado.md
 **Versión:** 1.0
 **Estado:** Aprobado
@@ -528,3 +528,4 @@ Salida: SDD/Docs/Producto/Pipeline-Producto.md.
 | 4.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |
 | 4.2 | 2026-08-16 | §4.3 suma los ítems **7 y 8** a `Estrategia-Versionado.md`: el **registro del avance con responsable nombrado** —quién lo actualiza y en qué evento, con la organización dueña del repositorio como último recurso— y el **instrumento preferido**, que es el subproducto del acto antes que el documento que hay que acordarse de actualizar. §4.8 suma el anti-patrón correspondiente, con el caso observado. Sube **minor**: agrega dos ítems obligatorios a un documento de la categoría sin cambiar los artefactos que produce. | Framework SDD (dueño de las fuentes declarativas) |
 | 4.3 | 2026-08-16 | Barrido retroactivo del concepto de la 8.0. §0.2 declaraba **dos** matrices de artefactos publicables —una por unidad de entrega y otra por proyecto de código— porque la actualización de la 8.0 **agregó la nueva sin retirar la vieja**. Hay una sola: se construye por proyecto de código y **se publica por unidad de entrega**, como declara `Master-Prompt.md` §11. §2.1 queda alineada. Sube **patch**: no cambia ningún artefacto ni su contenido.  Framework SDD (barrido retroactivo 6.0 y 8.0) |
+| 4.4 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |

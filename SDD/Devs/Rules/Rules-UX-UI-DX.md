@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/03-UX-UI-DX/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Especialista UX/UI o Especialista DX (AG-03), según variante.
-**Versión de las reglas:** 5.1
+**Versión de las reglas:** 5.2
 
 ---
 
@@ -196,7 +196,7 @@ Cada artefacto inicia con un H1 y un bloque markdown de metadatos:
 ```markdown
 # <Título del artefacto>
 
-**Proyecto de código:** {{Nombre-Proyecto-Codigo}}
+**Unidad de entrega:** {{Nombre-Unidad-Entrega}}
 **Documento:** <nombre-de-archivo>.md
 **Versión:** <X.Y>
 **Estado:** Borrador | Propuesto | Aprobado | Vigente | Superado | Archivado
@@ -452,7 +452,7 @@ Fragmento ilustrativo, no documento completo:
 ```markdown
 # Experiencia de uso — Sistema de turnos médicos
 
-**Proyecto de código:** {{Nombre-Proyecto-Codigo}}
+**Unidad de entrega:** {{Nombre-Unidad-Entrega}}
 **Documento:** Experiencia-De-Uso.md
 **Versión:** 1.0
 **Estado:** Propuesto
@@ -496,7 +496,7 @@ Compromiso WCAG 2.2 nivel AA. Criterios prioritarios: contraste 4.5:1 en texto, 
 ```markdown
 # DX — Librería de parsing CSV
 
-**Proyecto de código:** {{Nombre-Proyecto-Codigo}}
+**Unidad de entrega:** {{Nombre-Unidad-Entrega}}
 **Documento:** DX-Developer-Experience.md
 **Versión:** 1.0
 **Estado:** Propuesto
@@ -602,3 +602,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/03-UX-UI-DX/<estruct
 | 4.1 | 2026-08-15 | Criterio de gobierno de glosario (intervención reportes 00 a 11). Esta regla era una de las dos que no lo llevaban, junto con `Rules-Especificacion-Funcional.md`, y §6 pasa a exigir la distinción entre vocabulario del método —que vive en el glosario operativo de `Master-Prompt.md` §15 y se cita sin redefinir— y vocabulario del producto, que va a `Glosario-UX.md`. Sube **minor**: agrega criterios de aceptación verificables sin cambiar el conjunto de artefactos de la categoría. Origen: reporte `11`, propuesta 5. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. |
 | 5.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
 | 5.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |
+| 5.2 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |

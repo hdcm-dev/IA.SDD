@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-ROOT)
-**Versión de las reglas:** 5.3
+**Versión de las reglas:** 5.4
 
 ---
 
@@ -125,7 +125,7 @@ Nota: el README raíz, por ser el ancla del árbol, no declara un bloque "Trazab
 El README generado debe contener, como mínimo, las siguientes secciones en este orden:
 
 1. Identidad del producto: propósito en 2 a 3 párrafos, propuesta de valor, audiencia objetivo.
-2. Proyectos de código del producto: tabla con cada unidad de entrega (`Nombre-Unidad-Entrega`, tipo D8, rol, dependencias, bandera redistribuible), con la unidad de entrega principal señalado. Refleja el `PRODUCT-MANIFEST`.
+2. Unidades de entrega del producto: tabla con cada unidad de entrega (`Nombre-Unidad-Entrega`, tipo D8, rol, dependencias, bandera redistribuible), con la unidad de entrega principal señalado. Refleja el `PRODUCT-MANIFEST`.
 3. Stack y composición: tabla con el stack de cada proyecto de código y las plataformas soportadas.
 4. Mapa de la documentación: las categorías de nivel producto (`00-Contexto`, `01-Necesidades-Negocio`), la vista y el pipeline de producto en `Producto/`, y la documentación de cada unidad de entrega bajo `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, cada una con descripción de propósito y enlace.
 5. Flujo de lectura recomendado por rol de intervención: al menos 3 roles diferenciados, con orden de lectura sugerido y justificación.
@@ -616,3 +616,4 @@ Una referencia pendiente que sigue abierta al cierre del producto es hallazgo P0
 | 5.1 | 2026-08-15 | §9.1 precisa que la unicidad y el reparto de rangos son **dentro de cada familia**: solo se reparten bloques a las familias que más de una unidad de entrega produce, y una familia producida en un solo nivel conserva su numeración natural. Sube **minor**: acota una consecuencia operativa sin cambiar el ámbito de unicidad. Origen: la migración de un destino real de dos unidades de entrega. |
 | 5.2 | 2026-08-15 | §10 suma **R5: una referencia también es un dato derivado** (framework 8.4). Una ruta relativa codifica la identidad del destino y la posición relativa entre dos archivos; la segunda es una relación y se rompe cuando el destino se renombra, el documento se mueve o cambia de profundidad. Se declaran las dos obligaciones que lo resuelven: la identidad de una referencia es el identificador del destino, que es único en el producto y hace la ruta recalculable; y la ruta es derivada, de modo que una que no resuelve pero cuyo identificador existe en el árbol **se recalcula** en lugar de reportarse. Sube **minor**. Origen: cuatro de los seis huecos que una migración real destapó resultaron ser el mismo defecto, y de 703 enlaces rotos los 703 se reconectaron resolviendo por identificador, sin una sola decisión humana. |
 | 5.3 | 2026-08-16 | Barrido del layout de la 8.0. El **Ejemplo A** de §7.1 seguía publicando su mapa de documentación sobre `Proyectos/<Nombre>/` —el layout que la 8.0 reemplazó—, con lo cual el ejemplo canónico de un README raíz contradecía a §2.1 del mismo archivo. El bloque de insumos de §8 nombra `Unidades-Entrega/<Nombre-Unidad-Entrega>/`. Concordancias de género de la sustitución léxica de la 8.0 (`Vocabulario-Rules.md` §9.5). Sube **patch**. |
+| 5.4 | 2026-08-16 | §4.2 titulaba «Proyectos de código del producto» una sección cuyo contenido es la tabla de **unidades de entrega**: el título quedó del modelo anterior a la 8.0. Sube **patch**. |
