@@ -3,6 +3,32 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.10] - 2026-08-16
+
+**«Si corto a mitad de camino, ¿cómo se continúa desde una sesión limpia?»** La pregunta la hizo el Product Owner al terminar una migración real, y **no había respuesta escrita**: los dos orquestadores declaran detenciones, confirmaciones humanas y auditores invocados desde cero, y ninguno declara cómo se retoma.
+
+**Lo que había en su lugar era una propiedad cierta y no escrita**: el estado vive en el árbol y no en la conversación. Es la razón de ser del framework, y **que fuera cierta sin estar declarada es lo que hizo que nadie la verificara**.
+
+La corrida que produjo la pregunta tenía la prueba del daño: el destino declaraba en su registro de cambios la etapa `b` y su código estaba en la `e` —**tres etapas fusionadas que nunca actualizaron el único documento que declara el avance**, con la regla de actualizarlo escrita en la segunda línea de ese mismo documento—. Una sesión limpia habría concluido que faltaba arrancar la `c`. En la misma corrida divergieron otras dos fuentes, y las tres tienen la misma forma: **un documento que quedó atrás y sigue afirmando lo último que alguien escribió**.
+
+### Agregado
+
+- **`Master-Prompt-Reanudacion.md` 1.0**, tercer orquestador del método, con la cardinalidad de **una vez por reanudación**. Declara las **seis dimensiones del estado**, cada una con su fuente declarativa y —en las tres que divergieron— su **contraste observable**, con la regla de que **gana el observable y la divergencia se declara**. Cuatro fases, dos detenciones, y **no escribe nada del destino salvo su informe de estado**.
+- **`PROMPT-Agente-Reanudacion-SDD.md` 1.0**, tercer prompt de entrada, con la tabla de los tres y su cardinalidad.
+- **La cuarta salida no tiene prompt, y es deliberado.** Tres invocan un orquestador —reparar, migrar, seguir en la versión declarada— y la cuarta, **continuar la construcción**, no invoca ninguno. Es la más frecuente y la que más se pasa por alto: un método que sólo ofrece lo que sabe ejecutar **sesga la decisión hacia lo ejecutable**.
+
+### Cambiado
+
+- **`Master-Prompt.md` 7.5 → 7.6.** §2.1 apunta al orquestador de reanudación cuando quien invoca no sabe el estado, y declara que la reconciliación normativa resuelve **una** de sus seis dimensiones.
+- **`Migracion-Rules.md` 3.3 → 3.4** y **`Master-Prompt-Migracion.md` 2.1 → 2.2.** «El contrato entre los dos orquestadores» pasa a **nombrarlos**: con tres, la frase seguía siendo cierta y pasaba a ser ambigua.
+- **Cinco documentos más** actualizan sus recuentos y sus tablas de ruteo.
+
+**Esta intervención estrena el barrido por concepto de la 8.9**, y lo justificó en su primera corrida: encontró **siete lugares** que decían «dos», y **cuatro no estaban en el alcance que se habría declarado** —dos guías de usuario, la de arranque y un prompt de entrada—. Dos se **desambiguaron en lugar de recontarse** y tres se **dejaron declaradas** por ser registros de lo verificado en su fecha.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/8.9/`.
+
+---
+
 ## [8.9] - 2026-08-16
 
 **La lista de comprobación de coherencia tenía «sin contradicción entre lo escrito y lo que ya estaba», y tres intervenciones seguidas la pasaron dejando una contradicción adentro.** No porque nadie la corriera: porque **está enunciada sobre los archivos tocados**, y los tres defectos vivían en lugares que la intervención había tocado sin mirar, o que ni figuraban en su alcance.
