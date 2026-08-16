@@ -1,7 +1,7 @@
 # Marco Teórico SDD
 
 **Documento:** Marco-Teorico-SDD.md
-**Versión:** 3.3
+**Versión:** 3.2
 **Estado:** Aprobado
 **Fecha:** 2026-07-19
 **Autor:** Equipo Template SDD — UTN
@@ -505,7 +505,7 @@ La generación trabaja en dos niveles coherentes con la estructura de `docs/` de
 
 - Nivel producto: categorías 00 y 01 se generan una vez por producto.
 - Nivla unidad de entrega: categorías 02 a 11 se generan por unidad de entrega, en el orden topológico que dicta el grafo de dependencias.
-- Consolidación de producto: la carpeta `Producto/` reúne una vista de producto (el inventario de unidades de entrega y de proyectos de código, sus contratos, los **dos** grafos y la matriz de composición) y un pipeline de producto (el orden de build topológico y los artefactos publicables **por unidad de entrega**).
+- Consolidación de producto: la carpeta `Producto/` reúne una vista de producto (el mapa de proyectos de código, los contratos inter-proyecto y el grafo de dependencias) y un pipeline de producto (el orden de build topológico y los artefactos publicables por proyecto de código).
 
 ### 3.10.7 El caso degenerado como garantía de no ruptura
 
@@ -1968,4 +1968,3 @@ W3C. (2024). *ARIA — Accessible Rich Internet Applications*. https://www.w3.or
 **Fin del documento**
 | 3.0 | 2026-08-15 | Puesta al día por el nivel de unidad de entrega (framework 8.0). El marco pasa a nombrar la unidad de entrega donde el referente es el nivel intermedio del layout, y conserva el proyecto de código donde el referente es la unidad de compilación. La correspondencia con el modelo C4 que la regla de vocabulario ya registraba —unidad de entrega como *Container*, módulo como *Component*— pasa a tener materialización en el árbol de salida, que es lo que el pendiente declarado de `Vocabulario-Rules.md` §8 pedía desde la 5.0. Sube **major** por coherencia con el conjunto. |
 | 3.2 | 2026-08-16 | Concordancias de género de la sustitución léxica de la 8.0 (`Vocabulario-Rules.md` §9.5), doce en este archivo, en el barrido del layout. |
-| 3.3 | 2026-08-16 | Barrido retroactivo del concepto de la 8.0. §3.9 describía la consolidación de producto con **una** vista de un solo eje y los artefactos publicables **por proyecto de código**: pasa a los **dos** grafos con su matriz de composición, y a la publicación **por unidad de entrega**. |

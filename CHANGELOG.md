@@ -3,6 +3,30 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.15] - 2026-08-16
+
+**Tercer barrido retroactivo**, sobre los dos conceptos grandes que quedaban de intervenciones anteriores a la 8.9: el vocabulario de la **6.0** —la unificación del intake, que eliminó `PROJECT-BRIEF` y `PROJECT-README`— y los dos ejes de la **8.0** más allá de lo que la 8.12 y la 8.13 cubrieron.
+
+**El vocabulario de la 6.0 estaba limpio, y conviene decirlo.** Las apariciones vivas de los nombres viejos son registros históricos, evidencia no editable de `Bootstrap/`, o renombres declarados —«reemplaza a las antiguas…»— que son lo que permite reconocer un destino generado con la versión vieja. **Que la 6.0 haya quedado limpia y la 8.0 no es informativo:** la 6.0 renombró **artefactos**, y un nombre de artefacto que sobrevive se ve; la 8.0 cambió **niveles**, y un nivel equivocado se lee bien.
+
+### Corregido — ocho citas a una sección de un documento que no existe
+
+**`Master-Prompt.md` citaba ocho veces `README §5 del proyecto de código`:** una sección del `PROJECT-README` que la **6.0 eliminó**, en el nivel que la **8.0 cambió**. Los dos conceptos en la misma línea.
+
+**Cinco de las ocho son el origen de flags de gating** —`multi_tenant`, `tiene_auth`, `tiene_portal_developers`, `tiene_extensibilidad` y `tiene_observabilidad_critica`—. Las cinco filas **se contradicen dentro de sí mismas**: declaran el nivel «unidad de entrega» en su segunda columna y leen el valor del proyecto de código en la tercera, de un documento inexistente. Sus dos filas vecinas sí se habían migrado, lo que muestra que la 8.0 corrigió esa tabla **fila por fila y no terminó**.
+
+**Por qué no lo detectó nada:** un subagente al que se le pide leer una sección inexistente no falla, **infiere el valor**. Y un flag de gating inferido decide qué categorías se generan y cuáles se omiten, produciendo documentación que parece correcta.
+
+- **`Master-Prompt.md` 7.9 → 7.10.** Las ocho citas pasan a `PRODUCT-INTAKE` §17 de la unidad de entrega, con la misma numeración de P. Se corrigen además el origen y el impacto de los cinco flags, que nombraban categorías «del proyecto de código» cuando viven bajo `Unidades-Entrega/`.
+- **`Rules-Devops.md` 4.2 → 4.3.** §0.2 declaraba **dos** matrices de artefactos publicables —«por unidad de entrega, la matriz de artefactos publicables por proyecto de código»—: la actualización de la 8.0 agregó la nueva **sin retirar la vieja**. Hay una sola: se construye por proyecto de código y **se publica por unidad de entrega**.
+- **`SDD-User-Guide.md` 1.12 → 1.13** y **`Marco-Teorico-SDD.md` 3.2 → 3.3.** Las Fases B a G se recorren por unidad de entrega en el orden topológico del **grafo de integración**, y la consolidación de producto tiene los **dos** grafos con su matriz.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/8.14/`.
+
+**Queda anotado:** los tres barridos retroactivos encontraron algo, y los tres se corrieron **por decisión explícita del Product Owner**. El criterio que la 8.12 fijó —«cuando una intervención vieja se toca por cualquier motivo, su concepto se barre entonces»— **no se disparó ninguna de las tres veces**. Y los tres dan la misma respuesta sobre qué clase de defecto sobrevive: **la tabla, no la prosa**.
+
+---
+
 ## [8.14] - 2026-08-16
 
 **Se cierra el único pendiente que una nota de coherencia declaraba sin resolver:** una dimensión del estado cuya fuente **nadie tenía obligación de mantener**. Lo destrabó una instrucción del Product Owner —«cuando no tengas dueño, colocá un dueño genérico, y con eso lo resolvés y no dejás algo boyando»— sobre una solución que yo había descartado.

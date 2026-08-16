@@ -2,7 +2,7 @@
 
 ```yaml
 Documento: Guia-Usuario-SDD.md
-Versión: 1.13
+Versión: 1.12
 Fecha: 2026-08-15
 Audiencia: profesionales y estudiantes que usan el template para un producto real
 Idioma: español rioplatense neutro técnico
@@ -953,7 +953,7 @@ unidades de entrega: 4 (orden topologico: Aplicada-Validaciones, Gestion-De-Turn
               Gestion-De-Turnos-API, Gestion-De-Turnos-Notificaciones)
 ```
 
-Ejecuta la Fase A una sola vez a nivel producto (00-Contexto, 01-Necesidades-Negocio), luego recorre las Fases B a G por unidad de entrega en el orden topológico del grafo de integración, y cierra con la Fase H de consolidación: como hay más de un proyecto de código, genera la vista de producto (`Producto/Vista-Producto.md`, con el mapa de proyectos de código, los contratos inter-proyecto y el grafo de dependencias), el pipeline de producto (`Producto/Pipeline-Producto.md`, con el orden de build topológico y la matriz de artefactos publicables por proyecto de código) y el README raíz.
+Ejecuta la Fase A una sola vez a nivel producto (00-Contexto, 01-Necesidades-Negocio), luego recorre las Fases B a G por proyecto de código en el orden topológico, y cierra con la Fase H de consolidación: como hay más de un proyecto de código, genera la vista de producto (`Producto/Vista-Producto.md`, con el mapa de proyectos de código, los contratos inter-proyecto y el grafo de dependencias), el pipeline de producto (`Producto/Pipeline-Producto.md`, con el orden de build topológico y la matriz de artefactos publicables por proyecto de código) y el README raíz.
 
 #### Layout generado (extracto)
 
@@ -1478,7 +1478,7 @@ Términos esenciales para usar el template. Para el glosario exhaustivo del marc
 | Orden topológico | Orden de generación y build derivado del grafo de dependencias: primero los proyectos de código sin dependencias, luego los que dependen de proyectos de código ya resueltos. Ninguno arranca antes que sus dependencias. |
 | Caso degenerado | Producto de un solo unidad de entrega. El orquestador aplana el layout (00..11 directo bajo `docs/`, sin `Unidades-Entrega/<Nombre>/` ni `Producto/`). Equivale al template de tipo único anterior. |
 | Vista de producto | Artefacto de nivel producto (`Producto/Vista-Producto.md`), solo si hay más de una unidad de entrega. Contiene el mapa de unidades de entrega, los contratos inter-proyecto y el grafo de dependencias. |
-| Pipeline de producto | Artefacto de nivel producto (`Producto/Pipeline-Producto.md`), solo si hay más de un proyecto de código. Contiene el orden de build topológico y la matriz de artefactos publicables por unidad de entrega. |
+| Pipeline de producto | Artefacto de nivel producto (`Producto/Pipeline-Producto.md`), solo si hay más de un proyecto de código. Contiene el orden de build topológico y la matriz de artefactos publicables por proyecto de código. |
 | Intake | Documento único de entrada del producto: el `PRODUCT-INTAKE`. Es fuente de verdad. Reemplaza a las antiguas plantillas PROJECT-BRIEF y PROJECT-README, hoy deprecadas. |
 | Product Owner | Rol humano, aguas arriba del intake y fuera de la cadena AG-XX. Conoce el producto, reúne el material que lo define, arbitra entre intereses en conflicto y declara las decisiones de producto en el intake: la priorización MoSCoW (§4) y las exclusiones (§9). Es el autor responsable del intake y quien lo aprueba. No es AG-00: AG-00 es Product Manager y opera aguas abajo, formalizando lo ya decidido. |
 | Stakeholder | Categoría de relación con el producto, no un puesto. Plural y parcial por definición: aporta un interés o una restricción y puede pedir cosas incompatibles con las de otro stakeholder. No arbitra: produce el material que el Product Owner arbitra. La tríada propietario / implementador / beneficiario clasifica stakeholders; el Product Owner cae en «propietario» sin agotar la categoría. |
@@ -1705,7 +1705,6 @@ Esta guía de usuario está distribuida en 10 capítulos completos según la est
 | 1.10 | 2026-08-15 | Actualización de cara al usuario por la intervención sobre los reportes 00 a 11 (framework 7.0). §10.1 suma cinco entradas al glosario rápido: **identificador**, con el ancho de cinco dígitos y el ámbito de unicidad producto; **compuerta mecánica**, que corre antes de cada audit y declara qué no miró; **decisiones pendientes**, el registro único que el orquestador exhibe al cerrar cada fase; **referencia pendiente**, la forma de citar algo que todavía no se emitió, con su cierre que trae el insumo; y **apartamiento declarado**, el ADR que admite no emitir un artefacto obligatorio. §6 suma F-30, sobre por qué el ancho es una decisión de capacidad y no una convención tipográfica, con la medición de 191 estados y 374 sondas que lo originó, y F-31, sobre qué le pasa a un destino migrado cuando cambia la forma de los identificadores y por qué la migración se hace en dos pasadas. Los identificadores de ejemplo del documento pasan a cinco dígitos. |
 | 1.11 | 2026-08-15 | Actualización de cara al usuario por el nivel de unidad de entrega (framework 8.0). §1 reemplaza «Producto y proyecto de código» por **los dos ejes del producto**, con la relación de muchos a muchos entre ellos, el caso del proyecto compartido y la aclaración de que las once categorías cuelgan de la unidad de entrega. Se incorpora el **test de tres preguntas** para decidir si un conjunto de capacidades es un producto o varios, con el precio declarado de partir en dos: la trazabilidad se corta en la frontera. El resto de la guía pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, y conserva el proyecto de código donde el referente es la unidad de compilación. |
 | 1.12 | 2026-08-16 | Barrido del layout de la 8.0. El árbol del caso multi-unidad de §5.2 y el mapa ASCII del resumen ejecutivo seguían mostrando `Proyectos/<Nombre>/`, que es el layout que la 8.0 reemplazó, con lo cual la guía le enseñaba al usuario una estructura que el framework ya no genera. El resumen ejecutivo declara además la Parte B con **sus dos tablas** y la Parte C **por unidad de entrega**. Doce concordancias de género de la sustitución léxica de la 8.0 (`Vocabulario-Rules.md` §9.5). |
-| 1.13 | 2026-08-16 | Barrido retroactivo del concepto de la 8.0. §5.2 decía que las Fases B a G se recorren **por proyecto de código**, cuando desde la 8.0 se recorren **por unidad de entrega** y en el orden topológico del **grafo de integración**, que no es el de compilación. El glosario declaraba la matriz de artefactos publicables por proyecto de código: se publica por unidad de entrega. |
 
 ---
 
