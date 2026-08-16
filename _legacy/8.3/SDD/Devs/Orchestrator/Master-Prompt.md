@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 7.3
+**Versión:** 7.2
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -867,13 +867,8 @@ Las propiedades a verificar son de dos naturalezas y el framework las trataba ig
 
 Comprobaciones mínimas de la compuerta, cada una de naturaleza enumerable:
 
-1. **Enlaces y anclas** sobre el árbol de la fase: toda referencia resuelve. **Una ruta que no
-   resuelve pero cuyo identificador de destino existe en el árbol se recalcula, no se reporta**: es
-   un dato derivado desactualizado (`Root-Rules.md` §10 R5), y la compuerta lo repara y lo informa
-   como reparación. Solo se reporta como hallazgo lo que **no** se puede resolver de forma unívoca:
-   un destino que no existe con ningún nombre, o un identificador con más de un candidato. La
-   diferencia importa porque cambia la naturaleza del instrumento: la compuerta deja de acumular
-   avisos de algo que sabe arreglar. **Los snapshots de `_legacy/` quedan excluidos como origen**: un snapshot es un registro congelado de un estado
+1. **Enlaces y anclas** sobre el árbol de la fase: toda referencia resuelve. **Los snapshots de
+   `_legacy/` quedan excluidos como origen**: un snapshot es un registro congelado de un estado
    anterior, sus referencias no son navegación vigente, y sus enlaces dejan de resolver por hechos
    posteriores —un renombre, un archivado— que no son defectos del árbol vivo. Incluirlos produce un
    volumen de avisos que desactiva la comprobación, que es el defecto que ella misma viene a evitar.
@@ -1247,7 +1242,6 @@ Este master-prompt se versiona como cualquier otro artefacto del template. Cualq
 | 7.0 | 2026-08-15 | **La unidad de entrega pasa a ser el nivel intermedio del layout** (framework 8.0). §3.5 reemplaza `Proyectos/<Nombre-Proyecto-Codigo>/` por `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, declara por qué el proyecto de código no es un nivel de carpetas —la relación entre ejes es de composición de muchos a muchos, y anidar un proyecto compartido obligaría a documentarlo una vez por entrega— y enumera los **cuatro casos de aplanado** en cascada, incluido el que la versión anterior no podía expresar: un monolito de varias capas compiladas por separado, que producía un árbol de once categorías por capa. §4 declara el **nivel de cada flag** y suma `redistribuible` y `entrega_diferida`; `tiene_persistencia` se evalúa en la unidad de entrega, con lo cual el caso que rompía la versión anterior —una entrega cuya persistencia vive en una de sus capas— desaparece. §6 y §7 recorren unidades de entrega en el orden topológico del **grafo de integración**, que no es el de compilación. §8 parametriza el despacho por unidad de entrega y le entrega la lista de proyectos de código que la componen, con los compartidos marcados. §11 reescribe la vista de producto como el artefacto de los **dos ejes**, con el inventario de proyectos de código, los dos grafos por separado y la **matriz de composición**. §12 separa la tabla de unidades de entrega de la de proyectos de código. §15 suma cinco términos y renombra `tipo_proyecto_codigo` a **`tipo_unidad_entrega`**. Sube **major**: cambia el layout de salida, el nivel de aplicación de once categorías y el nombre de una variable bloqueante. | Framework SDD (nivel de unidad de entrega) |
 | 7.1 | 2026-08-15 | **El reparto de rangos es por familia** (framework 8.1). §3.4 acota el mapa de rangos: solo se reparten bloques a las familias que **más de una unidad de entrega produce**, y una familia producida en un solo nivel —`NB` a nivel producto— conserva su numeración natural. La unicidad es dentro de la familia, y que exista un `NB-00014` no vuelve ambiguo a un `CU-00014`. El mapa declara las dos listas y el motivo de cada una, para que una familia sin bloque se lea como decisión y no como olvido. Sube **minor**: acota una regla que era más amplia de lo necesario y ninguna documentación emitida deja de cumplir. **Origen**: la migración de un destino real de dos unidades de entrega, donde aplicar la regla anterior a la letra obligaba a renumerar 2.309 citas de `NB` sin que existiera una sola colisión que lo justificara. | Framework SDD (validación por migración) |
 | 7.2 | 2026-08-15 | **Dos correcciones sobre enlaces** (framework 8.3), encontradas al ejecutar una migración real. §10.0 excluye los snapshots de `_legacy/` **como origen** de la comprobación de enlaces: sus referencias no son navegación vigente y dejan de resolver por hechos posteriores que no son defectos del árbol vivo; incluirlos produce el volumen de avisos que desactiva la comprobación. Los enlaces **hacia** `_legacy/` sí se verifican. §8 incorpora a la política de archivado la **reescritura de los enlaces relativos del snapshot**: un documento archivado baja uno o dos niveles y todas sus rutas relativas quedan cortas, de modo que cada archivado dejaba colgados tantos enlaces como referencias tuviera. En un destino real esa acumulación llegó a 658 enlaces rotos, todos anteriores a la migración que los encontró. Sube **minor**. | Framework SDD (validación por migración) |
-| 7.3 | 2026-08-15 | §10.0 pasa de avisar a **reparar** en la comprobación de enlaces (framework 8.4). Una ruta que no resuelve pero cuyo identificador de destino existe en el árbol es un dato derivado desactualizado según `Root-Rules.md` §10 R5: la compuerta la recalcula y la informa como reparación, y reserva el hallazgo para lo que no se puede resolver de forma unívoca. Cambia la naturaleza del instrumento: deja de acumular avisos de algo que sabe arreglar. Sube **minor**. | Framework SDD (validación por migración) |
 
 Reglas de versionado:
 

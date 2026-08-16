@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-ROOT)
-**Versión de las reglas:** 5.2
+**Versión de las reglas:** 5.1
 
 ---
 
@@ -515,25 +515,6 @@ ruido en un instrumento de verificación es peor que su ausencia.
 cambio que lo produjo. Un recuento que cambió sin entrada en el control de cambios es señal de que
 alguien tocó la colección y no el número.
 
-**R5 · Una referencia también es un dato derivado.** Una ruta relativa codifica dos cosas: **la
-identidad** del documento destino y **la posición relativa** entre dos archivos. La primera es un
-dato declarado; la segunda es una relación, y se rompe cuando algo la altera —el destino se renombra,
-el documento se mueve, cambia de profundidad al reorganizarse el árbol, o se archiva y baja un
-nivel—. Es el mismo defecto que R1 a R4 describen para los números, aplicado a las referencias.
-
-De ahí las dos obligaciones:
-
-- **La identidad de una referencia es el identificador del destino**, que es único en el producto
-  (§9.1). Toda referencia a un artefacto identificado lo nombra: `[CU-00014](ruta)`, nunca solo la
-  ruta. Con el identificador presente, la ruta se puede **recalcular**; sin él, hay que adivinar.
-- **La ruta es derivada y se trata como tal.** Una ruta que no resuelve pero cuyo identificador
-  existe en el árbol no es un hallazgo del documento: es un dato derivado desactualizado, y se
-  **recalcula** (`Master-Prompt.md` §10.0).
-
-La evidencia de que esto es recalculable y no interpretable: en una migración real, de 703 enlaces
-rotos **los 703** se reconectaron resolviendo por identificador, sin una sola decisión humana. Un
-dato que un guion recalcula al cien por ciento no debería estar escrito a mano.
-
 **Métrica de éxito.** No es cuántos recuentos se verifican: es **cuántos dejaron de existir**.
 
 **Por qué esto vive acá y no en D9.** Se evaluó declarar que un recuento en prosa es una afirmación
@@ -614,4 +595,3 @@ Una referencia pendiente que sigue abierta al cierre del producto es hallazgo P0
 | 4.0 | 2026-08-15 | Cuatro secciones transversales nuevas, incorporadas por la intervención sobre los reportes 00 a 11 (framework 7.0). **§9 Sistema de identificadores**: ámbito de unicidad producto, ancho de cinco dígitos uniformes con sus familias alcanzadas y sus dos exclusiones declaradas, estabilidad y capacidad enunciadas juntas, colecciones derivadas, y titularidad con la prohibición de acuñar identificadores para artefactos de otra categoría. **§10 Datos derivados en la prosa**, con sus cuatro reglas y la restricción de que un recuento que no se puede anclar se reescribe en vez de verificarse. **§11 Apartamiento declarado**, que generaliza la figura que hoy solo admite `Rules-Documentacion.md` §2.5. **§12 Referencia pendiente**, con su cierre obligatorio y la exigencia de que la reapertura traiga el insumo. Las cuatro son transversales y entran en los insumos de todo despacho por `Master-Prompt.md` §8. Control de cambios pasa de §9 a §13. Sube **major**: el ancho de cinco dígitos hace que la documentación generada con dos dígitos deje de cumplir. Origen: reportes `01`, `05`, `06`, `08` (§9 y §11), `00` y `04` (§10), `02`, `03` y `07` (§12). Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. |
 | 5.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** §10 registra además la decisión de **no** ampliar D9 a los recuentos en prosa, con su motivo: D9 está acotada a afirmaciones sobre el estado del sistema y un recuento sobre una tabla del propio documento no lo es; las cuatro reglas de §10 consiguen el mismo efecto sin tocar una invariante. (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
 | 5.1 | 2026-08-15 | §9.1 precisa que la unicidad y el reparto de rangos son **dentro de cada familia**: solo se reparten bloques a las familias que más de una unidad de entrega produce, y una familia producida en un solo nivel conserva su numeración natural. Sube **minor**: acota una consecuencia operativa sin cambiar el ámbito de unicidad. Origen: la migración de un destino real de dos unidades de entrega. |
-| 5.2 | 2026-08-15 | §10 suma **R5: una referencia también es un dato derivado** (framework 8.4). Una ruta relativa codifica la identidad del destino y la posición relativa entre dos archivos; la segunda es una relación y se rompe cuando el destino se renombra, el documento se mueve o cambia de profundidad. Se declaran las dos obligaciones que lo resuelven: la identidad de una referencia es el identificador del destino, que es único en el producto y hace la ruta recalculable; y la ruta es derivada, de modo que una que no resuelve pero cuyo identificador existe en el árbol **se recalcula** en lugar de reportarse. Sube **minor**. Origen: cuatro de los seis huecos que una migración real destapó resultaron ser el mismo defecto, y de 703 enlaces rotos los 703 se reconectaron resolviendo por identificador, sin una sola decisión humana. |

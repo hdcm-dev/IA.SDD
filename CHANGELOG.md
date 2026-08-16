@@ -3,6 +3,34 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.4] - 2026-08-15
+
+**Los seis huecos eran dos causas.** Las versiones 8.1 a 8.3 resolvieron uno por uno los huecos que la migración de un destino real destapó. Con los seis a la vista, el análisis muestra que no eran independientes.
+
+| Causa | Huecos que explica |
+| --- | --- |
+| **Una referencia es un dato derivado, y el framework la trataba como texto** | El chequeo que incluía snapshots como origen, el archivado que no reescribía rutas, la etiqueta separada de su destino y la profundidad que cambia al fundir |
+| **Una operación produce situaciones que su regla no declara** | El puntero del snapshot al renombrar y la colisión de nombres al fundir |
+
+### Cambiado — las referencias
+
+- **`Root-Rules.md` §10 suma R5.** Una ruta relativa codifica dos cosas: la **identidad** del destino, que es un dato declarado, y la **posición relativa** entre dos archivos, que es una relación y se rompe cuando el destino se renombra, el documento se mueve o cambia de profundidad. Es el mismo defecto que R1 a R4 describen para los números. De ahí las dos obligaciones: toda referencia a un artefacto identificado **lo nombra** —`[CU-00014](ruta)`, nunca solo la ruta—, y la ruta se trata como derivada.
+- **`Master-Prompt.md` §10.0 pasa de avisar a reparar.** Una ruta que no resuelve pero cuyo identificador existe en el árbol **se recalcula y se informa como reparación**; el hallazgo queda reservado para lo que no se resuelve de forma unívoca. La compuerta deja de acumular avisos de algo que sabe arreglar.
+
+**La evidencia de que esto es recalculable y no interpretable**: de 703 enlaces rotos en el destino migrado, **los 703** se reconectaron resolviendo por identificador, sin una sola decisión humana. Un dato que un guion recalcula al cien por ciento no debería estar escrito a mano.
+
+### Cambiado — las operaciones
+
+**`SDD-Development-Guide.md` Parte IV** suma cuatro preguntas sobre lo que una operación **produce**, no sobre lo que hace. Renombrar deja punteros al nombre viejo, archivar acorta rutas relativas, fundir produce colisiones, propagar hacia una categoría aprobada produce contradicciones: son consecuencias necesarias, no casos exóticos, y sin declararlas cada agente improvisa. Es la misma pregunta que la guía ya hacía sobre los criterios de aceptación, aplicada a los verbos en lugar de a los artefactos.
+
+### Lo que queda anotado y no se hace
+
+La variante estructural: que los documentos citen **solo** por identificador y la ruta se derive de un índice de nivel producto. Resolvería el problema de raíz en lugar de repararlo, y es posible desde la 7.0 porque recién con el ámbito de unicidad en el producto un identificador es una dirección suficiente. La condición para evaluarla queda escrita en `Coherencia-Referencias-Derivadas.md` §5: **antes hay que medir** qué proporción del corpus referencia por ruta y cuál por identificador.
+
+Ninguna invariante modificada. Ninguna documentación emitida deja de cumplir. El conjunto superado se archiva en `_legacy/8.3/`.
+
+---
+
 ## [8.3] - 2026-08-15
 
 **Lo que una migración real necesitó y la regla no decía.** Tercera y última corrección salida de ejecutar la migración normativa de un destino de siete proyectos de código. Los seis huecos aparecieron uno tras otro durante la corrida, y **ninguno era detectable leyendo el framework**: el texto era coherente consigo mismo en los seis casos.
