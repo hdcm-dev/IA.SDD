@@ -3,6 +3,27 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.1] - 2026-08-15
+
+**El reparto de rangos de identificadores es por familia.** Corrección encontrada al **migrar un destino real** con la versión 8.0, antes de aplicar la migración: es el primer defecto que la validación en corrida destapa, y por eso su origen se declara.
+
+**Qué estaba mal.** `Master-Prompt.md` §3.4 repartía bloques de numeración por unidad de entrega sobre **todas** las familias, y reservaba además un rango para las de nivel producto. Aplicado a la letra sobre un destino de dos unidades de entrega, eso obligaba a renumerar **2.309 citas de `NB`** —de `NB-01` a `NB-90001`— sin que existiera una sola colisión que lo justificara: las necesidades de negocio son de nivel producto, hay un único conjunto y ninguna otra unidad las produce.
+
+**Por qué es un defecto y no una molestia.** La unicidad es **dentro de la familia**: que exista un `NB-00014` no vuelve ambiguo a un `CU-00014`, porque el prefijo los distingue. Repartir bloques donde no hay colisión posible no evita nada y obliga a renumerar, que es la operación más cara y más riesgosa del método —el reporte `01` midió que renumerar treinta y nueve archivos produjo por sí solo dos hallazgos bloqueantes—.
+
+### Cambiado
+
+- **`Master-Prompt.md` §3.4**: el reparto alcanza **solo a las familias que más de una unidad de entrega produce**. Una familia producida en un solo nivel conserva su numeración natural desde `00001` y solo respeta el ancho. El mapa declara **las dos listas** —familias repartidas y familias sin reparto, con su motivo— para que una familia sin bloque se lea como decisión y no como olvido.
+- **`Root-Rules.md` §9.1**: la consecuencia operativa se precisa en el mismo sentido.
+
+### Sobre el origen
+
+Es la primera corrección del framework que no sale de un reporte de evidencia ni de un análisis, sino de **ejecutar la migración sobre un destino**. La 8.0 se publicó sin ella porque ninguna comprobación estática podía detectarla: el texto era coherente consigo mismo, y solo al calcular el árbol de migración de un producto concreto apareció el costo de aplicarlo.
+
+Ninguna documentación emitida deja de cumplir. El conjunto superado se archiva en `_legacy/8.0/`.
+
+---
+
 ## [8.0] - 2026-08-15
 
 **El nivel de unidad de entrega.** Cierra el pendiente que `Vocabulario-Rules.md` §8 declaraba desde la versión 5.0: la unidad de entrega estaba definida y no era un nivel del layout de salida. Sube major por todo: cambia el layout, el nivel de aplicación de once categorías y el nombre de una variable bloqueante.
