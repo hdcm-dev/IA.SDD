@@ -2,7 +2,7 @@
 
 ```yaml
 Documento: Guia-Usuario-SDD.md
-Versión: 1.11
+Versión: 1.12
 Fecha: 2026-08-15
 Audiencia: profesionales y estudiantes que usan el template para un producto real
 Idioma: español rioplatense neutro técnico
@@ -42,7 +42,7 @@ Estado: vigente
 - [§6 Resolución de problemas frecuentes](#6-resolución-de-problemas-frecuentes)
 - [§7 Cómo extender el template](#7-cómo-extender-el-template)
   - [7.1 Agregar una categoría nueva](#71-agregar-una-categoría-nueva)
-  - [7.2 Agregar un tipo de unidad de entrega nuevo a D8](#72-agregar-un-tipo-de-proyecto-nuevo-a-d8)
+  - [7.2 Agregar un tipo de unidad de entrega nueva a D8](#72-agregar-un-tipo-de-proyecto-nuevo-a-d8)
   - [7.3 Agregar una variante de especialidad](#73-agregar-una-variante-de-especialidad)
   - [7.4 Agregar un modelo UX-UI al catálogo](#74-agregar-un-modelo-ux-ui-al-catálogo)
 - [§8 Cómo regenerar parcialmente](#8-cómo-regenerar-parcialmente)
@@ -152,7 +152,7 @@ SDD no es universal. Está pensado para unidades de entrega donde el esfuerzo de
 
 ### 3.3 Perfilado por tipo de unidad de entrega (D8)
 
-El template soporta 8 tipos cerrados (D8). El tipo se elige por unidad de entrega, no por repositorio ni por producto: cada unidad de entrega de la jerarquía declara exactamente uno de los 8 valores en la tabla de unidades de entrega del intake (§13), y un producto puede combinar varios tipos distintos (por ejemplo, un `rest-api` principal que depende de dos `library`). La elección del tipo de cada unidad de entrega gobierna qué documentos se generan en cada categoría para ese unidad de entrega y qué especialidad se invoca en cada subagente. Los 8 tipos confirmados son:
+El template soporta 8 tipos cerrados (D8). El tipo se elige por unidad de entrega, no por repositorio ni por producto: cada unidad de entrega de la jerarquía declara exactamente uno de los 8 valores en la tabla de unidades de entrega del intake (§13), y un producto puede combinar varios tipos distintos (por ejemplo, un `rest-api` principal que depende de dos `library`). La elección del tipo de cada unidad de entrega gobierna qué documentos se generan en cada categoría para esa unidad de entrega y qué especialidad se invoca en cada subagente. Los 8 tipos confirmados son:
 
 1. `library`: librería reutilizable, distribuida via package manager del ecosistema.
 2. `web-monolith`: aplicación web monolítica con frontend y backend acoplados.
@@ -204,7 +204,7 @@ El flujo completo del usuario tiene 6 pasos, más un paso intermedio opcional (e
 
 ### 4.1 Paso 1 — Chat informal en Claude.ai web
 
-El objetivo de este paso es armar contexto. Vas a Claude.ai en el navegador, abrís una unidad de entrega nuevo (o un chat fresco si no querés persistir), y empezás una conversación sobre el problema que vas a resolver. La regla de oro es no apurar a Claude a decidir: queremos que pregunte, que haga repreguntas y que te ayude a aclarar lo que el cliente todavía no dijo.
+El objetivo de este paso es armar contexto. Vas a Claude.ai en el navegador, abrís una unidad de entrega nueva (o un chat fresco si no querés persistir), y empezás una conversación sobre el problema que vas a resolver. La regla de oro es no apurar a Claude a decidir: queremos que pregunte, que haga repreguntas y que te ayude a aclarar lo que el cliente todavía no dijo.
 
 Un prompt inicial que funciona bien:
 
@@ -279,7 +279,7 @@ Acá entra en juego una única plantilla oficial del template, a nivel producto,
 
 - `PRODUCT-INTAKE-template.md`: el intake unificado del producto. Reemplaza a las antiguas `PROJECT-BRIEF-template.md` y `PROJECT-README-template.md` (deprecadas). Está organizado en tres partes:
   - Parte A — Negocio (§1 a §12): idea y problema, audiencia y stakeholders, propuesta de valor, alcance funcional MoSCoW, historias de usuario, flujos típicos, casos límite, métricas de éxito, exclusiones, restricciones, riesgos y glosario del dominio. Todo en lenguaje de negocio, sin decisiones técnicas.
-  - Parte B — Composición (§13 a §16): §13 la tabla de unidades de entrega tipados (cada fila una unidad de entrega con su tipo D8, rol, bandera `redistribuible` y dependencias), §14 el estilo del producto y los contratos entre unidades de entrega, §15 el esquema de descomposición y delivery, §16 la estructura de repositorio.
+  - Parte B — Composición (§13 a §16): §13 la tabla de unidades de entrega tipadas (cada fila una unidad de entrega con su tipo D8, rol, bandera `redistribuible` y dependencias), §14 el estilo del producto y los contratos entre unidades de entrega, §15 el esquema de descomposición y delivery, §16 la estructura de repositorio.
   - Parte C — Técnica por proyecto de código (§17): un bloque técnico repetible P.1 a P.12 por cada proyecto de código (stack, arquitectura, comunicación, persistencia, seguridad, testing, versionado, pipeline, compatibilidad, NFR, pre-ADR, trade-offs). Cierra con §18 estrategia de demo/samples y §19 el checklist de completitud.
 
 El tipo D8 se declara por unidad de entrega en la tabla de §13, no por el producto: el producto no tiene un D8 propio. No completás un manifiesto a mano: el `PRODUCT-MANIFEST` lo deriva el orquestador a partir de §13 (ver paso 5).
@@ -299,7 +299,7 @@ antes y completes la plantilla entera. Reglas:
    bandera redistribuible y sus dependencias. Verificá que el grafo de
    dependencias sea acíclico y que haya exactamente una unidad de entrega principal.
 3. En la Parte C, §17, repetí el bloque técnico P.1 a P.12 por cada
-   unidad de entrega declarado en §13.
+   unidad de entrega declarada en §13.
 4. Si falta información para algún campo, marcalo como PENDIENTE y
    listá al final las preguntas concretas que necesitás que yo le
    responda antes de seguir.
@@ -964,7 +964,7 @@ SDD/Docs/
 ├── Producto/
 │   ├── Vista-Producto.md
 │   └── Pipeline-Producto.md
-├── Proyectos/
+├── Unidades-Entrega/
 │   ├── Aplicada-Validaciones/02..11/
 │   ├── Gestion-De-Turnos-Domain/02..11/
 │   ├── Gestion-De-Turnos-API/02..11/
@@ -972,7 +972,7 @@ SDD/Docs/
 └── README.md                            # README raíz de producto
 ```
 
-Comparado con el caso 5.1 (degenerado), las diferencias visibles son: el subnivel `Proyectos/<Nombre>/`, la carpeta `Producto/` con sus dos artefactos, y que `00`/`01` quedan a nivel producto en vez de mezclados con el resto de las categorías.
+Comparado con el caso 5.1 (degenerado), las diferencias visibles son: el subnivel `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, la carpeta `Producto/` con sus dos artefactos, y que `00`/`01` quedan a nivel producto en vez de mezclados con el resto de las categorías.
 
 ---
 
@@ -993,7 +993,7 @@ Pasos:
 
 ### F-02 — Generó un documento que no aplica al tipo de una unidad de entrega, ¿cómo lo saco?
 
-Revisá primero el `tipo_unidad_entrega` de la unidad de entrega en §13 del `PRODUCT-INTAKE` (la tabla de unidades de entrega). Si el tipo está mal, corregilo en §13 del intake; el orquestador re-deriva el manifiesto y regenera lo afectado de ese unidad de entrega. Si está bien, abrí el archivo de reglas correspondiente (`Rules-<Categoria>.md`), verificá §2.1 y §2.2 (tabla maestra de documentos y reglas por tipo). Si el documento estaba marcado como "Omitir" para ese tipo y aun así se generó, es un bug del subagente. Pedile al orquestador que regenere esa categoría para ese unidad de entrega con instrucciones explícitas.
+Revisá primero el `tipo_unidad_entrega` de la unidad de entrega en §13 del `PRODUCT-INTAKE` (la tabla de unidades de entrega). Si el tipo está mal, corregilo en §13 del intake; el orquestador re-deriva el manifiesto y regenera lo afectado de esa unidad de entrega. Si está bien, abrí el archivo de reglas correspondiente (`Rules-<Categoria>.md`), verificá §2.1 y §2.2 (tabla maestra de documentos y reglas por tipo). Si el documento estaba marcado como "Omitir" para ese tipo y aun así se generó, es un bug del subagente. Pedile al orquestador que regenere esa categoría para esa unidad de entrega con instrucciones explícitas.
 
 Si simplemente decidiste que no querés ese documento aunque la regla lo recomiende, eliminalo a mano y registrá un ADR en `SDD/Docs/05-Arquitectura-Tecnica/` documentando la omisión.
 
@@ -1059,7 +1059,7 @@ Es el comportamiento correcto. El intake incompleto es la principal fuente de do
 2. Volvé a Claude.ai web o respondé directamente al orquestador con los datos faltantes.
 3. Si la información no existe (no sabés la respuesta y no podés consultar al cliente), tenés dos opciones: documentar un valor por defecto asumido explícitamente (queda como decisión a confirmar) o pausar la generación hasta tener la respuesta. No inventes.
 
-### F-09 — ¿Cómo agrego información nueva al unidad de entrega a mitad del flujo?
+### F-09 — ¿Cómo agrego información nueva a la unidad de entrega a mitad del flujo?
 
 Si la información nueva afecta el intake (por ejemplo, el cliente cambió el alcance o agregó una restricción nueva):
 
@@ -1290,7 +1290,7 @@ Pasos:
 
 Tiempo estimado: medio día para la definición, otro medio día para la prueba.
 
-### 7.2 Agregar un tipo de unidad de entrega nuevo a D8
+### 7.2 Agregar un tipo de unidad de entrega nueva a D8
 
 D8 son los 8 valores cerrados: `library`, `web-monolith`, `web-microservices`, `desktop-app`, `mobile-app-maui`, `rest-api`, `cli-tool`, `worker-service`. Agregar un tipo nuevo (por ejemplo `embedded-firmware`) implica:
 
@@ -1474,7 +1474,7 @@ Términos esenciales para usar el template. Para el glosario exhaustivo del marc
 | Contexto de lectura | Lo que un lector tiene efectivamente delante. Para vos es el documento; **para un subagente es la sección**, porque el orquestador le entrega secciones nombradas y no archivos completos. De ahí sale el criterio de cuándo una palabra ambigua es un problema real: si sus sentidos se distinguen solo leyendo el documento entero, para el subagente colisionan. |
 | Glosario de categoría | Cada categoría declara los términos que acuña y que usa en más de uno de sus artefactos: `Glosario-Funcional.md` en 02, `Glosario-UX.md` en 03, `Glosario-Tecnico.md` en 11. No se duplican entre sí: el término ya declarado se referencia. Un término con más de un referente los enumera. El criterio de cuándo desambiguar vive en `Vocabulario-Rules.md` §9. |
 | Manifiesto de producto | Documento `PRODUCT-MANIFEST-<Slug-Producto>.md`. Artefacto derivado por el orquestador a partir de §13 del intake (no lo completa el usuario): enumeración de unidades de entrega, su D8, rol, dependencias, nombres de código derivados y perfil de nombres. Su grafo es acíclico (DAG). El usuario lo confirma; no lo escribe a mano. |
-| Proyecto de código principal | El unidad de entrega cabeza del producto. El manifiesto declara exactamente uno; es una validación bloqueante. |
+| Proyecto de código principal | La unidad de entrega cabeza del producto. El manifiesto declara exactamente uno; es una validación bloqueante. |
 | Orden topológico | Orden de generación y build derivado del grafo de dependencias: primero los proyectos de código sin dependencias, luego los que dependen de proyectos de código ya resueltos. Ninguno arranca antes que sus dependencias. |
 | Caso degenerado | Producto de un solo unidad de entrega. El orquestador aplana el layout (00..11 directo bajo `docs/`, sin `Unidades-Entrega/<Nombre>/` ni `Producto/`). Equivale al template de tipo único anterior. |
 | Vista de producto | Artefacto de nivel producto (`Producto/Vista-Producto.md`), solo si hay más de una unidad de entrega. Contiene el mapa de unidades de entrega, los contratos inter-proyecto y el grafo de dependencias. |
@@ -1650,7 +1650,7 @@ mi-proyecto/
 │   │   │           ├── Referencia-API.md
 │   │   │           └── Troubleshooting.md
 │   │   └── README.md                                     # README raíz consolidado del producto
-│   └── Maquetas/                                         # Solo si algún unidad de entrega ejecutó la Fase B2
+│   └── Maquetas/                                         # Solo si alguna unidad de entrega ejecutó la Fase B2
 │       └── <Nombre-Unidad-Entrega>/                            # Una maqueta por unidad de entrega visual
 │           ├── index.html                                # Punto de entrada con la navegación
 │           ├── <Superficie>.html                         # Una superficie por archivo
@@ -1677,7 +1677,7 @@ Notas sobre el árbol:
 - La carpeta `Producto/` y sus dos artefactos (vista de producto y pipeline de producto) se generan solo cuando hay más de una unidad de entrega.
 - Caso degenerado (producto de un solo unidad de entrega): el orquestador aplana el layout. Las categorías `00` a `11` van directo bajo `SDD/Docs/` (sin el subnivel `Unidades-Entrega/<Nombre>/` y sin la carpeta `Producto/`), igual que en el árbol del template de tipo único. El README raíz se genera siempre.
 - `AGENTS.md` vive en la raíz del repositorio, fuera de `SDD/`. Es la única salida del orquestador que no está bajo `SDD/`, y es a propósito: las herramientas de agentes lo buscan ahí. Se emite en la primera corrida de la Fase I.
-- `SDD/Maquetas/` aparece solo si algún unidad de entrega ejecutó la Fase B2. Es hermana de `SDD/Docs/` y no está dentro de ella: `SDD/Docs/` es exclusivamente prosa generada por el orquestador, y la maqueta es material ejecutable que vos editás a mano durante la validación.
+- `SDD/Maquetas/` aparece solo si alguna unidad de entrega ejecutó la Fase B2. Es hermana de `SDD/Docs/` y no está dentro de ella: `SDD/Docs/` es exclusivamente prosa generada por el orquestador, y la maqueta es material ejecutable que vos editás a mano durante la validación.
 - El catálogo de modelos UX-UI (`Devs/Modelos-UX-UI/`) y sus ejemplos ejecutables (`Templates/`, en la raíz del repositorio fuente `IA.SDD`, hermana de `SDD/`) viven del lado del template, no del repositorio destino. Se poblan solo si aceptás capitalizar el diseño de una maqueta aprobada.
 - El árbol mostrado es el caso completo; tu producto va a tener algunas omisiones por unidad de entrega según el `tipo_unidad_entrega` de cada uno y sus flags.
 
@@ -1685,7 +1685,7 @@ Notas sobre el árbol:
 
 ## Resumen ejecutivo
 
-Esta guía de usuario está distribuida en 10 capítulos completos según la estructura solicitada, actualizada al modelo de producto más jerarquía de proyectos de código con intake unificado. Explica que un producto agrupa N proyectos de código (con N mayor o igual a 1), cada uno con uno de los 8 tipos D8, y que el usuario completa un único documento de intake: el PRODUCT-INTAKE (Parte A negocio §1-§12, Parte B composición con la tabla de proyectos de código de §13, Parte C técnica por proyecto de código §17 con bloque P.1-P.12), que reemplaza a las antiguas PROJECT-BRIEF y PROJECT-README. El PRODUCT-MANIFEST ya no lo completa el usuario: el orquestador lo deriva de §13 durante una Fase de validación de intake (previa a la Fase A, dirigida por Intake-Rules.md), que valida la completitud, emite una batería consolidada de preguntas si falta algo bloqueante y presenta el manifiesto derivado para confirmación. Incluye 4 mini-casos aplicados: tres productos de un proyecto de código (rest-api de gestión de turnos médicos, library de parsing CSV, mobile-app-maui de inventario de almacén), enmarcadas como caso degenerado, y un producto multi-proyecto (gestión de turnos con cuatro proyectos de código: api, domain, notificaciones y un paquete redistribuible) con su tabla de proyectos de código en §13, su manifiesto derivado, grafo de dependencias y orden topológico. Documenta además la Fase B2 de validación visual de maqueta, opcional y por proyecto de código: el orquestador materializa la especificación de la categoría 03 en una maqueta navegable (HTML, CSS, Bootstrap 5 y JavaScript estáticos, sin proceso de build), la abre en el navegador, la corrige por prompt o toma las correcciones manuales del humano, retroalimenta la documentación propagando hacia atrás y hacia adelante, ofrece capitalizar el diseño como modelo UX-UI reutilizable del template, y emite la línea de base del sensado de deriva, el instrumento con el que el equipo verifica sprint a sprint que lo construido sigue siendo lo aprobado. Aporta 29 entradas de FAQ con respuestas concretas y accionables. Ilustra explícitamente los 8 tipos D8 confirmados (library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service) y la convención de nombres de código `<Raiz-Codigo>.<Sufijo>` con la excepción `Aplicada` para redistribuibles, junto con un mapa visual ASCII completo de la estructura de carpetas (00/01 a nivel producto, `Producto/`, `Proyectos/<Nombre>/02..11/` y README raíz, con el aplanado del caso degenerado).
+Esta guía de usuario está distribuida en 10 capítulos completos según la estructura solicitada, actualizada al modelo de dos ejes: unidades de entrega y proyectos de código con intake unificado. Explica que un producto agrupa N proyectos de código (con N mayor o igual a 1), cada uno con uno de los 8 tipos D8, y que el usuario completa un único documento de intake: el PRODUCT-INTAKE (Parte A negocio §1-§12, Parte B composición con las dos tablas de §13 —unidades de entrega y proyectos de código— y su matriz, Parte C técnica por unidad de entrega §17 con bloque P.1-P.12), que reemplaza a las antiguas PROJECT-BRIEF y PROJECT-README. El PRODUCT-MANIFEST ya no lo completa el usuario: el orquestador lo deriva de §13 durante una Fase de validación de intake (previa a la Fase A, dirigida por Intake-Rules.md), que valida la completitud, emite una batería consolidada de preguntas si falta algo bloqueante y presenta el manifiesto derivado para confirmación. Incluye 4 mini-casos aplicados: tres productos de un proyecto de código (rest-api de gestión de turnos médicos, library de parsing CSV, mobile-app-maui de inventario de almacén), enmarcadas como caso degenerado, y un producto multi-proyecto (gestión de turnos con cuatro proyectos de código: api, domain, notificaciones y un paquete redistribuible) con su tabla de proyectos de código en §13, su manifiesto derivado, grafo de dependencias y orden topológico. Documenta además la Fase B2 de validación visual de maqueta, opcional y por unidad de entrega: el orquestador materializa la especificación de la categoría 03 en una maqueta navegable (HTML, CSS, Bootstrap 5 y JavaScript estáticos, sin proceso de build), la abre en el navegador, la corrige por prompt o toma las correcciones manuales del humano, retroalimenta la documentación propagando hacia atrás y hacia adelante, ofrece capitalizar el diseño como modelo UX-UI reutilizable del template, y emite la línea de base del sensado de deriva, el instrumento con el que el equipo verifica sprint a sprint que lo construido sigue siendo lo aprobado. Aporta 29 entradas de FAQ con respuestas concretas y accionables. Ilustra explícitamente los 8 tipos D8 confirmados (library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service) y la convención de nombres de código `<Raiz-Codigo>.<Sufijo>` con la excepción `Aplicada` para redistribuibles, junto con un mapa visual ASCII completo de la estructura de carpetas (00/01 a nivel producto, `Producto/`, `Unidades-Entrega/<Nombre-Unidad-Entrega>/02..11/` y README raíz, con el aplanado del caso degenerado).
 
 ---
 
@@ -1704,6 +1704,7 @@ Esta guía de usuario está distribuida en 10 capítulos completos según la est
 | 1.9 | 2026-07-29 | Puesta al día del árbol de la fuente contra el conjunto 6.0. **§4.4** listaba «el `Master-Prompt.md` en `Orchestrator/`» y «las cinco reglas transversales … diecisiete archivos en total»: pasa a los dos master-prompts, con la distinción entre el que genera y el que migra, y a las seis transversales con `Migracion-Rules.md`, dieciocho en total. El comentario del comando `ls` de esa sección también nombraba un solo archivo de `Orchestrator/`, así que el usuario que corría la verificación veía dos archivos donde la guía le anunciaba uno. **§10 corrige una afirmación falsa**: la entrada de glosario *Master-prompt* declaraba «Archivo único `Master-Prompt.md`», y hay dos en esa carpeta; pasa a declarar los dos con su función. La entrada *Procedencia del framework* suma las plantillas de intake al contenido del bloque, y declara que la migración normativa lo reescribe al cerrar. **§8 suma su nota de ruteo**: distingue el motivo por el que se regenera parcialmente —cambió el producto— del motivo por el que se migra —cambió el framework—, porque confundirlos hace regenerar contenido que la migración habría preservado, y la sección era el lugar donde un usuario con documentación desactualizada iba a buscar. Sube minor: corrige conteos y una afirmación falsa, y agrega ruteo, sin cambiar ningún paso. | Framework SDD (migración normativa) |
 | 1.10 | 2026-08-15 | Actualización de cara al usuario por la intervención sobre los reportes 00 a 11 (framework 7.0). §10.1 suma cinco entradas al glosario rápido: **identificador**, con el ancho de cinco dígitos y el ámbito de unicidad producto; **compuerta mecánica**, que corre antes de cada audit y declara qué no miró; **decisiones pendientes**, el registro único que el orquestador exhibe al cerrar cada fase; **referencia pendiente**, la forma de citar algo que todavía no se emitió, con su cierre que trae el insumo; y **apartamiento declarado**, el ADR que admite no emitir un artefacto obligatorio. §6 suma F-30, sobre por qué el ancho es una decisión de capacidad y no una convención tipográfica, con la medición de 191 estados y 374 sondas que lo originó, y F-31, sobre qué le pasa a un destino migrado cuando cambia la forma de los identificadores y por qué la migración se hace en dos pasadas. Los identificadores de ejemplo del documento pasan a cinco dígitos. |
 | 1.11 | 2026-08-15 | Actualización de cara al usuario por el nivel de unidad de entrega (framework 8.0). §1 reemplaza «Producto y proyecto de código» por **los dos ejes del producto**, con la relación de muchos a muchos entre ellos, el caso del proyecto compartido y la aclaración de que las once categorías cuelgan de la unidad de entrega. Se incorpora el **test de tres preguntas** para decidir si un conjunto de capacidades es un producto o varios, con el precio declarado de partir en dos: la trazabilidad se corta en la frontera. El resto de la guía pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, y conserva el proyecto de código donde el referente es la unidad de compilación. |
+| 1.12 | 2026-08-16 | Barrido del layout de la 8.0. El árbol del caso multi-unidad de §5.2 y el mapa ASCII del resumen ejecutivo seguían mostrando `Proyectos/<Nombre>/`, que es el layout que la 8.0 reemplazó, con lo cual la guía le enseñaba al usuario una estructura que el framework ya no genera. El resumen ejecutivo declara además la Parte B con **sus dos tablas** y la Parte C **por unidad de entrega**. Doce concordancias de género de la sustitución léxica de la 8.0 (`Vocabulario-Rules.md` §9.5). |
 
 ---
 

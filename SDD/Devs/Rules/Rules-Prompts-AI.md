@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/04-Prompts-AI/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Ingeniero de Prompts / AI Specialist (AG-04)
-**Versión de las reglas:** 4.0
+**Versión de las reglas:** 4.1
 
 ---
 
@@ -259,7 +259,7 @@ Tabla de trazabilidad del prompt:
 
 ### 5.1 Upstream
 
-- ¿El unidad de entrega declara `usa_llm = true` en el PRODUCT-INTAKE §17 P.11 o una NFR de IA en §17 P.10? Sin esa declaración, no se genera la categoría.
+- ¿La unidad de entrega declara `usa_llm = true` en el PRODUCT-INTAKE §17 P.11 o una NFR de IA en §17 P.10? Sin esa declaración, no se genera la categoría.
 - ¿Qué CU de la unidad de entrega delegan en LLM? ¿Hay CU que mencionan IA sin declarar prompt asociado?
 - ¿Qué NB upstream motivan cada prompt?
 
@@ -333,7 +333,7 @@ auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
 
 ## 7. Ejemplos genéricos
 
-Los ejemplos son ilustrativos y de dominios distintos al material fuente. No deben copiarse literalmente a ningún unidad de entrega.
+Los ejemplos son ilustrativos y de dominios distintos al material fuente. No deben copiarse literalmente a ninguna unidad de entrega.
 
 ### 7.1 Ejemplo 1 — Fragmento de prompt para un web-monolith de mesa de ayuda
 
@@ -445,7 +445,7 @@ Política de versionado: §3.5; una sola versión vigente; anteriores a `_legacy
 
 Restricciones: no introducir stacks concretos, productos comerciales del dominio fuente ni protocolos específicos de impresión. Idioma rioplatense técnico, tildes correctas, sin emojis.
 
-Salida: SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/04-Prompts-AI/<estructura>.
+Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/04-Prompts-AI/<estructura>.
 ```
 
 ---
@@ -464,3 +464,4 @@ Salida: SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/04-Prompts-AI/<estructura>
 | 3.1 | 2026-07-29 | Criterio de gobierno del glosario en §6. Sube minor: agrega criterios de aceptación verificables sin cambiar el conjunto de artefactos de la categoría ni ninguna invariante, y ninguna documentación ya emitida deja de cumplir por sí sola. Los tres criterios exigen que todo término que la categoría acuña o precisa y usa en más de uno de sus artefactos esté declarado en el glosario que le corresponde, que ninguna forma desnuda de un término polisémico quede sin resolver en un artefacto que se lee por secciones, y —criterio negativo— que ninguna polisemia con contextos disjuntos se reporte como defecto. Materializan `Vocabulario-Rules.md` §9 en la categoría. **Origen**: el audit verificaba «glosario sin contradicciones», que un glosario incompleto cumple trivialmente, y esta regla no mencionaba la palabra «glosario» ni una vez. |
 | 3.2 | 2026-08-15 | Criterio de gobierno de glosario, primera cláusula (intervención reportes 00 a 11). §6 pasa a distinguir el **vocabulario del método** —el que el framework acuña e impone a la categoría, que vive en el glosario operativo de `Master-Prompt.md` §15 y se cita sin redefinir— del **vocabulario del producto**, que va al glosario que corresponda. El criterio estaba replicado en once reglas mandando a nueve destinos distintos, casi todos glosarios del producto, y la política correcta estaba escrita una sola vez, en `Rules-Plan-Sprint.md` §6 y sobre términos que ya estaban resueltos. Sube **minor**: precisa un criterio existente. Origen: reporte `11`, propuesta 1. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. Se incorpora además el tratamiento de las obligaciones hacia una fase posterior que la comprobación del grafo de `Master-Prompt.md` §6 detectó al correrse sobre las doce reglas: las referencias afectadas se declaran con la forma de `Root-Rules.md` §12. |
 | 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
+| 4.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |

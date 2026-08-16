@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/03-UX-UI-DX/` para la línea de base, `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/08-Calidad-Y-Pruebas/` para la matriz de sensado
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** el subagente de la categoría que emite la afirmación; el auditor independiente para la verificación
-**Versión de las reglas:** 5.0
+**Versión de las reglas:** 5.1
 
 ---
 
@@ -183,7 +183,7 @@ El sensado no es un evento único al final. Son cinco momentos, cada uno con su 
 | Al cerrar cada sprint de codificación | El humano, asistido por el orquestador | Verificación de las filas cuyos elementos toca el sprint. En las `VER-XXXXX` esto significa correr el comando del contrato y volcar la salida real al campo `evidencia` del sample | Matriz con estado y fecha actualizados, derivas mayores escaladas |
 | Ante una regeneración parcial | El orquestador | Revalidación de las filas que dependen de lo regenerado | Filas afectadas devueltas a `Sin verificar` |
 
-El cuarto momento es el que da valor a todo lo anterior. Ocurre durante la codificación, y es el punto donde las dos clases de sonda se comportan distinto: una `SUP-XXXXX` exige que alguien mire y compare, mientras que una `VER-XXXXX` se corre sola y devuelve un veredicto. Esa asimetría es deliberada, y es la razón por la que conviene que todo unidad de entrega tenga sondas de comportamiento aunque no tenga superficie visual.
+El cuarto momento es el que da valor a todo lo anterior. Ocurre durante la codificación, y es el punto donde las dos clases de sonda se comportan distinto: una `SUP-XXXXX` exige que alguien mire y compare, mientras que una `VER-XXXXX` se corre sola y devuelve un veredicto. Esa asimetría es deliberada, y es la razón por la que conviene que toda unidad de entrega tenga sondas de comportamiento aunque no tenga superficie visual.
 
 Por eso el resumen ejecutivo del handoff (§12 del master-prompt) entrega la matriz explícitamente: es el instrumento que el equipo se lleva al ciclo de desarrollo.
 
@@ -227,7 +227,7 @@ auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
 - [ ] [interpretativo] Ninguna evidencia citada apunta a una ruta, identificador o comando que no resuelve.
 - [ ] [interpretativo] El resumen ejecutivo del handoff incluye la matriz de sensado con el estado de cada fila.
 - [ ] [interpretativo] En unidades de entrega con categoría 10: la matriz tiene una fila `VER-XXXXX` por cada contrato de verificación declarado en `10-Examples`, sin contratos huérfanos ni filas sin contrato que las respalde.
-- [ ] [interpretativo] Ningún unidad de entrega con categoría 10 queda sin `Matriz-Sensado-Deriva.md`, aunque no haya ejecutado Fase B2.
+- [ ] [interpretativo] Ninguna unidad de entrega con categoría 10 queda sin `Matriz-Sensado-Deriva.md`, aunque no haya ejecutado Fase B2.
 - [ ] [interpretativo] El método de verificación de cada fila `VER-XXXXX` es el comando declarado en su contrato, o su desvío está justificado en la propia fila.
 - [ ] [interpretativo] La evidencia de cada fila `VER-XXXXX` cita el campo `evidencia` del sample por identificador, con su fecha, y no se transcribe duplicada en la matriz.
 - [ ] [interpretativo] Los nombres canónicos de superficie, componente, estado y navegación de la línea de base (`SUP`, `CMP`, `EST`, `NAV`) coinciden término por término con los que usa `03-UX-UI-DX` y están declarados en `Glosario-UX.md`. Un nombre de superficie que la línea de base inventa vuelve inservible el sensado: lo que se compara ya no es lo que se aprobó.
@@ -270,9 +270,9 @@ Insumos obligatorios:
 - 02 de la unidad de entrega: modelo conceptual de datos, CU y RN.
 
 A generar:
-- SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/03-UX-UI-DX/Linea-Base-Visual.md
-- SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/03-UX-UI-DX/Contrato-Datos-Maqueta.md
-- SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/08-Calidad-Y-Pruebas/Matriz-Sensado-Deriva.md
+- SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/03-UX-UI-DX/Linea-Base-Visual.md
+- SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/03-UX-UI-DX/Contrato-Datos-Maqueta.md
+- SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/08-Calidad-Y-Pruebas/Matriz-Sensado-Deriva.md
 
 Reglas: §1 a §5 de Deriva-Rules.md.
 Identificadores: SUP-XXXXX, CMP-XXXXX, EST-XXXXX, NAV-XXXXX, DM-XXXXX, SD-XXXXX, con el ancho uniforme de `Root-Rules.md` §9.2, únicos en el producto y estables.
@@ -303,3 +303,4 @@ Devolución:
 | 3.1 | 2026-07-29 | Coherencia de nombres de la línea de base con el glosario de 03, en §6. Sube minor: agrega dos criterios de aceptación sin cambiar los artefactos ni los umbrales. El primero exige que los nombres canónicos `SUP`, `CMP`, `EST` y `NAV` coincidan término por término con los de `03-UX-UI-DX` y estén declarados en `Glosario-UX.md`, porque un nombre de superficie que la línea de base inventa vuelve inservible el sensado: lo que se compara deja de ser lo que se aprobó. El segundo incorpora el criterio negativo de `Vocabulario-Rules.md` §9.1. **Origen**: era el único archivo de reglas que no mencionaba el glosario ni una vez pese a emitir un inventario de nombres. |
 | 4.0 | 2026-08-15 | Ancho y colección derivada (intervención reportes 00 a 11). §2.1 deja de fijar «dos dígitos uniformes» y remite al sistema de identificadores de `Root-Rules.md` §9, con cinco dígitos y ámbito producto; se enuncia junto a la estabilidad la consecuencia que ninguna regla decía: el rango se dimensiona por el total histórico y no por el vigente. §2.3 declara la matriz de sensado como **colección derivada**, que dimensiona sobre la suma de sus fuentes y las nombra en su encabezado. El defecto era estructural y no de escala: la regla fijaba un ancho de dos dígitos para la tabla que el propio framework define como derivada de todas las otras, garantizando el choque; una corrida real emitió 191 estados y 374 sondas, y el agente tuvo que elegir entre tres salidas sin ningún criterio del método para preferir una. Sube **major**: la línea de base y la matriz generadas con dos dígitos dejan de cumplir. Origen: reporte `05`. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. |
 | 5.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
+| 5.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |

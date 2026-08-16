@@ -7,7 +7,7 @@
 **Carpeta target (caso degenerado, producto de una unidad de entrega):** `SDD/Docs/11-Documentacion/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto
 **Subagente target del orquestador:** Technical Writer / Documentation Lead (AG-11)
-**Versión de las reglas:** 5.0
+**Versión de las reglas:** 5.1
 
 ---
 
@@ -341,7 +341,7 @@ El gating es de granularidad por cuerpo, no por categoría.
 | `desktop-app` | Opcional (solo si publica SDK de plugins) | **Obligatorio** | No aplica; se reemplaza por guía de instalación y actualización |
 | `mobile-app-maui` | Opcional (solo si publica SDK) | **Obligatorio** | No aplica; la distribución por store ya vive en 09 |
 
-El cambio de fondo respecto del gating anterior: **el cuerpo mantenedor es obligatorio para los ocho tipos, sin excepción**. Todo unidad de entrega va a ser retomado por alguien, incluso aquellos sin integrador externo, y ese alguien puede no haber participado de ninguna fase de su especificación. La categoría 11 deja de ser opcional para cuatro de los ocho tipos y pasa a existir siempre; lo que varía es qué cuerpos se materializan dentro de ella.
+El cambio de fondo respecto del gating anterior: **el cuerpo mantenedor es obligatorio para los ocho tipos, sin excepción**. Toda unidad de entrega va a ser retomado por alguien, incluso aquellos sin integrador externo, y ese alguien puede no haber participado de ninguna fase de su especificación. La categoría 11 deja de ser opcional para cuatro de los ocho tipos y pasa a existir siempre; lo que varía es qué cuerpos se materializan dentro de ella.
 
 Dentro del cuerpo integrador, el gating fino por artefacto es el siguiente:
 
@@ -1002,7 +1002,7 @@ Criterios de calidad: §6 de Rules-Documentacion.md.
 
 Restricciones: no generar documentación para el usuario final no técnico (fuera de alcance del framework). No incorporar reglas de indexado de conocimiento. No introducir productos comerciales ni protocolos del dominio fuente en los nombres de archivo. Idioma rioplatense técnico, tildes correctas, sin emojis ni negritas decorativas.
 
-Salida: SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/11-Documentacion/<estructura> y SDD/Docs/Producto/11-Documentacion/<estructura> en el repo del producto, más AGENTS.md en su raíz.
+Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/11-Documentacion/<estructura> y SDD/Docs/Producto/11-Documentacion/<estructura> en el repo del producto, más AGENTS.md en su raíz.
 ```
 
 ---
@@ -1022,3 +1022,4 @@ Salida: SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/11-Documentacion/<estructu
 | 4.1 | 2026-07-29 | Criterio de gobierno del glosario en §6. Sube minor: agrega criterios de aceptación verificables sin cambiar el conjunto de artefactos de la categoría ni ninguna invariante, y ninguna documentación ya emitida deja de cumplir por sí sola. Los tres criterios exigen que todo término que la categoría acuña o precisa y usa en más de uno de sus artefactos esté declarado en el glosario que le corresponde, que ninguna forma desnuda de un término polisémico quede sin resolver en un artefacto que se lee por secciones, y —criterio negativo— que ninguna polisemia con contextos disjuntos se reporte como defecto. Materializan `Vocabulario-Rules.md` §9 en la categoría. **Origen**: el audit verificaba «glosario sin contradicciones», que un glosario incompleto cumple trivialmente, y esta regla mencionaba el glosario sin verificarlo en §6. | Revisión SDD |
 | 4.2 | 2026-08-15 | Criterio de gobierno de glosario, primera cláusula (intervención reportes 00 a 11). §6 pasa a distinguir el **vocabulario del método** —el que el framework acuña e impone a la categoría, que vive en el glosario operativo de `Master-Prompt.md` §15 y se cita sin redefinir— del **vocabulario del producto**, que va al glosario que corresponda. El criterio estaba replicado en once reglas mandando a nueve destinos distintos, casi todos glosarios del producto, y la política correcta estaba escrita una sola vez, en `Rules-Plan-Sprint.md` §6 y sobre términos que ya estaban resueltos. Sube **minor**: precisa un criterio existente. Origen: reporte `11`, propuesta 1. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. | Framework SDD (intervención reportes 00-11) |
 | 5.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. | Framework SDD (nivel de unidad de entrega) |
+| 5.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir.  Framework SDD (barrido del layout 8.0) |

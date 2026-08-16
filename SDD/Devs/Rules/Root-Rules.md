@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-ROOT)
-**Versión de las reglas:** 5.2
+**Versión de las reglas:** 5.3
 
 ---
 
@@ -302,7 +302,7 @@ asincrónica y reutiliza un paquete de validaciones independiente del producto.
 | --- | --- | --- | --- |
 | 00-Contexto | Visión, alcance, roadmap | AG-00 | [00-Contexto](00-Contexto/) |
 | Producto | Vista y pipeline de producto | AG-05, AG-09 | [Producto](Producto/) |
-| Proyectos/Gestion-De-Turnos-API | Documentación de la API | AG-02 a AG-11 | [api](Proyectos/Gestion-De-Turnos-API/) |
+| Unidades-Entrega/Gestion-De-Turnos-API | Documentación de la unidad de entrega | AG-02 a AG-11 | [api](Unidades-Entrega/Gestion-De-Turnos-API/) |
 ```
 
 ### 7.2 Ejemplo B: Producto de una unidad de entrega (caso degenerado), librería de parsing CSV
@@ -365,7 +365,7 @@ Sos un {{ESPECIALIDAD-VARIANTE}} (Arquitecto de Soluciones Senior más la varian
 Insumos:
 - PRODUCT-MANIFEST: {{path}} (enumeración de unidades de entrega, tipo D8, rol, dependencias, nombres de código).
 - PRODUCT-INTAKE: {{path}}
-- Documentos upstream ya generados: las categorías de producto (00, 01), la vista y el pipeline de producto (`Producto/`) y la documentación de cada unidad de entrega (`Proyectos/<Nombre>/`).
+- Documentos upstream ya generados: las categorías de producto (00, 01), la vista y el pipeline de producto (`Producto/`) y la documentación de cada unidad de entrega (`Unidades-Entrega/<Nombre-Unidad-Entrega>/`).
 
 Reglas de redacción: §4 de Root-Rules.md.
 Trazabilidad esperada: presentar la tabla de unidades de entrega (D8, rol, dependencias) y enlazar las categorías de producto y la carpeta de cada unidad de entrega con descripción de propósito.
@@ -615,3 +615,4 @@ Una referencia pendiente que sigue abierta al cierre del producto es hallazgo P0
 | 5.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** §10 registra además la decisión de **no** ampliar D9 a los recuentos en prosa, con su motivo: D9 está acotada a afirmaciones sobre el estado del sistema y un recuento sobre una tabla del propio documento no lo es; las cuatro reglas de §10 consiguen el mismo efecto sin tocar una invariante. (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
 | 5.1 | 2026-08-15 | §9.1 precisa que la unicidad y el reparto de rangos son **dentro de cada familia**: solo se reparten bloques a las familias que más de una unidad de entrega produce, y una familia producida en un solo nivel conserva su numeración natural. Sube **minor**: acota una consecuencia operativa sin cambiar el ámbito de unicidad. Origen: la migración de un destino real de dos unidades de entrega. |
 | 5.2 | 2026-08-15 | §10 suma **R5: una referencia también es un dato derivado** (framework 8.4). Una ruta relativa codifica la identidad del destino y la posición relativa entre dos archivos; la segunda es una relación y se rompe cuando el destino se renombra, el documento se mueve o cambia de profundidad. Se declaran las dos obligaciones que lo resuelven: la identidad de una referencia es el identificador del destino, que es único en el producto y hace la ruta recalculable; y la ruta es derivada, de modo que una que no resuelve pero cuyo identificador existe en el árbol **se recalcula** en lugar de reportarse. Sube **minor**. Origen: cuatro de los seis huecos que una migración real destapó resultaron ser el mismo defecto, y de 703 enlaces rotos los 703 se reconectaron resolviendo por identificador, sin una sola decisión humana. |
+| 5.3 | 2026-08-16 | Barrido del layout de la 8.0. El **Ejemplo A** de §7.1 seguía publicando su mapa de documentación sobre `Proyectos/<Nombre>/` —el layout que la 8.0 reemplazó—, con lo cual el ejemplo canónico de un README raíz contradecía a §2.1 del mismo archivo. El bloque de insumos de §8 nombra `Unidades-Entrega/<Nombre-Unidad-Entrega>/`. Concordancias de género de la sustitución léxica de la 8.0 (`Vocabulario-Rules.md` §9.5). Sube **patch**. |

@@ -1,7 +1,7 @@
 # Marco Teórico SDD
 
 **Documento:** Marco-Teorico-SDD.md
-**Versión:** 3.1
+**Versión:** 3.2
 **Estado:** Aprobado
 **Fecha:** 2026-07-19
 **Autor:** Equipo Template SDD — UTN
@@ -141,7 +141,7 @@ La separación entre el plano `Devs/` de la fuente y el plano `Docs/` del destin
 
 Este template se construyó a partir de la auditoría del fuente SDD 1.0 aplicado al caso de estudio histórico Motor DSL en la cátedra de Aplicada del cuatrimestre 2026. El audit Fase 0 (ver `../IA.SDD/SDD/Devs/Bootstrap/Audit-SDD1.md`) inventarió 161 archivos markdown, identificó 14 patrones repetibles, 14 inconsistencias y un mapa de cobertura por capítulo. Sobre ese análisis se generalizó el material domain-specific para producir el template stack-agnóstico que SDD propone.
 
-Las menciones al caso original se conservan exclusivamente como referencia formal del origen, no como contenido canónico del template. El template SDD cubre ocho tipos de unidad de entrega distintos (decisión D8): library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service. Estos ocho valores son un conjunto cerrado que no cambia; lo que el modelo reformulado introdujo (ver §3.10) es que el tipo D8 se asigna por unidad de entrega y un producto agrupa una jerarquía de N unidades de entrega tipados, en lugar de asumir un único tipo por repositorio.
+Las menciones al caso original se conservan exclusivamente como referencia formal del origen, no como contenido canónico del template. El template SDD cubre ocho tipos de unidad de entrega distintos (decisión D8): library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service. Estos ocho valores son un conjunto cerrado que no cambia; lo que el modelo reformulado introdujo (ver §3.10) es que el tipo D8 se asigna por unidad de entrega y un producto agrupa una jerarquía de N unidades de entrega tipadas, en lugar de asumir un único tipo por repositorio.
 
 ---
 
@@ -300,7 +300,7 @@ El template provee un único documento de intake que el humano completa manualme
 El intake se organiza en tres partes:
 
 - Parte A — Negocio (§1 a §12): visión del producto, problema, usuarios, alcance, stakeholders, criterios de éxito y exclusiones. Es el insumo de negocio de AG-00 (Product Manager) y AG-01 (Analista de Negocio). Se carga una vez, porque el negocio es uno por producto (intake a nivel producto, ver §3.10.5).
-- Parte B — Composición (§13 a §16): la tabla de unidades de entrega tipados (§13), el estilo de producto (§14), la descomposición (§15) y la estructura (§16). La tabla de unidades de entrega tipados del §13 declara, para cada unidad de entrega, su tipo D8, su rol y sus dependencias; es la fuente desde la que se deriva el PRODUCT-MANIFEST (ver §3.10.3). En un producto de un único unidad de entrega, la tabla tiene una sola fila y la composición se comporta igual que en el modelo de tipo único.
+- Parte B — Composición (§13 a §16): la tabla de unidades de entrega tipadas (§13), el estilo de producto (§14), la descomposición (§15) y la estructura (§16). La tabla de unidades de entrega tipadas del §13 declara, para cada unidad de entrega, su tipo D8, su rol y sus dependencias; es la fuente desde la que se deriva el PRODUCT-MANIFEST (ver §3.10.3). En un producto de un único unidad de entrega, la tabla tiene una sola fila y la composición se comporta igual que en el modelo de tipo único.
 - Parte C — Técnica por unidad de entrega (§17): un bloque repetible P.1 a P.12 por cada unidad de entrega vigente, con el stack tentativo de los proyectos de código que la componen, las decisiones D1–D9 que ese proyecto de código adopta y las secciones del SDD que aplican y las que no.
 
 El documento se cierra con §18 (samples) y §19 (checklist de completitud).
@@ -329,7 +329,7 @@ La Fase de validación de intake está dirigida por la regla meta `Intake-Rules.
 
 1. Valida la completitud semántica del intake. No se limita al scan sintáctico de placeholders que el humano ya hizo en el Paso 4: revisa que cada parte del intake esté no solo presente sino también suficientemente especificada para generar sin ambigüedad. Es una validación proactiva, previa al despacho de subagentes.
 2. Emite una batería consolidada de preguntas. Cuando detecta subespecificación, el orquestador agrupa todas las preguntas pendientes en una sola batería y la presenta al humano de una vez, en lugar de descubrir los huecos de a uno durante la generación. Responder esa batería antes de generar evita que la IA derive por subespecificación, es decir, que rellene huecos inventando supuestos que después contaminan toda la cadena de artefactos.
-3. Deriva y confirma el manifiesto. El orquestador construye el PRODUCT-MANIFEST desde la tabla de unidades de entrega tipados del §13 del intake y lo presenta para confirmación humana explícita. El manifiesto deja de ser un documento que el usuario completa a mano y pasa a ser un artefacto derivado.
+3. Deriva y confirma el manifiesto. El orquestador construye el PRODUCT-MANIFEST desde la tabla de unidades de entrega tipadas del §13 del intake y lo presenta para confirmación humana explícita. El manifiesto deja de ser un documento que el usuario completa a mano y pasa a ser un artefacto derivado.
 
 Por qué validar la completitud antes de generar. La generación asistida por IA es vulnerable a la subespecificación: ante un hueco en la entrada, el modelo no se detiene, sino que improvisa un supuesto plausible y sigue. Ese supuesto se propaga por la cadena de trazabilidad y resulta caro de revertir una vez materializado en decenas de artefactos. Concentrar la verificación de completitud al inicio, en una sola batería de preguntas, convierte un problema distribuido y reactivo en un punto de control único y barato: el humano resuelve las ambigüedades antes de que cuesten.
 
@@ -465,7 +465,7 @@ La distinción es deliberada y responde a una asimetría real:
 - El negocio es uno por producto. Hay una visión de producto, un conjunto de necesidades de negocio, un público objetivo. Por eso las categorías 00 (contexto) y 01 (necesidades de negocio) se especifican a nivel producto.
 - La técnica es por unidad de entrega. Cada unidad de entrega resuelve una parte del sistema con un estilo, un contrato y un ciclo de vida propios. Por eso las categorías 02 a 11 (especificación funcional, UX/UI, prompts, arquitectura, backlog, sprints, calidad, devops, guía de desarrollador, ejemplos) se especifican por unidad de entrega.
 
-### 3.10.2 El unidad de entrega como unidad de especialización
+### 3.10.2 La unidad de entrega como unidad de especialización
 
 En el modelo reformulado, la unidad de entrega es la unidad de especialización del template. Las reglas del template tienen una variante por tipo D8 (la variante que cada capítulo de reglas documenta en su §1.2). El orquestador aplica esa variante por unidad de entrega, según el D8 que la unidad de entrega declara. Así, en una mismo producto, la unidad de entrega de tipo library recibe el tratamiento de librería (API pública mínima, SemVer estricto, distribución por feed de paquetes) y la unidad de entrega de tipo rest-api recibe el suyo (OpenAPI primero, versionado de API, despliegue a runtime), sin que uno contamine al otro.
 
@@ -475,7 +475,7 @@ Esto preserva intacto el catálogo de las 13 especialidades (ver §4) y la caden
 
 La composición del producto se consolida en un único artefacto: el PRODUCT-MANIFEST. El manifiesto enumera las unidades de entrega del producto y, para cada uno, su tipo D8, su rol dentro del producto, sus dependencias hacia otros unidades de entrega y sus nombres de código. El manifiesto es la fuente única de verdad sobre qué unidades de entrega existen y cómo se relacionan.
 
-El manifiesto no lo completa el humano: es un artefacto derivado. El orquestador lo construye desde la tabla de unidades de entrega tipados del §13 del intake durante la Fase de validación de intake (ver §3.6) y lo presenta para confirmación humana antes de usarlo. De este modo, la composición se declara una sola vez (en el §13 del intake) y el manifiesto que el resto de la generación consume se computa de manera determinística desde esa declaración, sin riesgo de divergencia entre ambos.
+El manifiesto no lo completa el humano: es un artefacto derivado. El orquestador lo construye desde la tabla de unidades de entrega tipadas del §13 del intake durante la Fase de validación de intake (ver §3.6) y lo presenta para confirmación humana antes de usarlo. De este modo, la composición se declara una sola vez (en el §13 del intake) y el manifiesto que el resto de la generación consume se computa de manera determinística desde esa declaración, sin riesgo de divergencia entre ambos.
 
 Centralizar esta información en un manifiesto, en lugar de dispersarla por los árboles de cada unidad de entrega, tiene tres consecuencias prácticas:
 
@@ -495,7 +495,7 @@ El intake del modelo reformulado opera a nivel producto, coherente con la asimet
 
 - Una Parte A de negocio por producto, que captura la visión y el problema una sola vez (el negocio es uno).
 - Una Parte C técnica con un bloque repetible por unidad de entrega (la técnica es por unidad de entrega).
-- Una Parte B de composición, cuya tabla de unidades de entrega tipados (§13) declara la jerarquía y es la fuente desde la que se deriva el PRODUCT-MANIFEST descrito arriba.
+- Una Parte B de composición, cuya tabla de unidades de entrega tipadas (§13) declara la jerarquía y es la fuente desde la que se deriva el PRODUCT-MANIFEST descrito arriba.
 
 De este modo, lo que es único (el negocio) se carga una vez y lo que se especializa (la técnica de cada unidad de entrega) se carga por unidad de entrega, evitando duplicación del negocio y mezcla de tecnologías heterogéneas en un único bloque.
 
@@ -511,11 +511,11 @@ La generación trabaja en dos niveles coherentes con la estructura de `docs/` de
 
 Un producto de un solo unidad de entrega reproduce exactamente el comportamiento del template de tipo único: el layout se aplana (las categorías 00 a 11 quedan directamente bajo `docs/`, sin nivel `Unidades-Entrega/`), no hay grafo no trivial que ordenar y no hay contratos inter-proyecto que consolidar. Este caso degenerado es la garantía de no ruptura: quien venía usando el template con una unidad de entrega único no percibe cambio alguno, y quien necesita componer varias unidades de entrega extiende el mismo modelo sin reaprenderlo.
 
-Conviene subrayar qué no cambió. El conjunto D8 sigue teniendo exactamente ocho valores; no se agregó ni se quitó ningún tipo. Lo que cambió es la cardinalidad (de un tipo por repositorio a N unidades de entrega tipados por producto) y la topología (la composición y la dependencia entre unidades de entrega), no el conjunto de tipos.
+Conviene subrayar qué no cambió. El conjunto D8 sigue teniendo exactamente ocho valores; no se agregó ni se quitó ningún tipo. Lo que cambió es la cardinalidad (de un tipo por repositorio a N unidades de entrega tipadas por producto) y la topología (la composición y la dependencia entre unidades de entrega), no el conjunto de tipos.
 
 ### 3.10.8 La composición como decisión arquitectónica de nivel producto
 
-Decidir qué unidades de entrega integran el producto y qué dependencias hay entre ellos es, en sí misma, una decisión arquitectónica, pero de un nivel superior al estilo interno de cada unidad de entrega. El estilo de cada unidad de entrega (ver §7) resuelve cómo se organiza ese unidad de entrega por dentro; la composición del producto resuelve qué piezas hay y cómo se conectan. Ambas decisiones se documentan como ADR, pero pertenecen a planos distintos: la composición es un ADR de nivel producto, el estilo interno es un ADR de nivla unidad de entrega.
+Decidir qué unidades de entrega integran el producto y qué dependencias hay entre ellos es, en sí misma, una decisión arquitectónica, pero de un nivel superior al estilo interno de cada unidad de entrega. El estilo de cada unidad de entrega (ver §7) resuelve cómo se organiza esa unidad de entrega por dentro; la composición del producto resuelve qué piezas hay y cómo se conectan. Ambas decisiones se documentan como ADR, pero pertenecen a planos distintos: la composición es un ADR de nivel producto, el estilo interno es un ADR de nivla unidad de entrega.
 
 ---
 
@@ -722,7 +722,7 @@ Cuando Scrum no encaja, el template admite Kanban o Scrumban. La elección depen
 | Métrica principal | Velocity | Lead time, cycle time | Velocity + WIP |
 | Cuándo elegir | Producto nuevo, equipo cohesionado, roadmap claro | Soporte, mantenimiento, equipos multi-proyecto | Transición desde Scrum cuando la demanda se vuelve menos predecible |
 
-**Recomendación operativa para SDD.** Empezar con Scrum en unidades de entrega nuevos. Migrar a Scrumban si la demanda externa rompe el sprint goal con frecuencia (más de 30% de los sprints comprometidos se renegocian). Kanban puro queda reservado para equipos de soporte o mantenimiento de productos ya estabilizados.
+**Recomendación operativa para SDD.** Empezar con Scrum en unidades de entrega nuevas. Migrar a Scrumban si la demanda externa rompe el sprint goal con frecuencia (más de 30% de los sprints comprometidos se renegocian). Kanban puro queda reservado para equipos de soporte o mantenimiento de productos ya estabilizados.
 
 ## 5.3 Sprint 0 y artefactos previos
 
@@ -903,7 +903,7 @@ Todo el equipo trabaja simultáneamente en una sola estación, alternando quién
 
 ## 7.1 La decisión D8 — Ocho tipos de unidad de entrega
 
-El template SDD soporta ocho tipos de unidad de entrega. La decisión D8 (definida en el intake) selecciona uno por unidad de entrega, y el resto del template se calibra en consecuencia para ese unidad de entrega. En el modelo de producto más jerarquía de unidades de entrega (§3.10), un producto agrupa N unidades de entrega y cada uno declara su propio valor D8; el producto no tiene un D8 propio, su tipo es compuesto. El conjunto de tipos sigue siendo cerrado y de exactamente ocho valores: lo que cambió es que la decisión se toma por unidad de entrega, no por repositorio.
+El template SDD soporta ocho tipos de unidad de entrega. La decisión D8 (definida en el intake) selecciona uno por unidad de entrega, y el resto del template se calibra en consecuencia para esa unidad de entrega. En el modelo de producto más jerarquía de unidades de entrega (§3.10), un producto agrupa N unidades de entrega y cada uno declara su propio valor D8; el producto no tiene un D8 propio, su tipo es compuesto. El conjunto de tipos sigue siendo cerrado y de exactamente ocho valores: lo que cambió es que la decisión se toma por unidad de entrega, no por repositorio.
 
 | ID D8 | Tipo de unidad de entrega | Descripción corta |
 |---|---|---|
@@ -1774,7 +1774,7 @@ Términos canónicos del template SDD. Cada uno con definición operativa en una
 | **Given/When/Then** | Formato BDD para criterios de aceptación: contexto inicial, evento, resultado esperado. |
 | **Human-in-the-loop** | Esquema en el que un cambio propuesto (por un formulario o por IA) requiere confirmación humana explícita antes de aplicarse. |
 | **Intake** | Documento inicial único que el humano completa para alimentar al template: `PRODUCT-INTAKE`, con tres partes (A negocio, B composición, C técnica por unidad de entrega). Reemplaza a `PROJECT-BRIEF` y `PROJECT-README`, ahora deprecados. |
-| **PRODUCT-INTAKE** | Documento único de entrada del template (`PRODUCT-INTAKE-<Slug-Producto>.md`). Parte A negocio (§1-§12), Parte B composición (§13 tabla de unidades de entrega tipados, §14 estilo, §15 descomposición, §16 estructura), Parte C técnica por unidad de entrega (§17, bloque P.1-P.12), más §18 samples y §19 checklist. Su §13 es la fuente desde la que se deriva el PRODUCT-MANIFEST. |
+| **PRODUCT-INTAKE** | Documento único de entrada del template (`PRODUCT-INTAKE-<Slug-Producto>.md`). Parte A negocio (§1-§12), Parte B composición (§13 tabla de unidades de entrega tipadas, §14 estilo, §15 descomposición, §16 estructura), Parte C técnica por unidad de entrega (§17, bloque P.1-P.12), más §18 samples y §19 checklist. Su §13 es la fuente desde la que se deriva el PRODUCT-MANIFEST. |
 | **ISO 25010** | Norma ISO que define ocho atributos de calidad de producto de software. |
 | **ISO 29148** | Norma ISO de ingeniería de requisitos de software y sistemas. |
 | **Manifest-driven** | Patrón donde cada componente expone un manifest declarativo que un sistema consumidor lee para configurar UI o comportamiento. |
@@ -1967,3 +1967,4 @@ W3C. (2024). *ARIA — Accessible Rich Internet Applications*. https://www.w3.or
 
 **Fin del documento**
 | 3.0 | 2026-08-15 | Puesta al día por el nivel de unidad de entrega (framework 8.0). El marco pasa a nombrar la unidad de entrega donde el referente es el nivel intermedio del layout, y conserva el proyecto de código donde el referente es la unidad de compilación. La correspondencia con el modelo C4 que la regla de vocabulario ya registraba —unidad de entrega como *Container*, módulo como *Component*— pasa a tener materialización en el árbol de salida, que es lo que el pendiente declarado de `Vocabulario-Rules.md` §8 pedía desde la 5.0. Sube **major** por coherencia con el conjunto. |
+| 3.2 | 2026-08-16 | Concordancias de género de la sustitución léxica de la 8.0 (`Vocabulario-Rules.md` §9.5), doce en este archivo, en el barrido del layout. |

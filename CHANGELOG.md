@@ -3,6 +3,38 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.13] - 2026-08-16
+
+**El cambio de layout de la 8.0 nunca llegó a la tabla que el orquestador ejecuta.** `Master-Prompt.md` §3.5 declara desde la 7.0 que la documentación de las categorías 02 a 11 se genera **por unidad de entrega**, bajo `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/`. La tabla del plan maestro de §7 seguía declarando el ámbito «proyecto de código» en once categorías y emitiendo a **`SDD/Docs/Proyectos/<Nombre>/`**, en sus **quince filas**.
+
+**El intro de esa misma §7 está treinta líneas más arriba de la tabla que lo contradice**, y dice lo correcto. Es la forma de defecto que la 8.12 encontró en `Intake-Rules.md` §4 —prosa y tabla operativa en desacuerdo dentro del mismo archivo—, pero acá la tabla gobierna toda la generación: **una corrida nueva producía el layout anterior a la 8.0**. Y el criterio de ubicación del audit de §10 verificaba contra la ruta vieja, de modo que **habría aprobado el resultado equivocado**.
+
+**Qué acota el daño:** la migración no lee esta tabla. Un destino migrado quedó correctamente bajo `Unidades-Entrega/`. Lo que rompía era generar un producto nuevo.
+
+### Cambiado — el layout
+
+- **`Master-Prompt.md` 7.8 → 7.9.** Las quince filas de §7 en sus columnas de **ámbito** y **path de salida**; el gating por flag y la variante D8, que se leían del proyecto de código; el `path-docs` del bloque de manifiesto de §3.4; y el criterio de ubicación del audit de §10.
+- **Once reglas de categoría y `Deriva-Rules.md`**, patch cada una: la ruta de salida de su prompt de despacho de referencia, que emitía a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` y citaba un marcador que el contexto de despacho ya no define.
+- **`Root-Rules.md` 5.2 → 5.3.** El Ejemplo A de §7.1 publicaba su mapa de documentación sobre la ruta vieja: el ejemplo canónico de un README raíz contradecía a §2.1 del mismo archivo.
+- **`SDD-User-Guide.md` 1.11 → 1.12.** El árbol del caso multi-unidad y el mapa del resumen ejecutivo le enseñaban al usuario una estructura que el framework ya no genera.
+
+### Corregido — 39 concordancias de la sustitución de la 8.0
+
+«Proyecto» es masculino y «unidad de entrega» es femenina. La sustitución léxica de la 8.0 dejó **«algún unidad de entrega»**, **«ese unidad de entrega»**, **«unidades de entrega tipados»**: 39 casos en 13 archivos. Es la clase de defecto que `Vocabulario-Rules.md` §9.5 documenta desde la 5.1, producida por la operación que esa misma sección regula.
+
+### Agregado — la comprobación 10, integridad del registro
+
+Al verificar los controles de cambios aparecieron **seis archivos inconsistentes**, repartidos entre cuatro intervenciones: tres con la fila nueva insertada **antes** de la última en lugar de después, dos con la **cabecera subida sin agregar la fila**, y `SDD-Development-Guide.md` con las dos cosas —cabecera en **1.7** mientras su tabla llegaba a **1.10**—. **Cuatro de los seis son de las tres intervenciones anteriores.**
+
+- **`SDD-Development-Guide.md` 1.10 → 1.12.** §VI.3 suma la **comprobación 10**: la versión de cabecera **es** la mayor fila del control de cambios, las filas están **en orden** y ninguna se repite. La comprobación 5 pedía «una fila por archivo» y se cumplía escribiéndola en cualquier lado. La 1.12 absorbe además la 1.11, que la 8.12 había numerado sobre una cabecera desactualizada.
+- Los seis registros quedaron restituidos, incluidas las dos filas que faltaban en `Vocabulario-Rules.md` y `Master-Prompt-Reanudacion.md`.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/8.12/`.
+
+**Queda anotado:** quedan **dos conceptos grandes sin barrer** —el vocabulario de la 6.0 y el resto de los dos ejes de la 8.0—. Esta intervención confirma por segunda vez el criterio de la anterior: **el concepto sobrevive en la tabla que se ejecuta, no en la prosa que se lee**.
+
+---
+
 ## [8.12] - 2026-08-16
 
 **El barrido por concepto se corrió sobre lo que la 8.7 corrigió, y encontró el concepto vivo en cinco archivos más.** La 8.7 es anterior al barrido —que entró en la 8.9—: arregló el lugar donde el defecto se había manifestado, §17 de la plantilla de intake, y declaró ese archivo como su alcance.
