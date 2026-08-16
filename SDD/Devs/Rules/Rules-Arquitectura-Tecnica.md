@@ -4,7 +4,7 @@
 **Carpeta target (nivel producto):** `SDD/Docs/Producto/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto
 **Subagente target del orquestador:** Arquitecto de Software Senior (AG-05)
-**Versión de las reglas:** 4.0
+**Versión de las reglas:** 4.1
 
 ---
 
@@ -60,7 +60,7 @@ El AG-05 mantiene siempre la titularidad del artefacto; las demás especialidade
 
 ### 2.1 Tabla maestra
 
-Artefactos de nivel unidad de entrega (uno por unidad de entrega, bajo `Unidades-Entrega/<Nombre-Unidad-Entrega>/05-Arquitectura-Tecnica/`):
+Artefactos de nivla unidad de entrega (uno por unidad de entrega, bajo `Unidades-Entrega/<Nombre-Unidad-Entrega>/05-Arquitectura-Tecnica/`):
 
 | Archivo | Obligatorio para | Recomendado | Omitir para | Descripción |
 | --- | --- | --- | --- | --- |
@@ -491,7 +491,7 @@ Criterios de calidad: §6 de Rules-Arquitectura-Tecnica.md.
 
 Restricciones: no introducir stacks concretos, productos comerciales ni protocolos del dominio fuente. Idioma rioplatense técnico, tildes correctas, sin emojis.
 
-Salida: SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/05-Arquitectura-Tecnica/<estructura>.
+Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/05-Arquitectura-Tecnica/<estructura>.
 ```
 
 Prompt-snippet de la vista de producto (se despacha una sola vez, al cierre del bucle de unidades de entrega, solo si el producto tiene más de una unidad de entrega):
@@ -501,7 +501,7 @@ Sos un Arquitecto de Soluciones Senior (variante Arquitecto de Software Distribu
 
 Insumos:
 - PRODUCT-MANIFEST: {{path}} (mapa de unidades de entrega, dependencias, nombres de código).
-- Las arquitecturas de cada unidad de entrega ya generadas y aprobadas en Proyectos/<Nombre>/05-Arquitectura-Tecnica/.
+- Las arquitecturas de cada unidad de entrega ya generadas y aprobadas en Unidades-Entrega/<Nombre>/05-Arquitectura-Tecnica/.
 
 A generar:
 - Producto/Vista-Producto.md con las ocho secciones del §4.8.
@@ -530,3 +530,4 @@ Salida: SDD/Docs/Producto/<estructura>.
 | 3.1 | 2026-07-29 | Criterio de gobierno del glosario en §6. Sube minor: agrega criterios de aceptación verificables sin cambiar el conjunto de artefactos de la categoría ni ninguna invariante, y ninguna documentación ya emitida deja de cumplir por sí sola. Los tres criterios exigen que todo término que la categoría acuña o precisa y usa en más de uno de sus artefactos esté declarado en el glosario que le corresponde, que ninguna forma desnuda de un término polisémico quede sin resolver en un artefacto que se lee por secciones, y —criterio negativo— que ninguna polisemia con contextos disjuntos se reporte como defecto. Materializan `Vocabulario-Rules.md` §9 en la categoría. **Origen**: el audit verificaba «glosario sin contradicciones», que un glosario incompleto cumple trivialmente, y esta regla no mencionaba la palabra «glosario» ni una vez. |
 | 3.2 | 2026-08-15 | La obligatoriedad del modelo lógico se condiciona sobre el proyecto de código y no sobre el tipo (intervención reportes 00 a 11). Las tres menciones del mismo artefacto decían tres cosas distintas: §2.1 condicionaba con «con almacenamiento» pegado al último de una lista de cinco tipos, §2.2 lo declaraba incondicional para `web-monolith`, y §6 y §7 preguntaban «si el tipo D8 exige persistencia», que es una condición sobre el tipo y no sobre el proyecto. Las cuatro pasan a leer el flag **`tiene_persistencia`** del proyecto de código, que `Master-Prompt.md` §4 ya deriva y cuyo impacto declarado ya era activar este artefacto. El defecto no era teórico: un `web-monolith` correctamente tipado, cuya persistencia vive completa en otro proyecto de código del mismo producto, incumplía la normativa, y las dos salidas disponibles para cumplir la letra —copiar el modelo ajeno o emitir un documento que remite— producían peor documentación que el incumplimiento. Sube **minor**: la condición nueva es más permisiva que la vigente y ninguna documentación ya emitida deja de cumplir. Origen: reporte `06`. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. Se incorpora además el tratamiento de las obligaciones hacia una fase posterior que la comprobación del grafo de `Master-Prompt.md` §6 detectó al correrse sobre las doce reglas: las referencias afectadas se declaran con la forma de `Root-Rules.md` §12. |
 | 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
+| 4.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |
