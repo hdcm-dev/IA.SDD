@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 7.6
+**Versión:** 7.5
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -96,8 +96,6 @@ Completada la lectura y el scan de placeholders, el orquestador evalúa §2.1 y 
 Un árbol de `SDD/Docs/` sobrevive a varias versiones del framework. Esta sección resuelve qué hacer cuando el orquestador arranca sobre un destino que **ya tiene documentación generada**, posiblemente bajo una versión anterior.
 
 **Cuándo se dispara.** Solo si `SDD/Docs/` tiene contenido. Si está vacía o no existe, el orquestador salta a §3 sin más.
-
-**Si quien invoca no sabe en qué estado está el destino**, el que corresponde antes que éste es `Master-Prompt-Reanudacion.md`: reconstruye el estado desde el árbol, contrasta lo que los documentos declaran contra lo observable, y devuelve la decisión de cuál orquestador continúa. Esta reconciliación resuelve **una** de las seis dimensiones de aquél —la versión— y da por sabidas las otras cinco.
 
 **Los tres casos posibles.**
 
@@ -1279,4 +1277,3 @@ Reglas de versionado:
 ---
 
 **Fin del master-prompt SDD**
-| 7.6 | 2026-08-16 | §2.1 declara que, si quien invoca **no sabe en qué estado está el destino**, el que corresponde antes es el orquestador de reanudación, y que esta reconciliación resuelve **una** de sus seis dimensiones. Ningún caso, salida ni comportamiento de la reconciliación cambia. Sube minor. |

@@ -55,7 +55,7 @@ Leer y ejecutar `SDD/Devs/Orchestrator/Master-Prompt-Reanudacion.md` del reposit
 con el repositorio destino como objetivo.
 
 El orquestador declara sus fases —**R0** reconocimiento, **R1** presentación, **R2** salidas, **R3**
-informe, **R4** continuación— y sus dos detenciones obligatorias. Este prompt no las repite.
+informe— y sus dos detenciones obligatorias. Este prompt no las repite.
 
 ## 4 · Qué esperar al terminar
 
@@ -63,11 +63,7 @@ informe, **R4** continuación— y sus dos detenciones obligatorias. Este prompt
   dimensiones resueltas y las divergencias declaradas.
 - Una **decisión tuya** entre cuatro salidas: reparar las divergencias primero, migrar a la vigente,
   seguir en la versión declarada, o continuar la construcción.
-- **La continuación efectiva en la misma sesión**, con el contexto ya reconstruido: no hace falta
-  abrir otra para seguir. El informe lleva el punto de continuación, y si la salida elegida invoca a
-  otro orquestador, **la decisión viaja con ella** para que no vuelva a preguntar lo mismo.
-- **Ningún cambio en el destino** fuera de ese informe, salvo el que la salida elegida ejecute con su
-  propia confirmación.
+- **Ningún cambio en el destino** fuera de ese informe.
 
 **Si el estado tiene divergencias, la primera decisión no es cuál orquestador correr**: es si lo que
 el árbol dice sobre sí mismo es cierto. El orquestador las presenta antes que las salidas por ese
@@ -78,4 +74,3 @@ motivo.
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
 | 1.0 | 2026-08-16 | Emisión inicial. Tercer prompt de entrada del método, para retomar un destino desde una sesión sin memoria. Declara la tabla de los tres prompts con su cardinalidad, y anticipa que la salida más frecuente —continuar la construcción— es la única sin prompt propio. |
-| 1.1 | 2026-08-16 | Las fases pasan de cuatro a **cinco** con **R4, la continuación**, y §4 declara que la reanudación **sigue en la misma sesión** en lugar de terminar en un informe. |

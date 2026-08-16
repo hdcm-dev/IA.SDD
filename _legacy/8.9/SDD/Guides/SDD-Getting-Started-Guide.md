@@ -411,8 +411,6 @@ Referencias de esta guía:
 | Master-prompt (orquestador de generación) | `/IA/IA.SDD/SDD/Devs/Orchestrator/Master-Prompt.md` |
 | Prompt de entrada Migración normativa | `/IA/IA.SDD/PROMPTS/PROMPT-Agente-Migracion-SDD.md` |
 | Master-prompt (orquestador de migración) | `/IA/IA.SDD/SDD/Devs/Orchestrator/Master-Prompt-Migracion.md` |
-| Prompt de entrada Reanudación | `/IA/IA.SDD/PROMPTS/PROMPT-Agente-Reanudacion-SDD.md` |
-| Master-prompt (orquestador de reanudación) | `/IA/IA.SDD/SDD/Devs/Orchestrator/Master-Prompt-Reanudacion.md` |
 | Plantilla de intake | `/IA/IA.SDD/SDD/Devs/Intake/PRODUCT-INTAKE-template.md` |
 | Reglas de validación de intake | `/IA/IA.SDD/SDD/Devs/Rules/Intake-Rules.md` |
 | Tool-prompt integrador (ejemplo) | `<RUTA-DOCUMENTACION>/Prompts/01-Ejecutar-Prompt-Integrador-Documento-Intake/Ejecutar-Prompt-Integrador-Documento-Intake.md` |

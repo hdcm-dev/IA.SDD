@@ -2,11 +2,11 @@
 
 **Framework:** SDD
 **Documento:** Coherencia-Orquestador-Reanudacion.md
-**Versión:** 1.1
+**Versión:** 1.0
 **Estado:** Vigente
 **Fecha:** 2026-08-16
 **Autor:** AG-ROOT (Arquitecto de Soluciones)
-**Versión del conjunto resultante:** SDD 8.11
+**Versión del conjunto resultante:** SDD 8.10
 **Origen:** una pregunta del Product Owner al terminar una migración real — «si corto a mitad de camino, ¿cómo se continúa desde una sesión limpia?»
 
 ---
@@ -59,7 +59,7 @@ la respuesta correcta a «¿cuál orquestador corro?» es «ninguno».
 
 | Archivo | Versión | Qué cambió |
 | --- | --- | --- |
-| `SDD/Devs/Orchestrator/Master-Prompt-Reanudacion.md` | **1.1** | Nuevo. **Cinco fases —R0 a R4—**, dos detenciones, seis dimensiones, cuatro salidas, nueve criterios y nueve anti-patrones |
+| `SDD/Devs/Orchestrator/Master-Prompt-Reanudacion.md` | **1.0** | Nuevo. Cuatro fases —R0 a R3—, dos detenciones, seis dimensiones, cuatro salidas, seis criterios y seis anti-patrones |
 | `PROMPTS/PROMPT-Agente-Reanudacion-SDD.md` | **1.0** | Nuevo. Tercer prompt de entrada, con la tabla de los tres y su cardinalidad |
 | `Master-Prompt.md` | 7.5 → **7.6** | §2.1 apunta al orquestador de reanudación cuando no se sabe el estado, y declara que resuelve **una** de sus seis dimensiones |
 | `Migracion-Rules.md` | 3.3 → **3.4** | Desambiguación: «el contrato entre los dos orquestadores» pasa a nombrarlos |
@@ -95,39 +95,6 @@ entrada—, y sin el barrido habrían quedado diciendo «dos».
 | **D8** Conjunto cerrado | Conforme | No se toca |
 | **D9** Evidencia | Conforme | Las tres divergencias que fundamentan el diseño se verificaron sobre el árbol y el historial del destino |
 
-## 6.1 El hueco que la 1.0 dejó, señalado por el Product Owner el mismo día
-
-**La 1.0 escribió un orquestador que diagnosticaba y se detenía.** Sus cuatro fases terminaban en un
-informe, y las salidas decían a qué prompt ir. La pregunta que lo destapó fue directa: *«y si no se
-migra —porque no hay que migrar o porque se eligió no hacerlo—, ¿retomaría, recuperaría el contexto y
-seguiría?»*.
-
-**La respuesta era no, y ése era el defecto.** Un prompt de reanudación que termina diciendo «ahora
-ejecutá tal otro» **deja al siguiente volviendo a deducir lo que acaba de deducir**, que es
-exactamente el trabajo que vino a evitar. Y en la salida más frecuente —continuar la construcción—
-**no hay «tal otro»**: no tiene prompt, de modo que el humano se quedaba con un diagnóstico y sin
-punto de continuación.
-
-**Tres correcciones, y las tres son la misma:**
-
-1. **El informe deja de ser un diagnóstico y pasa a ser el instrumento de entrega.** Suma el **diff
-   normativo** que el orquestador siguiente consume, la **decisión** con su autor y fecha, y el
-   **punto de continuación** —la etapa que sigue, su puerta de entrada y los documentos que la
-   gobiernan—. Ese último bloque existe **para la salida que no tiene prompt**.
-2. **Entra R4, la continuación.** Escrito el informe, **se sigue en la misma sesión**. Cortar ahí
-   también es válido si el humano quiere sólo el diagnóstico; lo que no es válido es lo inverso,
-   continuar sin escribirlo, porque entonces el contexto vuelve a vivir sólo en la sesión.
-3. **La decisión viaja, y por eso no se vuelve a preguntar.** `Master-Prompt.md` §2.1 lee la decisión
-   del informe e informa el desfase **como decidido**; `Master-Prompt-Migracion.md` M1 **verifica** el
-   diff en lugar de reconstruirlo. Preguntar dos veces lo mismo **enseña a contestar sin leer**, que
-   es peor que no haber preguntado.
-
-**La 1.0 cometió el defecto que la 8.9 había escrito para evitar**, en su versión de alcance: la
-pregunta «¿mi intervención cometió el defecto que corrige?» tenía respuesta afirmativa —un prompt
-contra la pérdida de contexto que no entregaba contexto— y no me la hice antes de publicar. Queda
-registrado porque **es el cuarto caso del mismo patrón**, y los tres anteriores están en esa misma
-regla.
-
 ## 7. Lo que esta nota deja anotado
 
 **El orquestador de reanudación no repara lo que encuentra, y eso deja una pregunta abierta: quién
@@ -145,4 +112,3 @@ dimensión del estado cuya fuente nadie tiene obligación de mantener**, y es la
 **APROBADO.** El conjunto 8.10 es internamente coherente: los tres orquestadores están enumerados
 como tres en todos los lugares vivos que los cuentan, las dos apariciones que seguían siendo ciertas
 con «dos» quedaron desambiguadas, y las tres históricas están declaradas.
-| 1.1 | 2026-08-16 | §6.1 nueva: el hueco que la 1.0 dejó —diagnosticaba y se detenía, sin entregar el contexto— y sus tres correcciones. El informe pasa a ser **instrumento de entrega**, entra **R4** y **la decisión viaja** para que el orquestador siguiente no vuelva a preguntar. Registra que la 1.0 **cometió el defecto que corregía**, cuarto caso del patrón que la 8.9 declara. |

@@ -93,7 +93,6 @@ graph TD
     MANIF[PRODUCT-MANIFEST<br/>derivado por el orquestador]
     MP[Master-Prompt<br/>orquestador de generacion]
     MPM[Master-Prompt-Migracion<br/>orquestador de migracion]
-    MPR[Master-Prompt-Reanudacion<br/>orquestador de reanudacion]
     MIG[Migracion-Rules<br/>migracion normativa]
     RULES[Rules-XX<br/>doce archivos de categoria]
     ROOT[Root-Rules<br/>layout canonico]
@@ -130,7 +129,7 @@ Las líneas punteadas señalan una relación distinta de las demás. El marco te
 | Ruta | Responsabilidad | Cuándo se toca |
 | --- | --- | --- |
 | `SDD/Devs/Rules/` | Los dieciocho archivos normativos: doce de categoría más seis transversales, `Root-Rules`, `Intake-Rules`, `Maqueta-Rules`, `Deriva-Rules`, `Vocabulario-Rules` y `Migracion-Rules`. Cada uno define qué produce su categoría, con qué estructura y bajo qué criterios | En casi toda extensión |
-| `SDD/Devs/Orchestrator/` | Los **tres** master-prompts. `Master-Prompt.md` genera: despacha subagentes por fase, aplica el gating, ordena topológicamente y corta para confirmación humana. `Master-Prompt-Migracion.md` migra: lleva un destino ya especificado a la versión vigente en sus fases M0 a M6, y **cita** el despacho de §8 y la auditoría de §10 del primero en lugar de redefinirlos | Al agregar fases, categorías o flags; el de migración, al cambiar sus fases |
+| `SDD/Devs/Orchestrator/` | Los dos master-prompts. `Master-Prompt.md` genera: despacha subagentes por fase, aplica el gating, ordena topológicamente y corta para confirmación humana. `Master-Prompt-Migracion.md` migra: lleva un destino ya especificado a la versión vigente en sus fases M0 a M6, y **cita** el despacho de §8 y la auditoría de §10 del primero en lugar de redefinirlos | Al agregar fases, categorías o flags; el de migración, al cambiar sus fases |
 | `SDD/Devs/Intake/` | `PRODUCT-INTAKE-template.md`, que completa el usuario, y `PRODUCT-MANIFEST-template.md`, que deriva el orquestador | Al agregar una sección de intake o un flag derivable |
 | `SDD/Devs/Guides/` | Marco teórico y notas de coherencia de auditoría | Al cambiar fundamentos, o al cerrar una intervención |
 | `SDD/Devs/References/Design/` | Catálogo de reglas de diseño, por stack y por capacidad transversal, con su índice | Al agregar una capacidad de diseño reutilizable |

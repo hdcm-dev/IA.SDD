@@ -1,6 +1,6 @@
 # PRODUCT-INTAKE-template
 
-**Versión de la plantilla:** 3.1
+**Versión de la plantilla:** 3.0
 
 Este campo versiona la **plantilla**. El campo `| Versión |` de la cabecera de abajo pertenece al documento de intake que la plantilla genera, y arranca en 1.0 en cada producto nuevo.
 
@@ -493,42 +493,26 @@ la arquitectura— ya está declarado en §13.2, y se detalla en la categoría 0
 Cuando una unidad de entrega se compone de varios proyectos de código con stacks distintos, P.1
 enumera los stacks con el proyecto de código al que corresponde cada uno.
 
-Identidad de la unidad de entrega (una vez por bloque):
+Identidad del proyecto de código (repetir por proyecto de código):
 
 | Campo | Valor |
 |---|---|
-| `Nombre-Unidad-Entrega` | [Nombre-Unidad-Entrega] |
+| `Nombre-Proyecto-Codigo` | [Nombre-Proyecto-Codigo] |
+| `Identidad-Codigo` | [`<Raiz-Codigo>.<Sufijo>` o `Aplicada.<X>`] |
 | `tipo_unidad_entrega` (D8) | [uno de los 8] |
-| Rol en el producto | [una frase] |
+| Rol | [una frase] |
 | `redistribuible` | [true / false] |
-| Proyectos de código que la componen | [lista de `Nombre-Proyecto-Codigo`, de §13.2] |
-
-Identidad de sus proyectos de código (una fila por proyecto que la compone):
-
-| `Nombre-Proyecto-Codigo` | `Identidad-Codigo` | Rol en la arquitectura |
-|---|---|---|
-| [Nombre-Proyecto-Codigo] | [`<Raiz-Codigo>.<Sufijo>` o `Aplicada.<X>`] | [una frase] |
-
-**Esta segunda tabla no lleva `tipo_unidad_entrega` ni `redistribuible`, y no es una omisión.** Los
-dos son atributos de lo que se entrega: §13.2 declara que «los proyectos de código no llevan valor
-D8», y §13.1 hace de `redistribuible` una columna de la unidad de entrega. Pedírselos al proyecto de
-código obligaría a declarar D8 tantas veces como proyectos tenga el producto, y a elegir un valor
-para algo que no se entrega.
-
-**Un proyecto de código compartido aparece en el bloque de cada unidad de entrega que compone**, con
-la misma fila. Es lo que la matriz de §13.3 hace visible, y es deliberado: quien lee el bloque de una
-entrega tiene que ver todo lo que viaja adentro, sin ir a buscarlo a otro bloque.
 
 ### §17.P.1 Stack tecnológico
-Instrucción: Lenguaje, versión, runtime, framework y plataformas target **de la unidad de entrega**. Cuando la componen varios proyectos de código con stacks distintos, se enumera cada stack **nombrando el proyecto de código al que corresponde**, con las dependencias core justificadas.
+Instrucción: Lenguaje, versión, runtime, framework y plataformas target del proyecto de código, con las dependencias core justificadas.
 Preguntas guía: (*) ¿Versión mínima del lenguaje y runtime? (*) ¿Dependencias core sin las que no compila?
 
-### §17.P.2 Estilo arquitectónico
-Instrucción: Estilo interno de la unidad de entrega (capas, hexagonal, pipeline, event-driven) justificado contra dos alternativas. Coherente con su `tipo_unidad_entrega` y con §14. Cuando el estilo de un proyecto de código componente merece justificación propia, se declara **nombrando el proyecto**.
+### §17.P.2 Estilo arquitectónico del proyecto de código
+Instrucción: Estilo interno (capas, hexagonal, pipeline, event-driven) justificado contra dos alternativas. Coherente con su `tipo_unidad_entrega` y con §14.
 Preguntas guía: (*) ¿Qué estilo y por qué? (*) ¿Qué dos alternativas se descartaron?
 
 ### §17.P.3 Comunicación e integración
-Instrucción: Protocolo, formato de payload, versión de contratos y política de breaking changes. El **contrato de integración** hacia otras unidades de entrega debe ser coherente con la columna «Integra con» de §13.1, y el **de compilación** con las dependencias de §13.2. Si no aplica, "No aplica" con justificación.
+Instrucción: Protocolo, formato de payload, versión de contratos y política de breaking changes. Los contratos hacia otros proyectos de código deben ser coherentes con las dependencias de §13. Si no aplica, "No aplica" con justificación.
 Preguntas guía: (*) ¿Protocolos sincrónicos y asincrónicos? (*) ¿Cómo se versionan los contratos? ¿Qué expone a sus dependientes?
 
 ### §17.P.4 Persistencia
@@ -536,12 +520,12 @@ Instrucción: Qué guarda, dónde, cómo se versiona el esquema, patrones de acc
 Preguntas guía: (*) ¿Motor y por qué? (*) ¿Cómo se versiona el esquema? ¿Multi-tenant?
 
 ### §17.P.5 Seguridad y autenticación
-Instrucción: Autenticación, autorización y manejo de secretos de la unidad de entrega, en runtime y en CI/CD.
+Instrucción: Autenticación, autorización y manejo de secretos del proyecto de código, en runtime y en CI/CD.
 Preguntas guía: (*) ¿Mecanismo de autenticación y dónde reside el Identity Provider? (*) ¿Dónde viven los secretos? ¿Compliance?
 
 ### §17.P.6 Estrategia de testing
 Instrucción: Pirámide con porcentajes, cobertura mínima numérica (gate del CI), frameworks por nivel, BDD/ATDD. La cobertura mínima es bloqueante y numérica.
-Preguntas guía: (*) ¿Cobertura mínima de líneas y branches? (*) ¿Frameworks por nivel? ¿Tests de contrato hacia otras unidades de entrega? Cuando los umbrales difieren entre los proyectos de código que la componen, **se declaran por proyecto y no se promedian**.
+Preguntas guía: (*) ¿Cobertura mínima de líneas y branches? (*) ¿Frameworks por nivel? ¿Tests de contrato hacia otros proyectos de código?
 
 ### §17.P.7 Estrategia de versionado y release
 Instrucción: SemVer 2.0.0 y Conventional Commits; herramienta de cálculo de versión, branching, canales, feed.
@@ -552,11 +536,11 @@ Instrucción: Stages (build, test, lint, SCA, SBOM, firma, publicación), matriz
 Preguntas guía: (*) ¿Plataforma de CI? (*) ¿Quality gates bloqueantes para mergear? ¿Cómo se hace rollback?
 
 ### §17.P.9 Compatibilidad y plataformas target
-Instrucción: SO, runtimes, navegadores, dispositivos y versiones mínimas de la unidad de entrega, coherentes con su `tipo_unidad_entrega`. Toda combinación no listada se considera no soportada.
+Instrucción: SO, runtimes, navegadores, dispositivos y versiones mínimas, coherentes con el `tipo_unidad_entrega`. Toda combinación no listada se considera no soportada.
 Preguntas guía: (*) ¿Plataformas target? (*) ¿Versión mínima de cada runtime/SO?
 
 ### §17.P.10 Requerimientos no funcionales (NFR)
-Instrucción: Métricas numéricas de performance, escalabilidad, disponibilidad, observabilidad y compliance de la unidad de entrega. Un proyecto de código que no se despliega **no tiene NFR de runtime propios**; si el producto igualmente los mide —una latencia de una capa interna, por ejemplo—, se declaran **nombrando el proyecto de código de cada número**. Cada métrica medible. NFR vagos no se aceptan. Distintos de las métricas de negocio de §8.
+Instrucción: Métricas numéricas de performance, escalabilidad, disponibilidad, observabilidad y compliance del proyecto de código. Cada métrica medible. NFR vagos no se aceptan. Distintos de las métricas de negocio de §8.
 Preguntas guía: (*) ¿Latencia objetivo p99 y throughput mínimo? (*) ¿SLO de disponibilidad? ¿Qué se loguea, mide y traza?
 
 ### §17.P.11 Decisiones técnicas pre-tomadas (pre-ADR)
@@ -564,7 +548,7 @@ Instrucción: Decisiones cerradas antes del Sprint 0 con justificación y altern
 Preguntas guía: (*) ¿Decisiones cerradas y por qué? (*) ¿Alternativas evaluadas? ¿Qué queda abierto para Sprint 0?
 
 ### §17.P.12 Restricciones técnicas y trade-offs aceptados
-Instrucción: A qué renuncia la unidad de entrega conscientemente para ganar otra cosa, nombrando el proyecto de código cuando la renuncia es de uno en particular. Distintos de las restricciones del cliente de §10.
+Instrucción: A qué renuncia el proyecto de código conscientemente para ganar otra cosa. Distintos de las restricciones del cliente de §10.
 Preguntas guía: (*) ¿Qué ganancias se priorizaron y a costa de qué? (*) ¿Restricciones del ecosistema? ¿Qué cargas no soporta?
 
 Lo que NO va en el bloque técnico:
@@ -751,4 +735,3 @@ Este documento alimenta las siguientes secciones SDD. La parte de negocio (A) es
 | 2.1 | 2026-07-29 | Corrección de la sustitución global de cadena de la 5.0. La Parte D declaraba «Regla de **reproducto**», palabra inexistente producida al sustituir `soluci*` por `producto` sobre «re**soluci**ón». La clase de defecto y su prohibición quedan documentadas en `Vocabulario-Rules.md` §9.5. La restitución de las filas históricas de este control de cambios, que la migración había reescrito contra `SDD-Development-Guide.md` §VI.2, se registra una sola vez en `CHANGELOG.md` [5.1] por alcanzar a veintitrés archivos. | Revisión SDD |
 | 2.2 | 2026-08-15 | **Regla de transcripción fiel** en la Parte D (§20), incorporada por la intervención sobre los reportes 00 a 11. El enum de `Estado` gobierna la relación entre el dato y su existencia; faltaba la relación entre el dato y lo que la fuente afirma sobre ese dato. Tres obligaciones: reproducir el conteo que la fuente enuncia, declarar los dos valores y su razón cuando la transcripción arroja otro, y marcar como derivada toda magnitud que el escenario calcule en lugar de copiar, aunque el escenario sea `medido` en su conjunto. Se agrega el bloque de conteo como forma sugerida y dos anti-patrones: el conteo derivado presentado como transcripto, y la prosa que contradice al payload sin declararlo. Sube **minor**: incorpora una exigencia sin reestructurar el artefacto; un intake ya emitido no deja de cumplir por su forma, aunque pueda fallar la validación nueva de `Intake-Rules.md` §5, que es el efecto buscado. Origen: reporte `00`, huecos A y B, con el caso del escenario que afirmaba tres números distintos sobre la misma tabla. | Framework SDD (intervención reportes 00-11) |
 | 3.0 | 2026-08-15 | **La composición se declara en dos ejes** (framework 8.0). §13 pasa de una tabla de proyectos de código a tres subsecciones: §13.1 unidades de entrega con su `tipo_unidad_entrega` D8, su `redistribuible` y su estado —vigente o diferida—; §13.2 proyectos de código con su solución de código, su stack, sus dependencias de compilación y las unidades de entrega que componen; y §13.3 la matriz de composición, que hace visible el proyecto compartido. Se declara el criterio que decide qué es cada cosa, con la aclaración de que las dos condiciones no se excluyen: una librería que se publica es proyecto de código y unidad de entrega. §14 distingue los **contratos de integración** entre unidades de entrega de los **contratos de compilación** entre proyectos de código, y declara que son dos grafos distintos. §17 pasa a repetirse por unidad de entrega, con el motivo escrito: sus doce subsecciones describen decisiones de lo que se entrega, y un proyecto de código que no se despliega no tiene NFR de latencia ni plataformas propias. Sube **major**: cambia la estructura de la Parte B y la cardinalidad de la Parte C. |
-| 3.1 | 2026-08-16 | **Cierra la contradicción que la 3.0 dejó dentro de §17**, detectada al migrar un destino real con la plantilla en la mano. La tabla de identidad del bloque técnico se conservó de la versión anterior, que era **por proyecto de código**, y seguía pidiéndole `tipo_unidad_entrega` (D8) y `redistribuible` al proyecto de código — contra lo que **§13.2 del mismo documento** declara, «los proyectos de código no llevan valor D8», y contra §13.1, que hace de `redistribuible` una columna de la unidad de entrega. Quien completara el intake siguiendo §17 **declaraba D8 tantas veces como proyectos tuviera el producto**. Ahora son **dos tablas**: la identidad de la unidad de entrega, con su D8, su `redistribuible` y los proyectos que la componen; y la de esos proyectos, con nombre, identidad de código y rol, **sin D8 y sin `redistribuible`**, con la constancia de por qué no los lleva y de que un proyecto compartido aparece en el bloque de cada entrega que compone. **Ocho instrucciones de P.1 a P.12** decían «del proyecto de código» bajo un encabezado que dice «por unidad de entrega», y pasan a decirlo de la entrega, con la regla de nombrar el proyecto cuando el dato es de uno en particular: P.1 los stacks, P.3 los dos contratos contra §13.1 y §13.2, P.6 los umbrales **que no se promedian**, y P.10 los NFR de una capa interna. Ninguna sección se agrega ni se retira y ningún campo bloqueante cambia. Sube minor. |

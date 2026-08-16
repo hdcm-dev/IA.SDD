@@ -15,7 +15,7 @@
 
 Este es el **prompt de entrada de la migración normativa**: lleva un destino que ya tiene documentación generada de la versión del framework con la que se generó a la versión vigente, **preservando su contenido**. No contiene la lógica de orquestación: la **delega** en `<RUTA-FUENTE>/SDD/Devs/Orchestrator/Master-Prompt-Migracion.md`, que es el orquestador real.
 
-Es el par de `PROMPT-Agente-Bootstrap-SDD.md`, que arranca la generación, y contiguo a `PROMPT-Agente-Reanudacion-SDD.md`, que diagnostica cuál de los dos corresponde cuando no se sabe. Los tres prompts de entrada tienen la misma forma y la misma responsabilidad acotada: fijar el modelo de repositorios, verificar prerrequisitos y delegar.
+Es el par de `PROMPT-Agente-Bootstrap-SDD.md`, que arranca la generación. Los dos prompts de entrada tienen la misma forma y la misma responsabilidad acotada: fijar el modelo de repositorios, verificar prerrequisitos y delegar.
 
 **Cuándo se usa este prompt y no el de bootstrap.**
 

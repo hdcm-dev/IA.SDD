@@ -34,7 +34,7 @@ Hay **una sola excepción** a la regla de que un orquestador no escribe en este 
 | [`SDD/Devs/Modelos-UX-UI/`](SDD/Devs/Modelos-UX-UI/) | Modelos UX-UI capturados de maquetas aprobadas, con su índice |
 | [`SDD/Devs/Bootstrap/`](SDD/Devs/Bootstrap/) | Auditoría del fuente que originó el framework. No es archivo muerto: siete archivos de reglas la citan como fuente del rationale de sus correcciones |
 | [`SDD/Guides/`](SDD/Guides/) | Las tres guías de cara al usuario: arranque, uso y desarrollo del framework |
-| [`PROMPTS/`](PROMPTS/) | Los **tres** prompts de entrada: el que arranca el agente de bootstrap sobre un repositorio destino, el que arranca la migración normativa de un destino que ya tiene documentación generada, y el que **retoma un destino sin saber en qué estado quedó** |
+| [`PROMPTS/`](PROMPTS/) | Los dos prompts de entrada: el que arranca el agente de bootstrap sobre un repositorio destino, y el que arranca la migración normativa de un destino que ya tiene documentación generada |
 | [`Templates/`](Templates/) | Plantillas ejecutables de maqueta, con su modelo genérico de referencia |
 | [`_legacy/`](_legacy/) | Una subcarpeta por versión publicada, con el conjunto normativo completo tal como estaba al publicarse. Es lo que permite reconstruir con qué reglas exactas se generó un destino, sin recurrir al control de versiones. Rige desde la 4.0 hacia adelante |
 | [`CHANGELOG.md`](CHANGELOG.md) | Bitácora de cambios del framework, por intervención. **Es el mecanismo de versionado**: una entrada equivale a una versión publicada y a una subcarpeta de `_legacy/` |
@@ -57,7 +57,6 @@ Es el núcleo de este documento. Buscá la fila que describe lo que venís a hac
 | Entender por qué el framework es como es | [`SDD/Devs/Guides/Marco-Teorico-SDD.md`](SDD/Devs/Guides/Marco-Teorico-SDD.md) |
 | Saber qué reglas rigen la redacción de un documento generado | §4 del archivo de reglas de su categoría. Para el cuerpo documental de entrega, [`SDD/Devs/Rules/Rules-Documentacion.md`](SDD/Devs/Rules/Rules-Documentacion.md) §1.4, §1.5, §4.6 y §4.7 |
 | Encontrar el orquestador de generación | [`SDD/Devs/Orchestrator/Master-Prompt.md`](SDD/Devs/Orchestrator/Master-Prompt.md) |
-| **Retomar un destino sin saber en qué estado quedó** | [`SDD/Devs/Orchestrator/Master-Prompt-Reanudacion.md`](SDD/Devs/Orchestrator/Master-Prompt-Reanudacion.md), o su prompt de entrada [`PROMPTS/PROMPT-Agente-Reanudacion-SDD.md`](PROMPTS/PROMPT-Agente-Reanudacion-SDD.md) |
 | Encontrar el orquestador de migración | [`SDD/Devs/Orchestrator/Master-Prompt-Migracion.md`](SDD/Devs/Orchestrator/Master-Prompt-Migracion.md) |
 | Encontrar las plantillas de intake | [`SDD/Devs/Intake/`](SDD/Devs/Intake/) |
 | Entender el orden de fases y qué produce cada una | [`SDD/Devs/Orchestrator/Master-Prompt.md`](SDD/Devs/Orchestrator/Master-Prompt.md) §6 y §7 |

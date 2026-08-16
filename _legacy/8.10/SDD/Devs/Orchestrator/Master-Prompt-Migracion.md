@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de migración normativa
 
 **Archivo:** `Master-Prompt-Migracion.md`
-**Versión:** 2.3
+**Versión:** 2.2
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente. La mecánica de despacho y de auditoría **no se define acá**: se cita de `Master-Prompt.md` §8 y §10
 **Prerequisitos:** un repositorio destino con `SDD/Docs/` poblado y, opcionalmente, un `Plan-Migracion-<origen>-a-<vigente>.md` emitido por la reconciliación normativa del orquestador de generación
@@ -113,12 +113,6 @@ Documentos en SDD/Docs/: {{N}}
 ---
 
 ## §5 M1 — Diff normativo
-
-**Si la reanudación ya lo construyó, M1 lo verifica en lugar de rehacerlo.** Cuando la invocación
-llega desde `Master-Prompt-Reanudacion.md`, su informe de estado trae el diff normativo artefacto por
-artefacto con su severidad. M1 **lo comprueba contra las versiones vigentes** —que es barato— y sigue.
-Reconstruirlo desde cero no lo hace más confiable: lo hace más lento, y arriesga dos diffs del mismo
-salto que no coinciden.
 
 **Si el plan ya existe**, se lee y se verifica que corresponda al par de versiones que M0 resolvió. Si no corresponde, se descarta y se emite uno nuevo, declarando por qué.
 
@@ -314,4 +308,3 @@ Si la migración quedó parcial, la reconciliación vuelve a encontrar el destin
 | 1.1 | 2026-07-29 | Integración con el orquestador de generación, al quedar declarado el caso de escritura estructural del intake en `Master-Prompt.md` §13 regla 2 caso (b). **§1** reemplaza la nota condicional de habilitación —que declaraba a M2 detenido mientras §13 no autorizara ese caso— por la cita de la autorización vigente y de sus tres condiciones acumulativas, y precisa la fila del contrato de citas. **§6** reemplaza la condición de bloqueo global por la condición por requisito: M2 no escribe si falta la aprobación explícita, si quedó una sección rellenada con contenido inferido o si el bump no es major, y declara cuál de las tres faltó. Sube minor: no cambia ninguna fase, detención ni orden; precisa de dónde toma su autorización. | Framework SDD (migración normativa) |
 | 2.0 | 2026-08-15 | **Puesta al día con el nivel de unidad de entrega** (framework 8.5). El orquestador de migración había quedado en el modelo de dos niveles: §2 tomaba el orden topológico «de los proyectos de código», §7 validaba «dos proyectos de código principales» y §8 M4 recorría «cada proyecto de código». Ahora M4 recorre **unidades de entrega** en el orden del grafo de **integración**, suma el inventario del eje de construcción en la vista de producto, y declara que los proyectos de código no tienen árbol propio y no se recorren como nivel. Se incorpora además la precondición que faltaba: cuando el salto cambia el nivel de aplicación, M4 ejecuta **primero** la migración estructural de `Migracion-Rules.md` §4.3.2 con su detención de clasificación, porque no puede recorrer un nivel que el destino todavía no tiene; hacerlo al revés migra documentos contra un nivel que va a cambiar y obliga a tocarlos dos veces. Sube **major**: cambia qué recorre la fase larga de la migración. | Framework SDD (validación por migración) |
 | 2.2 | 2026-08-16 | Misma desambiguación que `Migracion-Rules.md` 3.4 en la tabla de artefactos. Ninguna fase, detención ni orden cambia. |
-| 2.3 | 2026-08-16 | **M1** declara que, si la invocación llega desde el orquestador de reanudación, **verifica el diff normativo que ese informe trae** en lugar de reconstruirlo. Ninguna otra fase cambia. |

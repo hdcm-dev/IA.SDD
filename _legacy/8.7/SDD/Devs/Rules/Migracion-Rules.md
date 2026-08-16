@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino para los dos artefactos propios. El alcance sobre el que la migración opera es `SDD/Intake/` y `SDD/Docs/` del mismo repositorio
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto, unidad de entrega y proyecto de código
 **Subagente target del orquestador:** el orquestador de migración para el plan y el cierre; el auditor independiente para el informe; el subagente titular de cada categoría para re-expresar los documentos de esa categoría
-**Versión de las reglas:** 3.3
+**Versión de las reglas:** 3.2
 
 Dentro de este archivo «migración» se usa en forma desnuda, según la excepción que `Vocabulario-Rules.md` §9.6 declara: en este contexto de lectura no hay otro referente con el que colisione. En cualquier otro archivo del framework el término va calificado como «migración normativa».
 
@@ -236,42 +236,10 @@ real y los tres los encontró la comprobación, no la lectura:
    dos pasadas que para los identificadores: primero el registro completo —origen, enlace viejo,
    destino nuevo y si ya estaba roto antes de migrar—, se confirma, y recién después se aplica. La
    columna de «ya estaba roto antes» es la que distingue lo que la migración rompió de lo que reparó.
-4. **La reconexión se hace resolviendo destinos, no sustituyendo patrones.** Un patrón que reescribe
-   una ruta relativa **no sabe desde dónde se la cita**, y la profundidad correcta depende de eso: el
-   mismo texto de enlace es correcto desde una carpeta e incorrecto desde otra. En una corrida real,
-   una sustitución de patrón **rompió 181 enlaces donde había 96**, y alcanzó documentos de otra
-   unidad de entrega que no tenían nada que ver con el cambio. El procedimiento correcto es: **para
-   cada enlace que ya no resuelve** —y sólo para ésos—, buscar el destino real por nombre, acotado al
-   ámbito del documento que cita, y calcular la ruta. No toca ningún enlace que funcione y no puede
-   alcanzar a un documento ajeno.
-5. **Una cita se declara ambigua después de agotar los resolutores, no antes.** Una cita desnuda
-   —`CU-02` sin decir de quién— parece irresoluble y casi nunca lo es: el calificador suele estar en
-   el texto, en formas que un solo resolutor no alcanza. En una corrida real aparecieron **cuatro**
-   —el proyecto delante del identificador, detrás, en otra columna de la misma fila, y en el documento
-   fuente citado en la fila— y aplicarlas en cascada llevó **305 citas «ambiguas» a 16**. Declarar
-   ambiguo lo que no se intentó resolver traslada al humano un trabajo que el método podía hacer, y
-   **gasta la única atención que hay que reservar para lo que de verdad no resuelve**.
-
-**Qué alcanza el árbol, y es más de lo que parece.** El árbol de migración se construye sobre **todo
-lo que lleva identificadores del producto**, no sobre las categorías generadas. En una corrida real
-quedaron afuera dos conjuntos, y los dos volvieron como hallazgos:
-
-- **Las familias que el propio intake acuña** —sus reglas de negocio, sus invariantes, sus
-  funcionalidades—. `Root-Rules.md` §9.2 las alcanza y el árbol no las incluyó, con lo que el destino
-  quedó con **dos numeraciones de la misma regla conviviendo** —`RN-15` y `RN-02015`— sin nada que lo
-  dijera. Cuando una familia del intake **ya tiene numeración de destino** en el árbol migrado, no hay
-  decisión que tomar: hay una inconsistencia que cerrar.
-- **Los documentos de referencia cruzada de nivel producto** —un resumen de traspaso, una norma de
-  nomenclatura—, que no pertenecen a ninguna categoría ni a ninguna unidad de entrega y por eso caen
-  en el hueco entre dos recorridos.
 
 **Qué no se renumera.** Los identificadores de los informes de audit ya emitidos y los hallazgos que
 citan, porque son registros de lo que se verificó en un momento dado. Las familias excluidas del
-ancho por `Root-Rules.md` §9.2 —`AG-XX` y el ordinal de iteración— tampoco. Y **un documento cuyos
-recuentos también quedaron viejos no se reconecta a medias**: reescribirle los identificadores y
-dejarle las cifras produce un documento que afirma cosas que nunca fueron ciertas, que es peor que uno
-viejo con su fecha declarada. Se **declara superado**, con un puntero a dónde vive hoy cada cosa que
-inventariaba.
+ancho por `Root-Rules.md` §9.2 —`AG-XX` y el ordinal de iteración— tampoco.
 
 ### 4.3.2 Migración estructural: del proyecto de código a la unidad de entrega
 
@@ -310,36 +278,6 @@ confirma, corrige o reasigna.** Sin esa confirmación la migración no avanza.
   automáticamente**: el árbol base conserva el nombre y los demás se preservan en
   `<categoria>/_fusion/<Proyecto-De-Origen>/`, con su procedencia en la ruta. Esa carpeta es el
   inventario de lo que espera consolidación humana, y su presencia declara que la fusión no terminó.
-- **La consolidación se hace por categoría completa, no documento por documento.** Los documentos de
-  una capa **se citan entre sí como vecinos de carpeta**, de modo que consolidar uno deja a sus
-  hermanos estacionados apuntando al vacío. En una corrida real, el primer documento consolidado
-  rompió **61 enlaces**, y de a uno habría obligado a reconectar la misma carpeta hasta nueve veces.
-  Se consolidan los N documentos de una categoría **en una pasada** y recién entonces se retira su
-  `_fusion/`: así cada carpeta se reconecta una vez y **la categoría nunca queda en un estado
-  intermedio** donde la mitad cite a documentos vigentes y la otra a estacionados.
-- **Consolidar no es deduplicar, y hay que medirlo antes de decidir cómo.** La hipótesis con la que se
-  archiva en `_fusion/` es que varios documentos con el mismo nombre dicen lo mismo desde su capa. En
-  una corrida real, medido sobre 67 grupos, el solapamiento fue del **5,9 %**: el 94 % del contenido
-  era propio de una sola capa. **La medición se hace antes de elegir la salida**, porque decide cuál
-  aplica: con solapamiento alto la salida es seleccionar, con solapamiento bajo es **unir con
-  atribución** —una subsección por proyecto de código, nombrada— y casi nada se descarta.
-- **Cuatro salidas, y la cuarta es la que más se descarta por incomodidad.** Un grupo se resuelve por
-  **transposición con atribución** si sus documentos tienen secciones fijas que cada capa completa;
-  por **unión de catálogo** si son colecciones de entradas identificadas —los identificadores ya no
-  colisionan si la renumeración se hizo antes—; por **reescritura del índice** si son `README`; y por
-  **coexistencia con identidad propia** si son **artefactos distintos que comparten nombre por
-  convención**. Esta última **no reduce documentos**, y por eso se descarta con facilidad: cuatro
-  samples con contratos de verificación distintos **no se funden en uno con un contrato, se funden en
-  uno que no verifica ninguno**. Cuando se aplica, se renombran **todos** los del grupo, incluido el
-  que estaba vigente, para que ninguno quede privilegiado por conservar el nombre corto.
-- **Ninguna cifra se promedia al consolidar.** Si dos capas declaran umbrales distintos —coberturas,
-  latencias, gates—, los dos quedan con su capa nombrada. Un promedio de umbrales **no es un umbral**:
-  se cumple bajando el más alto, que es exactamente lo que ese umbral existía para impedir.
-- **La transposición lee el documento entero, no sólo sus secciones numeradas.** El texto entre la
-  cabecera y la primera sección —una nota previa, una declaración de origen— se pierde si el
-  procedimiento recorre encabezados. En una corrida real alcanzó a dos documentos, y en uno de ellos
-  era **la declaración de de dónde salía lo que el documento afirmaba**, que ninguna fuente del
-  producto declaraba.
 - **La consolidación de los casos de uso se emite como propuesta.** Al fundir capas, la categoría 02
   resultante contiene varias vistas de la misma capacidad —el dominio la modela, la aplicación la
   orquesta, la infraestructura la persiste, la API la expone—. La migración emite la lista de pares
@@ -445,10 +383,7 @@ Antes de cerrar la migración:
 
 - [ ] [enumerable] El árbol declara las **citas desnudas ambiguas** y su resolución confirmada.
 - [ ] [enumerable] Existe la **propuesta de consolidación de casos de uso** cuando la migración fundió árboles, y no se aplicó por su cuenta.
-- [ ] [enumerable] Los documentos que chocaron al fundir están en `<categoria>/_fusion/<Origen>/` y ninguno se sobrescribió. **Que ninguno se sobrescribiera no significa que la fusión terminó**: mientras esa carpeta exista, no terminó, y ése es un criterio distinto.
-- [ ] [enumerable] **No queda ninguna carpeta `_fusion/` en el árbol**, o la consolidación pendiente está declarada como tal en el informe, con su inventario por categoría.
-- [ ] [enumerable] Existe la **medición de solapamiento** de los grupos de consolidación, y la salida elegida para cada grupo es coherente con ella.
-- [ ] [interpretativo] Ninguna cifra se promedió al consolidar documentos de capas con umbrales distintos.
+- [ ] [enumerable] Los documentos que chocaron al fundir están en `<categoria>/_fusion/<Origen>/` y ninguno se sobrescribió.
 - [ ] [enumerable] Los enlaces se reconectaron **desde un registro confirmado**, y el registro distingue lo que la migración rompió de lo que reparó.
 - [ ] [enumerable] El árbol declara las **familias acuñadas por el destino** que no pertenecen al catálogo del framework, con su resolución confirmada por el humano.
 - [ ] [enumerable] Si el salto alcanza la forma de los identificadores, existe el **árbol de migración** de §4.3.1 con una fila por identificador alcanzado, y está confirmado por el humano antes de la pasada de aplicación.
@@ -481,9 +416,6 @@ Verificables por el auditor independiente sobre el resultado de la migración:
 - [ ] [interpretativo] Ninguna fila del plan quedó sin resolver y sin declararse como pendiente en el informe.
 - [ ] [interpretativo] Ningún renombre de artefacto se resolvió por inferencia: se leyó del bloque de impacto sobre destinos existentes del `CHANGELOG.md` del framework.
 - [ ] [interpretativo] Ninguna sustitución de un término dentro de un documento migrado se hizo por reemplazo global de cadena (`Vocabulario-Rules.md` §9.5).
-- [ ] [interpretativo] **Ningún enlace se reconectó por sustitución de patrón**: la reconexión resolvió destinos, y sólo sobre enlaces que ya no resolvían.
-- [ ] [interpretativo] **Ninguna cita se declaró ambigua sin agotar los resolutores disponibles**, y las que quedaron ambiguas están inventariadas una por una con su ubicación.
-- [ ] [interpretativo] **Cada marca del verificador de preservación se comprobó contra el texto.** Un verificador que sobre-reporta entrena a ignorarlo; un recuento de pérdidas que nadie abrió no es evidencia de nada.
 
 **Hallazgos P0**, que detienen la cadena: contenido inventado; sección exigida rellenada con contenido inferido; procedencia reescrita con migración parcial; corrección manual pisada sin declarar la interpretación; estado previo no archivado; fila del plan sin resolver y sin declarar.
 
@@ -547,5 +479,4 @@ Para el despacho del auditor, los criterios de §6 de este archivo se suman a lo
 | 2.0 | 2026-08-15 | Renumeración de identificadores y renombre de archivos (intervención reportes 00 a 11). **§4.3.1 es nueva**: cuando un salto normativo cambia la forma de los identificadores —como el de la 7.0, que fija cinco dígitos y ámbito producto—, la migración se hace en dos pasadas. La primera construye el **árbol de migración** completo, con identificador de origen y de destino, archivos a renombrar y **todas** las referencias que los apuntan, y se confirma con el humano antes de tocar nada. La segunda aplica el árbol confirmado y cierra con tres comprobaciones bloqueantes: ninguna referencia colgada, ninguna colisión de destino —el riesgo real cuando el ámbito pasa de proyecto de código a producto— y ningún residuo de la forma vieja fuera de `_legacy/`, que no se renombra. La evidencia de por qué no alcanza una sola pasada es de una corrida real: renumerar treinta y nueve archivos produjo por sí solo dos hallazgos bloqueantes. §6 suma sus tres criterios. Además, §6 clasifica cada criterio de aceptación como `[enumerable]` o `[interpretativo]`. Sube **major**: incorpora una capacidad que la migración no tenía y sin la cual el salto a la 7.0 no se puede ejecutar. Origen: reportes `01` y `05`, y la decisión del responsable del 2026-08-15. | Framework SDD |
 | 3.0 | 2026-08-15 | **Migración estructural del proyecto de código a la unidad de entrega** (framework 8.0). §4.3.2 es nueva y declara los cuatro pasos del salto: propuesta de clasificación con sus cuatro señales y **detención obligatoria** para que el humano la confirme, porque el manifiesto de un destino 7.0 no declara cuál de sus proyectos de código se despliega; mapa de fusión de árboles, con la regla de que el árbol de un proyecto **compartido** no se funde en ninguna unidad, ya que adivinarle una dueña es el defecto que la 8.0 corrige; qué se conserva y qué se declara, con la prohibición de fusionar casos de uso por coincidencia de título y la obligación de declarar el contenido sin destino en lugar de borrarlo; y la renumeración por el árbol de §4.3.1, que acá importa más que en otros saltos porque fundir dos árboles puede producir colisiones que antes no existían. §6 suma cuatro criterios. Sube **major**: incorpora una capacidad sin la cual el salto a la 8.0 no se puede ejecutar. | Framework SDD |
 | 3.1 | 2026-08-15 | **Familias de identificador acuñadas por el destino** (framework 8.2). §4.3.1 suma la pasada 1.b: antes de cerrar el árbol de migración hay que buscar los prefijos con forma de identificador que ninguna regla del framework declara, y las formas calificadas que el destino inventó para desambiguar. Aparecen con certeza y no por azar —un destino que se choca con un hueco normativo inventa un identificador para seguir trabajando— y su invención es la evidencia de qué le faltaba al método. Se declaran con su forma, sus ocurrencias, el hueco que vinieron a llenar y su resolución, que es una de tres y se evalúa en orden: retirarla porque la versión vigente ya cubrió el hueco, adoptarla como familia del destino con prefijo y ámbito declarados, o escalarla como hueco del framework sin resolverla. Sube **minor**: agrega una pasada al árbol sin cambiar la mecánica de las dos existentes. **Origen**: la migración de un destino real que había acuñado `P·CU-XX`, con 166 ocurrencias, para nombrar una numeración de casos de uso de nivel producto que el ámbito de unicidad de la 7.0 volvió innecesaria. | Framework SDD (validación por migración) |
-| 3.3 | 2026-08-16 | **Lecciones de la primera migración real completa**, de 6.0 a 8.6 sobre un destino de siete proyectos de código. **§4.3.1** suma dos errores de la pasada de aplicación a los tres que ya tenía —la reconexión **por resolución de destino y no por sustitución de patrón**, después de que un patrón rompiera 181 enlaces donde había 96; y **agotar los resolutores antes de declarar una cita ambigua**, después de que cuatro resolutores en cascada llevaran 305 citas «ambiguas» a 16—; y declara **qué alcanza el árbol de renumeración**, que en esa corrida dejó afuera las familias que el propio intake acuña y los documentos de referencia cruzada de nivel producto, los dos vueltos como hallazgos. **§4.3.2** suma cinco reglas de consolidación: la **categoría** como unidad de trabajo en lugar del documento, **medir el solapamiento antes de elegir la salida** —fue del 5,9 %, de modo que consolidar era unir y no deduplicar—, **las cuatro salidas** con la advertencia sobre la que no reduce documentos, **ninguna cifra se promedia**, y **la transposición lee el documento entero** y no sólo sus secciones numeradas. **§6** suma cuatro criterios de aceptación, incluida la distinción entre «ninguno se sobrescribió» y «la fusión terminó», que una auditoría real confundió. Sube minor. |
 | 3.2 | 2026-08-15 | **Lo que una migración real necesitó y la regla no decía** (framework 8.3). §4.3.1 declara que los punteros de un snapshot **sí se reconectan** cuando el documento vivo se renombra —no es modificar su cuerpo: un puntero que sigue a su objeto no falsea el registro, y uno colgado no preserva nada— y suma los **tres errores de la pasada de aplicación** con su regla: la etiqueta y el destino de un enlace son el mismo identificador y se mapean juntos, porque tratarlos por separado deja la etiqueta rota sin que la comprobación lo vea; un documento que cambia de profundidad recalcula **todos** sus enlaces y no solo los que apuntan a algo movido; y los enlaces se reconectan desde un registro confirmado, con la columna que distingue lo que la migración rompió de lo que reparó. §4.3.2 declara la convención **`<categoria>/_fusion/<Proyecto-De-Origen>/`** para los documentos que chocan al fundir, y exige la **propuesta de consolidación de casos de uso** como artefacto, sin aplicarla. Suma además las **citas desnudas ambiguas** al árbol: identificadores citados en prosa cuyo número no existe en el proyecto que los escribe, que se resuelven leyendo y no contando. §6 suma cuatro criterios. Sube **minor**. **Origen**: la migración de un destino de siete proyectos de código, donde los seis huecos aparecieron uno tras otro y ninguno era detectable leyendo el framework. | Framework SDD (validación por migración) |

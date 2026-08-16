@@ -3,7 +3,7 @@
 **Archivo target:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Lector:** la Fase de validación de intake del `Master-Prompt.md` (previa a la Fase A).
-**Versión de las reglas:** 4.0
+**Versión de las reglas:** 4.1
 
 ---
 
@@ -29,8 +29,8 @@ Esta sección declara dos cosas: qué artefactos gobierna esta regla (§2.1) y q
 
 | Archivo | Obligatorio para | Recomendado para | Omitir para | Descripción |
 |---|---|---|---|---|
-| `PRODUCT-INTAKE-<Slug-Producto>.md` | Todos los tipos D8 | — | — | Documento de entrada único del producto, en sus tres partes: negocio (§1 a §12), composición (§13 a §16) y técnica por proyecto de código (§17). Lo escribe y lo aprueba el Product Owner; su formato de referencia es `PRODUCT-INTAKE-template.md` |
-| `PRODUCT-MANIFEST-<Slug-Producto>.md` | Todos los tipos D8 | — | — | Manifiesto canónico de la jerarquía de proyectos de código, derivado por el orquestador de §13 del intake según §4 de esta regla y confirmado por el humano; su formato de referencia es `PRODUCT-MANIFEST-template.md` |
+| `PRODUCT-INTAKE-<Slug-Producto>.md` | Todos los tipos D8 | — | — | Documento de entrada único del producto, en sus tres partes: negocio (§1 a §12), composición (§13 a §16) y técnica por unidad de entrega (§17). Lo escribe y lo aprueba el Product Owner; su formato de referencia es `PRODUCT-INTAKE-template.md` |
+| `PRODUCT-MANIFEST-<Slug-Producto>.md` | Todos los tipos D8 | — | — | Manifiesto canónico de la jerarquía de proyectos de código, derivado por el orquestador de §13.1, §13.2 y §13.3 del intake según §4 de esta regla y confirmado por el humano; su formato de referencia es `PRODUCT-MANIFEST-template.md` |
 
 Los dos artefactos viven en `SDD/Intake/` del repositorio destino y son obligatorios para los ocho tipos D8. No hay gating por tipo: todo producto tiene exactamente un intake y exactamente un manifiesto, cualquiera sea la composición de sus proyectos de código. Es por eso que las tres columnas de gating quedan sin discriminar, y no por omisión.
 
@@ -56,7 +56,7 @@ Un campo bloqueante vacío, con placeholder o con valor `desconocido` detiene la
 Disparan pregunta, además de los de §2 del master-prompt:
 
 - Marcadores literales sin completar: `[…]`, `Pendiente`, `TBD`, `[Reemplazar]`, `[Nombre]`, `[YYYY-MM-DD]`, `[Nombre-Proyecto-Codigo]`, `[uno de los 8 D8]`, y cualquier corchete de la plantilla original.
-- Tablas con filas de ejemplo no sustituidas (por ejemplo la fila `| [Nombre-Proyecto-Codigo] (principal) | … |` de §13 sin reemplazar).
+- Tablas con filas de ejemplo no sustituidas (por ejemplo la fila `| [Nombre-Unidad-Entrega] (principal) | … |` de §13.1, o la fila `| [Nombre-Proyecto-Codigo] | … |` de §13.2, sin reemplazar).
 - NFR o cobertura expresados de forma no numérica ("rápido", "alta", "razonable") donde la regla exige número.
 - `tipo_unidad_entrega` fuera del conjunto cerrado D8.
 
@@ -64,25 +64,44 @@ Disparan pregunta, además de los de §2 del master-prompt:
 
 ## §4 Reglas de derivación del `PRODUCT-MANIFEST`
 
-A partir de §13 del intake (y del perfil de convención declarado), el orquestador construye el `PRODUCT-MANIFEST-<Slug-Producto>.md` en el formato de referencia de `PRODUCT-MANIFEST-template.md`. Pasos:
+A partir de §13.1, §13.2 y §13.3 del intake (y del perfil de convención declarado), el orquestador construye el `PRODUCT-MANIFEST-<Slug-Producto>.md` en el formato de referencia de `PRODUCT-MANIFEST-template.md`. Pasos:
 
 1. Derivar `Slug-Producto` de `Nombre-Producto` con el algoritmo de normalización de `Master-Prompt.md` §3.2. **`Raiz-Codigo` y `Artefacto-Agrupacion` no se derivan: se leen de la cabecera y del perfil de convención del intake.** Solo si el intake no los declara, el orquestador los deriva según §3.2 y lo informa como valor asumido.
-2. Por cada fila de §13, derivar `Identidad-Codigo` como `<Raiz-Codigo>.<Sufijo>`, salvo `redistribuible: true`, que arranca con el prefijo de organización del perfil (`Aplicada` por defecto). Derivar el path `src/<Identidad-Codigo>/`.
-3. Componer el bloque de producto (nombre, Slug-Producto, Raiz-Codigo, proyecto de código principal, perfil de convención, referencia al `PRODUCT-INTAKE` como origen) y la tabla de proyectos de código.
+2. Por cada fila de **§13.2**, derivar `Identidad-Codigo` como `<Raiz-Codigo>.<Sufijo>` y el path `src/<Identidad-Codigo>/`. **La excepción del prefijo de organización se resuelve por el puente, no por la fila**: el proyecto de código que publica una unidad de entrega con `redistribuible: true` arranca con el prefijo del perfil (`Aplicada` por defecto). `redistribuible` es atributo de la **entrega** (§13.1); qué proyecto la publica lo dice §13.3.
+3. Componer el bloque de producto (nombre, Slug-Producto, Raiz-Codigo, unidad de entrega principal, perfil de convención, referencia al `PRODUCT-INTAKE` como origen), la tabla de unidades de entrega, la tabla de proyectos de código y la matriz de composición.
 
-Mapeo de campos de §13 del intake al manifiesto:
+Mapeo de campos del intake al manifiesto. **Son dos tablas y no una, y es el punto**: pedirle a una sola fila el nombre del proyecto de código y su `tipo_unidad_entrega` es la confusión de ejes que la validación de más abajo prohíbe.
 
-| Campo en `PRODUCT-INTAKE` §13 | Campo en el manifiesto |
+**Del eje de entrega (§13.1):**
+
+| Campo en `PRODUCT-INTAKE` §13.1 | Campo en el manifiesto |
 |---|---|
-| `Nombre-Proyecto-Codigo` | `Nombre-Proyecto-Codigo` (directo) |
+| `Nombre-Unidad-Entrega` | `Nombre-Unidad-Entrega` (directo) |
 | `tipo_unidad_entrega` (D8) | `tipo_unidad_entrega` (directo) |
 | Rol en el producto | Rol (directo) |
-| Dependencias | Dependencias (directo, validadas) |
+| Integra con (runtime) | Aristas del grafo de integración (directo, validadas) |
 | `redistribuible` | `redistribuible` (directo) |
-| (derivado) | `Identidad-Codigo` = `<Raiz-Codigo>.<Sufijo>` o `Aplicada.<X>` |
+| Estado | Estado (`vigente` / `diferida`, directo) |
+
+**Del eje de construcción (§13.2):**
+
+| Campo en `PRODUCT-INTAKE` §13.2 | Campo en el manifiesto |
+|---|---|
+| `Nombre-Proyecto-Codigo` | `Nombre-Proyecto-Codigo` (directo) |
+| Stack | Stack (directo) |
+| Dependencias de compilación | Aristas del grafo de compilación (directo, validadas) |
+| Compone | Filas de la matriz de composición |
+| (derivado) | `Identidad-Codigo` = `<Raiz-Codigo>.<Sufijo>` o `<Prefijo-Organizacion>.<X>` |
 | (derivado) | Path `src/<Identidad-Codigo>/` |
+
+**Ningún campo D8 ni `redistribuible` sale del eje de construcción**, y ningún `Identidad-Codigo` sale del eje de entrega: son los dos sentidos de la misma confusión.
+
+**Del producto:**
+
+| Campo en `PRODUCT-INTAKE` | Campo en el manifiesto |
+|---|---|
 | Perfil de convención (cabecera/§13) | Perfil de convención del bloque de producto |
-| Nombre del producto (cabecera) | `Slug-Producto`, `Raiz-Codigo`, proyecto de código principal |
+| Nombre del producto (cabecera) | `Slug-Producto`, `Raiz-Codigo`, unidad de entrega principal |
 
 Validaciones bloqueantes de la derivación (si alguna falla, no se deriva el manifiesto y se reporta en la batería de §6):
 
@@ -120,7 +139,7 @@ Por parte del intake, el orquestador verifica presencia y coherencia mínima:
 
 - Negocio (Parte A): problema y consecuencia (§1); al menos un stakeholder por categoría (§2); MoSCoW con Must mínimo (§4); 3 historias y 2 roles si aplica (§5); 5 casos límite (§7); 3 métricas SMART de negocio (§8); 3 exclusiones (§9); presupuesto y fecha o "sin fecha" justificado (§10); 3 riesgos (§11); 5 términos de glosario (§12).
 - Composición (Parte B): §13.1, §13.2 y §13.3 completas y derivables (ver §4); §14 declara los contratos entre proyectos de código coherentes con las dependencias de §13; §15 garantiza valor end-to-end en el primer sprint; §16 deriva el árbol de la jerarquía y la convención de nombres.
-- Técnica (Parte C): §17 completo por cada proyecto de código de §13, con los P bloqueantes de §2.
+- Técnica (Parte C): §17 completo por cada unidad de entrega **vigente** de §13.1 —no por proyecto de código—, con las dos tablas de identidad que la plantilla declara y los P bloqueantes de §2.
 
 - Anexos de datos (Parte D): es opcional, pero **si existe se valida**. Cada escenario declara procedencia, un `Estado` del enum cerrado (`medido`, `declarado`, `derivado`, `reconstruido`) y sus cuatro bloques: contexto, qué ejercita, JSON completo y **qué verificar**. Un escenario sin bloque de verificación no es utilizable por `08-Calidad-Y-Pruebas` ni por `10-Examples`, que son sus consumidores declarados.
 - Navegabilidad: el intake declara su **tabla de contenido** después de la cabecera, con las secciones de primer y segundo nivel y con cada escenario de la Parte D listado por identificador.
@@ -206,4 +225,5 @@ Reglas de la batería:
 | 3.1 | 2026-07-29 | Corrección de la sustitución global de cadena de la 5.0. §5 decía «Regla de **reproducto** de la Parte D», palabra inexistente producida al sustituir `soluci*` por `producto` sobre «re**soluci**ón». La clase de defecto y su prohibición quedan documentadas en `Vocabulario-Rules.md` §9.5. La restitución de las filas históricas de este control de cambios, que la migración había reescrito contra `SDD-Development-Guide.md` §VI.2, se registra una sola vez en `CHANGELOG.md` [5.1] por alcanzar a veintitrés archivos. | Revisión SDD |
 | 3.2 | 2026-07-29 | Instrumentación de la enumeración de los documentos de entrada (prerrequisito F2 de la migración normativa). **§2.1 es nueva**: tabla maestra de los dos artefactos que esta regla gobierna, `PRODUCT-INTAKE-<Slug-Producto>.md` y `PRODUCT-MANIFEST-<Slug-Producto>.md`, con columnas homólogas a las de las reglas de categoría y con la declaración explícita de que no hay gating por tipo D8 porque todo producto tiene exactamente uno de cada uno. La regla no la tenía, y el paso 4 del diff normativo de `Master-Prompt.md` §2.1 enumera los documentos gobernados leyendo precisamente esa dirección: sin tabla maestra, el intake y el manifiesto nunca podían aparecer entre los documentos potencialmente invalidados, ni siquiera ante el salto major de 2.1 a 3.0 de esta misma regla. §2 pasa a titularse «Artefactos gobernados y campos bloqueantes» para alojar las dos subsecciones, y los campos bloqueantes se numeran como **§2.2** sin cambiar de contenido; la referencia externa vigente apunta a §2, que sigue conteniéndolos. Sube **minor**: incorpora una declaración que no invalida nada de lo vigente. | Framework SDD (migración normativa) |
 | 3.3 | 2026-08-15 | **Regla de coherencia intra-escenario** en §5, con su nivel de bloqueo en §7. Toda magnitud que la prosa de un escenario de la Parte D enuncia coincide con lo que su payload contiene, o el escenario declara por qué difieren; la discrepancia no declarada es bloqueante y la declarada es un dato del escenario. La validación verificaba que los cuatro bloques existieran y no que dijeran lo mismo, de modo que un escenario con «nueve» en un bloque y once entradas en el siguiente cumplía los cuatro requisitos y llegaba a los tres consumidores aguas abajo, cada uno creyendo una cosa distinta. Se declara además el alcance acotado —conteos y enumeraciones del propio payload, no cualquier número del texto—, sin el cual la validación produce ruido y se desactiva sola. Sube **minor**: agrega una validación sin cambiar la estructura de los artefactos que gobierna; un intake ya emitido no deja de cumplir por su forma, aunque pueda fallar la validación nueva, que es el efecto buscado. Origen: reporte `00`, huecos A y B. | Framework SDD (intervención reportes 00-11) |
+| 4.1 | 2026-08-16 | **Barrido por concepto de la 8.7** (`SDD-Development-Guide.md` §VI.3.1). §4 cometía dentro de sí mismo la confusión de ejes que sus propias validaciones prohíben treinta líneas más abajo: el paso 2 leía `redistribuible` —atributo de la **entrega**— de la fila del proyecto de código, y el mapeo era **una sola tabla** que pedía a la misma fila el `Nombre-Proyecto-Codigo` y el `tipo_unidad_entrega`, que es exactamente lo que la validación «ningún proyecto de código declara un valor D8» declara imposible. El mapeo pasa a **tres tablas** —entrega, construcción y producto— y el prefijo de organización se resuelve por el puente §13.3 y no por la fila. §5 corrige la Parte C, que decía «por cada proyecto de código» contra §2.2 y contra la coherencia cross-parte de la misma sección. §1 y §3 nombran la subsección. Sube **minor**: ningún intake que cumpliera §2.2 deja de cumplir. | Framework SDD (barrido 8.7) |
 | 4.0 | 2026-08-15 | **Validación de los dos ejes** (framework 8.0). §2.2 parte los campos bloqueantes de §13 en los de unidades de entrega y los de proyectos de código, y condiciona el bloque §17 a las unidades de entrega vigentes. §4 reorganiza las validaciones de la derivación en tres grupos —eje de entrega, eje de construcción y puente entre ejes— y suma siete validaciones nuevas, de las cuales dos son las que impiden que el intake confunda los ejes: que ningún proyecto de código declare un valor D8, y que todo proyecto componga al menos una unidad de entrega y toda unidad se componga de al menos un proyecto. §5 verifica que los contratos de integración y los de compilación no se mezclen. Sube **major**: cambia la estructura de lo que valida y el nombre de un campo bloqueante. | Framework SDD (nivel de unidad de entrega) |
