@@ -1,6 +1,6 @@
 # PRODUCT-INTAKE-template
 
-**Versión de la plantilla:** 3.3
+**Versión de la plantilla:** 3.4
 
 Este campo versiona la **plantilla**. El campo `| Versión |` de la cabecera de abajo pertenece al documento de intake que la plantilla genera, y arranca en 1.0 en cada producto nuevo.
 
@@ -456,8 +456,8 @@ Gestion-De-Turnos/
 ├── samples/
 └── SDD/
     ├── Intake/                         # PRODUCT-INTAKE y PRODUCT-MANIFEST derivado
-    ├── Docs/                           # categorías 00-11 (por proyecto de código bajo Unidades-Entrega/<Nombre-Unidad-Entrega>/)
-    └── Maquetas/                       # solo si algún proyecto de código ejecuta la Fase B2
+    ├── Docs/                           # categorías 00-11 (por unidad de entrega bajo Unidades-Entrega/<Nombre-Unidad-Entrega>/)
+    └── Maquetas/                       # solo si alguna unidad de entrega ejecuta la Fase B2
 ```
 
 ### §16.1 Materialización de `/samples`
@@ -754,3 +754,4 @@ Este documento alimenta las siguientes secciones SDD. La parte de negocio (A) es
 | 3.1 | 2026-08-16 | **Cierra la contradicción que la 3.0 dejó dentro de §17**, detectada al migrar un destino real con la plantilla en la mano. La tabla de identidad del bloque técnico se conservó de la versión anterior, que era **por proyecto de código**, y seguía pidiéndole `tipo_unidad_entrega` (D8) y `redistribuible` al proyecto de código — contra lo que **§13.2 del mismo documento** declara, «los proyectos de código no llevan valor D8», y contra §13.1, que hace de `redistribuible` una columna de la unidad de entrega. Quien completara el intake siguiendo §17 **declaraba D8 tantas veces como proyectos tuviera el producto**. Ahora son **dos tablas**: la identidad de la unidad de entrega, con su D8, su `redistribuible` y los proyectos que la componen; y la de esos proyectos, con nombre, identidad de código y rol, **sin D8 y sin `redistribuible`**, con la constancia de por qué no los lleva y de que un proyecto compartido aparece en el bloque de cada entrega que compone. **Ocho instrucciones de P.1 a P.12** decían «del proyecto de código» bajo un encabezado que dice «por unidad de entrega», y pasan a decirlo de la entrega, con la regla de nombrar el proyecto cuando el dato es de uno en particular: P.1 los stacks, P.3 los dos contratos contra §13.1 y §13.2, P.6 los umbrales **que no se promedian**, y P.10 los NFR de una capa interna. Ninguna sección se agrega ni se retira y ningún campo bloqueante cambia. Sube minor. |
 | 3.2 | 2026-08-16 | **Barrido por concepto de la propia 8.7**, que corrigió §17 y **no revisó el checklist de §19 que lo verifica**: seguía pidiendo «§17 completo para cada proyecto de código de §13», que es el nivel que esa misma intervención había sacado. Es el caso que `SDD-Development-Guide.md` §VI.3.1 nombra —barrer **el interior de lo ya tocado**— y la primera vez que se cobra. §16 desambigua §13.2 y corrige la pregunta del prefijo de organización, que trataba `redistribuible` como atributo del proyecto. |
 | 3.3 | 2026-08-16 | §19 nombraba `Arquitectura-Proyecto-Codigo.md` en la tabla de correspondencia con las categorías; el artefacto se llama `Arquitectura-Unidad-Entrega.md` desde que `Rules-Arquitectura-Tecnica.md` §2.1 lo renombró. |
+| 3.4 | 2026-08-16 | El árbol de §16 se contradecía dentro de la misma línea: «categorías 00-11 (**por proyecto de código** bajo `Unidades-Entrega/`)». Y las maquetas se condicionaban a que «algún proyecto de código ejecute la Fase B2», cuando `Master-Prompt.md` §4 evalúa `requiere_maqueta` **por unidad de entrega**. |

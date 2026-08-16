@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/06-Backlog-Tecnico/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Scrum Master / Agile Coach senior (AG-06)
-**Versión de las reglas:** 4.2
+**Versión de las reglas:** 4.3
 
 ---
 
@@ -425,7 +425,7 @@ Los dos fragmentos son ilustrativos. Cada unidad de entrega adapta el dominio re
 ## 8. Prompt-snippet sugerido
 
 ```text
-Sos un {{ESPECIALIDAD-VARIANTE}} responsable de redactar el backlog técnico de la unidad de entrega {{NOMBRE_PROYECTO_CODIGO}}.
+Sos un {{ESPECIALIDAD-VARIANTE}} responsable de redactar el backlog técnico de la unidad de entrega {{NOMBRE_UNIDAD_ENTREGA}}.
 
 Insumos:
 - PRODUCT-INTAKE: {{path}}
@@ -469,3 +469,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/06-Backlog-Tecnico/<
 | 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
 | 4.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |
 | 4.2 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |
+| 4.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |

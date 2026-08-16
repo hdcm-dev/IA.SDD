@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 7.11
+**Versión:** 8.0
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -179,7 +179,7 @@ Esta es la fase previa a la Fase A. Antes de despachar cualquier subagente, el o
 Al derivar el manifiesto desde `PRODUCT-INTAKE` §13, el orquestador verifica:
 
 - Cada `tipo_unidad_entrega` pertenece al conjunto cerrado D8.
-- Hay exactamente un proyecto de código principal (cero o más de uno detiene la cadena).
+- Hay exactamente un unidad de entrega principal (cero o más de uno detiene la cadena).
 - No hay colisión de `Nombre-Proyecto-Codigo` ni de `Identidad-Codigo`.
 - Cada dependencia referencia un proyecto de código existente en §13.
 - El grafo de dependencias es acíclico.
@@ -233,23 +233,41 @@ Producto:
 - Slug-Producto:         <Titulo-Con-Guiones>                   (plano de documentación)
 - Raiz-Codigo:           <raíz del ecosistema, admite segmentos> (plano de código)
 - Artefacto-Agrupacion:  <Raiz-Codigo + extensión del ecosistema> (plano de código)
-- proyecto-de-codigo-principal: <Nombre-Proyecto-Codigo>
+- unidad-de-entrega-principal: <Nombre-Unidad-Entrega>
 - perfil-convencion: <separador de segmentos> / <prefijo-redistribuibles> / <extensión del agrupador>
-- orden-topologico:
+- orden-topologico-de-compilacion:
     nivel 0: <proyectos de código>
     nivel 1: <proyectos de código>
     ...
+- orden-de-integracion: <unidades de entrega, en el orden del grafo de integración>
 
-Proyectos de código (uno por proyecto de código del manifiesto):
-- Nombre-Proyecto-Codigo: <Nombre>
-  Identidad-Codigo: <code>
+Unidades de entrega (§2.A del manifiesto, una por entrega):
+- Nombre-Unidad-Entrega: <Nombre>
   tipo_unidad_entrega: <valor D8>
   rol: <rol>
   redistribuible: <true|false>
-  dependencias: <lista de Nombre-Proyecto-Codigo>
-  path-src: src/<code>/
+  estado: <vigente|diferida>
+  integra-con: <lista de Nombre-Unidad-Entrega>
   path-docs: SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/
+
+Proyectos de código (§2.B del manifiesto, uno por proyecto):
+- Nombre-Proyecto-Codigo: <Nombre>
+  Identidad-Codigo: <code>
+  stack: <lenguaje y framework>
+  rol: <rol en la arquitectura>
+  dependencias-de-compilacion: <lista de Nombre-Proyecto-Codigo>
+  path-src: src/<code>/
+  compone: <lista de Nombre-Unidad-Entrega>
+
+Matriz de composición (§2.C del manifiesto): proyectos en filas, entregas en columnas.
+Una fila con más de una marca es un proyecto **compartido**.
 ```
+
+**Ningún valor D8 ni `redistribuible` aparece en el bloque de proyectos de código, y ninguna
+`Identidad-Codigo` en el de unidades de entrega.** Es la misma separación que `Intake-Rules.md` §4
+valida sobre el intake: el tipo es atributo de la **entrega** y la identidad de código lo es del
+**proyecto**. Publicar el bloque mezclado era la forma más directa de que un subagente los confundiera,
+porque este bloque es lo primero que recibe.
 
 **Mapa de rangos de identificadores.** Cuando el manifiesto declara **más de una unidad de entrega**,
 el orquestador deriva y publica, junto al bloque anterior, el reparto de rangos. Los identificadores
@@ -1188,7 +1206,7 @@ Términos canónicos del orquestador. Cualquier divergencia con estos términos 
 | Grafo de integración | Aristas de **runtime** entre unidades de entrega: quién le habla a quién estando desplegados. Ordena el bucle de generación de §7. |
 | Grafo de compilación | Aristas de **dependencia de compilación** entre proyectos de código. Ordena el build del pipeline de producto. No coincide con el de integración, y no tiene por qué. |
 | Manifiesto de producto | Artefacto de intake que enumera los proyectos de código, su D8, rol, dependencias y nombres de código. Primer insumo del orquestador y fuente única de verdad de la enumeración. |
-| Proyecto de código principal | Proyecto de código cabeza del producto, equivalente al antiguo tipo dominante del intake de tipo único. |
+| Unidad de entrega principal | Unidad de entrega cabeza del producto, equivalente al antiguo tipo dominante del intake de tipo único. |
 | Orden topológico | Secuencia de generación que respeta las dependencias del manifiesto: primero las dependencias, después los dependientes. |
 | Caso degenerado | Producto con una única unidad de entrega: el layout aplana el subnivel `Unidades-Entrega/`. Con una sola unidad **y** un solo proyecto de código, reproduce exactamente el comportamiento del template de tipo único. Los dos casos se declaran en §3.5. |
 | Subagente | Agente especializado invocado por el orquestador para producir los documentos de una categoría, con su rol declarado en §1 del archivo de reglas y parametrizado por el `tipo_unidad_entrega` de la unidad de entrega en curso. |
@@ -1287,3 +1305,4 @@ Reglas de versionado:
 | 7.9 | 2026-08-16 | **La tabla del plan maestro de §7 nunca se migró al layout de la 8.0.** Sus **quince filas** declaraban el ámbito «proyecto de código» para once categorías y emitían a `SDD/Docs/Proyectos/<Nombre>/`, mientras el intro de esa misma §7, treinta líneas más arriba, y §3.5 declaran la generación **por unidad de entrega** bajo `Unidades-Entrega/<Nombre-Unidad-Entrega>/`. La tabla es la que el orquestador ejecuta: **una generación nueva producía el layout anterior a la 8.0**. Se corrigen las columnas de ámbito y de path de salida de las quince filas, el gating por flag y la variante D8, que se leían del proyecto de código; el `path-docs` del bloque de manifiesto de §3.4; y el criterio de ubicación del audit de §10, que verificaba contra la ruta vieja. Sube **minor**: cambia el destino de la generación al que §3.5 ya declaraba, sin tocar el flujo, las fases ni ningún entregable.  Framework SDD (barrido del layout 8.0) |
 | 7.10 | 2026-08-16 | **Barrido retroactivo de los conceptos de la 6.0 y la 8.0.** Ocho citas vivas apuntaban a **`README §5` del proyecto de código**, que es una sección del `PROJECT-README` que la **6.0 eliminó** al unificar el intake, en el nivel que la **8.0 cambió**. Cinco están en la tabla de flags de §4 —`multi_tenant`, `tiene_auth`, `tiene_portal_developers`, `tiene_extensibilidad` y `tiene_observabilidad_critica`—, que **declaraban el nivel «unidad de entrega» y leían el valor del proyecto de código, de un documento inexistente**; las otras tres son insumos upstream de la tabla de §7. Pasan a `PRODUCT-INTAKE` §17 de la unidad de entrega, con la misma numeración de P. Se corrige además la columna de impacto de cuatro filas, que nombraba categorías «del proyecto de código» cuando viven bajo `Unidades-Entrega/`. Sube **minor**: corrige el origen de cinco flags de gating sin cambiar su nivel declarado ni el conjunto. | Framework SDD (barrido retroactivo 6.0 y 8.0) |
 | 7.11 | 2026-08-16 | La fila C de la tabla de §7 nombraba **`Arquitectura-Proyecto-Codigo.md`**, que `Rules-Arquitectura-Tecnica.md` §2.1 había renombrado a `Arquitectura-Unidad-Entrega.md`, y declaraba sus documentos «por proyecto de código». Un renombre de artefacto **no lo infiere ningún diff de versiones** (`Migracion-Rules.md` §111): hay que propagarlo, y no se había propagado. Sube **minor**: cambia el nombre de un documento que el orquestador manda producir.  Framework SDD (cabecera de nivel unidad de entrega) |
+| 8.0 | 2026-08-16 | **El bloque informativo de §3.4 —lo primero que el orquestador imprime y lo primero que un subagente ve— era de un solo eje.** Enumeraba proyectos de código llevando `tipo_unidad_entrega`, `redistribuible` y `path-docs`, que es exactamente la mezcla que `Intake-Rules.md` §4 valida como imposible y que la 8.12 corrigió en la regla sin llegar acá. Pasa a **tres bloques** —unidades de entrega de §2.A, proyectos de código de §2.B y la matriz de §2.C— con la constancia de que ningún D8 sale del eje de construcción y ninguna `Identidad-Codigo` del de entrega. El campo del producto pasa a `unidad-de-entrega-principal` y el orden topológico se desdobla en **compilación** e **integración**, que no son el mismo grafo. §3.1 y §15 acompañan el renombre. Sube **major**: cambia la forma del bloque que gobierna toda la generación. |

@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/00-Contexto/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Subagente target del orquestador:** Product Manager Senior (AG-00) en conjunción con Analista de Negocio Senior (AG-01) si la unidad de entrega tiene stakeholders múltiples.
-**Versión de las reglas:** 4.2
+**Versión de las reglas:** 4.3
 
 ---
 
@@ -405,7 +405,7 @@ Fragmento representativo de `Alcance-Producto.md` para una librería utilitaria:
 ## 8. Prompt-snippet sugerido para el subagente
 
 ```text
-Sos un {{ESPECIALIDAD-VARIANTE}} responsable de redactar los documentos de contexto de la unidad de entrega {{NOMBRE_PROYECTO_CODIGO}}.
+Sos un {{ESPECIALIDAD-VARIANTE}} responsable de redactar los documentos de contexto de la unidad de entrega {{NOMBRE_UNIDAD_ENTREGA}}.
 
 Insumos:
 - PRODUCT-INTAKE: {{path-al-intake}}
@@ -455,3 +455,4 @@ Salida: SDD/Docs/00-Contexto/<archivos>.md.
 | 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
 | 4.1 | 2026-08-15 | **La condición de terminado se declara en dos capas** (framework 8.0, cierre de pendiente). La capa de **acuerdo del equipo** —revisión, cobertura acordada, documentación— es de nivel producto y se emite en la Fase A, dentro de `Acuerdo-Equipo.md` §5, porque es donde el equipo la acuerda. La capa de **verificación** —pirámide de testing, quality gates, matriz de cobertura— es de la unidad de entrega y vive en `Definition-Of-Done.md` de la 08, que refina la primera en lugar de crearla. Cierra el hallazgo del reporte `07` sin administrarlo: la obligación de la Fase A hacia la Fase E desaparece, porque no era una dependencia real. Un equipo puede acordar cómo cierra su trabajo sin saber todavía qué pirámide de testing usará cada entrega. Sube **minor**: reparte contenido entre dos artefactos existentes sin cambiar el conjunto de artefactos de ninguna de las dos categorías. |
 | 4.2 | 2026-08-16 | Concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5), en el barrido del layout. Sube **patch**: no cambia ninguna regla. |
+| 4.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
