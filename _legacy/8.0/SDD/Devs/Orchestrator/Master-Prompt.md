@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 7.1
+**Versión:** 7.0
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -247,44 +247,25 @@ Proyectos de código (uno por proyecto de código del manifiesto):
   path-docs: SDD/Docs/Proyectos/<Nombre>/
 ```
 
-**Mapa de rangos de identificadores.** Cuando el manifiesto declara **más de una unidad de entrega**,
-el orquestador deriva y publica, junto al bloque anterior, el reparto de rangos. Los identificadores
-son únicos en el producto (`Root-Rules.md` §9.1), de modo que el reparto tiene que existir **antes**
-de que se escriba el primer caso de uso: si se decide tarde, renumerar cuesta más que declararlo, y
-con varios subagentes en paralelo cada uno inventa el suyo y los prefijos naturales coinciden con
-certeza.
+**Mapa de rangos de identificadores.** Cuando el manifiesto declara **más de un proyecto de código**,
+el orquestador deriva y publica, junto al bloque anterior, el reparto de rangos por proyecto de
+código. Los identificadores son únicos en el producto (`Root-Rules.md` §9.1), de modo que el reparto
+tiene que existir **antes** de que se escriba el primer caso de uso: si se decide tarde, renumerar
+cuesta más que declararlo, y con varios subagentes en paralelo cada uno inventa el suyo y los
+prefijos naturales coinciden con certeza.
 
-**El reparto es por familia, y solo alcanza a las familias que más de una unidad de entrega
-produce.** La unicidad es dentro de la familia: que exista un `NB-00014` no vuelve ambiguo a un
-`CU-00014`, porque el prefijo los distingue. Repartir bloques a una familia que se produce en un solo
-nivel no evita ninguna colisión y sí obliga a renumerar sin motivo, que es de las operaciones más
-caras y más riesgosas del método.
-
-De ahí las dos reglas:
-
-1. **Familia producida por más de una unidad de entrega** —`CU`, `RN`, `ADR`, `US`, `BT`, `TC` y
-   equivalentes—: se le reparte un bloque contiguo por unidad, en orden topológico, con holgura sobre
-   lo previsto.
-2. **Familia producida en un solo nivel** —`NB` a nivel producto, y toda familia que emita una sola
-   categoría de un solo nivel—: **no se le reparte nada**. Conserva su numeración natural desde
-   `00001` y solo respeta el ancho.
-
-El mapa declara **las dos listas**, y por qué cada familia está donde está: una familia sin bloque
-tiene que verse como una decisión y no como un olvido.
+El reparto es determinista: los proyectos de código se toman en orden topológico y a cada uno se le
+asigna un bloque contiguo del mismo tamaño, con holgura sobre lo previsto.
 
 ```text
-Mapa de rangos de identificadores (solo si hay más de una unidad de entrega):
-- Ámbito de unicidad: producto, dentro de cada familia (Root-Rules.md §9.1)
+Mapa de rangos de identificadores (solo si hay más de un proyecto de código):
+- Ámbito de unicidad: producto (Root-Rules.md §9.1)
 - Ancho: cinco dígitos (Root-Rules.md §9.2)
-
-Familias repartidas (las que produce más de una unidad de entrega):
-- <Nombre-Unidad-Entrega-1>: 00001–09999
-- <Nombre-Unidad-Entrega-2>: 10001–19999
-- <Nombre-Unidad-Entrega-N>: ...
-
-Familias sin reparto (producidas en un solo nivel), con su motivo:
-- NB: solo la categoría 01, de nivel producto. Numeración natural desde 00001
-- <otras>: ...
+- <Nombre-Proyecto-Codigo-1>: 00001–09999
+- <Nombre-Proyecto-Codigo-2>: 10001–19999
+- <Nombre-Proyecto-Codigo-N>: ...
+- Familias alcanzadas: las de Root-Rules.md §9.2
+- Familias de nivel producto (NB y equivalentes): rango propio 90001–99999
 ```
 
 Este bloque va en el despacho de toda categoría que acuñe identificadores (§8). El salto entre el
@@ -1235,7 +1216,6 @@ Este master-prompt se versiona como cualquier otro artefacto del template. Cualq
 | 5.2 | 2026-07-29 | Integración con el orquestador de migración normativa (prerrequisito F3). Sube **minor** según las reglas de versionado de abajo: cambia el flujo de §2 y la mecánica de §13, y no toca el principio de delegación, el flujo plan-then-confirm, el conjunto D8, los insumos obligatorios ni la cardinalidad de generación; ningún documento generado con la 5.1 deja de cumplir. **§2 paso 1** tolera nombres de artefacto legados: si no hay `PRODUCT-INTAKE-*.md`, busca los nombres declarados por las versiones archivadas en `_legacy/` y por los bloques «Impacto sobre destinos existentes» del `CHANGELOG.md` antes de concluir que no hay intake, y declara el hallazgo legado como destino a migrar en lugar de detener la cadena. Cerraba un hueco que impedía que la reconciliación llegara a correr sobre un destino generado con la 4.1, cuyo intake se llama de otra manera. **§2.1** nombra el instrumento de su salida A y renombra su plan de `Reconciliacion-<origen>-a-<vigente>.md` a `Plan-Migracion-<origen>-a-<vigente>.md`, que suma la columna de fuente de contenido y las filas del intake y del manifiesto leídas de la tabla maestra nueva de `Intake-Rules.md` §2.1; la detención y las tres prohibiciones de la sección quedan intactas, y no se agrega una cuarta salida porque ejecutar el plan sigue siendo una decisión aparte. La fila **«Sin procedencia»** pasa de ofrecer solo regenerar o abortar a ofrecer además migración normativa con clasificación degradada, que es posible porque la migración opera contra el estado objetivo y no contra el conjunto de origen, con la prohibición explícita de suponer una versión de origen. **§13 regla 2** pasa de declarar un único caso de escritura del intake a declarar dos, con el segundo siendo la **migración estructural** de la fase M2 del orquestador de migración, y sus tres condiciones acumulativas: propuesta con aprobación explícita antes de escribir, ninguna sección rellenada, y bump major. **§7** nombra la salida A con su nombre nuevo. | Framework SDD (migración normativa) |
 | 6.0 | 2026-08-15 | Intervención sobre los reportes 00 a 11 (framework 7.0). **§3.4** deriva y publica el mapa de rangos de identificadores cuando el manifiesto declara más de un proyecto de código, con el ámbito de unicidad producto y el ancho de cinco dígitos de `Root-Rules.md` §9. **§6** declara el segundo grafo —el de obligaciones normativas entre artefactos— y su comprobación contra el orden de fases, con la reapertura obligatoria que trae el insumo y no solo el turno, y la prohibición de que una categoría emita un artefacto de otra. **§7.0** es nueva: detención por extensión de un conjunto cerrado ajeno, y registro único de decisiones pendientes del producto, exhibido al cerrar cada fase. **§8** suma a los insumos de todo despacho las cuatro secciones transversales de `Root-Rules.md` §9 a §12 y el mapa de rangos, con la misma regla de construcción con que la 5.1 sumó `Vocabulario-Rules.md`. **§10.0** es nueva: compuerta mecánica previa al audit, con sus cuatro comprobaciones enumerables, la obligación de declarar qué no mira y su resultado como insumo del despacho del auditor. **§10** suma cuatro criterios —conjuntos cerrados cruzando categorías como P0, recuentos anclados, referencias pendientes y apartamientos—, la marca de origen «aguas arriba» y la marca de detectabilidad, ortogonales al nivel; y **§10.1** es nueva con el criterio de corte de las rondas. **§12** lee las decisiones pendientes del registro en lugar de reconstruirlas. **§15** suma `sonda`, `pasada de diseño`, `pasada de ejecución` y `arnés`. Sube **major**: el ancho de cinco dígitos y el ámbito de unicidad declarado hacen que la documentación generada con la versión anterior deje de cumplir. Origen: los doce reportes de evidencia, agrupados en las cinco familias del análisis. | Framework SDD (intervención reportes 00-11) |
 | 7.0 | 2026-08-15 | **La unidad de entrega pasa a ser el nivel intermedio del layout** (framework 8.0). §3.5 reemplaza `Proyectos/<Nombre-Proyecto-Codigo>/` por `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, declara por qué el proyecto de código no es un nivel de carpetas —la relación entre ejes es de composición de muchos a muchos, y anidar un proyecto compartido obligaría a documentarlo una vez por entrega— y enumera los **cuatro casos de aplanado** en cascada, incluido el que la versión anterior no podía expresar: un monolito de varias capas compiladas por separado, que producía un árbol de once categorías por capa. §4 declara el **nivel de cada flag** y suma `redistribuible` y `entrega_diferida`; `tiene_persistencia` se evalúa en la unidad de entrega, con lo cual el caso que rompía la versión anterior —una entrega cuya persistencia vive en una de sus capas— desaparece. §6 y §7 recorren unidades de entrega en el orden topológico del **grafo de integración**, que no es el de compilación. §8 parametriza el despacho por unidad de entrega y le entrega la lista de proyectos de código que la componen, con los compartidos marcados. §11 reescribe la vista de producto como el artefacto de los **dos ejes**, con el inventario de proyectos de código, los dos grafos por separado y la **matriz de composición**. §12 separa la tabla de unidades de entrega de la de proyectos de código. §15 suma cinco términos y renombra `tipo_proyecto_codigo` a **`tipo_unidad_entrega`**. Sube **major**: cambia el layout de salida, el nivel de aplicación de once categorías y el nombre de una variable bloqueante. | Framework SDD (nivel de unidad de entrega) |
-| 7.1 | 2026-08-15 | **El reparto de rangos es por familia** (framework 8.1). §3.4 acota el mapa de rangos: solo se reparten bloques a las familias que **más de una unidad de entrega produce**, y una familia producida en un solo nivel —`NB` a nivel producto— conserva su numeración natural. La unicidad es dentro de la familia, y que exista un `NB-00014` no vuelve ambiguo a un `CU-00014`. El mapa declara las dos listas y el motivo de cada una, para que una familia sin bloque se lea como decisión y no como olvido. Sube **minor**: acota una regla que era más amplia de lo necesario y ninguna documentación emitida deja de cumplir. **Origen**: la migración de un destino real de dos unidades de entrega, donde aplicar la regla anterior a la letra obligaba a renumerar 2.309 citas de `NB` sin que existiera una sola colisión que lo justificara. | Framework SDD (validación por migración) |
 
 Reglas de versionado:
 

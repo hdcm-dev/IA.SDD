@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-ROOT)
-**Versión de las reglas:** 5.1
+**Versión de las reglas:** 5.0
 
 ---
 
@@ -396,18 +396,12 @@ código esa cita no resuelve.
 
 Consecuencias operativas, en un producto de más de una unidad de entrega:
 
-- El orquestador deriva y publica el **mapa de rangos de identificadores** antes de despachar la
-  primera categoría, y lo incluye en cada despacho (`Master-Prompt.md` §3.4). Ningún subagente
-  inventa su rango.
-- **La unicidad es dentro de cada familia, y el reparto también.** `CU-00014` tiene que ser único
-  entre los `CU`; que exista un `NB-00014` no lo vuelve ambiguo, porque el prefijo los distingue. Por
-  eso solo se reparten bloques a las familias que **más de una unidad de entrega produce**: una
-  familia que se produce en un solo nivel conserva su numeración natural. Repartir donde no hay
-  colisión posible obliga a renumerar sin motivo, y renumerar es la operación más cara y más riesgosa
-  del método.
+- El orquestador deriva y publica el **mapa de rangos de identificadores** por unidad de entrega
+  antes de despachar la primera categoría por proyecto, y lo incluye en cada despacho
+  (`Master-Prompt.md` §3.4). Ningún subagente inventa su rango.
 - La numeración dentro de un rango es contigua. El salto entre el fin de un rango y el principio del
   siguiente no es una numeración no contigua que haya que justificar: es el reparto declarado.
-- En el caso degenerado —una sola unidad de entrega— el producto y la entrega son el mismo espacio
+- En el caso degenerado —un solo unidad de entrega— el producto y el proyecto son el mismo espacio
   de nombres y no hay reparto que hacer.
 
 ### 9.2 Ancho
@@ -594,4 +588,3 @@ Una referencia pendiente que sigue abierta al cierre del producto es hallazgo P0
 | 3.1 | 2026-07-29 | Criterio de gobierno del glosario en §6. Sube minor: agrega criterios de aceptación verificables sin cambiar el conjunto de artefactos de la categoría ni ninguna invariante, y ninguna documentación ya emitida deja de cumplir por sí sola. Los tres criterios exigen que todo término que la categoría acuña o precisa y usa en más de uno de sus artefactos esté declarado en el glosario que le corresponde, que ninguna forma desnuda de un término polisémico quede sin resolver en un artefacto que se lee por secciones, y —criterio negativo— que ninguna polisemia con contextos disjuntos se reporte como defecto. Materializan `Vocabulario-Rules.md` §9 en la categoría. **Origen**: el audit verificaba «glosario sin contradicciones», que un glosario incompleto cumple trivialmente, y esta regla mencionaba el glosario sin verificarlo en §6. |
 | 4.0 | 2026-08-15 | Cuatro secciones transversales nuevas, incorporadas por la intervención sobre los reportes 00 a 11 (framework 7.0). **§9 Sistema de identificadores**: ámbito de unicidad producto, ancho de cinco dígitos uniformes con sus familias alcanzadas y sus dos exclusiones declaradas, estabilidad y capacidad enunciadas juntas, colecciones derivadas, y titularidad con la prohibición de acuñar identificadores para artefactos de otra categoría. **§10 Datos derivados en la prosa**, con sus cuatro reglas y la restricción de que un recuento que no se puede anclar se reescribe en vez de verificarse. **§11 Apartamiento declarado**, que generaliza la figura que hoy solo admite `Rules-Documentacion.md` §2.5. **§12 Referencia pendiente**, con su cierre obligatorio y la exigencia de que la reapertura traiga el insumo. Las cuatro son transversales y entran en los insumos de todo despacho por `Master-Prompt.md` §8. Control de cambios pasa de §9 a §13. Sube **major**: el ancho de cinco dígitos hace que la documentación generada con dos dígitos deje de cumplir. Origen: reportes `01`, `05`, `06`, `08` (§9 y §11), `00` y `04` (§10), `02`, `03` y `07` (§12). Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. |
 | 5.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** §10 registra además la decisión de **no** ampliar D9 a los recuentos en prosa, con su motivo: D9 está acotada a afirmaciones sobre el estado del sistema y un recuento sobre una tabla del propio documento no lo es; las cuatro reglas de §10 consiguen el mismo efecto sin tocar una invariante. (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
-| 5.1 | 2026-08-15 | §9.1 precisa que la unicidad y el reparto de rangos son **dentro de cada familia**: solo se reparten bloques a las familias que más de una unidad de entrega produce, y una familia producida en un solo nivel conserva su numeración natural. Sube **minor**: acota una consecuencia operativa sin cambiar el ámbito de unicidad. Origen: la migración de un destino real de dos unidades de entrega. |
