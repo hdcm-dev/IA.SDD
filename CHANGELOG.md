@@ -3,6 +3,34 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.16] - 2026-08-16
+
+**Se midió lo que la 8.4 había dejado como condición, y el resultado descarta la variante que llevaba cuatro versiones anotada.** `Coherencia-Referencias-Derivadas.md` §5 proponía que los documentos citaran **sólo por identificador** y la ruta se derivara de un índice de nivel producto, con una condición explícita para evaluarla: medir antes qué proporción del corpus referencia por ruta y cuál por identificador.
+
+**Corpus medido: 759 documentos de tres destinos reales.**
+
+| | Cantidad | Proporción |
+| --- | --- | --- |
+| Citas por identificador | 34 489 | **90,1 %** |
+| Enlaces por ruta | 3795 | **9,9 %** |
+| De las rutas: apuntan a un documento **con** identificador | 2099 | 55,3 % |
+| De las rutas: apuntan a un documento **sin** identificador | 1696 | **44,7 %** |
+| Enlaces rotos hoy | 3 | **0,08 %** |
+
+**Tres razones, y la tercera es la que cierra:**
+
+1. **El corpus ya cita por identificador nueve de cada diez veces**, y no porque una regla lo exija. La variante impondría estructuralmente lo que la práctica ya hace.
+2. **Casi la mitad del 10 % restante no es sustituible.** Apunta a `README.md`, a la especificación de una categoría, a un índice: documentos **sin identificador**, que ningún índice de nivel producto puede direccionar. El techo de la variante es el **55 % del 10 %**.
+3. **El índice sería una fuente declarativa nueva que hay que mantener, y no es subproducto de ningún acto.** Agregar un documento obligaría a acordarse de indexarlo. Es la clase de fuente que la **8.14** acaba de mandar evitar en `Master-Prompt-Reanudacion.md` §1.1 R3. **Cambiaríamos 3 enlaces rotos por un índice que se degrada en silencio**, que es el defecto más caro de los dos.
+
+### Cambiado
+
+- **`Coherencia-Referencias-Derivadas.md` 1.0 → 1.1.** §5 pasa de «lo que queda anotado» a **cómo se cerró**, y **§5.1** es nueva con la medición completa, su desglose por destino y la salvedad de que los tres corpus están generados contra el conjunto 6.0 —anterior a la condición que hace posible la variante—, con el argumento de por qué la medición sigue valiendo: captura **cómo se escribe**, y nadie escribió esas 34 489 citas porque una regla se lo pidiera.
+
+**Ninguna regla, plantilla ni orquestador cambia**, y por eso el conjunto sube **patch**. El conjunto superado se archiva en `_legacy/8.15/`.
+
+---
+
 ## [8.15] - 2026-08-16
 
 **Tercer barrido retroactivo**, sobre los dos conceptos grandes que quedaban de intervenciones anteriores a la 8.9: el vocabulario de la **6.0** —la unificación del intake, que eliminó `PROJECT-BRIEF` y `PROJECT-README`— y los dos ejes de la **8.0** más allá de lo que la 8.12 y la 8.13 cubrieron.
