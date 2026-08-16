@@ -3,6 +3,22 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.8] - 2026-08-16
+
+**Lecciones de la primera migración real completa.** Un destino de siete proyectos de código migró de 6.0 a 8.6 y **se llevó la migración hasta el final**: las siete fases, la consolidación de casos de uso, la de la fusión —67 grupos, 143 documentos absorbidos, 9726 líneas— y seis rondas de auditoría. Lo que sigue son las reglas que esa corrida necesitó y que no estaban escritas, cada una con el error que la produjo.
+
+### Cambiado
+
+- **`Migracion-Rules.md` 3.2 → 3.3.** §4.3.1 suma **dos errores de la pasada de aplicación** a los tres que ya tenía: la reconexión se hace **resolviendo destinos y no sustituyendo patrones** —un patrón no sabe desde dónde se lo cita, y en la corrida rompió **181 enlaces donde había 96**—, y **una cita se declara ambigua después de agotar los resolutores**, no antes: cuatro resolutores en cascada llevaron **305 citas «ambiguas» a 16**. Y declara **qué alcanza el árbol de renumeración**, que dejó afuera dos conjuntos que volvieron como hallazgos: las familias que el propio intake acuña —con dos numeraciones de la misma regla conviviendo— y los documentos de referencia cruzada de nivel producto, que caen en el hueco entre dos recorridos.
+- **§4.3.2 suma cinco reglas de consolidación.** La **categoría** es la unidad de trabajo y no el documento, porque los documentos de una capa se citan entre sí como vecinos y consolidar de a uno deja a los hermanos apuntando al vacío. **El solapamiento se mide antes de elegir la salida**: en la corrida fue del **5,9 %**, de modo que consolidar no era deduplicar sino **unir con atribución**. Se declaran **cuatro salidas**, con la advertencia sobre la única que **no reduce documentos** —cuatro samples con contratos distintos no se funden en uno con un contrato, se funden en uno que no verifica ninguno—. **Ninguna cifra se promedia**: un promedio de umbrales no es un umbral. Y **la transposición lee el documento entero**, no sólo sus secciones numeradas.
+- **§6 suma cuatro criterios de aceptación**, incluida la distinción entre «ninguno se sobrescribió» y «la fusión terminó», que la auditoría de la corrida confundió durante tres rondas.
+- **`Master-Prompt-Migracion.md` 2.0 → 2.1.** El formato del diff de estructura suma el renglón de **secciones colapsadas** —el inverso del de partidas, y **el movimiento más grande de la fase** en esa corrida: siete bloques a dos— y dos renglones para **campos que cambian de dueño o desaparecen**. Y declara **cómo se transpone un bloque colapsado sin reescribirlo**, que es lo que vuelve verificable la regla de no invención.
+- **`Master-Prompt.md` 7.4 → 7.5.** §10 suma dos criterios de audit: **un recuento que confirma una propiedad no confirma las demás**, y usarlo para afirmar lo que no decide es **P1**; y **toda marca de una comprobación se abre antes de reportarla**, porque un verificador que sobre-reporta entrena a ignorarlo y el día que acierta ya nadie lo mira.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/8.7/`.
+
+---
+
 ## [8.7] - 2026-08-16
 
 **La plantilla de intake se contradecía a sí misma, y el defecto se descubrió usándola.** La 8.0 partió §13 en dos ejes y movió el bloque técnico de §17 de «por proyecto de código» a «por unidad de entrega». **La tabla de identidad de §17 se conservó del bloque anterior** y siguió pidiéndole `tipo_unidad_entrega` (D8) y `redistribuible` **al proyecto de código**, contra lo que §13.2 del mismo documento declara —«los proyectos de código no llevan valor D8»— y contra §13.1, que hace de `redistribuible` una columna de la unidad de entrega.
