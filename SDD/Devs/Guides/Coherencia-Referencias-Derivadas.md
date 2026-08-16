@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Coherencia-Referencias-Derivadas.md
-**Versión:** 1.0
+**Versión:** 1.1
 **Estado:** Vigente
 **Fecha:** 2026-08-15
 **Autor:** AG-ROOT (Arquitecto de Soluciones)
@@ -59,14 +59,61 @@ distinción que `Master-Prompt.md` §10.0 ya hacía entre propiedades enumerable
 llevada un paso más: de lo enumerable, lo que además es **corregible sin decisión** no debería
 consumir la atención de nadie.
 
-**Lo que queda anotado y no se hace.** La variante estructural de la causa A —que los documentos
-citen solo por identificador y la ruta se derive de un índice de nivel producto— resolvería el
-problema de raíz en lugar de repararlo. Es posible desde la 7.0, porque recién con el ámbito de
-unicidad en el producto un identificador es una dirección suficiente. **No se aplica**, y la
-condición para evaluarla queda escrita: antes hay que medir qué proporción del corpus referencia por
-ruta y qué proporción ya lo hace por identificador. Sin ese número es una decisión a ciegas.
+**Lo que queda anotado y no se hace.** La variante estructural de la causa A —que la ruta se derive
+de un índice de nivel producto en lugar de escribirse— resolvería el problema de raíz en lugar de
+repararlo. Es posible desde la 7.0, porque recién con el ámbito de unicidad en el producto un
+identificador es una dirección suficiente. **No se aplica**, y la condición para evaluarla era medir
+antes qué proporción del corpus referencia por ruta y cuál por identificador.
 
-## 6. Veredicto
+**Esa medición se hizo, y corrige la propuesta.** Sobre el destino migrado, 2.160 referencias a
+artefactos identificados:
+
+| | Referencias | |
+| --- | --- | --- |
+| Nombran el identificador, R5 cumplida | 2.035 | **94,2 %** |
+| Solo la ruta | 125 | 5,8 % |
+
+El cumplimiento es mucho más alto de lo que la propuesta suponía. Pero el 5,8 % restante dice algo que
+cambia el diseño: **las 125 son enlaces cuya etiqueta es el título del documento** —«[Canjear
+credenciales por un acceso firmado](CU-00001-…)»— y no un descuido. Es una forma legítima, y en medio
+de una oración se lee mejor que un identificador.
+
+De modo que la variante estructural, formulada como «citar por identificador **en lugar de** por
+título», resolvería el problema técnico y empeoraría la lectura. **La forma correcta es conservar la
+etiqueta descriptiva y exigir el identificador junto a ella**, no en su reemplazo. Con eso, el
+esfuerzo pendiente no es reescribir el corpus: es completar 125 referencias.
+
+Queda anotada con esa corrección, y ya no como decisión a ciegas.
+
+## 6. Validación medida sobre un destino real
+
+La intervención se verificó corriendo la compuerta, tal como la 8.4 la define, sobre el árbol migrado:
+
+| | Reporta |
+| --- | --- |
+| Compuerta anterior | **660** |
+| Compuerta 8.4 | **2** |
+
+Los 658 que desaparecen se excluyen por salir de snapshots de `_legacy/`; los 2 que quedan son
+hallazgos reales —un destino que no existe con ningún nombre— y son **anteriores** a la migración.
+Reducción de ruido del 99,7 % **sin perder ningún hallazgo real**, que es lo que separa un instrumento
+que se usa de uno que se desactiva.
+
+Se verificó además la comprobación que R5 habilita y que antes no existía —que la etiqueta y el
+destino de un enlace nombren el mismo identificador—: **cero discrepancias**. Es precisamente el error
+que la pasada de aplicación de la migración cometió y que ninguna lectura habría encontrado, porque
+el destino resuelve y lo roto es lo que el lector ve.
+
+## 7. Veredicto
 
 **APROBADO.** La intervención corrige la causa de cuatro huecos con una regla y la de los otros dos
 con una pregunta de checklist, sin tocar ninguna invariante y sin invalidar documentación emitida.
+
+---
+
+## Control de cambios
+
+| Versión | Fecha | Descripción |
+| --- | --- | --- |
+| 1.0 | 2026-08-15 | Nota inicial: las dos causas detrás de los seis huecos, con su corrección. |
+| 1.1 | 2026-08-15 | Se incorpora la **validación medida** sobre el destino migrado —la compuerta pasa de 660 avisos a 2 hallazgos, y la comprobación de etiqueta contra destino da cero discrepancias— y la **medición que la propia nota pedía** antes de evaluar la variante estructural: 94,2 % de las referencias ya nombran el identificador. El 5,8 % restante resultó ser etiquetas con el título del documento, que es forma legítima, de modo que la propuesta se corrige: el identificador va **junto a** la etiqueta descriptiva y no en su reemplazo. |
