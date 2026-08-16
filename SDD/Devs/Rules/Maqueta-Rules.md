@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega visual):** `SDD/Maquetas/<Nombre-Unidad-Entrega>/` del repositorio destino
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Maquetador de validación visual (AG-03M)
-**Versión de las reglas:** 4.0
+**Versión de las reglas:** 4.1
 
 ---
 
@@ -512,7 +512,7 @@ auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
 
 ```text
 Sos un {{ESPECIALIDAD-VARIANTE}} responsable de la Fase B2 de validación visual de maqueta
-de la unidad de entrega {{NOMBRE_PROYECTO_CODIGO}} del producto {{NOMBRE_PRODUCTO}}.
+de la unidad de entrega {{NOMBRE_UNIDAD_ENTREGA}} del producto {{NOMBRE_PRODUCTO}}.
 
 Tipo de unidad de entrega: {{TIPO}} (uno de los ocho valores D8).
 Modelo UX-UI elegido por el humano: {{MODELO_ELEGIDO}}.
@@ -525,7 +525,7 @@ Insumos obligatorios:
   la especialización de stack y las extensiones por capacidad que apliquen.
 - Modelo elegido, si no es el catálogo base: ../IA.SDD/SDD/Devs/Modelos-UX-UI/{{MODELO_ELEGIDO}}.
 
-A generar en SDD/Maquetas/{{NOMBRE_PROYECTO_CODIGO}}/:
+A generar en SDD/Maquetas/{{NOMBRE_UNIDAD_ENTREGA}}/:
 - index.html, un <Superficie>.html por wireframe de 03.
 - assets/css/Estilos-Maqueta.css con los tokens del catálogo como variables CSS.
 - assets/js/Datos-Maqueta.js como fuente única de los datos de ejemplo y del contrato de campos.
@@ -565,3 +565,4 @@ Devolución:
 | 3.1 | 2026-07-29 | Corrección de la sustitución global de cadena de la 5.0. La tercera columna de la cabecera de la tabla de anti-patrones decía «Producto», cuando contiene el remedio y se llama «Solución»; `Vocabulario-Rules.md` §4 R2 conserva ese uso de la palabra. La clase de defecto y su prohibición quedan documentadas en `Vocabulario-Rules.md` §9.5. La restitución de las filas históricas de este control de cambios, que la migración había reescrito contra `SDD-Development-Guide.md` §VI.2, se registra una sola vez en `CHANGELOG.md` [5.1] por alcanzar a veintitrés archivos. |
 | 3.2 | 2026-08-15 | Propagación por iteración y matriz con escape (intervención reportes 00 a 11). **§3.5** exige propagar lo aprobado al cerrar cada iteración, o registrar en la bitácora qué queda diferido y por qué: la fase es un bucle y la propagación de §3.6 se disparaba con la aprobación final, de modo que entre las dos quedaba un intervalo en el que la regla se cumplía y la documentación mentía igual. Se agrega el criterio verificable por iteración —los estados que la maqueta demuestra y los que los wireframes declaran coinciden, o su diferencia está diferida con motivo—. **§3.6** suma una novena fila a la matriz para el caso en que la validación crea un proyecto de código, con sus destinos en el intake, en el manifiesto y en una corrida de Fase B para el árbol nuevo; una **regla de escape** para todo hallazgo que no encaje en ninguna fila; la distinción entre **propagar y contradecir**, con remisión a la detención por arbitraje de `Master-Prompt.md` §7.0; y la regla de corte pasa a nombrar el `PRODUCT-MANIFEST`, que es derivado del intake y quedaba desincronizado en silencio, con la revisión de sus afirmaciones derivadas. Sube **minor**: agrega filas y procedimientos sin cambiar los artefactos que la fase produce. Origen: reportes `02` y `03`. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. |
 | 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
+| 4.1 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |

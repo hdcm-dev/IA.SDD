@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/09-Devops/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto
 **Subagente target del orquestador:** Ingeniero DevOps Senior (AG-09)
-**Versión de las reglas:** 4.4
+**Versión de las reglas:** 4.5
 
 ---
 
@@ -463,7 +463,7 @@ Los dos fragmentos son ilustrativos. Cada unidad de entrega adapta el dominio re
 ## 8. Prompt-snippet sugerido
 
 ```text
-Sos un {{ESPECIALIDAD-VARIANTE-09}} responsable de redactar los artefactos DevOps de la unidad de entrega {{NOMBRE_PROYECTO_CODIGO}}.
+Sos un {{ESPECIALIDAD-VARIANTE-09}} responsable de redactar los artefactos DevOps de la unidad de entrega {{NOMBRE_UNIDAD_ENTREGA}}.
 
 Insumos:
 - PRODUCT-INTAKE: {{path}}
@@ -529,3 +529,4 @@ Salida: SDD/Docs/Producto/Pipeline-Producto.md.
 | 4.2 | 2026-08-16 | §4.3 suma los ítems **7 y 8** a `Estrategia-Versionado.md`: el **registro del avance con responsable nombrado** —quién lo actualiza y en qué evento, con la organización dueña del repositorio como último recurso— y el **instrumento preferido**, que es el subproducto del acto antes que el documento que hay que acordarse de actualizar. §4.8 suma el anti-patrón correspondiente, con el caso observado. Sube **minor**: agrega dos ítems obligatorios a un documento de la categoría sin cambiar los artefactos que produce. | Framework SDD (dueño de las fuentes declarativas) |
 | 4.3 | 2026-08-16 | Barrido retroactivo del concepto de la 8.0. §0.2 declaraba **dos** matrices de artefactos publicables —una por unidad de entrega y otra por proyecto de código— porque la actualización de la 8.0 **agregó la nueva sin retirar la vieja**. Hay una sola: se construye por proyecto de código y **se publica por unidad de entrega**, como declara `Master-Prompt.md` §11. §2.1 queda alineada. Sube **patch**: no cambia ningún artefacto ni su contenido.  Framework SDD (barrido retroactivo 6.0 y 8.0) |
 | 4.4 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |
+| 4.5 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |

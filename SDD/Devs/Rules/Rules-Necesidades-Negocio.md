@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/01-Necesidades-Negocio/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Subagente target del orquestador:** Analista de Negocio Senior (AG-01)
-**Versión de las reglas:** 4.1
+**Versión de las reglas:** 4.2
 
 ---
 
@@ -292,7 +292,7 @@ auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
 
 | Campo | Valor |
 | --- | --- |
-| Proyecto de código | turnos-medicos |
+| Unidad de entrega | turnos-medicos |
 | Documento | NB-00001-Reduccion-Tiempo-Asignacion-Turno.md |
 | Versión | 1.0 |
 | Estado | Aprobado |
@@ -336,7 +336,7 @@ en PRODUCT-INTAKE §1 y no hay MVP defendible.
 
 | Campo | Valor |
 | --- | --- |
-| Proyecto de código | csv-parser-lib |
+| Unidad de entrega | csv-parser-lib |
 | Documento | NB-00001-Extensibilidad-Parsers.md |
 | Versión | 1.0 |
 | Estado | Aprobado |
@@ -411,3 +411,4 @@ Salida: SDD/Docs/01-Necesidades-Negocio/<archivos>.
 | 3.2 | 2026-08-15 | Criterio de gobierno de glosario, primera cláusula (intervención reportes 00 a 11). §6 pasa a distinguir el **vocabulario del método** —el que el framework acuña e impone a la categoría, que vive en el glosario operativo de `Master-Prompt.md` §15 y se cita sin redefinir— del **vocabulario del producto**, que va al glosario que corresponda. El criterio estaba replicado en once reglas mandando a nueve destinos distintos, casi todos glosarios del producto, y la política correcta estaba escrita una sola vez, en `Rules-Plan-Sprint.md` §6 y sobre términos que ya estaban resueltos. Sube **minor**: precisa un criterio existente. Origen: reporte `11`, propuesta 1. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. |
 | 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
 | 4.1 | 2026-08-16 | Concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5), en el barrido del layout. Sube **patch**: no cambia ninguna regla. |
+| 4.2 | 2026-08-16 | La tabla de cabecera de los dos ejemplos de §7 declaraba `| Proyecto de código |` cuando estos documentos son de **nivel producto y de unidad de entrega**, no de proyecto de código. Sube **patch**. |

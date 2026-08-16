@@ -1,6 +1,6 @@
 # PRODUCT-MANIFEST-template
 
-**Versión de la plantilla:** 5.0
+**Versión de la plantilla:** 6.0
 
 Este campo versiona la **referencia de formato**. El campo `| Versión |` del bloque de producto de §1 pertenece al manifiesto que el orquestador deriva, y arranca en 1.0 en cada producto nuevo.
 
@@ -12,7 +12,7 @@ A partir de SDD con intake unificado, el manifiesto NO lo completa el usuario a 
 
 1. El orquestador genera `PRODUCT-MANIFEST-<Slug-Producto>.md` en `SDD/Intake/` del repositorio destino a partir de `PRODUCT-INTAKE` §13, con la convención de nombres declarada en el perfil del intake.
 2. Compone el bloque de producto y la tabla de proyectos de código según el esquema de §1 y §2 de esta referencia.
-3. Aplica las validaciones de §4 (tipos D8, proyecto de código principal único, sin colisión de nombres, dependencias resueltas, grafo acíclico). Si alguna falla, no deriva el manifiesto y lo reporta en la batería de validación de intake.
+3. Aplica las validaciones de §4 (tipos D8, unidad de entrega principal único, sin colisión de nombres, dependencias resueltas, grafo acíclico). Si alguna falla, no deriva el manifiesto y lo reporta en la batería de validación de intake.
 4. Presenta el manifiesto derivado al humano y espera confirmación explícita antes de tratarlo como canónico.
 5. Toda regeneración posterior sigue el flujo de no-modificación de `Master-Prompt.md` §13.
 
@@ -32,7 +32,7 @@ Los cuatro primeros campos son los cuatro planos de identidad de [`Vocabulario-R
 | `Slug-Producto` | documentación | [derivado de `Nombre-Producto`, Título-Con-Guiones] |
 | `Raiz-Codigo` | código | [declarado en el perfil del intake; admite separadores de segmento] |
 | `Artefacto-Agrupacion` | código | [`Raiz-Codigo` más la extensión del ecosistema] |
-| Proyecto de código principal | — | [`Nombre-Proyecto-Codigo` del proyecto de código cabeza] |
+| Unidad de entrega principal | — | [`Nombre-Unidad-Entrega` de la unidad de entrega cabeza, la señalada `(principal)` en §13.1 del intake] |
 | Intake (origen) | `PRODUCT-INTAKE-<Slug-Producto>.md` (de su §13 se deriva este manifiesto) |
 | Documento | `PRODUCT-MANIFEST-<Slug-Producto>.md` |
 | Versión | 1.0 |
@@ -197,7 +197,7 @@ Representar el grafo como referencia visual (opcional pero recomendado):
 El orquestador detiene la cadena y reporta si alguna de estas condiciones no se cumple:
 
 - Algún `tipo_unidad_entrega` no pertenece al conjunto cerrado D8.
-- No hay exactamente un proyecto de código principal (hay cero o más de uno).
+- No hay exactamente un unidad de entrega principal (hay cero o más de uno).
 - Dos proyectos de código colisionan en `Nombre-Proyecto-Codigo` o en `Identidad-Codigo`.
 - Una dependencia apunta a un proyecto de código que no existe en la tabla.
 - El grafo de dependencias contiene un ciclo.
@@ -217,7 +217,7 @@ Bloque de producto:
 | `Slug-Producto` | documentación | `Gestion-De-Turnos` |
 | `Raiz-Codigo` | código | `Contoso.Turnos` |
 | `Artefacto-Agrupacion` | código | `Contoso.Turnos.sln` |
-| Proyecto de código principal | — | `Gestion-De-Turnos-API` |
+| Unidad de entrega principal | — | `Gestion-De-Turnos-API` |
 | Intake (origen) | — | `PRODUCT-INTAKE-Gestion-De-Turnos.md` |
 
 Perfil de convención: separador `.`; prefijo de redistribuibles `Aplicada`; extensión del agrupador `.sln`.
@@ -260,7 +260,7 @@ Bloque de producto:
 | Nombre de producto | Parser CSV |
 | `Slug-Producto` | `Parser-Csv` |
 | `Raiz-Codigo` | `ParserCsv` |
-| Proyecto de código principal | `Parser-Csv` |
+| Unidad de entrega principal | `Parser-Csv` |
 | Intake (origen) | `PRODUCT-INTAKE-Parser-Csv.md` |
 
 Tabla de proyectos de código:
@@ -277,12 +277,12 @@ El orquestador recorre un solo proyecto de código; el resultado equivale a la e
 
 El orquestador verifica estos ítems al derivar el manifiesto desde `PRODUCT-INTAKE` §13, antes de presentarlo para confirmación. Todos deben cumplirse; si alguno falla, no deriva el manifiesto y lo reporta en la batería de validación de intake.
 
-- [ ] El bloque de producto tiene nombre, `Slug-Producto`, `Raiz-Codigo`, proyecto de código principal y referencias de intake completos.
+- [ ] El bloque de producto tiene nombre, `Slug-Producto`, `Raiz-Codigo`, unidad de entrega principal y referencias de intake completos.
 - [ ] El bloque de procedencia de §1.1 declara la versión del conjunto, la del master-prompt, la de cada regla aplicada y la de las **dos plantillas de intake**. Ninguna de las dos filas de plantilla queda vacía.
 - [ ] El perfil de convención de nombres está declarado (forma PascalCase, separador, prefijo de redistribuibles).
 - [ ] La tabla de proyectos de código tiene al menos una fila y todos los campos obligatorios completos.
 - [ ] Cada `tipo_unidad_entrega` pertenece al conjunto cerrado D8 de 8 valores.
-- [ ] Hay exactamente un proyecto de código principal.
+- [ ] Hay exactamente un unidad de entrega principal.
 - [ ] No hay colisiones de `Nombre-Proyecto-Codigo` ni de `Identidad-Codigo`.
 - [ ] Cada dependencia referencia un proyecto de código existente en la tabla.
 - [ ] El grafo de dependencias es acíclico.
@@ -303,3 +303,4 @@ El orquestador verifica estos ítems al derivar el manifiesto desde `PRODUCT-INT
 | 4.0 | 2026-07-29 | Instrumentación de la comparación de versiones sobre los documentos de entrada (prerrequisito F1 de la migración normativa). **§1.1 suma dos filas obligatorias** al bloque de procedencia: la versión de `PRODUCT-INTAKE-template` y la de `PRODUCT-MANIFEST-template`, con el fundamento de que las plantillas se versionan aparte de las reglas y por lo tanto un cambio de su estructura no movía ninguna versión declarada; sin las filas, una reestructuración de plantilla era invisible para el diff normativo de `Master-Prompt.md` §2.1 y los dos documentos de entrada del destino no podían resultar candidatos de nada. El intro de la sección precisa que la versión de las plantillas se lee del campo `Versión de la plantilla` y no del campo `Versión`, que en ellas designa otra cosa. **§7 suma su ítem de checklist**, para que la omisión de cualquiera de las dos filas detenga la derivación en lugar de pasar sin verificarse. Sube **major** por el criterio de `SDD-Development-Guide.md` §VI.1: un manifiesto ya emitido no declara esas filas y deja de cumplir. El impacto sobre destinos existentes se declara en la entrada del `CHANGELOG.md` de la versión del conjunto que publica esta intervención. | Framework SDD (migración normativa) |
 | 4.1 | 2026-07-29 | Completitud de la fila de reglas transversales de §1.1, que enumeraba `Intake-Rules`, `Maqueta-Rules` y `Deriva-Rules` y omitía a `Vocabulario-Rules`, pese a que `Master-Prompt.md` §8 la inyecta en **todo** despacho sin excepción de categoría. Era la misma clase de defecto que la 4.0 corrigió para las plantillas: una pieza que gobierna la generación sin poder declarar su versión en la procedencia, y por lo tanto con su salto de versión invisible para la comparación normativa. La fila pasa a distinguir las transversales que se aplican siempre de las condicionales, suma `Migracion-Rules` para los árboles que atravesaron una migración normativa, y remite a la fila propia de `Root-Rules` para no duplicarla. Sube minor: completa una enumeración sin cambiar la estructura del bloque. | Framework SDD (migración normativa) |
 | 5.0 | 2026-08-15 | **El manifiesto deriva los dos ejes** La tabla de proyectos de código se agrupa **por solución de código** cuando el producto tiene más de una, y §3 declara que hay un grafo de compilación por solución: una dependencia entre soluciones distintas no es una arista del grafo sino un consumo de artefacto publicado. (framework 8.0). §2 pasa de una tabla de proyectos de código a §2.A unidades de entrega —la que lleva el valor D8, renombrado a `tipo_unidad_entrega`, con `redistribuible` y estado vigente o diferida—, §2.B proyectos de código —con su solución de código, su stack y sus dependencias de compilación, y **sin** valor D8— y §2.C la matriz de composición, derivada y no completada a mano, que hace visible el proyecto compartido. §3 declara los **dos grafos** por separado: el de integración, que ordena la generación de la documentación, y el de compilación, que ordena el build, con la aclaración de que no coinciden y no tienen por qué. Sube **major**: cambia la estructura del manifiesto y el nombre de un campo bloqueante; un manifiesto ya emitido deja de cumplir. |
+| 6.0 | 2026-08-16 | **El bloque de producto de §1, sus validaciones bloqueantes de §4 y el checklist de §7 pedían un «proyecto de código principal», mientras el intake del que este manifiesto se deriva señala y valida una **unidad de entrega principal**.** El manifiesto —fuente única de verdad del producto— validaba un eje distinto del que su origen declara. Pasa a **`Unidad de entrega principal`**, con el valor tomado de la fila señalada `(principal)` en §13.1 del intake. Sube **major**: un manifiesto ya derivado declara el campo con el nombre anterior y no pasa el checklist de §7. |

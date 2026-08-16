@@ -2,7 +2,7 @@
 
 ```yaml
 Documento: Guia-Usuario-SDD.md
-Versión: 1.14
+Versión: 1.15
 Fecha: 2026-08-15
 Audiencia: profesionales y estudiantes que usan el template para un producto real
 Idioma: español rioplatense neutro técnico
@@ -398,7 +398,7 @@ Claude Code arranca con una Fase de validación de intake, previa a la Fase A y 
 
 1. Leer tu único `PRODUCT-INTAKE` (las tres partes: negocio, composición, técnica por unidad de entrega).
 2. Validar la completitud del intake: campos bloqueantes presentes, ausencia de placeholders sin completar (`PENDIENTE`, `[Nombre]`, etc.) y coherencia entre partes (por ejemplo, que la Parte C tenga un bloque P.1 a P.12 por cada unidad de entrega de §13).
-3. Derivar el `PRODUCT-MANIFEST` a partir de la tabla de proyectos de código de §13: enumeración de proyectos de código, su `tipo_unidad_entrega` D8, rol, bandera `redistribuible`, dependencias y, derivados, los `Identidad-Codigo` según el perfil de convención de nombres. Validar que cada `tipo_unidad_entrega` sea uno de los 8 valores D8, que haya exactamente un proyecto de código principal, que no haya colisión de nombres, que cada dependencia apunte a un proyecto de código existente y que el grafo sea acíclico.
+3. Derivar el `PRODUCT-MANIFEST` a partir de la tabla de proyectos de código de §13: enumeración de proyectos de código, su `tipo_unidad_entrega` D8, rol, bandera `redistribuible`, dependencias y, derivados, los `Identidad-Codigo` según el perfil de convención de nombres. Validar que cada `tipo_unidad_entrega` sea uno de los 8 valores D8, que haya exactamente un unidad de entrega principal, que no haya colisión de nombres, que cada dependencia apunte a un proyecto de código existente y que el grafo sea acíclico.
 4. Si falta completar algo bloqueante o una validación falla, se detiene y te emite una batería consolidada de preguntas (agrupadas por sección del intake) en lugar de avanzar a ciegas. Respondés, el orquestador actualiza el intake y revalida.
 5. Presentar el manifiesto derivado y esperar tu confirmación explícita antes de tratarlo como artefacto canónico. El manifiesto no se completa a mano: se deriva y se confirma.
 
@@ -908,7 +908,7 @@ Datos de producto (extracto):
 | Nombre de producto | Gestión de Turnos |
 | `Slug-Producto` | `Gestion-De-Turnos` |
 | `Raiz-Codigo` | `GestionDeTurnos` |
-| Proyecto de código principal | `Gestion-De-Turnos-API` |
+| Unidad de entrega principal | `Gestion-De-Turnos-API` |
 
 Perfil de convención: PascalCase; separador `.`; prefijo de redistribuibles `Aplicada`.
 
@@ -948,7 +948,7 @@ El orquestador lee §13 del intake, valida (tipos D8 válidos, un único unidad 
 ```text
 producto: Gestion-De-Turnos
 Raiz-Codigo: GestionDeTurnos
-proyecto-principal: Gestion-De-Turnos-API
+unidad-de-entrega-principal: Gestion-De-Turnos-API
 unidades de entrega: 4 (orden topologico: Aplicada-Validaciones, Gestion-De-Turnos-Domain,
               Gestion-De-Turnos-API, Gestion-De-Turnos-Notificaciones)
 ```
@@ -1116,7 +1116,7 @@ El cliente típicamente no lee toda la documentación, pero sí lee el README ra
 
 ### F-16 — ¿Cómo declaro varias unidades de entrega en un producto?
 
-En §13 de tu `PRODUCT-INTAKE`. Esa sección tiene una tabla de proyectos de código donde cada fila es un proyecto de código: su `Nombre-Proyecto-Codigo`, su `tipo_unidad_entrega` (uno de los 8 D8), su rol, su bandera `redistribuible` y sus dependencias hacia otros proyectos de código de la mismo producto. Declarás un único proyecto de código principal y armás el grafo de dependencias listando, en la columna Dependencias, los proyectos de código de los que depende cada uno. El grafo tiene que ser acíclico. Además, por cada proyecto de código declarado en §13 repetís el bloque técnico P.1 a P.12 en §17. No completás un manifiesto a mano: durante la Fase de validación de intake, el orquestador valida §13 (tipos válidos, un solo principal, sin colisiones de nombre, dependencias resueltas, grafo acíclico), deriva el `PRODUCT-MANIFEST` con los `Identidad-Codigo` y te lo presenta para confirmación. Recién entonces ordena los proyectos de código en orden topológico y genera la documentación de cada uno.
+En §13 de tu `PRODUCT-INTAKE`. Esa sección tiene una tabla de proyectos de código donde cada fila es un proyecto de código: su `Nombre-Proyecto-Codigo`, su `tipo_unidad_entrega` (uno de los 8 D8), su rol, su bandera `redistribuible` y sus dependencias hacia otros proyectos de código de la mismo producto. Declarás un único unidad de entrega principal y armás el grafo de dependencias listando, en la columna Dependencias, los proyectos de código de los que depende cada uno. El grafo tiene que ser acíclico. Además, por cada proyecto de código declarado en §13 repetís el bloque técnico P.1 a P.12 en §17. No completás un manifiesto a mano: durante la Fase de validación de intake, el orquestador valida §13 (tipos válidos, un solo principal, sin colisiones de nombre, dependencias resueltas, grafo acíclico), deriva el `PRODUCT-MANIFEST` con los `Identidad-Codigo` y te lo presenta para confirmación. Recién entonces ordena los proyectos de código en orden topológico y genera la documentación de cada uno.
 
 ### F-17 — ¿Qué pasa si mi producto es un solo unidad de entrega?
 
@@ -1474,7 +1474,7 @@ Términos esenciales para usar el template. Para el glosario exhaustivo del marc
 | Contexto de lectura | Lo que un lector tiene efectivamente delante. Para vos es el documento; **para un subagente es la sección**, porque el orquestador le entrega secciones nombradas y no archivos completos. De ahí sale el criterio de cuándo una palabra ambigua es un problema real: si sus sentidos se distinguen solo leyendo el documento entero, para el subagente colisionan. |
 | Glosario de categoría | Cada categoría declara los términos que acuña y que usa en más de uno de sus artefactos: `Glosario-Funcional.md` en 02, `Glosario-UX.md` en 03, `Glosario-Tecnico.md` en 11. No se duplican entre sí: el término ya declarado se referencia. Un término con más de un referente los enumera. El criterio de cuándo desambiguar vive en `Vocabulario-Rules.md` §9. |
 | Manifiesto de producto | Documento `PRODUCT-MANIFEST-<Slug-Producto>.md`. Artefacto derivado por el orquestador a partir de §13 del intake (no lo completa el usuario): enumeración de unidades de entrega, su D8, rol, dependencias, nombres de código derivados y perfil de nombres. Su grafo es acíclico (DAG). El usuario lo confirma; no lo escribe a mano. |
-| Proyecto de código principal | La unidad de entrega cabeza del producto. El manifiesto declara exactamente uno; es una validación bloqueante. |
+| Unidad de entrega principal | La unidad de entrega cabeza del producto. El manifiesto declara exactamente uno; es una validación bloqueante. |
 | Orden topológico | Orden de generación y build derivado del grafo de dependencias: primero los proyectos de código sin dependencias, luego los que dependen de proyectos de código ya resueltos. Ninguno arranca antes que sus dependencias. |
 | Caso degenerado | Producto de un solo unidad de entrega. El orquestador aplana el layout (00..11 directo bajo `docs/`, sin `Unidades-Entrega/<Nombre>/` ni `Producto/`). Equivale al template de tipo único anterior. |
 | Vista de producto | Artefacto de nivel producto (`Producto/Vista-Producto.md`), solo si hay más de una unidad de entrega. Contiene el mapa de unidades de entrega, los contratos inter-proyecto y el grafo de dependencias. |
@@ -1707,6 +1707,7 @@ Esta guía de usuario está distribuida en 10 capítulos completos según la est
 | 1.12 | 2026-08-16 | Barrido del layout de la 8.0. El árbol del caso multi-unidad de §5.2 y el mapa ASCII del resumen ejecutivo seguían mostrando `Proyectos/<Nombre>/`, que es el layout que la 8.0 reemplazó, con lo cual la guía le enseñaba al usuario una estructura que el framework ya no genera. El resumen ejecutivo declara además la Parte B con **sus dos tablas** y la Parte C **por unidad de entrega**. Doce concordancias de género de la sustitución léxica de la 8.0 (`Vocabulario-Rules.md` §9.5). |
 | 1.13 | 2026-08-16 | Barrido retroactivo del concepto de la 8.0. §5.2 decía que las Fases B a G se recorren **por proyecto de código**, cuando desde la 8.0 se recorren **por unidad de entrega** y en el orden topológico del **grafo de integración**, que no es el de compilación. El glosario declaraba la matriz de artefactos publicables por proyecto de código: se publica por unidad de entrega. |
 | 1.14 | 2026-08-16 | El árbol de ejemplo del capítulo 5 mostraba `Arquitectura-Proyecto-Codigo.md`, nombre que la regla de la categoría 05 ya había cambiado a `Arquitectura-Unidad-Entrega.md`. |
+| 1.15 | 2026-08-16 | El campo del manifiesto pasa a **«Unidad de entrega principal»** en el capítulo 5 y en el glosario, **cuya definición ya decía «la unidad de entrega cabeza del producto»**: la definición se había migrado en la 8.0 y el término no. |
 
 ---
 

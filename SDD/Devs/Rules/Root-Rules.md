@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-ROOT)
-**Versión de las reglas:** 5.4
+**Versión de las reglas:** 6.0
 
 ---
 
@@ -114,7 +114,7 @@ La cabecera del `README.md` generado debe seguir este bloque, completando los va
 | Fecha | YYYY-MM-DD |
 | Stack principal | {{stack-declarado}} |
 | Composición | {{N}} unidades de entrega (ver tabla de unidades de entrega) |
-| Proyecto de código principal | {{nombre-proyecto-principal}} |
+| Unidad de entrega principal | {{nombre-proyecto-principal}} |
 | Documento | README raíz del producto |
 ```
 
@@ -152,7 +152,7 @@ El documento debe usar las siguientes tablas estandarizadas:
 
 Tabla de unidades de entrega del producto (refleja el `PRODUCT-MANIFEST`).
 
-| Proyecto de código | Tipo D8 | Rol | Dependencias | Redistribuible |
+| Unidad de entrega | Tipo D8 | Rol | Integra con | Redistribuible |
 | --- | --- | --- | --- | --- |
 | <Nombre-Proyecto-Codigo> (principal) | rest-api | API pública del producto | <Nombre-Proyecto-Codigo> | false |
 | <Nombre-Proyecto-Codigo> | library | Dominio compartido | — | false |
@@ -278,7 +278,7 @@ auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
 | Fecha | 2026-03-10 |
 | Stack principal | C#/.NET, PostgreSQL 16 |
 | Composición | 4 unidades de entrega (ver tabla de unidades de entrega) |
-| Proyecto de código principal | Gestion-De-Turnos-API |
+| Unidad de entrega principal | Gestion-De-Turnos-API |
 | Documento | README raíz del producto |
 
 ## 1. Identidad del producto
@@ -289,7 +289,7 @@ asincrónica y reutiliza un paquete de validaciones independiente del producto.
 
 ## 2. Proyectos de código del producto
 
-| Proyecto de código | Tipo D8 | Rol | Dependencias | Redistribuible |
+| Unidad de entrega | Tipo D8 | Rol | Integra con | Redistribuible |
 | --- | --- | --- | --- | --- |
 | Gestion-De-Turnos-API (principal) | rest-api | API pública de turnos | Gestion-De-Turnos-Domain, Aplicada-Validaciones | false |
 | Gestion-De-Turnos-Domain | library | Dominio y reglas compartidas | Aplicada-Validaciones | false |
@@ -318,7 +318,7 @@ asincrónica y reutiliza un paquete de validaciones independiente del producto.
 | Fecha | 2026-04-22 |
 | Stack principal | TypeScript 5.5, Node 20 |
 | Composición | 1 unidad de entrega (caso degenerado) |
-| Proyecto de código principal | csv-parser-lib |
+| Unidad de entrega principal | csv-parser-lib |
 | Documento | README raíz del producto |
 
 ## 1. Identidad del producto
@@ -329,7 +329,7 @@ Pensada para integrarse en pipelines de ingesta de datos.
 
 ## 2. Proyectos de código del producto
 
-| Proyecto de código | Tipo D8 | Rol | Dependencias | Redistribuible |
+| Unidad de entrega | Tipo D8 | Rol | Integra con | Redistribuible |
 | --- | --- | --- | --- | --- |
 | csv-parser-lib (principal) | library | Librería de parseo (única) | — | false |
 
@@ -617,3 +617,4 @@ Una referencia pendiente que sigue abierta al cierre del producto es hallazgo P0
 | 5.2 | 2026-08-15 | §10 suma **R5: una referencia también es un dato derivado** (framework 8.4). Una ruta relativa codifica la identidad del destino y la posición relativa entre dos archivos; la segunda es una relación y se rompe cuando el destino se renombra, el documento se mueve o cambia de profundidad. Se declaran las dos obligaciones que lo resuelven: la identidad de una referencia es el identificador del destino, que es único en el producto y hace la ruta recalculable; y la ruta es derivada, de modo que una que no resuelve pero cuyo identificador existe en el árbol **se recalcula** en lugar de reportarse. Sube **minor**. Origen: cuatro de los seis huecos que una migración real destapó resultaron ser el mismo defecto, y de 703 enlaces rotos los 703 se reconectaron resolviendo por identificador, sin una sola decisión humana. |
 | 5.3 | 2026-08-16 | Barrido del layout de la 8.0. El **Ejemplo A** de §7.1 seguía publicando su mapa de documentación sobre `Proyectos/<Nombre>/` —el layout que la 8.0 reemplazó—, con lo cual el ejemplo canónico de un README raíz contradecía a §2.1 del mismo archivo. El bloque de insumos de §8 nombra `Unidades-Entrega/<Nombre-Unidad-Entrega>/`. Concordancias de género de la sustitución léxica de la 8.0 (`Vocabulario-Rules.md` §9.5). Sube **patch**. |
 | 5.4 | 2026-08-16 | §4.2 titulaba «Proyectos de código del producto» una sección cuyo contenido es la tabla de **unidades de entrega**: el título quedó del modelo anterior a la 8.0. Sube **patch**. |
+| 6.0 | 2026-08-16 | **El campo del README raíz pasa de «Proyecto de código principal» a «Unidad de entrega principal»**, que es lo que el intake señala y lo que `Intake-Rules.md` §4 valida como bloqueante. Y los **dos ejemplos de §7** encabezaban su tabla con `| Proyecto de código | Tipo D8 | … | Redistribuible |`: una tabla del eje de construcción llevando dos atributos del eje de entrega, que es la confusión que la 8.0 declaró imposible. Sube **major**: un README raíz ya emitido declara el campo con el nombre anterior. |

@@ -3,6 +3,50 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.0] - 2026-08-16
+
+**El intake valida un eje y el manifiesto que se deriva de él validaba el otro.** `Intake-Rules.md` §4 declara como bloqueante que haya *exactamente una **unidad de entrega** principal*. El `PRODUCT-MANIFEST` —la fuente única de verdad del producto— pedía en su bloque §1, en sus validaciones §4 y en su checklist §7 un ***proyecto de código* principal**. Dieciocho lugares vivos seguían nombrando el eje anterior, y el glosario de la guía de usuario ya lo delataba: definía «Proyecto de código principal» como **«la unidad de entrega cabeza del producto»**. La definición se había migrado en la 8.0 y el término no.
+
+**Y el bloque que gobierna toda la generación era de un solo eje.** `Master-Prompt.md` §3.4 —lo primero que el orquestador imprime y lo primero que un subagente ve— enumeraba proyectos de código llevando `tipo_unidad_entrega`, `redistribuible` y `path-docs`: exactamente la mezcla que `Intake-Rules.md` §4 valida como imposible, y que la **8.12** corrigió en la regla sin llegar hasta acá.
+
+**Cómo aparecieron.** Aplicando a la 8.17 la regla que la 8.17 acababa de escribir —**entrar en los bloques de ejemplo**— y su regla 4: *«¿mi intervención cometió el defecto que corrige?»*. La respuesta era sí. **Quinto caso seguido del mismo patrón, esta vez con un intervalo de una intervención.**
+
+### Impacto sobre destinos existentes
+
+**Renombres de artefacto**
+
+| Nombre anterior | Nombre vigente | Naturaleza |
+| --- | --- | --- |
+| `Proyecto de código principal` | `Unidad de entrega principal` | campo, en `PRODUCT-MANIFEST` §1 y en el README raíz |
+| `proyecto-de-codigo-principal` | `unidad-de-entrega-principal` | campo, en el bloque informativo de `Master-Prompt.md` §3.4 |
+| `orden-topologico` | `orden-topologico-de-compilacion` **+** `orden-de-integracion` | campo, partido en dos: no son el mismo grafo |
+
+**Secciones movidas o partidas**
+
+| Documento | Sección anterior | Destino vigente |
+| --- | --- | --- |
+| Bloque informativo de `Master-Prompt.md` §3.4 | «Proyectos de código», un bloque con D8 y `redistribuible` | Tres bloques: **unidades de entrega** (§2.A), **proyectos de código** (§2.B) y **matriz de composición** (§2.C) |
+
+**Campos bloqueantes nuevos**
+
+| Documento | Campo | Regla que lo exige |
+| --- | --- | --- |
+| — | — | Ninguno. El conjunto de campos no cambia; cambia **a qué eje se le piden** |
+
+### Cambiado
+
+- **`PRODUCT-MANIFEST-template.md` 5.0 → 6.0** y **`Root-Rules.md` 5.4 → 6.0.** El campo pasa a `Unidad de entrega principal`, con el valor tomado de la fila señalada `(principal)` en §13.1 del intake. Los **dos ejemplos de README raíz** de `Root-Rules.md` §7 encabezaban su tabla con `| Proyecto de código | Tipo D8 | … | Redistribuible |`: una tabla del eje de construcción llevando dos atributos del eje de entrega.
+- **`Master-Prompt.md` 7.11 → 8.0.** §3.4 pasa a los tres bloques, con la constancia de que ningún D8 sale del eje de construcción y ninguna `Identidad-Codigo` del de entrega. **El bloque mezclado era la forma más directa de que un subagente confundiera los ejes, porque es lo primero que recibe.**
+- **Once reglas de categoría, `Deriva-Rules.md` y `Maqueta-Rules.md`**, patch cada una: su prompt de despacho decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`». **La prosa se migró en la 8.0 y el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con una variable que el contexto ya no define.
+- **`Rules-Plan-Sprint.md`, `Rules-Documentacion.md`**: la cabecera de sus ejemplos **rellenos**, que la 8.17 no alcanzó por haber reemplazado sólo la forma con marcador. **`Rules-Necesidades-Negocio.md`**: la tabla de cabecera de sus dos ejemplos.
+- **`PRODUCT-INTAKE-template.md` 3.3 → 3.4.** El árbol de §16 se contradecía en la misma línea —«categorías 00-11 (**por proyecto de código** bajo `Unidades-Entrega/`)»— y condicionaba las maquetas a que «algún proyecto de código» ejecutara la Fase B2, cuando `requiere_maqueta` se evalúa por unidad de entrega.
+- **`Migracion-Rules.md` 3.4 → 3.5.** La señal de clasificación «es el proyecto de código principal» habría quedado circular con el renombre: pasa a **«el intake lo señalaba como principal»**, que es lo que el agente lee del origen.
+- **`SDD-User-Guide.md` 1.14 → 1.15.**
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/8.17/`.
+
+---
+
 ## [8.17] - 2026-08-16
 
 **Cuatro hallazgos que aparecieron al verificar que no quedaba nada pendiente, en lugar de contestarlo de memoria.**
