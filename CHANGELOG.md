@@ -3,6 +3,23 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.6] - 2026-08-15
+
+**R5 estaba declarada y nada la verificaba.** La 8.4 incorporó la regla —toda referencia a un artefacto identificado nombra su identificador en el texto visible— y no agregó ninguna comprobación que la exija. La compuerta usaba R5 **solo para reparar** un enlace ya roto.
+
+La consecuencia es la que hace al defecto grave: una referencia **sin ancla pasa todos los controles**, y se descubre en el momento en que su destino cambia, que es exactamente cuando ya no se puede reparar —no hay de dónde deducir a qué apuntaba—.
+
+Es el patrón del reporte `10` cometido por la intervención que lo tenía presente: la regla quedó escrita del lado que no bloquea.
+
+### Cambiado
+
+- **`Master-Prompt.md` §10.0** suma la quinta comprobación de la compuerta: anclaje de las referencias. Es la que hace posibles a las demás, y se verifica **antes** de que se rompa nada.
+- **§10** suma el criterio de audit correspondiente, nivel **P2**. No es cosmético: el costo de una referencia sin ancla no se paga al escribirla sino cuando alguien mueve el archivo.
+
+Ninguna invariante modificada. El conjunto superado se archiva en `_legacy/8.5/`.
+
+---
+
 ## [8.5] - 2026-08-15
 
 **El orquestador de migración había quedado dos versiones atrás, y la verificación no lo vio.** Detectado al ir a ejecutar la migración real de un destino: el prompt que la conduce seguía hablando del modelo de dos niveles.

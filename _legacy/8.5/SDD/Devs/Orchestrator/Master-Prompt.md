@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 7.4
+**Versión:** 7.3
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -884,13 +884,7 @@ Comprobaciones mínimas de la compuerta, cada una de naturaleza enumerable:
    corrección es reescribir la frase, no discutir el número.
 3. **Idempotencia de los generadores**: correr dos veces produce los mismos bytes.
 4. **Identificadores**: forma y ancho conformes a `Root-Rules.md` §9, sin duplicados dentro del
-   ámbito declarado y dentro del rango asignado a la unidad de entrega en el mapa de §3.4.
-5. **Anclaje de las referencias** (`Root-Rules.md` §10 R5): toda referencia a un artefacto
-   identificado **nombra su identificador en el texto visible**, no solo en la ruta. Es la
-   comprobación que hace posibles a las demás: una referencia con su ancla se recalcula sola cuando
-   el destino se mueve o se renombra; una sin ancla **no se puede reparar**, porque no hay de dónde
-   deducir a qué apuntaba. Se verifica **antes** de que se rompa nada, que es el único momento en que
-   sirve.
+   ámbito declarado y dentro del rango asignado al proyecto de código en el mapa de §3.4.
 
 **La compuerta declara qué no mira.** Su salida, incluso en verde, enuncia explícitamente el alcance
 de lo que verificó y lo que queda sin verificar. Una compuerta que se lee como aprobación es peor que
@@ -916,7 +910,6 @@ Criterios del audit (matriz):
   - **Criterio negativo**: una polisemia con contextos disjuntos **no es hallazgo**. Reportarla como defecto del documento auditado es un defecto del informe de auditoría, y la corrección que induce —calificar todas las ocurrencias— empeora el texto. Un glosario incompleto cumple «sin contradicciones» trivialmente: es por eso que ese criterio solo no alcanza.
 - Conformidad con `Vocabulario-Rules.md` §10: los seis términos usados con su referente, los cuatro planos de identidad distinguibles, y el nivel de aplicación declarado por la regla de la categoría respetado en la prosa de cada documento.
 - **Conjuntos cerrados, cruzando categorías.** Todo conjunto cerrado que una categoría declara —valores de un campo, estados de una entidad, códigos de resultado, clasificaciones— está marcado como tal, y ninguna otra categoría del árbol afirma algo incompatible sobre el mismo referente. Una divergencia entre dos categorías sobre el mismo conjunto es **P0**. Es el único criterio que obliga a mirar fuera de la fase auditada, y existe porque cada categoría puede ser internamente coherente, pasar su audit, y dejar el producto documentado incoherente. La nota en prosa dentro de un artefacto **no** satisface este criterio: la extensión de un conjunto cerrado ajeno se resuelve con la detención de §7 y queda registrada en el registro de decisiones pendientes de §12.
-- **Anclaje de las referencias** (`Root-Rules.md` §10 R5): toda referencia a un artefacto identificado nombra su identificador en el texto visible. Hallazgo **P2**. No es cosmético: una referencia sin ancla es irreparable cuando su destino cambia, y su costo no se paga al escribirla sino cuando alguien mueve el archivo.
 - **Recuentos anclados** (`Root-Rules.md` §10): por cada recuento que declara su fuente, el número coincide con la colección que cuenta. Hallazgo **P2**, o **P1** si el número vive en un índice, en un manifiesto o en un criterio de aceptación, porque desde ahí se propaga. Los recuentos sin ancla no son hallazgo de este criterio, sino de §10 R1.
 - **Referencias pendientes** (`Root-Rules.md` §12): toda referencia a un artefacto todavía no emitido está declarada con la forma de §12. Una referencia colgada que no la declara es **P1**; una copia del contenido referenciado, que crea una segunda fuente, es **P0**.
 - **Apartamientos** (`Root-Rules.md` §11): un artefacto obligatorio ausente **con** ADR de apartamiento se evalúa como decisión y no como omisión. Ausente sin ADR es P0.
@@ -1255,7 +1248,6 @@ Este master-prompt se versiona como cualquier otro artefacto del template. Cualq
 | 7.1 | 2026-08-15 | **El reparto de rangos es por familia** (framework 8.1). §3.4 acota el mapa de rangos: solo se reparten bloques a las familias que **más de una unidad de entrega produce**, y una familia producida en un solo nivel —`NB` a nivel producto— conserva su numeración natural. La unicidad es dentro de la familia, y que exista un `NB-00014` no vuelve ambiguo a un `CU-00014`. El mapa declara las dos listas y el motivo de cada una, para que una familia sin bloque se lea como decisión y no como olvido. Sube **minor**: acota una regla que era más amplia de lo necesario y ninguna documentación emitida deja de cumplir. **Origen**: la migración de un destino real de dos unidades de entrega, donde aplicar la regla anterior a la letra obligaba a renumerar 2.309 citas de `NB` sin que existiera una sola colisión que lo justificara. | Framework SDD (validación por migración) |
 | 7.2 | 2026-08-15 | **Dos correcciones sobre enlaces** (framework 8.3), encontradas al ejecutar una migración real. §10.0 excluye los snapshots de `_legacy/` **como origen** de la comprobación de enlaces: sus referencias no son navegación vigente y dejan de resolver por hechos posteriores que no son defectos del árbol vivo; incluirlos produce el volumen de avisos que desactiva la comprobación. Los enlaces **hacia** `_legacy/` sí se verifican. §8 incorpora a la política de archivado la **reescritura de los enlaces relativos del snapshot**: un documento archivado baja uno o dos niveles y todas sus rutas relativas quedan cortas, de modo que cada archivado dejaba colgados tantos enlaces como referencias tuviera. En un destino real esa acumulación llegó a 658 enlaces rotos, todos anteriores a la migración que los encontró. Sube **minor**. | Framework SDD (validación por migración) |
 | 7.3 | 2026-08-15 | §10.0 pasa de avisar a **reparar** en la comprobación de enlaces (framework 8.4). Una ruta que no resuelve pero cuyo identificador de destino existe en el árbol es un dato derivado desactualizado según `Root-Rules.md` §10 R5: la compuerta la recalcula y la informa como reparación, y reserva el hallazgo para lo que no se puede resolver de forma unívoca. Cambia la naturaleza del instrumento: deja de acumular avisos de algo que sabe arreglar. Sube **minor**. | Framework SDD (validación por migración) |
-| 7.4 | 2026-08-15 | **R5 pasa a verificarse** (framework 8.6). La 8.4 declaró que toda referencia a un artefacto identificado nombra su identificador, y **no agregó ninguna comprobación que lo exija**: la compuerta usaba R5 solo para reparar un enlace ya roto, de modo que una referencia sin ancla pasaba todos los controles y se descubría en el momento en que ya no se podía reparar. §10.0 suma la quinta comprobación y §10 el criterio de audit con nivel P2. Es la comprobación que hace posibles a las demás: una referencia con ancla se recalcula sola, una sin ancla es irreparable, y por eso se verifica **antes** de que se rompa nada. Sube **minor**. Origen: la regla estaba escrita del lado que no bloquea, que es el patrón del reporte `10`. | Framework SDD |
 
 Reglas de versionado:
 
