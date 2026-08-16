@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de reanudación
 
 **Archivo:** `Master-Prompt-Reanudacion.md`
-**Versión:** 1.2
+**Versión:** 1.1
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** lectura, diagnóstico y **entrega de contexto**, con detención obligatoria. **No escribe nada del destino salvo su propio informe**, y no ejecuta el trabajo que despacha
 **Prerequisitos:** un repositorio destino con `SDD/` poblado. No exige memoria de ninguna sesión anterior
@@ -50,14 +50,14 @@ vez por salto de versión, y éste una vez por reanudación.
 tabla es el corazón de este prompt: sin ella, reconstruir el estado es interpretar, y dos agentes
 interpretan distinto.
 
-| # | Dimensión | Fuente declarativa | Quién la mantiene | Contraste observable |
-| --- | --- | --- | --- | --- |
-| 1 | ¿Hay documentación generada? | — | — | **`SDD/Docs/` tiene contenido** |
-| 2 | ¿Contra qué versión del framework? | `PRODUCT-MANIFEST` §1.1, bloque de procedencia | La generación y la migración | Versiones vigentes en el repositorio fuente |
-| 3 | ¿La migración terminó? | El informe de migración más reciente de `SDD/Docs/Audit/` | La migración | **Presencia de carpetas `_fusion/`**: si existe alguna, la fusión no terminó |
-| 4 | ¿Qué quedó abierto? | Los hallazgos del último informe, con su estado | Quien cierra cada hallazgo, **nombrado en el hallazgo** | Enlaces rotos, identificadores de forma anterior, referencias sin anclar |
-| 5 | ¿En qué etapa de construcción va? | El registro de cambios del producto | **El ciclo de construcción**, que el método no gobierna: el responsable se nombra en el propio registro | **El historial del repositorio de código** |
-| 6 | ¿Qué falta para la siguiente? | El roadmap del producto, sus puertas de etapa | Quien cierra cada etapa | — |
+| # | Dimensión | Fuente declarativa | Contraste observable |
+| --- | --- | --- | --- |
+| 1 | ¿Hay documentación generada? | — | **`SDD/Docs/` tiene contenido** |
+| 2 | ¿Contra qué versión del framework? | `PRODUCT-MANIFEST` §1.1, bloque de procedencia | Versiones vigentes en el repositorio fuente |
+| 3 | ¿La migración terminó? | El informe de migración más reciente de `SDD/Docs/Audit/` | **Presencia de carpetas `_fusion/`**: si existe alguna, la fusión no terminó |
+| 4 | ¿Qué quedó abierto? | Los hallazgos del último informe, con su estado | Enlaces rotos, identificadores de forma anterior, referencias sin anclar |
+| 5 | ¿En qué etapa de construcción va? | El registro de cambios del producto | **El historial del repositorio de código** |
+| 6 | ¿Qué falta para la siguiente? | El roadmap del producto, sus puertas de etapa | — |
 
 **La columna de contraste es lo que distingue este prompt de leer los documentos.** Una fuente
 declarativa **puede quedar atrás**, y cuando queda atrás no lo dice: sigue afirmando lo último que
@@ -70,41 +70,6 @@ corrida real las tres divergieron**:
 - La **5** divergió en tres etapas seguidas: el registro decía `b`, el código estaba en `e`.
 - La **2** diverge por diseño cada vez que el framework publica una versión, y es la única de las
   tres donde la divergencia **no es un defecto**.
-
-## §1.1 Toda fuente declarativa tiene un responsable, y conviene que sea un subproducto
-
-**La columna «quién la mantiene» es nueva, y nació de una dimensión que no tenía nadie.** En la corrida
-que originó este prompt, el registro de cambios de un producto quedó **tres etapas atrás**. La regla de
-actualizarlo estaba escrita en la segunda línea de ese mismo documento:
-
-> *Se actualiza en la rama de la etapa, no después de la fusión.*
-
-**Declara el cuándo y no declara el quién.** Es una oración sin sujeto, y una obligación sin sujeto no
-la incumple nadie en particular: se incumplió tres veces seguidas sin que nada chirriara.
-
-**R1 · Toda fuente declarativa de estado nombra a su responsable, en el propio documento.** No en un
-plan, no en una regla del framework: en el documento que la persona abre cuando va a escribirla.
-
-**R2 · Cuando ningún rol del producto corresponde, el responsable es genérico y sigue siendo
-obligatorio.** El orden de resolución es: el rol que la documentación del producto asigne; si no hay,
-el perfil de convención del intake y su organización; si tampoco, **la organización dueña del
-repositorio**. Un responsable genérico es peor que uno preciso y **muchísimo mejor que ninguno**,
-porque un campo vacío se lee como que la pregunta no se hizo, y un campo con la organización se lee
-como que nadie más específico se hizo cargo todavía —que es una afirmación verdadera y accionable—.
-
-**R3 · Entre dos fuentes posibles, gana la que es subproducto del acto.** Una fuente que alguien tiene
-que acordarse de actualizar se degrada; una que el acto produce por sí solo, no. En esa misma corrida
-la dimensión 5 tenía **dos** fuentes declarativas y **las dos se degradaron**: el registro quedó en la
-etapa `b`, y las etiquetas por etapa cerrada que el pipeline del producto declaraba como instrumento
-de versionado **nunca se crearon, ni una**. Lo único que sobrevivió intacto fue el **nombre de la rama
-en cada confirmación de fusión**, que nadie tuvo que acordarse de escribir porque fusionar lo escribe.
-
-**La consecuencia de R3 sobre el diseño de este prompt.** Cuando la fuente declarativa de una dimensión
-no es un subproducto, **la columna de contraste observable deja de ser opcional**: es la única defensa
-contra una fuente que se degrada en silencio. Las tres dimensiones que tienen contraste son
-exactamente las tres cuya fuente hay que acordarse de mantener.
-
----
 
 **Regla de resolución.** Cuando la fuente declarativa y el contraste no coinciden, **gana el
 observable y se declara la divergencia**. Nunca al revés: un documento que dice que algo está hecho
@@ -296,4 +261,3 @@ entonces el contexto vuelve a vivir sólo en la sesión.
 | --- | --- | --- |
 | 1.0 | 2026-08-16 | Emisión inicial. Tercer orquestador del método, con la cardinalidad de **una vez por reanudación**. Nace de una corrida real donde retomar funcionó **porque el estado vivía en el árbol**, propiedad que el framework apoyaba sin declarar y que por eso nadie verificaba: el registro de cambios de ese destino quedó tres etapas atrás sin que nada lo señalara. Declara las **seis dimensiones del estado**, cada una con su fuente y —en las tres que en esa corrida divergieron— su **contraste observable**, con la regla de que gana el observable y la divergencia se declara. Cuatro salidas, incluida la que no tiene prompt: **continuar la construcción**. |
 | 1.1 | 2026-08-16 | **El informe deja de ser un diagnóstico y pasa a ser el instrumento de entrega**, y entra **R4, la continuación**: escrito el informe, se sigue en la misma sesión. §5 suma al informe el **diff normativo**, la **decisión** con su autor y su fecha, y el **punto de continuación**, que existe para la salida que no tiene prompt. §5.1 declara que **la decisión viaja** y que el orquestador siguiente no vuelve a preguntar lo mismo. Origen: la 1.0 cometía el defecto que corregía —un prompt contra la pérdida de contexto que no entregaba contexto—, señalado por el Product Owner el mismo día. |
-| 1.2 | 2026-08-16 | §1 suma la columna **«quién la mantiene»** a las seis dimensiones, y **§1.1** es nueva con sus tres reglas: toda fuente declarativa **nombra a su responsable en el propio documento**; cuando ningún rol corresponde el responsable es **genérico y sigue siendo obligatorio**, hasta la organización dueña del repositorio; y entre dos fuentes posibles **gana la que es subproducto del acto**. Cierra el pendiente que `Coherencia-Orquestador-Reanudacion.md` §7 dejaba declarado —una dimensión del estado cuya fuente nadie tenía obligación de mantener—. Origen: el Product Owner, que pidió no dejar el dueño boyando. |
