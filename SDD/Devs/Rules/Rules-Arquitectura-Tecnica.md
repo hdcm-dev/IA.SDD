@@ -4,7 +4,7 @@
 **Carpeta target (nivel producto):** `SDD/Docs/Producto/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto
 **Subagente target del orquestador:** Arquitecto de Software Senior (AG-05)
-**Versión de las reglas:** 4.1
+**Versión de las reglas:** 4.2
 
 ---
 
@@ -164,7 +164,7 @@ Cada artefacto inicia con un H1 y un bloque markdown de metadatos:
 ```markdown
 # ADR-XXXXX — <Título de la decisión>
 
-**Proyecto de código:** {{Nombre-Proyecto-Codigo}}
+**Unidad de entrega:** {{Nombre-Unidad-Entrega}}
 **Documento:** ADR-XXXXX-<Nombre>.md
 **Versión:** <X.Y>
 **Estado:** Propuesto | Aceptado | Superado por ADR-YY | Rechazado
@@ -179,7 +179,7 @@ Para `arquitectura-producto`, `Modelo-Datos-logico`, `flujo-ejecucion`, `contrat
 
 El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente de IA que recorre la cadena de especificación acumulando contexto, y para ese lector la tabla de contenido es indiferente. Existe para el agente humano que entra a consultar un punto concreto sin haber leído el documento entero.
 
-### 4.2 Secciones obligatorias de `Arquitectura-Proyecto-Codigo.md`
+### 4.2 Secciones obligatorias de `Arquitectura-Unidad-Entrega.md`
 
 1. Objetivo. Una a tres oraciones que respondan qué documenta el archivo y para quién.
 2. Estilo arquitectónico. Estilo elegido (pipeline, capas, microkernel, microservicios, event-driven, hexagonal) con justificación contra al menos dos alternativas descartadas.
@@ -345,7 +345,7 @@ El error no es simétrico —declarar mecanizable algo que no lo es produce fals
 que la ausencia de verificación—, así que marcar de más un interpretativo solo cuesta atención del
 auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
 
-- [ ] [enumerable] Existe `Arquitectura-Proyecto-Codigo.md` con las cuatro vistas mínimas (lógica, procesos, despliegue, datos) y las secciones §1 a §10 del §4.2.
+- [ ] [enumerable] Existe `Arquitectura-Unidad-Entrega.md` con las cuatro vistas mínimas (lógica, procesos, despliegue, datos) y las secciones §1 a §10 del §4.2.
 - [ ] [enumerable] Existe `Decisiones-Arquitectura.md` que indexa los ADRs con su estado y fecha actual.
 - [ ] [interpretativo] Hay al menos tres ADRs en `Adrs/` como archivos individuales, cada uno con las diez secciones obligatorias del §4.3.
 - [ ] [interpretativo] Cada ADR tiene estado declarado (Propuesto, Aceptado, Superado por ADR-YY o Rechazado).
@@ -385,7 +385,7 @@ Fragmento ilustrativo, no documento completo:
 ```markdown
 # ADR-00003 — Elección de base de datos relacional para turnos médicos
 
-**Proyecto de código:** {{Nombre-Proyecto-Codigo}}
+**Unidad de entrega:** {{Nombre-Unidad-Entrega}}
 **Documento:** ADR-00003-Eleccion-Base-Datos-Postgres.md
 **Versión:** 1.0
 **Estado:** Aceptado
@@ -426,8 +426,8 @@ Fragmento ilustrativo, no documento completo:
 ```markdown
 # Arquitectura de producto — Microservicio de pagos
 
-**Proyecto de código:** {{Nombre-Proyecto-Codigo}}
-**Documento:** Arquitectura-Proyecto-Codigo.md
+**Unidad de entrega:** {{Nombre-Unidad-Entrega}}
+**Documento:** Arquitectura-Unidad-Entrega.md
 **Versión:** 1.0
 **Estado:** Propuesto
 **Fecha:** 2026-05-17
@@ -473,7 +473,7 @@ Insumos:
 - Upstream: 00 (visión, restricciones), 01 (NB-XXXXX), 02 (CU, RN, modelo conceptual, RC), 04 (contratos de prompts si aplica).
 
 A generar (según tipo {{TIPO}} de D8):
-- Arquitectura-Proyecto-Codigo.md con las cuatro vistas mínimas y NFR con métricas numéricas.
+- Arquitectura-Unidad-Entrega.md con las cuatro vistas mínimas y NFR con métricas numéricas.
 - Decisiones-Arquitectura.md como índice navegable de ADRs.
 - Adrs/ADR-XXXXX-<Nombre>.md, uno por decisión, mínimo según §2.2. Crítico: archivos individuales, no consolidado.
 - Modelo-Datos-Logico.md si `tiene_persistencia` de esta unidad de entrega es true.
@@ -531,3 +531,4 @@ Salida: SDD/Docs/Producto/<estructura>.
 | 3.2 | 2026-08-15 | La obligatoriedad del modelo lógico se condiciona sobre el proyecto de código y no sobre el tipo (intervención reportes 00 a 11). Las tres menciones del mismo artefacto decían tres cosas distintas: §2.1 condicionaba con «con almacenamiento» pegado al último de una lista de cinco tipos, §2.2 lo declaraba incondicional para `web-monolith`, y §6 y §7 preguntaban «si el tipo D8 exige persistencia», que es una condición sobre el tipo y no sobre el proyecto. Las cuatro pasan a leer el flag **`tiene_persistencia`** del proyecto de código, que `Master-Prompt.md` §4 ya deriva y cuyo impacto declarado ya era activar este artefacto. El defecto no era teórico: un `web-monolith` correctamente tipado, cuya persistencia vive completa en otro proyecto de código del mismo producto, incumplía la normativa, y las dos salidas disponibles para cumplir la letra —copiar el modelo ajeno o emitir un documento que remite— producían peor documentación que el incumplimiento. Sube **minor**: la condición nueva es más permisiva que la vigente y ninguna documentación ya emitida deja de cumplir. Origen: reporte `06`. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. Se incorpora además el tratamiento de las obligaciones hacia una fase posterior que la comprobación del grafo de `Master-Prompt.md` §6 detectó al correrse sobre las doce reglas: las referencias afectadas se declaran con la forma de `Root-Rules.md` §12. |
 | 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
 | 4.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |
+| 4.2 | 2026-08-16 | **Dos correcciones del mismo molde.** (1) La cabecera obligatoria de §4.1 declaraba `**Proyecto de código:**` cuando los documentos de esta categoría pertenecen a una **unidad de entrega**; pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Vivía dentro de un bloque de ejemplo cercado, que ningún barrido abría. (2) **§2.1 había renombrado el artefacto a `Arquitectura-Unidad-Entrega.md` y el renombre no se propagó dentro del propio archivo**: §4.2, el criterio de aceptación de §6, el ejemplo de §7 y los insumos de §5 seguían nombrando `Arquitectura-Proyecto-Codigo.md`. El criterio de aceptación es lo grave: **el audit verificaba la existencia del nombre viejo**, de modo que un documento generado con el nombre correcto lo habría reprobado. Sube **patch**. |

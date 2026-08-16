@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/10-Examples/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Developer Advocate / Sample Engineer Senior (AG-10)
-**Versión de las reglas:** 6.1
+**Versión de las reglas:** 6.2
 
 ---
 
@@ -197,7 +197,7 @@ Cada markdown explicativo inicia con un H1 y un bloque de metadatos uniforme:
 ```markdown
 # Ejemplo XX — <Nombre descriptivo del sample>
 
-**Proyecto de código:** {{Nombre-Proyecto-Codigo}}
+**Unidad de entrega:** {{Nombre-Unidad-Entrega}}
 **Documento:** ejemplo-XXXXX-<Progresion>.md
 **Versión:** <X.Y>
 **Estado:** Borrador | Propuesto | Aprobado | Vigente | Superado | Archivado
@@ -492,7 +492,7 @@ Fragmento ilustrativo, no documento completo:
 ```markdown
 # Ejemplo 02 — Parser custom con extensión de tipo
 
-**Proyecto de código:** {{Nombre-Proyecto-Codigo}}
+**Unidad de entrega:** {{Nombre-Unidad-Entrega}}
 **Documento:** Ejemplo-02-Intermedio-Extensibilidad.md
 **Versión:** 1.0
 **Estado:** Vigente
@@ -582,7 +582,7 @@ verificacion:
 
 | Versión | Fecha | Descripción |
 | --- | --- | --- |
-| 1.0 | 2026-05-17 | Versión inicial de las reglas constructivas de la categoría 11. Define el README de la sección y los markdown explicativos por sample con sufijo uniforme `.md`, fija la matriz tipo D8 vs estructura de `/samples`, establece cantidades mínimas de samples por tipo, formaliza las nueve secciones obligatorias del markdown explicativo y corrige dos antecedentes del fuente SDD 1.0: la nomenclatura por dominio (`multa`, `multaapp-nuget`) se reemplaza por progresión de complejidad o capacidad, y la ausencia de sufijo de versión se reemplaza por `.md` obligatorio en todos los archivos versionables. |
+| 1.0 | 2026-05-17 | Emisión inicial del sample: contrato de verificación y evidencia de corrida. |
 ```
 
 ### 7.2 Ejemplo 2 — `Ejemplo-01-Basico-Cliente-HTTP.md` para una REST API de pagos
@@ -592,7 +592,7 @@ Fragmento ilustrativo, no documento completo:
 ```markdown
 # Ejemplo 01 — Cliente HTTP básico con curl
 
-**Proyecto de código:** {{Nombre-Proyecto-Codigo}}
+**Unidad de entrega:** {{Nombre-Unidad-Entrega}}
 **Documento:** Ejemplo-01-Basico-Cliente-HTTP.md
 **Versión:** 1.0
 **Estado:** Vigente
@@ -683,7 +683,7 @@ verificacion:
 
 | Versión | Fecha | Descripción |
 | --- | --- | --- |
-| 1.0 | 2026-05-17 | Versión inicial de las reglas constructivas de la categoría 11. Define el README de la sección y los markdown explicativos por sample con sufijo uniforme `.md`, fija la matriz tipo D8 vs estructura de `/samples`, establece cantidades mínimas de samples por tipo, formaliza las nueve secciones obligatorias del markdown explicativo y corrige dos antecedentes del fuente SDD 1.0: la nomenclatura por dominio (`multa`, `multaapp-nuget`) se reemplaza por progresión de complejidad o capacidad, y la ausencia de sufijo de versión se reemplaza por `.md` obligatorio en todos los archivos versionables. |
+| 1.0 | 2026-05-17 | Emisión inicial del sample: contrato de verificación y evidencia de corrida. |
 ```
 
 Los dos fragmentos son ilustrativos. Cada unidad de entrega adapta el dominio respetando la estructura, la nomenclatura por progresión y el sufijo de versión obligatorio.
@@ -739,3 +739,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/10-Examples/<estruct
 | 5.0 | 2026-08-15 | Obligatoriedad por consumidor y trazabilidad verificable (intervención reportes 00 a 11). **§0** deja de condicionar la categoría por tipo D8 y la condiciona por `redistribuible` del manifiesto y por `tiene_portal_developers`: el motivo de la obligación es que «el integrador del artefacto necesita ejemplos reproducibles», y donde no hay integrador previsible la obligación no tiene a quién servir. La cláusula de omisión, que vivía en la prosa de §0 mientras §2.1 y §2.2 —las tablas que el orquestador ejecuta— decían `library: obligatorio` sin condición, sube a las tablas. **§2.2** gana válvula: el piso de tres samples rige cuando `redistribuible` es true, y un proyecto de código no redistribuible tiene piso de uno. **§4.6** exige que cada caso de uso declarado diga qué pasos del flujo principal recorre la salida prometida y cuáles no, y agrega el bloque `discrimina`, que declara por aserción qué caso de uso deja de cumplirse si ella falla; no se admite un caso de uso que ninguna aserción discrimine. Se documenta cómo se produce la declaración falsa —confundir precondición con flujo ejercitado, elegir por afinidad de tema, y no tener código que desmienta en la pasada de diseño—. **§6** suma la primera cláusula del gobierno de glosario. Sube **major**: cambia el gating de la categoría por tipo D8 y el conjunto de campos obligatorios del contrato de verificación, de modo que la documentación generada con la versión anterior deja de cumplir. Origen: reportes `06` §6.1, `10` y `11`. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. Se incorpora además el tratamiento de las obligaciones hacia una fase posterior que la comprobación del grafo de `Master-Prompt.md` §6 detectó al correrse sobre las doce reglas: las referencias afectadas se declaran con la forma de `Root-Rules.md` §12. |
 | 6.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
 | 6.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |
+| 6.2 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. Se corrige además el **control de cambios de los dos samples de ejemplo** de §7, que tenían pegado el texto del control de cambios **de esta regla** —incluido «categoría 11», que es el número anterior de Examples—. |

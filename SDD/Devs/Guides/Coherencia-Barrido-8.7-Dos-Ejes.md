@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Coherencia-Barrido-8.7-Dos-Ejes.md
-**Versión:** 1.0
+**Versión:** 1.1
 **Estado:** Vigente
 **Fecha:** 2026-08-16
 **Autor:** AG-ROOT (Arquitecto de Soluciones)
@@ -109,15 +109,22 @@ es un registro que nunca se escribió.
 | **D8** Conjunto cerrado | **Conforme, y es el punto** | Los ocho valores no cambian. Cambia **a qué eje se le piden**, que es lo que la 8.0 ya había decidido y estos cinco lugares no habían acatado |
 | **D9** Evidencia | Conforme | Los cinco hallazgos se verificaron abriendo el archivo y contrastando con la sección que lo contradice |
 
-## 6. Lo que esta nota deja anotado
+## 6. Lo que esta nota dejaba anotado, y cómo se cerró
 
 **El barrido encuentra lo que se le pide barrer, y a nadie se le pide barrer los conceptos de las
 intervenciones viejas.** La 8.7 es de ayer y ya había dejado cinco lugares; las intervenciones
 anteriores a la 8.9 son todas anteriores al barrido, y **ninguna lo corrió**.
 
-No se resuelve acá porque barrer retroactivamente todo el historial es una intervención de otra
-escala. Lo que queda anotado es el criterio: **cuando una intervención vieja se toca por cualquier
+No se resolvió acá porque barrer retroactivamente todo el historial es una intervención de otra
+escala. Lo que quedó anotado es el criterio: **cuando una intervención vieja se toca por cualquier
 motivo, su concepto se barre entonces**, que es lo que pasó acá.
+
+**Se cerró en dos pasos: la 8.13 barrió el layout y la 8.15 el vocabulario y el resto de los dos
+ejes.** Los dos conceptos grandes que quedaban están hechos, y **los dos encontraron algo**. Lo que
+sigue abierto no es el trabajo sino el disparador: los tres barridos retroactivos se corrieron por
+decisión explícita del Product Owner, y **el criterio que esta nota fijó no se disparó ninguna de las
+tres veces**, porque ninguna intervención tocó esos conceptos por otro motivo. Queda registrado en
+`Coherencia-Barrido-Retroactivo-6.0-8.0.md` §6.
 
 **Y una constatación incómoda: el barrido lo pidió el Product Owner, no el método.** Yo había listado
 este tema como el tercero de tres y con la formulación más blanda de las tres —«vale ver si aplica»—.
@@ -135,3 +142,4 @@ entrega vigente**.
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
 | 1.0 | 2026-08-16 | Emisión inicial. Suma §4.1 con un hallazgo ajeno al barrido, aparecido al archivar: **cuatro de los cinco `_legacy/` más recientes estaban corridos un lugar**, con lo que el diff normativo de esos saltos salía vacío. Barrido retroactivo del concepto de la 8.7, con **cinco archivos alcanzados**, ninguno en el alcance que la 8.7 declaró. Registra los tres hallazgos que valen por sí solos: una regla que se contradice consigo misma a treinta líneas, un marcador de despacho sin valor en el contexto, y el checklist que verifica la sección que la propia 8.7 reescribió. |
+| 1.1 | 2026-08-16 | §6 pasa de «lo que deja anotado» a **cómo se cerró**: el barrido retroactivo se hizo en la 8.13 y la 8.15. Lo que sigue abierto es el **disparador**, no el trabajo. |

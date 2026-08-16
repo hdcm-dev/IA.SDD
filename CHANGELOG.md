@@ -3,6 +3,41 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.17] - 2026-08-16
+
+**Cuatro hallazgos que aparecieron al verificar que no quedaba nada pendiente, en lugar de contestarlo de memoria.**
+
+### Corregido — la cabecera que todo documento generado copia
+
+Las diez reglas de categoría definen, en su §4.1, la cabecera que lleva **cada documento que el framework genera**. Las **veintiséis** empezaban con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}`, cuando desde la 8.0 esos documentos pertenecen a una **unidad de entrega**. **Ninguna de las diez usaba `Unidad de entrega:`: cero de veintiséis.**
+
+**Es la tercera capa del mismo cambio de la 8.0, y explica por qué tres barridos la pasaron de largo.** La 8.12 buscó en reglas y plantillas, la 8.13 en rutas y tablas, la 8.15 en citas y flags: **ninguna abrió los bloques de ejemplo cercados**, y la cabecera vive ahí. Y es el peor lugar donde dejarlo, porque **un ejemplo no se lee, se copia**.
+
+- Las **diez** reglas de categoría, patch cada una.
+- **`SDD-Development-Guide.md` 1.13 → 1.14.** §VI.3.1 suma la **quinta regla del barrido**: entrar en los bloques de ejemplo, porque **un cerco de código no es un límite del barrido**.
+
+### Corregido — un renombre que no se propagó ni dentro de su propio archivo
+
+**`Rules-Arquitectura-Tecnica.md` §2.1 había renombrado el artefacto a `Arquitectura-Unidad-Entrega.md`**, y el nombre viejo seguía vivo en **siete** lugares: cuatro en el mismo archivo —§4.2, el criterio de aceptación de §6, el ejemplo de §7 y los insumos de §5— y tres afuera —la tabla del plan maestro, la plantilla de intake y el árbol de la guía de usuario—.
+
+**El criterio de aceptación es lo grave:** el audit verificaba la existencia del **nombre viejo**, de modo que un documento generado con el nombre correcto **lo habría reprobado**. `Migracion-Rules.md` §111 ya declara que un renombre de artefacto es el único cambio que **ningún diff de versiones puede inferir**; hay que propagarlo a mano, y no se propagó.
+
+- **`Master-Prompt.md` 7.10 → 7.11**, **`PRODUCT-INTAKE-template.md` 3.2 → 3.3**, **`SDD-User-Guide.md` 1.13 → 1.14** y la regla de la categoría 05.
+
+### Corregido — dos notas declaraban pendiente lo que la 8.15 cerró
+
+`Coherencia-Barrido-Layout-8.0.md` §6 decía «quedan dos conceptos grandes sin barrer» y `Coherencia-Barrido-8.7-Dos-Ejes.md` §6 decía que barrer retroactivamente era de otra escala. **Las dos habían quedado afirmando lo último que alguien escribió**, que es literalmente el defecto que la 8.14 vino a regular. Las dos pasan a «y cómo se cerró». **`Root-Rules.md` 5.3 → 5.4**: §4.2 titulaba «Proyectos de código del producto» una sección cuyo contenido es la tabla de unidades de entrega.
+
+### Declarado — la falsa alarma de la comprobación de enlaces
+
+Los catorce «enlaces rotos» del árbol son **rutas ilustrativas dentro de los ejemplos de las reglas**, que describen el árbol de un destino y no tienen por qué resolver desde la ubicación de la regla. §VI.3 comprobación 3 las excluye: sin la exclusión son catorce avisos permanentes, y **una comprobación que avisa siempre es una comprobación apagada** —el mismo argumento con el que la 8.3 excluyó `_legacy/`—.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/8.16/`.
+
+**Queda anotado:** los cuatro hallazgos aparecieron porque el Product Owner preguntó si quedaba algo, no porque una comprobación los levantara. Es el cuarto caso seguido. Lo que sí mejoró es que las cuatro veces la respuesta se obtuvo **verificando y no recordando**.
+
+---
+
 ## [8.16] - 2026-08-16
 
 **Se midió lo que la 8.4 había dejado como condición, y el resultado descarta la variante que llevaba cuatro versiones anotada.** `Coherencia-Referencias-Derivadas.md` §5 proponía que los documentos citaran **sólo por identificador** y la ruta se derivara de un índice de nivel producto, con una condición explícita para evaluarla: medir antes qué proporción del corpus referencia por ruta y cuál por identificador.

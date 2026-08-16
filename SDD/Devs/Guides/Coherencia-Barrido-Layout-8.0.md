@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Coherencia-Barrido-Layout-8.0.md
-**Versión:** 1.0
+**Versión:** 1.1
 **Estado:** Vigente
 **Fecha:** 2026-08-16
 **Autor:** AG-ROOT (Arquitecto de Soluciones)
@@ -91,10 +91,12 @@ la cabecera coincidiera con la última fila. Entra la **comprobación 10**, que 
 | **D8** Conjunto cerrado | Conforme | No se toca |
 | **D9** Evidencia | Conforme | Las 15 filas, las 39 concordancias y los 6 registros se enumeraron sobre el árbol |
 
-## 6. Lo que esta nota deja anotado
+## 6. Lo que esta nota dejaba anotado, y cómo se cerró
 
-**Quedan dos conceptos grandes sin barrer**: el vocabulario de la 6.0 —«solución» a «producto»,
+**Quedaban dos conceptos grandes sin barrer**: el vocabulario de la 6.0 —«solución» a «producto»,
 «proyecto» a «proyecto de código»— y el de los dos ejes de la 8.0 más allá de lo que la 8.12 cubrió.
+**Los dos se barrieron en la 8.15**: el vocabulario estaba limpio, y los dos ejes dejaron ocho citas a
+una sección de un documento que la 6.0 había eliminado, cinco de ellas origen de flags de gating.
 El criterio que la nota anterior fijó sigue en pie, y esta intervención lo confirma por segunda vez:
 **el concepto sobrevive en la tabla que se ejecuta, no en la prosa que se lee**.
 
@@ -116,3 +118,4 @@ fecha.
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
 | 1.0 | 2026-08-16 | Emisión inicial. Segundo barrido retroactivo. Registra el hallazgo P0 —las quince filas de la tabla del plan maestro emitiendo al layout anterior a la 8.0, con el audit verificando contra la misma ruta vieja—, las **39 concordancias** que la sustitución léxica de la 8.0 dejó, y los **seis registros de control de cambios inconsistentes** que originan la comprobación 10 de §VI.3. |
+| 1.1 | 2026-08-16 | §6 pasa de «lo que deja anotado» a **cómo se cerró**: los dos conceptos que declaraba pendientes se barrieron en la 8.15. La nota había quedado **afirmando lo último que alguien escribió**, que es el defecto que ella misma describe. |
