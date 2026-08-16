@@ -17,7 +17,7 @@ traces:
 # Guía de desarrollo y extensibilidad del framework SDD
 
 **Documento:** SDD-Development-Guide.md
-**Versión:** 1.15
+**Versión:** 1.14
 **Estado:** Vigente
 **Fecha:** 2026-07-29
 **Rol de intervención:** Mantenedor del framework
@@ -586,7 +586,7 @@ Las filas ya escritas **no se reescriben**, aunque un cambio posterior invalide 
 
 ### VI.3 Cómo se verifica la coherencia después de un cambio
 
-Toda intervención que toque más de un archivo emite una nota de coherencia siguiendo el patrón de [`../Devs/Guides/Coherencia-Auditoria-Marco.md`](../Devs/Guides/Coherencia-Auditoria-Marco.md), que define la forma: alcance, inventario de archivos tocados, verificación de invariantes, verificación de trazabilidad, observaciones y veredicto. **Cuando la intervención cambia un concepto, suma una sección de barrido declarado** con la forma que fija §VI.3.2: el par forma anterior / forma vigente, el residuo de la corrida y las exclusiones enumeradas con su motivo. Sin esa sección, la comprobación 8 no es verificable por nadie que no sea quien la corrió.
+Toda intervención que toque más de un archivo emite una nota de coherencia siguiendo el patrón de [`../Devs/Guides/Coherencia-Auditoria-Marco.md`](../Devs/Guides/Coherencia-Auditoria-Marco.md), que define la forma: alcance, inventario de archivos tocados, verificación de invariantes, verificación de trazabilidad, observaciones y veredicto.
 
 Lista de comprobación mínima:
 
@@ -599,7 +599,7 @@ Lista de comprobación mínima:
 | 5 | Control de cambios actualizado en cada archivo modificado | Una fila por archivo |
 | 6 | El caso degenerado sigue produciendo el layout aplanado | Verificado |
 | 7 | Nada fuera del alcance declarado fue modificado | Sin cambios colaterales |
-| 8 | **Barrido por concepto**: la intervención **declara la forma anterior como patrón** (§VI.3.2) y lo corre sobre todo el árbol vivo, incluidos los bloques cercados y el interior de los archivos ya tocados, **y sobre su propio texto** | **Cero ocurrencias vivas** fuera de las exclusiones enumeradas con su motivo |
+| 8 | **Barrido por concepto**: todo lugar donde aparece el concepto que la intervención cambió está enumerado y verificado, **incluido el interior de los archivos ya tocados** | Cero apariciones sin revisar |
 | 9 | **Coherencia interna de cada artefacto tocado**: ninguna sección contradice a otra del mismo archivo | Sin contradicciones internas |
 | 10 | **Integridad del registro** de cada archivo tocado: la versión de cabecera **es** la mayor fila del control de cambios, las filas están **en orden** y **ninguna está repetida** | Cabecera igual a la última fila, tabla ordenada |
 
@@ -657,50 +657,6 @@ artefacto, el dueño de un campo, un conjunto cerrado, el nombre de un término 
    generado copia literal. Tres barridos seguidos las pasaron de largo porque buscaban en rutas, en
    prosa y en tablas, y **veintiséis cabeceras siguieron declarando el nivel que la 8.0 había
    cambiado**. Un ejemplo que enseña mal se propaga a todo lo que se genera con él.
-
-### VI.3.2 El barrido se declara como patrón y se corre, no se recuerda
-
-**Las cinco veces que una intervención cometió el defecto que corregía, el defecto tenía una forma
-anterior literal.** `Proyectos/`, `README §5`, `{{NOMBRE_PROYECTO_CODIGO}}`, `proyecto de código
-principal`, `**Proyecto de código:**`. Ninguna era difícil de encontrar: **ninguna estaba escrita en
-ninguna parte**. El barrido dependía de que quien interviene recordara qué buscar, y cinco veces
-seguidas la memoria falló donde un `grep` no habría fallado.
-
-**Qué obliga.** Toda intervención que cambia un concepto declara, en su nota de coherencia, el par:
-
-| Concepto | Forma anterior (patrón literal) | Forma vigente |
-| --- | --- | --- |
-| {{qué cambió}} | {{la cadena que hay que dejar de encontrar}} | {{la cadena que la reemplaza}} |
-
-**La forma anterior es un patrón de búsqueda, no una descripción.** «El nivel del bloque técnico» no
-sirve; `**Proyecto de código:**` sí. Si el concepto no se puede reducir a una cadena, se declara así y
-se dice por qué —ver el límite, más abajo—.
-
-**Cómo se verifica, y qué resultado es aceptable.** Se corre el patrón sobre **todo el árbol vivo,
-incluidos los bloques cercados**, y el residuo tiene que ser **cero fuera de las exclusiones
-enumeradas una por una con su motivo**. Las clases de exclusión son estables y se enumeran acá para
-que no se redescubran cada vez:
-
-| Clase | Por qué se excluye |
-| --- | --- |
-| Filas de control de cambios | Son registro de lo que se verificó en su fecha; reescribirlas lo falsea |
-| `_legacy/` | Es el conjunto archivado, y §VI.5 lo declara intocable |
-| `SDD/Devs/Bootstrap/` | §I.2 la declara no editable: es la evidencia del origen |
-| Notas de coherencia anteriores | Relatan un hallazgo de su fecha |
-| Rutas ilustrativas de los ejemplos | Describen el árbol de un destino, no la navegación del framework (§VI.3, comprobación 3) |
-| Renombres declarados | «Reemplaza a las antiguas X» es lo que permite reconocer un destino generado con la versión vieja |
-
-**Y la regla 4 se corre con los mismos patrones sobre lo que la intervención acaba de escribir.** Es
-la parte que faltó las cinco veces: el barrido se corrió sobre el árbol y **no sobre el texto propio**.
-Una intervención que introduce la forma vigente puede introducir también la anterior —en un ejemplo
-nuevo, en una fila nueva, en una cita— y es el único lugar donde nadie está mirando.
-
-**El límite, declarado.** Esto cubre los conceptos con **huella textual**: renombres, cambios de
-nivel, nombres de variable y de campo. **No cubre un cambio semántico sin forma anterior distinta** —
-cuando la 8.14 pasó a exigir que toda fuente declarativa nombre a su responsable, no había ninguna
-cadena vieja que buscar—. Para ésos la regla 4 sigue siendo una lectura, y la nota lo declara en lugar
-de simular una corrida. **Un control que dice qué no cubre es un control; uno que pretende cubrir todo
-es lo que nos trajo hasta acá.**
 
 **Por qué una plantilla es el peor lugar para dejar una contradicción.** No rompe nada hasta que
 alguien la completa, y para entonces el producto ya arrastra el dato mal declarado. Es el artefacto
@@ -822,4 +778,3 @@ que diga otra cosa.
 | 1.12 | 2026-08-16 | **§VI.3 suma la comprobación 10, integridad del registro**: la versión de cabecera es la mayor fila del control de cambios, las filas están en orden y ninguna se repite. La comprobación 5 pedía «una fila por archivo» y se cumplía escribiéndola en cualquier lado; **seis archivos tenían el registro inconsistente**, repartidos entre cuatro intervenciones, y ninguna verificación los miraba —incluido este archivo, cuya cabecera decía **1.7** mientras su tabla llegaba a **1.10**—. Concordancias de género de la sustitución léxica de la 8.0 (`Vocabulario-Rules.md` §9.5), en el barrido del layout. | Framework SDD (barrido del layout 8.0) |
 | 1.13 | 2026-08-16 | La Parte IV suma el bloque **«sobre las fuentes declarativas que declares»**, con sus cuatro preguntas: que el documento **nombre a su responsable** y no sólo el evento; que si ningún rol corresponde se ponga uno **genérico** en lugar de dejarlo vacío; que se prefiera el **subproducto del acto** al documento que hay que acordarse de actualizar; y que, si la fuente no es un subproducto, se declare contra qué se la contrasta. Cierra el pendiente de `Coherencia-Orquestador-Reanudacion.md` §7. | Framework SDD (dueño de las fuentes declarativas) |
 | 1.14 | 2026-08-16 | **§VI.3.1 suma la quinta regla del barrido: entrar en los bloques de ejemplo.** Un cerco de código no es un límite del barrido, y **tres barridos seguidos los pasaron de largo**: las plantillas de cabecera de las diez reglas de categoría viven ahí y son lo que cada documento generado copia literal. **§VI.3 comprobación 3** excluye las rutas ilustrativas de los ejemplos de las reglas, que describen el árbol de un destino y no resuelven desde el framework: sin la exclusión son catorce avisos permanentes, y una comprobación que avisa siempre es una comprobación apagada. | Framework SDD (cabecera de nivel unidad de entrega) |
-| 1.15 | 2026-08-16 | **§VI.3.2 es nueva: el barrido se declara como patrón y se corre.** Las cinco veces que una intervención cometió el defecto que corregía, el defecto tenía una **forma anterior literal** —`Proyectos/`, `README §5`, `{{NOMBRE_PROYECTO_CODIGO}}`, `proyecto de código principal`, `**Proyecto de código:**`— y **ninguna estaba escrita en ninguna parte**. Toda intervención declara ahora el par forma anterior / forma vigente, con la anterior expresada como **patrón de búsqueda y no como descripción**; el residuo aceptable es **cero fuera de las exclusiones enumeradas**, y las seis clases de exclusión se declaran de una vez para que no se redescubran. **La regla 4 se corre con los mismos patrones sobre el texto propio**, que es la parte que faltó las cinco veces. Declara además el **límite**: cubre conceptos con huella textual y no cambios semánticos sin forma anterior. **§VI.3 comprobación 8** se reformula como corrida con residuo cero. | Framework SDD (barrido ejecutable) |

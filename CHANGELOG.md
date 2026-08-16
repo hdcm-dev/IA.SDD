@@ -3,6 +3,41 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.1] - 2026-08-16
+
+**Cinco intervenciones seguidas cometieron el defecto que corregían** —la 8.7, la 8.12, la 8.13, la 8.15 y la 8.17—, y la quinta lo cometió **una intervención después** de escribir la regla que lo evita. La 9.0 dejó anotado que la regla 4 «no funciona como control, porque se cumple cuando alguien se acuerda de correrla», y declaró que volverla mecánica exigía decidir contra qué se corre.
+
+**Ese diagnóstico era falso, y comprobarlo llevó cinco búsquedas.** Los cinco conceptos tenían una **forma anterior literal**:
+
+| Concepto | Forma anterior | Vivas hoy |
+| --- | --- | --- |
+| Layout de la 8.0 | `Proyectos/` | **1**, declarada |
+| Vocabulario de la 6.0 | `README §5` | 0 |
+| Nivel del despacho | `{{NOMBRE_PROYECTO_CODIGO}}` | 0 |
+| Eje del principal | `proyecto de código principal` | 0 |
+| Cabecera del documento generado | `**Proyecto de código:**` | 0 |
+
+**Ninguna era difícil de encontrar. Ninguna estaba escrita en ninguna parte.** Lo que faltaba no era que el concepto fuera expresable: era que **nadie lo expresaba**. El barrido dependía de que quien interviene recordara qué buscar, y cinco veces seguidas la memoria falló donde un `grep` no habría fallado.
+
+### Agregado
+
+- **`SDD-Development-Guide.md` 1.14 → 1.15. §VI.3.2 es nueva: el barrido se declara como patrón y se corre.** Toda intervención que cambia un concepto declara el par **forma anterior / forma vigente**, con la anterior expresada como **patrón de búsqueda y no como descripción** —«el nivel del bloque técnico» no sirve; `**Proyecto de código:**` sí—.
+- **El residuo aceptable es cero fuera de las exclusiones enumeradas una por una con su motivo**, y las **seis clases de exclusión se declaran de una vez** —filas de control de cambios, `_legacy/`, `Bootstrap/`, notas de coherencia anteriores, rutas ilustrativas y renombres declarados— para que no se redescubran en cada intervención.
+- **La regla 4 se corre con los mismos patrones sobre el texto propio.** Es la parte que faltó las cinco veces: el barrido se corrió sobre el árbol y **no sobre lo que la intervención acababa de escribir**, que es el único lugar donde nadie mira.
+- **La comprobación 8 de §VI.3** se reformula como corrida con residuo cero, y la forma de la nota de coherencia suma la **sección de barrido declarado**: sin ella, la comprobación 8 no es verificable por nadie que no sea quien la corrió.
+
+### El límite, declarado
+
+**Cubre los conceptos con huella textual** —renombres, cambios de nivel, nombres de variable y de campo— y **no cubre un cambio semántico sin forma anterior distinta**. Cuando la 8.14 pasó a exigir que toda fuente declarativa nombre a su responsable, no había ninguna cadena vieja que buscar: el defecto era una **ausencia**, y una ausencia no se encuentra con un patrón. Para ésos la regla 4 sigue siendo una lectura, y la nota lo declara en lugar de simular una corrida.
+
+**Un control que dice qué no cubre es un control; uno que pretende cubrir todo es lo que nos trajo hasta acá** — la comprobación 4 decía «sin contradicción entre lo escrito y lo que ya estaba», y tres intervenciones la pasaron con una contradicción adentro.
+
+**Queda anotado:** el control nuevo **no impide el sexto caso**, lo vuelve detectable **en la misma intervención en lugar de en la siguiente**. Una intervención que no declara su patrón puede cerrarse igual; lo que cambia es que su nota queda visiblemente incompleta y la comprobación 8 no se puede marcar.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/9.0/`.
+
+---
+
 ## [9.0] - 2026-08-16
 
 **El intake valida un eje y el manifiesto que se deriva de él validaba el otro.** `Intake-Rules.md` §4 declara como bloqueante que haya *exactamente una **unidad de entrega** principal*. El `PRODUCT-MANIFEST` —la fuente única de verdad del producto— pedía en su bloque §1, en sus validaciones §4 y en su checklist §7 un ***proyecto de código* principal**. Dieciocho lugares vivos seguían nombrando el eje anterior, y el glosario de la guía de usuario ya lo delataba: definía «Proyecto de código principal» como **«la unidad de entrega cabeza del producto»**. La definición se había migrado en la 8.0 y el término no.
