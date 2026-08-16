@@ -3,6 +3,41 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.3] - 2026-08-15
+
+**Lo que una migración real necesitó y la regla no decía.** Tercera y última corrección salida de ejecutar la migración normativa de un destino de siete proyectos de código. Los seis huecos aparecieron uno tras otro durante la corrida, y **ninguno era detectable leyendo el framework**: el texto era coherente consigo mismo en los seis casos.
+
+### Cambiado — la comprobación de enlaces
+
+- **`Master-Prompt.md` §10.0 excluye los snapshots de `_legacy/` como origen.** Sus referencias no son navegación vigente: dejan de resolver por hechos posteriores —un renombre, un archivado— que no son defectos del árbol vivo. Incluirlos produce el volumen de avisos que desactiva la comprobación, que es lo que ella misma viene a evitar. Los enlaces **hacia** `_legacy/` sí se verifican.
+- **§8 suma la reescritura de enlaces al archivar.** Un documento archivado baja uno o dos niveles y todas sus rutas relativas quedan cortas, de modo que cada archivado dejaba colgados tantos enlaces como referencias tuviera el documento. En el destino medido la acumulación llegó a **658 enlaces rotos, todos anteriores** a la migración que los encontró.
+
+### Cambiado — la pasada de aplicación de la migración
+
+`Migracion-Rules.md` §4.3.1 declara que **los punteros de un snapshot sí se reconectan** cuando el documento vivo se renombra. No es modificar su cuerpo: lo que el snapshot dice queda igual y solo se actualiza el destino de un puntero que identifica al mismo documento con su nombre vigente. Un puntero que sigue a su objeto no falsea el registro; uno que queda colgado no preserva nada.
+
+Y suma los **tres errores concretos** que la corrida cometió, con su regla:
+
+1. **La etiqueta y el destino de un enlace son el mismo identificador** y se mapean juntos. Tratarlos por separado deja la etiqueta apuntando a un identificador inexistente, y **la comprobación de enlaces no lo detecta** porque el destino sí resuelve: lo roto es lo que el lector ve.
+2. **Un documento que cambia de profundidad recalcula todos sus enlaces**, no solo los que apuntan a algo movido. Al fundir árboles, un documento que baja un nivel deja cortas todas sus rutas aunque sus destinos no se hayan movido.
+3. **Los enlaces se reconectan desde un registro confirmado**, con la misma disciplina de dos pasadas que los identificadores. La columna «ya estaba roto antes de migrar» es la que distingue lo que la migración rompió de lo que reparó: en la corrida, de 703 enlaces reconectados **664 ya estaban rotos** y 39 los rompió el renombre.
+
+### Añadido — la fusión de árboles
+
+`Migracion-Rules.md` §4.3.2 declara:
+
+- La convención **`<categoria>/_fusion/<Proyecto-De-Origen>/`** para los documentos que chocan de nombre al fundir —los índices de categoría—. No se sobrescriben ni se fusionan automáticamente: el árbol base conserva el nombre y los demás se preservan con su procedencia en la ruta. La presencia de esa carpeta declara que la fusión no terminó.
+- La **propuesta de consolidación de casos de uso** como artefacto obligatorio y **no aplicado**. Al fundir capas, la categoría 02 resultante contiene varias vistas de la misma capacidad; la migración emite los pares candidatos con su semejanza, sus capas de origen y las tres salidas posibles, y no elige. Los cuatro casos de uso de una capacidad no dicen lo mismo, y la unión no es la suma de sus partes.
+- Las **citas desnudas ambiguas** como sección del árbol: identificadores citados en prosa cuyo número no existe en el proyecto que los escribe. Se resuelven **leyendo y no contando**, porque el referente está en la oración o en el párrafo. En la corrida fueron 57, de las cuales 44 nombraban su proyecto en la misma oración y 13 no apuntaban a ningún proyecto.
+
+### Sobre el origen de las tres últimas versiones
+
+La 8.1, la 8.2 y la 8.3 salieron todas de **ejecutar una migración**, no de leer el framework ni de un reporte de evidencia. La 8.0 pasó sus comprobaciones estáticas y su nota de coherencia, y llevaba seis huecos que solo aparecen al calcular sobre un producto real. Es el argumento para validar cada versión mayor contra una migración antes de darla por buena, y queda escrito en `Coherencia-Rangos-Por-Familia.md` §5.
+
+Ninguna documentación emitida deja de cumplir. El conjunto superado se archiva en `_legacy/8.2/`.
+
+---
+
 ## [8.2] - 2026-08-15
 
 **El árbol de migración declara las familias de identificador que el destino acuñó.** Segunda corrección encontrada al ejecutar la migración de un destino real, y de la misma clase que la 8.1: ninguna comprobación estática podía detectarla.
