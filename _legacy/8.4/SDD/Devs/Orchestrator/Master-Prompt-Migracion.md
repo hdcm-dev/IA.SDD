@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de migración normativa
 
 **Archivo:** `Master-Prompt-Migracion.md`
-**Versión:** 2.0
+**Versión:** 1.1
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente. La mecánica de despacho y de auditoría **no se define acá**: se cita de `Master-Prompt.md` §8 y §10
 **Prerequisitos:** un repositorio destino con `SDD/Docs/` poblado y, opcionalmente, un `Plan-Migracion-<origen>-a-<vigente>.md` emitido por la reconciliación normativa del orquestador de generación
@@ -41,7 +41,7 @@ Este prompt es un archivo de fases, no un segundo orquestador completo. Todo lo 
 | Flujo controlado de escritura del intake | `Master-Prompt.md` §13, regla 2 caso (b), con las reglas 3 a 7 | Lo sigue en M2. Ver la nota de habilitación de abajo |
 | Diff normativo | `Master-Prompt.md` §2.1, pasos 1 a 5 | Lo ejecuta en M1 si el plan no existe todavía |
 | Derivación del manifiesto | `Master-Prompt.md` §3 y §3.1, e `Intake-Rules.md` §4 | La ejecuta en M3 sobre el intake migrado |
-| Orden topológico de las unidades de entrega, por el grafo de integración | `Master-Prompt.md` §3.3 | Lo usa en M4 |
+| Orden topológico de los proyectos de código | `Master-Prompt.md` §3.3 | Lo usa en M4 |
 | Invariantes globales | `Master-Prompt.md` §5 y el `README.md` del framework | Las inyecta en cada despacho, sin alterarlas |
 
 **Nota de habilitación de M2.** La escritura del intake que M2 propone es un caso de escritura **estructural**, distinto de consolidar una respuesta del humano. Está autorizada por `Master-Prompt.md` §13 regla 2 **caso (b)**, con sus tres condiciones acumulativas: propuesta antes de escritura con aprobación explícita, nada se rellena, y bump major. Este prompt **no se autoriza a sí mismo**: la autorización vive en el flujo de no-modificación del intake del orquestador de generación y acá se cita. Si alguna de las tres condiciones no se cumple, M2 no escribe: la cláusula de cierre de §13 trata como error de orquestación toda escritura que no pase por ese flujo.
@@ -179,7 +179,7 @@ Pasos:
 3. Archivar el manifiesto anterior antes de sobrescribir.
 4. Presentar el manifiesto derivado y esperar confirmación explícita, que es la detención que `Master-Prompt.md` §3 paso 3 ya declara.
 
-Si alguna validación de §3.1 falla —un tipo fuera de D8, dos unidades de entrega principales, un ciclo en el grafo de compilación, un proyecto de código que no compone ninguna unidad—, el manifiesto no se deriva y se reporta en la batería de preguntas. Es el mismo comportamiento que en la generación.
+Si alguna validación de §3.1 falla —un tipo fuera de D8, dos proyectos de código principales, un ciclo de dependencias—, el manifiesto no se deriva y se reporta en la batería de preguntas. Es el mismo comportamiento que en la generación.
 
 ---
 
@@ -188,20 +188,8 @@ Si alguna validación de §3.1 falla —un tipo fuera de D8, dos unidades de ent
 Es la fase larga. Recorre el plan aprobado en el orden de la cadena D6:
 
 1. Categorías de nivel producto: 00, después 01.
-2. Cada **unidad de entrega** no diferida, en el orden topológico del grafo de integración de `Master-Prompt.md` §3.3, y dentro de cada una las categorías 02 a 11 en su orden de generación.
-3. El inventario del eje de construcción —los proyectos de código con su stack, su grafo de compilación y la matriz de composición— en `Producto/Vista-Producto.md`. Los proyectos de código **no tienen árbol propio** y no se recorren como nivel.
-4. Consolidación de nivel producto.
-
-**Cuando el salto cambia el nivel de aplicación.** Un destino generado antes de la versión 8.0 tiene
-su árbol organizado por **proyecto de código** y la normativa vigente lo organiza por **unidad de
-entrega**. M4 no puede recorrer un nivel que el destino no tiene, de modo que antes de migrar
-documento por documento ejecuta la **migración estructural** de `Migracion-Rules.md` §4.3.2, con sus
-cuatro pasos y su detención: propuesta de clasificación confirmada por el humano, mapa de fusión de
-árboles, qué se conserva y qué se declara, y renumeración por el árbol de §4.3.1.
-
-Recién con el árbol reorganizado M4 recorre las unidades de entrega. Intentarlo al revés —migrar el
-contenido de cada proyecto de código y reorganizar después— produce documentos migrados contra un
-nivel que va a cambiar, y obliga a tocarlos dos veces.
+2. Cada proyecto de código, en el orden topológico de `Master-Prompt.md` §3.3, y dentro de cada uno las categorías 02 a 11 en su orden de generación.
+3. Consolidación de nivel producto.
 
 **Por documento**, según su clasificación de `Migracion-Rules.md` §4.3:
 
@@ -215,7 +203,7 @@ nivel que va a cambiar, y obliga a tocarlos dos veces.
 
 **Correcciones manuales.** Si al abrir un documento el subagente encuentra contenido que el snapshot no refleja, se detiene y lo devuelve como ambigüedad según `Master-Prompt.md` §9, sin editar. El orquestador enumera las diferencias, declara cómo las interpretó y espera confirmación antes de propagar. Es la regla de `Migracion-Rules.md` §4.2 y el mismo patrón que el criterio de re-ejecución del orquestador de generación.
 
-**Cortes y audit.** M4 se corta por categoría de nivel producto y por unidad de entrega. En cada corte se invoca el audit de `Master-Prompt.md` §10, sumando los criterios de `Migracion-Rules.md` §6, y se espera confirmación antes de seguir. Un veredicto RECHAZADO obliga a corrección y re-audit, con la numeración de rondas que §10 ya declara.
+**Cortes y audit.** M4 se corta por categoría de nivel producto y por proyecto de código. En cada corte se invoca el audit de `Master-Prompt.md` §10, sumando los criterios de `Migracion-Rules.md` §6, y se espera confirmación antes de seguir. Un veredicto RECHAZADO obliga a corrección y re-audit, con la numeración de rondas que §10 ya declara.
 
 ---
 
@@ -286,4 +274,3 @@ Si la migración quedó parcial, la reconciliación vuelve a encontrar el destin
 | --- | --- | --- | --- |
 | 1.0 | 2026-07-29 | Master-prompt inicial del orquestador de migración normativa. Declara las siete fases M0 a M6 con sus detenciones y sus salidas: reconocimiento del destino con tolerancia de nombres legados, diff normativo que consume o emite el plan, migración del intake como propuesta con diff de estructura y doble detención, re-derivación del manifiesto con la procedencia todavía en el origen, migración de `SDD/Docs/` en orden de la cadena D6 con audit por corte, cierre condicional de la procedencia y auditoría final con sus seis hallazgos P0 propios. **§1 declara el contrato de citas**: el despacho de subagentes, la auditoría, el archivado, el manejo de ambigüedad, el diff normativo, la derivación del manifiesto y el orden topológico se toman de `Master-Prompt.md` §8, §10, §5, §9, §2.1, §3 y §3.3, y no se redefinen; la duplicación que no existe no se desincroniza. La mecánica de qué es correcto vive en `Migracion-Rules.md`, por delegación de la especialidad; este archivo declara fases, detenciones y orden. §1 declara además la **nota de habilitación de M2**: mientras §13 del orquestador de generación no autorice el caso de escritura estructural del intake, M2 presenta la propuesta y no escribe, en lugar de autorizarse a sí mismo. §11 declara que este prompt no se encadena automáticamente con el de generación en ninguno de los dos extremos. | Framework SDD (migración normativa) |
 | 1.1 | 2026-07-29 | Integración con el orquestador de generación, al quedar declarado el caso de escritura estructural del intake en `Master-Prompt.md` §13 regla 2 caso (b). **§1** reemplaza la nota condicional de habilitación —que declaraba a M2 detenido mientras §13 no autorizara ese caso— por la cita de la autorización vigente y de sus tres condiciones acumulativas, y precisa la fila del contrato de citas. **§6** reemplaza la condición de bloqueo global por la condición por requisito: M2 no escribe si falta la aprobación explícita, si quedó una sección rellenada con contenido inferido o si el bump no es major, y declara cuál de las tres faltó. Sube minor: no cambia ninguna fase, detención ni orden; precisa de dónde toma su autorización. | Framework SDD (migración normativa) |
-| 2.0 | 2026-08-15 | **Puesta al día con el nivel de unidad de entrega** (framework 8.5). El orquestador de migración había quedado en el modelo de dos niveles: §2 tomaba el orden topológico «de los proyectos de código», §7 validaba «dos proyectos de código principales» y §8 M4 recorría «cada proyecto de código». Ahora M4 recorre **unidades de entrega** en el orden del grafo de **integración**, suma el inventario del eje de construcción en la vista de producto, y declara que los proyectos de código no tienen árbol propio y no se recorren como nivel. Se incorpora además la precondición que faltaba: cuando el salto cambia el nivel de aplicación, M4 ejecuta **primero** la migración estructural de `Migracion-Rules.md` §4.3.2 con su detención de clasificación, porque no puede recorrer un nivel que el destino todavía no tiene; hacerlo al revés migra documentos contra un nivel que va a cambiar y obliga a tocarlos dos veces. Sube **major**: cambia qué recorre la fase larga de la migración. | Framework SDD (validación por migración) |

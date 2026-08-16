@@ -3,6 +3,30 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [8.5] - 2026-08-15
+
+**El orquestador de migración había quedado dos versiones atrás, y la verificación no lo vio.** Detectado al ir a ejecutar la migración real de un destino: el prompt que la conduce seguía hablando del modelo de dos niveles.
+
+### Qué pasó
+
+`Master-Prompt-Migracion.md` estaba en 1.1. Su §2 tomaba «el orden topológico de los **proyectos de código**», su §7 validaba «dos **proyectos de código** principales» y su §8 M4 —la fase larga, la que recorre `SDD/Docs/`— recorría «cada **proyecto de código**». Con la 8.0 el nivel intermedio pasó a la unidad de entrega, y este archivo no se enteró.
+
+**Por qué la verificación de la 8.0 lo dio por conforme.** Porque midió la **ausencia de lo viejo**: contó residuos de `tipo_proyecto_codigo` y de la ruta anterior, y este archivo tenía **cero** de las dos cosas. No porque estuviera migrado, sino porque **nunca las había usado**: ordenaba el recorrido nombrando el nivel en prosa, sin citar la variable. Un archivo que nunca usó el término viejo pasa la comprobación sin haber sido migrado, y ése es el falso negativo.
+
+### Cambiado
+
+- **`Master-Prompt-Migracion.md` 2.0.** M4 recorre **unidades de entrega** en el orden del grafo de **integración**, suma el inventario del eje de construcción en la vista de producto, y declara que los proyectos de código no tienen árbol propio y no se recorren como nivel. §2 y §7 se alinean.
+- **La precondición que faltaba**: cuando el salto cambia el nivel de aplicación, M4 ejecuta **primero** la migración estructural de `Migracion-Rules.md` §4.3.2, con su detención de clasificación. No puede recorrer un nivel que el destino todavía no tiene, y hacerlo al revés migra documentos contra un nivel que va a cambiar y obliga a tocarlos dos veces.
+- **`SDD-Development-Guide.md` Parte IV** suma cómo se verifica una intervención estructural: comprobar la **presencia de lo nuevo** y no solo la ausencia de lo viejo; explicar cada archivo del alcance que **no cambió**, porque «no le correspondía» y «se olvidó» se ven igual; y, cuando cambia un nivel, revisar que **cada archivo que ordena un recorrido** nombre el nivel nuevo, que es lo que más se olvida porque el orden no suele nombrar la variable renombrada.
+
+### Sobre el origen
+
+Es la cuarta corrección que sale de ejecutar y no de leer, y la primera que sale de **ir a ejecutar**: apareció al abrir el orquestador para lanzar la migración, antes de tocar un solo archivo del destino. Si la corrida hubiera arrancado, habría migrado hacia el modelo que la 8.0 dejó atrás.
+
+El conjunto superado se archiva en `_legacy/8.4/`.
+
+---
+
 ## [8.4] - 2026-08-15
 
 **Los seis huecos eran dos causas.** Las versiones 8.1 a 8.3 resolvieron uno por uno los huecos que la migración de un destino real destapó. Con los seis a la vista, el análisis muestra que no eran independientes.

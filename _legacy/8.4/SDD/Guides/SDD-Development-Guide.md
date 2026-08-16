@@ -3,7 +3,7 @@ doc_id: GUIDE-SDD-DEVELOPMENT
 doc_type: development-guide
 title: Guía de desarrollo y extensibilidad del framework SDD
 status: vigente
-version: 1.10
+version: 1.9
 owner: Framework SDD
 last_review: 2026-07-29
 audience: [mantenedor-del-framework, agente-ia]
@@ -498,26 +498,6 @@ operación, y si la regla no dice qué hacer con ellas, cada agente que las encu
 Es la misma pregunta que la sección anterior hace sobre los criterios, aplicada a los verbos en lugar
 de a los artefactos.
 
-**Sobre cómo verificás una intervención estructural, y es donde se esconde el peor error:**
-
-Una intervención que renombra un concepto o cambia un nivel se verifica casi siempre buscando lo
-viejo: que no queden residuos del término anterior, de la ruta anterior, de la variable anterior. Esa
-comprobación es necesaria y **no alcanza**, porque tiene un falso negativo que no se ve.
-
-**Un archivo que nunca usó el término viejo pasa la comprobación sin haber sido migrado.** No aparece
-en ningún residuo, no genera ningún aviso, y queda hablando del modelo anterior con otras palabras.
-Ocurrió: el orquestador de migración quedó dos versiones atrás porque no mencionaba la variable que
-se renombró, y la verificación lo contó como conforme.
-
-- ¿Verificaste la **presencia de lo nuevo**, y no solo la ausencia de lo viejo? Son dos preguntas
-  distintas y la segunda sola miente.
-- ¿Qué archivos del alcance declarado **no cambiaron**? Cada uno necesita una explicación: o no le
-  correspondía cambiar, o se olvidó. Un archivo sin cambios dentro del alcance no es una buena
-  noticia hasta que se sabe cuál de las dos es.
-- Si la intervención cambia un **nivel de aplicación**, ¿cada archivo que ordena un recorrido nombra
-  el nivel nuevo? Recorrer es lo que más se olvida, porque el orden no suele nombrar la variable que
-  se renombró.
-
 **Sobre el impacto:**
 
 - ¿Cuántos archivos toca este cambio? Si son más de tres o cuatro, conviene segmentar en etapas con nota de coherencia entre cada una.
@@ -671,5 +651,4 @@ Quedan fuera del snapshot el propio `CHANGELOG.md`, que es acumulativo y cuya hi
 | 1.7 | 2026-08-15 | Regla de redacción de criterios de aceptación (intervención reportes 00 a 11). La Parte IV suma el bloque «sobre qué pregunta el criterio», con la observación que lo origina: la propiedad que hace útil a una declaración casi nunca es del artefacto solo, es de la **relación** entre el artefacto y otra cosa, y como verificar una relación exige leer los dos lados, los criterios derivan sistemáticamente hacia la presencia. Se incorpora la comprobación barata —por cada criterio que cuenta algo, preguntarse si una declaración falsa sube o baja la cuenta, porque un criterio que se cumple mejor con un artefacto falso tiene el signo cambiado—, la distinción entre declaración verdadera y declaración verificable, y la indicación de promover preguntas de §5 a §6 en lugar de inventar criterios. Se agrega además la marca `[enumerable]` / `[interpretativo]` como pregunta obligatoria, con su política conservadora. Origen: reportes `09` y `10`. | Framework SDD (intervención reportes 00-11) |
 | 1.8 | 2026-08-15 | Puesta al día por el nivel de unidad de entrega (framework 8.0). La guía pasa a nombrar la unidad de entrega donde el referente es el nivel intermedio del layout, y conserva el proyecto de código donde el referente es la unidad de compilación. La pregunta «¿qué comportamiento tiene para cada uno de los ocho tipos?» de la Parte IV sigue siendo válida, y ahora se responde sobre la unidad de entrega, que es de quien D8 es atributo. | Framework SDD (nivel de unidad de entrega) |
 | 1.9 | 2026-08-15 | La Parte IV suma el bloque «sobre las operaciones que declares» (framework 8.4). Una regla que define una operación declara qué hace y casi nunca qué **produce como efecto**, y toda operación produce situaciones nuevas: renombrar deja punteros al nombre viejo, archivar acorta rutas relativas, fundir produce colisiones de nombre, propagar hacia una categoría aprobada produce contradicciones. No son casos exóticos sino consecuencias necesarias, y sin declararlas cada agente improvisa. Cuatro preguntas: qué situaciones crea la operación, si la regla dice qué hacer con cada una, si deja algún dato derivado desactualizado y quién lo recalcula, y cuál de esos casos no se puede resolver contando y por lo tanto exige detención. Origen: de los seis huecos que una migración real destapó, dos eran de esta clase y los cuatro restantes eran datos derivados sin dueño. | Framework SDD (validación por migración) |
-| 1.10 | 2026-08-15 | La Parte IV suma el bloque «sobre cómo verificás una intervención estructural» (framework 8.5). Una intervención que renombra un concepto o cambia un nivel se verifica buscando residuos de lo viejo, y esa comprobación tiene un falso negativo que no se ve: **un archivo que nunca usó el término viejo pasa sin haber sido migrado**. Ocurrió con el orquestador de migración, que quedó dos versiones atrás porque no mencionaba la variable renombrada y la verificación lo contó como conforme. Tres preguntas: si se verificó la presencia de lo nuevo y no solo la ausencia de lo viejo; qué archivos del alcance declarado no cambiaron y por cuál de los dos motivos; y, cuando cambia un nivel de aplicación, si cada archivo que ordena un recorrido nombra el nivel nuevo, que es lo que más se olvida porque el orden no suele nombrar la variable renombrada. | Framework SDD (validación por migración) |
 | 1.5 | 2026-07-29 | Forma obligatoria del registro de impacto en las entradas major (prerrequisito F4 de la migración normativa). **§VI.4** suma la especificación del bloque «Impacto sobre destinos existentes»: tres tablas —renombres de artefacto, secciones movidas o partidas y campos bloqueantes nuevos—, con la regla de que una tabla sin contenido se declara vacía y no se omite. El fundamento es que hay una clase de cambio que ningún diff de versiones puede inferir: un renombre de artefacto no se deduce de que su regla haya subido de 2.1 a 3.0, y ese conocimiento vivía disperso en prosa, donde un agente que tiene que reconocer un destino legado no lo puede resolver. Se declara además qué **no** es el bloque —un playbook de migración por salto de versión, que duplicaría el estado objetivo ya declarado en las reglas y obligaría a mantener dos declaraciones sincronizadas—, para que la concesión no se lea como habilitación de esa forma. **§VI.5** declara la obligación correlativa al publicar un conjunto major, y que se cumple una vez por entrada consolidando la intervención entera, no una vez por regla que sube. Sube **minor**: precisa la forma de un registro que ya era obligatorio, sin cambiar ningún procedimiento existente. | Framework SDD (migración normativa) |
