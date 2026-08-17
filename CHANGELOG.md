@@ -3,6 +3,24 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.4] - 2026-08-17
+
+**T3 prohibía algo que T0 no puede detectar. Pasa a admitirlo y pedir que se declare.**
+
+Una rama puede terminar con **dos unidades adentro** por motivos legítimos —una reparación que aparece a mitad de una fase y que dejar afuera rompería la rama, dos pasos que resultaron inseparables— y también por descuido. **Los dos casos se tratan igual**: la entrega de T4 nombra las **dos**, en su orden, y dice **cuál se puede revertir sin la otra**.
+
+Con eso el humano recupera lo que T3 protege —**decidir con la información completa**— aunque ya no pueda decidir por separado. **Lo inaceptable pasa a ser la rama que lleva dos y declara una**, que es el único punto de §12.1 que descansa entero en quien la escribe.
+
+**El fundamento, que vale más allá de este caso:** una prohibición sin control **se incumple en silencio**; una obligación de declarar **deja rastro**. Cuando la comprobación mecánica no existe y no puede existir, la regla útil no es la que prohíbe: es la que obliga a decirlo.
+
+### Cambiado
+
+- **`Master-Prompt.md` 8.2 → 8.3.** T3 suma el tratamiento del caso y su condición de inaceptabilidad; el bloque de entrega de T4 suma la fila `Unidades`; T0 deja de declararlo como «lo que no puede comprobar» a secas y remite a T3.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/9.3/`.
+
+---
+
 ## [9.3] - 2026-08-17
 
 **La 9.2 dejó anotado que T3 no tenía comprobación mecánica. Se cierra la mitad que producía daño.**

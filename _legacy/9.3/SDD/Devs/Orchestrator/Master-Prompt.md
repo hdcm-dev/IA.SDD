@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 8.3
+**Versión:** 8.2
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -1180,8 +1180,8 @@ COMPUERTA DE ARRANQUE — {{repositorio}}
 **contra qué estado** se hizo lo que sigue, y es la única forma de distinguir «no había nada que
 arreglar» de «no se miró».
 
-**Lo que T0 no puede comprobar.** Que una rama lleve **dos** unidades adentro. **T3 lo admite y pide
-declararlo**: la comprobación no existe, y lo que la reemplaza es que la entrega nombre las dos.
+**Lo que T0 no puede comprobar.** Que una rama lleve **dos** unidades adentro. Eso sigue siendo una
+regla de redacción sin verificación mecánica: la única señal es el tamaño del pull request.
 
 ### T1 · El agente no fusiona
 
@@ -1207,16 +1207,6 @@ La unidad se declara **antes** de empezar y es una de éstas: **una fase** de la
 de la migración**, **una consolidación**, **una reparación**. No se acumulan dos en la misma rama,
 porque entonces el humano no puede aceptar una y rechazar la otra, que es para lo que mira.
 
-**Y cuando igual pasa, se declara en vez de disimularse.** Hay casos legítimos —una reparación que
-aparece a mitad de una fase y que dejar afuera rompería la rama, dos pasos que resultaron
-inseparables— y hay descuidos. **Los dos se tratan igual**: la entrega de T4 nombra las **dos**
-unidades, en su orden, y dice **cuál se puede revertir sin la otra**. Con eso el humano recupera lo
-que T3 protege: decidir con la información completa, aunque ya no pueda decidir por separado.
-
-**Lo que no es aceptable es la rama que lleva dos y declara una.** T0 no puede detectarlo —la única
-señal es el tamaño del pull request— y por eso es lo único de esta sección que descansa entero en
-quien la escribe.
-
 ### T4 · La forma de la entrega, y la detención
 
 Terminada la unidad, el orquestador **se detiene** y entrega, en este orden:
@@ -1225,7 +1215,6 @@ Terminada la unidad, el orquestador **se detiene** y entrega, en este orden:
 TRABAJO ENTREGADO — {{UNIDAD}}
   Rama:        {{rama}}   (empujada)
   Commits:     {{n}}
-  Unidades:    {{una, la declarada | dos: {{cuál y cuál}}, y cuál se puede revertir sin la otra}}
   Alcance:     {{qué se tocó, en una línea por clase de cambio}}
   Sin resolver:{{lo que queda abierto, o "nada"}}
   PR:          {{url}}
@@ -1436,4 +1425,3 @@ Reglas de versionado:
 | 8.0 | 2026-08-16 | **El bloque informativo de §3.4 —lo primero que el orquestador imprime y lo primero que un subagente ve— era de un solo eje.** Enumeraba proyectos de código llevando `tipo_unidad_entrega`, `redistribuible` y `path-docs`, que es exactamente la mezcla que `Intake-Rules.md` §4 valida como imposible y que la 8.12 corrigió en la regla sin llegar acá. Pasa a **tres bloques** —unidades de entrega de §2.A, proyectos de código de §2.B y la matriz de §2.C— con la constancia de que ningún D8 sale del eje de construcción y ninguna `Identidad-Codigo` del de entrega. El campo del producto pasa a `unidad-de-entrega-principal` y el orden topológico se desdobla en **compilación** e **integración**, que no son el mismo grafo. §3.1 y §15 acompañan el renombre. Sube **major**: cambia la forma del bloque que gobierna toda la generación. |
 | 8.1 | 2026-08-17 | **§12.1 es nueva: el traspaso por pull request**, y la leen los tres orquestadores. Declara un protocolo que **se usaba y no estaba escrito**: **T1** el agente no fusiona —el merge es el único control que no es suyo—; **T2** nada se escribe sobre un árbol sucio, porque el historial es el contraste observable de varias dimensiones y **no incluye lo que no está commiteado**; **T3** una unidad de trabajo, un pull request, declarada antes de empezar; **T4** la forma literal de la entrega, con «qué sigue después del merge» obligatorio; **T5** el aviso del humano **se verifica y no se cree**, comprobando que el commit entregado es alcanzable desde la principal; **T6** su límite. Sube **minor**: agrega una mecánica de traspaso sin cambiar ninguna fase ni entregable. | Framework SDD (traspaso por pull request) |
 | 8.2 | 2026-08-17 | **§12.1 suma T0, la compuerta de arranque**, con sus cinco comprobaciones sobre el repositorio local contra el remoto y su salida publicada siempre, también cuando está todo en orden —que es lo que distingue «no había nada que arreglar» de «no se miró»—. **Su comprobación 4 vuelve verificable a T3**: lo que nadie miraba era que no hubiera **dos unidades vivas a la vez**, y empezar una segunda mientras la primera espera merge produce dos ramas que se pisan. **T5 pasa de verificar a verificar y preparar**: poda referencias, comprueba si la principal **trajo algo más** —trabajo de otra sesión que vuelve viejo lo medido antes del merge— y deja el repositorio en el estado que la unidad siguiente necesita, publicado con el formato de T0. Sube **minor**. | Framework SDD (compuerta de arranque) |
-| 8.3 | 2026-08-17 | **T3 admite el caso que T0 no puede detectar en lugar de prohibirlo sin control.** Una rama puede terminar con dos unidades —una reparación que aparece a mitad de fase, dos pasos que resultaron inseparables— y también por descuido; **los dos se tratan igual**: la entrega de T4 nombra las **dos**, en su orden, y dice **cuál se puede revertir sin la otra**, con lo que el humano recupera lo que T3 protege —decidir con la información completa, aunque ya no pueda decidir por separado—. Lo inaceptable pasa a ser **la rama que lleva dos y declara una**. El bloque de T4 suma la fila `Unidades`. Sube **minor**. | Framework SDD (T3 admite y declara) |
