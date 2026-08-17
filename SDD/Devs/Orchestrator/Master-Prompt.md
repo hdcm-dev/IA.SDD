@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 8.3
+**Versión:** 8.4
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -600,6 +600,11 @@ resuelva escribiendo una nota dentro de su artefacto: una nota tiene el mismo pe
 resto del texto, no interrumpe a nadie, y sobrevive a todos los audits. Una decisión pendiente que no
 interrumpe no es una decisión pendiente: es una nota.
 
+**El arbitraje se presenta con la forma de §8.1**, que es lo que faltaba: hasta la 9.8 esta detención
+declaraba que el humano decide y **no declaraba con qué**. Un conflicto entre dos conjuntos cerrados
+aprobados no se resuelve leyendo «hay un conflicto»: hace falta ver los dos valores, qué categoría
+los declaró, qué se rompe con cada salida y cuál propone el agente que se los encontró.
+
 El framework tiene titularidad por categoría y trazabilidad entre ellas, y no tenía arbitraje. Esta
 detención es el arbitraje: la decisión la toma el Product Owner, que es quien §15 declara que arbitra
 entre intereses en conflicto, y no el subagente que se chocó con el conflicto.
@@ -835,6 +840,73 @@ Reglas de construcción del despacho:
 
 ---
 
+## §8.1 La forma de toda detención: análisis y propuesta
+
+**Esta sección gobierna las cuatro familias de detención del método, y la leen los tres
+orquestadores.** `Master-Prompt-Migracion.md` y `Master-Prompt-Reanudacion.md` la citan y no la
+redefinen.
+
+**El defecto que corrige, medido sobre el propio framework.** De las cuatro familias, **dos llevaban
+contexto por construcción** —la confirmación de un plan, porque presenta el plan entero; y el traspaso
+de §12.1 T4, porque declara su bloque de entrega—. **Las dos que preguntan no proponían nada**: la
+detención por ambigüedad tenía un formato de ocho campos donde el central es «pregunta concreta», y la
+detención por arbitraje de §7.0 **no declaraba formato alguno**.
+
+**Una detención sin propuesta le traslada al humano el análisis que el agente ya tiene hecho.** El
+agente sabe qué encontró, qué opciones hay, qué se pierde con cada una y cuál le parece mejor: preguntar
+sin decirlo obliga a reconstruirlo desde cero a quien no estuvo. **Es el mismo argumento que
+`Master-Prompt-Reanudacion.md` §4.0 aplicó a las salidas de R2**, generalizado a toda detención.
+
+### Qué lleva obligatoriamente una detención
+
+```text
+DETENCIÓN — {{familia}} · {{qué hay que decidir, en una línea}}
+
+  QUÉ PASÓ
+    {{el hecho concreto y dónde, en dos o tres líneas. Sin esto la decisión se toma a ciegas}}
+
+  ESTADO DE AVANCE                        (obligatorio si lo que se decide está a medias)
+    Hecho:      {{qué está terminado, cuantificado}}
+    Falta:      {{qué falta, cuantificado}}
+    Avance:     {{porcentaje, y contra qué se mide}}
+    ¿Lo que falta es vital? {{sí/no, y por qué}}
+
+  OPCIONES
+    {{por cada una: qué implica, qué se conserva de lo hecho y qué se descarta}}
+
+  PROPUESTA — {{la opción recomendada}}
+    Por qué:    {{fundamento en una o dos líneas}}
+    Alternativa razonable: {{la segunda, y en qué caso ganaría}}
+
+  QUÉ NECESITO DE VOS
+    {{la decisión concreta que se espera, en una línea}}
+```
+
+**Las cuatro reglas que lo hacen útil, y cada una sale de un caso real:**
+
+**F1 · El estado de avance se cuantifica, no se adjetiva.** «Parcialmente hecho» no permite decidir.
+**Un porcentaje contra una base declarada, sí**: no se puede aprobar el cierre de algo sin saber si lo
+que falta es el 5 % accesorio o el 40 % que lo sostiene.
+
+**F2 · Cada opción declara qué se conserva de lo hecho.** Es lo que decide entre **modificar** y
+**volver a empezar**, y no lo sabe el humano: lo sabe el agente que abrió los documentos. Una maqueta
+que dejó de reflejar el intake se modifica si lo que vale se conserva, y se replantea si no — y esa
+frase la tiene que escribir quien la miró.
+
+**F3 · La propuesta lleva su alternativa.** Una recomendación sin segunda opción se lee como un único
+camino y deja de leerse.
+
+**F4 · Lo que se pide es una decisión, no una opinión.** La última línea dice **qué se espera de
+vuelta**, de forma que responder sea elegir y no redactar.
+
+### Qué no cambia
+
+**Esta sección no agrega ninguna detención ni quita ninguna.** Cambia **la forma** de las que ya
+existen. Y no autoriza a decidir: la propuesta es un insumo, y las tres prohibiciones de §13 sobre
+escribir sin confirmación siguen intactas.
+
+---
+
 ## §9 Manejo de ambigüedad
 
 Cuando un subagente no puede completar un documento porque le falta información que debería estar en el manifiesto o en los intake, no inventa. Se detiene y devuelve una pregunta estructurada al orquestador.
@@ -853,6 +925,9 @@ Pattern de detención / pregunta / reanudación:
    - Por qué la pregunta no se puede resolver con los insumos actuales: {{JUSTIFICACION}}
    - Qué se necesita: {{TIPO_DATO_ESPERADO}}
    - Intake donde debería vivir la respuesta: {{PATH_INTAKE}} §{{SECCION_INTAKE}}
+   - **Propuesta**: {{el valor o la salida que el subagente propondría, con su fundamento en una línea}}
+   - **Alternativa**: {{la segunda opción, y en qué caso ganaría}}
+   - **Qué pasa si no se responde ahora**: {{qué queda bloqueado y qué puede seguir}}
    ```
 3. El orquestador devuelve la lista de ambigüedades al usuario, con copy paste literal del bloque.
 4. El usuario responde con los datos faltantes.
@@ -1437,3 +1512,4 @@ Reglas de versionado:
 | 8.1 | 2026-08-17 | **§12.1 es nueva: el traspaso por pull request**, y la leen los tres orquestadores. Declara un protocolo que **se usaba y no estaba escrito**: **T1** el agente no fusiona —el merge es el único control que no es suyo—; **T2** nada se escribe sobre un árbol sucio, porque el historial es el contraste observable de varias dimensiones y **no incluye lo que no está commiteado**; **T3** una unidad de trabajo, un pull request, declarada antes de empezar; **T4** la forma literal de la entrega, con «qué sigue después del merge» obligatorio; **T5** el aviso del humano **se verifica y no se cree**, comprobando que el commit entregado es alcanzable desde la principal; **T6** su límite. Sube **minor**: agrega una mecánica de traspaso sin cambiar ninguna fase ni entregable. | Framework SDD (traspaso por pull request) |
 | 8.2 | 2026-08-17 | **§12.1 suma T0, la compuerta de arranque**, con sus cinco comprobaciones sobre el repositorio local contra el remoto y su salida publicada siempre, también cuando está todo en orden —que es lo que distingue «no había nada que arreglar» de «no se miró»—. **Su comprobación 4 vuelve verificable a T3**: lo que nadie miraba era que no hubiera **dos unidades vivas a la vez**, y empezar una segunda mientras la primera espera merge produce dos ramas que se pisan. **T5 pasa de verificar a verificar y preparar**: poda referencias, comprueba si la principal **trajo algo más** —trabajo de otra sesión que vuelve viejo lo medido antes del merge— y deja el repositorio en el estado que la unidad siguiente necesita, publicado con el formato de T0. Sube **minor**. | Framework SDD (compuerta de arranque) |
 | 8.3 | 2026-08-17 | **T3 admite el caso que T0 no puede detectar en lugar de prohibirlo sin control.** Una rama puede terminar con dos unidades —una reparación que aparece a mitad de fase, dos pasos que resultaron inseparables— y también por descuido; **los dos se tratan igual**: la entrega de T4 nombra las **dos**, en su orden, y dice **cuál se puede revertir sin la otra**, con lo que el humano recupera lo que T3 protege —decidir con la información completa, aunque ya no pueda decidir por separado—. Lo inaceptable pasa a ser **la rama que lleva dos y declara una**. El bloque de T4 suma la fila `Unidades`. Sube **minor**. | Framework SDD (T3 admite y declara) |
+| 8.4 | 2026-08-17 | **§8.1 es nueva: toda detención lleva análisis y propuesta**, y la leen los tres orquestadores. Medido sobre el propio framework: de las cuatro familias de detención, **dos llevaban contexto por construcción** —la confirmación de un plan y el traspaso de §12.1 T4— y **las dos que preguntan no proponían nada**: la ambigüedad tenía ocho campos cuyo centro es «pregunta concreta», y el **arbitraje de §7.0 no declaraba formato alguno**. Una detención sin propuesta **le traslada al humano el análisis que el agente ya tiene hecho**. Declara el bloque obligatorio —qué pasó, **estado de avance cuantificado** cuando lo que se decide está a medias, opciones con **qué se conserva de lo hecho**, propuesta con alternativa, y qué se espera de vuelta— y sus cuatro reglas. §9 y §7.0 adoptan la forma. **No agrega ni quita ninguna detención**: cambia la de las que ya existen. Sube **minor**. | Framework SDD (toda detención lleva propuesta) |
