@@ -3,6 +3,24 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.10] - 2026-08-17
+
+**La consolidación tenía un paso débil y uno fuerte, y ninguno de los dos estaba declarado.** Decidir **qué secciones difieren** entre las versiones de un grupo determina qué se transpone; verificar **línea por línea** que nada se perdió es lo que lo corrige si se decidió mal. En una corrida real el primero falló y **el segundo lo atrapó** — pero por costumbre, no por regla.
+
+### Agregado — `Migracion-Rules.md` 3.7 → 3.8, §4.3.2
+
+- **C1 · La comparación no normaliza el nombre del proyecto de código.** En la cabecera es ruido; **en el cuerpo es contenido**. Medido: cinco documentos de velocidad de equipo parecían **idénticos** al normalizar, y cada uno declaraba *«mide la porción de la velocidad del equipo que se gastó en»* **su** proyecto. El propio texto advertía que las cinco tablas no son comparables y que **sumarlas da la velocidad del equipo**: fundirlas habría destruido la única cifra con interpretación estable.
+- **C2 · La verificación es literal y línea por línea**, de cada absorbido contra el consolidado. No es lectura ni muestreo.
+- **C3 · Se corre antes de re-derivar enlaces.** Si no, **toda línea con enlace aparece como perdida** porque su ruta cambió de profundidad — medido: **48 marcas, 0 pérdidas reales**. Si el orden obliga a correrla después, se compara colapsando la ruta y conservando el texto.
+- **C4 · Cada marca se verifica contra el texto.** Es la regla que el audit adoptó cuando un verificador sobre-reportó cuatro de cinco veces, y acá el error frecuente es el inverso: **descartar por volumen un conjunto donde una marca era real**.
+- **C5 · Cuatro clases no transponen y se declaran**: el título, el campo de identidad, un encabezado renombrado, y la **fila de control de cambios del absorbido**, que es historia suya y vive en `_legacy/`. Lo que queda después de descontarlas **es contenido, y su recuento aceptable es cero**.
+
+**§6 suma el criterio enumerable** correspondiente.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/9.9/`.
+
+---
+
 ## [9.9] - 2026-08-17
 
 **§VI.3 exige nota de coherencia a toda intervención que toque más de un archivo, y nadie verificaba que se emitiera.** Al revisar la cobertura de la serie 9.x apareció que **dos de las que la necesitaban no la tenían**: la **9.3** —que tocó tres archivos— y la **9.8** —que tocó cuatro—. La 9.4 y la 9.6 tocaron uno solo y están conformes.
