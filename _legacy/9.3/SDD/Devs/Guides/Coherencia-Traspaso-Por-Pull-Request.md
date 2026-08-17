@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Coherencia-Traspaso-Por-Pull-Request.md
-**Versión:** 1.2
+**Versión:** 1.1
 **Estado:** Vigente
 **Fecha:** 2026-08-17
 **Autor:** AG-ROOT (Arquitecto de Soluciones)
@@ -127,14 +127,9 @@ intervención que lo introdujo, que es donde tiene que encontrarlo.
 mitad que producía daño —dos ramas pisándose los mismos documentos, y un humano que no puede aceptar
 una y rechazar la otra—.
 
-**La otra mitad no se puede comprobar, y en la 9.4 se dejó de fingir que se prohibía.** Que una rama
-lleve **dos unidades adentro** no lo detecta nada. T3 ahora **lo admite y pide declararlo**: la entrega
-nombra las dos, en su orden, y dice **cuál se puede revertir sin la otra**. El humano recupera así lo
-que T3 protege —decidir con la información completa— aunque ya no pueda decidir por separado.
-
-**Lo inaceptable pasó a ser otra cosa: la rama que lleva dos y declara una.** Es el único punto de
-§12.1 que descansa entero en quien la escribe, y está dicho ahí en lugar de acá. **Una prohibición sin
-control se incumple en silencio; una obligación de declarar deja rastro.**
+**La otra mitad sigue sin comprobación y se declara.** Que una rama lleve **dos unidades adentro** no
+lo detecta nada: la única señal es el tamaño del pull request. Es una regla de redacción, y §12.1 T0
+lo dice en su propio texto en lugar de dejarlo en esta nota.
 
 ## 10. Veredicto
 
@@ -148,4 +143,3 @@ salidas reales con lo que hace falta para elegir entre ellas.
 | --- | --- | --- |
 | 1.0 | 2026-08-17 | Emisión inicial. **§12.1** declara el protocolo de traspaso que se usaba sin estar escrito, con **T2** —nada se escribe sobre un árbol sucio— como fundamento del **paso 0 de R0**. Entra la salida **E**, que faltaba para una migración en vuelo, y las **tres columnas** que el cuestionario no daba. Registra la contradicción interna que la propia intervención introdujo en el preámbulo de R0 y corrigió. |
 | 1.1 | 2026-08-17 | §9 pasa a **cómo se cerró a medias**: la compuerta T0 de la 9.3 verifica que no haya **dos unidades vivas**, que era la mitad que producía daño; que una rama lleve dos unidades adentro sigue sin comprobación y queda declarado en §12.1. |
-| 1.2 | 2026-08-17 | §9 registra la 9.4: T3 **admite** el caso de dos unidades en una rama y pide **declararlo**, en lugar de prohibirlo sin control. Lo inaceptable pasa a ser la rama que lleva dos y declara una. |
