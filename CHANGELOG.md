@@ -3,6 +3,40 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.5] - 2026-08-17
+
+**R2 enumeraba cinco salidas y no decía cuál convenía.** El prompt declaraba «el humano elige; este prompt no», y lo aplicaba a dos cosas distintas: **no decidir**, que es correcto, y **no opinar**, que no lo es. R0 mide seis dimensiones, el diff normativo artefacto por artefacto y el estado del repositorio — **presentar todo eso y callarse la conclusión le devuelve al humano el trabajo que el orquestador acaba de hacer**.
+
+### Agregado — la recomendación
+
+- **`Master-Prompt-Reanudacion.md` 1.4 → 1.5, §4.0.** R2 publica una **recomendación con su fundamento** antes de la tabla: continuidad del origen, alcance real del salto, volumen alcanzado, estado del repositorio, divergencias abiertas, **costo de no hacerlo hoy** y **alternativa razonable**. Esta última es obligatoria y no por cortesía: **una recomendación sin segunda opción se lee como un único camino y el humano deja de mirar**.
+
+### Agregado — el umbral de continuidad
+
+**La salida C parecía siempre disponible, y no lo es.** El criterio que la hace viable **ya vivía en el framework** desde la 4.0 y nadie lo consumía para esto: el bloque «Impacto sobre destinos existentes» que §VI.4 exige en toda entrada major. **Un major cuyo bloque no está vacío alcanza artefactos del destino, por definición.**
+
+| Major con impacto que atraviesa el salto | Qué le pasa a C |
+| --- | --- |
+| Ninguno | El desfase es de proceso: correcta y barata |
+| Uno | Deuda acotada y conocida: viable |
+| **Dos o más** | **Ninguna regla vigente puede auditar ni extender ese corpus** |
+
+**Por qué dos es cualitativamente distinto de uno.** Uno deja un destino que las reglas vigentes leen mal **en un punto**. Dos dejan un destino cuyas **estructuras** —dónde vive cada categoría, cómo se numeran los identificadores, de qué nivel cuelga cada artefacto— ya no son las que describe ninguna regla actual. Seguir construyendo ahí **produce documentación nueva con la forma vieja**, y cada documento agregado **agranda la migración futura en lugar de acercarla**.
+
+**Sobre procedencias tempranas, C no se recomienda nunca**, y se dice por qué: sus identificadores no son direcciones válidas —el ámbito de unicidad en el producto no existía— y su layout no existe.
+
+### Agregado — el encadenamiento después de reparar
+
+La salida A vuelve a R0 y **la pregunta reaparece**. Estaba en la mecánica y no en lo que el humano ve, con lo cual quien eligió A **llegaba a la segunda vuelta sin saber que era la segunda vuelta**. Ahora la recomendación **se recalcula** y R2 nombra la pregunta pendiente: migrar o seguir.
+
+**El informe de R3 suma la recomendación y su fundamento**, porque sin el fundamento escrito **una decisión correcta y una arbitraria se ven igual** seis meses después.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/9.4/`.
+
+**Queda anotado:** el umbral **es tan bueno como el bloque de impacto de cada major**. Si una entrada major lo declaró vacío por descuido, el umbral la cuenta como sin impacto y **recomienda C donde correspondía B**. Lo que cambia es que ese bloque tiene ahora un segundo consumidor, que lo vuelve verificable por sus consecuencias.
+
+---
+
 ## [9.4] - 2026-08-17
 
 **T3 prohibía algo que T0 no puede detectar. Pasa a admitirlo y pedir que se declare.**
