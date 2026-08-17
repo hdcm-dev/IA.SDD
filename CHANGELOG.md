@@ -3,6 +3,29 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.9] - 2026-08-17
+
+**§VI.3 exige nota de coherencia a toda intervención que toque más de un archivo, y nadie verificaba que se emitiera.** Al revisar la cobertura de la serie 9.x apareció que **dos de las que la necesitaban no la tenían**: la **9.3** —que tocó tres archivos— y la **9.8** —que tocó cuatro—. La 9.4 y la 9.6 tocaron uno solo y están conformes.
+
+### Agregado
+
+- **`SDD-Development-Guide.md` 1.15 → 1.16.** §VI.3 suma la **comprobación 11, cobertura de la nota de coherencia**: toda entrada del `CHANGELOG.md` cuya intervención tocó más de un archivo tiene su nota. Es **enumerable** —se contrastan las entradas contra el campo «versión del conjunto resultante» de las notas— y es un caso más del patrón que la 9.1 nombró: **una obligación a la que le faltaba ser una corrida en lugar de una lección**.
+
+### Emitido con retraso
+
+- **`Coherencia-Compuerta-De-Arranque.md`** (SDD 9.3) y **`Coherencia-Detencion-Con-Propuesta.md`** (SDD 9.8). Las dos declaran su retraso en una sección propia, en lugar de fecharse como si se hubieran emitido a tiempo.
+
+**La nota de la 9.8 lleva material que no estaba en su entrada**, y es lo más sustantivo de esta publicación:
+
+- **La distinción autoridad / capacidad.** §7.0 declara con razón que el agente no tiene **autoridad** para arbitrar, y de ahí sacaba una conclusión que no se sigue: que tampoco aportara su **análisis**. No tener autoridad es sobre **quién firma**; no tener capacidad sería sobre **quién puede analizar**. Confundirlas produce el peor de los dos mundos: **el agente no decide, y el humano decide con menos información de la que el agente tenía.**
+- **La propuesta es auditable; la pregunta no.** Si el agente propone con fundamento y el humano decide distinto, **el desacuerdo queda registrado**. Si sólo pregunta, no hay contra qué disentir.
+- **El modo de falla: la propuesta que arrastra.** Si el agente siempre propone y el humano siempre acepta, **la autoridad migra de hecho**. Las defensas son **F3** —la alternativa obligatoria— y que el fundamento sea **falsable**: una propuesta que no se puede refutar es una decisión disfrazada.
+- **El reencuadre del pendiente de las detenciones.** Estaba mal planteado como problema de cantidad. **El costo de una detención no está en que exista: está en cuánto trabajo le transfiere al humano.** La revisión pendiente no es reducir el número, es **auditar cuáles transfieren trabajo**.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/9.8/`.
+
+---
+
 ## [9.8] - 2026-08-17
 
 **Se midió si las cuatro familias de detención llevan lo que hace falta para decidir, y dos no.**
