@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino para los dos artefactos propios. El alcance sobre el que la migración opera es `SDD/Intake/` y `SDD/Docs/` del mismo repositorio
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto, unidad de entrega y proyecto de código
 **Subagente target del orquestador:** el orquestador de migración para el plan y el cierre; el auditor independiente para el informe; el subagente titular de cada categoría para re-expresar los documentos de esa categoría
-**Versión de las reglas:** 3.6
+**Versión de las reglas:** 3.5
 
 Dentro de este archivo «migración» se usa en forma desnuda, según la excepción que `Vocabulario-Rules.md` §9.6 declara: en este contexto de lectura no hay otro referente con el que colisione. En cualquier otro archivo del framework el término va calificado como «migración normativa».
 
@@ -214,38 +214,6 @@ comprobaciones bloqueantes:
    proyectos traían el mismo número.
 3. **Ningún residuo de la forma vieja** fuera de `_legacy/`, donde los snapshots conservan la
    nomenclatura con que se emitieron y **no se renombran** (`Master-Prompt.md` §5.1).
-
-#### El procedimiento de mover un documento
-
-**Todo lo que sigue en esta subsección estaba escrito como lección y no como paso, y por eso se
-redescubría en cada corrida.** Mover un documento —archivarlo, aplanarlo, fundirlo con otros— tiene
-una consecuencia mecánica sobre sus enlaces y sobre los que lo apuntan. **No es criterio: es
-aritmética**, y por lo tanto se ejecuta y se verifica en lugar de recordarse.
-
-**Se corre completo cada vez que un documento cambia de ubicación**, y su resultado se registra:
-
-1. **Antes de mover, resolver y registrar.** Por cada enlace relativo del documento, calcular su
-   destino como **path absoluto desde la raíz del árbol** y anotarlo. Los enlaces que **ya no
-   resolvían** se registran aparte como **rotos previos**: se declaran y **no se arreglan de paso**,
-   porque arreglarlos acá los borra del registro de lo que estaba mal antes.
-2. **Mover.**
-3. **Después de mover, re-derivar.** Recalcular cada enlace desde la ubicación **nueva** hacia el
-   **mismo destino absoluto** registrado en el paso 1. La profundidad cambió; el destino no.
-4. **Reconectar los entrantes.** Los enlaces que **apuntaban** al documento movido se resuelven por
-   **destino** —§4.3.1, regla 4— y **sólo sobre los que dejaron de resolver**. Nunca por sustitución
-   de patrón: en una corrida real rompió 181 enlaces donde había 96.
-5. **Verificar, y es enumerable.** Los enlaces que **resolvían antes resuelven después**, uno por uno;
-   y **el conjunto de rotos previos es idéntico** al del paso 1. Si aparecieron rotos nuevos, la
-   operación los produjo. Si desaparecieron rotos viejos, se arreglaron sin declararlos.
-
-**Por qué el paso 5 compara conjuntos y no cantidades.** Un recuento igual puede esconder que se rompió
-uno y se arregló otro. Es la misma lección que el audit incorporó en la 8.9: **un recuento correcto
-puede sostener una conclusión falsa**.
-
-**Y por qué el paso 1 va antes de mover y no después.** Después del movimiento, un enlace roto no dice
-adónde quería ir: la ruta relativa vieja **no se puede resolver desde la ubicación nueva**, y
-reconstruir la intención es adivinar. Medido en una corrida real: un archivado sin este paso dejó
-**658 enlaces colgados**, todos anteriores a la migración que los encontró.
 
 **Los punteros de un snapshot sí se reconectan.** Renombrar un documento vivo rompe los enlaces que
 los snapshots de `_legacy/` le apuntaban. El árbol de migración los incluye y la pasada de aplicación
@@ -482,7 +450,6 @@ Antes de cerrar la migración:
 - [ ] [enumerable] Existe la **medición de solapamiento** de los grupos de consolidación, y la salida elegida para cada grupo es coherente con ella.
 - [ ] [interpretativo] Ninguna cifra se promedió al consolidar documentos de capas con umbrales distintos.
 - [ ] [enumerable] Los enlaces se reconectaron **desde un registro confirmado**, y el registro distingue lo que la migración rompió de lo que reparó.
-- [ ] [enumerable] **Por cada documento movido corrió el procedimiento de §4.3.1**, y su verificación cierra: los enlaces que resolvían antes resuelven después, y el conjunto de rotos previos es **el mismo conjunto**, no la misma cantidad.
 - [ ] [enumerable] El árbol declara las **familias acuñadas por el destino** que no pertenecen al catálogo del framework, con su resolución confirmada por el humano.
 - [ ] [enumerable] Si el salto alcanza la forma de los identificadores, existe el **árbol de migración** de §4.3.1 con una fila por identificador alcanzado, y está confirmado por el humano antes de la pasada de aplicación.
 - [ ] [enumerable] Después de la pasada de aplicación, ninguna referencia queda colgada, ningún identificador de destino colisiona y no hay residuos de la forma vieja fuera de `_legacy/`.
@@ -584,4 +551,3 @@ Para el despacho del auditor, los criterios de §6 de este archivo se suman a lo
 | 3.3 | 2026-08-16 | **Lecciones de la primera migración real completa**, de 6.0 a 8.6 sobre un destino de siete proyectos de código. **§4.3.1** suma dos errores de la pasada de aplicación a los tres que ya tenía —la reconexión **por resolución de destino y no por sustitución de patrón**, después de que un patrón rompiera 181 enlaces donde había 96; y **agotar los resolutores antes de declarar una cita ambigua**, después de que cuatro resolutores en cascada llevaran 305 citas «ambiguas» a 16—; y declara **qué alcanza el árbol de renumeración**, que en esa corrida dejó afuera las familias que el propio intake acuña y los documentos de referencia cruzada de nivel producto, los dos vueltos como hallazgos. **§4.3.2** suma cinco reglas de consolidación: la **categoría** como unidad de trabajo en lugar del documento, **medir el solapamiento antes de elegir la salida** —fue del 5,9 %, de modo que consolidar era unir y no deduplicar—, **las cuatro salidas** con la advertencia sobre la que no reduce documentos, **ninguna cifra se promedia**, y **la transposición lee el documento entero** y no sólo sus secciones numeradas. **§6** suma cuatro criterios de aceptación, incluida la distinción entre «ninguno se sobrescribió» y «la fusión terminó», que una auditoría real confundió. Sube minor. |
 | 3.4 | 2026-08-16 | Desambiguación por el barrido de la 8.10: «el contrato entre los dos orquestadores» pasa a nombrarlos —**generación y migración**— porque con el de reanudación los orquestadores son tres y el plan sigue siendo contrato de dos. Ninguna regla cambia. |
 | 3.5 | 2026-08-16 | La señal de clasificación de §4.3.1 se llamaba «es el proyecto de código principal», que con el renombre del campo sería circular —la señal serviría para decidir si algo es una unidad de entrega nombrándolo unidad de entrega—. Pasa a **«el intake lo señalaba como principal»**, que es lo que el agente efectivamente lee del origen. Sube **patch**. |
-| 3.6 | 2026-08-17 | **§4.3.1 suma el procedimiento de mover un documento.** Todo lo que la subsección decía sobre enlaces estaba escrito como **lección y no como paso**, y por eso se redescubría en cada corrida: mover produce una consecuencia mecánica sobre los enlaces salientes y entrantes, que **no es criterio sino aritmética** y por lo tanto se ejecuta y se verifica. Cinco pasos: **resolver y registrar antes de mover** —con los **rotos previos** declarados aparte y **no arreglados de paso**—, mover, **re-derivar** hacia el mismo destino absoluto, **reconectar los entrantes por resolución de destino** y sólo los que dejaron de resolver, y **verificar comparando conjuntos y no cantidades**, porque un recuento igual puede esconder que se rompió uno y se arregló otro. §6 suma su criterio de aceptación enumerable. Sube **minor**: agrega un procedimiento y un criterio sin cambiar ninguna fase. | Framework SDD (procedimiento de mover) |
