@@ -28,12 +28,6 @@ lo diagnostica y despacha al que corresponda.
 **Cuándo usar éste y no los otros dos.** Cuando la respuesta a «¿cuál corro?» **es la pregunta**. Los
 otros dos se invocan con la decisión ya tomada; éste existe para tomarla con el estado a la vista.
 
-**Antes de diagnosticar, normaliza el repositorio.** Si el árbol de trabajo tiene cambios sin
-commitear o commits sin empujar, **ése es el primer trabajo y no se hace ningún otro**: el orquestador
-los pone a salvo en su rama, te entrega el pull request y se detiene hasta que lo fusiones. El motivo
-está en su §2: el historial del repositorio es el contraste observable de dos de las seis dimensiones,
-y no incluye lo que no está commiteado.
-
 **Y una respuesta que conviene anticipar: con frecuencia no corresponde ninguno de los dos.** Un
 destino con su documentación generada y su código a mitad de camino no necesita ni generar ni migrar:
 necesita construir. Es la salida D del orquestador, y la que más se pasa por alto porque es la única
@@ -67,9 +61,8 @@ informe, **R4** continuación— y sus dos detenciones obligatorias. Este prompt
 
 - Un **informe de estado** en `SDD/Docs/Audit/Estado-Del-Destino-<AAAA-MM-DD>.md`, con las seis
   dimensiones resueltas y las divergencias declaradas.
-- Una **decisión tuya** entre cinco salidas: reparar las divergencias primero, migrar a la vigente,
-  seguir en la versión declarada, continuar la construcción, o **retomar una migración que quedó a
-  medias**. Cada una declara en qué estado te deja, si vuelve a preguntarte y qué **no** resuelve.
+- Una **decisión tuya** entre cuatro salidas: reparar las divergencias primero, migrar a la vigente,
+  seguir en la versión declarada, o continuar la construcción.
 - **La continuación efectiva en la misma sesión**, con el contexto ya reconstruido: no hace falta
   abrir otra para seguir. El informe lleva el punto de continuación, y si la salida elegida invoca a
   otro orquestador, **la decisión viaja con ella** para que no vuelva a preguntar lo mismo.
@@ -86,4 +79,3 @@ motivo.
 | --- | --- | --- |
 | 1.0 | 2026-08-16 | Emisión inicial. Tercer prompt de entrada del método, para retomar un destino desde una sesión sin memoria. Declara la tabla de los tres prompts con su cardinalidad, y anticipa que la salida más frecuente —continuar la construcción— es la única sin prompt propio. |
 | 1.1 | 2026-08-16 | Las fases pasan de cuatro a **cinco** con **R4, la continuación**, y §4 declara que la reanudación **sigue en la misma sesión** en lugar de terminar en un informe. |
-| 1.2 | 2026-08-17 | Las salidas pasan de cuatro a **cinco** con **E, retomar una migración a medias**, y cada una declara en qué estado deja al destino, si vuelve a preguntar y qué **no** resuelve. §0 anticipa el paso 0 de R0: **normalizar el repositorio antes de diagnosticar**, con el motivo —el historial es el contraste observable de dos dimensiones y no incluye lo que no está commiteado—. |

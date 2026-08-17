@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 8.1
+**Versión:** 8.0
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -1136,78 +1136,6 @@ La Fase I no arranca acá. Arranca cuando el repositorio cumple la precondición
 
 ---
 
-## §12.1 El traspaso por pull request
-
-**Esta sección declara cómo el trabajo sale del orquestador hacia el humano, y la leen los tres.**
-`Master-Prompt-Migracion.md` y `Master-Prompt-Reanudacion.md` la citan y no la redefinen.
-
-**El protocolo existía y no estaba escrito.** Se usó en migraciones reales durante toda su corrida
-—rama, commit, push, aviso, merge del humano, aviso de vuelta— y funcionó; que funcionara sin estar
-declarado es lo que hizo que nadie lo verificara, que es la misma forma que `Master-Prompt-Reanudacion.md`
-§1 describe para el estado del destino.
-
-### T1 · El agente no fusiona
-
-El orquestador **crea la rama, escribe, commitea y empuja**. La **fusión y el borrado de la rama son
-del humano**, en la plataforma. No hay excepción, y no es una cortesía: el merge es el punto donde
-alguien que no escribió el cambio lo mira. Un agente que fusiona su propio trabajo elimina el único
-control que no es suyo.
-
-### T2 · Nada se escribe sobre un árbol sucio
-
-**Antes de la primera escritura**, el árbol de trabajo tiene que estar limpio. Si hay cambios sin
-commitear, commits locales sin empujar o la rama está detrás del remoto, **eso se resuelve primero y
-no se toca nada más**, con T4.
-
-El motivo no es higiene: **un árbol sucio hace que el estado se lea sobre algo que nadie eligió.** El
-historial del repositorio es el contraste observable de varias dimensiones, y no incluye lo que no
-está commiteado. Un orquestador que diagnostica sobre un árbol sucio contrasta una fuente declarativa
-contra un observable **incompleto**, y declara «coincide» o «diverge» sin base.
-
-### T3 · Una unidad de trabajo, un pull request
-
-La unidad se declara **antes** de empezar y es una de éstas: **una fase** de la generación, **una fase
-de la migración**, **una consolidación**, **una reparación**. No se acumulan dos en la misma rama,
-porque entonces el humano no puede aceptar una y rechazar la otra, que es para lo que mira.
-
-### T4 · La forma de la entrega, y la detención
-
-Terminada la unidad, el orquestador **se detiene** y entrega, en este orden:
-
-```text
-TRABAJO ENTREGADO — {{UNIDAD}}
-  Rama:        {{rama}}   (empujada)
-  Commits:     {{n}}
-  Alcance:     {{qué se tocó, en una línea por clase de cambio}}
-  Sin resolver:{{lo que queda abierto, o "nada"}}
-  PR:          {{url}}
-  Qué sigue después del merge: {{la fase o el paso concreto}}
-```
-
-**«Qué sigue después del merge» no es opcional.** Es lo que evita que el humano, al volver, tenga que
-reconstruir en qué punto estaba: es la misma razón por la que el informe de reanudación lleva su punto
-de continuación.
-
-### T5 · La reanudación se verifica, no se cree
-
-El humano avisa —«listo el merge y borrada la rama»— y el orquestador **comprueba antes de seguir**:
-
-1. Se para en la rama principal, la actualiza contra el remoto y borra la rama local.
-2. **Verifica que el merge está**: el commit de la rama entregada es alcanzable desde la principal.
-3. Recién entonces continúa con lo que T4 declaró como paso siguiente.
-
-**Si el merge no está, lo dice y se detiene.** No es desconfianza del humano: son dos sesiones
-distintas y un aviso puede llegar antes de que la plataforma termine, o referirse a otro pull request.
-Seguir sobre una principal que no tiene el trabajo produce la siguiente unidad **encima de un estado
-que no existe**, y eso se descubre tarde.
-
-### T6 · Qué no cubre
-
-Este protocolo gobierna **el traspaso**, no el contenido. No decide si el trabajo está bien —eso es
-del audit— ni reemplaza ninguna detención de las que cada orquestador declara por su cuenta.
-
----
-
 ## §13 Reglas de no-modificación del intake y del manifiesto derivado
 
 El `PRODUCT-INTAKE` es la fuente de verdad del producto (negocio, composición y técnica), y el `PRODUCT-MANIFEST` derivado de su §13 es la fuente canónica de la jerarquía. El orquestador no los reescribe durante la generación.
@@ -1378,4 +1306,3 @@ Reglas de versionado:
 | 7.10 | 2026-08-16 | **Barrido retroactivo de los conceptos de la 6.0 y la 8.0.** Ocho citas vivas apuntaban a **`README §5` del proyecto de código**, que es una sección del `PROJECT-README` que la **6.0 eliminó** al unificar el intake, en el nivel que la **8.0 cambió**. Cinco están en la tabla de flags de §4 —`multi_tenant`, `tiene_auth`, `tiene_portal_developers`, `tiene_extensibilidad` y `tiene_observabilidad_critica`—, que **declaraban el nivel «unidad de entrega» y leían el valor del proyecto de código, de un documento inexistente**; las otras tres son insumos upstream de la tabla de §7. Pasan a `PRODUCT-INTAKE` §17 de la unidad de entrega, con la misma numeración de P. Se corrige además la columna de impacto de cuatro filas, que nombraba categorías «del proyecto de código» cuando viven bajo `Unidades-Entrega/`. Sube **minor**: corrige el origen de cinco flags de gating sin cambiar su nivel declarado ni el conjunto. | Framework SDD (barrido retroactivo 6.0 y 8.0) |
 | 7.11 | 2026-08-16 | La fila C de la tabla de §7 nombraba **`Arquitectura-Proyecto-Codigo.md`**, que `Rules-Arquitectura-Tecnica.md` §2.1 había renombrado a `Arquitectura-Unidad-Entrega.md`, y declaraba sus documentos «por proyecto de código». Un renombre de artefacto **no lo infiere ningún diff de versiones** (`Migracion-Rules.md` §111): hay que propagarlo, y no se había propagado. Sube **minor**: cambia el nombre de un documento que el orquestador manda producir.  Framework SDD (cabecera de nivel unidad de entrega) |
 | 8.0 | 2026-08-16 | **El bloque informativo de §3.4 —lo primero que el orquestador imprime y lo primero que un subagente ve— era de un solo eje.** Enumeraba proyectos de código llevando `tipo_unidad_entrega`, `redistribuible` y `path-docs`, que es exactamente la mezcla que `Intake-Rules.md` §4 valida como imposible y que la 8.12 corrigió en la regla sin llegar acá. Pasa a **tres bloques** —unidades de entrega de §2.A, proyectos de código de §2.B y la matriz de §2.C— con la constancia de que ningún D8 sale del eje de construcción y ninguna `Identidad-Codigo` del de entrega. El campo del producto pasa a `unidad-de-entrega-principal` y el orden topológico se desdobla en **compilación** e **integración**, que no son el mismo grafo. §3.1 y §15 acompañan el renombre. Sube **major**: cambia la forma del bloque que gobierna toda la generación. |
-| 8.1 | 2026-08-17 | **§12.1 es nueva: el traspaso por pull request**, y la leen los tres orquestadores. Declara un protocolo que **se usaba y no estaba escrito**: **T1** el agente no fusiona —el merge es el único control que no es suyo—; **T2** nada se escribe sobre un árbol sucio, porque el historial es el contraste observable de varias dimensiones y **no incluye lo que no está commiteado**; **T3** una unidad de trabajo, un pull request, declarada antes de empezar; **T4** la forma literal de la entrega, con «qué sigue después del merge» obligatorio; **T5** el aviso del humano **se verifica y no se cree**, comprobando que el commit entregado es alcanzable desde la principal; **T6** su límite. Sube **minor**: agrega una mecánica de traspaso sin cambiar ninguna fase ni entregable. | Framework SDD (traspaso por pull request) |

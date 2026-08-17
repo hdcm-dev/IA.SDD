@@ -3,6 +3,40 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.2] - 2026-08-17
+
+**El protocolo de traspaso por pull request se usaba en corridas reales y no estaba escrito en ningún lado.** Se verificó buscando «rama», «commit» y «pull request» en los tres orquestadores: **cero apariciones normativas**. Y sin embargo el ciclo —rama, commit, push, aviso al humano, merge del humano, aviso de vuelta— gobernó migraciones enteras.
+
+**Que funcionara sin estar declarado es lo que hizo que nadie lo verificara**, que es la misma forma que `Master-Prompt-Reanudacion.md` §1 describe para el estado de un destino. **Y falló apenas se salió del carril:** un destino quedó con **452 cambios sin commitear en la rama principal, 428 de ellos borrados**, con una migración estructural a mitad de camino. Nada estaba mal hecho — nadie había declarado cuándo se pone a salvo.
+
+### Agregado — `Master-Prompt.md` §12.1, el traspaso por pull request
+
+La leen los tres orquestadores; los otros dos la citan y no la redefinen.
+
+- **T1 · El agente no fusiona.** Crea la rama, commitea, empuja y entrega. **El merge es el único control que no es del agente**: uno que fusiona su propio trabajo no se ahorra un paso, elimina la revisión.
+- **T2 · Nada se escribe sobre un árbol sucio.** No es higiene: el historial del repositorio es el **contraste observable** de dos de las seis dimensiones del estado, y **no incluye lo que no está commiteado**. Sobre un árbol sucio, el informe declara «coincide» o «diverge» sin base.
+- **T3 · Una unidad de trabajo, un pull request**, declarada antes de empezar: una fase, una consolidación, una reparación. Dos en la misma rama impiden aceptar una y rechazar la otra, que es para lo que el humano mira.
+- **T4 · La forma de la entrega y la detención**, con **«qué sigue después del merge» obligatorio**.
+- **T5 · El aviso del humano se verifica, no se cree.** Se comprueba que el commit entregado es alcanzable desde la principal. No es desconfianza: son dos sesiones distintas, y seguir sobre una principal que no tiene el trabajo produce la unidad siguiente **encima de un estado que no existe**.
+- **T6 · Qué no cubre**: gobierna el traspaso, no el contenido.
+
+### Agregado — la reanudación normaliza antes de medir
+
+- **`Master-Prompt-Reanudacion.md` 1.2 → 1.3.** **R0 paso 0**: contrastar el árbol contra el remoto y, si hay algo sin poner a salvo, **ése es el primer trabajo y no se hace ningún otro**. **R1** suma el bloque `REPOSITORIO`. **R0 paso 5** detecta una **migración en curso** por tres señales —plan emitido, `_fusion/` con contenido, sin informe con veredicto—.
+- **`Master-Prompt-Migracion.md` 2.3 → 2.4.** Cita §12.1 y declara **T2 como prerrequisito de M0**: sobre un árbol sin commitear no se empieza a migrar, porque la clasificación de M2 y el censo de M3 se medirían sobre un estado que el historial no registra.
+
+### Agregado — la salida que faltaba, y las tres columnas
+
+**Las salidas eran cuatro y una migración en vuelo no encaja en ninguna.** La dimensión 3 la detecta, pero **elegir B la reempieza**: el migrador arranca en M0 y reconstruye un plan ya escrito sobre un árbol que ya pasó las fases estructurales. Se observó en un destino con **170 documentos en diez carpetas `_fusion/`**, donde **la única salida correcta no estaba en la lista y la más parecida era la que la destruía**. Entra **E · Retomar la migración en curso**.
+
+Y R2 suma **tres columnas** —**en qué estado te deja**, **¿vuelve a preguntar?**, **qué no resuelve**—, porque las salidas describían **qué invocan** y quien elige necesita saber **qué le pasa a él**. El caso que lo prueba es **A**, que repara y **vuelve a R0**, repitiendo la misma pregunta: correcto por diseño, y no se deducía de su texto.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/9.1/`.
+
+**Queda anotado:** **T3 no tiene comprobación mecánica.** Un orquestador puede acumular dos fases en una rama y la única señal es el tamaño del pull request.
+
+---
+
 ## [9.1] - 2026-08-16
 
 **Cinco intervenciones seguidas cometieron el defecto que corregían** —la 8.7, la 8.12, la 8.13, la 8.15 y la 8.17—, y la quinta lo cometió **una intervención después** de escribir la regla que lo evita. La 9.0 dejó anotado que la regla 4 «no funciona como control, porque se cumple cuando alguien se acuerda de correrla», y declaró que volverla mecánica exigía decidir contra qué se corre.

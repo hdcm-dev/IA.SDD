@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Coherencia-Orquestador-Reanudacion.md
-**Versión:** 1.3
+**Versión:** 1.2
 **Estado:** Vigente
 **Fecha:** 2026-08-16
 **Autor:** AG-ROOT (Arquitecto de Soluciones)
@@ -48,7 +48,7 @@ Es la misma lección que la 8.9 incorporó al audit —un recuento correcto pued
 falsa— aplicada al problema inverso: allá se trataba de no darle a una comprobación más alcance del
 que tiene; acá, de no creerle a un documento sobre sí mismo.
 
-**Y una decisión que conviene defender: las salidas son cuatro y no tres.** *(La 9.2 sumó una quinta —retomar una migración a medias— por un caso que esta nota no previó; el argumento de abajo se conserva porque es el de la cuarta.)* Las tres primeras invocan
+**Y una decisión que conviene defender: las salidas son cuatro y no tres.** Las tres primeras invocan
 un prompt —reparar, migrar, seguir en la versión declarada—; la cuarta, **continuar la
 construcción**, no invoca ninguno. Es la más frecuente y la que más se pasa por alto, precisamente
 porque es la única sin prompt propio. Un método que sólo ofrece lo que sabe ejecutar **sesga la
@@ -160,4 +160,3 @@ como tres en todos los lugares vivos que los cuentan, las dos apariciones que se
 con «dos» quedaron desambiguadas, y las tres históricas están declaradas.
 | 1.1 | 2026-08-16 | §6.1 nueva: el hueco que la 1.0 dejó —diagnosticaba y se detenía, sin entregar el contexto— y sus tres correcciones. El informe pasa a ser **instrumento de entrega**, entra **R4** y **la decisión viaja** para que el orquestador siguiente no vuelva a preguntar. Registra que la 1.0 **cometió el defecto que corregía**, cuarto caso del patrón que la 8.9 declara. |
 | 1.2 | 2026-08-16 | §7 pasa de «lo que deja anotado» a **cómo se cerró**: la 8.14 resuelve la dimensión sin dueño sin extender el framework al ciclo de construcción. Registra que la regla del registro degradado **declaraba el cuándo y no el quién**, y que la mitad que faltaba la aportó el Product Owner. |
-| 1.3 | 2026-08-17 | §3 anota que la 9.2 sumó una **quinta** salida; el argumento de la cuarta se conserva porque es el que esta nota defendía. |
