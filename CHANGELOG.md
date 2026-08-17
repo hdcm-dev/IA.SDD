@@ -3,6 +3,30 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.6] - 2026-08-17
+
+**`Migracion-Rules.md` §4.3.1 sabía todo sobre los enlaces y no lo decía como paso.** Tenía la disciplina de dos pasadas, la resolución de destino, la prohibición de sustituir patrones y la constancia de que un documento que cambia de profundidad recalcula todos sus enlaces. **Todo eso estaba escrito como lección**, repartido en la prosa de la subsección, y por eso **se redescubría en cada corrida**: alguien archivaba, aparecían enlaces rotos, los arreglaba a mano y lo contaba.
+
+**Mover un documento tiene una consecuencia mecánica sobre sus enlaces. No es criterio: es aritmética**, y por lo tanto se ejecuta y se verifica en lugar de recordarse.
+
+### Agregado — el procedimiento de mover un documento
+
+Se corre completo cada vez que un documento cambia de ubicación:
+
+1. **Antes de mover, resolver y registrar.** Cada enlace relativo se anota por su **destino absoluto desde la raíz del árbol**. Los que **ya no resolvían** se registran aparte como **rotos previos**: se declaran y **no se arreglan de paso**, porque arreglarlos ahí los borra del registro de lo que estaba mal antes.
+2. **Mover.**
+3. **Re-derivar** cada enlace desde la ubicación nueva hacia el mismo destino absoluto. **La profundidad cambió; el destino no.**
+4. **Reconectar los entrantes** por resolución de destino, **sólo sobre los que dejaron de resolver**. Nunca por sustitución de patrón: en una corrida real rompió **181 enlaces donde había 96**.
+5. **Verificar comparando conjuntos, no cantidades.** Los que resolvían antes resuelven después, uno por uno, y el conjunto de rotos previos es **idéntico**. Un recuento igual puede esconder que se rompió uno y se arregló otro — la misma lección que el audit incorporó en la 8.9.
+
+**Por qué el paso 1 va antes de mover.** Después del movimiento, un enlace roto **no dice adónde quería ir**: la ruta relativa vieja no se puede resolver desde la ubicación nueva, y reconstruir la intención es adivinar. Medido: un archivado sin ese paso dejó **658 enlaces colgados**.
+
+- **`Migracion-Rules.md` 3.5 → 3.6.** El procedimiento en §4.3.1 y su **criterio de aceptación enumerable** en §6.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/9.5/`.
+
+---
+
 ## [9.5] - 2026-08-17
 
 **R2 enumeraba cinco salidas y no decía cuál convenía.** El prompt declaraba «el humano elige; este prompt no», y lo aplicaba a dos cosas distintas: **no decidir**, que es correcto, y **no opinar**, que no lo es. R0 mide seis dimensiones, el diff normativo artefacto por artefacto y el estado del repositorio — **presentar todo eso y callarse la conclusión le devuelve al humano el trabajo que el orquestador acaba de hacer**.
