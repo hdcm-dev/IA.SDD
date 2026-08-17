@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de migración normativa
 
 **Archivo:** `Master-Prompt-Migracion.md`
-**Versión:** 2.6
+**Versión:** 2.5
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente. La mecánica de despacho y de auditoría **no se define acá**: se cita de `Master-Prompt.md` §8 y §10
 **Prerequisitos:** un repositorio destino con `SDD/Docs/` poblado y, opcionalmente, un `Plan-Migracion-<origen>-a-<vigente>.md` emitido por la reconciliación normativa del orquestador de generación
@@ -138,7 +138,6 @@ El plan agrega, respecto del informe de reconciliación:
 - **Una columna de fuente de contenido**, con los tres valores admitidos de `Migracion-Rules.md` §2.1.
 - **La clasificación de cada documento**: regenerar, revisar o no tocar, según `Migracion-Rules.md` §4.3.
 - **Los renombres de artefacto aplicables**, leídos de los bloques «Impacto sobre destinos existentes» del `CHANGELOG.md` del framework.
-- **La revisión de apartamientos** (`Migracion-Rules.md` §4.7): una fila por ADR de apartamiento vigente del destino, con su resultado —**absorbido**, **contradicho** o **no contemplado**—, resuelto contra el **campo 4 del propio ADR** y no por criterio del agente. Los **contradichos** se llevan a la detención de esta fase, que es la **detención por arbitraje** de `Master-Prompt.md` §7.0 y no una nueva. Los **no contemplados** incrementan su contador, y los que llegan a **dos o más saltos** se declaran **candidatos a regla del framework**.
 
 Estructura del plan:
 
@@ -326,4 +325,3 @@ Si la migración quedó parcial, la reconciliación vuelve a encontrar el destin
 | 2.3 | 2026-08-16 | **M1** declara que, si la invocación llega desde el orquestador de reanudación, **verifica el diff normativo que ese informe trae** en lugar de reconstruirlo. Ninguna otra fase cambia. |
 | 2.4 | 2026-08-17 | Cita `Master-Prompt.md` §12.1: cada fase es una **unidad de trabajo** que se entrega en su rama con su pull request, y **este prompt no fusiona**. Declara además que **T2 es prerrequisito de M0** —sobre un árbol sin commitear no se empieza a migrar, porque la clasificación de M2 y el censo de M3 se medirían sobre un estado que el historial no registra—. |
 | 2.5 | 2026-08-17 | El prerrequisito de M0 pasa de **T2** a **T0**: la compuerta de arranque corre y publica su salida antes de la primera lectura, y suma el caso de la **entrega viva** —con una fase anterior esperando merge no se arranca la siguiente, porque las dos ramas se pisarían sobre los mismos documentos—. |
-| 2.6 | 2026-08-17 | M1 suma la **revisión de apartamientos** al plan (`Migracion-Rules.md` §4.7): una fila por ADR vigente con su resultado, los **contradichos** llevados a la detención que la fase **ya tiene** —el arbitraje de `Master-Prompt.md` §7.0, no una nueva—, y los que sobrevivieron **dos o más saltos** declarados **candidatos a regla del framework**. |

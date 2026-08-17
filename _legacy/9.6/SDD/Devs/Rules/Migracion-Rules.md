@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino para los dos artefactos propios. El alcance sobre el que la migración opera es `SDD/Intake/` y `SDD/Docs/` del mismo repositorio
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto, unidad de entrega y proyecto de código
 **Subagente target del orquestador:** el orquestador de migración para el plan y el cierre; el auditor independiente para el informe; el subagente titular de cada categoría para re-expresar los documentos de esa categoría
-**Versión de las reglas:** 3.7
+**Versión de las reglas:** 3.6
 
 Dentro de este archivo «migración» se usa en forma desnuda, según la excepción que `Vocabulario-Rules.md` §9.6 declara: en este contexto de lectura no hay otro referente con el que colisione. En cualquier otro archivo del framework el término va calificado como «migración normativa».
 
@@ -427,42 +427,6 @@ El Product Owner es el autor responsable del intake y quien lo aprueba. La redac
 
 **Orden respecto del resto.** El intake se migra antes que el manifiesto, y el manifiesto antes que los documentos generados. No es preferencia: es la cadena D6. El intake es la fuente de verdad, el manifiesto se deriva de él y los documentos generados se derivan de los dos. Migrar `SDD/Docs/` contra un intake todavía con estructura vieja produce documentación derivada de un upstream superado.
 
-### 4.7 La revisión de apartamientos
-
-**Un destino acumula reglas locales que el método no contempla, y hasta acá la migración no las
-miraba.** Cada apartamiento de `Root-Rules.md` §11 es una decisión que dijo «la obligación X no aplica
-acá, por Y». Un salto de versión puede volverla obsoleta, puede contradecirla, o puede dejarla
-exactamente igual de válida — y **las tres cosas se veían iguales**, porque nadie las resolvía.
-
-**Se revisa cada apartamiento vigente contra la normativa vigente, y hay exactamente tres
-resultados.** El insumo no es una interpretación: es el **campo 4 del propio ADR**, los disparadores
-concretos que superarían la decisión. La pregunta es si la vigente los cumple.
-
-| Resultado | Cuándo | Qué se hace |
-| --- | --- | --- |
-| **Absorbido** | La vigente ya dice lo que el apartamiento pedía, o su disparador se cumplió | El ADR pasa a `absorbido en SDD <X.Y>`, el artefacto omitido **vuelve a ser obligatorio** y entra al plan con su clasificación |
-| **Contradicho** | La vigente decidió **lo contrario** de lo que el apartamiento declara | **Arbitraje**: no lo resuelve el agente. Se lleva a la detención de M1 con las dos lecturas |
-| **No contemplado** | La vigente sigue sin decir nada del caso | El ADR **se preserva** tal cual y su contador de saltos sobrevividos **se incrementa** |
-
-**El caso contradicho no estrena detención, y es deliberado.** Es la **detención por arbitraje** de
-`Master-Prompt.md` §7.0, que ya existe desde la 4.1: dos cosas aprobadas que se contradicen y ninguna
-autoridad en el agente para elegir. Lo único que cambia es qué se contradice — allá dos categorías del
-mismo producto, acá el destino y el método a través de un salto. **Agregar una detención propia para
-la misma forma habría sumado carga sin sumar criterio.**
-
-**Qué se hace con el contador, y por qué es lo más valioso de esta revisión.** Un apartamiento con
-**dos o más saltos sobrevividos** se declara en el informe de migración como **candidato a regla del
-framework**, con su ADR, su fundamento y su cuenta. No lo resuelve la migración —el framework no se
-toca desde un destino— pero deja de depender de que alguien se acuerde de reportarlo: **el número lo
-reporta**.
-
-**Los apartamientos no se re-fundamentan al migrar.** Si uno sigue `vigente`, se preserva **con su
-texto literal**, incluido su fundamento original. Reescribirlo contra la normativa nueva produciría un
-ADR que dice haber decidido algo que en su fecha nadie decidió, y §4.1 lo prohíbe con la misma razón
-por la que no se rellena una sección sin fuente.
-
----
-
 ### 4.5 Destinos sin procedencia declarada
 
 Un destino que no declara bloque de procedencia **sí es migrable**, y ésta es la capacidad que antes no existía: la reconciliación normativa solo le ofrece regenerar o abortar, porque no tiene contra qué comparar.
@@ -518,8 +482,6 @@ Antes de cerrar la migración:
 - [ ] [enumerable] Existe la **medición de solapamiento** de los grupos de consolidación, y la salida elegida para cada grupo es coherente con ella.
 - [ ] [interpretativo] Ninguna cifra se promedió al consolidar documentos de capas con umbrales distintos.
 - [ ] [enumerable] Los enlaces se reconectaron **desde un registro confirmado**, y el registro distingue lo que la migración rompió de lo que reparó.
-- [ ] [enumerable] **Todo apartamiento vigente del destino fue revisado** (§4.7) y quedó con uno de los tres resultados declarado en el informe; ninguno quedó sin resolver.
-- [ ] [enumerable] **Ningún apartamiento preservado fue re-fundamentado**: los que siguen `vigente` conservan su texto literal y sólo cambió su contador.
 - [ ] [enumerable] **Por cada documento movido corrió el procedimiento de §4.3.1**, y su verificación cierra: los enlaces que resolvían antes resuelven después, y el conjunto de rotos previos es **el mismo conjunto**, no la misma cantidad.
 - [ ] [enumerable] El árbol declara las **familias acuñadas por el destino** que no pertenecen al catálogo del framework, con su resolución confirmada por el humano.
 - [ ] [enumerable] Si el salto alcanza la forma de los identificadores, existe el **árbol de migración** de §4.3.1 con una fila por identificador alcanzado, y está confirmado por el humano antes de la pasada de aplicación.
@@ -623,4 +585,3 @@ Para el despacho del auditor, los criterios de §6 de este archivo se suman a lo
 | 3.4 | 2026-08-16 | Desambiguación por el barrido de la 8.10: «el contrato entre los dos orquestadores» pasa a nombrarlos —**generación y migración**— porque con el de reanudación los orquestadores son tres y el plan sigue siendo contrato de dos. Ninguna regla cambia. |
 | 3.5 | 2026-08-16 | La señal de clasificación de §4.3.1 se llamaba «es el proyecto de código principal», que con el renombre del campo sería circular —la señal serviría para decidir si algo es una unidad de entrega nombrándolo unidad de entrega—. Pasa a **«el intake lo señalaba como principal»**, que es lo que el agente efectivamente lee del origen. Sube **patch**. |
 | 3.6 | 2026-08-17 | **§4.3.1 suma el procedimiento de mover un documento.** Todo lo que la subsección decía sobre enlaces estaba escrito como **lección y no como paso**, y por eso se redescubría en cada corrida: mover produce una consecuencia mecánica sobre los enlaces salientes y entrantes, que **no es criterio sino aritmética** y por lo tanto se ejecuta y se verifica. Cinco pasos: **resolver y registrar antes de mover** —con los **rotos previos** declarados aparte y **no arreglados de paso**—, mover, **re-derivar** hacia el mismo destino absoluto, **reconectar los entrantes por resolución de destino** y sólo los que dejaron de resolver, y **verificar comparando conjuntos y no cantidades**, porque un recuento igual puede esconder que se rompió uno y se arregló otro. §6 suma su criterio de aceptación enumerable. Sube **minor**: agrega un procedimiento y un criterio sin cambiar ninguna fase. | Framework SDD (procedimiento de mover) |
-| 3.7 | 2026-08-17 | **§4.7 es nueva: la revisión de apartamientos.** Un destino acumula reglas locales que el método no contempla, y la migración **no las miraba**: un apartamiento absorbido, uno contradicho y uno todavía vigente se veían iguales. Se revisa cada uno contra la vigente con **tres resultados** —absorbido, contradicho, no contemplado—, y el insumo **no es una interpretación**: es el campo 4 del propio ADR, los disparadores que superarían la decisión. El caso **contradicho reusa la detención por arbitraje** de `Master-Prompt.md` §7.0 en lugar de estrenar una: es la misma forma —dos cosas aprobadas que se contradicen— entre el destino y el método. Los que sobreviven **dos o más saltos** se declaran **candidatos a regla del framework**, con lo cual el reporte aguas arriba deja de depender de que alguien se acuerde. Y **no se re-fundamentan al preservarse**: reescribir su fundamento contra la normativa nueva produciría un ADR que dice haber decidido algo que en su fecha nadie decidió. §6 suma dos criterios enumerables. Sube **minor**. | Framework SDD (ciclo de apartamientos) |

@@ -3,6 +3,39 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.7] - 2026-08-17
+
+**Un destino acumula reglas locales que el método no contempla, y la migración no las miraba.** Cada apartamiento de `Root-Rules.md` §11 declara «la obligación X no aplica acá, por Y». Un salto de versión puede volverla obsoleta, contradecirla o dejarla igual de válida — y **las tres cosas se veían iguales**, porque nadie las resolvía. Se midió: **cero menciones** a apartamientos en `Migracion-Rules.md` y en el orquestador de migración.
+
+**La pieza difícil ya estaba construida.** §11 exige que todo apartamiento declare **«los disparadores concretos que superarían la decisión»**. Eso hace evaluable el ciclo entero **sin inventar criterio**: al migrar no hay que juzgar si la lección sigue valiendo — hay que leer su disparador y preguntar si la vigente lo cumple. **El apartamiento ya declaró cómo se lo juzga.**
+
+### Agregado — la revisión de apartamientos
+
+- **`Migracion-Rules.md` 3.6 → 3.7, §4.7 nueva.** Tres resultados, ninguno silencioso:
+
+| Resultado | Cuándo | Qué se hace |
+| --- | --- | --- |
+| **Absorbido** | La vigente ya dice lo que pedía, o su disparador se cumplió | El ADR pasa a `absorbido en SDD <X.Y>` y el artefacto omitido **vuelve a ser obligatorio** |
+| **Contradicho** | La vigente decidió **lo contrario** | **Arbitraje**: se lleva a la detención de M1 con las dos lecturas |
+| **No contemplado** | La vigente sigue sin decir nada | El ADR **se preserva** y su contador **se incrementa** |
+
+- **`Root-Rules.md` 6.0 → 6.1.** §11 suma dos campos: el **estado** —conjunto cerrado de cuatro— y los **saltos de versión que sobrevivió**.
+- **`Master-Prompt-Migracion.md` 2.5 → 2.6.** M1 suma la revisión al plan.
+
+### Las tres decisiones de diseño
+
+**El contradicho no estrena detención.** Es la **detención por arbitraje** de `Master-Prompt.md` §7.0, que existe desde la 4.1 y cuya forma es idéntica: dos cosas aprobadas que se contradicen y ninguna autoridad en el agente para elegir. Lo único que cambia es qué se contradice — allá dos categorías del mismo producto, acá **el destino y el método a través de un salto**. Agregar una detención propia habría **sumado carga sin sumar criterio**.
+
+**El contador es el disparador.** Un apartamiento que sobrevive **dos o más saltos** sin ser contemplado **ya demostró que no es de un producto**: si fuera circunstancial, alguna versión lo habría alcanzado. Se declara candidato a regla del framework, y **lo declara un número**. Es la primera respuesta del método al problema del disparador, que falló dos veces registradas: el criterio del barrido retroactivo, que **no se disparó ninguna de las tres veces**, y los doce reportes de evidencia, que quedaron marcados como pendientes **cuatro días después** de haberse resuelto.
+
+**Los preservados no se re-fundamentan.** Se conservan con su **texto literal**. Reescribir su fundamento contra la normativa nueva produciría un ADR que dice haber decidido algo que **en su fecha nadie decidió**, y §4.1 lo prohíbe por la misma razón por la que no se rellena una sección sin fuente.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/9.6/`.
+
+**Queda anotado:** **el inventario de detenciones nunca se miró completo.** Hay **más de quince** puntos obligatorios donde el proceso se detiene y pregunta; cada uno está justificado por separado y **nadie midió la suma**. El modo de falla está identificado desde la 8.11: **un proceso que pregunta demasiado enseña a contestar sin leer**. Esta entrada lo tuvo presente —por eso el contradicho reusa §7.0— pero no lo resuelve.
+
+---
+
 ## [9.6] - 2026-08-17
 
 **`Migracion-Rules.md` §4.3.1 sabía todo sobre los enlaces y no lo decía como paso.** Tenía la disciplina de dos pasadas, la resolución de destino, la prohibición de sustituir patrones y la constancia de que un documento que cambia de profundidad recalcula todos sus enlaces. **Todo eso estaba escrito como lección**, repartido en la prosa de la subsección, y por eso **se redescubría en cada corrida**: alguien archivaba, aparecían enlaces rotos, los arreglaba a mano y lo contaba.

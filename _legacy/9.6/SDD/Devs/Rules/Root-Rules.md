@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-ROOT)
-**Versión de las reglas:** 6.1
+**Versión de las reglas:** 6.0
 
 ---
 
@@ -559,20 +559,6 @@ apartamiento**, con:
 2. Por qué no aplica a esta unidad de entrega o a este producto.
 3. Las alternativas descartadas, incluidas las que cumplirían la letra de la obligación.
 4. Los disparadores concretos que superarían la decisión.
-5. Su **estado**, de un conjunto cerrado de cuatro: `vigente`, `absorbido en SDD <X.Y>`, `contradicho
-   por SDD <X.Y>` o `retirado`.
-6. Los **saltos de versión que sobrevivió**: un entero que la migración incrementa cada vez que revisa
-   el apartamiento y lo deja `vigente`.
-
-**Por qué el apartamiento lleva estado y contador, y no sólo su fundamento.** Un apartamiento es una
-regla local que el método no contempla, y hay tres cosas que le pueden pasar con el tiempo: que el
-framework **absorba** lo que pedía, que **decida lo contrario**, o que **siga sin decir nada**. Sin
-estado, las tres se ven igual —un ADR viejo— y la tercera es indistinguible del olvido.
-
-**El contador es el disparador que el método no tenía.** Un apartamiento que sobrevive **dos o más
-saltos** sin ser contemplado ya demostró que **no es de un producto**: si fuera circunstancial, alguna
-versión lo habría alcanzado. Es la mejor candidata a regla del framework, y lo dice un número en lugar
-de que alguien se acuerde. Quién lo revisa y cuándo lo declara `Migracion-Rules.md` §4.7.
 
 **Cuándo corresponde y cuándo no.** El apartamiento es la salida para lo que la obligación **no
 contempla**. Donde la obligación está condicionada por un flag de la unidad de entrega —
@@ -632,4 +618,3 @@ Una referencia pendiente que sigue abierta al cierre del producto es hallazgo P0
 | 5.3 | 2026-08-16 | Barrido del layout de la 8.0. El **Ejemplo A** de §7.1 seguía publicando su mapa de documentación sobre `Proyectos/<Nombre>/` —el layout que la 8.0 reemplazó—, con lo cual el ejemplo canónico de un README raíz contradecía a §2.1 del mismo archivo. El bloque de insumos de §8 nombra `Unidades-Entrega/<Nombre-Unidad-Entrega>/`. Concordancias de género de la sustitución léxica de la 8.0 (`Vocabulario-Rules.md` §9.5). Sube **patch**. |
 | 5.4 | 2026-08-16 | §4.2 titulaba «Proyectos de código del producto» una sección cuyo contenido es la tabla de **unidades de entrega**: el título quedó del modelo anterior a la 8.0. Sube **patch**. |
 | 6.0 | 2026-08-16 | **El campo del README raíz pasa de «Proyecto de código principal» a «Unidad de entrega principal»**, que es lo que el intake señala y lo que `Intake-Rules.md` §4 valida como bloqueante. Y los **dos ejemplos de §7** encabezaban su tabla con `| Proyecto de código | Tipo D8 | … | Redistribuible |`: una tabla del eje de construcción llevando dos atributos del eje de entrega, que es la confusión que la 8.0 declaró imposible. Sube **major**: un README raíz ya emitido declara el campo con el nombre anterior. |
-| 6.1 | 2026-08-17 | §11 suma dos campos al ADR de apartamiento: su **estado** —de un conjunto cerrado de cuatro— y los **saltos de versión que sobrevivió**. Sin estado, un apartamiento absorbido, uno contradicho y uno todavía no contemplado **se ven igual**, y el tercero es indistinguible del olvido. El **contador es el disparador que el método no tenía**: uno que sobrevive dos o más saltos sin ser contemplado ya demostró que no es de un producto, y lo dice un número en lugar de que alguien se acuerde. Sube **minor**: agrega dos campos a un artefacto existente sin cambiar cuándo corresponde emitirlo. |
