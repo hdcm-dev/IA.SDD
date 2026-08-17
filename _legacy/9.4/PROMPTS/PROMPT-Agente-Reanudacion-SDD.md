@@ -67,8 +67,6 @@ informe, **R4** continuación— y sus dos detenciones obligatorias. Este prompt
 
 - Un **informe de estado** en `SDD/Docs/Audit/Estado-Del-Destino-<AAAA-MM-DD>.md`, con las seis
   dimensiones resueltas y las divergencias declaradas.
-- Una **recomendación con su fundamento** —qué conviene hacer según lo que hay y su impacto—, con su
-  alternativa razonable. **El prompt recomienda; no decide.**
 - Una **decisión tuya** entre cinco salidas: reparar las divergencias primero, migrar a la vigente,
   seguir en la versión declarada, continuar la construcción, o **retomar una migración que quedó a
   medias**. Cada una declara en qué estado te deja, si vuelve a preguntarte y qué **no** resuelve.
@@ -77,13 +75,6 @@ informe, **R4** continuación— y sus dos detenciones obligatorias. Este prompt
   otro orquestador, **la decisión viaja con ella** para que no vuelva a preguntar lo mismo.
 - **Ningún cambio en el destino** fuera de ese informe, salvo el que la salida elegida ejecute con su
   propia confirmación.
-
-**Cuidado con «seguir en la versión declarada» cuando la procedencia es vieja.** El orquestador lo
-evalúa con un umbral mecánico: cuántos saltos major **con impacto sobre destinos existentes** hay
-entre tu procedencia y la vigente. Con dos o más, **ninguna regla vigente puede auditar ni extender ese
-corpus** y seguir construyendo produce documentación nueva con la forma vieja, que agranda la
-migración futura en lugar de acercarla. En ese caso el prompt **no te ofrece C como equivalente**: te
-recomienda migrar y te dice por qué.
 
 **Si el estado tiene divergencias, la primera decisión no es cuál orquestador correr**: es si lo que
 el árbol dice sobre sí mismo es cierto. El orquestador las presenta antes que las salidas por ese
@@ -96,4 +87,3 @@ motivo.
 | 1.0 | 2026-08-16 | Emisión inicial. Tercer prompt de entrada del método, para retomar un destino desde una sesión sin memoria. Declara la tabla de los tres prompts con su cardinalidad, y anticipa que la salida más frecuente —continuar la construcción— es la única sin prompt propio. |
 | 1.1 | 2026-08-16 | Las fases pasan de cuatro a **cinco** con **R4, la continuación**, y §4 declara que la reanudación **sigue en la misma sesión** en lugar de terminar en un informe. |
 | 1.2 | 2026-08-17 | Las salidas pasan de cuatro a **cinco** con **E, retomar una migración a medias**, y cada una declara en qué estado deja al destino, si vuelve a preguntar y qué **no** resuelve. §0 anticipa el paso 0 de R0: **normalizar el repositorio antes de diagnosticar**, con el motivo —el historial es el contraste observable de dos dimensiones y no incluye lo que no está commiteado—. |
-| 1.3 | 2026-08-17 | §4 declara que el resultado incluye una **recomendación con su fundamento y su alternativa**, y anticipa el **umbral de continuidad**: con dos o más major con impacto entre la procedencia y la vigente, el prompt **no ofrece C como equivalente**. |

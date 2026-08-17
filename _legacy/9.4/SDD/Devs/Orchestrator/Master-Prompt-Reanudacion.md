@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de reanudación
 
 **Archivo:** `Master-Prompt-Reanudacion.md`
-**Versión:** 1.5
+**Versión:** 1.4
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** lectura, diagnóstico y **entrega de contexto**, con detención obligatoria. **No escribe nada del destino salvo su propio informe**, y no ejecuta el trabajo que despacha
 **Prerequisitos:** un repositorio destino con `SDD/` poblado. No exige memoria de ninguna sesión anterior
@@ -196,75 +196,9 @@ es cierto. Presentar las salidas sin las divergencias invita a elegir sobre un e
 
 ---
 
-## §4 R2 — Las salidas, la recomendación, y qué implica cada una
+## §4 R2 — Las salidas, y qué implica cada una
 
-Detención obligatoria. **El humano elige; este prompt no decide, pero sí recomienda.**
-
-### §4.0 La recomendación, y por qué el prompt dejó de ser neutral
-
-**Enumerar cinco salidas sin pesarlas le devuelve al humano el trabajo que el orquestador acaba de
-hacer.** R0 midió las seis dimensiones, el diff normativo artefacto por artefacto y el estado del
-repositorio; presentarlas y callarse la conclusión es guardarse la parte útil. La neutralidad correcta
-es **no decidir**; recomendar con el fundamento a la vista no es decidir, es lo que hace que la
-decisión sea informada.
-
-**Se publica antes de la tabla, con este formato:**
-
-```text
-RECOMENDACIÓN — {{salida}}, y por qué
-  Continuidad del origen: {{sostenible | comprometida: {{qué major la rompe}}}}
-  Alcance real del salto: {{N artefactos del destino, de M cambios del framework}}
-  Volumen alcanzado:      {{N documentos}}
-  Estado del repositorio: {{lo que T0 devolvió}}
-  Divergencias abiertas:  {{ninguna | N, y por eso la recomendación es A}}
-  Costo de no hacerlo hoy:{{qué crece si se posterga}}
-  Alternativa razonable:  {{la segunda mejor, y en qué caso ganaría}}
-```
-
-**La «alternativa razonable» no es cortesía.** Una recomendación sin segunda opción se lee como un
-único camino, y el humano deja de mirar. Nombrarla obliga a que la primera se sostenga contra algo.
-
-### §4.0.1 El umbral de continuidad: cuándo «seguir en la versión declarada» deja de ser barato
-
-**No todas las procedencias se continúan igual, y ésta es la evaluación que más cambia la
-recomendación.** La salida C parece siempre disponible —el destino sigue como está y el desfase queda
-declarado— y no lo es.
-
-**El umbral es mecánico y ya existe en el framework**: si entre el origen y la vigente hay **un major
-cuyo bloque «Impacto sobre destinos existentes» no está vacío** (`SDD-Development-Guide.md` §VI.4),
-ese salto **alcanza artefactos del destino**. Y entonces:
-
-| Cuántos major con impacto atraviesa el salto | Qué significa para C | Recomendación |
-| --- | --- | --- |
-| **Ninguno** | El desfase es de proceso. C es correcta y barata | **C**, y actualizar la procedencia si se verificó artefacto por artefacto |
-| **Uno** | Hay deuda, acotada y conocida | C es viable; **B** si ese major toca lo que se está por construir |
-| **Dos o más** | **Ninguna regla vigente puede auditar ni extender ese corpus**: el destino quedó fuera del alcance del método que dice usar | **B**, y decirlo con esas palabras |
-
-**Por qué dos o más es cualitativamente distinto.** Un major con impacto deja un destino que las reglas
-vigentes leen mal en un punto. Dos dejan un destino cuyas **estructuras** —dónde vive cada categoría,
-cómo se numeran los identificadores, de qué nivel cuelga cada artefacto— ya no son las que ninguna
-regla actual describe. Seguir construyendo ahí **produce documentación nueva con la forma vieja**, y
-cada documento agregado agranda la migración futura en lugar de acercarla.
-
-**Y hay un caso que el método vivió y conviene nombrar: las procedencias tempranas.** Los conjuntos
-anteriores al que introdujo el ámbito de unicidad en el producto y el nivel de unidad de entrega no
-tienen un historial que permita continuar sin ambigüedad: sus identificadores no son direcciones
-válidas y su layout no existe. Sobre esas procedencias, **C no se recomienda nunca**, y la
-recomendación lo dice con su motivo en lugar de ofrecerla como si fuera equivalente.
-
-### §4.0.2 El encadenamiento después de reparar
-
-**La salida A vuelve a R0 y la pregunta reaparece, y eso hay que decirlo antes y después.** Al volver,
-la recomendación **se recalcula** —la reparación cambió las dimensiones— y R2 declara explícitamente
-cuál era la pregunta que quedó pendiente:
-
-> Reparadas las divergencias, lo que sigue decidiendo es **migrar o seguir en la versión declarada**.
-> La recomendación recalculada es {{salida}}, por {{motivo}}.
-
-Sin esa frase, el humano que eligió A dos pasos atrás llega a la segunda vuelta **sin saber que es la
-segunda vuelta**, y la lee como si fuera una pregunta nueva.
-
-
+Detención obligatoria. **El humano elige; este prompt no.**
 
 | Salida | Cuándo tiene sentido | Qué continúa, en esta misma sesión | En qué estado te deja | ¿Vuelve a preguntar? | Qué **no** resuelve |
 | --- | --- | --- | --- | --- | --- |
@@ -331,7 +265,6 @@ para seguir sin volver a deducirlo**:
 | **Pendientes declarados** | Los hallazgos abiertos, con su nivel y su documento | Todos |
 | **Diff normativo** | Qué cambió del framework entre la procedencia y la vigente, **artefacto por artefacto y con su severidad** | La salida B lo consume en M1; la C lo usa para justificar por qué no migra |
 | **Decisión** | La salida elegida, quién la eligió y la fecha | El orquestador que continúa, **para no volver a preguntar** |
-| **Recomendación y su fundamento** | La salida recomendada, sus seis factores, la alternativa razonable y —si el salto atraviesa dos o más major con impacto— **por qué C no se ofrece como equivalente** | Es lo que permite auditar la decisión después: sin el fundamento escrito, una decisión correcta y una arbitraria se ven igual |
 | **Punto de continuación** | La etapa o fase concreta que sigue, su puerta de entrada y los documentos que la gobiernan | **La salida D, que no tiene prompt y sólo tiene esto** |
 
 **El bloque de continuación es el que hace que la reanudación sirva.** Sin él, este prompt le dice al
@@ -420,4 +353,3 @@ entonces el contexto vuelve a vivir sólo en la sesión.
 | 1.2 | 2026-08-16 | §1 suma la columna **«quién la mantiene»** a las seis dimensiones, y **§1.1** es nueva con sus tres reglas: toda fuente declarativa **nombra a su responsable en el propio documento**; cuando ningún rol corresponde el responsable es **genérico y sigue siendo obligatorio**, hasta la organización dueña del repositorio; y entre dos fuentes posibles **gana la que es subproducto del acto**. Cierra el pendiente que `Coherencia-Orquestador-Reanudacion.md` §7 dejaba declarado —una dimensión del estado cuya fuente nadie tenía obligación de mantener—. Origen: el Product Owner, que pidió no dejar el dueño boyando. |
 | 1.3 | 2026-08-17 | **R0 suma el paso 0, normalizar el repositorio**, que va antes que las dimensiones porque el historial es su contraste observable y **no incluye lo que no está commiteado**; aplica `Master-Prompt.md` §12.1 y detiene. **R0 suma el paso 5**, detectar una **migración en curso** por sus tres señales. **R1 suma el bloque REPOSITORIO** y la fila «En curso» de migración. **R2 suma la salida E, retomar la migración en vuelo** —elegir B sobre una migración a medias la reempieza— y **tres columnas**: en qué estado te deja, si vuelve a preguntar y qué **no** resuelve. Origen: dos destinos reales, uno con 452 cambios sin commitear y otro con 170 documentos en `_fusion/`, y la observación del Product Owner de que el cuestionario no dejaba entender la decisión. |
 | 1.4 | 2026-08-17 | El paso 0 de R0 pasa a **correr la compuerta T0** de `Master-Prompt.md` §12.1 y publicar su salida, en lugar de describir sus comprobaciones por su cuenta. Declara los **dos resultados que detienen** la reanudación: árbol sucio y **entrega viva**, porque diagnosticar mientras una unidad anterior no cerró produce un informe sobre un estado que está por cambiar. El bloque `REPOSITORIO` de R1 adopta el formato de T0. |
-| 1.5 | 2026-08-17 | **R2 deja de ser neutral y pasa a recomendar**, sin decidir. **§4.0** declara el formato de la recomendación con sus seis factores y su **alternativa razonable** obligatoria —una recomendación sin segunda opción se lee como un único camino—. **§4.0.1 fija el umbral de continuidad**, que es mecánico y ya existía: cuántos major con **bloque de impacto no vacío** atraviesa el salto. Con **dos o más**, ninguna regla vigente puede auditar ni extender ese corpus y **C deja de ofrecerse como equivalente**; sobre procedencias tempranas **no se recomienda nunca**, porque sus identificadores no son direcciones válidas y su layout no existe. **§4.0.2** declara el encadenamiento después de reparar: la recomendación **se recalcula** y R2 dice que la pregunta pendiente es migrar o seguir, para que quien eligió A sepa que está en la segunda vuelta. Origen: el Product Owner, sobre dos destinos reales con procedencias muy distintas. |
