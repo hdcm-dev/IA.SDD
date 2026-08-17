@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega visual):** `SDD/Maquetas/<Nombre-Unidad-Entrega>/` del repositorio destino
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Maquetador de validación visual (AG-03M)
-**Versión de las reglas:** 4.2
+**Versión de las reglas:** 4.1
 
 ---
 
@@ -199,8 +199,6 @@ Podés corregirla de dos maneras:
 ```
 
 ### 3.5 Paso 5 — Ciclo de corrección y validación (detención, iterativo)
-
-**Forma de esta detención:** `Master-Prompt.md` §8.1. Y un caso que hay que resolver con propuesta y no con pregunta: **cuando el intake cambió y la maqueta dejó de reflejarlo**, el agente no pregunta qué hacer. Presenta las dos salidas —**modificar** lo existente o **replantear** desde cero— con **qué de lo hecho se conserva en cada una** y cuál propone. Quien aprueba decide sobre eso: si lo que vale se conserva, se modifica; si no, se replantea. **Esa frase la tiene que escribir quien abrió la maqueta.**
 
 El ciclo se repite hasta que el humano aprueba. Dos vías de corrección, y las dos tienen que estar soportadas:
 
@@ -568,4 +566,3 @@ Devolución:
 | 3.2 | 2026-08-15 | Propagación por iteración y matriz con escape (intervención reportes 00 a 11). **§3.5** exige propagar lo aprobado al cerrar cada iteración, o registrar en la bitácora qué queda diferido y por qué: la fase es un bucle y la propagación de §3.6 se disparaba con la aprobación final, de modo que entre las dos quedaba un intervalo en el que la regla se cumplía y la documentación mentía igual. Se agrega el criterio verificable por iteración —los estados que la maqueta demuestra y los que los wireframes declaran coinciden, o su diferencia está diferida con motivo—. **§3.6** suma una novena fila a la matriz para el caso en que la validación crea un proyecto de código, con sus destinos en el intake, en el manifiesto y en una corrida de Fase B para el árbol nuevo; una **regla de escape** para todo hallazgo que no encaje en ninguna fila; la distinción entre **propagar y contradecir**, con remisión a la detención por arbitraje de `Master-Prompt.md` §7.0; y la regla de corte pasa a nombrar el `PRODUCT-MANIFEST`, que es derivado del intake y quedaba desincronizado en silencio, con la revisión de sus afirmaciones derivadas. Sube **minor**: agrega filas y procedimientos sin cambiar los artefactos que la fase produce. Origen: reportes `02` y `03`. Además, **§6 clasifica cada criterio de aceptación** como `[enumerable]` o `[interpretativo]`, con la nota que declara la política conservadora: ante la duda se marca interpretativo, porque declarar mecanizable lo que no lo es produce falsa confianza. Los enumerables son lo que la compuerta mecánica de `Master-Prompt.md` §10.0 debe cubrir. Origen adicional: reportes `09` y `10`. |
 | 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
 | 4.1 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
-| 4.2 | 2026-08-17 | Los cuatro pasos de detención de la Fase B2 —1, 2, 5 y 7— adoptan la forma de `Master-Prompt.md` §8.1. El paso 5 suma el caso que la motivó: cuando la maqueta **dejó de reflejar el intake** porque el intake cambió, la detención no pregunta «¿qué hacemos?» sino que propone **modificar o replantear**, declarando **qué de lo hecho vale la pena conservar** —que es lo que decide entre las dos y lo sabe quien miró la maqueta, no quien la aprueba—. |

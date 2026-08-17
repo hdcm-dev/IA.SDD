@@ -3,6 +3,41 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.8] - 2026-08-17
+
+**Se midió si las cuatro familias de detención llevan lo que hace falta para decidir, y dos no.**
+
+| Familia | ¿Llevaba contexto? |
+| --- | --- |
+| **1 · Confirmación de un plan** | **Sí**, por construcción: presenta el plan entero |
+| **2 · Detención por falta de dato** (§9) | **No.** Ocho campos, y el central es «pregunta concreta». Ninguna propuesta, ninguna opción |
+| **3 · Detención por arbitraje** (§7.0) | **No, y era la peor: no declaraba formato alguno.** Decía que el humano decide y no decía con qué |
+| **4 · Detención por traspaso** (§12.1 T4) | **Sí**: su bloque de entrega lo declara |
+
+**Una detención sin propuesta le traslada al humano el análisis que el agente ya tiene hecho.** El agente sabe qué encontró, qué opciones hay, qué se pierde con cada una y cuál le parece mejor: **preguntar sin decirlo obliga a reconstruirlo desde cero a quien no estuvo**. Es el mismo argumento que `Master-Prompt-Reanudacion.md` §4.0 aplicó a las salidas de R2, generalizado a toda detención del método.
+
+### Agregado — `Master-Prompt.md` §8.1, la forma de toda detención
+
+Un bloque obligatorio: **qué pasó**, **estado de avance** cuantificado cuando lo que se decide está a medias, **opciones** con qué se conserva de lo hecho, **propuesta** con su alternativa, y **qué se espera de vuelta**. Y cuatro reglas, cada una de un caso real:
+
+- **F1 · El estado de avance se cuantifica, no se adjetiva.** «Parcialmente hecho» no permite decidir: **no se puede aprobar el cierre de algo sin saber si lo que falta es el 5 % accesorio o el 40 % que lo sostiene**.
+- **F2 · Cada opción declara qué se conserva de lo hecho.** Es lo que decide entre **modificar** y **volver a empezar**, y no lo sabe quien aprueba: **lo sabe el agente que abrió los documentos**.
+- **F3 · La propuesta lleva su alternativa**, o se lee como un único camino y deja de leerse.
+- **F4 · Lo que se pide es una decisión, no una opinión**: responder tiene que ser elegir, no redactar.
+
+### Cambiado — las cuatro familias adoptan la forma
+
+- **`Master-Prompt.md` 8.3 → 8.4.** §8.1 nueva. **§9** suma tres campos al bloque de ambigüedad: **propuesta**, **alternativa** y **qué queda bloqueado si no se responde ahora**. **§7.0** declara con qué se presenta un arbitraje: los dos valores en conflicto, qué categoría declaró cada uno, qué se rompe con cada salida y cuál propone el agente que se los encontró.
+- **`Master-Prompt-Migracion.md` 2.6 → 2.7.** Las detenciones de M1 a M6 llevan estado de avance cuantificado. Es lo que faltaba para **poder aprobar el cierre de una fase parcial**.
+- **`Master-Prompt-Reanudacion.md` 1.5 → 1.6.** §4.0 se declara **caso particular** de §8.1: su recomendación **es** la propuesta que §8.1 exige.
+- **`Maqueta-Rules.md` 4.1 → 4.2.** El paso 5 suma el caso que motivó todo esto: cuando **el intake cambió y la maqueta dejó de reflejarlo**, el agente no pregunta qué hacer — presenta **modificar** o **replantear** con **qué de lo hecho se conserva en cada una**, y propone. Si lo que vale se conserva, se modifica; si no, se replantea.
+
+**No agrega ni quita ninguna detención: cambia la forma de las que ya existen.** Y no autoriza a decidir — la propuesta es un insumo, y las prohibiciones de §13 siguen intactas.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/9.7/`.
+
+---
+
 ## [9.7] - 2026-08-17
 
 **Un destino acumula reglas locales que el método no contempla, y la migración no las miraba.** Cada apartamiento de `Root-Rules.md` §11 declara «la obligación X no aplica acá, por Y». Un salto de versión puede volverla obsoleta, contradecirla o dejarla igual de válida — y **las tres cosas se veían iguales**, porque nadie las resolvía. Se midió: **cero menciones** a apartamientos en `Migracion-Rules.md` y en el orquestador de migración.
