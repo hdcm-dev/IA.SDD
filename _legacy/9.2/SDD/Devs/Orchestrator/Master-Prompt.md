@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 8.2
+**Versión:** 8.1
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -1146,43 +1146,6 @@ La Fase I no arranca acá. Arranca cuando el repositorio cumple la precondición
 declarado es lo que hizo que nadie lo verificara, que es la misma forma que `Master-Prompt-Reanudacion.md`
 §1 describe para el estado del destino.
 
-### T0 · La compuerta de arranque
-
-**Antes de la primera escritura de cualquier unidad de trabajo**, el orquestador contrasta el
-repositorio local contra el remoto y resuelve estas cinco preguntas. Es lo primero que hace, antes que
-cualquier diagnóstico, y su salida se publica:
-
-| # | Qué se comprueba | Si no se cumple |
-| --- | --- | --- |
-| 1 | El árbol de trabajo está **limpio** —sin cambios, sin archivos sin seguir— | Se aplica **T2**: se pone a salvo y se detiene |
-| 2 | Se está parado en la **rama principal** | Se informa en qué rama se está y por qué, y se pregunta |
-| 3 | La principal está **al día con el remoto**, ni adelante ni atrás | Si está atrás, se actualiza. Si está adelante, hay trabajo local sin entregar: **T2** |
-| 4 | **No hay ninguna rama empujada sin fusionar** | **Hay una unidad entregada esperando merge.** Se nombra, con su pull request, y **no se empieza otra**: es la comprobación de **T3** |
-| 5 | No quedan **ramas locales ya fusionadas** | Se borran, y se informa cuáles |
-
-**La 4 es la que vuelve verificable a T3, y es la razón por la que esta compuerta existe.** T3 pide una
-unidad de trabajo por pull request; lo que nadie comprobaba es **que no hubiera dos unidades vivas a la
-vez**. Empezar una segunda mientras la primera espera merge produce dos ramas que se pisan, y el humano
-no puede aceptar una y rechazar la otra —que es exactamente lo que T3 existe para preservar—.
-
-**Formato de la salida**, que se publica siempre, incluso cuando todo está en orden:
-
-```text
-COMPUERTA DE ARRANQUE — {{repositorio}}
-  Rama:            {{rama}}   {{al día | N detrás | N adelante}}
-  Árbol:           {{limpio | N cambios, de los cuales M borrados y K sin seguir}}
-  Entregas vivas:  {{ninguna | rama {{nombre}}, esperando merge, PR {{url}}}}
-  Ramas a borrar:  {{ninguna | lista}}
-  Veredicto:       {{EN ORDEN, se puede empezar | SE DETIENE: {{motivo}}}}
-```
-
-**Publicarla cuando todo está en orden no es ceremonia.** Es lo que permite que el humano sepa
-**contra qué estado** se hizo lo que sigue, y es la única forma de distinguir «no había nada que
-arreglar» de «no se miró».
-
-**Lo que T0 no puede comprobar.** Que una rama lleve **dos** unidades adentro. Eso sigue siendo una
-regla de redacción sin verificación mecánica: la única señal es el tamaño del pull request.
-
 ### T1 · El agente no fusiona
 
 El orquestador **crea la rama, escribe, commitea y empuja**. La **fusión y el borrado de la rama son
@@ -1225,21 +1188,13 @@ TRABAJO ENTREGADO — {{UNIDAD}}
 reconstruir en qué punto estaba: es la misma razón por la que el informe de reanudación lleva su punto
 de continuación.
 
-### T5 · La reanudación se verifica, y deja el repositorio listo
+### T5 · La reanudación se verifica, no se cree
 
-El humano avisa —«listo el merge y borrada la rama»— y el orquestador **comprueba y prepara antes de
-seguir**:
+El humano avisa —«listo el merge y borrada la rama»— y el orquestador **comprueba antes de seguir**:
 
-1. Se para en la rama principal, la actualiza contra el remoto, **poda las referencias remotas** y
-   borra la rama local entregada.
+1. Se para en la rama principal, la actualiza contra el remoto y borra la rama local.
 2. **Verifica que el merge está**: el commit de la rama entregada es alcanzable desde la principal.
-3. **Comprueba si la principal trajo algo más.** Si avanzó por encima de lo entregado, hay trabajo de
-   otra sesión o de otra persona: **lo que se midió antes del merge puede haber quedado viejo**, y se
-   declara antes de seguir apoyándose en ello.
-4. **Deja el repositorio en el estado que la unidad siguiente necesita**, y lo publica con el formato
-   de T0. Terminar el merge y arrancar lo próximo sobre un local a medio actualizar es la forma de
-   producir la unidad siguiente sobre un estado que ya no existe.
-5. Recién entonces continúa con lo que T4 declaró como paso siguiente.
+3. Recién entonces continúa con lo que T4 declaró como paso siguiente.
 
 **Si el merge no está, lo dice y se detiene.** No es desconfianza del humano: son dos sesiones
 distintas y un aviso puede llegar antes de que la plataforma termine, o referirse a otro pull request.
@@ -1424,4 +1379,3 @@ Reglas de versionado:
 | 7.11 | 2026-08-16 | La fila C de la tabla de §7 nombraba **`Arquitectura-Proyecto-Codigo.md`**, que `Rules-Arquitectura-Tecnica.md` §2.1 había renombrado a `Arquitectura-Unidad-Entrega.md`, y declaraba sus documentos «por proyecto de código». Un renombre de artefacto **no lo infiere ningún diff de versiones** (`Migracion-Rules.md` §111): hay que propagarlo, y no se había propagado. Sube **minor**: cambia el nombre de un documento que el orquestador manda producir.  Framework SDD (cabecera de nivel unidad de entrega) |
 | 8.0 | 2026-08-16 | **El bloque informativo de §3.4 —lo primero que el orquestador imprime y lo primero que un subagente ve— era de un solo eje.** Enumeraba proyectos de código llevando `tipo_unidad_entrega`, `redistribuible` y `path-docs`, que es exactamente la mezcla que `Intake-Rules.md` §4 valida como imposible y que la 8.12 corrigió en la regla sin llegar acá. Pasa a **tres bloques** —unidades de entrega de §2.A, proyectos de código de §2.B y la matriz de §2.C— con la constancia de que ningún D8 sale del eje de construcción y ninguna `Identidad-Codigo` del de entrega. El campo del producto pasa a `unidad-de-entrega-principal` y el orden topológico se desdobla en **compilación** e **integración**, que no son el mismo grafo. §3.1 y §15 acompañan el renombre. Sube **major**: cambia la forma del bloque que gobierna toda la generación. |
 | 8.1 | 2026-08-17 | **§12.1 es nueva: el traspaso por pull request**, y la leen los tres orquestadores. Declara un protocolo que **se usaba y no estaba escrito**: **T1** el agente no fusiona —el merge es el único control que no es suyo—; **T2** nada se escribe sobre un árbol sucio, porque el historial es el contraste observable de varias dimensiones y **no incluye lo que no está commiteado**; **T3** una unidad de trabajo, un pull request, declarada antes de empezar; **T4** la forma literal de la entrega, con «qué sigue después del merge» obligatorio; **T5** el aviso del humano **se verifica y no se cree**, comprobando que el commit entregado es alcanzable desde la principal; **T6** su límite. Sube **minor**: agrega una mecánica de traspaso sin cambiar ninguna fase ni entregable. | Framework SDD (traspaso por pull request) |
-| 8.2 | 2026-08-17 | **§12.1 suma T0, la compuerta de arranque**, con sus cinco comprobaciones sobre el repositorio local contra el remoto y su salida publicada siempre, también cuando está todo en orden —que es lo que distingue «no había nada que arreglar» de «no se miró»—. **Su comprobación 4 vuelve verificable a T3**: lo que nadie miraba era que no hubiera **dos unidades vivas a la vez**, y empezar una segunda mientras la primera espera merge produce dos ramas que se pisan. **T5 pasa de verificar a verificar y preparar**: poda referencias, comprueba si la principal **trajo algo más** —trabajo de otra sesión que vuelve viejo lo medido antes del merge— y deja el repositorio en el estado que la unidad siguiente necesita, publicado con el formato de T0. Sube **minor**. | Framework SDD (compuerta de arranque) |
