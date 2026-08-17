@@ -370,7 +370,7 @@ confirma, corrige o reasigna.** Sin esa confirmación la migración no avanza.
 - **La transposición lee el documento entero, no sólo sus secciones numeradas.** El texto entre la
   cabecera y la primera sección —una nota previa, una declaración de origen— se pierde si el
   procedimiento recorre encabezados. En una corrida real alcanzó a dos documentos, y en uno de ellos
-  era **la declaración de de dónde salía lo que el documento afirmaba**, que ninguna fuente del
+  era **la declaración de dónde salía lo que el documento afirmaba**, que ninguna fuente del
   producto declaraba.
 - **La consolidación de los casos de uso se emite como propuesta.** Al fundir capas, la categoría 02
   resultante contiene varias vistas de la misma capacidad —el dominio la modela, la aplicación la
