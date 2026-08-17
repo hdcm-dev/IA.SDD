@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Coherencia-Traspaso-Por-Pull-Request.md
-**Versión:** 1.1
+**Versión:** 1.0
 **Estado:** Vigente
 **Fecha:** 2026-08-17
 **Autor:** AG-ROOT (Arquitecto de Soluciones)
@@ -118,18 +118,11 @@ nada **del destino**, y la única escritura admitida pone a salvo lo que ya esta
 corrida. Es la comprobación 9 —coherencia interna del artefacto— encontrando algo en la misma
 intervención que lo introdujo, que es donde tiene que encontrarlo.
 
-## 9. Lo que esta nota dejaba anotado, y cómo se cerró a medias
+## 9. Lo que esta nota deja anotado
 
-**T3 declaraba la unidad de trabajo y no había forma de verificar que se respetó.**
-
-**Se cerró la mitad que se podía, en la 9.3.** La comprobación 4 de la **compuerta T0** verifica que
-**no haya dos unidades vivas a la vez**: si una rama empujada espera merge, no se empieza otra. Era la
-mitad que producía daño —dos ramas pisándose los mismos documentos, y un humano que no puede aceptar
-una y rechazar la otra—.
-
-**La otra mitad sigue sin comprobación y se declara.** Que una rama lleve **dos unidades adentro** no
-lo detecta nada: la única señal es el tamaño del pull request. Es una regla de redacción, y §12.1 T0
-lo dice en su propio texto en lugar de dejarlo en esta nota.
+**T3 declara la unidad de trabajo y no hay forma de verificar que se respetó.** Un orquestador puede
+acumular dos fases en una rama y la única señal es el tamaño del pull request. Queda como regla de
+redacción sin comprobación mecánica.
 
 ## 10. Veredicto
 
@@ -142,4 +135,3 @@ salidas reales con lo que hace falta para elegir entre ellas.
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
 | 1.0 | 2026-08-17 | Emisión inicial. **§12.1** declara el protocolo de traspaso que se usaba sin estar escrito, con **T2** —nada se escribe sobre un árbol sucio— como fundamento del **paso 0 de R0**. Entra la salida **E**, que faltaba para una migración en vuelo, y las **tres columnas** que el cuestionario no daba. Registra la contradicción interna que la propia intervención introdujo en el preámbulo de R0 y corrigió. |
-| 1.1 | 2026-08-17 | §9 pasa a **cómo se cerró a medias**: la compuerta T0 de la 9.3 verifica que no haya **dos unidades vivas**, que era la mitad que producía daño; que una rama lleve dos unidades adentro sigue sin comprobación y queda declarado en §12.1. |

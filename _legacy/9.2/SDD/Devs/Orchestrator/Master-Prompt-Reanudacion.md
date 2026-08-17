@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de reanudación
 
 **Archivo:** `Master-Prompt-Reanudacion.md`
-**Versión:** 1.4
+**Versión:** 1.3
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** lectura, diagnóstico y **entrega de contexto**, con detención obligatoria. **No escribe nada del destino salvo su propio informe**, y no ejecuta el trabajo que despacha
 **Prerequisitos:** un repositorio destino con `SDD/` poblado. No exige memoria de ninguna sesión anterior
@@ -117,12 +117,11 @@ no lo hace.
 Sin despachar ningún subagente. **No escribe nada del destino**: la única escritura admitida es la del
 paso 0, que **no produce contenido** —pone a salvo lo que ya estaba— y que además detiene la corrida.
 
-0. **Normalizar el repositorio, antes que nada.** Correr la **compuerta de arranque** de
-   `Master-Prompt.md` §12.1 **T0**, con sus cinco comprobaciones, y **publicar su salida**. Dos de sus
-   resultados detienen la reanudación en lugar de continuarla: un **árbol sucio**, que se pone a salvo
-   con T2 y se retoma después del merge; y una **entrega viva** —una rama empujada esperando
-   fusión—, porque diagnosticar mientras una unidad anterior no cerró produce un informe sobre un
-   estado que está por cambiar.
+0. **Normalizar el repositorio, antes que nada.** Contrastar el árbol de trabajo contra el remoto:
+   cambios sin commitear, archivos sin seguir, commits locales sin empujar, y si la rama está detrás.
+   **Si hay algo sin poner a salvo, ése es el primer trabajo y no se hace ningún otro**: se aplica
+   `Master-Prompt.md` §12.1 —rama, commit, push, entrega y detención— y la reanudación **se retoma
+   después del merge**, sobre el árbol normalizado.
 
    **No es higiene, y por eso va antes que las dimensiones.** El historial del repositorio es el
    contraste observable de las dimensiones 3 y 5, y **no incluye lo que no está commiteado**. Sobre un
@@ -164,11 +163,10 @@ DOCUMENTACIÓN
   Framework vigente:       SDD {{VERSION_VIGENTE}}
   Estado:                  {{al día | desfasado en N versiones | sin procedencia}}
 
-REPOSITORIO  (compuerta T0)
-  Rama:                    {{nombre}}   {{al día | N detrás | N adelante}}
-  Árbol de trabajo:        {{limpio | N cambios, de los cuales M borrados y K sin seguir}}
-  Entregas vivas:          {{ninguna | rama {{nombre}}, esperando merge}}
-  Veredicto de arranque:   {{EN ORDEN | SE DETUVO: {{motivo}}}}
+REPOSITORIO
+  Árbol de trabajo:        {{limpio | N cambios sin commitear, de los cuales M borrados}}
+  Contra el remoto:        {{al día | N commits sin empujar | N detrás}}
+  Rama:                    {{nombre}}
 
 MIGRACIÓN
   En curso:                {{no | sí, plan {{archivo}}, {{N}} documentos en {{M}} carpetas _fusion/}}
@@ -352,4 +350,3 @@ entonces el contexto vuelve a vivir sólo en la sesión.
 | 1.1 | 2026-08-16 | **El informe deja de ser un diagnóstico y pasa a ser el instrumento de entrega**, y entra **R4, la continuación**: escrito el informe, se sigue en la misma sesión. §5 suma al informe el **diff normativo**, la **decisión** con su autor y su fecha, y el **punto de continuación**, que existe para la salida que no tiene prompt. §5.1 declara que **la decisión viaja** y que el orquestador siguiente no vuelve a preguntar lo mismo. Origen: la 1.0 cometía el defecto que corregía —un prompt contra la pérdida de contexto que no entregaba contexto—, señalado por el Product Owner el mismo día. |
 | 1.2 | 2026-08-16 | §1 suma la columna **«quién la mantiene»** a las seis dimensiones, y **§1.1** es nueva con sus tres reglas: toda fuente declarativa **nombra a su responsable en el propio documento**; cuando ningún rol corresponde el responsable es **genérico y sigue siendo obligatorio**, hasta la organización dueña del repositorio; y entre dos fuentes posibles **gana la que es subproducto del acto**. Cierra el pendiente que `Coherencia-Orquestador-Reanudacion.md` §7 dejaba declarado —una dimensión del estado cuya fuente nadie tenía obligación de mantener—. Origen: el Product Owner, que pidió no dejar el dueño boyando. |
 | 1.3 | 2026-08-17 | **R0 suma el paso 0, normalizar el repositorio**, que va antes que las dimensiones porque el historial es su contraste observable y **no incluye lo que no está commiteado**; aplica `Master-Prompt.md` §12.1 y detiene. **R0 suma el paso 5**, detectar una **migración en curso** por sus tres señales. **R1 suma el bloque REPOSITORIO** y la fila «En curso» de migración. **R2 suma la salida E, retomar la migración en vuelo** —elegir B sobre una migración a medias la reempieza— y **tres columnas**: en qué estado te deja, si vuelve a preguntar y qué **no** resuelve. Origen: dos destinos reales, uno con 452 cambios sin commitear y otro con 170 documentos en `_fusion/`, y la observación del Product Owner de que el cuestionario no dejaba entender la decisión. |
-| 1.4 | 2026-08-17 | El paso 0 de R0 pasa a **correr la compuerta T0** de `Master-Prompt.md` §12.1 y publicar su salida, en lugar de describir sus comprobaciones por su cuenta. Declara los **dos resultados que detienen** la reanudación: árbol sucio y **entrega viva**, porque diagnosticar mientras una unidad anterior no cerró produce un informe sobre un estado que está por cambiar. El bloque `REPOSITORIO` de R1 adopta el formato de T0. |

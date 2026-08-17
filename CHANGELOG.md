@@ -3,6 +3,28 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.3] - 2026-08-17
+
+**La 9.2 dejó anotado que T3 no tenía comprobación mecánica. Se cierra la mitad que producía daño.**
+
+**`Master-Prompt.md` §12.1 suma T0, la compuerta de arranque.** Antes de la primera escritura de cualquier unidad de trabajo, el orquestador contrasta el repositorio local contra el remoto y resuelve cinco preguntas: árbol limpio, parado en la principal, principal al día, **ninguna rama empujada sin fusionar**, y ninguna rama local ya fusionada por borrar.
+
+**La cuarta es la que vuelve verificable a T3.** T3 pedía una unidad de trabajo por pull request; lo que nadie comprobaba era **que no hubiera dos unidades vivas a la vez**. Empezar una segunda mientras la primera espera merge produce dos ramas que se pisan sobre los mismos documentos, y el humano **no puede aceptar una y rechazar la otra** — que es exactamente lo que T3 existe para preservar.
+
+**La salida se publica siempre, también cuando está todo en orden**, y eso no es ceremonia: es lo que permite saber **contra qué estado** se hizo lo que sigue, y la única forma de distinguir «no había nada que arreglar» de «no se miró».
+
+### Cambiado
+
+- **`Master-Prompt.md` 8.1 → 8.2.** **T0** nueva, con su tabla de cinco comprobaciones y su bloque de salida. **T5 pasa de verificar a verificar y preparar**: poda las referencias remotas, y **comprueba si la principal trajo algo más** —trabajo de otra sesión o de otra persona, que vuelve viejo lo que se midió antes del merge— antes de seguir apoyándose en ello. Deja el repositorio en el estado que la unidad siguiente necesita y lo publica con el formato de T0, porque **arrancar lo próximo sobre un local a medio actualizar produce la unidad siguiente sobre un estado que ya no existe**.
+- **`Master-Prompt-Reanudacion.md` 1.3 → 1.4.** El paso 0 de R0 **corre T0** en vez de describir sus comprobaciones por su cuenta, y declara los **dos resultados que la detienen**: árbol sucio y **entrega viva** —diagnosticar mientras una unidad anterior no cerró produce un informe sobre un estado que está por cambiar—. El bloque `REPOSITORIO` de R1 adopta el formato de T0.
+- **`Master-Prompt-Migracion.md` 2.4 → 2.5.** El prerrequisito de M0 pasa de T2 a **T0**, y suma el caso de la entrega viva: con una fase anterior esperando merge no se arranca la siguiente.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/9.2/`.
+
+**Queda anotado, y ahora vive en §12.1 y no en una nota:** que una rama lleve **dos unidades adentro** no lo detecta nada. La única señal es el tamaño del pull request.
+
+---
+
 ## [9.2] - 2026-08-17
 
 **El protocolo de traspaso por pull request se usaba en corridas reales y no estaba escrito en ningún lado.** Se verificó buscando «rama», «commit» y «pull request» en los tres orquestadores: **cero apariciones normativas**. Y sin embargo el ciclo —rama, commit, push, aviso al humano, merge del humano, aviso de vuelta— gobernó migraciones enteras.
