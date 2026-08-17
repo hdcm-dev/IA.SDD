@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de migración normativa
 
 **Archivo:** `Master-Prompt-Migracion.md`
-**Versión:** 2.4
+**Versión:** 2.3
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente. La mecánica de despacho y de auditoría **no se define acá**: se cita de `Master-Prompt.md` §8 y §10
 **Prerequisitos:** un repositorio destino con `SDD/Docs/` poblado y, opcionalmente, un `Plan-Migracion-<origen>-a-<vigente>.md` emitido por la reconciliación normativa del orquestador de generación
@@ -43,13 +43,6 @@ Este prompt es un archivo de fases, no un segundo orquestador completo. Todo lo 
 | Derivación del manifiesto | `Master-Prompt.md` §3 y §3.1, e `Intake-Rules.md` §4 | La ejecuta en M3 sobre el intake migrado |
 | Orden topológico de las unidades de entrega, por el grafo de integración | `Master-Prompt.md` §3.3 | Lo usa en M4 |
 | Invariantes globales | `Master-Prompt.md` §5 y el `README.md` del framework | Las inyecta en cada despacho, sin alterarlas |
-
-**Traspaso del trabajo.** Cada fase de esta migración es una **unidad de trabajo** en el sentido de
-`Master-Prompt.md` §12.1: se entrega en su propia rama, con su pull request, y **este prompt no
-fusiona**. La detención al terminar una fase y la verificación del merge antes de arrancar la
-siguiente son las de esa sección; acá no se redefinen. **Y su T2 es prerrequisito de M0**: sobre un
-árbol sin commitear no se empieza a migrar, porque la clasificación de M2 y el censo de M3 se miden
-sobre un estado que el historial no registra.
 
 **Nota de habilitación de M2.** La escritura del intake que M2 propone es un caso de escritura **estructural**, distinto de consolidar una respuesta del humano. Está autorizada por `Master-Prompt.md` §13 regla 2 **caso (b)**, con sus tres condiciones acumulativas: propuesta antes de escritura con aprobación explícita, nada se rellena, y bump major. Este prompt **no se autoriza a sí mismo**: la autorización vive en el flujo de no-modificación del intake del orquestador de generación y acá se cita. Si alguna de las tres condiciones no se cumple, M2 no escribe: la cláusula de cierre de §13 trata como error de orquestación toda escritura que no pase por ese flujo.
 
@@ -322,4 +315,3 @@ Si la migración quedó parcial, la reconciliación vuelve a encontrar el destin
 | 2.0 | 2026-08-15 | **Puesta al día con el nivel de unidad de entrega** (framework 8.5). El orquestador de migración había quedado en el modelo de dos niveles: §2 tomaba el orden topológico «de los proyectos de código», §7 validaba «dos proyectos de código principales» y §8 M4 recorría «cada proyecto de código». Ahora M4 recorre **unidades de entrega** en el orden del grafo de **integración**, suma el inventario del eje de construcción en la vista de producto, y declara que los proyectos de código no tienen árbol propio y no se recorren como nivel. Se incorpora además la precondición que faltaba: cuando el salto cambia el nivel de aplicación, M4 ejecuta **primero** la migración estructural de `Migracion-Rules.md` §4.3.2 con su detención de clasificación, porque no puede recorrer un nivel que el destino todavía no tiene; hacerlo al revés migra documentos contra un nivel que va a cambiar y obliga a tocarlos dos veces. Sube **major**: cambia qué recorre la fase larga de la migración. | Framework SDD (validación por migración) |
 | 2.2 | 2026-08-16 | Misma desambiguación que `Migracion-Rules.md` 3.4 en la tabla de artefactos. Ninguna fase, detención ni orden cambia. |
 | 2.3 | 2026-08-16 | **M1** declara que, si la invocación llega desde el orquestador de reanudación, **verifica el diff normativo que ese informe trae** en lugar de reconstruirlo. Ninguna otra fase cambia. |
-| 2.4 | 2026-08-17 | Cita `Master-Prompt.md` §12.1: cada fase es una **unidad de trabajo** que se entrega en su rama con su pull request, y **este prompt no fusiona**. Declara además que **T2 es prerrequisito de M0** —sobre un árbol sin commitear no se empieza a migrar, porque la clasificación de M2 y el censo de M3 se medirían sobre un estado que el historial no registra—. |

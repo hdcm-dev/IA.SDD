@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de reanudación
 
 **Archivo:** `Master-Prompt-Reanudacion.md`
-**Versión:** 1.3
+**Versión:** 1.2
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** lectura, diagnóstico y **entrega de contexto**, con detención obligatoria. **No escribe nada del destino salvo su propio informe**, y no ejecuta el trabajo que despacha
 **Prerequisitos:** un repositorio destino con `SDD/` poblado. No exige memoria de ninguna sesión anterior
@@ -114,20 +114,7 @@ no lo hace.
 
 ## §2 R0 — Reconocimiento
 
-Sin despachar ningún subagente. **No escribe nada del destino**: la única escritura admitida es la del
-paso 0, que **no produce contenido** —pone a salvo lo que ya estaba— y que además detiene la corrida.
-
-0. **Normalizar el repositorio, antes que nada.** Contrastar el árbol de trabajo contra el remoto:
-   cambios sin commitear, archivos sin seguir, commits locales sin empujar, y si la rama está detrás.
-   **Si hay algo sin poner a salvo, ése es el primer trabajo y no se hace ningún otro**: se aplica
-   `Master-Prompt.md` §12.1 —rama, commit, push, entrega y detención— y la reanudación **se retoma
-   después del merge**, sobre el árbol normalizado.
-
-   **No es higiene, y por eso va antes que las dimensiones.** El historial del repositorio es el
-   contraste observable de las dimensiones 3 y 5, y **no incluye lo que no está commiteado**. Sobre un
-   árbol sucio, las dos se leen contra un observable incompleto y el informe declara «coincide» o
-   «diverge» sin base. Observado: un destino con **452 cambios sin commitear, 428 de ellos borrados**,
-   con una migración estructural a mitad de camino que el historial no mostraba.
+Sin despachar ningún subagente, y sin escribir nada:
 
 1. **Verificar que hay algo que retomar.** Si `SDD/` no existe o `SDD/Docs/` está vacía, no hay
    destino que reanudar: el que corresponde es el prompt de bootstrap, y este prompt lo dice y
@@ -138,11 +125,6 @@ paso 0, que **no produce contenido** —pone a salvo lo que ya estaba— y que a
 4. **Leer los pendientes declarados**: los hallazgos abiertos del último informe de auditoría, las
    filas sin resolver de un plan de migración, y las carpetas `_fusion/` que existan, con su
    inventario.
-5. **Determinar si hay una migración en curso**, que es un estado distinto de «migró» y de «no
-   migró». Sus tres señales, y basta con dos: **existe un plan de migración** en `SDD/Docs/Audit/`,
-   **hay carpetas `_fusion/` con contenido**, y **no hay informe de migración con veredicto**. Si la
-   hay, se declara con la fase en la que quedó, porque **la salida que corresponde no es empezar de
-   nuevo**: es la E de §4.
 
 **Lo que no se hace en R0.** No se abre ninguna categoría documental para juzgar su contenido. La
 reanudación reconstruye **dónde está el trabajo**, no si está bien hecho: eso es del audit, que tiene
@@ -163,13 +145,7 @@ DOCUMENTACIÓN
   Framework vigente:       SDD {{VERSION_VIGENTE}}
   Estado:                  {{al día | desfasado en N versiones | sin procedencia}}
 
-REPOSITORIO
-  Árbol de trabajo:        {{limpio | N cambios sin commitear, de los cuales M borrados}}
-  Contra el remoto:        {{al día | N commits sin empujar | N detrás}}
-  Rama:                    {{nombre}}
-
 MIGRACIÓN
-  En curso:                {{no | sí, plan {{archivo}}, {{N}} documentos en {{M}} carpetas _fusion/}}
   Último informe:          {{archivo, versión, veredicto}}
   Fases:                   {{completas | las que faltan}}
   Carpetas _fusion/:       {{0 | N, y la fusión no terminó}}
@@ -198,45 +174,17 @@ es cierto. Presentar las salidas sin las divergencias invita a elegir sobre un e
 
 Detención obligatoria. **El humano elige; este prompt no.**
 
-| Salida | Cuándo tiene sentido | Qué continúa, en esta misma sesión | En qué estado te deja | ¿Vuelve a preguntar? | Qué **no** resuelve |
-| --- | --- | --- | --- | --- | --- |
-| **A · Reparar primero** | Hay divergencias declaradas en R1 | La reparación se acuerda y se ejecuta acá mismo, y después se vuelve a R0 sobre el árbol reparado | El árbol reparado y **el estado vuelto a leer**: la reparación cambia lo que R0 midió | **Sí.** Vuelve a R0 y esta misma pregunta se hace de nuevo, ahora sobre el árbol reparado | Nada del desfase de versión ni del avance de construcción: sólo las divergencias declaradas |
-| **B · Migrar a la vigente** | La procedencia está desfasada y el salto alcanza artefactos del destino | `Master-Prompt-Migracion.md`, **con el diff normativo de R0 ya hecho**: su fase M1 lo recibe en lugar de rehacerlo | Procedencia actualizada a la vigente y los artefactos alcanzados por el salto, reescritos | No. La decisión viaja y M1 no la revisa | Las divergencias que no sean del salto, y el avance de construcción |
-| **C · Seguir en la versión declarada** | El salto no alcanza al destino, o alcanzarlo no es prioridad hoy | `Master-Prompt.md`, **con la decisión ya tomada**: su reconciliación normativa la recibe y **no vuelve a preguntar** | Igual que ahora, con el desfase **declarado** en el informe. La procedencia **no** se toca | No, hasta que cambie la procedencia o la versión vigente | El desfase, que sigue existiendo; sólo queda dicho |
-| **D · Continuar la construcción** | La documentación está al día para lo que hace falta y lo pendiente es código | **Nada que invocar: se sigue trabajando.** El informe de R3 es lo único que hace falta, y por eso lleva la etapa, su puerta de entrada y los documentos que la gobiernan | El trabajo de construcción avanzado, y la documentación como está | No | El desfase de versión y toda divergencia declarada, que quedan abiertas |
-| **E · Retomar la migración en curso** | R0 detectó una migración **en vuelo**: hay plan, hay `_fusion/` con contenido y no hay informe con veredicto | `Master-Prompt-Migracion.md`, **desde la fase en la que quedó**, con el plan existente como insumo | La migración terminada desde la fase en que quedó, sin repetir lo hecho | No | Lo mismo que B: nada que no sea del salto |
+| Salida | Cuándo tiene sentido | Qué continúa, en esta misma sesión | Qué hay que saber antes de elegirla |
+| --- | --- | --- | --- |
+| **A · Reparar primero** | Hay divergencias declaradas en R1 | La reparación se acuerda y se ejecuta acá mismo, y después se vuelve a R0 sobre el árbol reparado | **Es la única salida que las demás dan por hecha.** Elegir B, C o D con una divergencia abierta significa trabajar sobre un estado que el árbol declara mal |
+| **B · Migrar a la vigente** | La procedencia está desfasada y el salto alcanza artefactos del destino | `Master-Prompt-Migracion.md`, **con el diff normativo de R0 ya hecho**: su fase M1 lo recibe en lugar de rehacerlo | Cuánto del salto **realmente** alcanza al destino. Un salto de varias versiones que sólo cambió reglas de proceso —cómo migrar, cómo auditar— **no toca ningún artefacto**, y migrar por el número es trabajo sin resultado |
+| **C · Seguir en la versión declarada** | El salto no alcanza al destino, o alcanzarlo no es prioridad hoy | `Master-Prompt.md`, **con la decisión ya tomada**: su reconciliación normativa la recibe y **no vuelve a preguntar** | La procedencia **sigue diciendo la verdad**: el destino se generó contra esa versión. Lo que no se puede es actualizarla sin migrar, porque eso sí sería falso |
+| **D · Continuar la construcción** | La documentación está al día para lo que hace falta y lo pendiente es código | **Nada que invocar: se sigue trabajando.** El informe de R3 es lo único que hace falta, y por eso lleva la etapa, su puerta de entrada y los documentos que la gobiernan | **El avance del código no depende de la versión del framework.** Es la salida más frecuente y la que más se pasa por alto, porque las otras tres son las que tienen prompt |
 
 **La salida D existe porque la pregunta «cuál de los dos orquestadores corro» tiene con frecuencia la
 respuesta «ninguno».** Un destino con su documentación generada y su código a mitad de camino no
 necesita ni generar ni migrar: necesita construir. Que las otras tres tengan prompt y ésta no las
 vuelve más visibles, no más correctas.
-
-**Lo que hay que saber antes de elegir cada una**, que la tabla no puede llevar sin volverse ilegible:
-
-- **A** es **la única salida que las demás dan por hecha.** Elegir B, C, D o E con una divergencia
-  abierta significa trabajar sobre un estado que el árbol declara mal.
-- **B** exige saber **cuánto del salto realmente alcanza al destino**. Un salto de varias versiones
-  que sólo cambió reglas de proceso —cómo migrar, cómo auditar, cómo barrer— **no toca ningún
-  artefacto**, y migrar por el número es trabajo sin resultado.
-- **C** deja la procedencia **diciendo la verdad**: el destino se generó contra esa versión. Lo que no
-  se puede es actualizarla sin migrar, porque eso sí sería falso.
-- **D** se apoya en que **el avance del código no depende de la versión del framework**. Es la salida
-  más frecuente y la que más se pasa por alto, porque las otras son las que tienen prompt.
-- **E** exige que R0 haya declarado la fase en la que quedó la migración. Sin eso no se retoma: se
-  vuelve a R0.
-
-**Por qué la salida E existe y no es un caso de B.** Elegir B sobre una migración en vuelo **la
-reempieza**: el orquestador de migración arranca en M0 y vuelve a construir un plan que ya está
-escrito, sobre un árbol que ya pasó por las fases estructurales. Se observó en un destino con **170
-documentos en diez carpetas `_fusion/`** y su plan de migración emitido, donde las cuatro salidas
-disponibles no incluían la única correcta —**terminar lo que estaba a medias**— y la más parecida era
-la que lo destruía.
-
-**Por qué las tres columnas nuevas.** Las salidas describían **qué invocan**, y quien elige necesita
-saber **qué le pasa a él**: en qué estado queda, si la pregunta vuelve, y qué sigue sin resolverse. La
-salida A es el caso claro: vuelve a R0 y **repite esta misma pregunta**, lo cual es correcto por
-diseño —reparar cambia el estado sobre el que se decide— y no se deducía de su texto. Elegir sin esas
-tres cosas es elegir el nombre de un prompt, no un resultado.
 
 **Actualizar la procedencia sin migrar.** Es un caso de la salida C que merece nombre propio, y sólo
 procede cuando **se verificó artefacto por artefacto que el salto no alcanza al destino**. La
@@ -349,4 +297,3 @@ entonces el contexto vuelve a vivir sólo en la sesión.
 | 1.0 | 2026-08-16 | Emisión inicial. Tercer orquestador del método, con la cardinalidad de **una vez por reanudación**. Nace de una corrida real donde retomar funcionó **porque el estado vivía en el árbol**, propiedad que el framework apoyaba sin declarar y que por eso nadie verificaba: el registro de cambios de ese destino quedó tres etapas atrás sin que nada lo señalara. Declara las **seis dimensiones del estado**, cada una con su fuente y —en las tres que en esa corrida divergieron— su **contraste observable**, con la regla de que gana el observable y la divergencia se declara. Cuatro salidas, incluida la que no tiene prompt: **continuar la construcción**. |
 | 1.1 | 2026-08-16 | **El informe deja de ser un diagnóstico y pasa a ser el instrumento de entrega**, y entra **R4, la continuación**: escrito el informe, se sigue en la misma sesión. §5 suma al informe el **diff normativo**, la **decisión** con su autor y su fecha, y el **punto de continuación**, que existe para la salida que no tiene prompt. §5.1 declara que **la decisión viaja** y que el orquestador siguiente no vuelve a preguntar lo mismo. Origen: la 1.0 cometía el defecto que corregía —un prompt contra la pérdida de contexto que no entregaba contexto—, señalado por el Product Owner el mismo día. |
 | 1.2 | 2026-08-16 | §1 suma la columna **«quién la mantiene»** a las seis dimensiones, y **§1.1** es nueva con sus tres reglas: toda fuente declarativa **nombra a su responsable en el propio documento**; cuando ningún rol corresponde el responsable es **genérico y sigue siendo obligatorio**, hasta la organización dueña del repositorio; y entre dos fuentes posibles **gana la que es subproducto del acto**. Cierra el pendiente que `Coherencia-Orquestador-Reanudacion.md` §7 dejaba declarado —una dimensión del estado cuya fuente nadie tenía obligación de mantener—. Origen: el Product Owner, que pidió no dejar el dueño boyando. |
-| 1.3 | 2026-08-17 | **R0 suma el paso 0, normalizar el repositorio**, que va antes que las dimensiones porque el historial es su contraste observable y **no incluye lo que no está commiteado**; aplica `Master-Prompt.md` §12.1 y detiene. **R0 suma el paso 5**, detectar una **migración en curso** por sus tres señales. **R1 suma el bloque REPOSITORIO** y la fila «En curso» de migración. **R2 suma la salida E, retomar la migración en vuelo** —elegir B sobre una migración a medias la reempieza— y **tres columnas**: en qué estado te deja, si vuelve a preguntar y qué **no** resuelve. Origen: dos destinos reales, uno con 452 cambios sin commitear y otro con 170 documentos en `_fusion/`, y la observación del Product Owner de que el cuestionario no dejaba entender la decisión. |
