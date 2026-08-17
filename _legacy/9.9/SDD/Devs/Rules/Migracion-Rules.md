@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino para los dos artefactos propios. El alcance sobre el que la migración opera es `SDD/Intake/` y `SDD/Docs/` del mismo repositorio
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto, unidad de entrega y proyecto de código
 **Subagente target del orquestador:** el orquestador de migración para el plan y el cierre; el auditor independiente para el informe; el subagente titular de cada categoría para re-expresar los documentos de esa categoría
-**Versión de las reglas:** 3.8
+**Versión de las reglas:** 3.7
 
 Dentro de este archivo «migración» se usa en forma desnuda, según la excepción que `Vocabulario-Rules.md` §9.6 declara: en este contexto de lectura no hay otro referente con el que colisione. En cualquier otro archivo del framework el término va calificado como «migración normativa».
 
@@ -416,47 +416,6 @@ colisión de destino.
 otro salto: un destino puede migrar sus unidades de entrega y dejar el inventario del eje de
 construcción para después. Se declara documento por documento, como exige esa sección.
 
-#### Cómo se comparan las versiones y cómo se verifica que no se perdió nada
-
-**La consolidación tiene un paso débil y uno fuerte, y sólo el fuerte estaba implícito.** Decidir
-**qué secciones difieren** entre las versiones de un grupo es lo que determina qué se transpone;
-verificar **línea por línea** que nada se perdió es lo que lo corrige si se decidió mal. Ninguno de los
-dos estaba declarado, y en una corrida real el primero falló y el segundo lo atrapó.
-
-**C1 · La comparación no normaliza el nombre del proyecto de código.** Es tentador hacerlo —aparece en
-la cabecera de las cinco versiones y ahí es ruido— pero **en el cuerpo es contenido**. Caso medido:
-cinco documentos de velocidad de equipo parecían **idénticos** al normalizar, y cada uno declaraba
-*«mide la porción de la velocidad del equipo que se gastó en»* **su** proyecto. El propio documento
-advertía que las cinco tablas no son comparables y que **sumarlas da la velocidad del equipo**:
-fundirlas en una habría destruido la única cifra con interpretación estable del conjunto.
-
-**C2 · La verificación de preservación es literal y línea por línea**, de cada documento absorbido
-contra el consolidado que lo reemplaza. No es una lectura ni un muestreo: es la comprobación que
-sostiene todo lo demás.
-
-**C3 · Se corre antes de re-derivar enlaces.** Si se corre después, **toda línea que contenga un
-enlace aparece como perdida**, porque su ruta cambió de profundidad. Medido: **48 marcas, 0 pérdidas
-reales**. Si por el orden de trabajo hay que correrla después, se compara **colapsando la ruta de los
-enlaces y conservando su texto**, que discrimina exactamente lo mismo.
-
-**C4 · Cada marca se verifica contra el texto; el recuento no alcanza.** Es la misma regla que el audit
-adoptó cuando un verificador sobre-reportó cuatro de cinco veces: **un recuento correcto puede sostener
-una conclusión falsa**, y acá el error frecuente es al revés —descartar por volumen un conjunto de
-marcas donde una era real—.
-
-**C5 · Cuatro clases no transponen, y se declaran una por una** en el `README` del archivado:
-
-| Clase | Por qué no transpone |
-| --- | --- |
-| El **título** del documento absorbido | El consolidado tiene el suyo |
-| Su campo de **identidad** | Lo reemplaza el nombre de la subsección atribuida |
-| Un **encabezado renombrado** | La sección pasó de hablar de un proyecto a hablar de todos |
-| Su **fila de control de cambios** | Es la historia **del absorbido**, no contenido suyo: vive en `_legacy/` |
-
-**Lo que queda después de descontar esas cuatro es contenido, y su recuento aceptable es cero.**
-
----
-
 ### 4.4 El intake es documento humano
 
 El Product Owner es el autor responsable del intake y quien lo aprueba. La redacción puede estar asistida por un agente, pero la autoría del contenido y la aprobación no se delegan. De ahí cuatro restricciones propias:
@@ -559,7 +518,6 @@ Antes de cerrar la migración:
 - [ ] [enumerable] Existe la **medición de solapamiento** de los grupos de consolidación, y la salida elegida para cada grupo es coherente con ella.
 - [ ] [interpretativo] Ninguna cifra se promedió al consolidar documentos de capas con umbrales distintos.
 - [ ] [enumerable] Los enlaces se reconectaron **desde un registro confirmado**, y el registro distingue lo que la migración rompió de lo que reparó.
-- [ ] [enumerable] **La verificación de preservación de cada grupo consolidado cerró en cero líneas de contenido**, con las cuatro clases que no transponen declaradas y las marcas por enlace discriminadas (§4.3.2).
 - [ ] [enumerable] **Todo apartamiento vigente del destino fue revisado** (§4.7) y quedó con uno de los tres resultados declarado en el informe; ninguno quedó sin resolver.
 - [ ] [enumerable] **Ningún apartamiento preservado fue re-fundamentado**: los que siguen `vigente` conservan su texto literal y sólo cambió su contador.
 - [ ] [enumerable] **Por cada documento movido corrió el procedimiento de §4.3.1**, y su verificación cierra: los enlaces que resolvían antes resuelven después, y el conjunto de rotos previos es **el mismo conjunto**, no la misma cantidad.
@@ -666,4 +624,3 @@ Para el despacho del auditor, los criterios de §6 de este archivo se suman a lo
 | 3.5 | 2026-08-16 | La señal de clasificación de §4.3.1 se llamaba «es el proyecto de código principal», que con el renombre del campo sería circular —la señal serviría para decidir si algo es una unidad de entrega nombrándolo unidad de entrega—. Pasa a **«el intake lo señalaba como principal»**, que es lo que el agente efectivamente lee del origen. Sube **patch**. |
 | 3.6 | 2026-08-17 | **§4.3.1 suma el procedimiento de mover un documento.** Todo lo que la subsección decía sobre enlaces estaba escrito como **lección y no como paso**, y por eso se redescubría en cada corrida: mover produce una consecuencia mecánica sobre los enlaces salientes y entrantes, que **no es criterio sino aritmética** y por lo tanto se ejecuta y se verifica. Cinco pasos: **resolver y registrar antes de mover** —con los **rotos previos** declarados aparte y **no arreglados de paso**—, mover, **re-derivar** hacia el mismo destino absoluto, **reconectar los entrantes por resolución de destino** y sólo los que dejaron de resolver, y **verificar comparando conjuntos y no cantidades**, porque un recuento igual puede esconder que se rompió uno y se arregló otro. §6 suma su criterio de aceptación enumerable. Sube **minor**: agrega un procedimiento y un criterio sin cambiar ninguna fase. | Framework SDD (procedimiento de mover) |
 | 3.7 | 2026-08-17 | **§4.7 es nueva: la revisión de apartamientos.** Un destino acumula reglas locales que el método no contempla, y la migración **no las miraba**: un apartamiento absorbido, uno contradicho y uno todavía vigente se veían iguales. Se revisa cada uno contra la vigente con **tres resultados** —absorbido, contradicho, no contemplado—, y el insumo **no es una interpretación**: es el campo 4 del propio ADR, los disparadores que superarían la decisión. El caso **contradicho reusa la detención por arbitraje** de `Master-Prompt.md` §7.0 en lugar de estrenar una: es la misma forma —dos cosas aprobadas que se contradicen— entre el destino y el método. Los que sobreviven **dos o más saltos** se declaran **candidatos a regla del framework**, con lo cual el reporte aguas arriba deja de depender de que alguien se acuerde. Y **no se re-fundamentan al preservarse**: reescribir su fundamento contra la normativa nueva produciría un ADR que dice haber decidido algo que en su fecha nadie decidió. §6 suma dos criterios enumerables. Sube **minor**. | Framework SDD (ciclo de apartamientos) |
-| 3.8 | 2026-08-17 | **§4.3.2 declara cómo se comparan las versiones y cómo se verifica la preservación**, que era la mecánica que sostenía la consolidación **sin estar escrita**. **C1: la comparación no normaliza el nombre del proyecto de código** —en la cabecera es ruido, **en el cuerpo es contenido**—; medido sobre cinco documentos que parecían idénticos y cada uno medía la porción de velocidad de **su** proyecto, con el propio texto advirtiendo que **sumar las cinco da la del equipo**. **C2** la verificación es literal y línea por línea. **C3 se corre antes de re-derivar enlaces**, o colapsando las rutas: si no, toda línea con enlace aparece como perdida —medido: **48 marcas, 0 pérdidas reales**—. **C4** cada marca se verifica contra el texto. **C5** declara las **cuatro clases que no transponen**, incluida la **fila de control de cambios del absorbido**, que es historia suya y vive en `_legacy/`. §6 suma su criterio enumerable. Sube **minor**. | Framework SDD (cómo se compara y se verifica) |
