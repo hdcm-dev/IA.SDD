@@ -1,7 +1,7 @@
 # Marco Teórico SDD
 
 **Documento:** Marco-Teorico-SDD.md
-**Versión:** 3.4
+**Versión:** 3.3
 **Estado:** Aprobado
 **Fecha:** 2026-07-19
 **Autor:** Equipo Template SDD — UTN
@@ -16,7 +16,7 @@
 
 - [§1 Introducción y encuadre](#1-introducción-y-encuadre)
 - [§2 Fundamentos del enfoque SDD](#2-fundamentos-del-enfoque-sdd)
-- [§3 Metodología del template SDD](#3-metodología-del-template-sdd)
+- [§3 Metodología del template SDD](#3-metodología-del-template-sdd-21)
   - [§3.10 El modelo de producto más jerarquía de unidades de entrega](#310-el-modelo-de-producto-más-jerarquía-de-proyectos)
 - [§4 Especialidades del template](#4-especialidades-del-template)
 - [§5 Metodología ágil aplicada](#5-metodología-ágil-aplicada)
@@ -1969,4 +1969,3 @@ W3C. (2024). *ARIA — Accessible Rich Internet Applications*. https://www.w3.or
 | 3.0 | 2026-08-15 | Puesta al día por el nivel de unidad de entrega (framework 8.0). El marco pasa a nombrar la unidad de entrega donde el referente es el nivel intermedio del layout, y conserva el proyecto de código donde el referente es la unidad de compilación. La correspondencia con el modelo C4 que la regla de vocabulario ya registraba —unidad de entrega como *Container*, módulo como *Component*— pasa a tener materialización en el árbol de salida, que es lo que el pendiente declarado de `Vocabulario-Rules.md` §8 pedía desde la 5.0. Sube **major** por coherencia con el conjunto. |
 | 3.2 | 2026-08-16 | Concordancias de género de la sustitución léxica de la 8.0 (`Vocabulario-Rules.md` §9.5), doce en este archivo, en el barrido del layout. |
 | 3.3 | 2026-08-16 | Barrido retroactivo del concepto de la 8.0. §3.9 describía la consolidación de producto con **una** vista de un solo eje y los artefactos publicables **por proyecto de código**: pasa a los **dos** grafos con su matriz de composición, y a la publicación **por unidad de entrega**. |
-| 3.4 | 2026-08-18 | El ancla del índice a §3 arrastraba un sufijo `-21` de una conversión y no resolvía. Encontrada por la **verificación de anclas internas** que la 9.19 incorpora a `Migracion-Rules.md` §6, en su primera corrida sobre el propio framework. |

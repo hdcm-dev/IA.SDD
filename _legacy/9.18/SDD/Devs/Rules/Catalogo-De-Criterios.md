@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Catalogo-De-Criterios.md
-**Versión:** 1.5
+**Versión:** 1.4
 **Estado:** Vigente
 **Fecha:** 2026-08-17
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
@@ -47,8 +47,6 @@ aplica sin su fundamento — y el fundamento es lo que permite reconocer cuándo
 | Hay una migración en vuelo y se quiere empezar otra cosa | Retomar o reempezar | `Master-Prompt-Reanudacion.md` §4, salida E |
 | Dos categorías declaran valores incompatibles de un conjunto cerrado | Quién arbitra | [`Master-Prompt.md`](../Orchestrator/Master-Prompt.md) §7.0, detención por arbitraje |
 | Hay que detener y preguntarle al humano | Qué lleva la detención para que la decisión sea informada | `Master-Prompt.md` §8.1, F1 a F4 |
-| Apareció un hallazgo y no se sabe si detener o resolverlo | Si tiene respuesta en el árbol, sostenible con cita literal | `Master-Prompt.md` §8.1, la pregunta previa |
-| Hay que encargarle una verificación a un auditor | Cómo se formula para que no confirme por correlación | `Master-Prompt.md` §10, las tres partes del encargo |
 | Falta un dato para completar un documento | Preguntar o inferir | `Master-Prompt.md` §9 |
 | Terminó una unidad de trabajo y hay que entregarla | Quién fusiona, qué se verifica, cómo se entrega | `Master-Prompt.md` §12.1, T0 a T6 |
 | Un artefacto obligatorio no aplica a este producto | Omitirlo o forzarlo | [`Root-Rules.md`](../Rules/Root-Rules.md) §11, apartamiento declarado |
@@ -170,4 +168,3 @@ regla—. Lo que no corresponde adoptar es la **infraestructura** de DMN, no su 
 | 1.2 | 2026-08-17 | §4 declara que la marca `[enumerable]` **la consume la compuerta mecánica** de `Master-Prompt.md` §10.0 desde la 9.13, y no sólo documenta quién decide. |
 | 1.3 | 2026-08-18 | Corrección de recuento encontrada por el **barrido por concepto** (`SDD-Development-Guide.md` §VI.3.1): la fila de §3 decía «las **once** comprobaciones» y §VI.3 tiene **doce** desde la 9.10. El catálogo indexa por situación y **su valor depende de que el puntero sea exacto**: un índice que manda a once comprobaciones cuando hay doce enseña a no contarlas. |
 | 1.4 | 2026-08-18 | §3 suma la situación **«se escribe una regla nueva a partir de un caso observado»**, que la Parte IV de `SDD-Development-Guide.md` incorporó en la 9.18. Es la comprobación **12** de §VI.3 funcionando: un criterio nuevo entra al índice en la misma intervención que lo crea. |
-| 1.5 | 2026-08-18 | §3 suma dos situaciones que la 9.19 incorporó: **«apareció un hallazgo y no se sabe si detener o resolverlo»**, que resuelve la pregunta previa de §8.1, y **«hay que encargarle una verificación a un auditor»**, que resuelven las tres partes del encargo de §10. |
