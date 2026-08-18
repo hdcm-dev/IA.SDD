@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/00-Contexto/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Subagente target del orquestador:** Product Manager Senior (AG-00) en conjunción con Analista de Negocio Senior (AG-01) si la unidad de entrega tiene stakeholders múltiples.
-**Versión de las reglas:** 4.3
+**Versión de las reglas:** 4.4
 
 ---
 
@@ -211,16 +211,16 @@ El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente
 
 ### 4.5 Anti-patrones a evitar
 
-| Anti-patrón | Problema | Solución |
-| --- | --- | --- |
-| Visión técnica en lugar de visión de negocio | La visión menciona stack, frameworks o patrones; queda inútil para alinear stakeholders no técnicos | Reescribir en lenguaje del cliente, mover el stack al PRODUCT-INTAKE (§17 P.1) |
-| Alcance sin exclusiones explícitas | Sin "fuera de alcance" declarado, el scope creep es inevitable | Forzar mínimo 3 exclusiones con justificación |
-| Roadmap sin criterios para reordenar | Fases listadas sin criterios de salida; nunca se sabe si una fase terminó | Cada fase tiene §5 con checklist verificable de transición |
-| Objetivos sin métrica numérica | "Que sea rápido", "que tenga buena UX" no se pueden validar | Cada objetivo en formato SMART con target numérico y plazo |
-| Stakeholders genéricos | "Los usuarios", "el equipo", "la empresa" no tienen dueño | Forzar nombre o rol concreto por stakeholder |
-| Compatibilidad enumerada sin justificación | "Soportamos Android e iOS" sin explicar versiones mínimas ni motivos | Tabla con componente, plataforma, versión mínima y motivo |
-| Acuerdo de equipo aspiracional | "Vamos a comunicarnos bien" no es verificable | Cada acuerdo se redacta como regla operativa (canal, horario, SLA) |
-| Glosario universal | Definir "API" o "framework" en el glosario no aporta | Solo términos del dominio del cliente |
+| Anti-patrón | Problema | Solución | Detección |
+| --- | --- | --- | --- |
+| Visión técnica en lugar de visión de negocio | La visión menciona stack, frameworks o patrones; queda inútil para alinear stakeholders no técnicos | Reescribir en lenguaje del cliente, mover el stack al PRODUCT-INTAKE (§17 P.1) | [interpretativo] |
+| Alcance sin exclusiones explícitas | Sin "fuera de alcance" declarado, el scope creep es inevitable | Forzar mínimo 3 exclusiones con justificación | [enumerable] |
+| Roadmap sin criterios para reordenar | Fases listadas sin criterios de salida; nunca se sabe si una fase terminó | Cada fase tiene §5 con checklist verificable de transición | [enumerable] |
+| Objetivos sin métrica numérica | "Que sea rápido", "que tenga buena UX" no se pueden validar | Cada objetivo en formato SMART con target numérico y plazo | [enumerable] |
+| Stakeholders genéricos | "Los usuarios", "el equipo", "la empresa" no tienen dueño | Forzar nombre o rol concreto por stakeholder | [interpretativo] |
+| Compatibilidad enumerada sin justificación | "Soportamos Android e iOS" sin explicar versiones mínimas ni motivos | Tabla con componente, plataforma, versión mínima y motivo | [enumerable] |
+| Acuerdo de equipo aspiracional | "Vamos a comunicarnos bien" no es verificable | Cada acuerdo se redacta como regla operativa (canal, horario, SLA) | [interpretativo] |
+| Glosario universal | Definir "API" o "framework" en el glosario no aporta | Solo términos del dominio del cliente | [interpretativo] |
 
 ---
 
@@ -456,3 +456,4 @@ Salida: SDD/Docs/00-Contexto/<archivos>.md.
 | 4.1 | 2026-08-15 | **La condición de terminado se declara en dos capas** (framework 8.0, cierre de pendiente). La capa de **acuerdo del equipo** —revisión, cobertura acordada, documentación— es de nivel producto y se emite en la Fase A, dentro de `Acuerdo-Equipo.md` §5, porque es donde el equipo la acuerda. La capa de **verificación** —pirámide de testing, quality gates, matriz de cobertura— es de la unidad de entrega y vive en `Definition-Of-Done.md` de la 08, que refina la primera en lugar de crearla. Cierra el hallazgo del reporte `07` sin administrarlo: la obligación de la Fase A hacia la Fase E desaparece, porque no era una dependencia real. Un equipo puede acordar cómo cierra su trabajo sin saber todavía qué pirámide de testing usará cada entrega. Sube **minor**: reparte contenido entre dos artefactos existentes sin cambiar el conjunto de artefactos de ninguna de las dos categorías. |
 | 4.2 | 2026-08-16 | Concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5), en el barrido del layout. Sube **patch**: no cambia ninguna regla. |
 | 4.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
+| 4.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |

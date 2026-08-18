@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/03-UX-UI-DX/` para la línea de base, `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/08-Calidad-Y-Pruebas/` para la matriz de sensado
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** el subagente de la categoría que emite la afirmación; el auditor independiente para la verificación
-**Versión de las reglas:** 5.2
+**Versión de las reglas:** 5.3
 
 ---
 
@@ -237,23 +237,23 @@ auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
 
 ## 7. Anti-patrones a evitar
 
-| Anti-patrón | Problema | Solución |
-| --- | --- | --- |
-| Línea de base escrita como prosa descriptiva | No se puede rastrear ni verificar elemento por elemento | Inventario con identificadores estables, con el ancho de `Root-Rules.md` §9.2 |
-| Matriz sin umbrales | Toda diferencia parece deriva; el equipo la abandona en dos sprints | Declarar umbral por fila según la tabla del §3 |
-| Matriz sin método de verificación | Nadie sabe cómo comprobar la fila, así que nadie la comprueba | Método concreto por fila, resuelto por AG-08 en la Fase E |
-| Evidencia que cita al mismo agente que afirma | Verificación circular: el agente se cita a sí mismo | La evidencia es independiente de quien afirma |
-| Evidencia sin fecha ni commit | No se sabe si sigue siendo cierta | Contemporaneidad obligatoria en el formato de cita |
-| Deriva mayor registrada y no escalada | La matriz se convierte en un registro de deudas que nadie paga | Toda deriva mayor se resuelve por corrección o por actualización aprobada de la línea de base |
-| Actualizar la línea de base en silencio para que cierre | Se elimina el punto de comparación y el sensado deja de sensar | La actualización sube versión, requiere aprobación humana y re-dispara la propagación |
-| Aplicar D9 a toda oración de todo documento | Se llena la documentación de citas ceremoniales y se pierde la señal | D9 aplica a las afirmaciones sobre el estado del sistema, según la tabla del §1 |
-| Reauditar retroactivamente toda la documentación previa contra D9 | Volumen de hallazgos que ahoga a los reales | D9 rige hacia adelante desde su incorporación |
-| Tratar la maqueta como contrato pixel a pixel | Bloqueo permanente por diferencias irrelevantes | Umbrales de deriva menor y mayor |
-| Emitir línea de base sin Fase B2 | No hay nada que el humano haya mirado y aprobado; la línea de base es una afirmación más | La línea de base se emite solo desde una maqueta aprobada explícitamente |
-| Dejar sin matriz a una unidad de entrega sin interfaz visual | Se lo deja sin instrumento de sensado por no tener maqueta, cuando sí tiene contratos que pueden derivar | Si hay categoría 10, la matriz se emite con sondas `VER-XXXXX` aunque no haya Fase B2 |
-| Sonda `VER-XXXXX` con método de verificación manual | Desaprovecha lo único que la distingue: que trae su comando y su aserción | El método es el comando del contrato, salvo justificación escrita en la fila |
-| Transcribir la evidencia del contrato dentro de la matriz | Dos copias de la misma salida que divergen en la corrida siguiente | La matriz cita el `VER-XXXXX` y su fecha; la salida vive en el sample |
-| Confundir deriva de superficie con deriva de comportamiento | Se aplica el umbral equivocado y se escala mal | `SUP-XXXXX` a `DM-XXXXX` miden parecido con lo aprobado; `VER-XXXXX` mide si el sistema sigue haciendo lo especificado |
+| Anti-patrón | Problema | Solución | Detección |
+| --- | --- | --- | --- |
+| Línea de base escrita como prosa descriptiva | No se puede rastrear ni verificar elemento por elemento | Inventario con identificadores estables, con el ancho de `Root-Rules.md` §9.2 | [interpretativo] |
+| Matriz sin umbrales | Toda diferencia parece deriva; el equipo la abandona en dos sprints | Declarar umbral por fila según la tabla del §3 | [enumerable] |
+| Matriz sin método de verificación | Nadie sabe cómo comprobar la fila, así que nadie la comprueba | Método concreto por fila, resuelto por AG-08 en la Fase E | [enumerable] |
+| Evidencia que cita al mismo agente que afirma | Verificación circular: el agente se cita a sí mismo | La evidencia es independiente de quien afirma | [interpretativo] |
+| Evidencia sin fecha ni commit | No se sabe si sigue siendo cierta | Contemporaneidad obligatoria en el formato de cita | [enumerable] |
+| Deriva mayor registrada y no escalada | La matriz se convierte en un registro de deudas que nadie paga | Toda deriva mayor se resuelve por corrección o por actualización aprobada de la línea de base | [interpretativo] |
+| Actualizar la línea de base en silencio para que cierre | Se elimina el punto de comparación y el sensado deja de sensar | La actualización sube versión, requiere aprobación humana y re-dispara la propagación | [interpretativo] |
+| Aplicar D9 a toda oración de todo documento | Se llena la documentación de citas ceremoniales y se pierde la señal | D9 aplica a las afirmaciones sobre el estado del sistema, según la tabla del §1 | [interpretativo] |
+| Reauditar retroactivamente toda la documentación previa contra D9 | Volumen de hallazgos que ahoga a los reales | D9 rige hacia adelante desde su incorporación | [interpretativo] |
+| Tratar la maqueta como contrato pixel a pixel | Bloqueo permanente por diferencias irrelevantes | Umbrales de deriva menor y mayor | [interpretativo] |
+| Emitir línea de base sin Fase B2 | No hay nada que el humano haya mirado y aprobado; la línea de base es una afirmación más | La línea de base se emite solo desde una maqueta aprobada explícitamente | [enumerable] |
+| Dejar sin matriz a una unidad de entrega sin interfaz visual | Se lo deja sin instrumento de sensado por no tener maqueta, cuando sí tiene contratos que pueden derivar | Si hay categoría 10, la matriz se emite con sondas `VER-XXXXX` aunque no haya Fase B2 | [enumerable] |
+| Sonda `VER-XXXXX` con método de verificación manual | Desaprovecha lo único que la distingue: que trae su comando y su aserción | El método es el comando del contrato, salvo justificación escrita en la fila | [interpretativo] |
+| Transcribir la evidencia del contrato dentro de la matriz | Dos copias de la misma salida que divergen en la corrida siguiente | La matriz cita el `VER-XXXXX` y su fecha; la salida vive en el sample | [interpretativo] |
+| Confundir deriva de superficie con deriva de comportamiento | Se aplica el umbral equivocado y se escala mal | `SUP-XXXXX` a `DM-XXXXX` miden parecido con lo aprobado; `VER-XXXXX` mide si el sistema sigue haciendo lo especificado | [interpretativo] |
 
 ---
 
@@ -305,3 +305,4 @@ Devolución:
 | 5.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
 | 5.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_UNIDAD_ENTREGA}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |
 | 5.2 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
+| 5.3 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |

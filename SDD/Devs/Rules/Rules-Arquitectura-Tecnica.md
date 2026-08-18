@@ -4,7 +4,7 @@
 **Carpeta target (nivel producto):** `SDD/Docs/Producto/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto
 **Subagente target del orquestador:** Arquitecto de Software Senior (AG-05)
-**Versión de las reglas:** 4.3
+**Versión de las reglas:** 4.4
 
 ---
 
@@ -264,19 +264,19 @@ Tabla de trazabilidad del componente:
 
 ### 4.7 Anti-patrones a evitar
 
-| Anti-patrón | Problema | Solución |
-| --- | --- | --- |
-| Arquitectura sin ADRs (todo decidido inline) | No queda registro de por qué se eligió cada opción; rompe la trazabilidad histórica | Forzar al menos tres ADRs aceptadas por unidad de entrega, una por categoría relevante |
-| ADRs sin estado declarado | Imposible distinguir lo vigente de lo superado | Forzar el campo Estado en la cabecera y rechazar ADR sin estado |
-| ADR consolidada en un único archivo | Lección documentada del fuente Motor DSL; impide búsquedas por decisión y bloquea la inmutabilidad por archivo | Forzar archivos individuales `ADR-XXXXX-<Nombre>.md` bajo `Adrs/` |
-| Estilo arquitectónico implícito | El lector deduce el estilo por inspección; ambigüedad | Declarar el estilo en §2 del documento maestro con justificación |
-| NFR sin métrica numérica | "Debe ser rápido"; no verificable | Cada NFR con valor numérico y mecanismo de medición |
-| Modelo lógico sin migración versionada | Imposible reconstruir el esquema o auditar cambios | Referenciar migración inicial con identificador |
-| Cross-cutting concerns disperso en cada componente | Decisiones de logging y errores repetidas e inconsistentes | Centralizar en §7 del documento maestro |
-| ADR aceptada editada para reflejar nueva decisión | Pérdida del razonamiento histórico | Crear ADR nueva; marcar la anterior como `Superado por ADR-YY` |
-| Contrato sin versionado | Cambios silenciosos rompen consumidores | Declarar política de versionado y compatibilidad hacia atrás |
-| Componente como sinónimo de clase | Confunde diseño arquitectónico con diseño de código | Componente es un módulo con responsabilidad cohesiva |
-| Casing inconsistente en ADRs | Rompe automatizaciones | Forzar Título-Con-Guiones estricto en el slug |
+| Anti-patrón | Problema | Solución | Detección |
+| --- | --- | --- | --- |
+| Arquitectura sin ADRs (todo decidido inline) | No queda registro de por qué se eligió cada opción; rompe la trazabilidad histórica | Forzar al menos tres ADRs aceptadas por unidad de entrega, una por categoría relevante | [enumerable] |
+| ADRs sin estado declarado | Imposible distinguir lo vigente de lo superado | Forzar el campo Estado en la cabecera y rechazar ADR sin estado | [enumerable] |
+| ADR consolidada en un único archivo | Lección documentada del fuente Motor DSL; impide búsquedas por decisión y bloquea la inmutabilidad por archivo | Forzar archivos individuales `ADR-XXXXX-<Nombre>.md` bajo `Adrs/` | [enumerable] |
+| Estilo arquitectónico implícito | El lector deduce el estilo por inspección; ambigüedad | Declarar el estilo en §2 del documento maestro con justificación | [interpretativo] |
+| NFR sin métrica numérica | "Debe ser rápido"; no verificable | Cada NFR con valor numérico y mecanismo de medición | [enumerable] |
+| Modelo lógico sin migración versionada | Imposible reconstruir el esquema o auditar cambios | Referenciar migración inicial con identificador | [enumerable] |
+| Cross-cutting concerns disperso en cada componente | Decisiones de logging y errores repetidas e inconsistentes | Centralizar en §7 del documento maestro | [enumerable] |
+| ADR aceptada editada para reflejar nueva decisión | Pérdida del razonamiento histórico | Crear ADR nueva; marcar la anterior como `Superado por ADR-YY` | [interpretativo] |
+| Contrato sin versionado | Cambios silenciosos rompen consumidores | Declarar política de versionado y compatibilidad hacia atrás | [enumerable] |
+| Componente como sinónimo de clase | Confunde diseño arquitectónico con diseño de código | Componente es un módulo con responsabilidad cohesiva | [interpretativo] |
+| Casing inconsistente en ADRs | Rompe automatizaciones | Forzar Título-Con-Guiones estricto en el slug | [interpretativo] |
 
 ### 4.8 Secciones obligatorias de `Vista-Producto.md`
 
@@ -533,3 +533,4 @@ Salida: SDD/Docs/Producto/<estructura>.
 | 4.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |
 | 4.2 | 2026-08-16 | **Dos correcciones del mismo molde.** (1) La cabecera obligatoria de §4.1 declaraba `**Proyecto de código:**` cuando los documentos de esta categoría pertenecen a una **unidad de entrega**; pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Vivía dentro de un bloque de ejemplo cercado, que ningún barrido abría. (2) **§2.1 había renombrado el artefacto a `Arquitectura-Unidad-Entrega.md` y el renombre no se propagó dentro del propio archivo**: §4.2, el criterio de aceptación de §6, el ejemplo de §7 y los insumos de §5 seguían nombrando `Arquitectura-Proyecto-Codigo.md`. El criterio de aceptación es lo grave: **el audit verificaba la existencia del nombre viejo**, de modo que un documento generado con el nombre correcto lo habría reprobado. Sube **patch**. |
 | 4.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
+| 4.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |

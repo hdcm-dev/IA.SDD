@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/03-UX-UI-DX/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Especialista UX/UI o Especialista DX (AG-03), según variante.
-**Versión de las reglas:** 5.3
+**Versión de las reglas:** 5.4
 
 ---
 
@@ -343,33 +343,33 @@ Tabla de trazabilidad de un artefacto 03:
 
 ### 4.4 Anti-patrones a evitar
 
-| Anti-patrón | Problema | Solución |
-| --- | --- | --- |
-| Wireframe con detalle de CSS, paleta de colores o tipografía exacta | Invade UI fina; el wireframe se vuelve frágil ante cambios visuales | Mantener layout, jerarquía y comportamiento; la capa visual vive en 05 o en el design system |
-| Documento de experiencia que solo describe el flujo feliz | El producto queda subdefinido ante fallos | Listar estados de error y recuperación por superficie |
-| DX doc sin quick-start verificable o con snippet que no corre | El developer no logra el primer éxito y abandona | Validar manualmente el quick-start antes de publicar |
-| Accesibilidad ausente o reducida a una mención genérica | Riesgo legal y de exclusión; impide cumplir 08 | Declarar WCAG 2.2 AA como piso y enumerar criterios prioritarios |
-| Sufijo de versión en el nombre del archivo vivo | Reintroduce la segunda lógica de versionado que D4 eliminó, y con ella la colisión silenciosa al archivar | Un solo archivo por nombre lógico; la versión en la cabecera y el sufijo solo en `_legacy/` |
-| Mensajes de error genéricos del tipo "Error 500" o "Ocurrió un problema" | El developer o el usuario no sabe qué hacer | Reescribir con causa probable y acción sugerida |
-| Onboarding sin tramos verificables (5/30/60 minutos) | No se puede medir el éxito del onboarding | Agregar hitos verificables por tramo |
-| Glosario duplicado con vocabulario distinto entre 02 y 03 | Confusión cross-doc | Reusar términos de 02 y solo agregar los nuevos de 03 |
-| Wireframe sin estados | El developer de 05 no sabe qué dibujar cuando algo falla | Enumerar estados mínimos: vacío, cargando, con datos, error |
-| DX docs que no aplican Diátaxis | Documentación mezclada entre tutorial y reference, ilegible | Separar los cuatro modos y enlazarlos explícitamente |
-| Sufijo de versión en el nombre del archivo vivo | Reintroduce la segunda lógica de versionado que D4 eliminó, y con ella la colisión al archivar | El archivo vivo no lleva sufijo; la versión va en la cabecera |
-| Definir paleta, tipografía, espaciado o íconos ad hoc por unidad de entrega en vez de heredar del catálogo de diseño | Rompe consistencia cross-proyecto y duplica decisiones ya tomadas; los íconos raster fallan accesibilidad | Heredar tokens y patrones de `References/Design/`; iconografía SVG con `currentColor`; agregar token nuevo solo si es transversal y se promueve al catálogo |
-| Default de un parámetro o ayuda de un campo hardcodeados en la pantalla de configuración | Se desincronizan del descriptor; dos fuentes de verdad | Tomar default, límites y ayuda del descriptor (ver `Design-Rules-Config-Esquema`) |
-| Explicación "en palabras" de una configuración escrita a mano | Se desfasa de los valores reales | Generarla por plantilla a partir de descriptores + valores |
-| Aplicar cambios de configuración sin previsualización ni modo simulación | El usuario no ve el efecto antes de comprometerlo | Previsualizar (en palabras + alcance) y simular antes de confirmar |
-| Dar a la IA capacidad de ejecutar cambios de configuración en vez de proponerlos | Saca al humano del lazo; cambios sin control | La IA llena una `PropuestaDeConfiguracion`; el humano confirma, el sistema valida |
-| Dibujar en la superficie de configuración un parámetro que solo se fija al desplegar | El control no manda: el usuario cree haber configurado algo que sigue igual | Declarar la frontera aplicación/entorno y no renderizar lo que la superficie no gobierna |
-| Varias banderas de "ya configurado" o guard de primer arranque en una sola capa | El sistema queda en un estado que ninguna superficie sabe leer, o el corte se esquiva por URL o por envío tardío | Predicado único de aprovisionamiento y corte en las tres capas (ver `Design-Rules-Primer-Arranque`) |
-| Wizard multipaso para el primer arranque | Ceremonia abandonable a la mitad que deja el sistema en estado parcial | Una superficie, un acto indivisible; el resto se configura después con el sistema en marcha |
-| Arrastrar ceremonias multiusuario a un sistema de un solo operador | Registro, selector o recuperación llevan a lugares que no existen | Omitirlas y declarar la omisión (ver `Design-Rules-Acceso-Monousuario`) |
-| Distinguir "usuario inexistente" de "credencial incorrecta", o exponer umbrales de la política en el mensaje | Confirma la existencia de la identidad y filtra parámetros de seguridad | Rechazo indiferenciado con texto único; restricción temporal sin números |
-| Vencimiento silencioso de la sesión | Se manifiesta como un error arbitrario en una acción cualquiera | Devolver al shell de acceso con el estado de sesión vencida declarado |
-| Versión transcrita a mano en la vista, o instancia sin versión visible | Miente en silencio, o vuelve la instancia no diagnosticable | Derivarla de la construcción y exhibirla en las dos ubicaciones obligatorias (ver `Design-Rules-Identidad-De-Version`) |
-| Wireframe cuya superficie no tiene nombre canónico estable | La maqueta de la Fase B2 no puede nombrar su archivo ni la línea de base su `SUP-XXXXX`; la trazabilidad se rompe en la primera iteración | Nombre canónico declarado en la sección 1 del wireframe y reusado por la maqueta y por la línea de base |
-| Aprobar la maqueta y dejar los artefactos de 03 describiendo el diseño anterior | La documentación queda contando un producto que nadie aprobó; es exactamente la deriva que la fase venía a evitar | Retroalimentar 03 y propagar según la matriz de `Maqueta-Rules.md` §3.6 antes de cerrar la fase |
+| Anti-patrón | Problema | Solución | Detección |
+| --- | --- | --- | --- |
+| Wireframe con detalle de CSS, paleta de colores o tipografía exacta | Invade UI fina; el wireframe se vuelve frágil ante cambios visuales | Mantener layout, jerarquía y comportamiento; la capa visual vive en 05 o en el design system | [interpretativo] |
+| Documento de experiencia que solo describe el flujo feliz | El producto queda subdefinido ante fallos | Listar estados de error y recuperación por superficie | [interpretativo] |
+| DX doc sin quick-start verificable o con snippet que no corre | El developer no logra el primer éxito y abandona | Validar manualmente el quick-start antes de publicar | [enumerable] |
+| Accesibilidad ausente o reducida a una mención genérica | Riesgo legal y de exclusión; impide cumplir 08 | Declarar WCAG 2.2 AA como piso y enumerar criterios prioritarios | [enumerable] |
+| Sufijo de versión en el nombre del archivo vivo | Reintroduce la segunda lógica de versionado que D4 eliminó, y con ella la colisión silenciosa al archivar | Un solo archivo por nombre lógico; la versión en la cabecera y el sufijo solo en `_legacy/` | [enumerable] |
+| Mensajes de error genéricos del tipo "Error 500" o "Ocurrió un problema" | El developer o el usuario no sabe qué hacer | Reescribir con causa probable y acción sugerida | [interpretativo] |
+| Onboarding sin tramos verificables (5/30/60 minutos) | No se puede medir el éxito del onboarding | Agregar hitos verificables por tramo | [enumerable] |
+| Glosario duplicado con vocabulario distinto entre 02 y 03 | Confusión cross-doc | Reusar términos de 02 y solo agregar los nuevos de 03 | [enumerable] |
+| Wireframe sin estados | El developer de 05 no sabe qué dibujar cuando algo falla | Enumerar estados mínimos: vacío, cargando, con datos, error | [enumerable] |
+| DX docs que no aplican Diátaxis | Documentación mezclada entre tutorial y reference, ilegible | Separar los cuatro modos y enlazarlos explícitamente | [interpretativo] |
+| Sufijo de versión en el nombre del archivo vivo | Reintroduce la segunda lógica de versionado que D4 eliminó, y con ella la colisión al archivar | El archivo vivo no lleva sufijo; la versión va en la cabecera | [enumerable] |
+| Definir paleta, tipografía, espaciado o íconos ad hoc por unidad de entrega en vez de heredar del catálogo de diseño | Rompe consistencia cross-proyecto y duplica decisiones ya tomadas; los íconos raster fallan accesibilidad | Heredar tokens y patrones de `References/Design/`; iconografía SVG con `currentColor`; agregar token nuevo solo si es transversal y se promueve al catálogo | [interpretativo] |
+| Default de un parámetro o ayuda de un campo hardcodeados en la pantalla de configuración | Se desincronizan del descriptor; dos fuentes de verdad | Tomar default, límites y ayuda del descriptor (ver `Design-Rules-Config-Esquema`) | [enumerable] |
+| Explicación "en palabras" de una configuración escrita a mano | Se desfasa de los valores reales | Generarla por plantilla a partir de descriptores + valores | [interpretativo] |
+| Aplicar cambios de configuración sin previsualización ni modo simulación | El usuario no ve el efecto antes de comprometerlo | Previsualizar (en palabras + alcance) y simular antes de confirmar | [enumerable] |
+| Dar a la IA capacidad de ejecutar cambios de configuración en vez de proponerlos | Saca al humano del lazo; cambios sin control | La IA llena una `PropuestaDeConfiguracion`; el humano confirma, el sistema valida | [interpretativo] |
+| Dibujar en la superficie de configuración un parámetro que solo se fija al desplegar | El control no manda: el usuario cree haber configurado algo que sigue igual | Declarar la frontera aplicación/entorno y no renderizar lo que la superficie no gobierna | [interpretativo] |
+| Varias banderas de "ya configurado" o guard de primer arranque en una sola capa | El sistema queda en un estado que ninguna superficie sabe leer, o el corte se esquiva por URL o por envío tardío | Predicado único de aprovisionamiento y corte en las tres capas (ver `Design-Rules-Primer-Arranque`) | [interpretativo] |
+| Wizard multipaso para el primer arranque | Ceremonia abandonable a la mitad que deja el sistema en estado parcial | Una superficie, un acto indivisible; el resto se configura después con el sistema en marcha | [interpretativo] |
+| Arrastrar ceremonias multiusuario a un sistema de un solo operador | Registro, selector o recuperación llevan a lugares que no existen | Omitirlas y declarar la omisión (ver `Design-Rules-Acceso-Monousuario`) | [interpretativo] |
+| Distinguir "usuario inexistente" de "credencial incorrecta", o exponer umbrales de la política en el mensaje | Confirma la existencia de la identidad y filtra parámetros de seguridad | Rechazo indiferenciado con texto único; restricción temporal sin números | [enumerable] |
+| Vencimiento silencioso de la sesión | Se manifiesta como un error arbitrario en una acción cualquiera | Devolver al shell de acceso con el estado de sesión vencida declarado | [interpretativo] |
+| Versión transcrita a mano en la vista, o instancia sin versión visible | Miente en silencio, o vuelve la instancia no diagnosticable | Derivarla de la construcción y exhibirla en las dos ubicaciones obligatorias (ver `Design-Rules-Identidad-De-Version`) | [enumerable] |
+| Wireframe cuya superficie no tiene nombre canónico estable | La maqueta de la Fase B2 no puede nombrar su archivo ni la línea de base su `SUP-XXXXX`; la trazabilidad se rompe en la primera iteración | Nombre canónico declarado en la sección 1 del wireframe y reusado por la maqueta y por la línea de base | [enumerable] |
+| Aprobar la maqueta y dejar los artefactos de 03 describiendo el diseño anterior | La documentación queda contando un producto que nadie aprobó; es exactamente la deriva que la fase venía a evitar | Retroalimentar 03 y propagar según la matriz de `Maqueta-Rules.md` §3.6 antes de cerrar la fase | [interpretativo] |
 
 ---
 
@@ -604,3 +604,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/03-UX-UI-DX/<estruct
 | 5.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |
 | 5.2 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |
 | 5.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
+| 5.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |

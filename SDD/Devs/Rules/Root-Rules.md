@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-ROOT)
-**Versión de las reglas:** 6.1
+**Versión de las reglas:** 6.2
 
 ---
 
@@ -184,15 +184,15 @@ Tabla C: Estado actual.
 
 ### 4.5 Anti-patrones a evitar
 
-| Anti-patrón | Problema | Solución |
-| --- | --- | --- |
-| README sin tabla de unidades de entrega ni enlaces a la documentación de cada unidad de entrega | Rompe la navegación SDD y oculta la jerarquía del producto | Incluir la tabla de unidades de entrega y la Tabla A con las categorías de producto y un enlace a la carpeta de cada unidad de entrega. |
-| Stack mencionado sin versión | Imposible reproducir entornos y validar compatibilidad | Declarar siempre `tecnología @ versión` en la cabecera y en §2. |
-| Flujo de lectura único sin variantes por rol | Cada rol de intervención se pierde en información no relevante | Producir mínimo 3 flujos por rol en Tabla B. |
-| README como wiki extensa | Duplica contenido de las categorías y se desactualiza primero | Mantener el README en 200 a 400 líneas y delegar el detalle a cada categoría. |
-| Roadmap inline en el README | Genera dos fuentes de verdad sobre el roadmap | Enlazar a `00-Contexto/Roadmap-Producto.md` y no replicar contenido. |
-| Glosario que reemplaza al de UX/UI | El glosario rápido se convierte en glosario completo y diverge | Limitar a 10 a 20 términos esenciales y enlazar al glosario de la categoría UX/UI. |
-| Estado libre fuera del enum | Estados ambiguos como "casi listo" o "WIP" | Usar exclusivamente: Borrador, Propuesto, Aprobado, Vigente, Superado, Archivado. |
+| Anti-patrón | Problema | Solución | Detección |
+| --- | --- | --- | --- |
+| README sin tabla de unidades de entrega ni enlaces a la documentación de cada unidad de entrega | Rompe la navegación SDD y oculta la jerarquía del producto | Incluir la tabla de unidades de entrega y la Tabla A con las categorías de producto y un enlace a la carpeta de cada unidad de entrega. | [enumerable] |
+| Stack mencionado sin versión | Imposible reproducir entornos y validar compatibilidad | Declarar siempre `tecnología @ versión` en la cabecera y en §2. | [enumerable] |
+| Flujo de lectura único sin variantes por rol | Cada rol de intervención se pierde en información no relevante | Producir mínimo 3 flujos por rol en Tabla B. | [enumerable] |
+| README como wiki extensa | Duplica contenido de las categorías y se desactualiza primero | Mantener el README en 200 a 400 líneas y delegar el detalle a cada categoría. | [interpretativo] |
+| Roadmap inline en el README | Genera dos fuentes de verdad sobre el roadmap | Enlazar a `00-Contexto/Roadmap-Producto.md` y no replicar contenido. | [interpretativo] |
+| Glosario que reemplaza al de UX/UI | El glosario rápido se convierte en glosario completo y diverge | Limitar a 10 a 20 términos esenciales y enlazar al glosario de la categoría UX/UI. | [interpretativo] |
+| Estado libre fuera del enum | Estados ambiguos como "casi listo" o "WIP" | Usar exclusivamente: Borrador, Propuesto, Aprobado, Vigente, Superado, Archivado. | [interpretativo] |
 
 ---
 
@@ -633,3 +633,4 @@ Una referencia pendiente que sigue abierta al cierre del producto es hallazgo P0
 | 5.4 | 2026-08-16 | §4.2 titulaba «Proyectos de código del producto» una sección cuyo contenido es la tabla de **unidades de entrega**: el título quedó del modelo anterior a la 8.0. Sube **patch**. |
 | 6.0 | 2026-08-16 | **El campo del README raíz pasa de «Proyecto de código principal» a «Unidad de entrega principal»**, que es lo que el intake señala y lo que `Intake-Rules.md` §4 valida como bloqueante. Y los **dos ejemplos de §7** encabezaban su tabla con `| Proyecto de código | Tipo D8 | … | Redistribuible |`: una tabla del eje de construcción llevando dos atributos del eje de entrega, que es la confusión que la 8.0 declaró imposible. Sube **major**: un README raíz ya emitido declara el campo con el nombre anterior. |
 | 6.1 | 2026-08-17 | §11 suma dos campos al ADR de apartamiento: su **estado** —de un conjunto cerrado de cuatro— y los **saltos de versión que sobrevivió**. Sin estado, un apartamiento absorbido, uno contradicho y uno todavía no contemplado **se ven igual**, y el tercero es indistinguible del olvido. El **contador es el disparador que el método no tenía**: uno que sobrevive dos o más saltos sin ser contemplado ya demostró que no es de un producto, y lo dice un número en lugar de que alguien se acuerde. Sube **minor**: agrega dos campos a un artefacto existente sin cambiar cuándo corresponde emitirlo. |
+| 6.2 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |

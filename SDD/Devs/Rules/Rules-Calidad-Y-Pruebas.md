@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/08-Calidad-Y-Pruebas/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Ingeniero QA / SDET Senior (AG-08)
-**Versión de las reglas:** 4.4
+**Versión de las reglas:** 4.5
 
 ---
 
@@ -248,18 +248,18 @@ Cobertura por capa:
 
 ### 4.10 Anti-patrones a evitar
 
-| Anti-patrón | Problema | Solución |
-| --- | --- | --- |
-| Cobertura como número global sin distinguir capas | "85 % cobertura" puede esconder 100 % en getters y 30 % en dominio | Reportar cobertura por capa con umbrales diferenciados |
-| Tests sin trazabilidad a CU, RN o NFR | No se puede responder qué requisito valida cada test | Cada TC referencia al menos un CU, RN o NFR |
-| Snapshot test sin política de regeneración controlada | Los snapshots se "regeneran" para que pasen, perdiendo su valor | Regeneración requiere PR con justificación y revisión |
-| E2E pesado sustituyendo unit tests | Suite lenta, frágil y de difícil diagnóstico | Mantener proporción declarada en la pirámide |
-| DoD sin métricas verificables | "El rendimiento es aceptable" no se puede chequear en CI | Cada criterio DoD tiene una operación mecánica que lo valida |
-| Falta de prueba de regresión cuando se cierra un bug | El bug puede volver y nadie se entera | Todo bug cerrado genera al menos un TC nuevo o extiende uno existente |
-| Tests sin assert | Ejecutan código pero no verifican nada | Cada test tiene al menos una verificación explícita |
-| Coverage como meta única | 100 % de cobertura con tests triviales no mejora la calidad | Priorizar edge cases, mutation testing y trazabilidad sobre el número |
-| DoD redefinida en cada sprint plan | Inconsistencia y dilución del concepto | DoD canónica única referenciada desde los sprint plans |
-| Matriz desactualizada | Dice "Pendiente" pero hay 50 tests implementados | Actualizar la matriz al cierre de cada sprint |
+| Anti-patrón | Problema | Solución | Detección |
+| --- | --- | --- | --- |
+| Cobertura como número global sin distinguir capas | "85 % cobertura" puede esconder 100 % en getters y 30 % en dominio | Reportar cobertura por capa con umbrales diferenciados | [enumerable] |
+| Tests sin trazabilidad a CU, RN o NFR | No se puede responder qué requisito valida cada test | Cada TC referencia al menos un CU, RN o NFR | [enumerable] |
+| Snapshot test sin política de regeneración controlada | Los snapshots se "regeneran" para que pasen, perdiendo su valor | Regeneración requiere PR con justificación y revisión | [enumerable] |
+| E2E pesado sustituyendo unit tests | Suite lenta, frágil y de difícil diagnóstico | Mantener proporción declarada en la pirámide | [interpretativo] |
+| DoD sin métricas verificables | "El rendimiento es aceptable" no se puede chequear en CI | Cada criterio DoD tiene una operación mecánica que lo valida | [enumerable] |
+| Falta de prueba de regresión cuando se cierra un bug | El bug puede volver y nadie se entera | Todo bug cerrado genera al menos un TC nuevo o extiende uno existente | [enumerable] |
+| Tests sin assert | Ejecutan código pero no verifican nada | Cada test tiene al menos una verificación explícita | [enumerable] |
+| Coverage como meta única | 100 % de cobertura con tests triviales no mejora la calidad | Priorizar edge cases, mutation testing y trazabilidad sobre el número | [enumerable] |
+| DoD redefinida en cada sprint plan | Inconsistencia y dilución del concepto | DoD canónica única referenciada desde los sprint plans | [enumerable] |
+| Matriz desactualizada | Dice "Pendiente" pero hay 50 tests implementados | Actualizar la matriz al cierre de cada sprint | [interpretativo] |
 
 ---
 
@@ -494,3 +494,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/08-Calidad-Y-Pruebas
 | 4.2 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |
 | 4.3 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |
 | 4.4 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
+| 4.5 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |

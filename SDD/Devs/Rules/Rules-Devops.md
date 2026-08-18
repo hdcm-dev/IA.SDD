@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/09-Devops/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto
 **Subagente target del orquestador:** Ingeniero DevOps Senior (AG-09)
-**Versión de las reglas:** 4.5
+**Versión de las reglas:** 4.6
 
 ---
 
@@ -251,21 +251,21 @@ Tipo de unidad de entrega D8 y tipo de artefacto a publicar:
 
 ### 4.8 Anti-patrones a evitar
 
-| Anti-patrón | Problema | Solución |
-| --- | --- | --- |
-| Pipeline sin quality gates | Tests verdes con cobertura baja, sin SCA y sin SBOM; bugs y vulnerabilidades escapan a producción | Cada stage relevante declara su gate y su criterio de bloqueo |
-| Versionado manual | Olvidos, inconsistencias y versiones salteadas | Herramienta de auto-versioning a partir de Conventional Commits y tags Git |
-| Falta de SBOM | Inventario opaco, imposibilidad de responder ante CVE de dependencias | SBOM CycloneDX o SPDX adjunto a cada release |
-| Secretos en commit | Tokens expuestos en historia Git, rotación reactiva tardía | Vault o secret manager; scan automático de commits; rotación periódica |
-| Sin política de rollback | Versión rota publicada e integradores bloqueados | Procedimiento documentado por tipo de artefacto, ejecutable en minutos |
-| Stack hardcoded en el documento general | El fuente SDD 1.0 tenía `guia-publicacion-nuget` ligado al ecosistema .NET, impidiendo aplicar la regla a otros runtimes | Nombre genérico `guia-publicacion-<tipo-artefacto>.md` con el tipo elegido por proyecto de código |
-| Confundir publicación con despliegue | Aplicar DEV/QA/STAGING/PROD al artefacto de una librería | Distinguir canales (preview/stable) en library de ambientes en servicios desplegables |
-| Pipeline irreproducible localmente | Solo corre en el runner CI; debugging dependiente de logs | Comandos del pipeline documentados y ejecutables en máquina local con las mismas versiones |
-| Trigger único y opaco | Todo se dispara en push a `main`; no hay distinción PR vs release | Triggers explícitos por evento: PR, push, tag, schedule |
-| Falta de firma del artefacto | El integrador no puede verificar autoría e integridad | Firma con sigstore/cosign u homólogo en el stage final |
-| Promotion sin aprobador humano para PROD | Despliegues automáticos a producción sin gate humano cuando el negocio lo requiere | Aprobador explícito en la promoción a PROD y registro auditable |
-| CHANGELOG ausente o no mantenido | El integrador no sabe qué cambió | Generación automática desde Conventional Commits y publicación en el release |
-| Registro de avance sin responsable | La obligación queda sin sujeto y el registro se degrada sin que nadie lo incumpla. Observado: un producto declaró la etapa `b` con el código en la `e`, y la regla de actualizarlo estaba en la segunda línea de ese mismo documento | Nombrar al responsable **en el propio registro**, y derivar el avance del acto —etiqueta al fusionar, rama de la etapa— en lugar de una actualización que hay que recordar |
+| Anti-patrón | Problema | Solución | Detección |
+| --- | --- | --- | --- |
+| Pipeline sin quality gates | Tests verdes con cobertura baja, sin SCA y sin SBOM; bugs y vulnerabilidades escapan a producción | Cada stage relevante declara su gate y su criterio de bloqueo | [enumerable] |
+| Versionado manual | Olvidos, inconsistencias y versiones salteadas | Herramienta de auto-versioning a partir de Conventional Commits y tags Git | [interpretativo] |
+| Falta de SBOM | Inventario opaco, imposibilidad de responder ante CVE de dependencias | SBOM CycloneDX o SPDX adjunto a cada release | [enumerable] |
+| Secretos en commit | Tokens expuestos en historia Git, rotación reactiva tardía | Vault o secret manager; scan automático de commits; rotación periódica | [interpretativo] |
+| Sin política de rollback | Versión rota publicada e integradores bloqueados | Procedimiento documentado por tipo de artefacto, ejecutable en minutos | [enumerable] |
+| Stack hardcoded en el documento general | El fuente SDD 1.0 tenía `guia-publicacion-nuget` ligado al ecosistema .NET, impidiendo aplicar la regla a otros runtimes | Nombre genérico `guia-publicacion-<tipo-artefacto>.md` con el tipo elegido por proyecto de código | [interpretativo] |
+| Confundir publicación con despliegue | Aplicar DEV/QA/STAGING/PROD al artefacto de una librería | Distinguir canales (preview/stable) en library de ambientes en servicios desplegables | [interpretativo] |
+| Pipeline irreproducible localmente | Solo corre en el runner CI; debugging dependiente de logs | Comandos del pipeline documentados y ejecutables en máquina local con las mismas versiones | [interpretativo] |
+| Trigger único y opaco | Todo se dispara en push a `main`; no hay distinción PR vs release | Triggers explícitos por evento: PR, push, tag, schedule | [enumerable] |
+| Falta de firma del artefacto | El integrador no puede verificar autoría e integridad | Firma con sigstore/cosign u homólogo en el stage final | [enumerable] |
+| Promotion sin aprobador humano para PROD | Despliegues automáticos a producción sin gate humano cuando el negocio lo requiere | Aprobador explícito en la promoción a PROD y registro auditable | [enumerable] |
+| CHANGELOG ausente o no mantenido | El integrador no sabe qué cambió | Generación automática desde Conventional Commits y publicación en el release | [enumerable] |
+| Registro de avance sin responsable | La obligación queda sin sujeto y el registro se degrada sin que nadie lo incumpla. Observado: un producto declaró la etapa `b` con el código en la `e`, y la regla de actualizarlo estaba en la segunda línea de ese mismo documento | Nombrar al responsable **en el propio registro**, y derivar el avance del acto —etiqueta al fusionar, rama de la etapa— en lugar de una actualización que hay que recordar | [enumerable] |
 
 ### 4.9 Estructura de `Pipeline-Producto.md`
 
@@ -530,3 +530,4 @@ Salida: SDD/Docs/Producto/Pipeline-Producto.md.
 | 4.3 | 2026-08-16 | Barrido retroactivo del concepto de la 8.0. §0.2 declaraba **dos** matrices de artefactos publicables —una por unidad de entrega y otra por proyecto de código— porque la actualización de la 8.0 **agregó la nueva sin retirar la vieja**. Hay una sola: se construye por proyecto de código y **se publica por unidad de entrega**, como declara `Master-Prompt.md` §11. §2.1 queda alineada. Sube **patch**: no cambia ningún artefacto ni su contenido.  Framework SDD (barrido retroactivo 6.0 y 8.0) |
 | 4.4 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |
 | 4.5 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
+| 4.6 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |

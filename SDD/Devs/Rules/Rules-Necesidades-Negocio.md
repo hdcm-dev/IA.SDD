@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/01-Necesidades-Negocio/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Subagente target del orquestador:** Analista de Negocio Senior (AG-01)
-**Versión de las reglas:** 4.2
+**Versión de las reglas:** 4.3
 
 ---
 
@@ -200,16 +200,16 @@ Tabla D (solo para el índice maestro): Resumen de NB.
 
 ### 4.5 Anti-patrones a evitar
 
-| Anti-patrón | Problema | Solución |
-| --- | --- | --- |
-| NB redactada como historia de usuario | El formato `Como rol quiero acción para valor` corresponde a US, no a NB; mezcla niveles de abstracción | Reescribir en términos de dolor del negocio: "La organización necesita reducir X porque hoy Y" |
-| NB sin métrica numérica | El criterio de éxito no es verificable y se desliza al subjetivismo | Forzar cada fila de la tabla de criterios a tener número y unidad |
-| NB que en realidad es un caso de uso | Describe un flujo paso a paso del sistema, no una necesidad del negocio | Mover el contenido a la categoría 02 y redactar la NB como problema |
-| NB con dependencias circulares | NB-A depende de NB-B y viceversa; bloquea la planificación | Detectar el dolor común y fusionar o reordenar; nunca admitir ciclos |
-| NB con más de 3 dependencias upstream | Señal de mal recorte: probablemente esa NB debió fusionarse o partirse | Revisar si las dependencias son reales o si la NB es demasiado granular |
-| NB con título en mayúsculas o con punto antes de la versión | Rompe D3 y D4; reaparece el patrón heredado del fuente SDD 1.0 | Validar con regex `^NB-\d{2}-[a-z0-9-]+_v\d+\.\d+\.md$` antes de aceptar el filename |
-| NB con stakeholders genéricos como "el equipo" | Sin accountability concreto, la NB no tiene quién la valide | Nombrar rol específico (Product Owner, Recepcionista, Auditor) en cada fila |
-| NB sin prioridad MoSCoW declarada | El backlog no sabe en qué orden atacar las NB | Forzar §9 con valor explícito y justificación de una línea |
+| Anti-patrón | Problema | Solución | Detección |
+| --- | --- | --- | --- |
+| NB redactada como historia de usuario | El formato `Como rol quiero acción para valor` corresponde a US, no a NB; mezcla niveles de abstracción | Reescribir en términos de dolor del negocio: "La organización necesita reducir X porque hoy Y" | [interpretativo] |
+| NB sin métrica numérica | El criterio de éxito no es verificable y se desliza al subjetivismo | Forzar cada fila de la tabla de criterios a tener número y unidad | [enumerable] |
+| NB que en realidad es un caso de uso | Describe un flujo paso a paso del sistema, no una necesidad del negocio | Mover el contenido a la categoría 02 y redactar la NB como problema | [interpretativo] |
+| NB con dependencias circulares | NB-A depende de NB-B y viceversa; bloquea la planificación | Detectar el dolor común y fusionar o reordenar; nunca admitir ciclos | [interpretativo] |
+| NB con más de 3 dependencias upstream | Señal de mal recorte: probablemente esa NB debió fusionarse o partirse | Revisar si las dependencias son reales o si la NB es demasiado granular | [enumerable] |
+| NB con título en mayúsculas o con punto antes de la versión | Rompe D3 y D4; reaparece el patrón heredado del fuente SDD 1.0 | Validar con regex `^NB-\d{2}-[a-z0-9-]+_v\d+\.\d+\.md$` antes de aceptar el filename | [enumerable] |
+| NB con stakeholders genéricos como "el equipo" | Sin accountability concreto, la NB no tiene quién la valide | Nombrar rol específico (Product Owner, Recepcionista, Auditor) en cada fila | [interpretativo] |
+| NB sin prioridad MoSCoW declarada | El backlog no sabe en qué orden atacar las NB | Forzar §9 con valor explícito y justificación de una línea | [enumerable] |
 
 ---
 
@@ -412,3 +412,4 @@ Salida: SDD/Docs/01-Necesidades-Negocio/<archivos>.
 | 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
 | 4.1 | 2026-08-16 | Concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5), en el barrido del layout. Sube **patch**: no cambia ninguna regla. |
 | 4.2 | 2026-08-16 | La tabla de cabecera de los dos ejemplos de §7 declaraba `| Proyecto de código |` cuando estos documentos son de **nivel producto y de unidad de entrega**, no de proyecto de código. Sube **patch**. |
+| 4.3 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`.  Framework SDD (catálogo de criterios) |
