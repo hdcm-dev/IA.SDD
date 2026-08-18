@@ -3,6 +3,23 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.13] - 2026-08-17
+
+**La compuerta mecánica tenía su conjunto de reglas cableado, y el catálogo acababa de marcar 97 comprobaciones que nadie consumía.**
+
+`Master-Prompt.md` §10.0 evalúa propiedades enumerables **antes de que el audit interprete nada** — es, en los hechos, un motor de decisión: recibe el árbol de una fase como contexto, evalúa reglas y devuelve un veredicto. Pero sus reglas eran **cinco, escritas a mano en esa sección**. La 9.11 marcó **97 de las 202** situaciones catalogadas como `[enumerable]`, y **la compuerta no las conocía**.
+
+### Cambiado
+
+- **`Master-Prompt.md` 8.4 → 8.5.** §10.0 declara que su conjunto de reglas son **dos**: las comprobaciones transversales que ya enumeraba, y **los anti-patrones `[enumerable]` de la regla de la categoría en curso**. Un anti-patrón que se verifica es hallazgo, y el remedio es el que su propia fila declara. Los `[interpretativo]` **siguen siendo del audit**, que es donde el criterio corresponde.
+- **`Catalogo-De-Criterios.md` 1.1 → 1.2.** §4 declara que la marca **la consume la compuerta**, y no sólo documenta quién decide.
+
+**Por qué el segundo conjunto no se copia en §10.0.** Duplicarlo lo pondría en dos lugares, y **una duplicación que hay que mantener en paralelo se desincroniza** — es el mismo fundamento con el que `Migracion-Rules.md` §3 rechazó escribir playbooks por salto de versión. La compuerta **lee la regla de la categoría**; no guarda su propia copia.
+
+**Ninguna comprobación nueva se agregó: las 97 ya estaban escritas.** Lo que cambió es que ahora alguien las corre. El conjunto superado se archiva en `_legacy/9.12/`.
+
+---
+
 ## [9.12] - 2026-08-17
 
 **Dos correcciones sobre la 9.11, las dos señaladas por el Product Owner.**

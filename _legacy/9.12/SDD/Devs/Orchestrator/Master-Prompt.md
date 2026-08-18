@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 8.5
+**Versión:** 8.4
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -962,24 +962,6 @@ Las propiedades a verificar son de dos naturalezas y el framework las trataba ig
 - **Interpretativas**: se deciden leyendo los dos lados. Si una frase dice lo que su fuente dice, si
   un argumento se sostiene, si una decisión está bien tomada. Ningún guion las alcanza.
 
-**De dónde sale el conjunto de reglas de la compuerta.** Son dos conjuntos, y hasta la 9.13 sólo
-existía el primero:
-
-1. **Las comprobaciones transversales**, que se enumeran abajo y valen para toda fase y toda categoría.
-2. **Los anti-patrones marcados `[enumerable]`** en la tabla §4.8 —o equivalente— del archivo de reglas
-   de la categoría que la fase está generando. Están declarados, marcados y **son la mayoría**: 97 de
-   las 202 situaciones que el método cataloga. `Catalogo-De-Criterios.md` los inventaria por regla.
-
-**Por qué el segundo conjunto no se escribe acá.** Duplicarlo en esta sección lo pondría en dos
-lugares, y una duplicación que hay que mantener en paralelo se desincroniza — es el mismo fundamento
-con el que `Migracion-Rules.md` §3 rechazó los playbooks por salto de versión. La compuerta **lee la
-regla de la categoría**; no guarda su propia copia.
-
-**Qué hace la compuerta con un anti-patrón `[enumerable]`.** Lo evalúa como cualquier otra comprobación
-suya: si la situación se verifica, es hallazgo, y se aplica el remedio que la propia fila declara en su
-columna de solución. Los `[interpretativo]` **no son de la compuerta**: quedan para el audit, que es
-donde el criterio corresponde.
-
 Comprobaciones mínimas de la compuerta, cada una de naturaleza enumerable:
 
 1. **Enlaces y anclas** sobre el árbol de la fase: toda referencia resuelve. **Una ruta que no
@@ -1531,4 +1513,3 @@ Reglas de versionado:
 | 8.2 | 2026-08-17 | **§12.1 suma T0, la compuerta de arranque**, con sus cinco comprobaciones sobre el repositorio local contra el remoto y su salida publicada siempre, también cuando está todo en orden —que es lo que distingue «no había nada que arreglar» de «no se miró»—. **Su comprobación 4 vuelve verificable a T3**: lo que nadie miraba era que no hubiera **dos unidades vivas a la vez**, y empezar una segunda mientras la primera espera merge produce dos ramas que se pisan. **T5 pasa de verificar a verificar y preparar**: poda referencias, comprueba si la principal **trajo algo más** —trabajo de otra sesión que vuelve viejo lo medido antes del merge— y deja el repositorio en el estado que la unidad siguiente necesita, publicado con el formato de T0. Sube **minor**. | Framework SDD (compuerta de arranque) |
 | 8.3 | 2026-08-17 | **T3 admite el caso que T0 no puede detectar en lugar de prohibirlo sin control.** Una rama puede terminar con dos unidades —una reparación que aparece a mitad de fase, dos pasos que resultaron inseparables— y también por descuido; **los dos se tratan igual**: la entrega de T4 nombra las **dos**, en su orden, y dice **cuál se puede revertir sin la otra**, con lo que el humano recupera lo que T3 protege —decidir con la información completa, aunque ya no pueda decidir por separado—. Lo inaceptable pasa a ser **la rama que lleva dos y declara una**. El bloque de T4 suma la fila `Unidades`. Sube **minor**. | Framework SDD (T3 admite y declara) |
 | 8.4 | 2026-08-17 | **§8.1 es nueva: toda detención lleva análisis y propuesta**, y la leen los tres orquestadores. Medido sobre el propio framework: de las cuatro familias de detención, **dos llevaban contexto por construcción** —la confirmación de un plan y el traspaso de §12.1 T4— y **las dos que preguntan no proponían nada**: la ambigüedad tenía ocho campos cuyo centro es «pregunta concreta», y el **arbitraje de §7.0 no declaraba formato alguno**. Una detención sin propuesta **le traslada al humano el análisis que el agente ya tiene hecho**. Declara el bloque obligatorio —qué pasó, **estado de avance cuantificado** cuando lo que se decide está a medias, opciones con **qué se conserva de lo hecho**, propuesta con alternativa, y qué se espera de vuelta— y sus cuatro reglas. §9 y §7.0 adoptan la forma. **No agrega ni quita ninguna detención**: cambia la de las que ya existen. Sube **minor**. | Framework SDD (toda detención lleva propuesta) |
-| 8.5 | 2026-08-17 | **§10.0 declara de dónde sale su conjunto de reglas, que hasta acá estaba cableado.** Son dos: las comprobaciones transversales que ya enumeraba, y **los anti-patrones marcados `[enumerable]`** de la regla de la categoría en curso —**97 de las 202** situaciones catalogadas, que estaban declaradas, marcadas y sin consumir—. El segundo conjunto **no se copia acá**: la compuerta lee la regla de la categoría, con el mismo fundamento con que `Migracion-Rules.md` §3 rechazó los playbooks —una duplicación que se mantiene en paralelo se desincroniza—. Los `[interpretativo]` siguen siendo del audit. Sube **minor**: amplía el alcance de una compuerta existente sin agregar comprobaciones nuevas, porque las 97 ya estaban escritas. | Framework SDD (la compuerta toma del catálogo) |
