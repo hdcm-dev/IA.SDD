@@ -3,6 +3,34 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.11] - 2026-08-17
+
+**El método tenía 202 situaciones catalogadas y ningún punto de entrada para encontrarlas.** Se midió: **18 archivos de reglas** con tablas de anti-patrones, **71 umbrales numéricos**, salidas con condición de elección y reglas de resolución, en **cuatro formas distintas de escribir lo mismo**, y **ningún archivo llamado Criterios, Decisiones ni Situaciones**.
+
+La consecuencia es concreta: un agente que enfrenta una situación **tenía que haber leído los dieciocho archivos** para saber que el criterio existía. En esta misma corrida se aplicó la salida **S4** a una consolidación **por recuerdo de otra migración, no por búsqueda** — el criterio estaba escrito y nadie lo habría encontrado.
+
+### Agregado — `Catalogo-De-Criterios.md`
+
+**Un índice, no una regla.** No define ningún criterio: dice **dónde vive cada uno y qué decide**. Enumera **22 criterios de decisión** por situación —qué hacer cuando el árbol se contradice, cuando falta un dato, cuando dos categorías declaran valores incompatibles, cuando un apartamiento sobrevive un salto, cuando un documento cambia de ubicación— y remite a la sección que lo fundamenta.
+
+Y declara **lo que no resuelve**: qué hacer cuando la situación **no está en él**. La respuesta del método es el **apartamiento declarado**, que la migración revisa contra cada versión nueva; uno que sobrevive dos saltos es candidato a regla y entonces sí entra al catálogo.
+
+### Cambiado — las tablas de anti-patrones suman su marca de detección
+
+Las **16 reglas** con tabla de anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método **ya usaba** en los criterios de aceptación desde la intervención de los reportes `00` a `11`. **La marca dice quién puede aplicar el criterio:** los enumerables los verifica la compuerta mecánica de `Master-Prompt.md` §10.0 antes de que nadie interprete; los interpretativos son del audit y del humano.
+
+**Reparto: 202 situaciones, 97 `[enumerable]`, 105 `[interpretativo]`.**
+
+**Cómo se clasificó, y su límite declarado.** Con un criterio conservador y escrito en el propio catálogo: `[enumerable]` cuando el anti-patrón nombra una **ausencia, presencia, recuento, umbral numérico o forma literal** buscable; `[interpretativo]` en todo otro caso, **incluida la duda**. Es una primera pasada revisable, y una marca mal puesta se corrige en la regla que la contiene.
+
+### Por qué esta forma y no DMN
+
+**El estándar de la industria para esta mecánica es DMN** —tablas con condiciones de entrada y salidas, intercambiables y ejecutables, publicado por la OMG en 2015—. El catálogo adopta **su forma** —situación identificable, criterio localizable, salida declarada— y **no el estándar completo**, que exigiría un motor de decisión y un formato de intercambio que el método no tiene. Queda declarado en §5 del catálogo para que la decisión sea revisable.
+
+**Ninguna invariante modificada.** Ningún criterio cambió de contenido. El conjunto superado se archiva en `_legacy/9.10/`.
+
+---
+
 ## [9.10] - 2026-08-17
 
 **La consolidación tenía un paso débil y uno fuerte, y ninguno de los dos estaba declarado.** Decidir **qué secciones difieren** entre las versiones de un grupo determina qué se transpone; verificar **línea por línea** que nada se perdió es lo que lo corrige si se decidió mal. En una corrida real el primero falló y **el segundo lo atrapó** — pero por costumbre, no por regla.

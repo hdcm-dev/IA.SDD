@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/06-Backlog-Tecnico/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Scrum Master / Agile Coach senior (AG-06)
-**Versión de las reglas:** 4.3
+**Versión de las reglas:** 4.4
 
 ---
 
@@ -233,19 +233,19 @@ Tabla de trazabilidad de la US:
 
 ### 4.8 Anti-patrones a evitar
 
-| Anti-patrón | Problema | Solución |
-| --- | --- | --- |
-| US sin valor explícito | La cláusula `para [...]` está vacía o es un sinónimo de la acción | Forzar la verbalización del beneficio para el rol antes de aceptar la US |
-| BT que en realidad es una US | "Implementar parser" disfrazado de tarea técnica oculta el valor de negocio | Reformular como US si tiene valor para un rol; mantener como BT solo si soporta una US declarada |
-| DoR sin criterios verificables | "La historia debe estar clara" no es verificable | Cada criterio DoR debe poder responderse con sí o no de manera objetiva |
-| Estimación sin técnica declarada | Mezcla de SP y horas sin convención | Declarar la técnica en el `Product-Backlog.md` y mantenerla en todas las US |
-| Backlog sin refinement con cadencia | El backlog envejece sin curaduría; entra trabajo crudo al sprint | Política explícita de refinement (mínimo una sesión por sprint) documentada en §5 del backlog |
-| IDs heterogéneos | `US-00001` y `BT-001` conviviendo rompen búsquedas y matrices de trazabilidad (lección documentada del fuente Motor DSL) | Forzar el ancho uniforme de `Root-Rules.md` §9.2 en US, BT y EP |
-| Todo Must Have | No hay priorización real; el equipo no puede recortar alcance | Forzar distribución 60/20/20 entre Must, Should y Could como ejercicio mínimo |
-| US huérfanas de CU | No se puede validar completitud del sistema contra la especificación funcional | Columna `CU relacionados` obligatoria; AG-02 firma trazabilidad |
-| BT sin US consumidora | Tarea técnica que nadie usa; deuda inventada | Cada BT debe declarar al menos una US que la consume o justificarse como infraestructura compartida con ADR explícita |
-| Criterios de aceptación vagos | "Funciona correctamente" no se puede testear | Formato Given/When/Then obligatorio en US Must y Should |
-| DoR de 15 criterios | Nada nunca está ready; el filtro se vuelve burocrático | Máximo 8 criterios DoR para US y 6 para BT |
+| Anti-patrón | Problema | Solución | Detección |
+| --- | --- | --- | --- |
+| US sin valor explícito | La cláusula `para [...]` está vacía o es un sinónimo de la acción | Forzar la verbalización del beneficio para el rol antes de aceptar la US | [enumerable] |
+| BT que en realidad es una US | "Implementar parser" disfrazado de tarea técnica oculta el valor de negocio | Reformular como US si tiene valor para un rol; mantener como BT solo si soporta una US declarada | [interpretativo] |
+| DoR sin criterios verificables | "La historia debe estar clara" no es verificable | Cada criterio DoR debe poder responderse con sí o no de manera objetiva | [enumerable] |
+| Estimación sin técnica declarada | Mezcla de SP y horas sin convención | Declarar la técnica en el `Product-Backlog.md` y mantenerla en todas las US | [enumerable] |
+| Backlog sin refinement con cadencia | El backlog envejece sin curaduría; entra trabajo crudo al sprint | Política explícita de refinement (mínimo una sesión por sprint) documentada en §5 del backlog | [enumerable] |
+| IDs heterogéneos | `US-00001` y `BT-001` conviviendo rompen búsquedas y matrices de trazabilidad (lección documentada del fuente Motor DSL) | Forzar el ancho uniforme de `Root-Rules.md` §9.2 en US, BT y EP | [interpretativo] |
+| Todo Must Have | No hay priorización real; el equipo no puede recortar alcance | Forzar distribución 60/20/20 entre Must, Should y Could como ejercicio mínimo | [interpretativo] |
+| US huérfanas de CU | No se puede validar completitud del sistema contra la especificación funcional | Columna `CU relacionados` obligatoria; AG-02 firma trazabilidad | [interpretativo] |
+| BT sin US consumidora | Tarea técnica que nadie usa; deuda inventada | Cada BT debe declarar al menos una US que la consume o justificarse como infraestructura compartida con ADR explícita | [enumerable] |
+| Criterios de aceptación vagos | "Funciona correctamente" no se puede testear | Formato Given/When/Then obligatorio en US Must y Should | [interpretativo] |
+| DoR de 15 criterios | Nada nunca está ready; el filtro se vuelve burocrático | Máximo 8 criterios DoR para US y 6 para BT | [interpretativo] |
 
 ---
 
@@ -470,3 +470,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/06-Backlog-Tecnico/<
 | 4.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |
 | 4.2 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |
 | 4.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
+| 4.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |

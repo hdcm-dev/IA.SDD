@@ -37,6 +37,7 @@ Hay **una sola excepción** a la regla de que un orquestador no escribe en este 
 | [`PROMPTS/`](PROMPTS/) | Los **tres** prompts de entrada: el que arranca el agente de bootstrap sobre un repositorio destino, el que arranca la migración normativa de un destino que ya tiene documentación generada, y el que **retoma un destino sin saber en qué estado quedó** |
 | [`Templates/`](Templates/) | Plantillas ejecutables de maqueta, con su modelo genérico de referencia |
 | [`_legacy/`](_legacy/) | Una subcarpeta por versión publicada, con el conjunto normativo completo tal como estaba al publicarse. Es lo que permite reconstruir con qué reglas exactas se generó un destino, sin recurrir al control de versiones. Rige desde la 4.0 hacia adelante |
+| [`SDD/Devs/Rules/Catalogo-De-Criterios.md`](SDD/Devs/Rules/Catalogo-De-Criterios.md) | **Índice de los criterios de decisión del método.** No define ninguno: dice dónde vive cada uno y qué decide. Es el punto de entrada para «estoy en esta situación, ¿qué criterio aplica?» |
 | [`CHANGELOG.md`](CHANGELOG.md) | Bitácora de cambios del framework, por intervención. **Es el mecanismo de versionado**: una entrada equivale a una versión publicada y a una subcarpeta de `_legacy/` |
 
 ---

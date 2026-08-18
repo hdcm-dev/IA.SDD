@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/10-Examples/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Developer Advocate / Sample Engineer Senior (AG-10)
-**Versión de las reglas:** 6.3
+**Versión de las reglas:** 6.4
 
 ---
 
@@ -269,25 +269,25 @@ El estado `Falla` no se oculta ni se resuelve borrando la fila: se escala como h
 
 ### 4.5 Anti-patrones a evitar
 
-| Anti-patrón | Problema | Solución |
-| --- | --- | --- |
-| Samples nombrados por dominio de la unidad de entrega | Atan el ejemplo al producto particular y rompen la progresión didáctica (lección del fuente: `multa`, `multaapp-nuget`) | Nombrar por nivel o por capacidad, nunca por entidad del dominio |
-| Samples sin nivel declarado | El lector no sabe qué orden seguir y no hay progresión | Cada sample declara nivel explícito en §2 |
-| Samples no ejecutables o desactualizados | El dev clona y no le compila; la documentación pierde credibilidad | CI que compila y ejecuta cada sample en cada push |
-| Samples que duplican el `/src` sin agregar valor demostrativo | Inflan el repositorio sin enseñar nada nuevo | Cada sample demuestra una capacidad distinta o un punto de extensión |
-| Falta de trazabilidad a CU | El sample existe en el vacío y no se sabe qué requisito ejercita | §8 obligatoria con tabla de upstream |
-| Samples sin versión en el nombre | Hace imposible saber a qué versión del producto pertenecen (lección del fuente: `ejemplo-01-simple.md` sin sufijo) | Sufijo `.md` obligatorio en todos los markdown explicativos |
-| Más de cinco pasos para correr el sample | Fricción de adopción; el dev abandona antes de ver el resultado | Refactorizar a scripts de bootstrap o usar contenedores |
-| Dependencias externas no documentadas | El sample falla en máquinas limpias y nadie sabe por qué | Prerequisites exhaustivos con versión mínima |
-| Output esperado no documentado | El dev no sabe si su ejecución fue exitosa | §6 con output exacto o screenshot |
-| Samples sólo en un OS sin justificar | Excluye a parte de los integradores objetivo | Cubrir al menos los OS declarados en §17 P.9 del PRODUCT-INTAKE |
-| Mezclar progresión por nivel y por dominio en un misma unidad de entrega | El lector pierde el hilo de lectura | Elegir una progresión (nivel o capacidad) y aplicarla consistentemente |
-| `criterio_aceptacion` redactado como prosa | «Verificar que el servicio responda correctamente» obliga a que alguien interprete qué es correcto; el contrato deja de ser evaluable y la arista B se cae | Exit code, código y cuerpo de respuesta HTTP, o snapshot comparable |
-| Sample sin `Contrato de verificación` | Vuelve a ser una demo: ilustra pero no prueba nada, y no aporta sonda a la matriz de sensado | Sección 9 obligatoria en los diez apartados del markdown explicativo |
-| `evidencia` inventada o copiada de otro sample | Documenta una corrida que nunca ocurrió; es exactamente lo que D9 prohíbe | Pegar la salida textual de la última ejecución real, con su fecha |
-| `evidencia` sin fecha | No se sabe contra qué versión del código se verificó, y la evidencia envejece en silencio | Fecha obligatoria en el campo `evidencia` |
-| Contrato de verificación duplicado como test separado del sample | Divergen: el test se actualiza y el sample queda viejo, o al revés | El contrato apunta al comando que corre el sample; el test vive dentro de `/samples/XX-<Progresion>/tests/` |
-| Sample verificado que se declara Done con el contrato en `Falla` | Convierte un hallazgo real en deuda invisible | Un `criterio_aceptacion` que falla se escala como hallazgo del incremento, no se posterga |
+| Anti-patrón | Problema | Solución | Detección |
+| --- | --- | --- | --- |
+| Samples nombrados por dominio de la unidad de entrega | Atan el ejemplo al producto particular y rompen la progresión didáctica (lección del fuente: `multa`, `multaapp-nuget`) | Nombrar por nivel o por capacidad, nunca por entidad del dominio | [interpretativo] |
+| Samples sin nivel declarado | El lector no sabe qué orden seguir y no hay progresión | Cada sample declara nivel explícito en §2 | [enumerable] |
+| Samples no ejecutables o desactualizados | El dev clona y no le compila; la documentación pierde credibilidad | CI que compila y ejecuta cada sample en cada push | [interpretativo] |
+| Samples que duplican el `/src` sin agregar valor demostrativo | Inflan el repositorio sin enseñar nada nuevo | Cada sample demuestra una capacidad distinta o un punto de extensión | [enumerable] |
+| Falta de trazabilidad a CU | El sample existe en el vacío y no se sabe qué requisito ejercita | §8 obligatoria con tabla de upstream | [enumerable] |
+| Samples sin versión en el nombre | Hace imposible saber a qué versión del producto pertenecen (lección del fuente: `ejemplo-01-simple.md` sin sufijo) | Sufijo `.md` obligatorio en todos los markdown explicativos | [enumerable] |
+| Más de cinco pasos para correr el sample | Fricción de adopción; el dev abandona antes de ver el resultado | Refactorizar a scripts de bootstrap o usar contenedores | [enumerable] |
+| Dependencias externas no documentadas | El sample falla en máquinas limpias y nadie sabe por qué | Prerequisites exhaustivos con versión mínima | [interpretativo] |
+| Output esperado no documentado | El dev no sabe si su ejecución fue exitosa | §6 con output exacto o screenshot | [interpretativo] |
+| Samples sólo en un OS sin justificar | Excluye a parte de los integradores objetivo | Cubrir al menos los OS declarados en §17 P.9 del PRODUCT-INTAKE | [enumerable] |
+| Mezclar progresión por nivel y por dominio en un misma unidad de entrega | El lector pierde el hilo de lectura | Elegir una progresión (nivel o capacidad) y aplicarla consistentemente | [interpretativo] |
+| `criterio_aceptacion` redactado como prosa | «Verificar que el servicio responda correctamente» obliga a que alguien interprete qué es correcto; el contrato deja de ser evaluable y la arista B se cae | Exit code, código y cuerpo de respuesta HTTP, o snapshot comparable | [interpretativo] |
+| Sample sin `Contrato de verificación` | Vuelve a ser una demo: ilustra pero no prueba nada, y no aporta sonda a la matriz de sensado | Sección 9 obligatoria en los diez apartados del markdown explicativo | [enumerable] |
+| `evidencia` inventada o copiada de otro sample | Documenta una corrida que nunca ocurrió; es exactamente lo que D9 prohíbe | Pegar la salida textual de la última ejecución real, con su fecha | [interpretativo] |
+| `evidencia` sin fecha | No se sabe contra qué versión del código se verificó, y la evidencia envejece en silencio | Fecha obligatoria en el campo `evidencia` | [enumerable] |
+| Contrato de verificación duplicado como test separado del sample | Divergen: el test se actualiza y el sample queda viejo, o al revés | El contrato apunta al comando que corre el sample; el test vive dentro de `/samples/XX-<Progresion>/tests/` | [enumerable] |
+| Sample verificado que se declara Done con el contrato en `Falla` | Convierte un hallazgo real en deuda invisible | Un `criterio_aceptacion` que falla se escala como hallazgo del incremento, no se posterga | [interpretativo] |
 
 
 ### 4.6 Contrato de verificación
@@ -741,3 +741,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/10-Examples/<estruct
 | 6.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |
 | 6.2 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. Se corrige además el **control de cambios de los dos samples de ejemplo** de §7, que tenían pegado el texto del control de cambios **de esta regla** —incluido «categoría 11», que es el número anterior de Examples—. |
 | 6.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
+| 6.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |

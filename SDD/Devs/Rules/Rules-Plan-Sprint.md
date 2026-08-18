@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/07-Plan-Sprint/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto. **El nivel se declara por artefacto en la columna «Nivel» de §2.1**: esta categoría contiene artefactos de los dos niveles, y es la única que lo hace.
 **Subagente target del orquestador:** Scrum Master / Gestión Ágil de Proyectos de código senior (AG-07)
-**Versión de las reglas:** 5.3
+**Versión de las reglas:** 5.4
 
 ---
 
@@ -248,19 +248,19 @@ Tabla de velocity, en `Velocidad-Equipo.md`:
 
 ### 4.8 Anti-patrones a evitar
 
-| Anti-patrón | Problema | Solución |
-| --- | --- | --- |
-| Sprint goal vago ("avanzar", "mejorar el sistema") | No da dirección ni permite verificar cumplimiento | Reformular como frase orientada a valor con verbo y resultado verificable |
-| Sprint goal expresado como lista de tareas | Mata la coherencia del sprint y bloquea decisiones de scope | Una sola frase declarativa; las tareas viven en §3 |
-| Sprint cerrado con documentos de 11 afectados sin revisar | La deuda documental se vuelve invisible y se acumula hasta que la documentación deja de describir el sistema | La actualización de la categoría 11 forma parte de la DoD del sprint, según §4.5 |
-| Sprint sin DoD aplicada | Cada item se cierra con criterio improvisado | Referencia explícita a la DoD canónica de 08 + criterios específicos del sprint si los hay |
-| Plan sin trazabilidad a CU o NB | No queda registro de qué necesidad de negocio avanza | Tabla obligatoria en §8 con CU y NB que avanzan |
-| Retrospectiva sin acciones concretas | Se habla mucho pero nada cambia | Mínimo una acción con responsable nombrado y fecha de compromiso |
-| Carry-over sistemático sin alerta | El equipo arrastra items sprint tras sprint sin replantearse el commitment | Si más del 20 % de los puntos comprometidos se trasladan, disparar análisis en la retro siguiente |
-| Estimación basada en horas en lugar de puntos | Falsa precisión; ata la métrica a quien estima | Usar story points con escala consistente (Fibonacci o lineal) y declarar la unidad en §1 |
-| DoD redefinida en cada sprint | Inconsistencia inter-sprint y dilución del criterio | Referenciar la DoD canónica; agregar solo criterios específicos del sprint |
-| Doble separador en el nombre (`_sprint-XX_v`) | Inconsistencia detectada en el antecedente Motor DSL | Patrón único `plan-iteracion-sprint-XX.md` |
-| Plan abierto con `--` antes del H1 | Inconsistencia de frontmatter detectada en el antecedente | H1 directo seguido del bloque markdown de metadatos |
+| Anti-patrón | Problema | Solución | Detección |
+| --- | --- | --- | --- |
+| Sprint goal vago ("avanzar", "mejorar el sistema") | No da dirección ni permite verificar cumplimiento | Reformular como frase orientada a valor con verbo y resultado verificable | [interpretativo] |
+| Sprint goal expresado como lista de tareas | Mata la coherencia del sprint y bloquea decisiones de scope | Una sola frase declarativa; las tareas viven en §3 | [interpretativo] |
+| Sprint cerrado con documentos de 11 afectados sin revisar | La deuda documental se vuelve invisible y se acumula hasta que la documentación deja de describir el sistema | La actualización de la categoría 11 forma parte de la DoD del sprint, según §4.5 | [enumerable] |
+| Sprint sin DoD aplicada | Cada item se cierra con criterio improvisado | Referencia explícita a la DoD canónica de 08 + criterios específicos del sprint si los hay | [enumerable] |
+| Plan sin trazabilidad a CU o NB | No queda registro de qué necesidad de negocio avanza | Tabla obligatoria en §8 con CU y NB que avanzan | [enumerable] |
+| Retrospectiva sin acciones concretas | Se habla mucho pero nada cambia | Mínimo una acción con responsable nombrado y fecha de compromiso | [enumerable] |
+| Carry-over sistemático sin alerta | El equipo arrastra items sprint tras sprint sin replantearse el commitment | Si más del 20 % de los puntos comprometidos se trasladan, disparar análisis en la retro siguiente | [enumerable] |
+| Estimación basada en horas en lugar de puntos | Falsa precisión; ata la métrica a quien estima | Usar story points con escala consistente (Fibonacci o lineal) y declarar la unidad en §1 | [interpretativo] |
+| DoD redefinida en cada sprint | Inconsistencia inter-sprint y dilución del criterio | Referenciar la DoD canónica; agregar solo criterios específicos del sprint | [enumerable] |
+| Doble separador en el nombre (`_sprint-XX_v`) | Inconsistencia detectada en el antecedente Motor DSL | Patrón único `plan-iteracion-sprint-XX.md` | [enumerable] |
+| Plan abierto con `--` antes del H1 | Inconsistencia de frontmatter detectada en el antecedente | H1 directo seguido del bloque markdown de metadatos | [interpretativo] |
 
 ---
 
@@ -475,3 +475,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/07-Plan-Sprint/<estr
 | 5.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |
 | 5.2 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |
 | 5.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. Se corrige además la cabecera de sus ejemplos **rellenos** de §7, que la 8.17 no había alcanzado por haber reemplazado sólo la forma con marcador. |
+| 5.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |

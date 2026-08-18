@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/02-Especificacion-Funcional/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Analista Funcional / Ingeniero de Requisitos (AG-02)
-**Versión de las reglas:** 5.3
+**Versión de las reglas:** 5.4
 
 ---
 
@@ -287,23 +287,23 @@ Diagrama de flujo del CU expresado como pasos numerados o Mermaid sequenceDiagra
 
 ### 4.5 Anti-patrones a evitar
 
-| Anti-patrón | Problema | Solución |
-| --- | --- | --- |
-| CU que mezcla flujo funcional con detalle de interfaz | Invade 03 UX/UI y vuelve frágil el CU | Mover el detalle visual a 03; mantener en 02 sólo qué hace y para quién |
-| RN escrita como CU | Confunde acción con invariante; rompe la trazabilidad | Reescribir como enunciado declarativo atemporal |
-| Modelo conceptual con tipos físicos (varchar(255), int(11)) | Invade 05 modelo lógico | Mantener nombres y semántica; los tipos viven en 05 |
-| Sufijo de versión en el nombre del archivo vivo | Reintroduce la segunda lógica de versionado que D4 eliminó, y con ella la colisión silenciosa al archivar | Un solo archivo por nombre lógico; la versión en la cabecera y el sufijo solo en `_legacy/` |
-| Casing inconsistente (`NB-00001-Desacople` vs `NB-00002-estandarizacion`) | Inconsistencia que rompe automatizaciones | Forzar Título-Con-Guiones estricto |
-| Sufijo de versión en el nombre del archivo vivo | Reintroduce la segunda lógica de versionado que D4 eliminó, y con ella la colisión al archivar | El archivo vivo no lleva sufijo; la versión va en la cabecera |
-| CU sin escenarios de error | Solo flujo feliz; el sistema queda subdefinido | Agregar al menos una excepción por CU |
-| Criterios de aceptación narrativos sin valores concretos | No automatizables; no anclan tests | Reescribir Given/When/Then con valores explícitos |
-| CU con más de un actor primario | Ambigüedad de responsabilidad | Separar en dos CU o reorganizar el flujo |
-| RN ambigua o subjetiva | No verificable | Reescribir hasta que un test pueda decidir cumplimiento |
-| Numeración no contigua de CU sin justificación | Huecos confusos en el catálogo | Documentar la causa o renumerar |
-| Glosario ausente porque la unidad de entrega no tiene modelo conceptual | El vocabulario de la categoría queda sin declarar en `library` y `cli-tool`, que igual acuñan sus casos de uso y sus reglas | `Glosario-Funcional.md` es obligatorio para los ocho tipos D8 y no depende de ningún flag |
-| Término polisémico fuera del glosario | Un subagente aguas abajo que lee una sección suelta no puede resolver a qué referente apunta, y elige uno | Entrada de glosario que enumera los referentes, o forma calificada en las ocurrencias que colisionan |
-| Calificar todas las ocurrencias de un término cuyos contextos son disjuntos | Carga el texto sin resolver nada; es la corrección típica de un falso positivo | Verificar la colisión antes de corregir (`Vocabulario-Rules.md` §9.1) |
-| Glosario que redefine términos ya declarados en 00 | Dos definiciones del mismo término en la misma cadena documental | Referenciar el término de 00 y declarar solo la diferencia, si la hay |
+| Anti-patrón | Problema | Solución | Detección |
+| --- | --- | --- | --- |
+| CU que mezcla flujo funcional con detalle de interfaz | Invade 03 UX/UI y vuelve frágil el CU | Mover el detalle visual a 03; mantener en 02 sólo qué hace y para quién | [interpretativo] |
+| RN escrita como CU | Confunde acción con invariante; rompe la trazabilidad | Reescribir como enunciado declarativo atemporal | [interpretativo] |
+| Modelo conceptual con tipos físicos (varchar(255), int(11)) | Invade 05 modelo lógico | Mantener nombres y semántica; los tipos viven en 05 | [interpretativo] |
+| Sufijo de versión en el nombre del archivo vivo | Reintroduce la segunda lógica de versionado que D4 eliminó, y con ella la colisión silenciosa al archivar | Un solo archivo por nombre lógico; la versión en la cabecera y el sufijo solo en `_legacy/` | [enumerable] |
+| Casing inconsistente (`NB-00001-Desacople` vs `NB-00002-estandarizacion`) | Inconsistencia que rompe automatizaciones | Forzar Título-Con-Guiones estricto | [interpretativo] |
+| Sufijo de versión en el nombre del archivo vivo | Reintroduce la segunda lógica de versionado que D4 eliminó, y con ella la colisión al archivar | El archivo vivo no lleva sufijo; la versión va en la cabecera | [enumerable] |
+| CU sin escenarios de error | Solo flujo feliz; el sistema queda subdefinido | Agregar al menos una excepción por CU | [enumerable] |
+| Criterios de aceptación narrativos sin valores concretos | No automatizables; no anclan tests | Reescribir Given/When/Then con valores explícitos | [enumerable] |
+| CU con más de un actor primario | Ambigüedad de responsabilidad | Separar en dos CU o reorganizar el flujo | [enumerable] |
+| RN ambigua o subjetiva | No verificable | Reescribir hasta que un test pueda decidir cumplimiento | [interpretativo] |
+| Numeración no contigua de CU sin justificación | Huecos confusos en el catálogo | Documentar la causa o renumerar | [enumerable] |
+| Glosario ausente porque la unidad de entrega no tiene modelo conceptual | El vocabulario de la categoría queda sin declarar en `library` y `cli-tool`, que igual acuñan sus casos de uso y sus reglas | `Glosario-Funcional.md` es obligatorio para los ocho tipos D8 y no depende de ningún flag | [enumerable] |
+| Término polisémico fuera del glosario | Un subagente aguas abajo que lee una sección suelta no puede resolver a qué referente apunta, y elige uno | Entrada de glosario que enumera los referentes, o forma calificada en las ocurrencias que colisionan | [interpretativo] |
+| Calificar todas las ocurrencias de un término cuyos contextos son disjuntos | Carga el texto sin resolver nada; es la corrección típica de un falso positivo | Verificar la colisión antes de corregir (`Vocabulario-Rules.md` §9.1) | [enumerable] |
+| Glosario que redefine términos ya declarados en 00 | Dos definiciones del mismo término en la misma cadena documental | Referenciar el término de 00 y declarar solo la diferencia, si la hay | [interpretativo] |
 
 ---
 
@@ -526,3 +526,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/02-Especificacion-Fu
 | 5.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_PROYECTO_CODIGO}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |
 | 5.2 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |
 | 5.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
+| 5.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |

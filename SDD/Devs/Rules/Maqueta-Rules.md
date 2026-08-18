@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega visual):** `SDD/Maquetas/<Nombre-Unidad-Entrega>/` del repositorio destino
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Maquetador de validación visual (AG-03M)
-**Versión de las reglas:** 4.2
+**Versión de las reglas:** 4.3
 
 ---
 
@@ -491,22 +491,22 @@ auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
 
 ## 9. Anti-patrones a evitar
 
-| Anti-patrón | Problema | Solución |
-| --- | --- | --- |
-| Maquetar antes de que 02 y 03 estén aprobados | La maqueta se convierte en la especificación y el análisis se saltea; se dibuja lo primero que se ocurre | La Fase B2 corre después del audit de la Fase B, sobre una especificación ya auditada |
-| Maqueta que solo muestra el flujo feliz | El humano aprueba un producto que no tiene definido qué pasa cuando algo falla | Barra de validación con los cuatro estados mínimos por superficie |
-| Datos de ejemplo inventados por el maquetador | La maqueta valida un modelo de datos que nadie especificó | Los datos salen de los ejemplos de 02; si falta uno, se emite ambigüedad |
-| Datos hardcodeados dentro del HTML | La maqueta deja de servir para validar el modelo de datos y toda corrección hay que hacerla N veces | Fuente única en `Datos-Maqueta.js` |
-| Aprobar la maqueta y no retroalimentar la documentación | Queda una documentación que describe un producto distinto del aprobado; es la deriva que la fase venía a evitar | El paso 6 es obligatorio y su omisión es hallazgo P0 del audit |
-| Propagar una corrección manual sin confirmar la interpretación | Se documenta una decisión que el humano no tomó | Enumerar las diferencias, interpretarlas y confirmarlas antes de propagar |
-| Pisar las correcciones manuales del humano en la iteración siguiente | El humano deja de corregir a mano porque su trabajo se pierde | Preservarlas; ante conflicto con un pedido por prompt, detenerse y preguntar |
-| Agregar un paso de build para "hacerlo bien" | Se rompe la edición manual del humano, el orquestador deja de saber si la verdad es la fuente o el artefacto servido, y la maqueta pasa a depender de un toolchain | Estático, servido tal cual está en disco; la excepción se justifica con ADR (§7.2) |
-| Maqueta con estilos ad hoc en vez de tokens del catálogo | El diseño se desalinea del resto del producto y no se puede capitalizar | Heredar tokens; un token nuevo se promueve al catálogo |
-| Capturar el modelo UX-UI como descripción en vez de como reglas | Un agente futuro no puede reproducir el diseño leyéndolo | Reglas accionables, una por decisión, con el criterio de inclusión del §5 |
-| Publicar en `IA.SDD` un template con literales del dominio del cliente | Se filtra información de un cliente en un repositorio público | Ofuscación bloqueante del §6 con verificación declarada |
-| Hacer que la fase dependa del auto-lanzado del navegador | El orquestador puede correr sin sesión gráfica alcanzable y la validación queda bloqueada por una comodidad | El auto-lanzado es comodidad; la URL informada es el contrato (§3.4) |
-| Maqueta sin accesibilidad porque "es solo una maqueta" | Se valida y se aprueba una superficie inaccesible; el problema se descubre en 08 | WCAG 2.2 AA como piso también en la maqueta |
-| Tratar la maqueta aprobada como documentación viva del producto | Se desactualiza y contradice al código sin que nadie lo note | La maqueta es la línea de base de un momento; lo que vive es la especificación retroalimentada y la matriz de sensado de deriva |
+| Anti-patrón | Problema | Solución | Detección |
+| --- | --- | --- | --- |
+| Maquetar antes de que 02 y 03 estén aprobados | La maqueta se convierte en la especificación y el análisis se saltea; se dibuja lo primero que se ocurre | La Fase B2 corre después del audit de la Fase B, sobre una especificación ya auditada | [interpretativo] |
+| Maqueta que solo muestra el flujo feliz | El humano aprueba un producto que no tiene definido qué pasa cuando algo falla | Barra de validación con los cuatro estados mínimos por superficie | [interpretativo] |
+| Datos de ejemplo inventados por el maquetador | La maqueta valida un modelo de datos que nadie especificó | Los datos salen de los ejemplos de 02; si falta uno, se emite ambigüedad | [interpretativo] |
+| Datos hardcodeados dentro del HTML | La maqueta deja de servir para validar el modelo de datos y toda corrección hay que hacerla N veces | Fuente única en `Datos-Maqueta.js` | [interpretativo] |
+| Aprobar la maqueta y no retroalimentar la documentación | Queda una documentación que describe un producto distinto del aprobado; es la deriva que la fase venía a evitar | El paso 6 es obligatorio y su omisión es hallazgo P0 del audit | [interpretativo] |
+| Propagar una corrección manual sin confirmar la interpretación | Se documenta una decisión que el humano no tomó | Enumerar las diferencias, interpretarlas y confirmarlas antes de propagar | [enumerable] |
+| Pisar las correcciones manuales del humano en la iteración siguiente | El humano deja de corregir a mano porque su trabajo se pierde | Preservarlas; ante conflicto con un pedido por prompt, detenerse y preguntar | [interpretativo] |
+| Agregar un paso de build para "hacerlo bien" | Se rompe la edición manual del humano, el orquestador deja de saber si la verdad es la fuente o el artefacto servido, y la maqueta pasa a depender de un toolchain | Estático, servido tal cual está en disco; la excepción se justifica con ADR (§7.2) | [interpretativo] |
+| Maqueta con estilos ad hoc en vez de tokens del catálogo | El diseño se desalinea del resto del producto y no se puede capitalizar | Heredar tokens; un token nuevo se promueve al catálogo | [interpretativo] |
+| Capturar el modelo UX-UI como descripción en vez de como reglas | Un agente futuro no puede reproducir el diseño leyéndolo | Reglas accionables, una por decisión, con el criterio de inclusión del §5 | [interpretativo] |
+| Publicar en `IA.SDD` un template con literales del dominio del cliente | Se filtra información de un cliente en un repositorio público | Ofuscación bloqueante del §6 con verificación declarada | [interpretativo] |
+| Hacer que la fase dependa del auto-lanzado del navegador | El orquestador puede correr sin sesión gráfica alcanzable y la validación queda bloqueada por una comodidad | El auto-lanzado es comodidad; la URL informada es el contrato (§3.4) | [interpretativo] |
+| Maqueta sin accesibilidad porque "es solo una maqueta" | Se valida y se aprueba una superficie inaccesible; el problema se descubre en 08 | WCAG 2.2 AA como piso también en la maqueta | [enumerable] |
+| Tratar la maqueta aprobada como documentación viva del producto | Se desactualiza y contradice al código sin que nadie lo note | La maqueta es la línea de base de un momento; lo que vive es la especificación retroalimentada y la matriz de sensado de deriva | [interpretativo] |
 
 ---
 
@@ -569,3 +569,4 @@ Devolución:
 | 4.0 | 2026-08-15 | **El nivel intermedio pasa a ser la unidad de entrega** (framework 8.0). La cabecera declara el nivel nuevo, la carpeta target pasa de `Proyectos/<Nombre-Proyecto-Codigo>/` a `Unidades-Entrega/<Nombre-Unidad-Entrega>/`, las variantes de §1.2 se seleccionan por `tipo_unidad_entrega` —que es el nombre nuevo de la variable D8, porque los ocho valores son formas de **entrega**— y la prosa normativa pasa a nombrar la unidad de entrega donde el referente era el nivel intermedio, conservándola donde el referente es la unidad de compilación. Sube **major**: cambia el nivel de aplicación de la categoría, su ruta de salida y el nombre de una variable bloqueante; la documentación generada con la versión anterior deja de cumplir. Origen: el pendiente declarado en `Vocabulario-Rules.md` §8 desde la 5.0, con la evidencia medida sobre tres destinos reales. |
 | 4.1 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 4.2 | 2026-08-17 | Los cuatro pasos de detención de la Fase B2 —1, 2, 5 y 7— adoptan la forma de `Master-Prompt.md` §8.1. El paso 5 suma el caso que la motivó: cuando la maqueta **dejó de reflejar el intake** porque el intake cambió, la detención no pregunta «¿qué hacemos?» sino que propone **modificar o replantear**, declarando **qué de lo hecho vale la pena conservar** —que es lo que decide entre las dos y lo sabe quien miró la maqueta, no quien la aprueba—. |
+| 4.3 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
