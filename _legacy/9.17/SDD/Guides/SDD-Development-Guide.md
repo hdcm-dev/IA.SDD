@@ -17,7 +17,7 @@ traces:
 # Guía de desarrollo y extensibilidad del framework SDD
 
 **Documento:** SDD-Development-Guide.md
-**Versión:** 1.19
+**Versión:** 1.18
 **Estado:** Vigente
 **Fecha:** 2026-07-29
 **Rol de intervención:** Mantenedor del framework
@@ -574,40 +574,6 @@ verificación lo dice sin rodeos: una lista nunca está bien la primera vez —s
 fallar y se corrige—. Intentar prever todos los pasos produce listas largas que nadie lee, que es
 peor que una lista corta e incompleta.
 
-**Sobre las reglas que escribas a partir de un caso observado:**
-
-Casi toda regla del framework nace de una falla concreta, y ése es su mérito: viene con evidencia. El
-riesgo es de forma. **Una regla escrita contra el caso tiende a quedar enunciada sobre el caso**, no
-sobre la propiedad que el caso ilustra — y entonces **su simétrico queda afuera sin que nadie lo note,
-porque la regla se lee completa**.
-
-Tres familias observadas, y no comparten origen:
-
-| Regla | Se enunció sobre | Lo que quedó afuera | Cuándo apareció |
-| --- | --- | --- | --- |
-| Comprobación 4, «sin contradicción con lo que ya estaba» | **los archivos tocados** | el concepto fuera del alcance declarado, y **el interior de lo ya tocado** | tres intervenciones seguidas (§VI.3.1) |
-| La regla 4 del barrido | **el árbol** | **el texto propio de la intervención** | cinco veces (§VI.3.1) |
-| `Migracion-Rules.md` §4.3.2 **E4**, «todo cuerpo se cierra con salto de línea» | **el cierre**, porque el encabezado siguiente quedaba pegado | **la apertura**: el cuerpo pegado a su propio encabezado | cinco categorías de una migración |
-
-**Lo que las tres tienen en común no es el descuido: es que el enunciado quedó pegado al síntoma.** Y
-un enunciado pegado al síntoma **no falla ruidosamente**. Cubre su caso, se verifica bien, y el
-simétrico produce el mismo daño en una rama que casi no se ejecuta — así que el silencio se lee como
-conformidad.
-
-- ¿Esta regla está enunciada sobre **el caso** o sobre **la propiedad**? «Todo cuerpo se cierra» es el
-  caso; «encabezado y cuerpo van separados» es la propiedad.
-- ¿Cuál es **el simétrico**? Si la regla protege un lado —el de después, el de afuera, el de arriba—,
-  ¿qué pasa del otro? La pregunta se contesta antes de publicar, no cuando el otro lado falla.
-- ¿La rama que produciría el simétrico **se ejecuta seguido**? Si casi no se ejecuta, **la ausencia de
-  hallazgos no es evidencia de que esté cubierta**. Es el caso donde más conviene preguntar.
-- Si aparecen dos reglas hermanas, ¿van **juntas o separadas**? **Juntas.** Dos reglas hermanas
-  enunciadas por separado vuelven a permitir que se aplique una y no la otra, que es exactamente el
-  defecto que se está corrigiendo.
-
-**El límite, y conviene declararlo.** Esto no pide inventar simétricos donde no los hay: hay reglas
-cuyo caso **es** la propiedad. Pide **hacerse la pregunta**, que cuesta una línea, y declarar la
-respuesta cuando es «no tiene».
-
 **Sobre el impacto:**
 
 - ¿Cuántos archivos toca este cambio? Si son más de tres o cuatro, conviene segmentar en etapas con nota de coherencia entre cada una.
@@ -912,4 +878,3 @@ que diga otra cosa.
 | 1.16 | 2026-08-17 | **§VI.3 suma la comprobación 11, cobertura de la nota de coherencia.** La obligación de emitirla existía desde siempre y **nadie verificaba que se hubiera cumplido**: en una serie de siete intervenciones consecutivas, **dos de las que la necesitaban no la tenían**. Es enumerable —se contrastan las entradas del `CHANGELOG.md` contra el campo «versión del conjunto resultante» de las notas— y es un caso más de una obligación a la que le faltaba **ser una corrida en lugar de una lección**. | Framework SDD (cobertura de notas) |
 | 1.17 | 2026-08-17 | **§VI.3 suma la comprobación 12, cobertura del catálogo de criterios.** La versión 1.0 del catálogo declaraba como *limitación* que el índice se desactualiza si nadie agrega el criterio nuevo. **No era una limitación: era una obligación que faltaba escribir**, y un índice cuyo mantenimiento depende de la memoria reproduce el problema que vino a resolver. La forma es la que D5 ya usa para el control de cambios: **quien toca, registra**. | Framework SDD (política de coincidencia) |
 | 1.18 | 2026-08-18 | La Parte IV suma el bloque **«sobre qué forma le das a lo que escribís»**, que resuelve un criterio que hasta acá se aplicaba por olfato: **qué merece ser paso y qué queda como prosa**. Declara que las salidas son **tres** —prosa, paso, y **paso con su fundamento pegado**—, que **las tres condiciones del paso son necesarias juntas** —se lee ejecutando, su omisión hace daño y es olvidable—, que **un paso previene y una comprobación detecta, y no son sustitutos**, el **presupuesto de nueve** con sus dos salidas cuando se llena, y que **el disparador de revisión es la falla y no la previsión**. Origen: una advertencia específica con su caso medido que **no se aplicó por estar como bullet en una lista temática**. | Framework SDD (paso o prosa) |
-| 1.19 | 2026-08-18 | La Parte IV suma el bloque **«sobre las reglas que escribas a partir de un caso observado»**. Declara el defecto de forma: **una regla escrita contra un caso tiende a quedar enunciada sobre el caso y no sobre la propiedad**, y entonces **su simétrico queda afuera sin que nadie lo note, porque la regla se lee completa**. Recoge las **tres familias observadas y de origen distinto** —la comprobación 4 enunciada sobre los archivos tocados, la regla 4 del barrido enunciada sobre el árbol y no sobre el texto propio, y `Migracion-Rules.md` §4.3.2 **E4** enunciada sobre el cierre y no sobre la apertura—, sus cuatro preguntas, la regla de que **dos reglas hermanas van juntas y no separadas**, y su límite: hay reglas cuyo caso **es** la propiedad, y lo que se pide es **hacerse la pregunta**. | Framework SDD (el simétrico de la regla) |
