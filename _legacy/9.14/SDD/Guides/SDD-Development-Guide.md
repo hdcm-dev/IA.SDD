@@ -17,7 +17,7 @@ traces:
 # Guía de desarrollo y extensibilidad del framework SDD
 
 **Documento:** SDD-Development-Guide.md
-**Versión:** 1.18
+**Versión:** 1.17
 **Estado:** Vigente
 **Fecha:** 2026-07-29
 **Rol de intervención:** Mantenedor del framework
@@ -536,44 +536,6 @@ queda atrás no avisa: sigue afirmando lo último que alguien escribió.
 - Si la fuente **no** es un subproducto, ¿declaraste contra qué se la contrasta cuando miente? Ésa es
   la única defensa que le queda.
 
-**Sobre qué forma le das a lo que escribís:**
-
-Un texto normativo correcto puede ser inaplicable **por dónde está y con qué forma**. Ocurrió: una
-advertencia específica, con su caso medido, escrita en la sección que gobierna la operación, **no se
-aplicó** — porque estaba como bullet en una lista temática, y **a una sección larga no se entra a
-leerla, se entra a buscar una cosa**.
-
-Las salidas son **tres**, no dos, y la tercera es la que más se olvida:
-
-| Salida | Cuándo |
-| --- | --- |
-| **Prosa** | Se lee para **entender o decidir**, no ejecutando |
-| **Paso** | Se lee **ejecutando**, su omisión hace daño **y** es olvidable |
-| **Paso con su fundamento pegado** | Lo anterior, y además hace falta saber **cuándo no aplica** |
-
-**Las tres condiciones del paso son necesarias juntas.** Algo dañino pero imposible de olvidar no gana
-un paso; algo olvidable pero inocuo, tampoco. Sin ese filtro el procedimiento crece hasta dejar de
-leerse, que es la forma en que un procedimiento muere.
-
-- ¿Este texto se lee **ejecutando una operación**, o **decidiendo cuál ejecutar**? Lo segundo es prosa,
-  por importante que sea.
-- ¿Qué pasa si se omite? Si no hace daño, no es paso. **Si hace daño pero nadie lo olvida, tampoco.**
-- ¿Hay una **comprobación** que lo detecte después? **Un paso previene; una comprobación detecta, y no
-  son sustitutos.** Si el costo de rehacer lo detectado es alto, va como paso **aunque la comprobación
-  exista**. Medido: una verificación atrapó tres defectos seguidos, y cada detección costó rehacer una
-  categoría entera.
-- ¿El paso lleva **su fundamento junto**? Un paso sin fundamento se obedece o se ignora; **nunca se
-  adapta**, porque no hay con qué reconocer que este caso es la excepción.
-- ¿El procedimiento pasa de **nueve pasos**? Entonces o **se parte en dos puntos de parada** con
-  momentos de uso distintos, o **el ítem de menor daño vuelve a prosa**. Agrandarlo no es una opción.
-- ¿Está declarado **cuándo se corre**? Un procedimiento sin momento de uso se ejecuta cuando alguien se
-  acuerda, que es la definición de lo que no es un procedimiento.
-
-**Y el disparador para revisar la lista es la falla, no la previsión.** La práctica de listas de
-verificación lo dice sin rodeos: una lista nunca está bien la primera vez —se prueba, se la mira
-fallar y se corrige—. Intentar prever todos los pasos produce listas largas que nadie lee, que es
-peor que una lista corta e incompleta.
-
 **Sobre el impacto:**
 
 - ¿Cuántos archivos toca este cambio? Si son más de tres o cuatro, conviene segmentar en etapas con nota de coherencia entre cada una.
@@ -877,4 +839,3 @@ que diga otra cosa.
 | 1.15 | 2026-08-16 | **§VI.3.2 es nueva: el barrido se declara como patrón y se corre.** Las cinco veces que una intervención cometió el defecto que corregía, el defecto tenía una **forma anterior literal** —`Proyectos/`, `README §5`, `{{NOMBRE_PROYECTO_CODIGO}}`, `proyecto de código principal`, `**Proyecto de código:**`— y **ninguna estaba escrita en ninguna parte**. Toda intervención declara ahora el par forma anterior / forma vigente, con la anterior expresada como **patrón de búsqueda y no como descripción**; el residuo aceptable es **cero fuera de las exclusiones enumeradas**, y las seis clases de exclusión se declaran de una vez para que no se redescubran. **La regla 4 se corre con los mismos patrones sobre el texto propio**, que es la parte que faltó las cinco veces. Declara además el **límite**: cubre conceptos con huella textual y no cambios semánticos sin forma anterior. **§VI.3 comprobación 8** se reformula como corrida con residuo cero. | Framework SDD (barrido ejecutable) |
 | 1.16 | 2026-08-17 | **§VI.3 suma la comprobación 11, cobertura de la nota de coherencia.** La obligación de emitirla existía desde siempre y **nadie verificaba que se hubiera cumplido**: en una serie de siete intervenciones consecutivas, **dos de las que la necesitaban no la tenían**. Es enumerable —se contrastan las entradas del `CHANGELOG.md` contra el campo «versión del conjunto resultante» de las notas— y es un caso más de una obligación a la que le faltaba **ser una corrida en lugar de una lección**. | Framework SDD (cobertura de notas) |
 | 1.17 | 2026-08-17 | **§VI.3 suma la comprobación 12, cobertura del catálogo de criterios.** La versión 1.0 del catálogo declaraba como *limitación* que el índice se desactualiza si nadie agrega el criterio nuevo. **No era una limitación: era una obligación que faltaba escribir**, y un índice cuyo mantenimiento depende de la memoria reproduce el problema que vino a resolver. La forma es la que D5 ya usa para el control de cambios: **quien toca, registra**. | Framework SDD (política de coincidencia) |
-| 1.18 | 2026-08-18 | La Parte IV suma el bloque **«sobre qué forma le das a lo que escribís»**, que resuelve un criterio que hasta acá se aplicaba por olfato: **qué merece ser paso y qué queda como prosa**. Declara que las salidas son **tres** —prosa, paso, y **paso con su fundamento pegado**—, que **las tres condiciones del paso son necesarias juntas** —se lee ejecutando, su omisión hace daño y es olvidable—, que **un paso previene y una comprobación detecta, y no son sustitutos**, el **presupuesto de nueve** con sus dos salidas cuando se llena, y que **el disparador de revisión es la falla y no la previsión**. Origen: una advertencia específica con su caso medido que **no se aplicó por estar como bullet en una lista temática**. | Framework SDD (paso o prosa) |
