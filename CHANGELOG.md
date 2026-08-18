@@ -3,6 +3,39 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.15] - 2026-08-18
+
+**Un criterio que se venía aplicando por olfato queda escrito: qué merece ser paso y qué queda como prosa.**
+
+Lo destapó un caso concreto: una advertencia **específica, con su caso medido, escrita en la sección que gobierna la operación**, no se aplicó — porque estaba como bullet en una lista temática. **A una sección larga no se entra a leerla: se entra a buscar una cosa.**
+
+### Agregado — `SDD-Development-Guide.md` 1.17 → 1.18, Parte IV
+
+**Las salidas son tres, no dos**, y la tercera es la que más se olvida:
+
+| Salida | Cuándo |
+| --- | --- |
+| **Prosa** | Se lee para **entender o decidir**, no ejecutando |
+| **Paso** | Se lee **ejecutando**, su omisión hace daño **y** es olvidable |
+| **Paso con su fundamento pegado** | Lo anterior, y además hace falta saber **cuándo no aplica** |
+
+**Las tres condiciones del paso son necesarias juntas.** Algo dañino pero imposible de olvidar no gana un paso; algo olvidable pero inocuo, tampoco. Sin ese filtro el procedimiento crece hasta dejar de leerse, **que es la forma en que un procedimiento muere**.
+
+**Cuatro reglas más, y una es propia:**
+
+- **Un paso previene; una comprobación detecta, y no son sustitutos.** Si el costo de rehacer lo detectado es alto, va como paso **aunque la comprobación exista**. Medido en esta misma corrida: una verificación atrapó **tres defectos seguidos** y cada detección costó **rehacer una categoría entera**.
+- **El paso lleva su fundamento junto.** Sin él se obedece o se ignora, **nunca se adapta** — no hay con qué reconocer que este caso es la excepción.
+- **Presupuesto de nueve pasos.** Al llenarse, o **se parte en dos puntos de parada**, o **el ítem de menor daño vuelve a prosa**. Agrandarlo no es opción.
+- **El disparador de revisión es la falla, no la previsión.**
+
+### Cambiado — `Migracion-Rules.md` 3.10 → 3.11
+
+Los dos procedimientos de §4.3.2 declaran **cuándo se corren**, que era el único ítem obligatorio que les faltaba: la **emisión**, una vez por grupo y antes de la verificación; la **comparación**, antes de emitir; la **verificación**, **después de emitir y antes de archivar** — el único momento en que todavía se puede corregir sin rehacer.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/9.14/`.
+
+---
+
 ## [9.14] - 2026-08-17
 
 **La consolidación tenía procedimiento para comparar, para verificar y para mover, y no para emitir.** C1 a C5 dicen cómo comparar versiones y cómo verificar que no se perdió nada; §4.3.1 tiene cinco pasos numerados para mover un documento. **Emitir el documento consolidado vivía como bullets sueltos en prosa**, entre otra docena — y por eso se leía salteado.

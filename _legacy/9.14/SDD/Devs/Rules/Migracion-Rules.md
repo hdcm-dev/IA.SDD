@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino para los dos artefactos propios. El alcance sobre el que la migración opera es `SDD/Intake/` y `SDD/Docs/` del mismo repositorio
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto, unidad de entrega y proyecto de código
 **Subagente target del orquestador:** el orquestador de migración para el plan y el cierre; el auditor independiente para el informe; el subagente titular de cada categoría para re-expresar los documentos de esa categoría
-**Versión de las reglas:** 3.11
+**Versión de las reglas:** 3.10
 
 Dentro de este archivo «migración» se usa en forma desnuda, según la excepción que `Vocabulario-Rules.md` §9.6 declara: en este contexto de lectura no hay otro referente con el que colisione. En cualquier otro archivo del framework el término va calificado como «migración normativa».
 
@@ -413,8 +413,6 @@ construcción para después. Se declara documento por documento, como exige esa 
 
 #### El procedimiento de emitir el documento consolidado
 
-**Cuándo se corre.** Una vez por **grupo** de la consolidación, al construir el documento que reemplaza a sus versiones, y **antes** de la verificación de preservación.
-
 **Los cuatro pasos salen de defectos medidos, no de previsión.** Los cuatro se produjeron en
 consolidaciones reales, los cuatro los detectó la verificación de preservación de §4.3.2 antes de
 archivar nada, y **ninguno era evidente de antemano**: en un corpus generado por plantilla, las cinco
@@ -458,8 +456,6 @@ atribución; presente en una sola, con su origen declarado.
 ---
 
 #### Cómo se comparan las versiones y cómo se verifica que no se perdió nada
-
-**Cuándo se corre.** La comparación, **antes** de emitir —decide qué se transpone—. La verificación, **después de emitir y antes de archivar**, que es el único momento en que todavía se puede corregir sin rehacer.
 
 **La consolidación tiene un paso débil y uno fuerte, y sólo el fuerte estaba implícito.** Decidir
 **qué secciones difieren** entre las versiones de un grupo es lo que determina qué se transpone;
@@ -713,4 +709,3 @@ Para el despacho del auditor, los criterios de §6 de este archivo se suman a lo
 | 3.8 | 2026-08-17 | **§4.3.2 declara cómo se comparan las versiones y cómo se verifica la preservación**, que era la mecánica que sostenía la consolidación **sin estar escrita**. **C1: la comparación no normaliza el nombre del proyecto de código** —en la cabecera es ruido, **en el cuerpo es contenido**—; medido sobre cinco documentos que parecían idénticos y cada uno medía la porción de velocidad de **su** proyecto, con el propio texto advirtiendo que **sumar las cinco da la del equipo**. **C2** la verificación es literal y línea por línea. **C3 se corre antes de re-derivar enlaces**, o colapsando las rutas: si no, toda línea con enlace aparece como perdida —medido: **48 marcas, 0 pérdidas reales**—. **C4** cada marca se verifica contra el texto. **C5** declara las **cuatro clases que no transponen**, incluida la **fila de control de cambios del absorbido**, que es historia suya y vive en `_legacy/`. §6 suma su criterio enumerable. Sube **minor**. | Framework SDD (cómo se compara y se verifica) |
 | 3.9 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`.  Framework SDD (catálogo de criterios) |
 | 3.10 | 2026-08-17 | **§4.3.2 suma el procedimiento de emitir el documento consolidado**, que era la única parte de la consolidación sin procedimiento: comparar y verificar tenían C1 a C5, mover tenía sus cinco pasos, y **emitir vivía como bullets sueltos en prosa**. **E1** recorre la **unión de secciones** y no la del documento vivo —medido: **722 líneas en doce secciones** descartadas en silencio—. **E2** transpone la **prosa que no cuelga de encabezado**, en sus dos lugares: el preámbulo y el texto dentro de una sección estructural; **absorbe el bullet que ya lo advertía**, que estaba suelto y por eso se leía salteado. **E3** regenera el índice **aumentando y no reemplazando**, que es el caso donde una corrección produjo el defecto siguiente. **E4** cierra todo cuerpo con salto de línea, porque un encabezado pegado **se presenta como líneas sin correspondencia** y se descarta como ruido. Nombra además el error de fondo: **clasificar las secciones por su función y asumir que la función determina si el cuerpo vale la pena conservar**. §6 suma su criterio enumerable. Sube **minor**. | Framework SDD (procedimiento de emitir) |
-| 3.11 | 2026-08-18 | Los dos procedimientos de §4.3.2 declaran **cuándo se corren**, que era el único ítem obligatorio de un procedimiento que les faltaba: la **emisión**, una vez por grupo y antes de la verificación; la **comparación**, antes de emitir, y la **verificación, después de emitir y antes de archivar** —el único momento en que todavía se puede corregir sin rehacer—. Sube **patch**. | Framework SDD (paso o prosa) |
