@@ -17,7 +17,7 @@ traces:
 # Guía de desarrollo y extensibilidad del framework SDD
 
 **Documento:** SDD-Development-Guide.md
-**Versión:** 1.17
+**Versión:** 1.16
 **Estado:** Vigente
 **Fecha:** 2026-07-29
 **Rol de intervención:** Mantenedor del framework
@@ -601,7 +601,6 @@ Lista de comprobación mínima:
 | 7 | Nada fuera del alcance declarado fue modificado | Sin cambios colaterales |
 | 8 | **Barrido por concepto**: la intervención **declara la forma anterior como patrón** (§VI.3.2) y lo corre sobre todo el árbol vivo, incluidos los bloques cercados y el interior de los archivos ya tocados, **y sobre su propio texto** | **Cero ocurrencias vivas** fuera de las exclusiones enumeradas con su motivo |
 | 9 | **Coherencia interna de cada artefacto tocado**: ninguna sección contradice a otra del mismo archivo | Sin contradicciones internas |
-| 12 | **Cobertura del catálogo de criterios**: todo criterio de decisión que la intervención agrega, cambia de lugar o retira está reflejado en [`Catalogo-De-Criterios.md`](../Devs/Rules/Catalogo-De-Criterios.md) | El catálogo enumera los criterios vigentes, sin faltantes ni entradas muertas |
 | 11 | **Cobertura de la nota de coherencia**: toda entrada del `CHANGELOG.md` cuya intervención tocó **más de un archivo** tiene su nota, y la nota declara la versión del conjunto que resultó | Una nota por entrada multiarchivo, sin huecos |
 | 10 | **Integridad del registro** de cada archivo tocado: la versión de cabecera **es** la mayor fila del control de cambios, las filas están **en orden** y **ninguna está repetida** | Cabecera igual a la última fila, tabla ordenada |
 
@@ -610,12 +609,6 @@ enlaces como `[00-Contexto](00-Contexto/)`, que **no resuelven desde la ubicaci�
 tienen por qué**: describen la salida, no la navegación del framework. Sin la exclusión son catorce
 avisos permanentes, y una comprobación que avisa siempre **es una comprobación apagada** —es el mismo
 argumento con el que la 8.3 excluyó `_legacy/` como origen—.
-
-**Por qué la comprobación 12 existe, y por qué no alcanzaba con anotarlo.** La versión 1.0 del
-catálogo declaró como limitación que «el índice se desactualiza si un criterio nuevo no se agrega».
-**Eso no es una limitación: es una obligación que faltaba escribir.** Un índice cuyo mantenimiento
-depende de que alguien se acuerde reproduce exactamente el problema que vino a resolver, y el método ya
-sabe cómo se corrige eso —la misma forma que D5 usa para el control de cambios: quien toca, registra—.
 
 **Por qué la comprobación 11 existe.** §VI.3 exige la nota desde siempre y **nadie verificaba que se
 hubiera emitido**. En una serie de siete intervenciones consecutivas, **dos de las que la necesitaban
@@ -838,4 +831,3 @@ que diga otra cosa.
 | 1.14 | 2026-08-16 | **§VI.3.1 suma la quinta regla del barrido: entrar en los bloques de ejemplo.** Un cerco de código no es un límite del barrido, y **tres barridos seguidos los pasaron de largo**: las plantillas de cabecera de las diez reglas de categoría viven ahí y son lo que cada documento generado copia literal. **§VI.3 comprobación 3** excluye las rutas ilustrativas de los ejemplos de las reglas, que describen el árbol de un destino y no resuelven desde el framework: sin la exclusión son catorce avisos permanentes, y una comprobación que avisa siempre es una comprobación apagada. | Framework SDD (cabecera de nivel unidad de entrega) |
 | 1.15 | 2026-08-16 | **§VI.3.2 es nueva: el barrido se declara como patrón y se corre.** Las cinco veces que una intervención cometió el defecto que corregía, el defecto tenía una **forma anterior literal** —`Proyectos/`, `README §5`, `{{NOMBRE_PROYECTO_CODIGO}}`, `proyecto de código principal`, `**Proyecto de código:**`— y **ninguna estaba escrita en ninguna parte**. Toda intervención declara ahora el par forma anterior / forma vigente, con la anterior expresada como **patrón de búsqueda y no como descripción**; el residuo aceptable es **cero fuera de las exclusiones enumeradas**, y las seis clases de exclusión se declaran de una vez para que no se redescubran. **La regla 4 se corre con los mismos patrones sobre el texto propio**, que es la parte que faltó las cinco veces. Declara además el **límite**: cubre conceptos con huella textual y no cambios semánticos sin forma anterior. **§VI.3 comprobación 8** se reformula como corrida con residuo cero. | Framework SDD (barrido ejecutable) |
 | 1.16 | 2026-08-17 | **§VI.3 suma la comprobación 11, cobertura de la nota de coherencia.** La obligación de emitirla existía desde siempre y **nadie verificaba que se hubiera cumplido**: en una serie de siete intervenciones consecutivas, **dos de las que la necesitaban no la tenían**. Es enumerable —se contrastan las entradas del `CHANGELOG.md` contra el campo «versión del conjunto resultante» de las notas— y es un caso más de una obligación a la que le faltaba **ser una corrida en lugar de una lección**. | Framework SDD (cobertura de notas) |
-| 1.17 | 2026-08-17 | **§VI.3 suma la comprobación 12, cobertura del catálogo de criterios.** La versión 1.0 del catálogo declaraba como *limitación* que el índice se desactualiza si nadie agrega el criterio nuevo. **No era una limitación: era una obligación que faltaba escribir**, y un índice cuyo mantenimiento depende de la memoria reproduce el problema que vino a resolver. La forma es la que D5 ya usa para el control de cambios: **quien toca, registra**. | Framework SDD (política de coincidencia) |

@@ -3,6 +3,45 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.12] - 2026-08-17
+
+**Dos correcciones sobre la 9.11, las dos señaladas por el Product Owner.**
+
+### La limitación que era una obligación
+
+El catálogo declaraba que «se desactualiza si un criterio nuevo no se agrega». **Eso no es una limitación: es una obligación que faltaba escribir.** Un índice cuyo mantenimiento depende de que alguien se acuerde **reproduce el problema que vino a resolver**.
+
+- **`SDD-Development-Guide.md` 1.16 → 1.17.** §VI.3 suma la **comprobación 12**: todo criterio que una intervención agregue, mueva o retire está reflejado en el catálogo. Es enumerable, y su forma es la que **D5** ya usa para el control de cambios — **quien toca, registra**.
+
+**Es el cuarto caso del mismo patrón en dos días:** la 9.1 con el barrido, la 9.6 con el procedimiento de mover, la 9.10 con la comparación, y ésta con la cobertura del índice. **Una limitación declarada suele estar un paso antes de la regla que la elimina.**
+
+### El fundamento de DMN, corregido
+
+La 9.11 decía que adoptar DMN «exigiría un motor de decisión y un formato de intercambio que el método no tiene». **El argumento mezclaba tres piezas que no se adoptan ni se descartan juntas**, y la observación que lo señaló fue directa: si todo se trabaja en Markdown, la representación no puede ser el obstáculo.
+
+| Pieza de DMN | Decisión | Fundamento |
+| --- | --- | --- |
+| Condiciones de entrada declaradas | **Se adopta** | Distingue una tabla de decisión de una lista de recomendaciones |
+| **Política de coincidencia** | **Se adopta** | Es texto, y su ausencia dejaba sin resolver el caso de dos criterios simultáneos |
+| Serialización XML y motor de ejecución | **No** | Son para intercambio entre herramientas. Acá **el motor es el agente que lee** |
+
+**Una tabla de decisión se expresa en Markdown sin pérdida.** Lo que no corresponde adoptar es la infraestructura, no la notación.
+
+### Agregado — la política de coincidencia
+
+Se verificó que el método **no declaraba qué pasa cuando aplica más de un criterio**: las únicas apariciones de «precedencia» gobiernan términos y orden de fases.
+
+- **`Catalogo-De-Criterios.md` 1.0 → 1.1, §4.1 nueva.** La tabla de criterios por situación es **única** —dos criterios para una situación son un **defecto del catálogo**—; la de anti-patrones es **acumulativa**, porque un documento puede tener varios defectos independientes con remedios independientes.
+- **El conflicto no estrena mecanismo.** Dos criterios que difieren son dos cosas aprobadas que se contradicen: la **detención por arbitraje** de `Master-Prompt.md` §7.0, vigente desde la 4.1. **Es la tercera vez que esa detención absorbe un caso nuevo sin modificarse.**
+
+**Trazabilidad:** las políticas **Unique** y **Collect** se verificaron contra [Camunda](https://camunda.com/dmn/). **La enumeración completa que define el estándar no se verificó** y por eso no se cita.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/9.11/`.
+
+**Queda anotado:** la comprobación 12 exige **cobertura, no corrección**. Que un criterio esté en el índice no dice que su entrada lo describa bien, y volverlo enumerable exigiría duplicar el criterio — que es lo que el catálogo evita al enlazar en vez de copiar.
+
+---
+
 ## [9.11] - 2026-08-17
 
 **El método tenía 202 situaciones catalogadas y ningún punto de entrada para encontrarlas.** Se midió: **18 archivos de reglas** con tablas de anti-patrones, **71 umbrales numéricos**, salidas con condición de elección y reglas de resolución, en **cuatro formas distintas de escribir lo mismo**, y **ningún archivo llamado Criterios, Decisiones ni Situaciones**.
