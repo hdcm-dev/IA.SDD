@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Catalogo-De-Criterios.md
-**Versión:** 1.3
+**Versión:** 1.2
 **Estado:** Vigente
 **Fecha:** 2026-08-17
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
@@ -61,7 +61,7 @@ aplica sin su fundamento — y el fundamento es lo que permite reconocer cuándo
 | El intake no permite derivar el manifiesto | Qué detiene la cadena | [`Intake-Rules.md`](../Rules/Intake-Rules.md) §4 |
 | Se intervino el framework y hay que versionarlo | Qué bump corresponde | [`SDD-Development-Guide.md`](../../Guides/SDD-Development-Guide.md) §VI.1 y §VI.5 |
 | Se cambió un concepto en el framework | Cómo se barre y con qué residuo aceptable | `SDD-Development-Guide.md` §VI.3.1 y §VI.3.2 |
-| Hay que verificar una intervención antes de cerrarla | Las doce comprobaciones | `SDD-Development-Guide.md` §VI.3 |
+| Hay que verificar una intervención antes de cerrarla | Las once comprobaciones | `SDD-Development-Guide.md` §VI.3 |
 
 ---
 
@@ -165,4 +165,3 @@ regla—. Lo que no corresponde adoptar es la **infraestructura** de DMN, no su 
 | 1.0 | 2026-08-17 | Emisión inicial. Índice de **202 situaciones** catalogadas y **22 criterios** de decisión repartidos en dieciocho reglas y tres orquestadores, que existían **sin punto de entrada**. Las tablas de anti-patrones suman su **marca de detección** `[enumerable]` / `[interpretativo]`, reusando la clasificación que el método ya aplicaba a los criterios de aceptación. |
 | 1.1 | 2026-08-17 | **§4.1 nueva: la política de coincidencia**, que el método no declaraba. La tabla de §3 es **única** —dos criterios para una situación son un defecto del catálogo— y la de §4 es **acumulativa** —varios anti-patrones alcanzan al mismo documento y todos sus remedios aplican—. Cuando dos criterios difieren, es la **detención por arbitraje** de `Master-Prompt.md` §7.0, que ya existe: no se estrena mecanismo. **§5 corrige el fundamento sobre DMN**: separa sus tres piezas y declara que **la representación nunca fue el obstáculo** —una tabla de decisión se expresa en Markdown sin pérdida—; lo que no se adopta es la serialización XML y el motor, porque acá el motor es el agente que lee. |
 | 1.2 | 2026-08-17 | §4 declara que la marca `[enumerable]` **la consume la compuerta mecánica** de `Master-Prompt.md` §10.0 desde la 9.13, y no sólo documenta quién decide. |
-| 1.3 | 2026-08-18 | Corrección de recuento encontrada por el **barrido por concepto** (`SDD-Development-Guide.md` §VI.3.1): la fila de §3 decía «las **once** comprobaciones» y §VI.3 tiene **doce** desde la 9.10. El catálogo indexa por situación y **su valor depende de que el puntero sea exacto**: un índice que manda a once comprobaciones cuando hay doce enseña a no contarlas. |
