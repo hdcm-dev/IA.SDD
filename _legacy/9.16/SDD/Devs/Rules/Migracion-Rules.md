@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino para los dos artefactos propios. El alcance sobre el que la migración opera es `SDD/Intake/` y `SDD/Docs/` del mismo repositorio
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto, unidad de entrega y proyecto de código
 **Subagente target del orquestador:** el orquestador de migración para el plan y el cierre; el auditor independiente para el informe; el subagente titular de cada categoría para re-expresar los documentos de esa categoría
-**Versión de las reglas:** 3.12
+**Versión de las reglas:** 3.11
 
 Dentro de este archivo «migración» se usa en forma desnuda, según la excepción que `Vocabulario-Rules.md` §9.6 declara: en este contexto de lectura no hay otro referente con el que colisione. En cualquier otro archivo del framework el término va calificado como «migración normativa».
 
@@ -445,28 +445,10 @@ secciones que cualquiera de sus versiones, así que heredar la tabla de contenid
 **se conserva el resto**. Es el caso donde una corrección produjo el defecto siguiente de la misma
 familia, y por eso está escrito aparte.
 
-**E4 · Todo encabezado queda separado de su cuerpo, y la separación es a los dos lados.** No es
-pérdida de contenido: es Markdown roto, y **se presenta como líneas sin correspondencia**, que es la
-forma más probable de que alguien lo descarte como ruido. Las dos mitades se escribieron con dos
-corridas de diferencia, y la segunda es el argumento para enunciarlo así y no como dos reglas:
-
-| Lado | Qué pasa si falta | Cómo aparece |
-| --- | --- | --- |
-| **Cierre** · todo cuerpo termina con salto de línea | El encabezado **siguiente** queda pegado a la última línea del anterior | `…la iteración entera.## 3. Excepciones admitidas` |
-| **Apertura** · todo encabezado va seguido de una línea en blanco | El cuerpo queda pegado a **su propio** encabezado | `## 1. Qué se registra acá` con su primer párrafo en la línea de abajo |
-
-**Por qué el segundo lado tardó cinco categorías en aparecer, que es lo que hay que retener.** Cuando
-una sección **difiere entre las versiones** se emite con un bloque de atribución en el medio —«cada
-proyecto de código declara lo suyo acá»—, y ese bloque aporta la línea en blanco por accidente. El
-defecto sólo se manifiesta en la rama contraria: **la sección idéntica en todas las capas**, que se
-emite sin bloque intermedio. Con un solapamiento medio del 16,3 % esa rama casi no se ejecuta, y la
-corrida que la ejecutó fue **la categoría más chica de la migración**, con un solo documento.
-
-**La lección es sobre la forma de la regla, no sobre el salto de línea.** La primera mitad se escribió
-contra el caso observado y quedó enunciada sobre el caso observado —«todo cuerpo se cierra»—, de modo
-que **su simétrico quedó afuera sin que nadie lo notara**: la regla se leía completa. Cuando una regla
-nace de un caso, corresponde preguntar **cuál es su simétrico** antes de darla por escrita. Es el
-quinto defecto del emisor y los cinco tienen esta forma.
+**E4 · Todo cuerpo se cierra con salto de línea.** Sin él, el encabezado siguiente queda **pegado a la
+última línea del anterior** —`…la iteración entera.## 3. Excepciones admitidas`—. No es pérdida de
+contenido: es Markdown roto, y **se presenta como veinte líneas sin correspondencia**, que es la forma
+más probable de que alguien lo descarte como ruido.
 
 **Qué se toma de dónde.** Los **metadatos de cabecera** —identidad, versión, estado, autor,
 trazabilidad— se toman de la versión de la unidad de entrega y se ajustan al nivel resultante. **Todo
@@ -612,7 +594,6 @@ Antes de cerrar la migración:
 - [ ] [enumerable] Todo proyecto de código del manifiesto de origen aparece en la clasificación: como unidad de entrega, o como componente de al menos una.
 - [ ] [interpretativo] Ningún caso de uso se fusionó automáticamente por coincidencia de título; los duplicados por capa se conservan con su origen declarado y su deduplicación se propuso como lista.
 - [ ] [enumerable] El contenido sin destino está declarado en el informe y no se descartó en silencio.
-- [ ] [enumerable] En todo documento consolidado, **cada encabezado está separado de su cuerpo a los dos lados** (§4.3.2 E4). Se verifica sin leer: ninguna línea que empiece con `#` tiene texto pegado antes ni después.
 
 - [ ] [enumerable] El árbol declara las **citas desnudas ambiguas** y su resolución confirmada.
 - [ ] [enumerable] Existe la **propuesta de consolidación de casos de uso** cuando la migración fundió árboles, y no se aplicó por su cuenta.
@@ -733,4 +714,3 @@ Para el despacho del auditor, los criterios de §6 de este archivo se suman a lo
 | 3.9 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`.  Framework SDD (catálogo de criterios) |
 | 3.10 | 2026-08-17 | **§4.3.2 suma el procedimiento de emitir el documento consolidado**, que era la única parte de la consolidación sin procedimiento: comparar y verificar tenían C1 a C5, mover tenía sus cinco pasos, y **emitir vivía como bullets sueltos en prosa**. **E1** recorre la **unión de secciones** y no la del documento vivo —medido: **722 líneas en doce secciones** descartadas en silencio—. **E2** transpone la **prosa que no cuelga de encabezado**, en sus dos lugares: el preámbulo y el texto dentro de una sección estructural; **absorbe el bullet que ya lo advertía**, que estaba suelto y por eso se leía salteado. **E3** regenera el índice **aumentando y no reemplazando**, que es el caso donde una corrección produjo el defecto siguiente. **E4** cierra todo cuerpo con salto de línea, porque un encabezado pegado **se presenta como líneas sin correspondencia** y se descarta como ruido. Nombra además el error de fondo: **clasificar las secciones por su función y asumir que la función determina si el cuerpo vale la pena conservar**. §6 suma su criterio enumerable. Sube **minor**. | Framework SDD (procedimiento de emitir) |
 | 3.11 | 2026-08-18 | Los dos procedimientos de §4.3.2 declaran **cuándo se corren**, que era el único ítem obligatorio de un procedimiento que les faltaba: la **emisión**, una vez por grupo y antes de la verificación; la **comparación**, antes de emitir, y la **verificación, después de emitir y antes de archivar** —el único momento en que todavía se puede corregir sin rehacer—. Sube **patch**. | Framework SDD (paso o prosa) |
-| 3.12 | 2026-08-18 | **§4.3.2 E4 pasa a exigir la separación del encabezado a los dos lados.** Estaba enunciada sobre el caso que la originó —«todo cuerpo se cierra con salto de línea»— y **su simétrico quedaba afuera**: el cuerpo pegado a **su propio** encabezado. El defecto sólo se produce en la rama que emite una sección **idéntica en todas las versiones**, sin bloque de atribución en el medio que aporte la línea en blanco por accidente; con un solapamiento medio del 16,3 % esa rama casi no se ejecuta, y tardó **cinco categorías** en aparecer. Medido al corregirlo: **23 encabezados en 12 documentos** de un destino real. Suma la lección de forma —**cuando una regla nace de un caso, corresponde preguntar cuál es su simétrico**— y un criterio de aceptación **enumerable** en §6. Sube **minor**. | Framework SDD (simétrico de E4) |

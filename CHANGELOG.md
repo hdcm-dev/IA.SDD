@@ -3,6 +3,41 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.17] - 2026-08-18
+
+**Una regla escrita contra el caso que la originó dejó afuera su simétrico, y el simétrico produce el mismo daño por el otro lado.** `Migracion-Rules.md` §4.3.2 **E4** decía «todo cuerpo se cierra con salto de línea», porque sin él el encabezado **siguiente** queda pegado. El caso contrario —el cuerpo pegado a **su propio** encabezado— no estaba, y **la regla se leía completa**.
+
+### Cambiado — `Migracion-Rules.md` 3.11 → 3.12, §4.3.2
+
+**E4 pasa a enunciar el par**, en una tabla de dos filas con el síntoma de cada lado:
+
+| Lado | Qué pasa si falta |
+| --- | --- |
+| **Cierre** · todo cuerpo termina con salto de línea | El encabezado **siguiente** queda pegado a la última línea del anterior |
+| **Apertura** · todo encabezado va seguido de una línea en blanco | El cuerpo queda pegado a **su propio** encabezado |
+
+**Se enuncia como par y no como dos reglas**, porque dos reglas hermanas escritas por separado vuelven a permitir que se aplique una y no la otra, que es exactamente lo que pasó.
+
+**Por qué tardó cinco categorías en aparecer.** El emisor pone un bloque de atribución entre el encabezado y el cuerpo **sólo cuando la sección difiere entre las versiones**, y ese bloque aporta la línea en blanco por accidente. La rama que destapa el defecto es la contraria —**la sección idéntica en todas las capas**—, y con un solapamiento medio del **16,3 %** casi no se ejecuta. La corrida que la ejecutó fue **la categoría más chica de la migración**: un grupo, un documento.
+
+**Medido al corregirlo:** **23 encabezados en 12 documentos** de un destino real, cada uno contrastado contra su origen antes de tocarlo.
+
+**Y la lección de forma, que es lo que la regla suma además del salto de línea:** cuando una regla nace de un caso, tiende a quedar enunciada **sobre ese caso** y no sobre la propiedad que el caso ilustra. Corresponde preguntar **cuál es su simétrico** antes de darla por escrita. Es el quinto defecto del emisor y los cinco tienen esta forma.
+
+### Agregado — `Migracion-Rules.md` §6
+
+Un criterio de aceptación **enumerable**: en todo documento consolidado, cada encabezado está separado de su cuerpo a los dos lados. **Se verifica sin leer el documento**, que es lo que distingue un criterio que se corre de uno que se declara.
+
+### Corregido — `Catalogo-De-Criterios.md` 1.2 → 1.3
+
+El **barrido por concepto** encontró que §3 mandaba a «las **once** comprobaciones» de `SDD-Development-Guide.md` §VI.3, y son **doce** desde la 9.10. Un índice cuyo valor es la exactitud del puntero **enseña a no contarlas** cuando el puntero miente.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Simetrico-De-La-Regla.md` 1.0. Deja anotado que la lección de forma quedó escrita **adentro de una regla de migración**, cuando su lugar propio sería la Parte IV de la guía de desarrollo; **no se generaliza todavía** porque la evidencia es de un solo emisor en una sola migración.
+
+---
+
 ## [9.16] - 2026-08-18
 
 **Una entrega cerró con un informe completo y sin pedir nada, y el humano tuvo que preguntar qué hacer.** `Master-Prompt.md` §12.1 **T4** declara desde la 9.2 que el bloque de entrega termina con «qué sigue después del merge», y **§8.1 F4** declara desde la 9.8 que lo que se pide es **una decisión, no una opinión**. **Las dos reglas existían y no se aplicaron, por quien las escribió.**
