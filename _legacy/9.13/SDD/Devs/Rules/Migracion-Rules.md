@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino para los dos artefactos propios. El alcance sobre el que la migración opera es `SDD/Intake/` y `SDD/Docs/` del mismo repositorio
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto, unidad de entrega y proyecto de código
 **Subagente target del orquestador:** el orquestador de migración para el plan y el cierre; el auditor independiente para el informe; el subagente titular de cada categoría para re-expresar los documentos de esa categoría
-**Versión de las reglas:** 3.10
+**Versión de las reglas:** 3.9
 
 Dentro de este archivo «migración» se usa en forma desnuda, según la excepción que `Vocabulario-Rules.md` §9.6 declara: en este contexto de lectura no hay otro referente con el que colisione. En cualquier otro archivo del framework el término va calificado como «migración normativa».
 
@@ -367,6 +367,11 @@ confirma, corrige o reasigna.** Sin esa confirmación la migración no avanza.
 - **Ninguna cifra se promedia al consolidar.** Si dos capas declaran umbrales distintos —coberturas,
   latencias, gates—, los dos quedan con su capa nombrada. Un promedio de umbrales **no es un umbral**:
   se cumple bajando el más alto, que es exactamente lo que ese umbral existía para impedir.
+- **La transposición lee el documento entero, no sólo sus secciones numeradas.** El texto entre la
+  cabecera y la primera sección —una nota previa, una declaración de origen— se pierde si el
+  procedimiento recorre encabezados. En una corrida real alcanzó a dos documentos, y en uno de ellos
+  era **la declaración de dónde salía lo que el documento afirmaba**, que ninguna fuente del
+  producto declaraba.
 - **La consolidación de los casos de uso se emite como propuesta.** Al fundir capas, la categoría 02
   resultante contiene varias vistas de la misma capacidad —el dominio la modela, la aplicación la
   orquesta, la infraestructura la persiste, la API la expone—. La migración emite la lista de pares
@@ -410,50 +415,6 @@ colisión de destino.
 **Migración parcial.** Es un estado final legítimo según §4.6, y acá es más probable que en cualquier
 otro salto: un destino puede migrar sus unidades de entrega y dejar el inventario del eje de
 construcción para después. Se declara documento por documento, como exige esa sección.
-
-#### El procedimiento de emitir el documento consolidado
-
-**Los cuatro pasos salen de defectos medidos, no de previsión.** Los cuatro se produjeron en
-consolidaciones reales, los cuatro los detectó la verificación de preservación de §4.3.2 antes de
-archivar nada, y **ninguno era evidente de antemano**: en un corpus generado por plantilla, las cinco
-versiones de un documento se parecen tanto que el emisor más simple funciona durante varias categorías
-y falla en la que trae una variante.
-
-**E1 · Recorrer la unión de secciones, no la del documento vivo.** El conjunto de secciones **no es el
-mismo en todas las versiones**: cada proyecto de código agrega las suyas. Un emisor que itera sobre la
-estructura de una sola versión **descarta en silencio** todo lo que las otras tienen de más. Medido:
-**722 líneas en doce secciones** de una sola categoría. El orden de la unión es el del documento vivo,
-y lo que sólo existe en otras capas se agrega al final de su nivel, con su origen declarado.
-
-**E2 · Transponer también la prosa que no cuelga de ningún encabezado.** Hay dos lugares donde vive, y
-los dos se pierden si el procedimiento recorre encabezados: el **preámbulo** entre la cabecera y la
-primera sección —una nota previa, una declaración de origen—, y el **texto dentro de una sección
-estructural**, típicamente el párrafo que sigue a la lista de la tabla de contenido. En una corrida
-alcanzó a dos documentos y en uno era **la declaración de dónde salía lo que el documento afirmaba**;
-en otra, el párrafo que declaraba qué era el documento.
-
-**El error de fondo que E2 corrige, y conviene nombrarlo porque se repite:** clasificar las secciones
-por su **función** —título, índice, control de cambios, contenido— y asumir que la función determina si
-el cuerpo vale la pena conservar. **Una sección estructural también lleva contenido**, y la premisa
-falla justo en los documentos que se apartan de la plantilla.
-
-**E3 · El índice se regenera aumentando, no reemplazando.** El documento consolidado tiene más
-secciones que cualquiera de sus versiones, así que heredar la tabla de contenido la deja falsa. Pero
-**reemplazar el cuerpo entero de esa sección descarta lo que no era la lista**: se recalcula la lista y
-**se conserva el resto**. Es el caso donde una corrección produjo el defecto siguiente de la misma
-familia, y por eso está escrito aparte.
-
-**E4 · Todo cuerpo se cierra con salto de línea.** Sin él, el encabezado siguiente queda **pegado a la
-última línea del anterior** —`…la iteración entera.## 3. Excepciones admitidas`—. No es pérdida de
-contenido: es Markdown roto, y **se presenta como veinte líneas sin correspondencia**, que es la forma
-más probable de que alguien lo descarte como ruido.
-
-**Qué se toma de dónde.** Los **metadatos de cabecera** —identidad, versión, estado, autor,
-trazabilidad— se toman de la versión de la unidad de entrega y se ajustan al nivel resultante. **Todo
-lo demás se toma de todas las versiones**: idéntico en todas, una vez; distinto, transpuesto con
-atribución; presente en una sola, con su origen declarado.
-
----
 
 #### Cómo se comparan las versiones y cómo se verifica que no se perdió nada
 
@@ -598,7 +559,6 @@ Antes de cerrar la migración:
 - [ ] [enumerable] Existe la **medición de solapamiento** de los grupos de consolidación, y la salida elegida para cada grupo es coherente con ella.
 - [ ] [interpretativo] Ninguna cifra se promedió al consolidar documentos de capas con umbrales distintos.
 - [ ] [enumerable] Los enlaces se reconectaron **desde un registro confirmado**, y el registro distingue lo que la migración rompió de lo que reparó.
-- [ ] [enumerable] **La emisión siguió los cuatro pasos de §4.3.2**: unión de secciones, prosa sin encabezado transpuesta, índice regenerado sin descartar el resto de su sección, y todo cuerpo cerrado con salto de línea.
 - [ ] [enumerable] **La verificación de preservación de cada grupo consolidado cerró en cero líneas de contenido**, con las cuatro clases que no transponen declaradas y las marcas por enlace discriminadas (§4.3.2).
 - [ ] [enumerable] **Todo apartamiento vigente del destino fue revisado** (§4.7) y quedó con uno de los tres resultados declarado en el informe; ninguno quedó sin resolver.
 - [ ] [enumerable] **Ningún apartamiento preservado fue re-fundamentado**: los que siguen `vigente` conservan su texto literal y sólo cambió su contador.
@@ -708,4 +668,3 @@ Para el despacho del auditor, los criterios de §6 de este archivo se suman a lo
 | 3.7 | 2026-08-17 | **§4.7 es nueva: la revisión de apartamientos.** Un destino acumula reglas locales que el método no contempla, y la migración **no las miraba**: un apartamiento absorbido, uno contradicho y uno todavía vigente se veían iguales. Se revisa cada uno contra la vigente con **tres resultados** —absorbido, contradicho, no contemplado—, y el insumo **no es una interpretación**: es el campo 4 del propio ADR, los disparadores que superarían la decisión. El caso **contradicho reusa la detención por arbitraje** de `Master-Prompt.md` §7.0 en lugar de estrenar una: es la misma forma —dos cosas aprobadas que se contradicen— entre el destino y el método. Los que sobreviven **dos o más saltos** se declaran **candidatos a regla del framework**, con lo cual el reporte aguas arriba deja de depender de que alguien se acuerde. Y **no se re-fundamentan al preservarse**: reescribir su fundamento contra la normativa nueva produciría un ADR que dice haber decidido algo que en su fecha nadie decidió. §6 suma dos criterios enumerables. Sube **minor**. | Framework SDD (ciclo de apartamientos) |
 | 3.8 | 2026-08-17 | **§4.3.2 declara cómo se comparan las versiones y cómo se verifica la preservación**, que era la mecánica que sostenía la consolidación **sin estar escrita**. **C1: la comparación no normaliza el nombre del proyecto de código** —en la cabecera es ruido, **en el cuerpo es contenido**—; medido sobre cinco documentos que parecían idénticos y cada uno medía la porción de velocidad de **su** proyecto, con el propio texto advirtiendo que **sumar las cinco da la del equipo**. **C2** la verificación es literal y línea por línea. **C3 se corre antes de re-derivar enlaces**, o colapsando las rutas: si no, toda línea con enlace aparece como perdida —medido: **48 marcas, 0 pérdidas reales**—. **C4** cada marca se verifica contra el texto. **C5** declara las **cuatro clases que no transponen**, incluida la **fila de control de cambios del absorbido**, que es historia suya y vive en `_legacy/`. §6 suma su criterio enumerable. Sube **minor**. | Framework SDD (cómo se compara y se verifica) |
 | 3.9 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`.  Framework SDD (catálogo de criterios) |
-| 3.10 | 2026-08-17 | **§4.3.2 suma el procedimiento de emitir el documento consolidado**, que era la única parte de la consolidación sin procedimiento: comparar y verificar tenían C1 a C5, mover tenía sus cinco pasos, y **emitir vivía como bullets sueltos en prosa**. **E1** recorre la **unión de secciones** y no la del documento vivo —medido: **722 líneas en doce secciones** descartadas en silencio—. **E2** transpone la **prosa que no cuelga de encabezado**, en sus dos lugares: el preámbulo y el texto dentro de una sección estructural; **absorbe el bullet que ya lo advertía**, que estaba suelto y por eso se leía salteado. **E3** regenera el índice **aumentando y no reemplazando**, que es el caso donde una corrección produjo el defecto siguiente. **E4** cierra todo cuerpo con salto de línea, porque un encabezado pegado **se presenta como líneas sin correspondencia** y se descarta como ruido. Nombra además el error de fondo: **clasificar las secciones por su función y asumir que la función determina si el cuerpo vale la pena conservar**. §6 suma su criterio enumerable. Sube **minor**. | Framework SDD (procedimiento de emitir) |

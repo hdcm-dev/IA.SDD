@@ -3,6 +3,29 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.14] - 2026-08-17
+
+**La consolidación tenía procedimiento para comparar, para verificar y para mover, y no para emitir.** C1 a C5 dicen cómo comparar versiones y cómo verificar que no se perdió nada; §4.3.1 tiene cinco pasos numerados para mover un documento. **Emitir el documento consolidado vivía como bullets sueltos en prosa**, entre otra docena — y por eso se leía salteado.
+
+**Los cuatro pasos que se agregan salen de defectos medidos, no de previsión.** Los cuatro se produjeron en consolidaciones reales, los cuatro los detectó la verificación de preservación antes de archivar nada, y **ninguno era evidente de antemano**: en un corpus generado por plantilla las versiones se parecen tanto que el emisor más simple funciona durante varias categorías y falla en la que trae una variante.
+
+### Agregado — `Migracion-Rules.md` 3.9 → 3.10, §4.3.2
+
+- **E1 · Recorrer la unión de secciones, no la del documento vivo.** El conjunto de secciones **no es el mismo en todas las versiones**. Medido: **722 líneas en doce secciones** descartadas en silencio en una sola categoría.
+- **E2 · Transponer la prosa que no cuelga de ningún encabezado**, en sus dos lugares: el **preámbulo** entre la cabecera y la primera sección, y el **texto dentro de una sección estructural** —el párrafo que sigue a la lista del índice—. **Absorbe el bullet que ya lo advertía** desde una migración anterior, que estaba suelto en prosa y por eso se leía salteado.
+- **E3 · El índice se regenera aumentando, no reemplazando.** Heredarlo lo deja falso —el consolidado tiene más secciones—, pero reemplazar el cuerpo entero **descarta lo que no era la lista**. Es el caso donde **una corrección produjo el defecto siguiente de la misma familia**.
+- **E4 · Todo cuerpo se cierra con salto de línea.** Sin él el encabezado siguiente queda pegado al anterior. No es pérdida: es Markdown roto, y **se presenta como veinte líneas sin correspondencia**, que es la forma más probable de que alguien lo descarte como ruido.
+
+### El error de fondo, nombrado
+
+**Clasificar las secciones por su función** —título, índice, control de cambios, contenido— **y asumir que la función determina si el cuerpo vale la pena conservar.** Una sección estructural también lleva contenido, y la premisa falla justo en los documentos que se apartan de la plantilla.
+
+**Y una constatación que corresponde registrar:** §4.3.2 **ya advertía** que «la transposición lee el documento entero, no sólo sus secciones numeradas», con su caso medido. Estaba escrito, en la sección que gobierna la operación, y **no se aplicó**. La diferencia entre un bullet en prosa y un paso numerado no es de contenido: es que **el primero se lee cuando se lee la sección entera, y a una sección de doscientas líneas se entra a buscar una cosa**.
+
+**§6 suma su criterio enumerable.** Ninguna invariante modificada. El conjunto superado se archiva en `_legacy/9.13/`.
+
+---
+
 ## [9.13] - 2026-08-17
 
 **La compuerta mecánica tenía su conjunto de reglas cableado, y el catálogo acababa de marcar 97 comprobaciones que nadie consumía.**
