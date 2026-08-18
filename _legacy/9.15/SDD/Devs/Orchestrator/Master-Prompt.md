@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 8.6
+**Versión:** 8.5
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -899,71 +899,6 @@ camino y deja de leerse.
 **F4 · Lo que se pide es una decisión, no una opinión.** La última línea dice **qué se espera de
 vuelta**, de forma que responder sea elegir y no redactar.
 
-### La autocorrección: qué hace el agente cuando el defecto es suyo
-
-**Detectar un defecto propio y ofrecerlo como opción es entregar trabajo a medias.** Hay que separar dos
-cosas que se parecen y no lo son:
-
-| Qué se detecta | Quién lo resuelve |
-| --- | --- |
-| **Un defecto del propio trabajo** —un enlace mal derivado, una fila fuera de orden, una regla escrita y no aplicada— | **El agente, en la misma unidad.** Se corrige y **se declara en el cierre**; no se ofrece como opción |
-| **Una decisión de diseño** —qué salida aplicar, migrar o seguir, qué merece ser paso— | **El humano.** Corregir por cuenta propia sería decidir en su lugar |
-
-**Y la contraparte, que es la que impide que esta regla se use para lo contrario de lo que busca:** si
-corregir el defecto propio **cambia una decisión que el humano ya tomó**, entonces **sí se detiene**.
-Deja de ser un defecto del agente y pasa a ser una decisión del humano — por ejemplo, descubrir que una
-consolidación resuelta como **S4** por decisión suya debía ser **S1**. Sin esta mitad, la regla
-habilitaría a deshacer decisiones ajenas «corrigiendo».
-
-**El criterio de corte, en una línea:** el agente **termina su trabajo**, no **rehace el del humano**.
-
-### El cierre de unidad: la entrega y las decisiones, en un solo bloque
-
-**Una unidad terminada produce dos cosas a la vez** —trabajo para revisar y decisiones para tomar— y
-separarlas obliga al humano a reconstruir el contexto dos veces. Se entregan juntas:
-
-```text
-CIERRE DE UNIDAD — {{qué se hizo}}
-
-  ENTREGADO
-    Rama:        {{rama}} (empujada)
-    PR:          {{url}}                      ← cuando corresponde
-    Alcance:     {{una línea por clase de cambio}}
-    Verificado:  {{lo que cierra, con su número}}
-    Corregido:   {{defectos propios detectados y corregidos, o "ninguno"}}
-
-  DECISIONES PENDIENTES                        ← una por bloque, o "ninguna"
-    D{{n}} · {{qué hay que decidir}}
-       Contexto:    {{dos o tres líneas, para quien no viene siguiendo el hilo}}
-       Opciones:    {{cada una con su impacto concreto}}
-       Fundamento:  {{el criterio, la regla o el estándar que aplica}}
-       Recomiendo:  {{cuál, y por qué}}
-
-  QUÉ NECESITO DE VOS
-    {{las decisiones a tomar y, si corresponde, el merge — en una línea}}
-```
-
-**Las cuatro reglas de §8.1 valen dentro de cada decisión**: avance cuantificado, qué se conserva de lo
-hecho, alternativa obligatoria, y que responder sea **elegir y no redactar**.
-
-**Y el contexto por decisión no es cortesía: es la condición para que la respuesta valga.** Quien decide
-no estuvo en la corrida. Sin dos o tres líneas que ubiquen el caso, la elección se hace sobre el nombre
-de las opciones, no sobre lo que implican.
-
-### Por qué este bloque ya es un plan
-
-**Para escribir «qué pasaría si» hay que proyectar.** Enumerar las opciones de una decisión, estimar el
-impacto de cada una y recomendar una exige haber recorrido mentalmente los caminos que no se tomaron —
-que es exactamente lo que hace una planificación.
-
-De ahí una consecuencia que conviene tener presente: **el plan no tiene por qué ser un artefacto
-aparte**. Lo que queda escrito en el cierre de cada unidad —qué se hizo, qué queda abierto, qué caminos
-había y cuál se recomienda— **es el plan, hecho en el momento en que se tiene la información**, y no
-antes, cuando había que suponerla.
-
-Es la misma lógica con la que `Migracion-Rules.md` §3 rechazó los playbooks por salto de versión: un
-plan escrito antes de tener el estado a la vista **planifica sobre lo que se supone**.
-
 ### Qué no cambia
 
 **Esta sección no agrega ninguna detención ni quita ninguna.** Cambia **la forma** de las que ya
@@ -1597,4 +1532,3 @@ Reglas de versionado:
 | 8.3 | 2026-08-17 | **T3 admite el caso que T0 no puede detectar en lugar de prohibirlo sin control.** Una rama puede terminar con dos unidades —una reparación que aparece a mitad de fase, dos pasos que resultaron inseparables— y también por descuido; **los dos se tratan igual**: la entrega de T4 nombra las **dos**, en su orden, y dice **cuál se puede revertir sin la otra**, con lo que el humano recupera lo que T3 protege —decidir con la información completa, aunque ya no pueda decidir por separado—. Lo inaceptable pasa a ser **la rama que lleva dos y declara una**. El bloque de T4 suma la fila `Unidades`. Sube **minor**. | Framework SDD (T3 admite y declara) |
 | 8.4 | 2026-08-17 | **§8.1 es nueva: toda detención lleva análisis y propuesta**, y la leen los tres orquestadores. Medido sobre el propio framework: de las cuatro familias de detención, **dos llevaban contexto por construcción** —la confirmación de un plan y el traspaso de §12.1 T4— y **las dos que preguntan no proponían nada**: la ambigüedad tenía ocho campos cuyo centro es «pregunta concreta», y el **arbitraje de §7.0 no declaraba formato alguno**. Una detención sin propuesta **le traslada al humano el análisis que el agente ya tiene hecho**. Declara el bloque obligatorio —qué pasó, **estado de avance cuantificado** cuando lo que se decide está a medias, opciones con **qué se conserva de lo hecho**, propuesta con alternativa, y qué se espera de vuelta— y sus cuatro reglas. §9 y §7.0 adoptan la forma. **No agrega ni quita ninguna detención**: cambia la de las que ya existen. Sube **minor**. | Framework SDD (toda detención lleva propuesta) |
 | 8.5 | 2026-08-17 | **§10.0 declara de dónde sale su conjunto de reglas, que hasta acá estaba cableado.** Son dos: las comprobaciones transversales que ya enumeraba, y **los anti-patrones marcados `[enumerable]`** de la regla de la categoría en curso —**97 de las 202** situaciones catalogadas, que estaban declaradas, marcadas y sin consumir—. El segundo conjunto **no se copia acá**: la compuerta lee la regla de la categoría, con el mismo fundamento con que `Migracion-Rules.md` §3 rechazó los playbooks —una duplicación que se mantiene en paralelo se desincroniza—. Los `[interpretativo]` siguen siendo del audit. Sube **minor**: amplía el alcance de una compuerta existente sin agregar comprobaciones nuevas, porque las 97 ya estaban escritas. | Framework SDD (la compuerta toma del catálogo) |
-| 8.6 | 2026-08-18 | **§8.1 suma tres cosas.** **La autocorrección**: un defecto **del propio trabajo** se corrige en la misma unidad y se declara en el cierre —ofrecerlo como opción es entregar trabajo a medias—, **con la contraparte** de que si corregirlo cambia una decisión ya tomada por el humano, **sí se detiene**: el agente **termina su trabajo, no rehace el del humano**. **El cierre de unidad**: la entrega y las decisiones pendientes van en **un solo bloque**, porque separarlas obliga a reconstruir el contexto dos veces, y **cada decisión lleva su contexto de dos o tres líneas** para quien no vino siguiendo la corrida —sin él la elección se hace sobre el nombre de las opciones y no sobre lo que implican—. Y **por qué ese bloque ya es un plan**: enumerar opciones, estimar impacto y recomendar exige proyectar, así que **el plan no tiene por qué ser un artefacto aparte** — es lo que queda escrito en cada cierre, hecho cuando se tiene la información y no antes, cuando había que suponerla. Sube **minor**. | Framework SDD (cierre de unidad) |

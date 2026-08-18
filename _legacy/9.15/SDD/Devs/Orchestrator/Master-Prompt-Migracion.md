@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de migración normativa
 
 **Archivo:** `Master-Prompt-Migracion.md`
-**Versión:** 2.8
+**Versión:** 2.7
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente. La mecánica de despacho y de auditoría **no se define acá**: se cita de `Master-Prompt.md` §8 y §10
 **Prerequisitos:** un repositorio destino con `SDD/Docs/` poblado y, opcionalmente, un `Plan-Migracion-<origen>-a-<vigente>.md` emitido por la reconciliación normativa del orquestador de generación
@@ -43,8 +43,6 @@ Este prompt es un archivo de fases, no un segundo orquestador completo. Todo lo 
 | Derivación del manifiesto | `Master-Prompt.md` §3 y §3.1, e `Intake-Rules.md` §4 | La ejecuta en M3 sobre el intake migrado |
 | Orden topológico de las unidades de entrega, por el grafo de integración | `Master-Prompt.md` §3.3 | Lo usa en M4 |
 | Invariantes globales | `Master-Prompt.md` §5 y el `README.md` del framework | Las inyecta en cada despacho, sin alterarlas |
-
-**Cierre de cada fase.** Toda fase terminada se entrega con el **cierre de unidad** de `Master-Prompt.md` §8.1: la entrega y las decisiones pendientes **en un solo bloque**, cada decisión con su contexto, sus opciones con impacto y una recomendación. Y rige su **autocorrección**: un defecto de la propia fase se corrige antes de entregar; uno que cambiaría una decisión ya tomada por el humano, detiene.
 
 **Forma de las detenciones.** Todas las de este prompt siguen `Master-Prompt.md` §8.1: llevan **análisis y propuesta**, y **estado de avance cuantificado** cuando lo que se decide está a medias —una categoría de consolidación a medio hacer, una fase parcial—. Acá no se redefine.
 
@@ -332,4 +330,3 @@ Si la migración quedó parcial, la reconciliación vuelve a encontrar el destin
 | 2.5 | 2026-08-17 | El prerrequisito de M0 pasa de **T2** a **T0**: la compuerta de arranque corre y publica su salida antes de la primera lectura, y suma el caso de la **entrega viva** —con una fase anterior esperando merge no se arranca la siguiente, porque las dos ramas se pisarían sobre los mismos documentos—. |
 | 2.6 | 2026-08-17 | M1 suma la **revisión de apartamientos** al plan (`Migracion-Rules.md` §4.7): una fila por ADR vigente con su resultado, los **contradichos** llevados a la detención que la fase **ya tiene** —el arbitraje de `Master-Prompt.md` §7.0, no una nueva—, y los que sobrevivieron **dos o más saltos** declarados **candidatos a regla del framework**. |
 | 2.7 | 2026-08-17 | Las detenciones de M1 a M6 adoptan la forma de `Master-Prompt.md` §8.1: **análisis y propuesta**, con el **estado de avance cuantificado** cuando lo que se decide está a medias. Es lo que faltaba para poder aprobar el cierre de una fase parcial: sin saber si lo que falta es accesorio o vital, la aprobación es a ciegas. |
-| 2.8 | 2026-08-18 | Adopta el **cierre de unidad** de `Master-Prompt.md` §8.1 —entrega y decisiones en un solo bloque, cada decisión con su contexto— y su regla de **autocorrección**. |
