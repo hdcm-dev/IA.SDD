@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Catalogo-De-Criterios.md
-**Versión:** 1.1
+**Versión:** 1.0
 **Estado:** Vigente
 **Fecha:** 2026-08-17
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
@@ -103,36 +103,6 @@ primera pasada revisable: una marca mal puesta se corrige en la regla que la con
 
 ---
 
-## 4.1 Política de coincidencia: qué pasa cuando aplica más de un criterio
-
-**El método no lo decía, y es la pregunta que sigue naturalmente a tener un catálogo.** Una tabla de
-decisión de DMN declara su **política de coincidencia** justamente porque una situación puede activar
-más de una regla; sin declararla, cada lector resuelve distinto. Las dos que las fuentes consultadas
-nombran son **Unique** —sólo una fila puede ser verdadera— y **Collect** —más de una puede serlo, y el
-resultado es una lista—.
-
-**Las dos tablas de este catálogo tienen políticas distintas, y es deliberado:**
-
-| Tabla | Política | Qué significa |
-| --- | --- | --- |
-| **§3, criterios por situación** | **Única** | Una situación tiene **un** criterio. Que apliquen dos es un **defecto de este catálogo**, no una decisión del agente |
-| **§4, anti-patrones por regla** | **Acumulativa** | Varios anti-patrones pueden alcanzar al mismo documento, y **todos sus remedios se aplican**. No compiten |
-
-**Qué se hace cuando en §3 aplican dos.** Se distinguen dos casos, y sólo uno es del agente:
-
-1. **Los dos criterios coinciden en la salida.** Es **redundancia del catálogo**: se declara y se
-   corrige acá, unificando la entrada. El trabajo sigue.
-2. **Los dos difieren.** Es un **conflicto entre dos cosas aprobadas**, y el agente **no lo resuelve**:
-   es la **detención por arbitraje** de `Master-Prompt.md` §7.0, con la forma de §8.1. No hace falta
-   mecanismo nuevo — la forma ya existe desde la 4.1 y es la misma que la 9.7 reusó para los
-   apartamientos contradichos.
-
-**Por qué la política de §4 es acumulativa y no puede ser otra.** Un mismo documento puede tener a la
-vez un stack sin versión y un flujo de lectura único: son defectos independientes con remedios
-independientes. Tratarlos como excluyentes obligaría a elegir cuál corregir, que es absurdo.
-
----
-
 ## 5. Lo que este catálogo no resuelve
 
 **No dice qué hacer cuando una situación no está en él.** Esa es la pregunta interesante, y la
@@ -140,19 +110,10 @@ respuesta del método es el **apartamiento declarado**: se documenta la decisió
 la migración la revisa contra cada versión nueva. Un apartamiento que sobrevive dos saltos es candidato
 a regla, y ahí sí entra a este catálogo.
 
-**No convierte los criterios en tablas ejecutables por una máquina.** El estándar de la industria
-para modelar decisiones es **DMN**, y conviene separar tres cosas que no se adoptan ni se descartan
-juntas:
-
-| Pieza de DMN | ¿Se adopta? | Por qué |
-| --- | --- | --- |
-| **Condiciones de entrada declaradas** | **Sí** | Es lo que distingue una tabla de decisión de una lista de recomendaciones. Acá es la columna `Detección` y la tabla de §3 |
-| **Política de coincidencia** | **Sí** | §4.1. Es texto, y su ausencia dejaba sin resolver el caso de dos criterios simultáneos |
-| **Serialización XML y motor de ejecución** | **No** | Son para intercambio entre herramientas y evaluación automática. Acá **el motor es el agente que lee**, y el intercambio es el repositorio |
-
-**La representación nunca fue el obstáculo**, y decirlo así en la versión 1.0 estaba mal: una tabla de
-decisión se expresa en Markdown sin pérdida —columnas de entrada, columnas de salida, una fila por
-regla—. Lo que no corresponde adoptar es la **infraestructura** de DMN, no su notación.
+**No convierte los criterios en tablas ejecutables.** El estándar de la industria para eso es **DMN**
+—tablas con condiciones de entrada y salidas, intercambiables y ejecutables—, y este catálogo adopta
+sólo su forma: situación identificable, criterio localizable, salida declarada. Adoptar DMN completo
+exigiría un motor de decisión y un formato de intercambio que el método no tiene.
 
 ---
 
@@ -161,4 +122,3 @@ regla—. Lo que no corresponde adoptar es la **infraestructura** de DMN, no su 
 | Versión | Fecha | Cambios |
 |---|---|---|
 | 1.0 | 2026-08-17 | Emisión inicial. Índice de **202 situaciones** catalogadas y **22 criterios** de decisión repartidos en dieciocho reglas y tres orquestadores, que existían **sin punto de entrada**. Las tablas de anti-patrones suman su **marca de detección** `[enumerable]` / `[interpretativo]`, reusando la clasificación que el método ya aplicaba a los criterios de aceptación. |
-| 1.1 | 2026-08-17 | **§4.1 nueva: la política de coincidencia**, que el método no declaraba. La tabla de §3 es **única** —dos criterios para una situación son un defecto del catálogo— y la de §4 es **acumulativa** —varios anti-patrones alcanzan al mismo documento y todos sus remedios aplican—. Cuando dos criterios difieren, es la **detención por arbitraje** de `Master-Prompt.md` §7.0, que ya existe: no se estrena mecanismo. **§5 corrige el fundamento sobre DMN**: separa sus tres piezas y declara que **la representación nunca fue el obstáculo** —una tabla de decisión se expresa en Markdown sin pérdida—; lo que no se adopta es la serialización XML y el motor, porque acá el motor es el agente que lee. |
