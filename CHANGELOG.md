@@ -3,6 +3,37 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.16] - 2026-08-18
+
+**Una entrega cerró con un informe completo y sin pedir nada, y el humano tuvo que preguntar qué hacer.** `Master-Prompt.md` §12.1 **T4** declara desde la 9.2 que el bloque de entrega termina con «qué sigue después del merge», y **§8.1 F4** declara desde la 9.8 que lo que se pide es **una decisión, no una opinión**. **Las dos reglas existían y no se aplicaron, por quien las escribió.**
+
+### Agregado — `Master-Prompt.md` 8.5 → 8.6, §8.1
+
+**La autocorrección.** Detectar un defecto propio y ofrecerlo como opción **es entregar trabajo a medias**:
+
+| Qué se detecta | Quién lo resuelve |
+| --- | --- |
+| Un **defecto del propio trabajo** | **El agente, en la misma unidad.** Se corrige y se declara en el cierre |
+| Una **decisión de diseño** | **El humano** |
+
+**Con su contraparte**, que es la mitad que impide el uso inverso: si corregir el defecto propio **cambia una decisión que el humano ya tomó**, **se detiene** — dejó de ser un defecto del agente. El criterio de corte: **el agente termina su trabajo, no rehace el del humano**.
+
+**El cierre de unidad.** La entrega y las decisiones pendientes van en **un solo bloque**, porque separarlas **obliga a reconstruir el contexto dos veces**. Cada decisión lleva **su contexto de dos o tres líneas**, sus opciones **con impacto**, el fundamento que aplica y **una recomendación**. Ese contexto no es cortesía: quien decide no estuvo en la corrida, y sin él **elige sobre el nombre de las opciones y no sobre lo que implican**.
+
+### Y por qué ese bloque ya es un plan
+
+**Para escribir «qué pasaría si» hay que proyectar.** Enumerar opciones, estimar impacto y recomendar **exige haber recorrido los caminos que no se tomaron**, que es lo que hace una planificación.
+
+De ahí la consecuencia: **el plan no tiene por qué ser un artefacto aparte.** Es lo que queda escrito en el cierre de cada unidad, **hecho en el momento en que se tiene la información** y no antes, cuando había que suponerla. Es la misma lógica con la que `Migracion-Rules.md` §3 rechazó los playbooks por salto de versión: **un plan escrito antes de tener el estado a la vista planifica sobre lo que se supone**.
+
+- **`Master-Prompt-Migracion.md` 2.7 → 2.8** y **`Master-Prompt-Reanudacion.md` 1.6 → 1.7** lo adoptan.
+
+**Ninguna invariante modificada.** El conjunto superado se archiva en `_legacy/9.15/`.
+
+**Queda anotado:** la regla nueva **no impide** el defecto que la originó — T4 y F4 ya existían. Lo que cambia es que el cierre es un **bloque único**, y omitir «qué necesito de vos» lo deja **visiblemente incompleto**. Es el mismo argumento de la comprobación 12: una obligación cuya omisión **se nota** vale más que una que depende de la memoria, y no es una garantía.
+
+---
+
 ## [9.15] - 2026-08-18
 
 **Un criterio que se venía aplicando por olfato queda escrito: qué merece ser paso y qué queda como prosa.**

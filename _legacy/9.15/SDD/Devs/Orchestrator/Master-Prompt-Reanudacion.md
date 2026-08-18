@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de reanudación
 
 **Archivo:** `Master-Prompt-Reanudacion.md`
-**Versión:** 1.7
+**Versión:** 1.6
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** lectura, diagnóstico y **entrega de contexto**, con detención obligatoria. **No escribe nada del destino salvo su propio informe**, y no ejecuta el trabajo que despacha
 **Prerequisitos:** un repositorio destino con `SDD/` poblado. No exige memoria de ninguna sesión anterior
@@ -199,8 +199,6 @@ es cierto. Presentar las salidas sin las divergencias invita a elegir sobre un e
 ## §4 R2 — Las salidas, la recomendación, y qué implica cada una
 
 Detención obligatoria. **El humano elige; este prompt no decide, pero sí recomienda.**
-
-**El informe de R3 y la continuación de R4 adoptan el cierre de unidad** de `Master-Prompt.md` §8.1: lo entregado y lo que queda por decidir van juntos, y cada decisión lleva su contexto para quien no siguió la corrida.
 
 ### §4.0 La recomendación, y por qué el prompt dejó de ser neutral
 
@@ -426,4 +424,3 @@ entonces el contexto vuelve a vivir sólo en la sesión.
 | 1.4 | 2026-08-17 | El paso 0 de R0 pasa a **correr la compuerta T0** de `Master-Prompt.md` §12.1 y publicar su salida, en lugar de describir sus comprobaciones por su cuenta. Declara los **dos resultados que detienen** la reanudación: árbol sucio y **entrega viva**, porque diagnosticar mientras una unidad anterior no cerró produce un informe sobre un estado que está por cambiar. El bloque `REPOSITORIO` de R1 adopta el formato de T0. |
 | 1.5 | 2026-08-17 | **R2 deja de ser neutral y pasa a recomendar**, sin decidir. **§4.0** declara el formato de la recomendación con sus seis factores y su **alternativa razonable** obligatoria —una recomendación sin segunda opción se lee como un único camino—. **§4.0.1 fija el umbral de continuidad**, que es mecánico y ya existía: cuántos major con **bloque de impacto no vacío** atraviesa el salto. Con **dos o más**, ninguna regla vigente puede auditar ni extender ese corpus y **C deja de ofrecerse como equivalente**; sobre procedencias tempranas **no se recomienda nunca**, porque sus identificadores no son direcciones válidas y su layout no existe. **§4.0.2** declara el encadenamiento después de reparar: la recomendación **se recalcula** y R2 dice que la pregunta pendiente es migrar o seguir, para que quien eligió A sepa que está en la segunda vuelta. Origen: el Product Owner, sobre dos destinos reales con procedencias muy distintas. |
 | 1.6 | 2026-08-17 | R1 y R2 se declaran como casos de `Master-Prompt.md` §8.1, que generaliza a toda detención lo que §4.0 había hecho para las salidas de R2. La recomendación de §4.0 **es** la propuesta que §8.1 exige. |
-| 1.7 | 2026-08-18 | Adopta el **cierre de unidad** de `Master-Prompt.md` §8.1 —entrega y decisiones en un solo bloque, cada decisión con su contexto— y su regla de **autocorrección**. |
