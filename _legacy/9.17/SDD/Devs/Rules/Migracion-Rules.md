@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino para los dos artefactos propios. El alcance sobre el que la migración opera es `SDD/Intake/` y `SDD/Docs/` del mismo repositorio
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto, unidad de entrega y proyecto de código
 **Subagente target del orquestador:** el orquestador de migración para el plan y el cierre; el auditor independiente para el informe; el subagente titular de cada categoría para re-expresar los documentos de esa categoría
-**Versión de las reglas:** 3.13
+**Versión de las reglas:** 3.12
 
 Dentro de este archivo «migración» se usa en forma desnuda, según la excepción que `Vocabulario-Rules.md` §9.6 declara: en este contexto de lectura no hay otro referente con el que colisione. En cualquier otro archivo del framework el término va calificado como «migración normativa».
 
@@ -462,12 +462,11 @@ defecto sólo se manifiesta en la rama contraria: **la sección idéntica en tod
 emite sin bloque intermedio. Con un solapamiento medio del 16,3 % esa rama casi no se ejecuta, y la
 corrida que la ejecutó fue **la categoría más chica de la migración**, con un solo documento.
 
-**La lección de forma que este caso dejó no vive acá.** La primera mitad se escribió contra el caso
-observado y quedó enunciada sobre él —«todo cuerpo se cierra»—, de modo que **su simétrico quedó afuera
-sin que nadie lo notara**: la regla se leía completa. Eso no es un problema de la consolidación sino de
-cómo se escribe cualquier regla, y por eso **la pregunta vive en `SDD-Development-Guide.md` Parte IV,
-«sobre las reglas que escribas a partir de un caso observado»**, junto a las otras dos familias del
-mismo patrón. Acá queda el caso, que es lo que esa parte cita como evidencia.
+**La lección es sobre la forma de la regla, no sobre el salto de línea.** La primera mitad se escribió
+contra el caso observado y quedó enunciada sobre el caso observado —«todo cuerpo se cierra»—, de modo
+que **su simétrico quedó afuera sin que nadie lo notara**: la regla se leía completa. Cuando una regla
+nace de un caso, corresponde preguntar **cuál es su simétrico** antes de darla por escrita. Es el
+quinto defecto del emisor y los cinco tienen esta forma.
 
 **Qué se toma de dónde.** Los **metadatos de cabecera** —identidad, versión, estado, autor,
 trazabilidad— se toman de la versión de la unidad de entrega y se ajustan al nivel resultante. **Todo
@@ -735,4 +734,3 @@ Para el despacho del auditor, los criterios de §6 de este archivo se suman a lo
 | 3.10 | 2026-08-17 | **§4.3.2 suma el procedimiento de emitir el documento consolidado**, que era la única parte de la consolidación sin procedimiento: comparar y verificar tenían C1 a C5, mover tenía sus cinco pasos, y **emitir vivía como bullets sueltos en prosa**. **E1** recorre la **unión de secciones** y no la del documento vivo —medido: **722 líneas en doce secciones** descartadas en silencio—. **E2** transpone la **prosa que no cuelga de encabezado**, en sus dos lugares: el preámbulo y el texto dentro de una sección estructural; **absorbe el bullet que ya lo advertía**, que estaba suelto y por eso se leía salteado. **E3** regenera el índice **aumentando y no reemplazando**, que es el caso donde una corrección produjo el defecto siguiente. **E4** cierra todo cuerpo con salto de línea, porque un encabezado pegado **se presenta como líneas sin correspondencia** y se descarta como ruido. Nombra además el error de fondo: **clasificar las secciones por su función y asumir que la función determina si el cuerpo vale la pena conservar**. §6 suma su criterio enumerable. Sube **minor**. | Framework SDD (procedimiento de emitir) |
 | 3.11 | 2026-08-18 | Los dos procedimientos de §4.3.2 declaran **cuándo se corren**, que era el único ítem obligatorio de un procedimiento que les faltaba: la **emisión**, una vez por grupo y antes de la verificación; la **comparación**, antes de emitir, y la **verificación, después de emitir y antes de archivar** —el único momento en que todavía se puede corregir sin rehacer—. Sube **patch**. | Framework SDD (paso o prosa) |
 | 3.12 | 2026-08-18 | **§4.3.2 E4 pasa a exigir la separación del encabezado a los dos lados.** Estaba enunciada sobre el caso que la originó —«todo cuerpo se cierra con salto de línea»— y **su simétrico quedaba afuera**: el cuerpo pegado a **su propio** encabezado. El defecto sólo se produce en la rama que emite una sección **idéntica en todas las versiones**, sin bloque de atribución en el medio que aporte la línea en blanco por accidente; con un solapamiento medio del 16,3 % esa rama casi no se ejecuta, y tardó **cinco categorías** en aparecer. Medido al corregirlo: **23 encabezados en 12 documentos** de un destino real. Suma la lección de forma —**cuando una regla nace de un caso, corresponde preguntar cuál es su simétrico**— y un criterio de aceptación **enumerable** en §6. Sube **minor**. | Framework SDD (simétrico de E4) |
-| 3.13 | 2026-08-18 | La lección de forma que la 3.12 había escrito adentro de **E4** **se sube a `SDD-Development-Guide.md` Parte IV**, donde le sirve a quien escribe una regla nueva en cualquier categoría y no sólo a quien lee E4. Acá queda **el caso**, que esa parte cita como una de sus tres familias de evidencia. **No se duplica**: dos declaraciones de la misma regla hay que mantenerlas sincronizadas, y el propio framework lo declara anti-patrón. Sube **minor**. | Framework SDD (el simétrico de la regla) |

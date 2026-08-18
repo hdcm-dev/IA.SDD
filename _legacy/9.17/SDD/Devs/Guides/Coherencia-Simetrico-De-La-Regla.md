@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Coherencia-Simetrico-De-La-Regla.md
-**Versión:** 1.1
+**Versión:** 1.0
 **Estado:** Vigente
 **Fecha:** 2026-08-18
 **Autor:** AG-ROOT (Arquitecto de Soluciones)
@@ -48,11 +48,10 @@ Se evaluó agregar una regla nueva. **Se descartó**, y el motivo es el defecto 
 hermanas enunciadas por separado vuelven a permitir que se aplique una y no la otra. E4 pasa a
 enunciar **el par** en una tabla de dos filas —cierre y apertura— con el síntoma de cada una.
 
-**Y la lección que este caso deja es sobre la forma de escribir reglas, no sobre saltos de línea.**
+**Y la lección que la regla suma es sobre la forma de escribir reglas, no sobre saltos de línea.**
 Cuando una regla nace de un caso, tiende a quedar enunciada **sobre ese caso** y no sobre la propiedad
-que el caso ilustra. Corresponde preguntar **cuál es su simétrico** antes de darla por escrita, y es el
-motivo por el que el par se escribe junto. *(La 9.17 la escribió adentro de E4; la 9.18 la subió a
-`SDD-Development-Guide.md` Parte IV, que es donde vive ahora. Lo cuenta §9.)*
+que el caso ilustra. Corresponde preguntar **cuál es su simétrico** antes de darla por escrita. Los
+cinco defectos del emisor tienen esta forma, y es el motivo por el que el par se escribe junto.
 
 ## 5. Inventario de archivos
 
@@ -105,36 +104,16 @@ recuento con casos que la regla no produce.
 —«separado a los dos lados»— y no sobre el caso que lo originó, que habría sido «ningún encabezado
 tiene su cuerpo pegado abajo».
 
-## 9. Lo que esta nota dejaba anotado, y cómo se cerró en la 9.18
+## 9. Lo que esta nota deja anotado
 
-**La lección de forma había quedado escrita adentro de E4, que es una regla de migración.** Ahí sirve a
-quien lee E4 y no a quien escribe una regla nueva en cualquier otra categoría, que es donde el patrón
-se repite.
+**La lección de forma quedó escrita adentro de E4, que es una regla de migración.** Ahí sirve a quien
+lee E4 y no a quien escribe una regla nueva en cualquier otra categoría, que es donde el patrón se
+repite. El lugar propio sería la Parte IV de `SDD-Development-Guide.md` —«sobre qué forma le das a lo
+que escribís»—, que ya alberga el criterio de paso o prosa.
 
-**Yo había recomendado no subirla, y el Product Owner decidió lo contrario.** Mi argumento era que
-generalizar desde **un mismo emisor en una sola migración** sería el defecto inverso. **El argumento
-era razonable y la premisa era falsa**, y alcanzó con ir a buscarla: el patrón ya estaba documentado
-**dos veces más en el framework, con origen distinto del emisor**, en la propia §VI.3.1 de la guía.
-
-| Regla | Se enunció sobre | Lo que quedó afuera |
-| --- | --- | --- |
-| Comprobación 4, «sin contradicción con lo que ya estaba» | los **archivos tocados** | el concepto fuera del alcance declarado, y el interior de lo ya tocado — **tres intervenciones seguidas** |
-| La regla 4 del barrido | **el árbol** | **el texto propio de la intervención** — «la parte que faltó las cinco veces» |
-| **E4** | **el cierre** del cuerpo | **la apertura**: el cuerpo pegado a su propio encabezado |
-
-**Tres familias, tres orígenes, un mismo defecto de forma.** Con eso, el bloque de la Parte IV no
-generaliza desde un caso: recoge tres.
-
-**Y la constancia que corresponde dejar, porque es del tipo que esta nota registra.** Mi recomendación
-se apoyó en un recuento de evidencia que **no verifiqué antes de recomendar**, teniendo el árbol a
-mano y siendo la verificación un `grep`. Es la misma forma que los cinco defectos del emisor: **una
-conclusión correcta sobre el caso que tenía enfrente, enunciada como si cubriera el resto**.
-
-**Se cerró en la 9.18.** `SDD-Development-Guide.md` Parte IV suma «sobre las reglas que escribas a
-partir de un caso observado», con las tres familias, sus cuatro preguntas, la regla de que **dos
-reglas hermanas van juntas** y su límite —hay reglas cuyo caso **es** la propiedad—.
-`Migracion-Rules.md` **E4 no duplica la lección: apunta**, y conserva el caso como evidencia.
-`Catalogo-De-Criterios.md` suma la situación.
+**No se hace acá porque sería el defecto inverso:** generalizar a partir de un caso —cinco defectos de
+**un mismo emisor**, en **una** migración— antes de tener evidencia de que el patrón aparece fuera de
+él. Queda anotado para cuando la haya.
 
 ## 10. Veredicto
 
@@ -147,4 +126,3 @@ desactualizado del árbol vivo quedó corregido.
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
 | 1.0 | 2026-08-18 | Nota inicial de la intervención publicada como framework 9.17: **E4 pasa a exigir la separación del encabezado a los dos lados**. Registra por qué el simétrico tardó cinco categorías —la rama que lo produce es la sección idéntica en todas las versiones, y el solapamiento medio es 16,3 %—, la decisión de enunciar el par en lugar de agregar una regla hermana, y la lección de forma: **cuando una regla nace de un caso, corresponde preguntar cuál es su simétrico**. |
-| 1.1 | 2026-08-18 | §9 pasa de «lo que deja anotado» a **cómo se cerró en la 9.18**: la lección de forma sube a la Parte IV de `SDD-Development-Guide.md`, y **E4 apunta en lugar de duplicar**. Registra que la recomendación de no subirla **se apoyaba en una premisa falsa** —que la evidencia era de un solo emitor— y que verificarla era un `grep`: el patrón ya estaba documentado **dos veces más, con origen distinto**, en §VI.3.1 de la propia guía. |

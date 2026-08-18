@@ -3,6 +3,40 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.18] - 2026-08-18
+
+**La 9.17 escribió la lección adentro de la regla que la originó, que es el lugar donde no le sirve a nadie más.** `Migracion-Rules.md` §4.3.2 **E4** cerraba diciendo que **cuando una regla nace de un caso corresponde preguntar cuál es su simétrico** — una lección sobre cómo se escribe cualquier regla, guardada en una regla de migración.
+
+### Agregado — `SDD-Development-Guide.md` 1.18 → 1.19, Parte IV
+
+**«Sobre las reglas que escribas a partir de un caso observado».** Casi toda regla del framework nace de una falla concreta, y ése es su mérito. El riesgo es de forma: **una regla escrita contra el caso tiende a quedar enunciada sobre el caso** y no sobre la propiedad que el caso ilustra, y entonces **su simétrico queda afuera sin que nadie lo note, porque la regla se lee completa**.
+
+**Tres familias observadas, y no comparten origen:**
+
+| Regla | Se enunció sobre | Lo que quedó afuera |
+| --- | --- | --- |
+| Comprobación 4, «sin contradicción con lo que ya estaba» | los **archivos tocados** | el concepto fuera del alcance declarado — **tres intervenciones seguidas** |
+| La regla 4 del barrido | **el árbol** | **el texto propio de la intervención** — cinco veces |
+| `Migracion-Rules.md` §4.3.2 **E4** | **el cierre** del cuerpo | **la apertura**: el cuerpo pegado a su propio encabezado |
+
+**Lo que las tres tienen en común no es el descuido: es que el enunciado quedó pegado al síntoma**, y un enunciado pegado al síntoma **no falla ruidosamente**. Cubre su caso, se verifica bien, y el simétrico produce el mismo daño en una rama que casi no se ejecuta — así que el silencio se lee como conformidad.
+
+Suma cuatro preguntas, la regla de que **dos reglas hermanas van juntas y no separadas** —separadas vuelven a permitir que se aplique una y no la otra, que es el defecto que se corrige— y su límite: **hay reglas cuyo caso es la propiedad**, y lo que se pide es **hacerse la pregunta**.
+
+### Cambiado — `Migracion-Rules.md` 3.12 → 3.13, §4.3.2
+
+**E4 apunta a la Parte IV en lugar de repetirla**, y conserva el caso como evidencia. Dos declaraciones de la misma regla hay que mantenerlas sincronizadas, y el framework lo declara anti-patrón.
+
+### Cambiado — `Catalogo-De-Criterios.md` 1.3 → 1.4
+
+§3 suma la situación «se escribe una regla nueva a partir de un caso observado». Es la **comprobación 12** de §VI.3 funcionando: un criterio nuevo entra al índice en la misma intervención que lo crea.
+
+### Nota de coherencia
+
+`Coherencia-Simetrico-De-La-Regla.md` 1.0 → 1.1. Registra que **la recomendación de no subir la lección se apoyaba en una premisa falsa** —que la evidencia era de un solo emisor en una sola migración— y que verificarla era un `grep`: el patrón ya estaba documentado dos veces más, con origen distinto, en §VI.3.1 de la propia guía. **Es la misma forma que el defecto que la intervención corrige.**
+
+---
+
 ## [9.17] - 2026-08-18
 
 **Una regla escrita contra el caso que la originó dejó afuera su simétrico, y el simétrico produce el mismo daño por el otro lado.** `Migracion-Rules.md` §4.3.2 **E4** decía «todo cuerpo se cierra con salto de línea», porque sin él el encabezado **siguiente** queda pegado. El caso contrario —el cuerpo pegado a **su propio** encabezado— no estaba, y **la regla se leía completa**.
