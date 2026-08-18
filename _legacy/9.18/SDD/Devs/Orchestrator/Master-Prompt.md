@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 8.7
+**Versión:** 8.6
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -917,33 +917,6 @@ habilitaría a deshacer decisiones ajenas «corrigiendo».
 
 **El criterio de corte, en una línea:** el agente **termina su trabajo**, no **rehace el del humano**.
 
-**Cómo se establece de qué lado cae, que es lo que faltaba.** La tabla de arriba declara la frontera y
-no dice cómo reconocerla, y sin eso decide la asimetría de costos: **detener es barato para el agente y
-caro para el humano**, así que ante la duda se detiene. Medido en una corrida real: **de cinco
-detenciones presentadas al humano, tres no eran del humano** —dos filas de registro fuera de su tabla,
-trece encabezados verificables contra su origen, y el orden en que consolidar dos categorías—. Ninguna
-requería criterio de producto; las tres tenían respuesta en el árbol.
-
-**La pregunta previa, y es una sola:**
-
-> **¿Esto tiene respuesta en el árbol?** Si la tiene —si se contesta abriendo los documentos y
-> contrastando, y la respuesta se puede sostener con una **cita literal**— **no es una detención: es
-> trabajo propio**, y se resuelve bajo la autocorrección. Se detiene lo que **no** tiene cita posible:
-> lo que requiere intención de producto, autoridad, o una preferencia que el árbol no contiene.
-
-**La cita es el criterio, no la intuición.** Un hallazgo que se puede sostener citando archivo y línea
-lo puede cerrar el agente; uno que sólo se puede sostener opinando, no. Verificado en la corrida que lo
-originó: de **seis hallazgos de un audit, cinco se sostenían con cita y los cerró el agente**; el
-sexto —un recuento cuyo criterio nadie había fijado— no, y quedó abierto.
-
-**Ante la duda, se detiene.** Clasificar mal hacia «lo resuelvo yo» es peor que hacia «lo pregunto»: el
-agente decide por su cuenta algo que era del humano, y el humano se entera después. Es el mismo
-criterio con que §6 resuelve la duda entre enumerable e interpretativo, y por el mismo motivo — **el
-error barato y el error caro no son simétricos**.
-
-**Qué obliga en el cierre.** El campo `Corregido` del bloque de §8.1 lista lo resuelto por esta vía. Sin
-eso la regla es inauditable: no se distingue un hallazgo bien cerrado de uno que el agente se guardó.
-
 ### El cierre de unidad: la entrega y las decisiones, en un solo bloque
 
 **Una unidad terminada produce dos cosas a la vez** —trabajo para revisar y decisiones para tomar— y
@@ -1038,32 +1011,6 @@ Heurísticas para detectar ambigüedad legítima vs improvisación:
 ## §10 Auditoría entre fases
 
 Cada cierre de fase dispara un audit independiente con un subagente auditor que se invoca desde cero, sin contexto previo, para garantizar mirada externa.
-
-**Qué compra la independencia y qué no**, porque de eso depende cómo hay que encargarle el trabajo:
-
-| | |
-| --- | --- |
-| **Sí compra: ausencia de compromiso** | El agente que tomó una decisión tiene interés en que la respuesta sea que estuvo bien. **Eso no se corrige con más contexto ni con mejor prompt**: es estructural de quien decidió |
-| **No compra: independencia de criterio** | Dos agentes del mismo modelo, leyendo las mismas reglas, tienden a coincidir ante una pregunta abierta. Una **confirmación correlacionada se lee como verificación sin serlo**, y cierra el hallazgo peor que no haberlo mirado |
-
-**De ahí se sigue la forma del encargo, y las tres partes son obligatorias:**
-
-1. **Se le pide refutar, no verificar.** «Encontrá dónde esta decisión pierde sentido» rinde distinto de
-   «verificá que se conservó». Un auditor que busca confirmación la encuentra.
-2. **Cita literal obligatoria**, con archivo y línea. **Sin cita, el veredicto no vale.** Es lo que
-   convierte una pregunta abierta —que correlaciona— en una contrastable contra el árbol —que no—.
-3. **«No concluyente» admitido explícitamente**, para que una confirmación débil no pase por
-   verificación por no haber tenido dónde caerse.
-
-**Y una propiedad que la exigencia de cita produce sola, y que conviene aprovechar en lugar de
-declarar aparte.** Un hallazgo que el auditor sostiene con cita **es, por eso mismo, resoluble contra el
-árbol**: es la pregunta previa de §8.1 contestada sin que nadie tenga que clasificarlo. **Exigir la cita
-alcanza; no hace falta pedirle además que declare de quién es el hallazgo.**
-
-**Un beneficio del auditor sin memoria que no es el que se busca, y conviene declarar.** Es además **la
-prueba de que el árbol se sostiene solo**, que es la propiedad sobre la que se apoya todo el método. Si
-el auditor **no puede resolver con el árbol a la vista, eso es un hallazgo sobre el árbol** —una
-decisión se tomó y no se dejó escrita— y no una escalación al humano.
 
 ### §10.0 Compuerta mecánica previa al audit
 
@@ -1651,4 +1598,3 @@ Reglas de versionado:
 | 8.4 | 2026-08-17 | **§8.1 es nueva: toda detención lleva análisis y propuesta**, y la leen los tres orquestadores. Medido sobre el propio framework: de las cuatro familias de detención, **dos llevaban contexto por construcción** —la confirmación de un plan y el traspaso de §12.1 T4— y **las dos que preguntan no proponían nada**: la ambigüedad tenía ocho campos cuyo centro es «pregunta concreta», y el **arbitraje de §7.0 no declaraba formato alguno**. Una detención sin propuesta **le traslada al humano el análisis que el agente ya tiene hecho**. Declara el bloque obligatorio —qué pasó, **estado de avance cuantificado** cuando lo que se decide está a medias, opciones con **qué se conserva de lo hecho**, propuesta con alternativa, y qué se espera de vuelta— y sus cuatro reglas. §9 y §7.0 adoptan la forma. **No agrega ni quita ninguna detención**: cambia la de las que ya existen. Sube **minor**. | Framework SDD (toda detención lleva propuesta) |
 | 8.5 | 2026-08-17 | **§10.0 declara de dónde sale su conjunto de reglas, que hasta acá estaba cableado.** Son dos: las comprobaciones transversales que ya enumeraba, y **los anti-patrones marcados `[enumerable]`** de la regla de la categoría en curso —**97 de las 202** situaciones catalogadas, que estaban declaradas, marcadas y sin consumir—. El segundo conjunto **no se copia acá**: la compuerta lee la regla de la categoría, con el mismo fundamento con que `Migracion-Rules.md` §3 rechazó los playbooks —una duplicación que se mantiene en paralelo se desincroniza—. Los `[interpretativo]` siguen siendo del audit. Sube **minor**: amplía el alcance de una compuerta existente sin agregar comprobaciones nuevas, porque las 97 ya estaban escritas. | Framework SDD (la compuerta toma del catálogo) |
 | 8.6 | 2026-08-18 | **§8.1 suma tres cosas.** **La autocorrección**: un defecto **del propio trabajo** se corrige en la misma unidad y se declara en el cierre —ofrecerlo como opción es entregar trabajo a medias—, **con la contraparte** de que si corregirlo cambia una decisión ya tomada por el humano, **sí se detiene**: el agente **termina su trabajo, no rehace el del humano**. **El cierre de unidad**: la entrega y las decisiones pendientes van en **un solo bloque**, porque separarlas obliga a reconstruir el contexto dos veces, y **cada decisión lleva su contexto de dos o tres líneas** para quien no vino siguiendo la corrida —sin él la elección se hace sobre el nombre de las opciones y no sobre lo que implican—. Y **por qué ese bloque ya es un plan**: enumerar opciones, estimar impacto y recomendar exige proyectar, así que **el plan no tiene por qué ser un artefacto aparte** — es lo que queda escrito en cada cierre, hecho cuando se tiene la información y no antes, cuando había que suponerla. Sube **minor**. | Framework SDD (cierre de unidad) |
-| 8.7 | 2026-08-18 | **§8.1 suma la pregunta previa a toda detención, y §10 la forma del encargo al auditor.** La tabla de la autocorrección declaraba la frontera desde la 9.16 y **no cómo reconocerla**, así que decidía la asimetría de costos: detener es barato para el agente y caro para el humano. Medido: **de cinco detenciones de una corrida real, tres no eran del humano**. La pregunta es una sola —**¿esto tiene respuesta en el árbol?**— y **la cita literal es el criterio, no la intuición**: lo que se sostiene citando archivo y línea lo cierra el agente. Con su «ante la duda, se detiene», por la misma asimetría con que §6 resuelve enumerable contra interpretativo. **§10** separa qué compra la independencia —**ausencia de compromiso**, que no se arregla con mejor prompt— de qué no compra —**independencia de criterio**, porque dos agentes del mismo modelo correlacionan—, y de ahí deriva las tres partes obligatorias del encargo: **refutar y no verificar**, **cita literal o el veredicto no vale**, y **«no concluyente» admitido**. Registra que la exigencia de cita **contesta sola la pregunta previa**, de modo que no hace falta clasificar el hallazgo aparte. Origen: `Reportes/13`. Sube **minor**. | Framework SDD (la pregunta previa) |

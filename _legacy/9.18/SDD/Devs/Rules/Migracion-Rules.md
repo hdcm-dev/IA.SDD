@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino para los dos artefactos propios. El alcance sobre el que la migración opera es `SDD/Intake/` y `SDD/Docs/` del mismo repositorio
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto, unidad de entrega y proyecto de código
 **Subagente target del orquestador:** el orquestador de migración para el plan y el cierre; el auditor independiente para el informe; el subagente titular de cada categoría para re-expresar los documentos de esa categoría
-**Versión de las reglas:** 3.14
+**Versión de las reglas:** 3.13
 
 Dentro de este archivo «migración» se usa en forma desnuda, según la excepción que `Vocabulario-Rules.md` §9.6 declara: en este contexto de lectura no hay otro referente con el que colisione. En cualquier otro archivo del framework el término va calificado como «migración normativa».
 
@@ -469,30 +469,6 @@ cómo se escribe cualquier regla, y por eso **la pregunta vive en `SDD-Developme
 «sobre las reglas que escribas a partir de un caso observado»**, junto a las otras dos familias del
 mismo patrón. Acá queda el caso, que es lo que esa parte cita como evidencia.
 
-**E5 · El índice de un documento absorbido no es contenido suyo.** Es navegación de un documento que
-deja de existir, y sus entradas apuntan a anclas que el consolidado no tiene. Es la quinta clase que no
-transpone, junto al título, la cabecera y la fila de control de cambios. Medido: **93 entradas** en dos
-documentos de una corrida, **todas con ancla rota**, y ninguna verificación las miraba porque el
-verificador de enlaces comprobaba **archivos y no anclas internas**.
-
-**E6 · Dos secciones que sólo difieren en su número son la misma sección.** El conjunto de secciones
-varía entre versiones, así que la misma sección lleva números distintos —`## 9. Control de cambios` en
-una y `## 8. Control de cambios` en otra—. Un emisor que compara títulos completos las emite dos veces,
-y el daño no es sólo la duplicación: **lo que se agregue después se registra en la equivocada**, porque
-se busca la última. La comparación de secciones **ignora el número y compara el texto**.
-
-**E7 · Un documento que sale por S4 también sube su versión.** Conservar identidad propia no es quedar
-fuera de la consolidación: el documento cambió de nombre y de árbol. Medido: **28 documentos** que
-registraron su fila y dejaron la cabecera en la versión anterior, con el registro contradiciéndose a sí
-mismo.
-
-**E8 · Ninguna unificación de encabezados se hace por sustitución de cadena.** `Vocabulario-Rules.md`
-§9.5 lo prohíbe para términos y vale igual acá. Medido: unificar «a **este** proyecto de código» con «a
-**cada** proyecto de código» por reemplazo produjo «a **este cada** proyecto de código» en tres
-documentos, **y ninguna verificación lo detectó porque el resultado seguía siendo un encabezado
-válido**. El índice, además, quedó apuntando al título viejo. Se sustituye por ocurrencia, y el índice
-se regenera después.
-
 **Qué se toma de dónde.** Los **metadatos de cabecera** —identidad, versión, estado, autor,
 trazabilidad— se toman de la versión de la unidad de entrega y se ajustan al nivel resultante. **Todo
 lo demás se toma de todas las versiones**: idéntico en todas, una vez; distinto, transpuesto con
@@ -508,14 +484,6 @@ atribución; presente en una sola, con su origen declarado.
 **qué secciones difieren** entre las versiones de un grupo es lo que determina qué se transpone;
 verificar **línea por línea** que nada se perdió es lo que lo corrige si se decidió mal. Ninguno de los
 dos estaba declarado, y en una corrida real el primero falló y el segundo lo atrapó.
-
-**C0 · La medición decide si fusionar, y no decide con quién.** Son dos preguntas y es tentador
-resolverlas con una sola medida. Medido: dos documentos con **50 % de título compartido y 8 % de
-cuerpo** se declararon «no fusionar» —correcto— y **se ligaron entre sí** —incorrecto: no eran
-contrapartes—. La contraparte verdadera de uno de ellos era un tercer documento que **no aparecía en
-ninguna medición de similitud**, y se reconoció por otra vía: **el mismo componente declarado, el mismo
-comportamiento y la misma necesidad de negocio de origen**. La similitud detecta candidatos; **la
-correspondencia se establece por trazabilidad, no por parecido**.
 
 **C1 · La comparación no normaliza el nombre del proyecto de código.** Es tentador hacerlo —aparece en
 la cabecera de las cinco versiones y ahí es ruido— pero **en el cuerpo es contenido**. Caso medido:
@@ -646,9 +614,6 @@ Antes de cerrar la migración:
 - [ ] [interpretativo] Ningún caso de uso se fusionó automáticamente por coincidencia de título; los duplicados por capa se conservan con su origen declarado y su deduplicación se propuso como lista.
 - [ ] [enumerable] El contenido sin destino está declarado en el informe y no se descartó en silencio.
 - [ ] [enumerable] En todo documento consolidado, **cada encabezado está separado de su cuerpo a los dos lados** (§4.3.2 E4). Se verifica sin leer: ninguna línea que empiece con `#` tiene texto pegado antes ni después.
-- [ ] [enumerable] **Ninguna ancla interna del árbol apunta a un encabezado inexistente.** El verificador de enlaces comprueba **archivos, directorios y anclas**; los tres se resuelven contando y los tres encontraron defectos que la comprobación de archivos sola no veía.
-- [ ] [enumerable] **Ningún documento consolidado tiene dos secciones con el mismo título** una vez ignorado su número (§4.3.2 E6).
-- [ ] [enumerable] **La versión de cabecera de todo documento tocado coincide con la última fila de su registro**, y las filas están ordenadas (§4.3.2 E7).
 
 - [ ] [enumerable] El árbol declara las **citas desnudas ambiguas** y su resolución confirmada.
 - [ ] [enumerable] Existe la **propuesta de consolidación de casos de uso** cuando la migración fundió árboles, y no se aplicó por su cuenta.
@@ -771,4 +736,3 @@ Para el despacho del auditor, los criterios de §6 de este archivo se suman a lo
 | 3.11 | 2026-08-18 | Los dos procedimientos de §4.3.2 declaran **cuándo se corren**, que era el único ítem obligatorio de un procedimiento que les faltaba: la **emisión**, una vez por grupo y antes de la verificación; la **comparación**, antes de emitir, y la **verificación, después de emitir y antes de archivar** —el único momento en que todavía se puede corregir sin rehacer—. Sube **patch**. | Framework SDD (paso o prosa) |
 | 3.12 | 2026-08-18 | **§4.3.2 E4 pasa a exigir la separación del encabezado a los dos lados.** Estaba enunciada sobre el caso que la originó —«todo cuerpo se cierra con salto de línea»— y **su simétrico quedaba afuera**: el cuerpo pegado a **su propio** encabezado. El defecto sólo se produce en la rama que emite una sección **idéntica en todas las versiones**, sin bloque de atribución en el medio que aporte la línea en blanco por accidente; con un solapamiento medio del 16,3 % esa rama casi no se ejecuta, y tardó **cinco categorías** en aparecer. Medido al corregirlo: **23 encabezados en 12 documentos** de un destino real. Suma la lección de forma —**cuando una regla nace de un caso, corresponde preguntar cuál es su simétrico**— y un criterio de aceptación **enumerable** en §6. Sube **minor**. | Framework SDD (simétrico de E4) |
 | 3.13 | 2026-08-18 | La lección de forma que la 3.12 había escrito adentro de **E4** **se sube a `SDD-Development-Guide.md` Parte IV**, donde le sirve a quien escribe una regla nueva en cualquier categoría y no sólo a quien lee E4. Acá queda **el caso**, que esa parte cita como una de sus tres familias de evidencia. **No se duplica**: dos declaraciones de la misma regla hay que mantenerlas sincronizadas, y el propio framework lo declara anti-patrón. Sube **minor**. | Framework SDD (el simétrico de la regla) |
-| 3.14 | 2026-08-18 | **El procedimiento de emitir suma E5 a E8, y la comparación suma C0**, los cinco con daño medido en la misma corrida y **ninguno detectado por las verificaciones existentes**. **E5**: el índice de un documento absorbido **no es contenido suyo** —93 entradas transpuestas, todas con ancla rota—. **E6**: dos secciones que sólo difieren en su número **son la misma**, y el daño mayor no es duplicarlas sino que **lo que se agregue después se registre en la equivocada**. **E7**: un documento que sale por **S4 también sube su versión** —28 documentos con el registro contradiciéndose—. **E8**: ninguna unificación de encabezados por **sustitución de cadena**, que produjo «a este cada proyecto de código» **sin que ninguna verificación lo viera, porque el resultado seguía siendo un encabezado válido**. **C0**: la medición decide **si** fusionar y no **con quién** ligar; la correspondencia se establece **por trazabilidad y no por parecido**. §6 suma **tres criterios enumerables**, incluida la verificación de **anclas internas**, que el verificador de enlaces no miraba. Sube **minor**. | Framework SDD (lo que el audit independiente destapó) |

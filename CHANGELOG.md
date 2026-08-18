@@ -3,6 +3,55 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [9.19] - 2026-08-18
+
+**La 9.16 declaró de qué lado va cada cosa y no cómo reconocer de qué lado cae.** `Master-Prompt.md` §8.1 separa desde entonces el **defecto propio** —que corrige el agente— de la **decisión de diseño** —que toma el humano—. Sin un paso que establezca cuál es cuál, decide **la asimetría de costos**: detener cuesta al agente una sección del informe y al humano reconstruir contexto que no tiene. **Medido en una corrida real: de cinco detenciones presentadas al humano, tres no eran del humano.**
+
+### Agregado — `Master-Prompt.md` 8.6 → 8.7, §8.1
+
+**La pregunta previa, y es una sola:**
+
+> **¿Esto tiene respuesta en el árbol?** Si se contesta abriendo los documentos y contrastando, y la respuesta se sostiene con una **cita literal**, **no es una detención: es trabajo propio**. Se detiene lo que no tiene cita posible: lo que requiere intención de producto, autoridad, o una preferencia que el árbol no contiene.
+
+**La cita es el criterio, no la intuición.** Verificado: de **seis hallazgos de un audit independiente, cinco se sostenían con cita y los cerró el agente**; el sexto —un recuento cuyo criterio nadie había fijado— no, y quedó abierto.
+
+**Ante la duda, se detiene**, por la misma asimetría con que §6 resuelve enumerable contra interpretativo: **el error barato y el error caro no son simétricos**.
+
+### Agregado — `Master-Prompt.md` §10
+
+**Qué compra la independencia del auditor y qué no**, porque de eso depende cómo encargarle el trabajo:
+
+| | |
+| --- | --- |
+| **Sí compra: ausencia de compromiso** | Quien decidió tiene interés en que la respuesta sea que estuvo bien. **No se corrige con más contexto ni con mejor prompt** |
+| **No compra: independencia de criterio** | Dos agentes del mismo modelo correlacionan ante una pregunta abierta, y **una confirmación correlacionada cierra el hallazgo peor que no haberlo mirado** |
+
+**Las tres partes obligatorias del encargo:** se le pide **refutar y no verificar**; **cita literal o el veredicto no vale**; **«no concluyente» admitido explícitamente**.
+
+**Y la propiedad que la exigencia de cita produce sola:** un hallazgo sostenido con cita **es, por eso mismo, resoluble contra el árbol**. Es la pregunta previa contestada sin que nadie clasifique nada — por eso **se incorpora el criterio y no el eje de estratos** que `Reportes/13` proponía. Un concepto más que mantener, en un método que declara que un procedimiento que crece deja de leerse, sólo se justifica si hace falta, y no hizo falta.
+
+### Agregado — `Migracion-Rules.md` 3.13 → 3.14, §4.3.2
+
+**Cinco reglas de emisión, las cinco con daño medido y ninguna detectada por las verificaciones existentes.** Es lo que las distingue de E1 a E4, que nacieron de defectos que la verificación de preservación **sí** encontraba:
+
+| Regla | Qué destapó | Por qué no se veía |
+| --- | --- | --- |
+| **E5** · el índice de un documento absorbido no transpone | **93 entradas** con ancla rota | El verificador comprobaba **archivos, no anclas internas** |
+| **E6** · dos secciones que sólo difieren en su número son la misma | 4 secciones duplicadas | Y el daño mayor: **lo que se agrega después se registra en la equivocada** |
+| **E7** · un documento que sale por S4 también sube su versión | **28 documentos** | El registro se contradecía y nadie lo comparaba |
+| **E8** · ninguna unificación de encabezados por sustitución de cadena | «a **este cada** proyecto de código» | **El resultado seguía siendo un encabezado válido** |
+| **C0** · la medición decide **si** fusionar, no **con quién** ligar | Un par mal apareado | La medición era correcta; se la usó para una pregunta que no contesta |
+
+**E8 es el primer anti-patrón que §7 de esa misma regla nombra**, cometido por la consolidación que la regla gobierna: estaba escrita para **términos** y no para **encabezados**, que es el simétrico de su alcance — el sexto caso del patrón que la Parte IV de la guía describe desde la 9.18.
+
+**§6 suma tres criterios enumerables**, incluida la verificación de **anclas internas**, que el verificador de enlaces no miraba.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-La-Pregunta-Previa.md` 1.0. Deja anotado que **tres de cinco es una corrida y no una tasa** —si la proporción no se sostiene, la corrección barata es **quitar la regla, no refinarla**— y un límite del criterio: «sostenible con cita» **sigue siendo un juicio del agente sobre su propio trabajo**, y la corrida que lo originó tuvo un auditor externo estableciendo las citas. **Una corrida sin auditor deja al agente citando para sí mismo, y eso no se midió.**
+
+---
+
 ## [9.18] - 2026-08-18
 
 **La 9.17 escribió la lección adentro de la regla que la originó, que es el lugar donde no le sirve a nadie más.** `Migracion-Rules.md` §4.3.2 **E4** cerraba diciendo que **cuando una regla nace de un caso corresponde preguntar cuál es su simétrico** — una lección sobre cómo se escribe cualquier regla, guardada en una regla de migración.
