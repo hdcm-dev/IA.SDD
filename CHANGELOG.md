@@ -44,7 +44,9 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
 **E8 es el primer anti-patrón que §7 de esa misma regla nombra**, cometido por la consolidación que la regla gobierna: estaba escrita para **términos** y no para **encabezados**, que es el simétrico de su alcance — el sexto caso del patrón que la Parte IV de la guía describe desde la 9.18.
 
-**§6 suma tres criterios enumerables**, incluida la verificación de **anclas internas**, que el verificador de enlaces no miraba.
+**§6 suma tres criterios enumerables**, incluida la verificación de **anclas internas**, que el verificador de enlaces no miraba y que encontró un ancla rota **en el propio framework** en su primera corrida.
+
+**Y uno de los tres se corrigió en la misma unidad**, con la regla que esta intervención incorpora. El criterio de secciones duplicadas devolvió **24 falsos positivos** al correrlo acá: contaba los encabezados **dentro de los bloques de ejemplo**, que un documento que muestra el esqueleto de otro repite a propósito. Tenía respuesta en el árbol, así que se cerró sin ofrecerlo como opción (`Migracion-Rules.md` 3.15).
 
 ### Nota de coherencia
 

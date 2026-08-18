@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Coherencia-La-Pregunta-Previa.md
-**Versión:** 1.0
+**Versión:** 1.1
 **Estado:** Vigente
 **Fecha:** 2026-08-18
 **Autor:** AG-ROOT (Arquitecto de Soluciones)
@@ -96,7 +96,7 @@ que es el simétrico de su alcance.
 | Archivo | Versión | Qué cambió |
 | --- | --- | --- |
 | `SDD/Devs/Orchestrator/Master-Prompt.md` | 8.6 → **8.7** | §8.1 suma **la pregunta previa** con su medición y su «ante la duda, se detiene»; §10 suma **qué compra la independencia** y las **tres partes del encargo** |
-| `SDD/Devs/Rules/Migracion-Rules.md` | 3.13 → **3.14** | §4.3.2 suma **E5 a E8** y **C0**; §6 suma **tres criterios enumerables** |
+| `SDD/Devs/Rules/Migracion-Rules.md` | 3.13 → **3.15** | §4.3.2 suma **E5 a E8** y **C0**; §6 suma **tres criterios enumerables** |
 | `SDD/Devs/Rules/Catalogo-De-Criterios.md` | 1.4 → **1.5** | Dos situaciones nuevas en §3 |
 | `CHANGELOG.md` | — | Entrada `[9.19]` |
 | `SDD/Devs/Guides/Coherencia-La-Pregunta-Previa.md` | — | Esta nota |
@@ -122,6 +122,13 @@ regla se aplicó a la corrida que la originó, y la corrida se comportó como la
 
 **Lo que sí conviene declarar:** la evidencia de la clasificación es de **una corrida**, y §9 lo anota.
 
+**Y un caso de la propia intervención, que vale como demostración.** El criterio de secciones duplicadas
+que §6 suma devolvió **24 falsos positivos** en su primera corrida sobre este mismo repositorio: contaba
+los encabezados **dentro de los bloques de ejemplo**, que un documento que muestra el esqueleto de otro
+repite a propósito. **Tenía respuesta en el árbol y se cerró en la misma unidad** —`Migracion-Rules.md`
+3.15— en lugar de ofrecerse como opción. Es la pregunta previa aplicada al defecto que la propia
+intervención introdujo.
+
 ## 9. Lo que esta nota deja anotado
 
 **Tres de cinco no es una tasa.** El patrón es consistente con la asimetría de costos de §2, pero una
@@ -146,3 +153,4 @@ las cinco reglas de emisión nuevas llegan cada una con su criterio de verificac
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
 | 1.0 | 2026-08-18 | Nota inicial de la intervención publicada como framework 9.19. Registra que la 9.16 declaró la frontera de la autocorrección **sin declarar cómo reconocerla**, que en su lugar decidía la asimetría de costos —**tres de cinco detenciones de una corrida real no eran del humano**—, y que se eligió **la alternativa mínima del reporte 13** —una pregunta previa— **sobre el eje de estratos que ese reporte proponía**, porque la corrida mostró que **la exigencia de cita literal contesta la pregunta sola**. Documenta qué compra la independencia del auditor —ausencia de compromiso— y qué no —independencia de criterio—, y las cinco reglas de emisión que el audit destapó, las cinco invisibles para las verificaciones existentes. |
+| 1.1 | 2026-08-18 | §8 registra un caso de la propia intervención: el criterio de secciones duplicadas devolvió **24 falsos positivos** en su primera corrida, por contar los encabezados **dentro de los bloques de ejemplo**. Se cerró en la misma unidad —`Migracion-Rules.md` 3.15— aplicando la pregunta previa al defecto que la intervención introdujo. |
