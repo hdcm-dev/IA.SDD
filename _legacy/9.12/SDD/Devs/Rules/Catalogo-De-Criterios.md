@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Catalogo-De-Criterios.md
-**Versión:** 1.2
+**Versión:** 1.1
 **Estado:** Vigente
 **Fecha:** 2026-08-17
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
@@ -91,9 +91,7 @@ esta versión cada uno lleva su **marca de detección**: `[enumerable]` si un gu
 | [`Rules-UX-UI-DX.md`](../Rules/Rules-UX-UI-DX.md) | 25 | 12 | 13 |
 | **Total** | **202** | **97** | **105** |
 
-**La marca no es decorativa: la consume la compuerta.** Desde la 9.13, `Master-Prompt.md` §10.0 toma como parte de su conjunto de reglas **los anti-patrones `[enumerable]` de la regla de la categoría en curso**, y los evalúa antes de que el audit interprete nada. Los `[interpretativo]` quedan para el audit y para el humano.
-
-**Y dice quién puede aplicar el criterio.** Los `[enumerable]` los verifica la
+**La marca no es decorativa: dice quién puede aplicar el criterio.** Los `[enumerable]` los verifica la
 compuerta mecánica de `Master-Prompt.md` §10.0 **antes** de que nadie interprete; los
 `[interpretativo]` son del audit y del humano. Es la misma distinción que la intervención de los
 reportes `00` a `11` introdujo en los criterios de aceptación.
@@ -164,4 +162,3 @@ regla—. Lo que no corresponde adoptar es la **infraestructura** de DMN, no su 
 |---|---|---|
 | 1.0 | 2026-08-17 | Emisión inicial. Índice de **202 situaciones** catalogadas y **22 criterios** de decisión repartidos en dieciocho reglas y tres orquestadores, que existían **sin punto de entrada**. Las tablas de anti-patrones suman su **marca de detección** `[enumerable]` / `[interpretativo]`, reusando la clasificación que el método ya aplicaba a los criterios de aceptación. |
 | 1.1 | 2026-08-17 | **§4.1 nueva: la política de coincidencia**, que el método no declaraba. La tabla de §3 es **única** —dos criterios para una situación son un defecto del catálogo— y la de §4 es **acumulativa** —varios anti-patrones alcanzan al mismo documento y todos sus remedios aplican—. Cuando dos criterios difieren, es la **detención por arbitraje** de `Master-Prompt.md` §7.0, que ya existe: no se estrena mecanismo. **§5 corrige el fundamento sobre DMN**: separa sus tres piezas y declara que **la representación nunca fue el obstáculo** —una tabla de decisión se expresa en Markdown sin pérdida—; lo que no se adopta es la serialización XML y el motor, porque acá el motor es el agente que lee. |
-| 1.2 | 2026-08-17 | §4 declara que la marca `[enumerable]` **la consume la compuerta mecánica** de `Master-Prompt.md` §10.0 desde la 9.13, y no sólo documenta quién decide. |
