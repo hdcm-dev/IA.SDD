@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de reanudación
 
 **Archivo:** `Master-Prompt-Reanudacion.md`
-**Versión:** 1.7
+**Versión:** 1.8
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** lectura, diagnóstico y **entrega de contexto**, con detención obligatoria. **No escribe nada del destino salvo su propio informe**, y no ejecuta el trabajo que despacha
 **Prerequisitos:** un repositorio destino con `SDD/` poblado. No exige memoria de ninguna sesión anterior
@@ -137,8 +137,15 @@ paso 0, que **no produce contenido** —pone a salvo lo que ya estaba— y que a
 3. **Registrar cada divergencia** con las dos lecturas, la declarativa y la observable, y con la
    evidencia de cada una. No se resuelve acá: se declara.
 4. **Leer los pendientes declarados**: los hallazgos abiertos del último informe de auditoría, las
-   filas sin resolver de un plan de migración, y las carpetas `_fusion/` que existan, con su
-   inventario.
+   filas sin resolver de un plan de migración, las carpetas `_fusion/` que existan con su inventario,
+   y **los ítems diferidos de `Root-Rules.md` §12.2, con su evento de cierre contrastado**: el que
+   nombre un evento **ya ocurrido** se declara vencido.
+
+   **Es la comprobación más barata de todo el método y por eso vive acá.** La reanudación ya lee el
+   árbol entero sin memoria; preguntarle además «¿qué se difirió y ya venció?» no cuesta una pasada
+   nueva. Observado: un destino pasó **ocho etapas** con un ítem obligatorio diferido a un punto de
+   control que había cerrado sin registrarlo, y lo que finalmente lo destapó fue **el síntoma** —cero
+   etiquetas en el repositorio— y no el diferimiento.
 5. **Determinar si hay una migración en curso**, que es un estado distinto de «migró» y de «no
    migró». Sus tres señales, y basta con dos: **existe un plan de migración** en `SDD/Docs/Audit/`,
    **hay carpetas `_fusion/` con contenido**, y **no hay informe de migración con veredicto**. Si la
@@ -176,6 +183,11 @@ MIGRACIÓN
   Fases:                   {{completas | las que faltan}}
   Carpetas _fusion/:       {{0 | N, y la fusión no terminó}}
   Hallazgos abiertos:      {{ninguno | lista con su nivel}}
+
+ÍTEMS DIFERIDOS  (`Root-Rules.md` §12.2)
+  Declarados:              {{0 | N, con su evento de cierre}}
+  **Vencidos**:            {{ninguno | N, y su evento ya ocurrió}}
+  Sin forma:               {{ninguno | N promesas en prosa, no contables}}
 
 CONSTRUCCIÓN
   Registro del producto:   {{última etapa declarada}}
@@ -427,3 +439,4 @@ entonces el contexto vuelve a vivir sólo en la sesión.
 | 1.5 | 2026-08-17 | **R2 deja de ser neutral y pasa a recomendar**, sin decidir. **§4.0** declara el formato de la recomendación con sus seis factores y su **alternativa razonable** obligatoria —una recomendación sin segunda opción se lee como un único camino—. **§4.0.1 fija el umbral de continuidad**, que es mecánico y ya existía: cuántos major con **bloque de impacto no vacío** atraviesa el salto. Con **dos o más**, ninguna regla vigente puede auditar ni extender ese corpus y **C deja de ofrecerse como equivalente**; sobre procedencias tempranas **no se recomienda nunca**, porque sus identificadores no son direcciones válidas y su layout no existe. **§4.0.2** declara el encadenamiento después de reparar: la recomendación **se recalcula** y R2 dice que la pregunta pendiente es migrar o seguir, para que quien eligió A sepa que está en la segunda vuelta. Origen: el Product Owner, sobre dos destinos reales con procedencias muy distintas. |
 | 1.6 | 2026-08-17 | R1 y R2 se declaran como casos de `Master-Prompt.md` §8.1, que generaliza a toda detención lo que §4.0 había hecho para las salidas de R2. La recomendación de §4.0 **es** la propuesta que §8.1 exige. |
 | 1.7 | 2026-08-18 | Adopta el **cierre de unidad** de `Master-Prompt.md` §8.1 —entrega y decisiones en un solo bloque, cada decisión con su contexto— y su regla de **autocorrección**. |
+| 1.8 | 2026-08-19 | **R0 paso 4 suma los ítems diferidos** de `Root-Rules.md` §12.2 a los pendientes declarados, **con su evento de cierre contrastado**, y **R1 los publica** en un bloque propio con tres renglones: declarados, vencidos y sin forma. Va acá porque **es la comprobación más barata del método**: la reanudación ya lee el árbol entero sin memoria, y preguntarle «¿qué se difirió y ya venció?» no cuesta una pasada nueva. Origen: el reporte `14`, nacido de un destino donde el diferimiento se destapó **por el síntoma** —cero etiquetas en el repositorio— y no por el diferimiento, ocho etapas tarde. Sube **minor**: un insumo más en un paso existente y un bloque más en la presentación. |

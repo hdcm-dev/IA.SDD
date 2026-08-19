@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Catalogo-De-Criterios.md
-**Versión:** 1.5
+**Versión:** 1.6
 **Estado:** Vigente
 **Fecha:** 2026-08-17
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
@@ -59,7 +59,10 @@ aplica sin su fundamento — y el fundamento es lo que permite reconocer cuándo
 | Un término tiene dos sentidos | Desambiguar o no | [`Vocabulario-Rules.md`](../Rules/Vocabulario-Rules.md) §9 |
 | Un identificador necesita forma, ancho o ámbito | Cómo se numera y hasta dónde es único | `Root-Rules.md` §9 |
 | Un recuento se escribe en la prosa | Cómo se ancla para que no envejezca | `Root-Rules.md` §10 |
-| Una fase declara una obligación hacia otra que no corrió | Declararla pendiente o resolverla | `Root-Rules.md` §12 |
+| Una fase declara una obligación hacia otra que no corrió | Declararla pendiente o resolverla | `Root-Rules.md` **§12.1** |
+| Un ítem obligatorio no se puede contestar hoy | **Diferirlo con forma o contestarlo con una promesa** | `Root-Rules.md` **§12.2** |
+| Un ítem obligatorio empaqueta dos decisiones y sólo una está bloqueada | Diferir las dos o **diferir por partes** | `Root-Rules.md` §12.2 |
+| El evento que cierra un diferimiento **ya ocurrió** | Si sigue abierto, es hallazgo y de qué nivel | `Root-Rules.md` §12.2, tabla de escalamiento |
 | El intake no permite derivar el manifiesto | Qué detiene la cadena | [`Intake-Rules.md`](../Rules/Intake-Rules.md) §4 |
 | Se intervino el framework y hay que versionarlo | Qué bump corresponde | [`SDD-Development-Guide.md`](../../Guides/SDD-Development-Guide.md) §VI.1 y §VI.5 |
 | Se cambió un concepto en el framework | Cómo se barre y con qué residuo aceptable | `SDD-Development-Guide.md` §VI.3.1 y §VI.3.2 |
@@ -171,3 +174,4 @@ regla—. Lo que no corresponde adoptar es la **infraestructura** de DMN, no su 
 | 1.3 | 2026-08-18 | Corrección de recuento encontrada por el **barrido por concepto** (`SDD-Development-Guide.md` §VI.3.1): la fila de §3 decía «las **once** comprobaciones» y §VI.3 tiene **doce** desde la 9.10. El catálogo indexa por situación y **su valor depende de que el puntero sea exacto**: un índice que manda a once comprobaciones cuando hay doce enseña a no contarlas. |
 | 1.4 | 2026-08-18 | §3 suma la situación **«se escribe una regla nueva a partir de un caso observado»**, que la Parte IV de `SDD-Development-Guide.md` incorporó en la 9.18. Es la comprobación **12** de §VI.3 funcionando: un criterio nuevo entra al índice en la misma intervención que lo crea. |
 | 1.5 | 2026-08-18 | §3 suma dos situaciones que la 9.19 incorporó: **«apareció un hallazgo y no se sabe si detener o resolverlo»**, que resuelve la pregunta previa de §8.1, y **«hay que encargarle una verificación a un auditor»**, que resuelven las tres partes del encargo de §10. |
+| 1.6 | 2026-08-19 | **Cuatro criterios nuevos de `Root-Rules.md` §12.2** y la fila de §12 recalificada a **§12.1**, por la partición que el reporte `14` produjo: diferir un ítem obligatorio con forma en lugar de contestarlo con una promesa, diferir por partes cuando el ítem empaqueta dos decisiones y sólo una está bloqueada, y qué nivel de hallazgo corresponde cuando **el evento de cierre ya ocurrió**. Se registra acá por la comprobación 12 de `SDD-Development-Guide.md` §VI.3 —quien toca, registra—, que existe precisamente para que el índice no dependa de que alguien se acuerde. Sube minor. |

@@ -162,7 +162,7 @@ Un archivo `prompt-<tarea>.md` tiene exactamente las siguientes secciones, en or
 6. Few-shot examples. Mínimo dos por prompt, con un caso típico y un caso de borde. Cuando la tarea sea de generación abierta, mínimo tres.
 7. Casos de borde y manejo. Tabla con condición de entrada anómala y respuesta esperada del prompt (rechazo, valor por defecto, escalado a humano).
 8. Métricas de evaluación. Lista de métricas aplicables con la métrica crítica resaltada. Los umbrales viven en `evaluacion-prompts`.
-9. Costos esperados. Tokens estimados de entrada y de salida, y costo por request. **La moneda la declara la categoría 09, que se emite cuatro fases después**: hasta entonces el costo se expresa en la moneda que el intake declare, o sin moneda con la magnitud declarada como pendiente. No es una referencia que se pueda dejar colgada —es un dato que falta— y por eso no se resuelve con la forma de `Root-Rules.md` §12 sino declarando de dónde sale el dato.
+9. Costos esperados. Tokens estimados de entrada y de salida, y costo por request. **La moneda la declara la categoría 09, que se emite cuatro fases después**: hasta entonces el costo se expresa en la moneda que el intake declare, o sin moneda con la magnitud declarada como pendiente. No es una referencia que se pueda dejar colgada —es un dato que falta— y por eso no se resuelve con la forma de `Root-Rules.md` §12.1 sino declarando de dónde sale el dato.
 10. Latencia esperada. Latencia p50 y p99 esperadas según familia y tamaño del modelo.
 11. Trazabilidad. Tabla con NB, CU, ADR, métricas en 08 y referencia a la política y a la evaluación.
 
@@ -235,7 +235,7 @@ Tabla de trazabilidad del prompt:
 | Necesidad de negocio | NB-XXXXX |
 | Caso de uso consumidor | CU-XXXXX |
 | ADR de proveedor o vendor lock-in | ADR-XXXXX |
-| Tests de comportamiento previstos | Referencia pendiente a 08 (`Root-Rules.md` §12): la 08 se emite en la Fase E y esta categoría en la Fase B |
+| Tests de comportamiento previstos | Referencia pendiente a 08 (`Root-Rules.md` §12.1): la 08 se emite en la Fase E y esta categoría en la Fase B |
 | Métricas de release | <referencia a evaluacion-prompts> |
 
 ### 4.5 Anti-patrones a evitar

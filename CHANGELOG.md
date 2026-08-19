@@ -3,6 +3,64 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [10.0] - 2026-08-19
+
+**El método sabía atar una decisión a un evento futuro y no sabía cerrar el lazo cuando ese evento llegaba.** Un ítem que una regla declara obligatorio se podía contestar con la promesa de contestarlo —«el que se fije al anclarla, registrado en el punto de control de la etapa `a`»—, y esa promesa **se lee igual que el dato** en toda verificación de presencia: hay sección, hay fila, hay texto. No es una declaración falsa: es verdadera, sobre el futuro, y por eso ni siquiera incomoda a quien la lee.
+
+**Medido en un destino real:** el punto de control cerró el 2026-08-13 sin registrar la decisión, la promesa sobrevivió **ocho etapas**, y el repositorio llegó a su primer despliegue con **cero etiquetas** contra una estrategia de versionado que las declara su instrumento de reversión. **No lo detectó ningún audit**: lo encontró una reanudación, por el síntoma y no por el diferimiento. Y para entonces **tres de las ocho etapas ya no se podían etiquetar sin inventar el punto**: el daño se volvió irreversible mientras nadie miraba. Origen: `Reportes/14` de `IA.SDD.Documentacion`.
+
+### Cambiado — `Root-Rules.md` 6.2 → 7.0, §12
+
+**§12 pasa de una figura a dos**, y la cabecera declara por qué van juntas: **son el mismo mecanismo con el evento de cierre en distinto lugar**. La **referencia pendiente** (§12.1, sin cambios) lo tiene **adentro** del método —el orquestador ve emitirse la categoría porque él mismo la produce—. El **ítem diferido** (§12.2, nuevo) lo tiene **afuera**, en el ciclo de construcción que el método declara que no gobierna, y ahí nadie lo ve pasar.
+
+**La forma es de cuatro campos, y el cuarto es el que la distingue de la promesa que reemplaza:** el evento de cierre **se nombra por un artefacto y su sección, no por un momento**. «El punto de control de la etapa `a`» no deja rastro que alguien pueda abrir; «la tabla de decisiones de `Plan-Etapa-A.md` §7» sí. **Un evento que no se puede abrir no se puede comprobar, y un cierre que nadie comprueba no ocurre.**
+
+Declara además que **un ítem que empaqueta dos decisiones se difiere por partes** —que una mitad esté bloqueada no autoriza a diferir la otra— y una tabla de escalamiento: **P1** para el ítem cuyo evento ya ocurrió y para la promesa sin forma, **P0** para el que sigue abierto al cierre del producto.
+
+**No se creó una figura paralela, y es deliberado.** La 9.19 rechazó el eje de estratos de `Reportes/13` con el argumento de que «un concepto más que mantener, en un método que declara que un procedimiento que crece deja de leerse, sólo se justifica si hace falta». Acá tampoco hacía falta: alcanzaba con que §12 llegara a los ítems de contenido.
+
+### Cambiado — `Rules-Devops.md` 4.6 → 5.0, §4.3
+
+**El punto 3 se parte en dos**: la herramienta de versionado con su configuración base, y el **prefijo de tag** como ítem propio. Venían en una sola línea, y **sólo una de las dos estaba genuinamente bloqueada**: el destino difirió el prefijo por arrastre cuando lo que dependía de una decisión futura era la herramienta. **Elegir `v` no exige haber elegido MinVer** — y de hecho la tabla de canales de esta misma regla ya escribía la forma literal «Sólo en tag `v<X.Y.Z>` sin sufijo».
+
+### Agregado — `Master-Prompt.md` 8.7 → 8.8, §10.0
+
+**Sexta comprobación transversal de la compuerta mecánica: ítems diferidos.** Se cuentan los que el árbol de la fase declara y **es hallazgo el que nombre un evento de cierre ya ocurrido**; también lo es el ítem contestado con una promesa sin la forma de §12.2, **porque sin marca no es contable** y ninguna otra comprobación lo alcanza.
+
+**Es enumerable por construcción**, y lo es gracias a §12.2: si el evento se declara como artefacto y sección, comprobarlo es abrir un archivo y mirar si la decisión está escrita.
+
+### Agregado — `Master-Prompt-Reanudacion.md` 1.7 → 1.8, R0 y R1
+
+R0 paso 4 suma los ítems diferidos a los pendientes declarados, **con su evento contrastado**, y R1 los publica en un bloque de tres renglones: declarados, vencidos y sin forma. **Va acá porque es la comprobación más barata del método**: la reanudación ya lee el árbol entero sin memoria.
+
+### Cambiado — `Catalogo-De-Criterios.md` 1.5 → 1.6
+
+Cuatro criterios nuevos de §12.2 y la fila de §12 recalificada a §12.1, por la comprobación 12 de `SDD-Development-Guide.md` §VI.3.
+
+### Impacto sobre destinos existentes
+
+**Renombres de artefacto**
+
+| Artefacto | Nombre anterior | Nombre vigente |
+| --- | --- | --- |
+| — | — | **Vacía.** Ningún artefacto cambió de nombre |
+
+**Secciones movidas o partidas**
+
+| Regla | Antes | Ahora | Qué hacer en el destino |
+| --- | --- | --- | --- |
+| `Root-Rules.md` | §12 «Referencia pendiente», sin subsecciones | §12.1 «Referencia pendiente» y §12.2 «Ítem diferido» | **Toda cita a `Root-Rules.md` §12 que hable de referencias pasa a §12.1.** Una cita a §12 a secas sigue resolviendo al título, pero deja de ser precisa |
+| `Rules-Devops.md` | §4.3 punto 3, herramienta **y** prefijo de tag | §4.3 punto 3 (herramienta) y punto 3.b (prefijo) | **`Estrategia-Versionado.md` declara el prefijo en su propio ítem.** Si el destino no lo tiene fijado, se difiere con la forma de §12.2 en lugar de dejarlo en prosa |
+
+**Campos bloqueantes nuevos**
+
+| Dónde | Campo | Qué pasa si falta |
+| --- | --- | --- |
+| Todo ítem obligatorio de una §4.x que el destino no contestó | Los **cuatro campos** de `Root-Rules.md` §12.2 — qué falta, por qué no hoy, quién lo cierra, y el evento **como artefacto y sección** | **Hallazgo P1** en la compuerta de `Master-Prompt.md` §10.0 y en la reanudación: la promesa sin forma no es contable |
+| `Estrategia-Versionado.md` de todo destino | **Prefijo de tag**, como ítem propio de §4.3 punto 3.b | **Hallazgo P1** si queda diferido sin la forma de §12.2 |
+
+**Qué migración obliga, y cuál no.** Un destino sin ningún ítem diferido en prosa **no tiene trabajo documental**: le cambian dos citas de sección y nada más. Un destino con promesas en prosa **las reescribe con la forma de §12.2**, y ese acto **destapa cuáles ya vencieron** — que es el resultado buscado y no un efecto colateral.
+
 ## [9.19] - 2026-08-18
 
 **La 9.16 declaró de qué lado va cada cosa y no cómo reconocer de qué lado cae.** `Master-Prompt.md` §8.1 separa desde entonces el **defecto propio** —que corrige el agente— de la **decisión de diseño** —que toma el humano—. Sin un paso que establezca cuál es cuál, decide **la asimetría de costos**: detener cuesta al agente una sección del informe y al humano reconstruir contexto que no tiene. **Medido en una corrida real: de cinco detenciones presentadas al humano, tres no eran del humano.**
