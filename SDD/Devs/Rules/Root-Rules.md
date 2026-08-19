@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-ROOT)
-**Versión de las reglas:** 6.2
+**Versión de las reglas:** 7.0
 
 ---
 
@@ -585,9 +585,19 @@ omisión. Ausente **sin** ADR es hallazgo P0.
 
 ---
 
-## 12. Referencia pendiente
+## 12. Referencia pendiente e ítem diferido
 
 **Alcance transversal**, como §9.
+
+**Las dos figuras son la misma con el evento de cierre en distinto lugar**, y por eso viven juntas.
+La **referencia pendiente** apunta a un artefacto que otra categoría todavía no emitió, y su cierre
+lo dispara un evento **interno al método**: cuando esa categoría se emite, el orquestador lo sabe
+porque él mismo lo produjo. El **ítem diferido** es un dato de contenido que no se puede escribir
+hoy, y su evento de cierre **suele estar afuera** —un punto de control del ciclo de construcción, que
+el método declara que no gobierna—. Ahí nadie lo ve pasar, y por eso §12.2 exige de él lo que §12.1
+no necesita.
+
+### 12.1 Referencia pendiente
 
 Un artefacto puede referenciar algo que todavía no existe —típicamente porque la categoría que lo
 emite corre en una fase posterior— si lo declara con esta forma:
@@ -608,6 +618,48 @@ un artefacto de otra: que el resultado sea correcto no vuelve correcta la vía, 
 que ese artefacto haya que regenerarlo no va a estar claro quién lo hace.
 
 Una referencia pendiente que sigue abierta al cierre del producto es hallazgo P0.
+
+### 12.2 Ítem diferido
+
+**Un ítem que una §4.x declara obligatorio y que no se puede contestar hoy se difiere con esta forma,
+no con una promesa en prosa.** Cuatro campos:
+
+1. **Qué falta**, nombrando el ítem y la sección que lo exige.
+2. **Por qué no se puede hoy**, y de qué depende que se pueda.
+3. **Quién lo cierra**: el rol que corresponda y, si ninguno corresponde, **la organización dueña del
+   repositorio**. Un responsable genérico es peor que uno preciso y muchísimo mejor que ninguno.
+4. **En qué evento se cierra, nombrando un artefacto y su sección** — no un momento.
+
+**El punto 4 es el que distingue esta figura de la promesa que reemplaza, y el motivo es
+comprobable.** «El punto de control de la etapa `a`» **no deja rastro que alguien pueda abrir**: es un
+momento, ocurre, y nada queda diciendo que ocurrió. «La tabla de decisiones de `Plan-Etapa-A.md` §7»
+sí: se abre y se mira. Un evento que no se puede abrir **no se puede comprobar**, y un cierre que
+nadie comprueba no ocurre.
+
+**Por qué la forma es obligatoria y no recomendada.** Un ítem contestado con la promesa de
+contestarlo **se lee igual que uno resuelto** en toda verificación de presencia: hay sección, hay
+fila, hay texto. No es una declaración falsa —es verdadera, sobre el futuro—, y por eso ni siquiera
+incomoda a quien la lee. Sin marca no se puede contar, y contar es la única defensa contra un defecto
+silencioso.
+
+**Un ítem que empaqueta dos decisiones se difiere por partes.** Que una mitad esté genuinamente
+bloqueada **no autoriza a diferir la otra**. Observado: un ítem que pedía «la herramienta de
+versionado **y** su prefijo de tag» difirió las dos porque la herramienta dependía de una decisión
+futura; el prefijo no dependía de nada, y el destino pasó ocho etapas sin poder etiquetar ninguna.
+
+**Escalamiento, y es lo que cierra el lazo:**
+
+| Situación | Nivel |
+| --- | --- |
+| Ítem diferido en forma, con su evento **todavía no ocurrido** | Conforme |
+| Ítem diferido **cuyo evento de cierre ya ocurrió** y sigue abierto | **Hallazgo P1** |
+| Ítem diferido que sigue abierto **al cierre del producto** | **Hallazgo P0**, como la referencia pendiente |
+| Ítem obligatorio contestado **con una promesa sin esta forma** | **Hallazgo P1**: no es contable, de modo que las tres filas de arriba no se le pueden aplicar |
+
+**Quién lo comprueba.** La compuerta mecánica de `Master-Prompt.md` §10.0, en cada fase, y el
+orquestador de reanudación en su reconocimiento. **Ninguno de los dos existía para esto**, y ésa era
+exactamente la falla: el método sabía atar una decisión a un evento futuro y no sabía cerrar el lazo
+cuando ese evento llegaba.
 
 ---
 
@@ -634,3 +686,4 @@ Una referencia pendiente que sigue abierta al cierre del producto es hallazgo P0
 | 6.0 | 2026-08-16 | **El campo del README raíz pasa de «Proyecto de código principal» a «Unidad de entrega principal»**, que es lo que el intake señala y lo que `Intake-Rules.md` §4 valida como bloqueante. Y los **dos ejemplos de §7** encabezaban su tabla con `| Proyecto de código | Tipo D8 | … | Redistribuible |`: una tabla del eje de construcción llevando dos atributos del eje de entrega, que es la confusión que la 8.0 declaró imposible. Sube **major**: un README raíz ya emitido declara el campo con el nombre anterior. |
 | 6.1 | 2026-08-17 | §11 suma dos campos al ADR de apartamiento: su **estado** —de un conjunto cerrado de cuatro— y los **saltos de versión que sobrevivió**. Sin estado, un apartamiento absorbido, uno contradicho y uno todavía no contemplado **se ven igual**, y el tercero es indistinguible del olvido. El **contador es el disparador que el método no tenía**: uno que sobrevive dos o más saltos sin ser contemplado ya demostró que no es de un producto, y lo dice un número en lugar de que alguien se acuerde. Sube **minor**: agrega dos campos a un artefacto existente sin cambiar cuándo corresponde emitirlo. |
 | 6.2 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
+| 7.0 | 2026-08-19 | **§12 pasa de una figura a dos y se parte en §12.1 y §12.2**, por el reporte `14` de `IA.SDD.Documentacion`. La cabecera declara que **son la misma figura con el evento de cierre en distinto lugar**: la referencia pendiente lo tiene **adentro** del método —el orquestador ve emitirse la categoría porque él mismo la produce— y el ítem diferido lo tiene **afuera**, en el ciclo de construcción que el método no gobierna, donde nadie lo ve pasar. **§12.2 es nueva**: un ítem que una §4.x declara obligatorio y no se puede contestar hoy **se difiere con forma de cuatro campos y no con una promesa en prosa**, y el cuarto —**el evento se nombra por un artefacto y su sección, no por un momento**— es el que la distingue: un momento no deja rastro que alguien pueda abrir, y un cierre que nadie comprueba no ocurre. Declara que **un ítem que empaqueta dos decisiones se difiere por partes**, y una tabla de escalamiento con **P1 para el ítem cuyo evento ya ocurrió** y P0 al cierre del producto. Evidencia: un destino real pasó **ocho etapas sin poder etiquetar ninguna** porque el prefijo de tag viajaba empaquetado con la herramienta de versionado, y el punto de control al que se difirió cerró sin registrarlo. Sube **major**: un documento generado antes que difiera un ítem en prosa **deja de cumplir**. |

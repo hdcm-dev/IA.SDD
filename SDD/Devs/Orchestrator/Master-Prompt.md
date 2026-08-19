@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 8.7
+**Versión:** 8.8
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -618,7 +618,7 @@ propio, fuera de los documentos que la originan:
   proyecto de código y fase—, qué artefactos quedan condicionados a la respuesta, qué rige mientras
   tanto, y su estado.
 - Entran: ambigüedades de §9 que el humano difirió, extensiones de conjunto cerrado sin arbitrar,
-  referencias pendientes de `Root-Rules.md` §12 todavía abiertas, apartamientos propuestos sin ADR
+  referencias pendientes de `Root-Rules.md` §12.1 todavía abiertas, apartamientos propuestos sin ADR
   emitido y hallazgos aguas arriba de §10 sin corregir en su origen.
 
 **El orquestador lo exhibe al cerrar cada fase**, junto con el informe de audit, y no solo en el
@@ -1125,6 +1125,15 @@ Comprobaciones mínimas de la compuerta, cada una de naturaleza enumerable:
    deducir a qué apuntaba. Se verifica **antes** de que se rompa nada, que es el único momento en que
    sirve.
 
+6. **Ítems diferidos** (`Root-Rules.md` §12.2): se cuentan los que el árbol de la fase declara, y **es
+   hallazgo el que nombre un evento de cierre que ya ocurrió**. La comprobación es enumerable porque
+   el evento se declara como **artefacto y sección**: se abre y se mira si la decisión está escrita.
+   **Es el lazo que faltaba.** El método sabía atar una decisión a un evento futuro y no sabía
+   cerrarlo cuando el evento llegaba: en un destino real un ítem obligatorio sobrevivió **ocho
+   etapas** a su propio punto de control, y nada chirrió. Un ítem obligatorio contestado con una
+   promesa **sin la forma de §12.2** también es hallazgo, y por el motivo que lo hace peligroso: sin
+   marca no es contable, de modo que ninguna de las otras comprobaciones lo alcanza.
+
 **La compuerta declara qué no mira.** Su salida, incluso en verde, enuncia explícitamente el alcance
 de lo que verificó y lo que queda sin verificar. Una compuerta que se lee como aprobación es peor que
 ninguna, porque el audit siguiente llega con la guardia baja.
@@ -1162,7 +1171,7 @@ Criterios del audit (matriz):
   preservación marcó pérdidas cinco veces y **cuatro eran artefactos suyos**; la quinta era real. Un
   recuento de hallazgos que nadie abrió **no es evidencia de nada**, en ninguna de las dos
   direcciones.
-- **Referencias pendientes** (`Root-Rules.md` §12): toda referencia a un artefacto todavía no emitido está declarada con la forma de §12. Una referencia colgada que no la declara es **P1**; una copia del contenido referenciado, que crea una segunda fuente, es **P0**.
+- **Referencias pendientes** (`Root-Rules.md` §12.1): toda referencia a un artefacto todavía no emitido está declarada con la forma de §12. Una referencia colgada que no la declara es **P1**; una copia del contenido referenciado, que crea una segunda fuente, es **P0**.
 - **Apartamientos** (`Root-Rules.md` §11): un artefacto obligatorio ausente **con** ADR de apartamiento se evalúa como decisión y no como omisión. Ausente sin ADR es P0.
 - Trazabilidad upstream/downstream declarada en cada cabecera y consistente con §3.3 del archivo de reglas, incluyendo el upstream de nivel producto (00, 01) y de proyectos de código dependientes cuando aplica.
 - Filename y estructura de carpetas correctos, incluyendo la ubicación bajo `Unidades-Entrega/<Nombre-Unidad-Entrega>/` para las categorías de unidad de entrega.
@@ -1652,3 +1661,4 @@ Reglas de versionado:
 | 8.5 | 2026-08-17 | **§10.0 declara de dónde sale su conjunto de reglas, que hasta acá estaba cableado.** Son dos: las comprobaciones transversales que ya enumeraba, y **los anti-patrones marcados `[enumerable]`** de la regla de la categoría en curso —**97 de las 202** situaciones catalogadas, que estaban declaradas, marcadas y sin consumir—. El segundo conjunto **no se copia acá**: la compuerta lee la regla de la categoría, con el mismo fundamento con que `Migracion-Rules.md` §3 rechazó los playbooks —una duplicación que se mantiene en paralelo se desincroniza—. Los `[interpretativo]` siguen siendo del audit. Sube **minor**: amplía el alcance de una compuerta existente sin agregar comprobaciones nuevas, porque las 97 ya estaban escritas. | Framework SDD (la compuerta toma del catálogo) |
 | 8.6 | 2026-08-18 | **§8.1 suma tres cosas.** **La autocorrección**: un defecto **del propio trabajo** se corrige en la misma unidad y se declara en el cierre —ofrecerlo como opción es entregar trabajo a medias—, **con la contraparte** de que si corregirlo cambia una decisión ya tomada por el humano, **sí se detiene**: el agente **termina su trabajo, no rehace el del humano**. **El cierre de unidad**: la entrega y las decisiones pendientes van en **un solo bloque**, porque separarlas obliga a reconstruir el contexto dos veces, y **cada decisión lleva su contexto de dos o tres líneas** para quien no vino siguiendo la corrida —sin él la elección se hace sobre el nombre de las opciones y no sobre lo que implican—. Y **por qué ese bloque ya es un plan**: enumerar opciones, estimar impacto y recomendar exige proyectar, así que **el plan no tiene por qué ser un artefacto aparte** — es lo que queda escrito en cada cierre, hecho cuando se tiene la información y no antes, cuando había que suponerla. Sube **minor**. | Framework SDD (cierre de unidad) |
 | 8.7 | 2026-08-18 | **§8.1 suma la pregunta previa a toda detención, y §10 la forma del encargo al auditor.** La tabla de la autocorrección declaraba la frontera desde la 9.16 y **no cómo reconocerla**, así que decidía la asimetría de costos: detener es barato para el agente y caro para el humano. Medido: **de cinco detenciones de una corrida real, tres no eran del humano**. La pregunta es una sola —**¿esto tiene respuesta en el árbol?**— y **la cita literal es el criterio, no la intuición**: lo que se sostiene citando archivo y línea lo cierra el agente. Con su «ante la duda, se detiene», por la misma asimetría con que §6 resuelve enumerable contra interpretativo. **§10** separa qué compra la independencia —**ausencia de compromiso**, que no se arregla con mejor prompt— de qué no compra —**independencia de criterio**, porque dos agentes del mismo modelo correlacionan—, y de ahí deriva las tres partes obligatorias del encargo: **refutar y no verificar**, **cita literal o el veredicto no vale**, y **«no concluyente» admitido**. Registra que la exigencia de cita **contesta sola la pregunta previa**, de modo que no hace falta clasificar el hallazgo aparte. Origen: `Reportes/13`. Sube **minor**. | Framework SDD (la pregunta previa) |
+| 8.8 | 2026-08-19 | **§10.0 suma la comprobación transversal 6, ítems diferidos** (`Root-Rules.md` §12.2), por el reporte `14`. Se cuentan los que el árbol de la fase declara y **es hallazgo el que nombre un evento de cierre ya ocurrido**; también lo es el ítem obligatorio contestado con una promesa **sin la forma de §12.2**, porque sin marca no es contable y ninguna otra comprobación lo alcanza. Es **enumerable** porque §12.2 obliga a nombrar el evento como artefacto y sección: se abre y se mira. **Cierra el lazo que faltaba** — el método sabía atar una decisión a un evento futuro y no sabía cerrarlo cuando el evento llegaba, y en un destino real un ítem sobrevivió **ocho etapas** a su propio punto de control sin que nada chirriara. Sube **minor**: una comprobación nueva, ningún procedimiento cambia. |

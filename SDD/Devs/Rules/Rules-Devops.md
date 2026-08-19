@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/09-Devops/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto
 **Subagente target del orquestador:** Ingeniero DevOps Senior (AG-09)
-**Versión de las reglas:** 4.6
+**Versión de las reglas:** 5.0
 
 ---
 
@@ -170,7 +170,8 @@ El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente
 
 1. SemVer 2.0.0. Especificación adoptada con formato `MAJOR.MINOR.PATCH[-PRERELEASE][+BUILDMETADATA]` y reglas de incremento.
 2. Conventional Commits 1.0.0. Convención de mensajes con prefijos semánticos (`feat`, `fix`, `chore`, `docs`, `refactor`, `perf`, `test`, `build`, `ci`, `style`) y marcador `BREAKING CHANGE` o `!` para mayor.
-3. Herramienta de versionado. MinVer, GitVersion, semantic-release, Nerdbank.GitVersioning u homólogo del runtime objetivo. Configuración base y prefijo de tag.
+3. Herramienta de versionado. MinVer, GitVersion, semantic-release, Nerdbank.GitVersioning u homólogo del runtime objetivo, con su configuración base.
+3.b **Prefijo de tag**, y **se declara aparte de la herramienta a propósito**. Los dos venían en un solo ítem, y eso hizo que un destino real difiriera el prefijo por arrastre cuando lo bloqueado era la herramienta: **elegir `v` no exige haber elegido MinVer**, y ese destino pasó ocho etapas sin poder etiquetar ninguna. Si no se puede fijar hoy, se difiere **con la forma de `Root-Rules.md` §12.2** y no con una promesa.
 4. Branching. GitHub Flow, Git Flow o Trunk-based development según el acuerdo de equipo, con reglas de protección de ramas y políticas de PR.
 5. Canales. Preview, stable y opcionalmente LTS, con criterios de promoción y semántica de sufijos `-alpha`, `-beta`, `-rc`.
 6. Deprecation policy. Cómo se anuncian y comunican los breaking changes, cuántos minor antes de remover, marcado de obsoletos en código y mención en CHANGELOG.
@@ -352,7 +353,7 @@ Criterios adicionales de nivel producto (solo si el producto tiene más de una u
 - [ ] [enumerable] Todo documento con más de tres secciones de primer nivel incluye tabla de contenido inmediatamente después de la cabecera, con enlaces ancla a las secciones de primer y de segundo nivel. Los documentos breves quedan exceptuados.
 - [ ] [interpretativo] **El vocabulario del método va al glosario operativo de `Master-Prompt.md` §15 y se cita sin redefinir; el del producto, al glosario que corresponda.** Los términos que el framework acuña e impone a esta categoría no son vocabulario que la categoría acuñe: no van a un glosario del producto.
 - [ ] [interpretativo] Todo término que esta categoría acuña o precisa, y que aparece en más de uno de sus artefactos, está declarado en `Glosario-Tecnico.md` de 11, con sus referentes cuando tiene más de uno. Los términos de entorno, canal y artefacto publicable son técnicos y se declaran una sola vez en el glosario técnico, no en cada pipeline.
-- [ ] [interpretativo] El apuntamiento a `Glosario-Tecnico.md` de la 11 se declara como **referencia pendiente** (`Root-Rules.md` §12) mientras esa categoría no se haya emitido: la 11 se emite en la Fase H y esta categoría es anterior. Al emitirse, la reapertura de `Master-Prompt.md` §6 cierra la referencia.
+- [ ] [interpretativo] El apuntamiento a `Glosario-Tecnico.md` de la 11 se declara como **referencia pendiente** (`Root-Rules.md` §12.1) mientras esa categoría no se haya emitido: la 11 se emite en la Fase H y esta categoría es anterior. Al emitirse, la reapertura de `Master-Prompt.md` §6 cierra la referencia.
 - [ ] [interpretativo] Ninguna forma desnuda de un término polisémico queda sin resolver en un artefacto que se lee por secciones (`Vocabulario-Rules.md` §9.2).
 - [ ] [interpretativo] Ninguna polisemia con contextos disjuntos se reporta como defecto ni se corrige calificando todas las ocurrencias (criterio negativo de `Vocabulario-Rules.md` §9.1).
 
@@ -531,3 +532,4 @@ Salida: SDD/Docs/Producto/Pipeline-Producto.md.
 | 4.4 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |
 | 4.5 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 4.6 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
+| 5.0 | 2026-08-19 | **§4.3 parte su punto 3 en dos**: la herramienta de versionado con su configuración base, y el **prefijo de tag** como ítem propio. Los dos venían en una sola línea, y eso hizo que un destino real **difiriera el prefijo por arrastre** cuando lo genuinamente bloqueado era la herramienta: elegir `v` no exige haber elegido MinVer, y ese destino pasó **ocho etapas sin poder etiquetar ninguna**. El ítem nuevo declara además que, si no se puede fijar hoy, **se difiere con la forma de `Root-Rules.md` §12.2** y no con una promesa. Origen: reporte `14` de `IA.SDD.Documentacion`. Sube **major**: una `Estrategia-Versionado.md` emitida antes declara el prefijo dentro del punto 3 o no lo declara, y en los dos casos **deja de cumplir** la estructura de §4.3. |
