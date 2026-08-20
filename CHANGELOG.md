@@ -3,6 +3,30 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [11.1] - 2026-08-20
+
+**Las doce comprobaciones miran el árbol que quedó, y el trabajo que falta no está en ningún archivo tocado.** Una intervención que nace de un encargo puede **contestar menos de lo que el encargo pedía y declararlo resuelto igual**, con la lista de verificación entera en verde: lo que quedó escrito es coherente, está registrado y no se contradice — sólo que **es menos de lo que se pidió**, y eso no vive adentro del repositorio.
+
+**Medido, y sobre el propio framework.** La intervención que publicó la **10.0** declaró resuelto un origen de **cinco criterios de aceptación** con **uno sin auditar**: el que pedía barrer la clase entera y no el caso que la originó. Las doce pasaron, la nota dio CONFORME, y el registro quedó diciendo «resuelto». Lo levantó una verificación posterior, dos versiones después, y para entonces el criterio incumplido había obligado a un **major**.
+
+### Agregado — `SDD-Development-Guide.md` 1.20 → 1.21, §VI.3
+
+**Comprobación 13, devolución al origen.** Cuando la intervención declara un origen, la nota **enumera los criterios de aceptación que ese origen fija** y declara **uno por uno cuál quedó cumplido y cuál no**. Ningún origen se declara resuelto con un criterio sin contestar.
+
+**Está enunciada sobre la propiedad y no sobre el caso**, como la Parte IV exige desde la 1.19: no dice «el reporte», dice **el origen** —un reporte, un incidente, un pedido—, porque lo que produce el defecto no es de qué tipo es el encargo sino que **su criterio de aceptación viva afuera del árbol que la intervención verifica**.
+
+**Y no nombra ese afuera, a propósito.** La comprobación **2** exige autosuficiencia —cero referencias fuera de este repositorio— y una comprobación que citara dónde vive el origen la rompería. Lo que se exige es que la nota **traiga los criterios adentro**, transcritos y con veredicto: **un criterio que nadie transcribió no se puede contestar**, y ésa es exactamente la forma en que el defecto se produce.
+
+**Lo que no compra, declarado en la nota.** Obliga a declarar el veredicto; **no obliga a que sea verdadero**. Es la limitación que la comprobación 12 ya declara de sí misma, y se acepta por el mismo motivo: un criterio contestado con un «no» es visible, y uno que nadie enumeró no lo es.
+
+### Cambiado — `Catalogo-De-Criterios.md` 1.8 → 1.9
+
+El criterio nuevo —qué se le devuelve al origen y cuándo se lo puede declarar resuelto— y la fila de verificación de una intervención, que pasa de **doce** a **trece** comprobaciones.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Devolucion-Al-Origen.md`, conjunto resultante **11.1**. **Aplica la comprobación 13 a sí misma**, que es la primera prueba de que se puede correr: transcribe los cinco criterios del origen y los contesta, incluido el que la 10.0 dejó abierto y la 11.0 cerró.
+
 ## [11.0] - 2026-08-20
 
 **La 10.0 corrigió el ítem empaquetado que su incidente medía y no corrió la auditoría que el reporte pedía sobre la clase.** `Reportes/14` §7 lo pide literal —«ningún ítem obligatorio de una §4.x empaqueta dos decisiones cuando una sola puede estar bloqueada: **se audita una vez sobre las quince reglas**»— y ni la entrada 10.0 ni su nota de coherencia la mencionan. Corrida ahora: **cinco ítems**, cuatro de ellos en la misma regla, todos con la mecánica que produjo el incidente —**una decisión que puede estar bloqueada arrastrando a otra que no lo está**—. Origen: `Reportes/14` §7 criterio 4.
