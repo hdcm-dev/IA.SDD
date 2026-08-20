@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/06-Backlog-Tecnico/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Scrum Master / Agile Coach senior (AG-06)
-**Versión de las reglas:** 5.0
+**Versión de las reglas:** 4.4
 
 ---
 
@@ -171,8 +171,7 @@ El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente
 2. Contexto. Por qué existe esta historia, qué NB o CU la motivan, qué problema resuelve.
 3. Criterios de aceptación. Lista de escenarios en formato Given/When/Then, mínimo dos escenarios, con al menos un happy path y un edge case.
 4. Trazabilidad. Tabla con NB de origen, CU relacionados, BT derivadas y tests previstos en 08.
-5. Prioridad. MoSCoW declarada con justificación. **Es del Product Owner.**
-5.b **Estimación**, como ítem propio: story points (Fibonacci o T-shirt) y técnica usada. **Es del equipo y sale del refinamiento.** Venía junto a la prioridad en un solo ítem, y son **dos decisiones de dueños distintos**: que el refinamiento no haya ocurrido no impide priorizar, y que la prioridad esté abierta no impide estimar. Si una de las dos no se puede fijar hoy, se difiere **esa** con la forma de `Root-Rules.md` §12.2.
+5. Prioridad y estimación. MoSCoW declarada con justificación, story points (Fibonacci o T-shirt) y técnica usada.
 6. DoR check. Lista de los criterios DoR vigentes con su estado (cumplido o pendiente).
 7. Notas y supuestos. Aclaraciones que no son criterios pero documentan decisiones de scope o ambigüedades resueltas.
 
@@ -360,11 +359,8 @@ NB-00002 exige que la disponibilidad de turnos refleje la realidad en tiempo rea
 | BT derivadas | BT-00012, BT-00015 |
 | Tests previstos | acceptance/AT-04-cancelacion-turno |
 
-## 5. Prioridad
-Must porque sin cancelación la agenda queda contaminada por turnos no asistidos.
-
-## 5.b Estimación
-5 SP estimado por Planning Poker con la técnica Fibonacci adoptada por el equipo.
+## 5. Prioridad y estimación
+Must porque sin cancelación la agenda queda contaminada por turnos no asistidos. 5 SP estimado por Planning Poker con la técnica Fibonacci adoptada por el equipo.
 
 ## 6. DoR check
 - [x] Criterios de aceptación en Given/When/Then
@@ -475,4 +471,3 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/06-Backlog-Tecnico/<
 | 4.2 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |
 | 4.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 4.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
-| 5.0 | 2026-08-20 | **§4.4 parte su punto 5 en dos**: la **prioridad** MoSCoW y la **estimación**. Venían en un solo ítem obligatorio y son **dos decisiones de dueños distintos** —la prioridad es del Product Owner, la estimación es del equipo y sale del refinamiento—, de modo que una podía estar bloqueada y arrastrar a la otra. Es el mismo defecto de forma que `Rules-Devops.md` §4.3 punto 3 tenía y que un destino real pagó con ocho etapas sin etiquetar. El ítem nuevo declara que, si una de las dos no se puede fijar hoy, se difiere **esa** con la forma de `Root-Rules.md` §12.2. Origen: la auditoría del criterio 4 de `Reportes/14` §7 sobre las quince reglas. Sube **major**: una `US-XXXXX` emitida antes declara las dos dentro del punto 5, y **deja de cumplir** la estructura de §4.4. |

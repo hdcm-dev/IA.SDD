@@ -3,6 +3,74 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [11.0] - 2026-08-20
+
+**La 10.0 corrigió el ítem empaquetado que su incidente medía y no corrió la auditoría que el reporte pedía sobre la clase.** `Reportes/14` §7 lo pide literal —«ningún ítem obligatorio de una §4.x empaqueta dos decisiones cuando una sola puede estar bloqueada: **se audita una vez sobre las quince reglas**»— y ni la entrada 10.0 ni su nota de coherencia la mencionan. Corrida ahora: **cinco ítems**, cuatro de ellos en la misma regla, todos con la mecánica que produjo el incidente —**una decisión que puede estar bloqueada arrastrando a otra que no lo está**—. Origen: `Reportes/14` §7 criterio 4.
+
+### Cambiado — `Rules-Devops.md` 5.0 → 6.0
+
+**Cuatro ítems se parten, y los cuatro repiten la forma del punto 3 que la 10.0 corrigió.**
+
+| Ítem | Qué estaba bloqueado | Qué no lo estaba y viajaba pegado |
+| --- | --- | --- |
+| §4.3 punto 5 · Canales | Qué canales tiene el producto | La **semántica de sufijos** `-alpha`, `-beta`, `-rc`, escrita literal en la propia regla |
+| §4.4 punto 2 · Provisión (IaC) | La herramienta, y con ella el layout y la política de state | La **aprobación de `plan` antes de `apply`**, política de proceso que la regla enuncia en términos neutros y que vale para las cuatro herramientas que nombra |
+| §4.6 punto 1 · SBOM | El **generador**, único de los cuatro campos que puede depender del runtime | El formato, el formato de salida, la publicación adjunta al release y la firma |
+| §4.6 punto 5 · SAST y DAST | **DAST**, que necesita un ambiente desplegado y §4.4 declara aparte | **SAST**, que corre sobre el código y no espera a nada |
+
+Cada ítem nuevo declara que, si no se puede fijar hoy, **se difiere con la forma de `Root-Rules.md` §12.2** y no con una promesa.
+
+### Cambiado — `Rules-Backlog-Tecnico.md` 4.4 → 5.0, §4.4
+
+**El punto 5 se parte en prioridad y estimación**, y acá lo que las separa no es un evento sino un dueño: la **prioridad MoSCoW es del Product Owner** y la **estimación es del equipo**, y sale del refinamiento. Que el refinamiento no haya ocurrido no impide priorizar; que la prioridad esté abierta no impide estimar. El ejemplo de `US-XXXXX` de §7 sigue la estructura nueva, que es donde la intervención anterior había dejado el suyo sin mover.
+
+### Cambiado — `Rules-Prompts-AI.md` 4.4 → 4.5, §4.2
+
+**Una regla que dejó de tener razón el día que se publicó §12.2, y el barrido de la 10.0 pasó al lado.** El punto 9 declaraba que el costo sin moneda «no se resuelve con la forma de `Root-Rules.md` §12.1 sino declarando de dónde sale el dato», y **su diagnóstico era correcto**: es un dato que falta, no una referencia colgada. Ésa es exactamente la figura que §12.2 incorporó. El barrido le corrigió el número de sección y no vio que la frase quedaba mandando lo contrario de la figura nueva — y la salida que autorizaba, «la magnitud declarada como pendiente», es una promesa en prosa: **P1** por la tabla de escalamiento de §12.2, levantada por la comprobación 6 de §10.0 **en todo destino con `usa_llm` en true**. Sube **minor**: §12.2 rige sobre ese ítem desde la 10.0, de modo que lo que se quita es una excepción sin efecto.
+
+### Corregido — `Master-Prompt.md` 8.8 → 8.9
+
+**Dos citas que el barrido de la 10.0 declaró migradas y no lo estaban**, las dos en el archivo que esa misma intervención estaba editando: §6, donde el orquestador manda declarar la obligación hacia adelante con la forma de *referencia pendiente*, y el glosario operativo de §15. Las dos pasan a **§12.1**, que es lo que la entrada 10.0 manda. El recuento de aquel barrido —«14 ocurrencias, residuo 1»— no se reconcilia con el snapshot: `_legacy/9.19/` tiene **24**.
+
+### Cambiado — `Catalogo-De-Criterios.md` 1.7 → 1.8
+
+El criterio que la auditoría produjo: **cuándo un ítem de una §4.x se parte y cuándo no.** Se parte cuando la segunda mitad **se decide por separado**; no se parte cuando **se deriva** de la primera —el identificador de una migración no existe hasta que hay tooling—. Un ítem con muchos atributos no es un ítem empaquetado.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Items-Empaquetados.md`, conjunto resultante **11.0**.
+
+### Lo que se auditó y no se aplica
+
+La auditoría construyó además la **lista de ítems donde diferir es ilegítimo**, que `Reportes/14` §8 declara no saber y que la solicitud de intervención encargaba mirando las quince reglas. Se enuncia como **propiedad y no como catálogo**: *diferir es ilegítimo cuando el ítem fija la forma de un registro que el producto empieza a producir antes del evento de cierre*, porque cada acto ocurrido mientras tanto **nace sin la forma y no se la puede poner después** —medido: tres de ocho etapas ya no se podían etiquetar—. Cinco ítems la cumplen hoy, todos de `Rules-Devops.md` §4.3 y `Rules-Calidad-Y-Pruebas.md` §4.8. **No se incorpora**: sin un segundo caso medido, agregar un concepto es lo que la 9.19 desaconsejó al rechazar el eje de estratos de `Reportes/13`.
+
+### Impacto sobre destinos existentes
+
+**Renombres de artefacto**
+
+| Artefacto | Nombre anterior | Nombre vigente |
+| --- | --- | --- |
+| — | — | **Vacía.** Ningún artefacto cambió de nombre |
+
+**Secciones movidas o partidas**
+
+| Regla | Antes | Ahora | Qué hacer en el destino |
+| --- | --- | --- | --- |
+| `Rules-Devops.md` | §4.3 punto 5, canales **y** sufijos | Punto 5 (canales) y punto 5.b (sufijos) | `Estrategia-Versionado.md` declara la semántica de sufijos en su propio ítem |
+| `Rules-Devops.md` | §4.4 punto 2, herramienta IaC **y** aprobación de `plan` | Punto 2 (herramienta) y punto 2.b (aprobación) | `Entornos-Deploy.md` declara la aprobación en su propio ítem |
+| `Rules-Devops.md` | §4.6 punto 1, formato **y** generador | Punto 1 (formato y publicación) y punto 1.b (generador) | `Supply-Chain-Seguridad.md` declara el generador en su propio ítem |
+| `Rules-Devops.md` | §4.6 punto 5, SAST **y** DAST | Punto 5 (SAST) y punto 5.b (DAST) | `Supply-Chain-Seguridad.md` declara cada análisis en su propio ítem, con su stage y su criterio de bloqueo |
+| `Rules-Backlog-Tecnico.md` | §4.4 punto 5, prioridad **y** estimación | Punto 5 (prioridad) y punto 5.b (estimación) | Cada `US-XXXXX-<Nombre>.md` parte su sección 5 en 5 y 5.b |
+
+**Campos bloqueantes nuevos**
+
+| Dónde | Campo | Qué pasa si falta |
+| --- | --- | --- |
+| `Estrategia-Versionado.md`, `Entornos-Deploy.md` y `Supply-Chain-Seguridad.md` de todo destino | Los cuatro ítems `.b` de `Rules-Devops.md` | **Hallazgo P1** si quedan diferidos sin la forma de `Root-Rules.md` §12.2 |
+| Toda `US-XXXXX-<Nombre>.md` | La **estimación** como ítem propio, §4.4 punto 5.b | **Hallazgo P1** si queda diferida sin la forma de §12.2 |
+
+**Qué migración obliga, y cuál no.** Un destino que ya declaraba las dos mitades de cada ítem **no tiene trabajo de contenido**: parte la sección en dos y no escribe nada nuevo. Un destino que difirió el ítem entero **descubre cuál de las dos mitades no estaba bloqueada**, que es el resultado buscado. El costo real está en el volumen: la partición de `Rules-Backlog-Tecnico.md` toca **una sección por historia de usuario**, y un destino con backlog grande las toca todas.
+
 ## [10.1] - 2026-08-20
 
 **La tabla de exclusiones del barrido existía desde la 1.15 «para que no se redescubran cada vez», y tres intervenciones seguidas la reconstruyeron a mano.** Acertaron en lo que su residuo les mostró y omitieron el resto — en una, la omisión hizo que la corrida afirmara «cero» con **dos ocurrencias vivas**, y una auditoría posterior lo levantó como **P2**: sustantivamente correcta y **literalmente falsa**. Origen: `Reportes/15` de `IA.SDD.Documentacion`.

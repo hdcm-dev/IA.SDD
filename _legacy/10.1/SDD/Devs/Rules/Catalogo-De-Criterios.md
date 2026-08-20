@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Catalogo-De-Criterios.md
-**Versión:** 1.8
+**Versión:** 1.7
 **Estado:** Vigente
 **Fecha:** 2026-08-17
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
@@ -62,7 +62,6 @@ aplica sin su fundamento — y el fundamento es lo que permite reconocer cuándo
 | Una fase declara una obligación hacia otra que no corrió | Declararla pendiente o resolverla | `Root-Rules.md` **§12.1** |
 | Un ítem obligatorio no se puede contestar hoy | **Diferirlo con forma o contestarlo con una promesa** | `Root-Rules.md` **§12.2** |
 | Un ítem obligatorio empaqueta dos decisiones y sólo una está bloqueada | Diferir las dos o **diferir por partes** | `Root-Rules.md` §12.2 |
-| Se escribe un ítem obligatorio de una §4.x con dos cosas adentro | Si son **dos decisiones que se parten** o una sola con dos caras: se parte cuando la segunda **se decide por separado**, no cuando **se deriva** de la primera | `Rules-Devops.md` §4.3, §4.4 y §4.6, y `Rules-Backlog-Tecnico.md` §4.4, los cinco casos ya partidos |
 | El evento que cierra un diferimiento **ya ocurrió** | Si sigue abierto, es hallazgo y de qué nivel | `Root-Rules.md` §12.2, tabla de escalamiento |
 | El intake no permite derivar el manifiesto | Qué detiene la cadena | [`Intake-Rules.md`](../Rules/Intake-Rules.md) §4 |
 | Se intervino el framework y hay que versionarlo | Qué bump corresponde | [`SDD-Development-Guide.md`](../../Guides/SDD-Development-Guide.md) §VI.1 y §VI.5 |
@@ -178,4 +177,3 @@ regla—. Lo que no corresponde adoptar es la **infraestructura** de DMN, no su 
 | 1.5 | 2026-08-18 | §3 suma dos situaciones que la 9.19 incorporó: **«apareció un hallazgo y no se sabe si detener o resolverlo»**, que resuelve la pregunta previa de §8.1, y **«hay que encargarle una verificación a un auditor»**, que resuelven las tres partes del encargo de §10. |
 | 1.6 | 2026-08-19 | **Cuatro criterios nuevos de `Root-Rules.md` §12.2** y la fila de §12 recalificada a **§12.1**, por la partición que el reporte `14` produjo: diferir un ítem obligatorio con forma en lugar de contestarlo con una promesa, diferir por partes cuando el ítem empaqueta dos decisiones y sólo una está bloqueada, y qué nivel de hallazgo corresponde cuando **el evento de cierre ya ocurrió**. Se registra acá por la comprobación 12 de `SDD-Development-Guide.md` §VI.3 —quien toca, registra—, que existe precisamente para que el índice no dependa de que alguien se acuerde. Sube minor. |
 | 1.7 | 2026-08-20 | Un criterio nuevo de `SDD-Development-Guide.md` §VI.3.2: **qué hacer con el residuo del barrido que el autor sabe legítimo** — se **cita** la tabla de siete clases estables en lugar de reescribirla, y se enumeran sólo las exclusiones propias del caso. Se registra por la comprobación 12 de §VI.3, que existe para que el índice no dependa de que alguien se acuerde. Origen: `Reportes/15`. Sube minor. |
-| 1.8 | 2026-08-20 | Un criterio nuevo por la partición de cinco ítems obligatorios: **cuándo un ítem de una §4.x empaqueta dos decisiones y hay que partirlo**, con el test que las distingue —la segunda mitad **se decide por separado** o **se deriva de la primera**—. Se registra acá por la comprobación 12 de `SDD-Development-Guide.md` §VI.3. Sube minor. |
