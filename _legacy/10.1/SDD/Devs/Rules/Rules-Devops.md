@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/09-Devops/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto
 **Subagente target del orquestador:** Ingeniero DevOps Senior (AG-09)
-**Versión de las reglas:** 6.0
+**Versión de las reglas:** 5.0
 
 ---
 
@@ -173,8 +173,7 @@ El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente
 3. Herramienta de versionado. MinVer, GitVersion, semantic-release, Nerdbank.GitVersioning u homólogo del runtime objetivo, con su configuración base.
 3.b **Prefijo de tag**, y **se declara aparte de la herramienta a propósito**. Los dos venían en un solo ítem, y eso hizo que un destino real difiriera el prefijo por arrastre cuando lo bloqueado era la herramienta: **elegir `v` no exige haber elegido MinVer**, y ese destino pasó ocho etapas sin poder etiquetar ninguna. Si no se puede fijar hoy, se difiere **con la forma de `Root-Rules.md` §12.2** y no con una promesa.
 4. Branching. GitHub Flow, Git Flow o Trunk-based development según el acuerdo de equipo, con reglas de protección de ramas y políticas de PR.
-5. Canales. Preview, stable y opcionalmente LTS, con sus criterios de promoción.
-5.b **Semántica de sufijos de prerelease** —`-alpha`, `-beta`, `-rc`—, **y se declara aparte del conjunto de canales por el mismo motivo que el prefijo de tag**: qué canales tiene el producto puede depender de una decisión de distribución todavía abierta; **qué sufijo lleva una preview no depende de nada**, y la tabla de promotion rules de §4.7 ya escribe los tres literales. Si no se puede fijar hoy, se difiere con la forma de `Root-Rules.md` §12.2.
+5. Canales. Preview, stable y opcionalmente LTS, con criterios de promoción y semántica de sufijos `-alpha`, `-beta`, `-rc`.
 6. Deprecation policy. Cómo se anuncian y comunican los breaking changes, cuántos minor antes de remover, marcado de obsoletos en código y mención en CHANGELOG.
 7. **Registro del avance, con responsable nombrado.** Qué documento declara en qué etapa va el producto, **quién lo actualiza** —con nombre de rol, y si ninguno corresponde, la organización dueña del repositorio— y **en qué evento**. Declarar sólo el evento deja una obligación sin sujeto, que es la forma en que estos registros se degradan.
 8. **Instrumento preferido: el subproducto del acto.** Entre un registro que alguien tiene que acordarse de actualizar y uno que el acto produce por sí solo —la etiqueta al fusionar, el nombre de la rama, el mensaje de confirmación—, se elige el segundo y se declara por qué. Si el producto igual necesita el registro en prosa, se declara **cuál de los dos manda** cuando no coinciden.
@@ -182,8 +181,7 @@ El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente
 ### 4.4 Estructura de `Entornos-Deploy.md`
 
 1. Lista de ambientes o canales. Para tipos desplegables: DEV, QA, STAGING, PROD con propósito, URL, aprobador y SLA. Para librerías y CLI: preview y stable con criterios de uso.
-2. Provisión (IaC). Herramienta declarativa elegida (Terraform, Pulumi, Bicep, CloudFormation u homólogo), con su layout de módulos y su política de state. Las dos se derivan de la herramienta y no se pueden fijar antes que ella.
-2.b **Aprobación de `plan` antes de `apply`**, como ítem propio. **Es una política de proceso y no una consecuencia de la herramienta**: la regla la enuncia en términos neutros y vale para las cuatro que nombra, de modo que esperar a elegir herramienta para declararla es diferir por arrastre. Si no se puede fijar hoy, se difiere con la forma de `Root-Rules.md` §12.2.
+2. Provisión (IaC). Herramienta declarativa elegida (Terraform, Pulumi, Bicep, CloudFormation u homólogo). Layout de módulos, política de state y aprobación de `plan` antes de `apply`.
 3. Configuración por ambiente. 12-factor: configuración en variables de entorno o archivos referenciados, nunca en código. Mapa de variables por ambiente.
 4. Secretos. Vault, AWS Secrets Manager, Azure Key Vault, GitHub Secrets o equivalente. Rotación, scopes y prohibición explícita de commit.
 5. Promoción. Procedimiento de promoción entre ambientes o canales, integrado con el pipeline. Aprobador requerido y registro de auditoría.
@@ -198,13 +196,11 @@ El ajuste es de navegabilidad. Estos documentos los lee principalmente un agente
 
 ### 4.6 Estructura de `Supply-Chain-Seguridad.md`
 
-1. SBOM. Formato (CycloneDX o SPDX), formato de salida (JSON o XML), publicación adjunta al release y firma del propio SBOM.
-1.b **Generador del SBOM**, como ítem propio, **porque es el único de los cuatro que puede depender del runtime** y ése se fija más tarde. El formato, la publicación y la firma se eligen hoy —la tabla de stages de §4.7 ya declara «SBOM generado y adjunto» como gate—, y venían atados a una herramienta que podía no estar decidida. Si el generador no se puede fijar hoy, se difiere con la forma de `Root-Rules.md` §12.2.
+1. SBOM. Formato (CycloneDX o SPDX), generador, formato de salida (JSON o XML), publicación adjunta al release y firma del propio SBOM.
 2. Firma. Cosign, sigstore, certificado de organización u homólogo. Política de transparency log y verificación por integradores.
 3. SLSA. Nivel objetivo (L1, L2, L3, L4) con criterios cumplidos y plan de elevación.
 4. Dependency scanning. Tooling de SCA, frecuencia de ejecución, política ante vulnerabilidad crítica, alta, media y baja. Integración con Dependabot, Renovate o equivalente.
-5. SAST. Herramienta de análisis estático, stage del pipeline donde se ejecuta y criterio de bloqueo de PR. **Corre sobre el código y no espera a nada.**
-5.b **DAST**, como ítem propio, con su herramienta, su stage y su criterio de bloqueo. **Se separa porque el análisis dinámico necesita un ambiente desplegado**, que §4.4 punto 1 declara aparte y puede no existir todavía: unidos en un ítem, el que está bloqueado arrastra al que no lo está. Si el ambiente no existe, **se difiere DAST y no los dos**, con la forma de `Root-Rules.md` §12.2.
+5. SAST y DAST. Herramientas de análisis estático y dinámico, stages del pipeline donde se ejecutan y criterios de bloqueo de PR.
 6. Política de CVE. SLA de remediación por severidad, comunicación al integrador, ventana entre detección y publicación de fix.
 
 ### 4.7 Tablas tipo y formatos recurrentes
@@ -537,4 +533,3 @@ Salida: SDD/Docs/Producto/Pipeline-Producto.md.
 | 4.5 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 4.6 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
 | 5.0 | 2026-08-19 | **§4.3 parte su punto 3 en dos**: la herramienta de versionado con su configuración base, y el **prefijo de tag** como ítem propio. Los dos venían en una sola línea, y eso hizo que un destino real **difiriera el prefijo por arrastre** cuando lo genuinamente bloqueado era la herramienta: elegir `v` no exige haber elegido MinVer, y ese destino pasó **ocho etapas sin poder etiquetar ninguna**. El ítem nuevo declara además que, si no se puede fijar hoy, **se difiere con la forma de `Root-Rules.md` §12.2** y no con una promesa. Origen: reporte `14` de `IA.SDD.Documentacion`. Sube **major**: una `Estrategia-Versionado.md` emitida antes declara el prefijo dentro del punto 3 o no lo declara, y en los dos casos **deja de cumplir** la estructura de §4.3. |
-| 6.0 | 2026-08-20 | **Cuatro ítems obligatorios se parten, por la auditoría que el reporte `14` §7 pedía sobre las quince reglas y que la 10.0 no corrió.** Los cuatro repetían la mecánica del punto 3: **una decisión que puede estar bloqueada arrastrando a otra que no lo está**. §4.3 punto 5 separa la **semántica de sufijos de prerelease** del conjunto de canales; §4.4 punto 2 separa la **aprobación de `plan` antes de `apply`** —política de proceso, neutra respecto de la herramienta— de la elección de herramienta de IaC; §4.6 punto 1 separa el **generador del SBOM**, único de los cuatro campos que puede depender del runtime, del formato y de la publicación; §4.6 punto 5 separa **DAST de SAST**, porque el análisis dinámico necesita un ambiente desplegado y el estático no espera a nada. Los cuatro ítems nuevos declaran que, si no se pueden fijar hoy, se difieren con la forma de `Root-Rules.md` §12.2. Sube **major**: un documento emitido antes declara esos datos dentro del ítem anterior o no los declara, y en los dos casos **deja de cumplir** la estructura de §4.3, §4.4 y §4.6. |
