@@ -17,7 +17,7 @@ traces:
 # Guía de desarrollo y extensibilidad del framework SDD
 
 **Documento:** SDD-Development-Guide.md
-**Versión:** 1.21
+**Versión:** 1.20
 **Estado:** Vigente
 **Fecha:** 2026-07-29
 **Rol de intervención:** Mantenedor del framework
@@ -676,7 +676,6 @@ Lista de comprobación mínima:
 | 12 | **Cobertura del catálogo de criterios**: todo criterio de decisión que la intervención agrega, cambia de lugar o retira está reflejado en [`Catalogo-De-Criterios.md`](../Devs/Rules/Catalogo-De-Criterios.md) | El catálogo enumera los criterios vigentes, sin faltantes ni entradas muertas |
 | 11 | **Cobertura de la nota de coherencia**: toda entrada del `CHANGELOG.md` cuya intervención tocó **más de un archivo** tiene su nota, y la nota declara la versión del conjunto que resultó | Una nota por entrada multiarchivo, sin huecos |
 | 10 | **Integridad del registro** de cada archivo tocado: la versión de cabecera **es** la mayor fila del control de cambios, las filas están **en orden** y **ninguna está repetida** | Cabecera igual a la última fila, tabla ordenada |
-| 13 | **Devolución al origen**: cuando la intervención declara un **origen** —un reporte, un incidente, un pedido—, la nota **enumera los criterios de aceptación que ese origen fija** y declara, uno por uno, **cuál quedó cumplido y cuál no** | Un veredicto por criterio. **Ningún origen se declara resuelto con un criterio sin contestar** |
 
 **Por qué la comprobación 3 excluye los ejemplos.** Las reglas ilustran el árbol de un destino con
 enlaces como `[00-Contexto](00-Contexto/)`, que **no resuelven desde la ubicación de la regla y no
@@ -689,25 +688,6 @@ catálogo declaró como limitación que «el índice se desactualiza si un crite
 **Eso no es una limitación: es una obligación que faltaba escribir.** Un índice cuyo mantenimiento
 depende de que alguien se acuerde reproduce exactamente el problema que vino a resolver, y el método ya
 sabe cómo se corrige eso —la misma forma que D5 usa para el control de cambios: quien toca, registra—.
-
-**Por qué la comprobación 13 existe, y qué defecto medido la produce.** Una intervención que nace de
-un origen **contesta menos de lo que el origen pedía y lo declara resuelto igual**, porque lo que la
-verificación mira es el árbol que quedó y no el encargo que la trajo. Medido: una intervención publicó
-su versión declarando resuelto un origen de **cinco criterios de aceptación** con **uno sin auditar** —el
-que pedía barrer una clase entera, y no el caso que la originó—. Las doce comprobaciones anteriores
-pasaron todas, y ninguna podía verlo: **el trabajo que faltaba no estaba en ningún archivo tocado**.
-Lo levantó una verificación posterior, y para entonces la versión ya estaba publicada y el registro ya
-decía «resuelto».
-
-**Se enuncia sobre la propiedad y no sobre el caso**, que es lo que la Parte IV exige desde la 1.19: no
-dice «el reporte», dice **el origen**, cualquiera sea su forma, porque lo que produce el defecto no es
-de qué tipo es el encargo sino que **su criterio de aceptación viva afuera del árbol que la intervención
-verifica**.
-
-**Y no cita ese afuera, a propósito.** La comprobación 2 exige autosuficiencia —cero referencias fuera
-de este repositorio— y una comprobación que nombrara dónde vive el origen la rompería. Lo que se exige
-es que **la nota traiga los criterios adentro**: enumerados, con su veredicto. Un criterio que nadie
-transcribió no se puede contestar, y ésa es exactamente la forma en que este defecto se produce.
 
 **Por qué la comprobación 11 existe.** §VI.3 exige la nota desde siempre y **nadie verificaba que se
 hubiera emitido**. En una serie de siete intervenciones consecutivas, **dos de las que la necesitaban
@@ -942,4 +922,3 @@ que diga otra cosa.
 | 1.18 | 2026-08-18 | La Parte IV suma el bloque **«sobre qué forma le das a lo que escribís»**, que resuelve un criterio que hasta acá se aplicaba por olfato: **qué merece ser paso y qué queda como prosa**. Declara que las salidas son **tres** —prosa, paso, y **paso con su fundamento pegado**—, que **las tres condiciones del paso son necesarias juntas** —se lee ejecutando, su omisión hace daño y es olvidable—, que **un paso previene y una comprobación detecta, y no son sustitutos**, el **presupuesto de nueve** con sus dos salidas cuando se llena, y que **el disparador de revisión es la falla y no la previsión**. Origen: una advertencia específica con su caso medido que **no se aplicó por estar como bullet en una lista temática**. | Framework SDD (paso o prosa) |
 | 1.19 | 2026-08-18 | La Parte IV suma el bloque **«sobre las reglas que escribas a partir de un caso observado»**. Declara el defecto de forma: **una regla escrita contra un caso tiende a quedar enunciada sobre el caso y no sobre la propiedad**, y entonces **su simétrico queda afuera sin que nadie lo note, porque la regla se lee completa**. Recoge las **tres familias observadas y de origen distinto** —la comprobación 4 enunciada sobre los archivos tocados, la regla 4 del barrido enunciada sobre el árbol y no sobre el texto propio, y `Migracion-Rules.md` §4.3.2 **E4** enunciada sobre el cierre y no sobre la apertura—, sus cuatro preguntas, la regla de que **dos reglas hermanas van juntas y no separadas**, y su límite: hay reglas cuyo caso **es** la propiedad, y lo que se pide es **hacerse la pregunta**. | Framework SDD (el simétrico de la regla) |
 | 1.20 | 2026-08-20 | **§VI.3.2 suma su séptima clase de exclusión: la declaración de la propia intervención**, que escribe la forma anterior como patrón literal porque la sección se lo exige — **nombrarla es su función**. Observada en dos intervenciones seguidas, y en la primera **no se enumeró**: la corrida afirmó «cero» con dos ocurrencias vivas y una auditoría posterior lo levantó como **P2**, una afirmación **sustantivamente correcta y literalmente falsa**. **Y el cambio que la fila sola no arregla:** §VI.3.2 declara ahora que la sección de barrido de la nota de coherencia **cita esta tabla en lugar de reescribirla** y enumera sólo las exclusiones propias del caso. La tabla existía desde la 1.15 «para que no se redescubran cada vez» y **tres intervenciones seguidas la reconstruyeron a mano igual**, acertando en lo que su residuo les mostró y omitiendo el resto; el motivo es de **ubicación** y no de contenido — la lista vive en la guía y la nota se escribe **mirando el residuo**. La comprobación 8 se reformula sobre las **siete** clases citadas. Origen: `Reportes/15` de `IA.SDD.Documentacion`. Sube minor: una fila y una obligación de citar; ningún procedimiento cambia. | Framework SDD (exclusiones del barrido) |
-| 1.21 | 2026-08-20 | **§VI.3 suma la comprobación 13, devolución al origen.** Una intervención que nace de un encargo **contesta menos de lo que el encargo pedía y lo declara resuelto igual**: la verificación mira el árbol que quedó y no el criterio de aceptación que la trajo, que vive afuera. Medido: una intervención declaró resuelto un origen de cinco criterios con **uno sin auditar** —el que pedía barrer la clase y no el caso—, con las doce comprobaciones anteriores en verde, porque **el trabajo que faltaba no estaba en ningún archivo tocado**. La nota pasa a **enumerar los criterios del origen y darles veredicto uno por uno**. Está enunciada sobre la propiedad —el *origen*, no el *reporte*— y **no nombra dónde vive**: la comprobación 2 lo prohíbe, de modo que lo que se exige es traer los criterios adentro de la nota. Sube **minor**: una comprobación más, ningún procedimiento existente cambia. |
