@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Catalogo-De-Criterios.md
-**Versión:** 1.7
+**Versión:** 1.6
 **Estado:** Vigente
 **Fecha:** 2026-08-17
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
@@ -65,7 +65,6 @@ aplica sin su fundamento — y el fundamento es lo que permite reconocer cuándo
 | El evento que cierra un diferimiento **ya ocurrió** | Si sigue abierto, es hallazgo y de qué nivel | `Root-Rules.md` §12.2, tabla de escalamiento |
 | El intake no permite derivar el manifiesto | Qué detiene la cadena | [`Intake-Rules.md`](../Rules/Intake-Rules.md) §4 |
 | Se intervino el framework y hay que versionarlo | Qué bump corresponde | [`SDD-Development-Guide.md`](../../Guides/SDD-Development-Guide.md) §VI.1 y §VI.5 |
-| El barrido de una intervención deja residuo que su autor sabe legítimo | Si la exclusión se escribe a mano o **se cita** | `SDD-Development-Guide.md` §VI.3.2, **siete clases estables** |
 | Se cambió un concepto en el framework | Cómo se barre y con qué residuo aceptable | `SDD-Development-Guide.md` §VI.3.1 y §VI.3.2 |
 | Se escribe una regla nueva a partir de un caso observado | Si está enunciada sobre el caso o sobre la propiedad, y cuál es su simétrico | `SDD-Development-Guide.md` Parte IV, «sobre las reglas que escribas a partir de un caso observado» |
 | Hay que verificar una intervención antes de cerrarla | Las doce comprobaciones | `SDD-Development-Guide.md` §VI.3 |
@@ -176,4 +175,3 @@ regla—. Lo que no corresponde adoptar es la **infraestructura** de DMN, no su 
 | 1.4 | 2026-08-18 | §3 suma la situación **«se escribe una regla nueva a partir de un caso observado»**, que la Parte IV de `SDD-Development-Guide.md` incorporó en la 9.18. Es la comprobación **12** de §VI.3 funcionando: un criterio nuevo entra al índice en la misma intervención que lo crea. |
 | 1.5 | 2026-08-18 | §3 suma dos situaciones que la 9.19 incorporó: **«apareció un hallazgo y no se sabe si detener o resolverlo»**, que resuelve la pregunta previa de §8.1, y **«hay que encargarle una verificación a un auditor»**, que resuelven las tres partes del encargo de §10. |
 | 1.6 | 2026-08-19 | **Cuatro criterios nuevos de `Root-Rules.md` §12.2** y la fila de §12 recalificada a **§12.1**, por la partición que el reporte `14` produjo: diferir un ítem obligatorio con forma en lugar de contestarlo con una promesa, diferir por partes cuando el ítem empaqueta dos decisiones y sólo una está bloqueada, y qué nivel de hallazgo corresponde cuando **el evento de cierre ya ocurrió**. Se registra acá por la comprobación 12 de `SDD-Development-Guide.md` §VI.3 —quien toca, registra—, que existe precisamente para que el índice no dependa de que alguien se acuerde. Sube minor. |
-| 1.7 | 2026-08-20 | Un criterio nuevo de `SDD-Development-Guide.md` §VI.3.2: **qué hacer con el residuo del barrido que el autor sabe legítimo** — se **cita** la tabla de siete clases estables en lugar de reescribirla, y se enumeran sólo las exclusiones propias del caso. Se registra por la comprobación 12 de §VI.3, que existe para que el índice no dependa de que alguien se acuerde. Origen: `Reportes/15`. Sube minor. |
