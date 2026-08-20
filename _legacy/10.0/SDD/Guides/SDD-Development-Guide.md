@@ -17,7 +17,7 @@ traces:
 # Guía de desarrollo y extensibilidad del framework SDD
 
 **Documento:** SDD-Development-Guide.md
-**Versión:** 1.20
+**Versión:** 1.19
 **Estado:** Vigente
 **Fecha:** 2026-07-29
 **Rol de intervención:** Mantenedor del framework
@@ -671,7 +671,7 @@ Lista de comprobación mínima:
 | 5 | Control de cambios actualizado en cada archivo modificado | Una fila por archivo |
 | 6 | El caso degenerado sigue produciendo el layout aplanado | Verificado |
 | 7 | Nada fuera del alcance declarado fue modificado | Sin cambios colaterales |
-| 8 | **Barrido por concepto**: la intervención **declara la forma anterior como patrón** (§VI.3.2) y lo corre sobre todo el árbol vivo, incluidos los bloques cercados y el interior de los archivos ya tocados, **y sobre su propio texto** | **Cero ocurrencias vivas** fuera de **las siete clases estables de §VI.3.2, que se citan y no se reescriben**, y de las exclusiones propias del caso, enumeradas con su motivo |
+| 8 | **Barrido por concepto**: la intervención **declara la forma anterior como patrón** (§VI.3.2) y lo corre sobre todo el árbol vivo, incluidos los bloques cercados y el interior de los archivos ya tocados, **y sobre su propio texto** | **Cero ocurrencias vivas** fuera de las exclusiones enumeradas con su motivo |
 | 9 | **Coherencia interna de cada artefacto tocado**: ninguna sección contradice a otra del mismo archivo | Sin contradicciones internas |
 | 12 | **Cobertura del catálogo de criterios**: todo criterio de decisión que la intervención agrega, cambia de lugar o retira está reflejado en [`Catalogo-De-Criterios.md`](../Devs/Rules/Catalogo-De-Criterios.md) | El catálogo enumera los criterios vigentes, sin faltantes ni entradas muertas |
 | 11 | **Cobertura de la nota de coherencia**: toda entrada del `CHANGELOG.md` cuya intervención tocó **más de un archivo** tiene su nota, y la nota declara la versión del conjunto que resultó | Una nota por entrada multiarchivo, sin huecos |
@@ -775,14 +775,6 @@ que no se redescubran cada vez:
 | Notas de coherencia anteriores | Relatan un hallazgo de su fecha |
 | Rutas ilustrativas de los ejemplos | Describen el árbol de un destino, no la navegación del framework (§VI.3, comprobación 3) |
 | Renombres declarados | «Reemplaza a las antiguas X» es lo que permite reconocer un destino generado con la versión vieja |
-| **La declaración de la propia intervención** | Escribe la forma anterior **como patrón literal** porque esta misma sección se lo exige: **nombrarla es su función**. Un barrido que no pudiera nombrar lo que corrige sería inútil. Observado en dos intervenciones seguidas, y en la primera **no se enumeró**: la corrida afirmó cero con dos ocurrencias vivas, y una auditoría posterior lo levantó como P2 |
-
-**La sección de barrido de la nota de coherencia CITA esta tabla en lugar de reescribirla**, y
-enumera **sólo las exclusiones propias de su caso**. La tabla se escribió «para que no se redescubran
-cada vez» y aun así **tres intervenciones seguidas la reconstruyeron a mano**, acertando en lo que su
-residuo les mostró y omitiendo el resto. El motivo no es de contenido sino de ubicación: la lista vive
-acá y **la nota se escribe mirando el residuo**. Enumerar una vez no alcanza si nada pone la lista
-delante de quien enumera.
 
 **Y la regla 4 se corre con los mismos patrones sobre lo que la intervención acaba de escribir.** Es
 la parte que faltó las cinco veces: el barrido se corrió sobre el árbol y **no sobre el texto propio**.
@@ -921,4 +913,3 @@ que diga otra cosa.
 | 1.17 | 2026-08-17 | **§VI.3 suma la comprobación 12, cobertura del catálogo de criterios.** La versión 1.0 del catálogo declaraba como *limitación* que el índice se desactualiza si nadie agrega el criterio nuevo. **No era una limitación: era una obligación que faltaba escribir**, y un índice cuyo mantenimiento depende de la memoria reproduce el problema que vino a resolver. La forma es la que D5 ya usa para el control de cambios: **quien toca, registra**. | Framework SDD (política de coincidencia) |
 | 1.18 | 2026-08-18 | La Parte IV suma el bloque **«sobre qué forma le das a lo que escribís»**, que resuelve un criterio que hasta acá se aplicaba por olfato: **qué merece ser paso y qué queda como prosa**. Declara que las salidas son **tres** —prosa, paso, y **paso con su fundamento pegado**—, que **las tres condiciones del paso son necesarias juntas** —se lee ejecutando, su omisión hace daño y es olvidable—, que **un paso previene y una comprobación detecta, y no son sustitutos**, el **presupuesto de nueve** con sus dos salidas cuando se llena, y que **el disparador de revisión es la falla y no la previsión**. Origen: una advertencia específica con su caso medido que **no se aplicó por estar como bullet en una lista temática**. | Framework SDD (paso o prosa) |
 | 1.19 | 2026-08-18 | La Parte IV suma el bloque **«sobre las reglas que escribas a partir de un caso observado»**. Declara el defecto de forma: **una regla escrita contra un caso tiende a quedar enunciada sobre el caso y no sobre la propiedad**, y entonces **su simétrico queda afuera sin que nadie lo note, porque la regla se lee completa**. Recoge las **tres familias observadas y de origen distinto** —la comprobación 4 enunciada sobre los archivos tocados, la regla 4 del barrido enunciada sobre el árbol y no sobre el texto propio, y `Migracion-Rules.md` §4.3.2 **E4** enunciada sobre el cierre y no sobre la apertura—, sus cuatro preguntas, la regla de que **dos reglas hermanas van juntas y no separadas**, y su límite: hay reglas cuyo caso **es** la propiedad, y lo que se pide es **hacerse la pregunta**. | Framework SDD (el simétrico de la regla) |
-| 1.20 | 2026-08-20 | **§VI.3.2 suma su séptima clase de exclusión: la declaración de la propia intervención**, que escribe la forma anterior como patrón literal porque la sección se lo exige — **nombrarla es su función**. Observada en dos intervenciones seguidas, y en la primera **no se enumeró**: la corrida afirmó «cero» con dos ocurrencias vivas y una auditoría posterior lo levantó como **P2**, una afirmación **sustantivamente correcta y literalmente falsa**. **Y el cambio que la fila sola no arregla:** §VI.3.2 declara ahora que la sección de barrido de la nota de coherencia **cita esta tabla en lugar de reescribirla** y enumera sólo las exclusiones propias del caso. La tabla existía desde la 1.15 «para que no se redescubran cada vez» y **tres intervenciones seguidas la reconstruyeron a mano igual**, acertando en lo que su residuo les mostró y omitiendo el resto; el motivo es de **ubicación** y no de contenido — la lista vive en la guía y la nota se escribe **mirando el residuo**. La comprobación 8 se reformula sobre las **siete** clases citadas. Origen: `Reportes/15` de `IA.SDD.Documentacion`. Sube minor: una fila y una obligación de citar; ningún procedimiento cambia. | Framework SDD (exclusiones del barrido) |

@@ -3,6 +3,28 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [10.1] - 2026-08-20
+
+**La tabla de exclusiones del barrido existía desde la 1.15 «para que no se redescubran cada vez», y tres intervenciones seguidas la reconstruyeron a mano.** Acertaron en lo que su residuo les mostró y omitieron el resto — en una, la omisión hizo que la corrida afirmara «cero» con **dos ocurrencias vivas**, y una auditoría posterior lo levantó como **P2**: sustantivamente correcta y **literalmente falsa**. Origen: `Reportes/15` de `IA.SDD.Documentacion`.
+
+### Agregado — `SDD-Development-Guide.md` 1.19 → 1.20, §VI.3.2
+
+**La séptima clase de exclusión: la declaración de la propia intervención.** Escribe la forma anterior **como patrón literal** porque §VI.3.2 se lo exige, de modo que **nombrarla es su función**. Un barrido que no pudiera nombrar lo que corrige sería inútil.
+
+**Y el cambio que la fila sola no arregla:** la sección de barrido de la nota de coherencia **cita la tabla en lugar de reescribirla**, y enumera sólo las exclusiones propias del caso.
+
+**El motivo es de ubicación y no de contenido.** La lista vive en la guía y **la nota se escribe mirando el residuo**: nada pone la lista delante de quien enumera. **Enumerar una vez no alcanza si nadie la lee en el momento de usarla.**
+
+La comprobación 8 de §VI.3 se reformula sobre las **siete** clases citadas.
+
+### Cambiado — `Catalogo-De-Criterios.md` 1.6 → 1.7
+
+Un criterio nuevo: qué hacer con el residuo del barrido que el autor sabe legítimo.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Exclusiones-Del-Barrido.md`, conjunto resultante **10.1**.
+
 ## [10.0] - 2026-08-19
 
 **El método sabía atar una decisión a un evento futuro y no sabía cerrar el lazo cuando ese evento llegaba.** Un ítem que una regla declara obligatorio se podía contestar con la promesa de contestarlo —«el que se fije al anclarla, registrado en el punto de control de la etapa `a`»—, y esa promesa **se lee igual que el dato** en toda verificación de presencia: hay sección, hay fila, hay texto. No es una declaración falsa: es verdadera, sobre el futuro, y por eso ni siquiera incomoda a quien la lee.
