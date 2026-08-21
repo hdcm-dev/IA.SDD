@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 8.10
+**Versión:** 8.9
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -1263,7 +1263,7 @@ Sos un auditor independiente con perfil Arquitecto de Soluciones + QA Senior. No
 - §6 (criterios de aceptación) de cada archivo de reglas correspondiente a la fase, para el tipo_unidad_entrega {{TIPO_UNIDAD_ENTREGA}}.
 - Coherencia cross-doc dentro de la fase y trazabilidad hacia el upstream de producto y de proyectos de código dependientes.
 - Gobierno del glosario y vocabulario normativo: `Vocabulario-Rules.md` §10. Una polisemia con contextos disjuntos no es hallazgo; reportarla como tal es un defecto de tu informe.
-- Las reglas transversales de `Root-Rules.md` §9 a §13: identificadores, datos derivados, apartamiento declarado y referencia pendiente.
+- Las reglas transversales de `Root-Rules.md` §9 a §12: identificadores, datos derivados, apartamiento declarado y referencia pendiente.
 
 Alcance ya verificado por la compuerta mecánica de §10.0, que corrió antes de este despacho:
 {{SALIDA_DE_LA_COMPUERTA}}
@@ -1277,7 +1277,7 @@ origen) y su marca de detectabilidad (detectable por guion o solo por lectura).
 Insumos:
 - Entregables de la fase: {{LISTA_CARPETAS_FASE}}
 - Archivos de reglas: ../IA.SDD/SDD/Devs/Rules/{{LISTA_REGLAS}}
-- Reglas transversales: ../IA.SDD/SDD/Devs/Rules/Root-Rules.md §9 a §13
+- Reglas transversales: ../IA.SDD/SDD/Devs/Rules/Root-Rules.md §9 a §12
 - Reglas de vocabulario (siempre): ../IA.SDD/SDD/Devs/Rules/Vocabulario-Rules.md, con §9 como criterio de desambiguación léxica y §10 como criterios de aceptación
 - Manifiesto e intake: SDD/Intake/
 
@@ -1663,4 +1663,3 @@ Reglas de versionado:
 | 8.7 | 2026-08-18 | **§8.1 suma la pregunta previa a toda detención, y §10 la forma del encargo al auditor.** La tabla de la autocorrección declaraba la frontera desde la 9.16 y **no cómo reconocerla**, así que decidía la asimetría de costos: detener es barato para el agente y caro para el humano. Medido: **de cinco detenciones de una corrida real, tres no eran del humano**. La pregunta es una sola —**¿esto tiene respuesta en el árbol?**— y **la cita literal es el criterio, no la intuición**: lo que se sostiene citando archivo y línea lo cierra el agente. Con su «ante la duda, se detiene», por la misma asimetría con que §6 resuelve enumerable contra interpretativo. **§10** separa qué compra la independencia —**ausencia de compromiso**, que no se arregla con mejor prompt— de qué no compra —**independencia de criterio**, porque dos agentes del mismo modelo correlacionan—, y de ahí deriva las tres partes obligatorias del encargo: **refutar y no verificar**, **cita literal o el veredicto no vale**, y **«no concluyente» admitido**. Registra que la exigencia de cita **contesta sola la pregunta previa**, de modo que no hace falta clasificar el hallazgo aparte. Origen: `Reportes/13`. Sube **minor**. | Framework SDD (la pregunta previa) |
 | 8.8 | 2026-08-19 | **§10.0 suma la comprobación transversal 6, ítems diferidos** (`Root-Rules.md` §12.2), por el reporte `14`. Se cuentan los que el árbol de la fase declara y **es hallazgo el que nombre un evento de cierre ya ocurrido**; también lo es el ítem obligatorio contestado con una promesa **sin la forma de §12.2**, porque sin marca no es contable y ninguna otra comprobación lo alcanza. Es **enumerable** porque §12.2 obliga a nombrar el evento como artefacto y sección: se abre y se mira. **Cierra el lazo que faltaba** — el método sabía atar una decisión a un evento futuro y no sabía cerrarlo cuando el evento llegaba, y en un destino real un ítem sobrevivió **ocho etapas** a su propio punto de control sin que nada chirriara. Sube **minor**: una comprobación nueva, ningún procedimiento cambia. |
 | 8.9 | 2026-08-20 | **Dos citas que el barrido de la 10.0 declaró migradas y no lo estaban.** §6 y el glosario de §15 seguían remitiendo a `Root-Rules.md` **§12** para la *referencia pendiente*, que desde la 10.0 es **§12.1** — y es lo que la propia entrada de esa versión manda: «toda cita a §12 que hable de referencias pasa a §12.1». Las dos vivían en el archivo que esa misma intervención estaba editando, dentro de un recuento que se declaró cerrado con residuo 1. Sube **patch**: corrige dos referencias sin cambiar ningún procedimiento. |
-| 8.10 | 2026-08-20 | El rango de reglas transversales que viaja en el despacho pasa de **§9 a §12** a **§9 a §13**, por la sección de precedencia que `Root-Rules.md` incorpora. Va acá porque el propio §8 declara el motivo: *«una regla que las reglas de categoría citan y que no llega al despacho no la lee nadie»* — y la precedencia la aplica el subagente que se choca con las dos reglas, no el orquestador. Sube **minor**: un insumo más en una lista existente. |

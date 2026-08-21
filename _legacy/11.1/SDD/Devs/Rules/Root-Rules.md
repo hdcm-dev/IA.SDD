@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-ROOT)
-**Versión de las reglas:** 7.1
+**Versión de las reglas:** 7.0
 
 ---
 
@@ -663,46 +663,7 @@ cuando ese evento llegaba.
 
 ---
 
-## 13. Precedencia entre reglas
-
-**Alcance transversal**, como §9.
-
-**Esta sección no le da al agente permiso para decidir: le da la cita que `Master-Prompt.md` §8.1 ya le
-exige.** §8.1 declara que algo es **trabajo propio** cuando *«se contesta abriendo los documentos y
-contrastando, y la respuesta se puede sostener con una **cita literal**»*, y que **se detiene** lo que
-requiere intención de producto. Un conflicto entre dos reglas **no tenía con qué citarse**, de modo que
-caía entero del lado de la detención, sin que nadie lo hubiera decidido.
-
-**Los tres criterios, y se aplican en este orden:**
-
-1. **Jerarquía.** Una regla **transversal** —§9 a §13 de este archivo— desplaza a una regla de
-   categoría cuando las dos alcanzan al mismo ítem. La transversal viaja en todo despacho
-   (`Master-Prompt.md` §8) precisamente porque gobierna a todas.
-2. **Especificidad.** Entre dos reglas del mismo nivel, la que gobierna **el caso específico** desplaza
-   a la que gobierna el caso general. Una regla que nombra el artefacto desplaza a la que nombra la
-   familia.
-3. **Fecha.** Entre dos reglas del mismo nivel y la misma especificidad, **la posterior** desplaza a la
-   anterior. La fecha se lee del control de cambios, no de la intuición.
-
-**Qué se escribe cuando se aplica.** El hallazgo nombra **las dos reglas con su sección**, **cuál
-desplaza a cuál** y **por cuál de los tres criterios**. Sin eso no es una resolución: es una preferencia.
-
-**Dónde termina esta sección y empieza el arbitraje.** Los tres criterios resuelven conflictos **de
-forma**: jerarquía, alcance y fecha. **No resuelven conflictos de intención** —dos cosas aprobadas que
-quieren cosas distintas, o un pedido que contradice lo que el árbol declara—. Ahí rige la **detención
-por arbitraje** de `Master-Prompt.md` §7.0, con la forma de §8.1, y `Catalogo-De-Criterios.md` §4.1
-punto 2. **Ante la duda sobre de qué clase es el conflicto, se detiene**, por la misma asimetría con
-que §8.1 resuelve toda detención: el error barato y el error caro no son simétricos.
-
-**Un caso medido, y es el que originó la sección.** `Rules-Prompts-AI.md` §4.2 punto 9 autorizaba
-contestar un ítem obligatorio con «la magnitud declarada como pendiente», y `Root-Rules.md` §12.2 lo
-califica **P1**. Se resolvió a favor de §12.2 —por jerarquía y por fecha— **antes de que esta sección
-existiera**, de modo que la resolución fue correcta y no se podía sostener con una cita. Esta sección
-la funda hacia atrás.
-
----
-
-## 14. Control de cambios
+## 13. Control de cambios
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
@@ -726,4 +687,3 @@ la funda hacia atrás.
 | 6.1 | 2026-08-17 | §11 suma dos campos al ADR de apartamiento: su **estado** —de un conjunto cerrado de cuatro— y los **saltos de versión que sobrevivió**. Sin estado, un apartamiento absorbido, uno contradicho y uno todavía no contemplado **se ven igual**, y el tercero es indistinguible del olvido. El **contador es el disparador que el método no tenía**: uno que sobrevive dos o más saltos sin ser contemplado ya demostró que no es de un producto, y lo dice un número en lugar de que alguien se acuerde. Sube **minor**: agrega dos campos a un artefacto existente sin cambiar cuándo corresponde emitirlo. |
 | 6.2 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
 | 7.0 | 2026-08-19 | **§12 pasa de una figura a dos y se parte en §12.1 y §12.2**, por el reporte `14` de `IA.SDD.Documentacion`. La cabecera declara que **son la misma figura con el evento de cierre en distinto lugar**: la referencia pendiente lo tiene **adentro** del método —el orquestador ve emitirse la categoría porque él mismo la produce— y el ítem diferido lo tiene **afuera**, en el ciclo de construcción que el método no gobierna, donde nadie lo ve pasar. **§12.2 es nueva**: un ítem que una §4.x declara obligatorio y no se puede contestar hoy **se difiere con forma de cuatro campos y no con una promesa en prosa**, y el cuarto —**el evento se nombra por un artefacto y su sección, no por un momento**— es el que la distingue: un momento no deja rastro que alguien pueda abrir, y un cierre que nadie comprueba no ocurre. Declara que **un ítem que empaqueta dos decisiones se difiere por partes**, y una tabla de escalamiento con **P1 para el ítem cuyo evento ya ocurrió** y P0 al cierre del producto. Evidencia: un destino real pasó **ocho etapas sin poder etiquetar ninguna** porque el prefijo de tag viajaba empaquetado con la herramienta de versionado, y el punto de control al que se difirió cerró sin registrarlo. Sube **major**: un documento generado antes que difiera un ítem en prosa **deja de cumplir**. |
-| 7.1 | 2026-08-20 | **§13 nueva, precedencia entre reglas**, y el control de cambios pasa a §14. El corpus no declaraba **ningún criterio para resolver un conflicto entre dos reglas**, y `Master-Prompt.md` §8.1 exige **cita literal** para que algo sea trabajo propio: sin criterio, el agente no podía sostener ninguna resolución y **todo conflicto caía en la detención por arbitraje sin que nadie lo hubiera decidido**. Entran tres criterios ordenados —**jerarquía, especificidad y fecha**—, la obligación de escribir cuál desplaza a cuál y por qué, y **la frontera declarada**: resuelven conflictos de forma, **no de intención**, donde sigue rigiendo §7.0. Funda hacia atrás la resolución de `Rules-Prompts-AI.md` §4.2 punto 9 contra §12.2, aplicada en la 11.0 sin cita posible. Sube **minor**: agrega un criterio de resolución y **ningún documento generado deja de cumplir**. |

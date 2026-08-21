@@ -3,6 +3,32 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [11.2] - 2026-08-20
+
+**El corpus no declaraba ningún criterio para resolver un conflicto entre dos reglas, y eso hacía que todos cayeran del lado de la detención sin que nadie lo hubiera decidido.** `Master-Prompt.md` §8.1 declara que algo es **trabajo propio** cuando *«se contesta contrastando, y la respuesta se puede sostener con una **cita literal**»*. Un conflicto entre dos reglas **no tenía con qué citarse**: no había criterio. El agente no podía sostener ninguna resolución y escalaba — **no por decisión, por falta de cita**.
+
+**Medido:** en la 11.0, `Rules-Prompts-AI.md` §4.2 punto 9 contra `Root-Rules.md` §12.2 se resolvió a favor de §12.2 aplicando **jerarquía y fecha sin nombrarlas**. La resolución fue correcta y **no era sostenible con cita**.
+
+### Agregado — `Root-Rules.md` 7.0 → 7.1, §13
+
+**Precedencia entre reglas, con alcance transversal.** Tres criterios en orden: **jerarquía** —una transversal desplaza a una de categoría—, **especificidad** —la que nombra el caso desplaza a la que nombra la familia— y **fecha** —la posterior desplaza a la anterior, leída del control de cambios—. Quien la aplica **escribe las dos reglas con su sección, cuál desplaza a cuál y por cuál criterio**: sin eso no es una resolución, es una preferencia.
+
+**Y la frontera, declarada:** los tres resuelven conflictos **de forma**. **No resuelven conflictos de intención** —dos cosas aprobadas que quieren cosas distintas, o un pedido que contradice al árbol—, donde sigue rigiendo la **detención por arbitraje** de §7.0. **Ante la duda sobre de qué clase es el conflicto, se detiene**, por la misma asimetría con que §8.1 resuelve toda detención.
+
+**No deroga nada.** Le da al agente **la cita que §8.1 ya le exigía**, para la clase de conflicto que §8.1 ya había declarado suya. El control de cambios pasa a §14; verificado que **ninguna cita a §13 existía** en el árbol vivo.
+
+### Cambiado — `Catalogo-De-Criterios.md` 1.9 → 1.10, §4.1
+
+El punto 2 se refina: **antes de escalar, se prueba si la diferencia es de forma**. Si lo es, la resuelve el agente con §13; si no, sigue siendo arbitraje. Y entra el criterio nuevo en §3.
+
+### Cambiado — `Master-Prompt.md` 8.9 → 8.10
+
+El rango transversal del despacho pasa de **§9 a §12** a **§9 a §13**, porque **la precedencia la aplica el subagente que se choca con las dos reglas**, y §8 declara que *«una regla que las reglas de categoría citan y que no llega al despacho no la lee nadie»*.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Precedencia-Entre-Reglas.md`, conjunto resultante **11.2**. Su barrido **reconcilia el recuento contra el snapshot** —3 = 2 reemplazadas + 1 residuo de clase estable—, que es lo que la 10.0 no hizo y por lo que declaró un residuo falso.
+
 ## [11.1] - 2026-08-20
 
 **Las doce comprobaciones miran el árbol que quedó, y el trabajo que falta no está en ningún archivo tocado.** Una intervención que nace de un encargo puede **contestar menos de lo que el encargo pedía y declararlo resuelto igual**, con la lista de verificación entera en verde: lo que quedó escrito es coherente, está registrado y no se contradice — sólo que **es menos de lo que se pidió**, y eso no vive adentro del repositorio.

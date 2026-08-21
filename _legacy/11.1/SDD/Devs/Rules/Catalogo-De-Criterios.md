@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Catalogo-De-Criterios.md
-**Versión:** 1.10
+**Versión:** 1.9
 **Estado:** Vigente
 **Fecha:** 2026-08-17
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
@@ -69,7 +69,6 @@ aplica sin su fundamento — y el fundamento es lo que permite reconocer cuándo
 | El barrido de una intervención deja residuo que su autor sabe legítimo | Si la exclusión se escribe a mano o **se cita** | `SDD-Development-Guide.md` §VI.3.2, **siete clases estables** |
 | Se cambió un concepto en el framework | Cómo se barre y con qué residuo aceptable | `SDD-Development-Guide.md` §VI.3.1 y §VI.3.2 |
 | Una intervención nace de un origen con criterios de aceptación | Si se puede declarar resuelto, y qué se le devuelve al origen | `SDD-Development-Guide.md` §VI.3 comprobación 13 |
-| **Dos reglas alcanzan el mismo ítem y dicen cosas distintas** | Si la diferencia es **de forma** —la resuelve el agente— o **de intención** —la arbitra el humano— | `Root-Rules.md` **§13**, y `Master-Prompt.md` §7.0 para el resto |
 | Se escribe una regla nueva a partir de un caso observado | Si está enunciada sobre el caso o sobre la propiedad, y cuál es su simétrico | `SDD-Development-Guide.md` Parte IV, «sobre las reglas que escribas a partir de un caso observado» |
 | Hay que verificar una intervención antes de cerrarla | Las trece comprobaciones | `SDD-Development-Guide.md` §VI.3 |
 
@@ -134,9 +133,7 @@ resultado es una lista—.
 
 1. **Los dos criterios coinciden en la salida.** Es **redundancia del catálogo**: se declara y se
    corrige acá, unificando la entrada. El trabajo sigue.
-2. **Los dos difieren.** Primero se prueba si la diferencia es **de forma** —jerarquía, especificidad o
-   fecha—: si lo es, la resuelve el agente con `Root-Rules.md` **§13**, nombrando cuál desplaza a cuál y
-   por qué. **Si no lo es, es un conflicto entre dos cosas aprobadas** y el agente **no lo resuelve**:
+2. **Los dos difieren.** Es un **conflicto entre dos cosas aprobadas**, y el agente **no lo resuelve**:
    es la **detención por arbitraje** de `Master-Prompt.md` §7.0, con la forma de §8.1. No hace falta
    mecanismo nuevo — la forma ya existe desde la 4.1 y es la misma que la 9.7 reusó para los
    apartamientos contradichos.
@@ -184,4 +181,3 @@ regla—. Lo que no corresponde adoptar es la **infraestructura** de DMN, no su 
 | 1.7 | 2026-08-20 | Un criterio nuevo de `SDD-Development-Guide.md` §VI.3.2: **qué hacer con el residuo del barrido que el autor sabe legítimo** — se **cita** la tabla de siete clases estables en lugar de reescribirla, y se enumeran sólo las exclusiones propias del caso. Se registra por la comprobación 12 de §VI.3, que existe para que el índice no dependa de que alguien se acuerde. Origen: `Reportes/15`. Sube minor. |
 | 1.8 | 2026-08-20 | Un criterio nuevo por la partición de cinco ítems obligatorios: **cuándo un ítem de una §4.x empaqueta dos decisiones y hay que partirlo**, con el test que las distingue —la segunda mitad **se decide por separado** o **se deriva de la primera**—. Se registra acá por la comprobación 12 de `SDD-Development-Guide.md` §VI.3. Sube minor. |
 | 1.9 | 2026-08-20 | Un criterio nuevo por la comprobación 13 de `SDD-Development-Guide.md` §VI.3: **qué se le devuelve al origen que trajo la intervención**, y cuándo se lo puede declarar resuelto. Se registra acá por la comprobación 12 —quien toca, registra—. Sube minor. |
-| 1.10 | 2026-08-20 | Un criterio nuevo por `Root-Rules.md` **§13**: **cuándo un conflicto entre dos reglas lo resuelve el agente y cuándo lo arbitra el humano**. Y §4.1 punto 2 se refina: antes de escalar, se prueba si la diferencia es **de forma** —jerarquía, especificidad, fecha—. **No deroga el arbitraje: le pone delante el caso que sí tiene respuesta en el árbol.** Sube minor. |
