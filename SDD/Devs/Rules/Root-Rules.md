@@ -379,7 +379,7 @@ Salida: SDD/Docs/README.md (sin versión en el nombre, con versión 1.0 en la ca
 
 ## 9. Sistema de identificadores
 
-**Alcance transversal.** Esta sección y las tres siguientes no gobiernan el README raíz: gobiernan a
+**Alcance transversal.** Esta sección y las que siguen hasta §13 no gobiernan el README raíz: gobiernan a
 todas las categorías. Viajan en los insumos obligatorios de todo despacho de subagente
 (`Master-Prompt.md` §8), por la misma razón por la que la 5.1 sumó ahí `Vocabulario-Rules.md`: una
 regla que las reglas de categoría citan y que no llega al despacho no la lee nadie.
@@ -675,9 +675,10 @@ caía entero del lado de la detención, sin que nadie lo hubiera decidido.
 
 **Los tres criterios, y se aplican en este orden:**
 
-1. **Jerarquía.** Una regla **transversal** —§9 a §13 de este archivo— desplaza a una regla de
-   categoría cuando las dos alcanzan al mismo ítem. La transversal viaja en todo despacho
-   (`Master-Prompt.md` §8) precisamente porque gobierna a todas.
+1. **Jerarquía.** Una regla que **viaja en la lista de insumos obligatorios de todo despacho**
+   (`Master-Prompt.md` §8) desplaza a una que gobierna **una sola categoría**, cuando las dos alcanzan
+   al mismo ítem. **El test se contesta abriendo §8 y mirando la lista**, no interpretando la palabra
+   «transversal» —que el corpus usa además para nombrar seis **archivos** de reglas—.
 2. **Especificidad.** Entre dos reglas del mismo nivel, la que gobierna **el caso específico** desplaza
    a la que gobierna el caso general. Una regla que nombra el artefacto desplaza a la que nombra la
    familia.
@@ -687,11 +688,20 @@ caía entero del lado de la detención, sin que nadie lo hubiera decidido.
 **Qué se escribe cuando se aplica.** El hallazgo nombra **las dos reglas con su sección**, **cuál
 desplaza a cuál** y **por cuál de los tres criterios**. Sin eso no es una resolución: es una preferencia.
 
-**Dónde termina esta sección y empieza el arbitraje.** Los tres criterios resuelven conflictos **de
-forma**: jerarquía, alcance y fecha. **No resuelven conflictos de intención** —dos cosas aprobadas que
-quieren cosas distintas, o un pedido que contradice lo que el árbol declara—. Ahí rige la **detención
-por arbitraje** de `Master-Prompt.md` §7.0, con la forma de §8.1, y `Catalogo-De-Criterios.md` §4.1
-punto 2. **Ante la duda sobre de qué clase es el conflicto, se detiene**, por la misma asimetría con
+**Dónde termina esta sección y empieza el arbitraje. La frontera no es nueva: es la pregunta previa de
+`Master-Prompt.md` §8.1.**
+
+Los tres criterios se aplican **cuando el árbol contiene el dato que decide** —cuál de las dos viaja en
+todo despacho, cuál nombra el caso y cuál la familia, cuál es posterior—, y las tres cosas **se
+contestan abriendo los dos textos**. Por eso la resolución **es citable**, que es lo que §8.1 exige para
+que algo sea trabajo propio.
+
+**Cuando resolver el conflicto exige saber qué quiere el producto**, el árbol no contiene ese dato: rige
+la **detención por arbitraje** de §7.0, con la forma de §8.1, y `Catalogo-De-Criterios.md` §4.1 punto 2.
+El caso típico es el empate — dos reglas del mismo rango, la misma especificidad y la misma fecha—,
+donde ninguno de los tres criterios decide.
+
+**Ante la duda sobre si el árbol contiene el dato que decide, se detiene**, por la misma asimetría con
 que §8.1 resuelve toda detención: el error barato y el error caro no son simétricos.
 
 **Un caso medido, y es el que originó la sección.** `Rules-Prompts-AI.md` §4.2 punto 9 autorizaba

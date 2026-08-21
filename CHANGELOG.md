@@ -23,7 +23,15 @@ El punto 2 se refina: **antes de escalar, se prueba si la diferencia es de forma
 
 ### Cambiado — `Master-Prompt.md` 8.9 → 8.10
 
-El rango transversal del despacho pasa de **§9 a §12** a **§9 a §13**, porque **la precedencia la aplica el subagente que se choca con las dos reglas**, y §8 declara que *«una regla que las reglas de categoría citan y que no llega al despacho no la lee nadie»*.
+**§13 entra en la lista de insumos obligatorios de todo despacho, en los cuatro lugares que la construyen**: §8 —la enumeración de insumos y la regla que declara cuántas secciones transversales viajan, que pasa de **cuatro a cinco**— y §10 —el despacho del auditor y su glosa—. §8 declara el motivo: *«una regla que las reglas de categoría citan y que no llega al despacho no la lee nadie»*, y **la precedencia la aplica el subagente que se choca con las dos reglas**.
+
+### Corregido — `SDD-Development-Guide.md` 1.21 → 1.22
+
+El frontmatter declaraba `version: 1.10` contra `**Versión:** 1.21`: **la comprobación 10 incumplida en el archivo que la define**. Se elimina el campo duplicado en lugar de actualizarlo, por **R1** —preferir la forma que no cuenta—.
+
+### Cómo se cerró esta entrada
+
+**Dos auditorías independientes devolvieron `RECHAZADO` a la primera emisión**, y coincidieron en el P0: §13 se había agregado sólo al despacho **del auditor**, mientras §8 —que construye el despacho del subagente que genera— seguía cerrando en §12. **La regla no llegaba a quien la necesita, y la comprobación 13 lo había dado por cumplido.** Se corrigió y se reemitió, junto con un segundo P0 —el snapshot `_legacy/11.1/` archivaba el estado post-saneamiento y se **restituyó** desde el commit del 11.1 publicado— y la redefinición de la frontera, que como estaba escrita devolvía **todos** los conflictos al arbitraje y dejaba §13 inerte.
 
 ### Nota de coherencia
 

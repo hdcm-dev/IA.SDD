@@ -3,7 +3,9 @@ doc_id: GUIDE-SDD-DEVELOPMENT
 doc_type: development-guide
 title: Guía de desarrollo y extensibilidad del framework SDD
 status: vigente
+version: 1.10
 owner: Framework SDD
+last_review: 2026-07-29
 audience: [mantenedor-del-framework, agente-ia]
 language: es-rioplatense-neutro-tecnico
 traces:

@@ -127,17 +127,18 @@ resultado es una lista—.
 
 | Tabla | Política | Qué significa |
 | --- | --- | --- |
-| **§3, criterios por situación** | **Única** | Una situación tiene **un** criterio. Que apliquen dos es un **defecto de este catálogo**, no una decisión del agente |
+| **§3, criterios por situación** | **Única** | Una situación tiene **un** criterio. Que apliquen dos es un **defecto de este catálogo** y se corrige acá, aunque el agente pueda destrabar su trabajo por `Root-Rules.md` §13: **destrabarlo no cierra el defecto del catálogo** |
 | **§4, anti-patrones por regla** | **Acumulativa** | Varios anti-patrones pueden alcanzar al mismo documento, y **todos sus remedios se aplican**. No compiten |
 
 **Qué se hace cuando en §3 aplican dos.** Se distinguen dos casos, y sólo uno es del agente:
 
 1. **Los dos criterios coinciden en la salida.** Es **redundancia del catálogo**: se declara y se
    corrige acá, unificando la entrada. El trabajo sigue.
-2. **Los dos difieren.** Primero se prueba si la diferencia es **de forma** —jerarquía, especificidad o
-   fecha—: si lo es, la resuelve el agente con `Root-Rules.md` **§13**, nombrando cuál desplaza a cuál y
-   por qué. **Si no lo es, es un conflicto entre dos cosas aprobadas** y el agente **no lo resuelve**:
-   es la **detención por arbitraje** de `Master-Prompt.md` §7.0, con la forma de §8.1. No hace falta
+2. **Los dos difieren.** Si la diferencia viene de que **dos reglas** alcanzan el mismo ítem, se prueba
+   `Root-Rules.md` **§13**: cuando el árbol contiene el dato que decide —rango, especificidad o fecha—
+   la resuelve el agente, nombrando cuál desplaza a cuál y por qué, **y la entrada del catálogo se
+   corrige igual**. **En todo otro caso es un conflicto entre dos cosas aprobadas** y el agente **no lo
+   resuelve**: es la **detención por arbitraje** de `Master-Prompt.md` §7.0, con la forma de §8.1. No hace falta
    mecanismo nuevo — la forma ya existe desde la 4.1 y es la misma que la 9.7 reusó para los
    apartamientos contradichos.
 
