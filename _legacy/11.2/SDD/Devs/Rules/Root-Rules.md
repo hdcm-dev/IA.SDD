@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-ROOT)
-**Versión de las reglas:** 7.2
+**Versión de las reglas:** 7.1
 
 ---
 
@@ -386,23 +386,8 @@ regla que las reglas de categoría citan y que no llega al despacho no la lee na
 
 ### 9.1 Ámbito de unicidad
 
-Todo identificador declara en qué ámbito es único. **Hay dos ámbitos, y cada familia declara el suyo:**
-
-| Ámbito | Qué cataloga | Ejemplo |
-|---|---|---|
-| **El producto** | Los elementos de las colecciones que el framework **genera** | `CU-00014` es uno solo en todo el producto, cualquiera sea la cantidad de unidades de entrega que lo componen |
-| **El conjunto normativo vigente** | Los artefactos y los roles **del framework** | Un identificador del framework es uno solo en la versión publicada del conjunto |
-
-**`_legacy/` queda fuera del espacio de candidatos del segundo ámbito**, y no sólo como origen de
-enlaces —que ya lo estaba—. El motivo es de volumen: el conjunto archiva **una copia por versión
-publicada**, de modo que un identificador de cabecera aparece tantas veces como snapshots haya, y la
-comprobación 4 de `Master-Prompt.md` §10.0 —*«sin duplicados dentro del ámbito declarado»*— lo
-levantaría una vez por copia. **Una comprobación que avisa siempre es una comprobación apagada**, que
-es el argumento con el que la 8.3 excluyó `_legacy/` como origen.
-
-**Lo que el segundo ámbito no cambia.** Un identificador del framework **no viaja a la documentación
-generada**: no aparece en un artefacto del destino, no entra en su trazabilidad y no compite con las
-familias del producto. Los dos ámbitos son disjuntos por construcción.
+Todo identificador declara en qué ámbito es único, y ese ámbito es el **producto**. Un `CU-00014` es
+uno solo en todo el producto, cualquiera sea la cantidad de unidades de entrega que lo componen.
 
 Es la lectura que hace resolver la trazabilidad que el framework ya exige: la tabla de trazabilidad a
 casos de uso de `Rules-Necesidades-Negocio.md` §4.4 cita el caso de uso por identificador desnudo,
@@ -461,7 +446,7 @@ una, y que dos corridas del mismo framework produjeran líneas de base incompara
 
 | Excluida | Por qué |
 | --- | --- |
-| `AG-XX` | **Excluida del ancho, no del sistema.** Designa uno de los roles del catálogo de especialidades del framework: desde que §9.1 declara el ámbito del conjunto normativo, **pertenece al sistema de identificadores** y le corresponde el ancho de cinco dígitos. **Sigue excluida mientras su renumeración esté pendiente**, que es una migración del propio framework y no una regla nueva. Su cardinalidad la fija el framework y no crece con el producto |
+| `AG-XX` | Designa uno de los roles del catálogo de especialidades **del framework**, no un elemento de una colección de un producto. Su cardinalidad la fija el propio framework y no crece con el producto |
 | El ordinal de iteración (`Sprint-XX`, `S0` a `S9`) | Es una posición de calendario que el roadmap de la categoría 00 numera, no un identificador de catálogo. Su referente es una ventana de tiempo del producto |
 
 ### 9.3 Estabilidad y capacidad, enunciadas juntas
@@ -538,7 +523,7 @@ nivel—. Es el mismo defecto que R1 a R4 describen para los números, aplicado 
 
 De ahí las dos obligaciones:
 
-- **La identidad de una referencia es el identificador del destino**, que es único en su ámbito
+- **La identidad de una referencia es el identificador del destino**, que es único en el producto
   (§9.1). Toda referencia a un artefacto identificado lo nombra: `[CU-00014](ruta)`, nunca solo la
   ruta. Con el identificador presente, la ruta se puede **recalcular**; sin él, hay que adivinar.
 - **La ruta es derivada y se trata como tal.** Una ruta que no resuelve pero cuyo identificador
@@ -764,4 +749,3 @@ correcta y no se podía sostener con una cita. Esta sección la funda hacia atr�
 | 6.2 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
 | 7.0 | 2026-08-19 | **§12 pasa de una figura a dos y se parte en §12.1 y §12.2**, por el reporte `14` de `IA.SDD.Documentacion`. La cabecera declara que **son la misma figura con el evento de cierre en distinto lugar**: la referencia pendiente lo tiene **adentro** del método —el orquestador ve emitirse la categoría porque él mismo la produce— y el ítem diferido lo tiene **afuera**, en el ciclo de construcción que el método no gobierna, donde nadie lo ve pasar. **§12.2 es nueva**: un ítem que una §4.x declara obligatorio y no se puede contestar hoy **se difiere con forma de cuatro campos y no con una promesa en prosa**, y el cuarto —**el evento se nombra por un artefacto y su sección, no por un momento**— es el que la distingue: un momento no deja rastro que alguien pueda abrir, y un cierre que nadie comprueba no ocurre. Declara que **un ítem que empaqueta dos decisiones se difiere por partes**, y una tabla de escalamiento con **P1 para el ítem cuyo evento ya ocurrió** y P0 al cierre del producto. Evidencia: un destino real pasó **ocho etapas sin poder etiquetar ninguna** porque el prefijo de tag viajaba empaquetado con la herramienta de versionado, y el punto de control al que se difirió cerró sin registrarlo. Sube **major**: un documento generado antes que difiera un ítem en prosa **deja de cumplir**. |
 | 7.1 | 2026-08-21 | **§13 nueva, precedencia entre reglas, con un solo criterio**, y el control de cambios pasa a §14. El corpus no declaraba **ningún criterio para resolver un conflicto entre dos reglas**, y `Master-Prompt.md` §8.1 exige **cita literal** para que algo sea trabajo propio: sin criterio, el agente no podía sostener ninguna resolución y **todo conflicto caía en la detención por arbitraje sin que nadie lo hubiera decidido**. El criterio es **viaja o no viaja en la lista de insumos de todo despacho**, un hecho del árbol que se contesta abriendo §8. **Se evaluaron dos criterios más —especificidad y fecha— y se descartaron con motivo**: ninguno tenía caso medido y los dos producían resoluciones falsas. Si el criterio no decide, se detiene por §7.0. Funda hacia atrás la resolución de `Rules-Prompts-AI.md` §4.2 punto 9 contra §12.2, aplicada en la 11.0 sin cita posible. **§10 se reescribe además sin contar sus propias reglas** —decía «las cuatro» y son cinco desde que entró R5—, que es R1 aplicada a sí misma. Sube **minor**: agrega un criterio de resolución y ningún documento generado deja de cumplir. |
-| 7.2 | 2026-08-21 | **§9.1 declara un segundo ámbito de unicidad: el conjunto normativo vigente**, para los artefactos y los roles del framework. Hasta acá el ámbito era **uno solo** —el producto— y por eso el único identificador propio del framework, `AG-XX`, estaba **excluido del sistema con motivo escrito**: no cataloga elementos de un producto. El motivo era correcto y dejaba al framework **sin forma de nombrarse a sí mismo**, que es lo que impide resolver una referencia por identidad cuando un artefacto se mueve o se renombra. Los dos ámbitos son **disjuntos por construcción**: un identificador del framework no viaja a la documentación generada. **`_legacy/` queda fuera del espacio de candidatos** del ámbito nuevo, y no sólo como origen de enlaces: el conjunto archiva una copia por versión publicada, de modo que sin esa cláusula la comprobación 4 levantaría un duplicado por snapshot y quedaría apagada por volumen. La exclusión de `AG-XX` **se conserva y cambia de motivo**: ya no está afuera por no ser del producto, sino porque **su renumeración a cinco dígitos es una migración pendiente**. Sube **minor**: declara un ámbito y no obliga a renumerar nada todavía; ningún documento generado deja de cumplir. |

@@ -3,6 +3,30 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [11.3] - 2026-08-21
+
+**El framework no tenía forma de nombrarse a sí mismo.** `Root-Rules.md` §9 declaraba **un solo ámbito de unicidad** —el producto— y por eso el único identificador propio del framework, `AG-XX`, estaba **excluido del sistema con motivo escrito**: *«no cataloga un elemento de una colección de un producto»*. El motivo era correcto, y dejaba una consecuencia que nadie había nombrado: **sus artefactos se identifican por ruta y nombre de archivo**, que es exactamente lo que §10 **R5** declara que **no es identidad** — *«una ruta relativa codifica la identidad del destino y la posición relativa, y la segunda se rompe cuando algo la altera»*.
+
+### Cambiado — `Root-Rules.md` 7.1 → 7.2, §9.1, §9.2 y §10
+
+**§9.1 declara dos ámbitos**: el **producto**, para las familias que catalogan lo que el framework genera, y el **conjunto normativo vigente**, para los artefactos y los roles del propio framework. **Son disjuntos por construcción**: un identificador del framework no viaja a la documentación generada, no entra en su trazabilidad y no compite con las familias del producto.
+
+**`_legacy/` queda fuera del espacio de candidatos del ámbito nuevo**, y no sólo como origen de enlaces. El motivo es de volumen: el conjunto archiva **una copia por versión publicada**, de modo que sin esa cláusula la comprobación 4 de §10.0 levantaría **un duplicado por snapshot** y quedaría apagada el primer día — el argumento con el que la 8.3 excluyó `_legacy/` como origen.
+
+**§9.2 conserva la exclusión de `AG-XX` y le cambia el motivo**: ya no está afuera por no pertenecer al sistema, sino porque **su renumeración a cinco dígitos es una migración pendiente**. Y **§10 R5** pasa de «único en el producto» a «único en su ámbito».
+
+### Cambiado — `README.md`, invariante **D3**
+
+De *«son **únicos en el producto**»* a *«son **únicos en su ámbito declarado**»*, con los dos ámbitos nombrados y su disyunción declarada.
+
+### Lo que esta entrada NO hace
+
+**No asigna ningún identificador y no renumera nada.** La renumeración de `AG-XX` alcanza **585 ocurrencias en 36 archivos** y es un tramo propio: meterla acá dejaría esta etapa sin ser verificable por sí sola, contra el contrato de segmentación de §VI.3. Queda declarada como **ítem diferido** en la nota de coherencia, con la forma de §12.2.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Ambito-Del-Framework.md`, conjunto resultante **11.3**. Su barrido cierra con **residuo 9 que no es residuo excluido: es residuo correcto** — las nueve ocurrencias que quedan nombran **familias del producto**, cuyo ámbito no cambió.
+
 ## [11.2] - 2026-08-20
 
 **El corpus no declaraba ningún criterio para resolver un conflicto entre dos reglas, y eso hacía que todos cayeran del lado de la detención sin que nadie lo hubiera decidido.** `Master-Prompt.md` §8.1 declara que algo es **trabajo propio** cuando *«se contesta **abriendo los documentos** y contrastando, y la respuesta se puede sostener con una **cita literal**»*. Un conflicto entre dos reglas **no tenía con qué citarse**: no había criterio. El agente no podía sostener ninguna resolución y escalaba — **no por decisión, por falta de cita**.
