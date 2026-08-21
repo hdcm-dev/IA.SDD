@@ -671,53 +671,56 @@ cuando ese evento llegaba.
 exige.** §8.1 declara que algo es **trabajo propio** cuando *«se contesta abriendo los documentos y
 contrastando, y la respuesta se puede sostener con una **cita literal**»*, y que **se detiene** lo que
 requiere intención de producto. Un conflicto entre dos reglas **no tenía con qué citarse**, de modo que
-caía entero del lado de la detención, sin que nadie lo hubiera decidido.
+caía entero del lado de la detención sin que nadie lo hubiera decidido.
 
-**Antes de los tres criterios, una compuerta, y se corre primero:**
+**§8.1 corre antes que esta sección y no se repite acá.** Si el conflicto requiere intención de
+producto, §8.1 ya lo detuvo: esta sección sólo alcanza a lo que esa pregunta dejó del lado del trabajo
+propio.
 
-> **¿Resolver este conflicto exige saber qué quiere el producto?** Si la respuesta es sí, **se detiene
-> aunque el árbol tenga rango, especificidad y fecha**: es la detención por arbitraje de
-> `Master-Prompt.md` §7.0, con la forma de §8.1. **Ante la duda, se detiene.**
+### El criterio, y es uno solo
 
-**La compuerta no es un caso de borde: es la que evita que un criterio de forma derogue una decisión de
-producto.** Una regla que viaja en todo despacho puede desplazar formalmente a una de categoría y estar
-borrando, con eso, algo que la categoría decidió a propósito.
+> **Una regla que viaja en la lista de insumos obligatorios de todo despacho (`Master-Prompt.md` §8)
+> desplaza a una que no viaja, cuando las dos alcanzan al mismo ítem.**
 
-**Recién superada la compuerta, los tres criterios, en este orden. Cada uno se aplica sólo si el
-anterior no decidió:**
+**El test se contesta abriendo §8 y mirando la lista.** No dice «transversal» ni «nivel» ni «rango»:
+las tres son palabras que el corpus ya usa con otro referente. Dice **viaja o no viaja**, que es un
+hecho del árbol.
 
-1. **Jerarquía.** Una regla que **viaja en la lista de insumos obligatorios de todo despacho**
-   (`Master-Prompt.md` §8) desplaza a una que gobierna **una sola categoría**, cuando las dos alcanzan
-   al mismo ítem. **El test se contesta abriendo §8 y mirando la lista**, no interpretando la palabra
-   «transversal» —que el corpus usa además para nombrar seis **archivos** de reglas—.
-2. **Especificidad.** Si el criterio 1 no decide, la que gobierna **el caso específico** desplaza a la
-   que gobierna el caso general: una regla que nombra el artefacto desplaza a la que nombra la familia.
-   **No se dice «del mismo nivel»**: «nivel» es un término del corpus con otro referente
-   (`Vocabulario-Rules.md` §R3, los tres niveles de aplicación de un artefacto).
-3. **Fecha.** Si el criterio 2 tampoco decide, **la posterior** desplaza a la anterior. La fecha se lee
-   del control de cambios, no de la intuición.
+**Si el criterio no decide —las dos viajan, o ninguna—, el conflicto se detiene**: no tiene resolución
+en el árbol, que es la condición con que §8.1 manda a arbitraje. Rige `Master-Prompt.md` §7.0 y
+`Catalogo-De-Criterios.md` §4.1 punto 2.
 
-**Las reglas meta —las que no gobiernan una de las doce categorías— entran en el criterio 1 por el
-mismo test:** si viajan en la lista de insumos de todo despacho, desplazan; si no, el criterio 1 no
-decide y se pasa al 2. **Que un criterio no decida no es un empate: es pasar al siguiente.**
+### Por qué uno y no tres
 
-**Qué se escribe cuando se aplica.** El hallazgo nombra **las dos reglas con su sección**, **cuál
-desplaza a cuál** y **por cuál de los tres criterios**. Sin eso no es una resolución: es una preferencia.
+**Se evaluaron dos criterios más —especificidad y fecha— y se descartaron con motivo.** Ninguno tenía
+un caso medido: el único que el corpus registra lo cierra el criterio de despacho **solo**. Y los dos
+producían resoluciones falsas al aplicarse:
 
-**Por qué la compuerta va primero y no al final. Es la pregunta previa de `Master-Prompt.md` §8.1**, y
-§8.1 la hace **antes** de trabajar, no después: *«se detiene lo que requiere intención de producto»*.
-Corrida al final, los tres criterios ya resolvieron y la detención no llega a dispararse nunca — que es
-el error de la primera emisión de esta sección, en el sentido contrario.
+| Criterio descartado | Por qué |
+|---|---|
+| **Especificidad** —la que nombra el caso desplaza a la que nombra la familia— | Favorece **sistemáticamente a la regla más angosta**, incluso cuando la angosta es la que quedó desactualizada. Verificado sobre un conflicto real del corpus: hacía ganar al texto que esta misma sección derogaba |
+| **Fecha** —la posterior desplaza a la anterior— | **No se puede contestar.** Un control de cambios tiene una fecha **por versión del archivo**, no por sección, y una sección puede no haberse tocado en la versión que lleva la fecha |
 
-**Y si los tres criterios no deciden**, el conflicto también se detiene: dos reglas del mismo rango, la
-misma especificidad y la misma fecha **no tienen resolución en el árbol**, que es la condición que §8.1
-usa para mandar a arbitraje. Rige `Catalogo-De-Criterios.md` §4.1 punto 2.
+Es el criterio que la 9.19 fijó al rechazar un eje entero: *«un concepto más que mantener, en un método
+que declara que un procedimiento que crece deja de leerse, sólo se justifica si hace falta»*. **Acá
+hacía falta uno.**
+
+### Qué se escribe cuando se aplica
+
+**La resolución nombra las dos reglas con su sección y cuál desplaza a cuál.** Sin eso no es una
+resolución: es una preferencia, y nadie puede recalcularla.
+
+**Lo que esta sección no declara, y se dice en lugar de callarse:** **no fija un artefacto donde la
+resolución quede escrita**, como §11 fija un ADR y §12.2 fija cuatro campos en el artefacto. El criterio
+de aceptación de `Master-Prompt.md` §10 alcanza por lo tanto **a las resoluciones que se escriben**, y
+un subagente que aplique §13 en silencio no deja nada que auditar. Fijar ese lugar exige un artefacto
+que hoy no existe y **queda como ítem diferido**.
 
 **Un caso medido, y es el que originó la sección.** `Rules-Prompts-AI.md` §4.2 punto 9 autorizaba
 contestar un ítem obligatorio con «la magnitud declarada como pendiente», y `Root-Rules.md` §12.2 lo
-califica **P1**. Se resolvió a favor de §12.2 —**por jerarquía**, que es el criterio 1 y lo cierra solo: §12.2 viaja en todo despacho y `Rules-Prompts-AI.md` gobierna una sola categoría— **antes de que esta sección
-existiera**, de modo que la resolución fue correcta y no se podía sostener con una cita. Esta sección
-la funda hacia atrás.
+califica **P1**. Se resolvió a favor de §12.2 —**§12.2 viaja en la lista de todo despacho y
+`Rules-Prompts-AI.md` no viaja**— **antes de que esta sección existiera**, de modo que la resolución fue
+correcta y no se podía sostener con una cita. Esta sección la funda hacia atrás.
 
 ---
 
@@ -745,4 +748,4 @@ la funda hacia atrás.
 | 6.1 | 2026-08-17 | §11 suma dos campos al ADR de apartamiento: su **estado** —de un conjunto cerrado de cuatro— y los **saltos de versión que sobrevivió**. Sin estado, un apartamiento absorbido, uno contradicho y uno todavía no contemplado **se ven igual**, y el tercero es indistinguible del olvido. El **contador es el disparador que el método no tenía**: uno que sobrevive dos o más saltos sin ser contemplado ya demostró que no es de un producto, y lo dice un número en lugar de que alguien se acuerde. Sube **minor**: agrega dos campos a un artefacto existente sin cambiar cuándo corresponde emitirlo. |
 | 6.2 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
 | 7.0 | 2026-08-19 | **§12 pasa de una figura a dos y se parte en §12.1 y §12.2**, por el reporte `14` de `IA.SDD.Documentacion`. La cabecera declara que **son la misma figura con el evento de cierre en distinto lugar**: la referencia pendiente lo tiene **adentro** del método —el orquestador ve emitirse la categoría porque él mismo la produce— y el ítem diferido lo tiene **afuera**, en el ciclo de construcción que el método no gobierna, donde nadie lo ve pasar. **§12.2 es nueva**: un ítem que una §4.x declara obligatorio y no se puede contestar hoy **se difiere con forma de cuatro campos y no con una promesa en prosa**, y el cuarto —**el evento se nombra por un artefacto y su sección, no por un momento**— es el que la distingue: un momento no deja rastro que alguien pueda abrir, y un cierre que nadie comprueba no ocurre. Declara que **un ítem que empaqueta dos decisiones se difiere por partes**, y una tabla de escalamiento con **P1 para el ítem cuyo evento ya ocurrió** y P0 al cierre del producto. Evidencia: un destino real pasó **ocho etapas sin poder etiquetar ninguna** porque el prefijo de tag viajaba empaquetado con la herramienta de versionado, y el punto de control al que se difirió cerró sin registrarlo. Sube **major**: un documento generado antes que difiera un ítem en prosa **deja de cumplir**. |
-| 7.1 | 2026-08-20 | **§13 nueva, precedencia entre reglas**, y el control de cambios pasa a §14. El corpus no declaraba **ningún criterio para resolver un conflicto entre dos reglas**, y `Master-Prompt.md` §8.1 exige **cita literal** para que algo sea trabajo propio: sin criterio, el agente no podía sostener ninguna resolución y **todo conflicto caía en la detención por arbitraje sin que nadie lo hubiera decidido**. Entran tres criterios ordenados —**jerarquía, especificidad y fecha**—, la obligación de escribir cuál desplaza a cuál y por qué, y **la frontera declarada**: resuelven conflictos de forma, **no de intención**, donde sigue rigiendo §7.0. Funda hacia atrás la resolución de `Rules-Prompts-AI.md` §4.2 punto 9 contra §12.2, aplicada en la 11.0 sin cita posible. Sube **minor**: agrega un criterio de resolución y **ningún documento generado deja de cumplir**. |
+| 7.1 | 2026-08-21 | **§13 nueva, precedencia entre reglas, con un solo criterio**, y el control de cambios pasa a §14. El corpus no declaraba **ningún criterio para resolver un conflicto entre dos reglas**, y `Master-Prompt.md` §8.1 exige **cita literal** para que algo sea trabajo propio: sin criterio, el agente no podía sostener ninguna resolución y **todo conflicto caía en la detención por arbitraje sin que nadie lo hubiera decidido**. El criterio es **viaja o no viaja en la lista de insumos de todo despacho**, un hecho del árbol que se contesta abriendo §8. **Se evaluaron dos criterios más —especificidad y fecha— y se descartaron con motivo**: ninguno tenía caso medido y los dos producían resoluciones falsas. Si el criterio no decide, se detiene por §7.0. Funda hacia atrás la resolución de `Rules-Prompts-AI.md` §4.2 punto 9 contra §12.2, aplicada en la 11.0 sin cita posible. **§10 se reescribe además sin contar sus propias reglas** —decía «las cuatro» y son cinco desde que entró R5—, que es R1 aplicada a sí misma. Sube **minor**: agrega un criterio de resolución y ningún documento generado deja de cumplir. |

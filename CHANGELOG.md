@@ -5,21 +5,23 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
 ## [11.2] - 2026-08-20
 
-**El corpus no declaraba ningún criterio para resolver un conflicto entre dos reglas, y eso hacía que todos cayeran del lado de la detención sin que nadie lo hubiera decidido.** `Master-Prompt.md` §8.1 declara que algo es **trabajo propio** cuando *«se contesta contrastando, y la respuesta se puede sostener con una **cita literal**»*. Un conflicto entre dos reglas **no tenía con qué citarse**: no había criterio. El agente no podía sostener ninguna resolución y escalaba — **no por decisión, por falta de cita**.
+**El corpus no declaraba ningún criterio para resolver un conflicto entre dos reglas, y eso hacía que todos cayeran del lado de la detención sin que nadie lo hubiera decidido.** `Master-Prompt.md` §8.1 declara que algo es **trabajo propio** cuando *«se contesta **abriendo los documentos** y contrastando, y la respuesta se puede sostener con una **cita literal**»*. Un conflicto entre dos reglas **no tenía con qué citarse**: no había criterio. El agente no podía sostener ninguna resolución y escalaba — **no por decisión, por falta de cita**.
 
-**Medido:** en la 11.0, `Rules-Prompts-AI.md` §4.2 punto 9 contra `Root-Rules.md` §12.2 se resolvió a favor de §12.2 aplicando **jerarquía y fecha sin nombrarlas**. La resolución fue correcta y **no era sostenible con cita**.
+**Medido:** en la 11.0, `Rules-Prompts-AI.md` §4.2 punto 9 contra `Root-Rules.md` §12.2 se resolvió a favor de §12.2 **sin nombrar el criterio**: §12.2 viaja en la lista de insumos de todo despacho y `Rules-Prompts-AI.md` no viaja. La resolución fue correcta y **no era sostenible con cita**.
 
 ### Agregado — `Root-Rules.md` 7.0 → 7.1, §13
 
-**Precedencia entre reglas, con alcance transversal, y una compuerta que corre primero:**
+**Precedencia entre reglas, con alcance transversal y un solo criterio:**
 
-> **¿Resolver este conflicto exige saber qué quiere el producto?** Si sí, **se detiene aunque el árbol tenga rango, especificidad y fecha**. Ante la duda, se detiene.
+> **Una regla que viaja en la lista de insumos obligatorios de todo despacho (§8) desplaza a una que no viaja, cuando las dos alcanzan al mismo ítem.**
 
-**La compuerta va primero porque es la pregunta previa de §8.1, y §8.1 la hace antes de trabajar.** Corrida al final, los tres criterios ya resolvieron y la detención no se dispara nunca.
+**El test se contesta abriendo §8 y mirando la lista.** No dice «transversal» ni «nivel» ni «rango»: las tres son palabras que el corpus ya usa con otro referente. Dice **viaja o no viaja**, que es un hecho del árbol. **Si no decide —las dos viajan, o ninguna— el conflicto se detiene** por §7.0.
 
-**Superada la compuerta, tres criterios, y cada uno se aplica sólo si el anterior no decidió:** **jerarquía** —una regla que viaja en la lista de insumos de **todo despacho** (§8) desplaza a una que gobierna una sola categoría; el test **se contesta abriendo §8**, no interpretando la palabra «transversal», que el corpus usa también para seis archivos—, **especificidad** —la que nombra el caso desplaza a la que nombra la familia— y **fecha** —la posterior desplaza a la anterior, leída del control de cambios—. Si ninguno decide, **también se detiene**: dos reglas del mismo rango, especificidad y fecha no tienen resolución en el árbol.
+**§8.1 corre antes y no se repite en §13.** Lo que requiere intención de producto ya lo detuvo la pregunta previa; §13 sólo alcanza a lo que esa pregunta dejó del lado del trabajo propio.
 
-Quien la aplica **escribe las dos reglas con su sección, cuál desplaza a cuál y por cuál criterio**: sin eso no es una resolución, es una preferencia. **`Master-Prompt.md` §10 suma el criterio que lo verifica.**
+**Se evaluaron dos criterios más y se descartaron con motivo declarado.** La **especificidad** favorece sistemáticamente a la regla más angosta, incluso cuando la angosta es la desactualizada —verificado sobre un conflicto real, hacía ganar al texto que §13 derogaba—. La **fecha** no se puede contestar: un control de cambios tiene una fecha por **versión del archivo**, no por sección. Ninguno de los dos tenía caso medido, y el único que el corpus registra lo cierra el criterio de despacho solo.
+
+Quien la aplica **escribe las dos reglas con su sección y cuál desplaza a cuál**, y `Master-Prompt.md` §10 suma el criterio que lo verifica. **Lo que §13 no declara y dice en lugar de callarse:** no fija un artefacto donde la resolución quede escrita, de modo que el criterio alcanza a las resoluciones **que se escriben**. Queda como ítem diferido.
 
 **No deroga nada.** Le da al agente **la cita que §8.1 ya le exigía**, para la clase de conflicto que §8.1 ya había declarado suya. El control de cambios pasa a §14; verificado que **ninguna cita a §13 existía** en el árbol vivo.
 
@@ -37,11 +39,12 @@ El frontmatter declaraba `version: 1.10` contra `**Versión:** 1.21`: **la compr
 
 ### Cómo se cerró esta entrada
 
-**Dos auditorías independientes devolvieron `RECHAZADO` a la primera emisión**, y coincidieron en el P0: §13 se había agregado sólo al despacho **del auditor**, mientras §8 —que construye el despacho del subagente que genera— seguía cerrando en §12. **La regla no llegaba a quien la necesita, y la comprobación 13 lo había dado por cumplido.** Se corrigió y se reemitió, junto con un segundo P0 —el snapshot `_legacy/11.1/` archivaba el estado post-saneamiento y se **restituyó** desde el commit del 11.1 publicado— y la redefinición de la frontera, que como estaba escrita devolvía **todos** los conflictos al arbitraje y dejaba §13 inerte.
+**Tres rondas de auditoría independiente, tres `RECHAZADO`.** La primera levantó dos **P0**: §13 se había agregado sólo al despacho **del auditor** mientras §8 —que construye el despacho del subagente que genera— seguía cerrando en §12, y `_legacy/11.1/` archivaba un estado que nunca fue 11.1. Los dos cerrados y verificados mecánicamente por la segunda ronda.
 
-### Nota de coherencia
+**La segunda y la tercera midieron lo mismo: la sección no se sostenía con tres criterios.** La frontera entre «forma» e «intención» pasó de mandar **todo** al arbitraje a no detener **nada**; la especificidad hacía que §13 perdiera contra su propia versión derogada; la fecha no se podía contestar. **Se redujo a un criterio**, que es el que tiene el caso medido, y los otros dos quedan descartados con su motivo escrito en la propia sección.
 
-`SDD/Devs/Guides/Coherencia-Precedencia-Entre-Reglas.md`, conjunto resultante **11.2**. Su barrido **reconcilia el recuento contra el snapshot** —3 = 2 reemplazadas + 1 residuo de clase estable—, que es lo que la 10.0 no hizo y por lo que declaró un residuo falso.
+**El defecto que las tres rondas comparten está registrado acá porque vuelve a ser el mismo:** cada reemisión **barrió los patrones heredados y no barrió los que ella misma derogaba**, dejando su propio texto contradiciendo al vigente. Es la figura que §VI.3.2 documenta desde la 1.15 y la regla 4 de esa sección —*barrer también sobre el texto propio*— la que no se aplicó.
+
 
 ## [11.1] - 2026-08-20
 
