@@ -3,6 +3,49 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [11.2] - 2026-08-20
+
+**El corpus no declaraba ningún criterio para resolver un conflicto entre dos reglas, y eso hacía que todos cayeran del lado de la detención sin que nadie lo hubiera decidido.** `Master-Prompt.md` §8.1 declara que algo es **trabajo propio** cuando *«se contesta **abriendo los documentos** y contrastando, y la respuesta se puede sostener con una **cita literal**»*. Un conflicto entre dos reglas **no tenía con qué citarse**: no había criterio. El agente no podía sostener ninguna resolución y escalaba — **no por decisión, por falta de cita**.
+
+**Medido:** en la 11.0, `Rules-Prompts-AI.md` §4.2 punto 9 contra `Root-Rules.md` §12.2 se resolvió a favor de §12.2 **sin nombrar el criterio**: §12.2 viaja en la lista de insumos de todo despacho y `Rules-Prompts-AI.md` no viaja. La resolución fue correcta y **no era sostenible con cita**.
+
+### Agregado — `Root-Rules.md` 7.0 → 7.1, §13
+
+**Precedencia entre reglas, con alcance transversal y un solo criterio:**
+
+> **Una regla que viaja en la lista de insumos obligatorios de todo despacho (§8) desplaza a una que no viaja, cuando las dos alcanzan al mismo ítem.**
+
+**El test se contesta abriendo §8 y mirando la lista.** No dice «transversal» ni «nivel» ni «rango»: las tres son palabras que el corpus ya usa con otro referente. Dice **viaja o no viaja**, que es un hecho del árbol. **Si no decide —las dos viajan, o ninguna— el conflicto se detiene** por §7.0.
+
+**§8.1 corre antes y no se repite en §13.** Lo que requiere intención de producto ya lo detuvo la pregunta previa; §13 sólo alcanza a lo que esa pregunta dejó del lado del trabajo propio.
+
+**Se evaluaron dos criterios más y se descartaron con motivo declarado.** La **especificidad** favorece sistemáticamente a la regla más angosta, incluso cuando la angosta es la desactualizada —verificado sobre un conflicto real, hacía ganar al texto que §13 derogaba—. La **fecha** no se puede contestar: un control de cambios tiene una fecha por **versión del archivo**, no por sección. Ninguno de los dos tenía caso medido, y el único que el corpus registra lo cierra el criterio de despacho solo.
+
+Quien la aplica **escribe las dos reglas con su sección y cuál desplaza a cuál**, y `Master-Prompt.md` §10 suma el criterio que lo verifica. **Lo que §13 no declara y dice en lugar de callarse:** no fija un artefacto donde la resolución quede escrita, de modo que el criterio alcanza a las resoluciones **que se escriben**. Queda como ítem diferido.
+
+**No deroga nada.** Le da al agente **la cita que §8.1 ya le exigía**, para la clase de conflicto que §8.1 ya había declarado suya. El control de cambios pasa a §14; verificado que **ninguna cita a §13 existía** en el árbol vivo.
+
+### Cambiado — `Catalogo-De-Criterios.md` 1.9 → 1.10, §4.1
+
+El punto 2 se refina: **antes de escalar, se prueba si la diferencia es de forma**. Si lo es, la resuelve el agente con §13; si no, sigue siendo arbitraje. Y entra el criterio nuevo en §3.
+
+### Cambiado — `Master-Prompt.md` 8.9 → 8.10
+
+**§13 entra en la lista de insumos obligatorios de todo despacho, en los cuatro lugares que la construyen**: §8 —la enumeración de insumos y la regla que declara cuántas secciones transversales viajan, que pasa de **cuatro a cinco**— y §10 —el despacho del auditor y su glosa—. §8 declara el motivo: *«una regla que las reglas de categoría citan y que no llega al despacho no la lee nadie»*, y **la precedencia la aplica el subagente que se choca con las dos reglas**.
+
+### Corregido — `SDD-Development-Guide.md` 1.21 → 1.22
+
+El frontmatter declaraba `version: 1.10` contra `**Versión:** 1.21`: **la comprobación 10 incumplida en el archivo que la define**. Se elimina el campo duplicado en lugar de actualizarlo, por **R1** —preferir la forma que no cuenta—.
+
+### Cómo se cerró esta entrada
+
+**Tres rondas de auditoría independiente, tres `RECHAZADO`.** La primera levantó dos **P0**: §13 se había agregado sólo al despacho **del auditor** mientras §8 —que construye el despacho del subagente que genera— seguía cerrando en §12, y `_legacy/11.1/` archivaba un estado que nunca fue 11.1. Los dos cerrados y verificados mecánicamente por la segunda ronda.
+
+**La segunda y la tercera midieron lo mismo: la sección no se sostenía con tres criterios.** La frontera entre «forma» e «intención» pasó de mandar **todo** al arbitraje a no detener **nada**; la especificidad hacía que §13 perdiera contra su propia versión derogada; la fecha no se podía contestar. **Se redujo a un criterio**, que es el que tiene el caso medido, y los otros dos quedan descartados con su motivo escrito en la propia sección.
+
+**El defecto que las tres rondas comparten está registrado acá porque vuelve a ser el mismo:** cada reemisión **barrió los patrones heredados y no barrió los que ella misma derogaba**, dejando su propio texto contradiciendo al vigente. Es la figura que §VI.3.2 documenta desde la 1.15 y la regla 4 de esa sección —*barrer también sobre el texto propio*— la que no se aplicó.
+
+
 ## [11.1] - 2026-08-20
 
 **Las doce comprobaciones miran el árbol que quedó, y el trabajo que falta no está en ningún archivo tocado.** Una intervención que nace de un encargo puede **contestar menos de lo que el encargo pedía y declararlo resuelto igual**, con la lista de verificación entera en verde: lo que quedó escrito es coherente, está registrado y no se contradice — sólo que **es menos de lo que se pidió**, y eso no vive adentro del repositorio.

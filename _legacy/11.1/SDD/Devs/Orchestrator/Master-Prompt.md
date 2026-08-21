@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 8.10
+**Versión:** 8.9
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -775,7 +775,7 @@ Sos un {{ESPECIALIDAD_VARIANTE}}, leído literal de la sección §1.2 del archiv
 - PRODUCT-INTAKE: SDD/Intake/PRODUCT-INTAKE-{{SLUG_PRODUCTO}}.md (Parte A negocio; §13 composición; §17 bloque técnico de la unidad de entrega {{NOMBRE_UNIDAD_ENTREGA}})
 - Reglas de la categoría: {{PATH_REGLA}}
 - Reglas de vocabulario: ../IA.SDD/SDD/Devs/Rules/Vocabulario-Rules.md (§2 los seis términos, §4 reglas de uso, §9 criterio de desambiguación léxica)
-- Reglas transversales de `Root-Rules.md` (§9 sistema de identificadores, §10 datos derivados en la prosa, §11 apartamiento declarado, §12 referencia pendiente, §13 precedencia entre reglas): ../IA.SDD/SDD/Devs/Rules/Root-Rules.md
+- Reglas transversales de `Root-Rules.md` (§9 sistema de identificadores, §10 datos derivados en la prosa, §11 apartamiento declarado, §12 referencia pendiente): ../IA.SDD/SDD/Devs/Rules/Root-Rules.md
 - Mapa de rangos de identificadores del producto: {{BLOQUE_RANGOS_DE_SECCION_3_4}} (solo cuando el manifiesto declara más de un proyecto de código)
 - Documentos upstream ya generados: {{LISTA_PATHS_UPSTREAM}}
 
@@ -828,7 +828,7 @@ Cuando termines, devolvé:
 Reglas de construcción del despacho:
 
 - `Vocabulario-Rules.md` va en la lista de insumos de **todo** despacho, sin excepción de categoría. Su archivo target es «todo artefacto que el framework genera» y su lector declarado incluye a todo subagente AG-XX. Sin inyectarla, el subagente ve la línea «Nivel de aplicación» de la cabecera de su regla, que la cita, y no puede resolver la cita.
-- **Las cinco secciones transversales de `Root-Rules.md` —§9 sistema de identificadores, §10 datos derivados en la prosa, §11 apartamiento declarado, §12 referencia pendiente y §13 precedencia entre reglas— van también en la lista de insumos de todo despacho**, por el mismo motivo y con la misma ausencia de excepción. Rigen sobre lo que cualquier categoría escribe, no sobre el README raíz: el subagente que acuña un `CU-XXXXX` o un código de error es el que necesita §9, y el que escribe un recuento en prosa es el que necesita §10. Las demás secciones de `Root-Rules.md` siguen siendo de AG-ROOT y no se inyectan.
+- **Las cuatro secciones transversales de `Root-Rules.md` —§9 sistema de identificadores, §10 datos derivados en la prosa, §11 apartamiento declarado y §12 referencia pendiente— van también en la lista de insumos de todo despacho**, por el mismo motivo y con la misma ausencia de excepción. Rigen sobre lo que cualquier categoría escribe, no sobre el README raíz: el subagente que acuña un `CU-XXXXX` o un código de error es el que necesita §9, y el que escribe un recuento en prosa es el que necesita §10. Las demás secciones de `Root-Rules.md` siguen siendo de AG-ROOT y no se inyectan.
 - El **mapa de rangos de identificadores** de §3.4 va en el despacho de toda categoría que acuñe identificadores, y solo cuando el manifiesto declara más de un proyecto de código. En el caso degenerado el bloque se omite: producto y proyecto de código son el mismo espacio de nombres.
 - `{{ESPECIALIDAD_VARIANTE}}` se copia textualmente de la fila correspondiente al `tipo_unidad_entrega` de la unidad de entrega en la tabla §1.2 de la regla. Si la regla declara una variante combinada, se respeta el combinado completo.
 - El bloque de contexto de producto y unidad de entrega se completa con los datos del bloque informativo de §3.4 de la unidad de entrega en curso, incluida la lista de proyectos de código que la componen y la marca de los compartidos.
@@ -1158,7 +1158,6 @@ Criterios del audit (matriz):
   - **Criterio negativo**: una polisemia con contextos disjuntos **no es hallazgo**. Reportarla como defecto del documento auditado es un defecto del informe de auditoría, y la corrección que induce —calificar todas las ocurrencias— empeora el texto. Un glosario incompleto cumple «sin contradicciones» trivialmente: es por eso que ese criterio solo no alcanza.
 - Conformidad con `Vocabulario-Rules.md` §10: los seis términos usados con su referente, los cuatro planos de identidad distinguibles, y el nivel de aplicación declarado por la regla de la categoría respetado en la prosa de cada documento.
 - **Conjuntos cerrados, cruzando categorías.** Todo conjunto cerrado que una categoría declara —valores de un campo, estados de una entidad, códigos de resultado, clasificaciones— está marcado como tal, y ninguna otra categoría del árbol afirma algo incompatible sobre el mismo referente. Una divergencia entre dos categorías sobre el mismo conjunto es **P0**. Es el único criterio que obliga a mirar fuera de la fase auditada, y existe porque cada categoría puede ser internamente coherente, pasar su audit, y dejar el producto documentado incoherente. La nota en prosa dentro de un artefacto **no** satisface este criterio: la extensión de un conjunto cerrado ajeno se resuelve con la detención de §7 y queda registrada en el registro de decisiones pendientes de §12.
-- **Resolución de precedencia** (`Root-Rules.md` §13): toda resolución de un conflicto entre reglas nombra **las dos reglas con su sección** y **cuál desplaza a cuál**. Una resolución sin esos dos campos es hallazgo **P1**: sin ellos no es una resolución, es una preferencia, y nadie puede recalcularla.
 - **Anclaje de las referencias** (`Root-Rules.md` §10 R5): toda referencia a un artefacto identificado nombra su identificador en el texto visible. Hallazgo **P2**. No es cosmético: una referencia sin ancla es irreparable cuando su destino cambia, y su costo no se paga al escribirla sino cuando alguien mueve el archivo.
 - **Recuentos anclados** (`Root-Rules.md` §10): por cada recuento que declara su fuente, el número coincide con la colección que cuenta. Hallazgo **P2**, o **P1** si el número vive en un índice, en un manifiesto o en un criterio de aceptación, porque desde ahí se propaga. Los recuentos sin ancla no son hallazgo de este criterio, sino de §10 R1.
 - **Un recuento que confirma una propiedad no confirma las demás, y contarlo a favor es peor que no
@@ -1264,7 +1263,7 @@ Sos un auditor independiente con perfil Arquitecto de Soluciones + QA Senior. No
 - §6 (criterios de aceptación) de cada archivo de reglas correspondiente a la fase, para el tipo_unidad_entrega {{TIPO_UNIDAD_ENTREGA}}.
 - Coherencia cross-doc dentro de la fase y trazabilidad hacia el upstream de producto y de proyectos de código dependientes.
 - Gobierno del glosario y vocabulario normativo: `Vocabulario-Rules.md` §10. Una polisemia con contextos disjuntos no es hallazgo; reportarla como tal es un defecto de tu informe.
-- Las reglas transversales de `Root-Rules.md` §9 a §13: identificadores, datos derivados, apartamiento declarado, referencia pendiente y precedencia entre reglas.
+- Las reglas transversales de `Root-Rules.md` §9 a §12: identificadores, datos derivados, apartamiento declarado y referencia pendiente.
 
 Alcance ya verificado por la compuerta mecánica de §10.0, que corrió antes de este despacho:
 {{SALIDA_DE_LA_COMPUERTA}}
@@ -1278,7 +1277,7 @@ origen) y su marca de detectabilidad (detectable por guion o solo por lectura).
 Insumos:
 - Entregables de la fase: {{LISTA_CARPETAS_FASE}}
 - Archivos de reglas: ../IA.SDD/SDD/Devs/Rules/{{LISTA_REGLAS}}
-- Reglas transversales: ../IA.SDD/SDD/Devs/Rules/Root-Rules.md §9 a §13
+- Reglas transversales: ../IA.SDD/SDD/Devs/Rules/Root-Rules.md §9 a §12
 - Reglas de vocabulario (siempre): ../IA.SDD/SDD/Devs/Rules/Vocabulario-Rules.md, con §9 como criterio de desambiguación léxica y §10 como criterios de aceptación
 - Manifiesto e intake: SDD/Intake/
 
@@ -1664,4 +1663,3 @@ Reglas de versionado:
 | 8.7 | 2026-08-18 | **§8.1 suma la pregunta previa a toda detención, y §10 la forma del encargo al auditor.** La tabla de la autocorrección declaraba la frontera desde la 9.16 y **no cómo reconocerla**, así que decidía la asimetría de costos: detener es barato para el agente y caro para el humano. Medido: **de cinco detenciones de una corrida real, tres no eran del humano**. La pregunta es una sola —**¿esto tiene respuesta en el árbol?**— y **la cita literal es el criterio, no la intuición**: lo que se sostiene citando archivo y línea lo cierra el agente. Con su «ante la duda, se detiene», por la misma asimetría con que §6 resuelve enumerable contra interpretativo. **§10** separa qué compra la independencia —**ausencia de compromiso**, que no se arregla con mejor prompt— de qué no compra —**independencia de criterio**, porque dos agentes del mismo modelo correlacionan—, y de ahí deriva las tres partes obligatorias del encargo: **refutar y no verificar**, **cita literal o el veredicto no vale**, y **«no concluyente» admitido**. Registra que la exigencia de cita **contesta sola la pregunta previa**, de modo que no hace falta clasificar el hallazgo aparte. Origen: `Reportes/13`. Sube **minor**. | Framework SDD (la pregunta previa) |
 | 8.8 | 2026-08-19 | **§10.0 suma la comprobación transversal 6, ítems diferidos** (`Root-Rules.md` §12.2), por el reporte `14`. Se cuentan los que el árbol de la fase declara y **es hallazgo el que nombre un evento de cierre ya ocurrido**; también lo es el ítem obligatorio contestado con una promesa **sin la forma de §12.2**, porque sin marca no es contable y ninguna otra comprobación lo alcanza. Es **enumerable** porque §12.2 obliga a nombrar el evento como artefacto y sección: se abre y se mira. **Cierra el lazo que faltaba** — el método sabía atar una decisión a un evento futuro y no sabía cerrarlo cuando el evento llegaba, y en un destino real un ítem sobrevivió **ocho etapas** a su propio punto de control sin que nada chirriara. Sube **minor**: una comprobación nueva, ningún procedimiento cambia. |
 | 8.9 | 2026-08-20 | **Dos citas que el barrido de la 10.0 declaró migradas y no lo estaban.** §6 y el glosario de §15 seguían remitiendo a `Root-Rules.md` **§12** para la *referencia pendiente*, que desde la 10.0 es **§12.1** — y es lo que la propia entrada de esa versión manda: «toda cita a §12 que hable de referencias pasa a §12.1». Las dos vivían en el archivo que esa misma intervención estaba editando, dentro de un recuento que se declaró cerrado con residuo 1. Sube **patch**: corrige dos referencias sin cambiar ningún procedimiento. |
-| 8.10 | 2026-08-20 | **§13 de `Root-Rules.md` entra en la lista de insumos obligatorios de todo despacho**, en los **cuatro** lugares que la construyen: §8 —la enumeración de insumos y la regla que declara cuántas secciones transversales viajan, que pasa de cuatro a **cinco**— y §10 —el despacho del auditor y su glosa—. Va acá porque el propio §8 declara el motivo: *«una regla que las reglas de categoría citan y que no llega al despacho no la lee nadie»*, y **la precedencia la aplica el subagente que se choca con las dos reglas**. La primera emisión de esta fila tocó sólo §10 y dio por cumplido el criterio: **lo levantó la auditoría independiente y se reemitió**. **§10 suma además el criterio de aceptación que verifica §13**: una resolución de precedencia sin sus dos campos es P1. Sube **minor**: un insumo más en una lista existente y un criterio más en la matriz del audit. |

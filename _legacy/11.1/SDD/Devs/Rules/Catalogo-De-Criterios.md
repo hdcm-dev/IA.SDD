@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Catalogo-De-Criterios.md
-**Versión:** 1.11
+**Versión:** 1.9
 **Estado:** Vigente
 **Fecha:** 2026-08-17
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
@@ -69,7 +69,6 @@ aplica sin su fundamento — y el fundamento es lo que permite reconocer cuándo
 | El barrido de una intervención deja residuo que su autor sabe legítimo | Si la exclusión se escribe a mano o **se cita** | `SDD-Development-Guide.md` §VI.3.2, **siete clases estables** |
 | Se cambió un concepto en el framework | Cómo se barre y con qué residuo aceptable | `SDD-Development-Guide.md` §VI.3.1 y §VI.3.2 |
 | Una intervención nace de un origen con criterios de aceptación | Si se puede declarar resuelto, y qué se le devuelve al origen | `SDD-Development-Guide.md` §VI.3 comprobación 13 |
-| **Dos reglas alcanzan el mismo ítem y dicen cosas distintas** | Si **una de las dos viaja en todo despacho y la otra no** —la resuelve el agente— o no —la arbitra el humano— | `Root-Rules.md` **§13**, y `Master-Prompt.md` §7.0 para el resto |
 | Se escribe una regla nueva a partir de un caso observado | Si está enunciada sobre el caso o sobre la propiedad, y cuál es su simétrico | `SDD-Development-Guide.md` Parte IV, «sobre las reglas que escribas a partir de un caso observado» |
 | Hay que verificar una intervención antes de cerrarla | Las trece comprobaciones | `SDD-Development-Guide.md` §VI.3 |
 
@@ -127,19 +126,17 @@ resultado es una lista—.
 
 | Tabla | Política | Qué significa |
 | --- | --- | --- |
-| **§3, criterios por situación** | **Única** | Una situación tiene **un** criterio. Que apliquen dos es un **defecto de este catálogo** y se corrige acá, aunque el agente pueda destrabar su trabajo por `Root-Rules.md` §13: **destrabarlo no cierra el defecto del catálogo** |
+| **§3, criterios por situación** | **Única** | Una situación tiene **un** criterio. Que apliquen dos es un **defecto de este catálogo**, no una decisión del agente |
 | **§4, anti-patrones por regla** | **Acumulativa** | Varios anti-patrones pueden alcanzar al mismo documento, y **todos sus remedios se aplican**. No compiten |
 
 **Qué se hace cuando en §3 aplican dos.** Se distinguen dos casos, y sólo uno es del agente:
 
 1. **Los dos criterios coinciden en la salida.** Es **redundancia del catálogo**: se declara y se
    corrige acá, unificando la entrada. El trabajo sigue.
-2. **Los dos difieren.** Si la diferencia viene de que **dos reglas** alcanzan el mismo ítem, se prueba
-   `Root-Rules.md` **§13**, que tiene **un solo criterio**: la que viaja en la lista de insumos de todo
-   despacho desplaza a la que no viaja. Si decide, la resuelve el agente nombrando las dos reglas y cuál
-   desplaza a cuál, **y la entrada del catálogo se corrige igual**. **Si no decide —las dos viajan, o
-   ninguna— y en todo otro caso**, es un conflicto entre dos cosas aprobadas y el agente **no lo
-   resuelve**: es la **detención por arbitraje** de `Master-Prompt.md` §7.0, con la forma de §8.1.
+2. **Los dos difieren.** Es un **conflicto entre dos cosas aprobadas**, y el agente **no lo resuelve**:
+   es la **detención por arbitraje** de `Master-Prompt.md` §7.0, con la forma de §8.1. No hace falta
+   mecanismo nuevo — la forma ya existe desde la 4.1 y es la misma que la 9.7 reusó para los
+   apartamientos contradichos.
 
 **Por qué la política de §4 es acumulativa y no puede ser otra.** Un mismo documento puede tener a la
 vez un stack sin versión y un flujo de lectura único: son defectos independientes con remedios
@@ -184,5 +181,3 @@ regla—. Lo que no corresponde adoptar es la **infraestructura** de DMN, no su 
 | 1.7 | 2026-08-20 | Un criterio nuevo de `SDD-Development-Guide.md` §VI.3.2: **qué hacer con el residuo del barrido que el autor sabe legítimo** — se **cita** la tabla de siete clases estables en lugar de reescribirla, y se enumeran sólo las exclusiones propias del caso. Se registra por la comprobación 12 de §VI.3, que existe para que el índice no dependa de que alguien se acuerde. Origen: `Reportes/15`. Sube minor. |
 | 1.8 | 2026-08-20 | Un criterio nuevo por la partición de cinco ítems obligatorios: **cuándo un ítem de una §4.x empaqueta dos decisiones y hay que partirlo**, con el test que las distingue —la segunda mitad **se decide por separado** o **se deriva de la primera**—. Se registra acá por la comprobación 12 de `SDD-Development-Guide.md` §VI.3. Sube minor. |
 | 1.9 | 2026-08-20 | Un criterio nuevo por la comprobación 13 de `SDD-Development-Guide.md` §VI.3: **qué se le devuelve al origen que trajo la intervención**, y cuándo se lo puede declarar resuelto. Se registra acá por la comprobación 12 —quien toca, registra—. Sube minor. |
-| 1.10 | 2026-08-20 | Un criterio nuevo por `Root-Rules.md` **§13**: **cuándo un conflicto entre dos reglas lo resuelve el agente y cuándo lo arbitra el humano**. Y §4.1 punto 2 se refina: antes de escalar, se prueba si la diferencia es **de forma** —jerarquía, especificidad, fecha—. **No deroga el arbitraje: le pone delante el caso que sí tiene respuesta en el árbol.** Sube minor. |
-| 1.11 | 2026-08-21 | §4.1 punto 2 y el criterio de §3 se reescriben contra el **§13 reducido a un solo criterio**. La redacción anterior citaba una formulación —«cuando el árbol contiene el dato que decide»— que §13 derogó en la misma intervención, **y que el barrido no alcanzó**: lo levantó la tercera ronda de auditoría como contradicción literal entre §13 y la entrada que enruta hacia §13. Sube minor. |

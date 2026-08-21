@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-ROOT)
-**Versión de las reglas:** 7.1
+**Versión de las reglas:** 7.0
 
 ---
 
@@ -379,7 +379,7 @@ Salida: SDD/Docs/README.md (sin versión en el nombre, con versión 1.0 en la ca
 
 ## 9. Sistema de identificadores
 
-**Alcance transversal.** Esta sección y las que siguen hasta §13 no gobiernan el README raíz: gobiernan a
+**Alcance transversal.** Esta sección y las tres siguientes no gobiernan el README raíz: gobiernan a
 todas las categorías. Viajan en los insumos obligatorios de todo despacho de subagente
 (`Master-Prompt.md` §8), por la misma razón por la que la 5.1 sumó ahí `Vocabulario-Rules.md`: una
 regla que las reglas de categoría citan y que no llega al despacho no la lee nadie.
@@ -494,10 +494,10 @@ que esa otra cosa no haya cambiado.
 Todo número que un documento enuncia en prosa sobre una colección es un dato derivado. El defecto no
 se comete al escribirlo, sino al modificar la colección tres versiones después, por otra mano y con
 otro objetivo; y como el número es plausible por naturaleza, ningún lector lo cuestiona. Por eso las
-reglas siguientes son estructurales y no una instrucción de cuidado.
+cuatro reglas siguientes son estructurales y no una instrucción de cuidado.
 
 **R1 · Preferir la forma que no cuenta.** «Los artefactos de la tabla» en lugar de «los veintiún
-artefactos», salvo que el número aporte algo que la tabla no da. Es la única que
+artefactos», salvo que el número aporte algo que la tabla no da. Es la única de las cuatro que
 elimina el dato en vez de verificarlo: un documento que dice «los wireframes de la tabla de
 cobertura» no puede desincronizarse nunca.
 
@@ -542,7 +542,7 @@ afirmaciones **sobre el estado del sistema**, y `Deriva-Rules.md` §1 excluye ex
 afirmaciones de diseño, de especificación y de contexto. Un recuento sobre una tabla del propio
 documento no es ninguna de esas cosas: es una operación sobre el texto, no una observación del
 sistema. Ampliar D9 para alcanzarlo diluiría el alcance de la invariante más cara de verificar del
-framework, y estas reglas consiguen el mismo efecto —que el número deje de ser redacción y
+framework, y estas cuatro reglas consiguen el mismo efecto —que el número deje de ser redacción y
 pase a ser dato— sin tocar ninguna invariante. La decisión queda escrita para que no vuelva a
 plantearse como pendiente.
 
@@ -663,68 +663,7 @@ cuando ese evento llegaba.
 
 ---
 
-## 13. Precedencia entre reglas
-
-**Alcance transversal**, como §9.
-
-**Esta sección no le da al agente permiso para decidir: le da la cita que `Master-Prompt.md` §8.1 ya le
-exige.** §8.1 declara que algo es **trabajo propio** cuando *«se contesta abriendo los documentos y
-contrastando, y la respuesta se puede sostener con una **cita literal**»*, y que **se detiene** lo que
-requiere intención de producto. Un conflicto entre dos reglas **no tenía con qué citarse**, de modo que
-caía entero del lado de la detención sin que nadie lo hubiera decidido.
-
-**§8.1 corre antes que esta sección y no se repite acá.** Si el conflicto requiere intención de
-producto, §8.1 ya lo detuvo: esta sección sólo alcanza a lo que esa pregunta dejó del lado del trabajo
-propio.
-
-### El criterio, y es uno solo
-
-> **Una regla que viaja en la lista de insumos obligatorios de todo despacho (`Master-Prompt.md` §8)
-> desplaza a una que no viaja, cuando las dos alcanzan al mismo ítem.**
-
-**El test se contesta abriendo §8 y mirando la lista.** No dice «transversal» ni «nivel» ni «rango»:
-las tres son palabras que el corpus ya usa con otro referente. Dice **viaja o no viaja**, que es un
-hecho del árbol.
-
-**Si el criterio no decide —las dos viajan, o ninguna—, el conflicto se detiene**: no tiene resolución
-en el árbol, que es la condición con que §8.1 manda a arbitraje. Rige `Master-Prompt.md` §7.0 y
-`Catalogo-De-Criterios.md` §4.1 punto 2.
-
-### Por qué uno y no tres
-
-**Se evaluaron dos criterios más —especificidad y fecha— y se descartaron con motivo.** Ninguno tenía
-un caso medido: el único que el corpus registra lo cierra el criterio de despacho **solo**. Y los dos
-producían resoluciones falsas al aplicarse:
-
-| Criterio descartado | Por qué |
-|---|---|
-| **Especificidad** —la que nombra el caso desplaza a la que nombra la familia— | Favorece **sistemáticamente a la regla más angosta**, incluso cuando la angosta es la que quedó desactualizada. Verificado sobre un conflicto real del corpus: hacía ganar al texto que esta misma sección derogaba |
-| **Fecha** —la posterior desplaza a la anterior— | **No se puede contestar.** Un control de cambios tiene una fecha **por versión del archivo**, no por sección, y una sección puede no haberse tocado en la versión que lleva la fecha |
-
-Es el criterio que la 9.19 fijó al rechazar un eje entero: *«un concepto más que mantener, en un método
-que declara que un procedimiento que crece deja de leerse, sólo se justifica si hace falta»*. **Acá
-hacía falta uno.**
-
-### Qué se escribe cuando se aplica
-
-**La resolución nombra las dos reglas con su sección y cuál desplaza a cuál.** Sin eso no es una
-resolución: es una preferencia, y nadie puede recalcularla.
-
-**Lo que esta sección no declara, y se dice en lugar de callarse:** **no fija un artefacto donde la
-resolución quede escrita**, como §11 fija un ADR y §12.2 fija cuatro campos en el artefacto. El criterio
-de aceptación de `Master-Prompt.md` §10 alcanza por lo tanto **a las resoluciones que se escriben**, y
-un subagente que aplique §13 en silencio no deja nada que auditar. Fijar ese lugar exige un artefacto
-que hoy no existe y **queda como ítem diferido**.
-
-**Un caso medido, y es el que originó la sección.** `Rules-Prompts-AI.md` §4.2 punto 9 autorizaba
-contestar un ítem obligatorio con «la magnitud declarada como pendiente», y `Root-Rules.md` §12.2 lo
-califica **P1**. Se resolvió a favor de §12.2 —**§12.2 viaja en la lista de todo despacho y
-`Rules-Prompts-AI.md` no viaja**— **antes de que esta sección existiera**, de modo que la resolución fue
-correcta y no se podía sostener con una cita. Esta sección la funda hacia atrás.
-
----
-
-## 14. Control de cambios
+## 13. Control de cambios
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
@@ -748,4 +687,3 @@ correcta y no se podía sostener con una cita. Esta sección la funda hacia atr�
 | 6.1 | 2026-08-17 | §11 suma dos campos al ADR de apartamiento: su **estado** —de un conjunto cerrado de cuatro— y los **saltos de versión que sobrevivió**. Sin estado, un apartamiento absorbido, uno contradicho y uno todavía no contemplado **se ven igual**, y el tercero es indistinguible del olvido. El **contador es el disparador que el método no tenía**: uno que sobrevive dos o más saltos sin ser contemplado ya demostró que no es de un producto, y lo dice un número en lugar de que alguien se acuerde. Sube **minor**: agrega dos campos a un artefacto existente sin cambiar cuándo corresponde emitirlo. |
 | 6.2 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
 | 7.0 | 2026-08-19 | **§12 pasa de una figura a dos y se parte en §12.1 y §12.2**, por el reporte `14` de `IA.SDD.Documentacion`. La cabecera declara que **son la misma figura con el evento de cierre en distinto lugar**: la referencia pendiente lo tiene **adentro** del método —el orquestador ve emitirse la categoría porque él mismo la produce— y el ítem diferido lo tiene **afuera**, en el ciclo de construcción que el método no gobierna, donde nadie lo ve pasar. **§12.2 es nueva**: un ítem que una §4.x declara obligatorio y no se puede contestar hoy **se difiere con forma de cuatro campos y no con una promesa en prosa**, y el cuarto —**el evento se nombra por un artefacto y su sección, no por un momento**— es el que la distingue: un momento no deja rastro que alguien pueda abrir, y un cierre que nadie comprueba no ocurre. Declara que **un ítem que empaqueta dos decisiones se difiere por partes**, y una tabla de escalamiento con **P1 para el ítem cuyo evento ya ocurrió** y P0 al cierre del producto. Evidencia: un destino real pasó **ocho etapas sin poder etiquetar ninguna** porque el prefijo de tag viajaba empaquetado con la herramienta de versionado, y el punto de control al que se difirió cerró sin registrarlo. Sube **major**: un documento generado antes que difiera un ítem en prosa **deja de cumplir**. |
-| 7.1 | 2026-08-21 | **§13 nueva, precedencia entre reglas, con un solo criterio**, y el control de cambios pasa a §14. El corpus no declaraba **ningún criterio para resolver un conflicto entre dos reglas**, y `Master-Prompt.md` §8.1 exige **cita literal** para que algo sea trabajo propio: sin criterio, el agente no podía sostener ninguna resolución y **todo conflicto caía en la detención por arbitraje sin que nadie lo hubiera decidido**. El criterio es **viaja o no viaja en la lista de insumos de todo despacho**, un hecho del árbol que se contesta abriendo §8. **Se evaluaron dos criterios más —especificidad y fecha— y se descartaron con motivo**: ninguno tenía caso medido y los dos producían resoluciones falsas. Si el criterio no decide, se detiene por §7.0. Funda hacia atrás la resolución de `Rules-Prompts-AI.md` §4.2 punto 9 contra §12.2, aplicada en la 11.0 sin cita posible. **§10 se reescribe además sin contar sus propias reglas** —decía «las cuatro» y son cinco desde que entró R5—, que es R1 aplicada a sí misma. Sube **minor**: agrega un criterio de resolución y ningún documento generado deja de cumplir. |
