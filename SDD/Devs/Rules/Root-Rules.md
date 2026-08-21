@@ -494,10 +494,10 @@ que esa otra cosa no haya cambiado.
 Todo número que un documento enuncia en prosa sobre una colección es un dato derivado. El defecto no
 se comete al escribirlo, sino al modificar la colección tres versiones después, por otra mano y con
 otro objetivo; y como el número es plausible por naturaleza, ningún lector lo cuestiona. Por eso las
-cuatro reglas siguientes son estructurales y no una instrucción de cuidado.
+reglas siguientes son estructurales y no una instrucción de cuidado.
 
 **R1 · Preferir la forma que no cuenta.** «Los artefactos de la tabla» en lugar de «los veintiún
-artefactos», salvo que el número aporte algo que la tabla no da. Es la única de las cuatro que
+artefactos», salvo que el número aporte algo que la tabla no da. Es la única que
 elimina el dato en vez de verificarlo: un documento que dice «los wireframes de la tabla de
 cobertura» no puede desincronizarse nunca.
 
@@ -542,7 +542,7 @@ afirmaciones **sobre el estado del sistema**, y `Deriva-Rules.md` §1 excluye ex
 afirmaciones de diseño, de especificación y de contexto. Un recuento sobre una tabla del propio
 documento no es ninguna de esas cosas: es una operación sobre el texto, no una observación del
 sistema. Ampliar D9 para alcanzarlo diluiría el alcance de la invariante más cara de verificar del
-framework, y estas cuatro reglas consiguen el mismo efecto —que el número deje de ser redacción y
+framework, y estas reglas consiguen el mismo efecto —que el número deje de ser redacción y
 pase a ser dato— sin tocar ninguna invariante. La decisión queda escrita para que no vuelva a
 plantearse como pendiente.
 
@@ -673,40 +673,49 @@ contrastando, y la respuesta se puede sostener con una **cita literal**»*, y qu
 requiere intención de producto. Un conflicto entre dos reglas **no tenía con qué citarse**, de modo que
 caía entero del lado de la detención, sin que nadie lo hubiera decidido.
 
-**Los tres criterios, y se aplican en este orden:**
+**Antes de los tres criterios, una compuerta, y se corre primero:**
+
+> **¿Resolver este conflicto exige saber qué quiere el producto?** Si la respuesta es sí, **se detiene
+> aunque el árbol tenga rango, especificidad y fecha**: es la detención por arbitraje de
+> `Master-Prompt.md` §7.0, con la forma de §8.1. **Ante la duda, se detiene.**
+
+**La compuerta no es un caso de borde: es la que evita que un criterio de forma derogue una decisión de
+producto.** Una regla que viaja en todo despacho puede desplazar formalmente a una de categoría y estar
+borrando, con eso, algo que la categoría decidió a propósito.
+
+**Recién superada la compuerta, los tres criterios, en este orden. Cada uno se aplica sólo si el
+anterior no decidió:**
 
 1. **Jerarquía.** Una regla que **viaja en la lista de insumos obligatorios de todo despacho**
    (`Master-Prompt.md` §8) desplaza a una que gobierna **una sola categoría**, cuando las dos alcanzan
    al mismo ítem. **El test se contesta abriendo §8 y mirando la lista**, no interpretando la palabra
    «transversal» —que el corpus usa además para nombrar seis **archivos** de reglas—.
-2. **Especificidad.** Entre dos reglas del mismo nivel, la que gobierna **el caso específico** desplaza
-   a la que gobierna el caso general. Una regla que nombra el artefacto desplaza a la que nombra la
-   familia.
-3. **Fecha.** Entre dos reglas del mismo nivel y la misma especificidad, **la posterior** desplaza a la
-   anterior. La fecha se lee del control de cambios, no de la intuición.
+2. **Especificidad.** Si el criterio 1 no decide, la que gobierna **el caso específico** desplaza a la
+   que gobierna el caso general: una regla que nombra el artefacto desplaza a la que nombra la familia.
+   **No se dice «del mismo nivel»**: «nivel» es un término del corpus con otro referente
+   (`Vocabulario-Rules.md` §R3, los tres niveles de aplicación de un artefacto).
+3. **Fecha.** Si el criterio 2 tampoco decide, **la posterior** desplaza a la anterior. La fecha se lee
+   del control de cambios, no de la intuición.
+
+**Las reglas meta —las que no gobiernan una de las doce categorías— entran en el criterio 1 por el
+mismo test:** si viajan en la lista de insumos de todo despacho, desplazan; si no, el criterio 1 no
+decide y se pasa al 2. **Que un criterio no decida no es un empate: es pasar al siguiente.**
 
 **Qué se escribe cuando se aplica.** El hallazgo nombra **las dos reglas con su sección**, **cuál
 desplaza a cuál** y **por cuál de los tres criterios**. Sin eso no es una resolución: es una preferencia.
 
-**Dónde termina esta sección y empieza el arbitraje. La frontera no es nueva: es la pregunta previa de
-`Master-Prompt.md` §8.1.**
+**Por qué la compuerta va primero y no al final. Es la pregunta previa de `Master-Prompt.md` §8.1**, y
+§8.1 la hace **antes** de trabajar, no después: *«se detiene lo que requiere intención de producto»*.
+Corrida al final, los tres criterios ya resolvieron y la detención no llega a dispararse nunca — que es
+el error de la primera emisión de esta sección, en el sentido contrario.
 
-Los tres criterios se aplican **cuando el árbol contiene el dato que decide** —cuál de las dos viaja en
-todo despacho, cuál nombra el caso y cuál la familia, cuál es posterior—, y las tres cosas **se
-contestan abriendo los dos textos**. Por eso la resolución **es citable**, que es lo que §8.1 exige para
-que algo sea trabajo propio.
-
-**Cuando resolver el conflicto exige saber qué quiere el producto**, el árbol no contiene ese dato: rige
-la **detención por arbitraje** de §7.0, con la forma de §8.1, y `Catalogo-De-Criterios.md` §4.1 punto 2.
-El caso típico es el empate — dos reglas del mismo rango, la misma especificidad y la misma fecha—,
-donde ninguno de los tres criterios decide.
-
-**Ante la duda sobre si el árbol contiene el dato que decide, se detiene**, por la misma asimetría con
-que §8.1 resuelve toda detención: el error barato y el error caro no son simétricos.
+**Y si los tres criterios no deciden**, el conflicto también se detiene: dos reglas del mismo rango, la
+misma especificidad y la misma fecha **no tienen resolución en el árbol**, que es la condición que §8.1
+usa para mandar a arbitraje. Rige `Catalogo-De-Criterios.md` §4.1 punto 2.
 
 **Un caso medido, y es el que originó la sección.** `Rules-Prompts-AI.md` §4.2 punto 9 autorizaba
 contestar un ítem obligatorio con «la magnitud declarada como pendiente», y `Root-Rules.md` §12.2 lo
-califica **P1**. Se resolvió a favor de §12.2 —por jerarquía y por fecha— **antes de que esta sección
+califica **P1**. Se resolvió a favor de §12.2 —**por jerarquía**, que es el criterio 1 y lo cierra solo: §12.2 viaja en todo despacho y `Rules-Prompts-AI.md` gobierna una sola categoría— **antes de que esta sección
 existiera**, de modo que la resolución fue correcta y no se podía sostener con una cita. Esta sección
 la funda hacia atrás.
 

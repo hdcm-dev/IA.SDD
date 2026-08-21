@@ -1,7 +1,7 @@
 # Nota de coherencia — La precedencia entre reglas, y la cita que §8.1 exigía y no existía
 
 **Documento:** Coherencia-Precedencia-Entre-Reglas.md
-**Versión:** 1.1 — reemitida tras auditoría independiente
+**Versión:** 1.2 — segunda reemisión, tras dos rondas de auditoría independiente
 **Fecha:** 2026-08-20
 **Versión del conjunto resultante:** SDD **11.2**
 **Origen:** El tramo **T1** del plan de reestructuración, cuyos criterios de aceptación se transcriben
@@ -51,37 +51,36 @@ tipificó: **una corrida sustantivamente correcta y literalmente incompleta**.
 
 **Resultado de la corrida, sobre el árbol vivo:**
 
-**Antes** se cuenta sobre `_legacy/11.1/`, que es el conjunto congelado; **vivo** sobre el árbol de hoy,
-que incluye lo que esta intervención escribió. La identidad que tiene que cerrar es
-**antes = reemplazadas + residuo heredado**, y aparte se enumera lo que la propia intervención agrega.
+**Antes** se cuenta sobre `_legacy/11.1/`, que es el conjunto congelado; **vivo** sobre el árbol de hoy.
+La identidad que tiene que cerrar es **antes = reemplazadas + residuo heredado**, y **vivo** se verifica
+aparte como **residuo heredado + lo que esta nota escribe**. La corrida es **sin distinguir mayúsculas**:
+la primera la corrió con distinción y dejó dos ocurrencias vivas fuera del recuento.
 
-| Patrón | Antes | Reemplazadas | Residuo heredado | Agregado por esta intervención | Vivo |
+| Patrón | Antes | Reemplazadas | Residuo heredado | Escrito por esta nota | Vivo |
 |---|---|---|---|---|---|
-| `§9 a §12` | **3** | **2** | **1** | **3** | 6 |
-| `cuatro secciones transversales` | **3** | **1** | **2** | **2** | 4 |
-| `§12 referencia pendiente)` | **1** | **1** | **0** | **1** | 2 |
-| `las tres siguientes` | **1** | **1** | **0** | **1** | 2 |
+| `§9 a §12` | **3** | **2** | **1** | 3 | **4** |
+| `cuatro secciones transversales` | **5** | **1** | **4** | 2 | **6** |
+| `§12 referencia pendiente)` | **1** | **1** | **0** | 2 | **2** |
+| `las tres siguientes` | **1** | **1** | **0** | 2 | **2** |
 
-**Las cuatro identidades cierran.** Y el recuento se declara con **cinco columnas y no con tres** porque
-con tres no se podía distinguir el residuo heredado del texto que la propia nota escribe — que es
-precisamente lo que hizo que la primera emisión declarara «residuo 1» sobre una corrida incompleta.
+**Las cuatro identidades cierran de los dos lados**: `3=2+1`, `5=1+4`, `1=1+0`, `1=1+0` para la primera;
+y `4=1+3`, `6=4+2`, `2=0+2`, `2=0+2` para la segunda.
 
-**Reconciliación contra el snapshot**, que es lo que la 10.0 no hizo: `grep -c` sobre
-`_legacy/11.1/` da **3**, y **3 = 2 + 1**. La identidad cierra.
+**Residuo heredado total: 5**, en cuatro ubicaciones, todas de clase estable.
 
 **Exclusiones, enumeradas una por una**, que es lo que la primera emisión no hizo. Las **siete clases
 estables de §VI.3.2 se citan y no se reescriben**:
 
-| Ocurrencia viva | Cuántas | Clase |
+| Ocurrencia | Cuántas | Clase |
 |---|---|---|
 | `Master-Prompt.md`, fila `6.0` del control de cambios | 2 | «Filas de control de cambios» |
-| `CHANGELOG.md`, entrada **11.2** de esta intervención | 1 | «Filas de control de cambios» |
-| `Guides/Coherencia-Reportes-00-11.md` línea 92 | 1 | «Notas de coherencia anteriores» |
-| **Esta nota**, §3, que escribe los patrones para poder convertirlos | 10 | «La declaración de la propia intervención», séptima clase |
+| `Root-Rules.md`, fila `4.0` del control de cambios | 1 | «Filas de control de cambios» |
+| `Guides/Coherencia-Reportes-00-11.md` líneas 49 y 92 | 2 | «Notas de coherencia anteriores» |
+| **Esta nota**, §3, que escribe los patrones para poder convertirlos | 9 | «La declaración de la propia intervención», séptima clase |
 
-**Y una segunda comprobación, por el riesgo de renumeración.** §13 se insertó **antes** del control de
-cambios, que pasa de §13 a §14. Barrido del patrón `` `Root-Rules.md` §13 `` sobre el árbol vivo antes
-de la edición: **cero ocurrencias**. Ninguna cita queda colgada.
+**Las cinco heredadas y las nueve propias suman las catorce ocurrencias vivas de los cuatro patrones.**
+
+---
 
 ## 4. Verificación — las trece comprobaciones
 
@@ -91,12 +90,12 @@ de la edición: **cero ocurrencias**. Ninguna cita queda colgada.
 | 2 | Autosuficiencia | Sin referencias nuevas fuera del árbol |
 | 3 | Referencias internas resuelven | **Cero rotos**: §13 no existía como cita y §14 tampoco |
 | 4 | Sin contradicción con lo que ya estaba | **Sin contradicciones.** §4.1 punto 2 **se refina y se cita**, no se reemplaza |
-| 5 | Control de cambios actualizado | **Una fila por archivo** en los tres que suben versión |
+| 5 | Control de cambios actualizado | **Una fila por archivo** en los **cuatro** que suben versión |
 | 6 | El caso degenerado sigue produciendo el layout aplanado | **Verificado**: nada del layout se tocó |
-| 7 | Nada fuera del alcance declarado | **Sin cambios colaterales**, tres archivos |
-| 8 | Barrido por concepto | **Residuo 1**, de clase estable, **y reconciliado contra el snapshot** |
-| 9 | Coherencia interna | **Sin contradicciones internas** |
-| 10 | Integridad del registro | **Verificado en los tres**: cabecera = última fila |
+| 7 | Nada fuera del alcance declarado | **Sin cambios colaterales**: **cuatro** archivos con bump, más `CHANGELOG.md`, esta nota y `_legacy/11.1/` |
+| 8 | Barrido por concepto | **Residuo heredado 5**, en cuatro ubicaciones de clase estable, **con las cuatro identidades reconciliadas contra el snapshot** |
+| 9 | Coherencia interna | **Dos corregidas en esta reemisión**: `Root-Rules.md` §10 decía «las cuatro reglas» y tiene cinco —R1 aplicada a sí misma: se reescribe sin contar—, y esta nota tenía **dos secciones numeradas 6** |
+| 10 | Integridad del registro | **Verificado en los cuatro**: cabecera = última fila |
 | 11 | Cobertura de la nota | **Esta nota** |
 | 12 | Cobertura del catálogo | **Un criterio nuevo** registrado |
 | **13** | **Devolución al origen** | **Abajo** |
@@ -143,9 +142,45 @@ cuando dos reglas del mismo nivel, la misma especificidad y la misma fecha se co
 cae en el arbitraje por la cláusula de frontera, que es la salida conservadora. Si aparece medido, la
 corrección barata es un cuarto criterio, no refinar los tres.
 
-## 6. Veredicto
+## 7. Ítem diferido (`Root-Rules.md` §12.2)
 
-**CONFORME, en reemisión.** La primera emisión fue **RECHAZADA** por dos auditorías independientes.
-Corregidos los dos P0 y los cinco hallazgos menores, las trece comprobaciones pasan, el residuo del
-barrido es **1 de clase estable y reconciliado contra el snapshot**, las exclusiones están **enumeradas
-una por una**, y el conjunto queda en **SDD 11.2**.
+| Campo | Valor |
+|---|---|
+| **Qué falta** | `SDD/Guides/SDD-Getting-Started-Guide.md` conserva la misma duplicación de versión que esta intervención corrigió en la guía de desarrollo, y `SDD-User-Guide.md` no tiene frontmatter: **tres guías, tres formas** |
+| **Por qué no hoy** | `SDD-Getting-Started-Guide.md` **no tiene tabla de control de cambios**, así que modificarlo dejaría un cambio sin registro posible — el defecto que esta misma intervención corrigió en T0 |
+| **Quién lo cierra** | La organización dueña del repositorio, en el tramo **T2.0** de unificación de cabeceras |
+| **En qué evento** | La tabla de artefactos del plan de reestructuración, fila «Cabecera de todo artefacto del framework» |
+
+**Se declara acá porque la auditoría lo levantó con el argumento correcto:** la corrección de T0 quedó
+enunciada **sobre el caso** y no sobre la propiedad, que es el defecto de forma que la Parte IV de la
+guía describe desde la 1.19.
+
+## 8. El hueco de §VI.1 que esta intervención destapó y no corrige
+
+**`SDD-Development-Guide.md` §VI.1 admite tres clases de bump —Ninguno, Minor, Major— y la comprobación
+5 exige una fila de control de cambios en *cada archivo modificado*. Una fila empieza por su versión.**
+De modo que un cambio de clase «Ninguno» **no tiene forma de registrarse**: o no se registra —y queda
+invisible, que es lo que pasó en la primera emisión de T0— o se le inventa un bump que la tabla no
+declara.
+
+La fila 1.22 de la guía dice «Sube **patch**», y **`patch` no es una de las tres clases de §VI.1**. El
+corpus ya usa esa palabra en otras filas —`Master-Prompt.md` fila 8.5 entre ellas—, de modo que **el
+hueco es del framework y no de esta intervención**. Se declara y no se corrige acá: corregirlo es tocar
+§VI.1, que es el tramo **T3**.
+
+## 9. Veredicto
+
+**CONFORME, en segunda reemisión.** Dos rondas de auditoría independiente devolvieron `RECHAZADO`. La
+primera levantó dos **P0** —§13 no llegaba al despacho de generación, y `_legacy/11.1/` archivaba el
+estado post-saneamiento—, los dos cerrados y verificados mecánicamente por la segunda ronda. La segunda
+levantó que **la frontera había pasado de no resolver nada a resolverlo todo**, que el `CHANGELOG.md`
+publicaba la formulación derogada, y que **esta nota declaraba verdes comprobaciones medible-falsas**:
+el residuo, el recuento de archivos y la coherencia interna.
+
+Corregido todo: la compuerta de intención **corre primero**, el `CHANGELOG.md` se reescribió contra el
+texto vigente, el barrido se recorrió **sin distinguir mayúsculas** con sus cuatro identidades cerrando
+de los dos lados, y §13 **estrena criterio de aceptación** en `Master-Prompt.md` §10. El conjunto queda
+en **SDD 11.2**.
+
+**Y queda dicho lo que no se corrigió**: el hueco de §VI.1 de §8 de esta nota, que es del framework y se
+trata en su propio tramo.

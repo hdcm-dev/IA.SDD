@@ -11,9 +11,15 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
 ### Agregado — `Root-Rules.md` 7.0 → 7.1, §13
 
-**Precedencia entre reglas, con alcance transversal.** Tres criterios en orden: **jerarquía** —una transversal desplaza a una de categoría—, **especificidad** —la que nombra el caso desplaza a la que nombra la familia— y **fecha** —la posterior desplaza a la anterior, leída del control de cambios—. Quien la aplica **escribe las dos reglas con su sección, cuál desplaza a cuál y por cuál criterio**: sin eso no es una resolución, es una preferencia.
+**Precedencia entre reglas, con alcance transversal, y una compuerta que corre primero:**
 
-**Y la frontera, declarada:** los tres resuelven conflictos **de forma**. **No resuelven conflictos de intención** —dos cosas aprobadas que quieren cosas distintas, o un pedido que contradice al árbol—, donde sigue rigiendo la **detención por arbitraje** de §7.0. **Ante la duda sobre de qué clase es el conflicto, se detiene**, por la misma asimetría con que §8.1 resuelve toda detención.
+> **¿Resolver este conflicto exige saber qué quiere el producto?** Si sí, **se detiene aunque el árbol tenga rango, especificidad y fecha**. Ante la duda, se detiene.
+
+**La compuerta va primero porque es la pregunta previa de §8.1, y §8.1 la hace antes de trabajar.** Corrida al final, los tres criterios ya resolvieron y la detención no se dispara nunca.
+
+**Superada la compuerta, tres criterios, y cada uno se aplica sólo si el anterior no decidió:** **jerarquía** —una regla que viaja en la lista de insumos de **todo despacho** (§8) desplaza a una que gobierna una sola categoría; el test **se contesta abriendo §8**, no interpretando la palabra «transversal», que el corpus usa también para seis archivos—, **especificidad** —la que nombra el caso desplaza a la que nombra la familia— y **fecha** —la posterior desplaza a la anterior, leída del control de cambios—. Si ninguno decide, **también se detiene**: dos reglas del mismo rango, especificidad y fecha no tienen resolución en el árbol.
+
+Quien la aplica **escribe las dos reglas con su sección, cuál desplaza a cuál y por cuál criterio**: sin eso no es una resolución, es una preferencia. **`Master-Prompt.md` §10 suma el criterio que lo verifica.**
 
 **No deroga nada.** Le da al agente **la cita que §8.1 ya le exigía**, para la clase de conflicto que §8.1 ya había declarado suya. El control de cambios pasa a §14; verificado que **ninguna cita a §13 existía** en el árbol vivo.
 
