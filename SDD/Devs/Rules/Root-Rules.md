@@ -458,7 +458,10 @@ lexicográficamente igual que numéricamente, alinean en columna, y se reconocen
 
 **Familias alcanzadas.** Toda familia que catalogue elementos de una colección **de un producto o del conjunto normativo** (§9.1). Del producto: `NB`,
 `CU`, `RN`, `RC`, `ADR`, `US`, `BT`, `EP`, `TC`, `NFR`, `SUP`, `CMP`, `EST`, `NAV`, `DM`, `SD`,
-`VER`, `EV`, `EVE`, `ISSUE`, `OPS`, `EXT`, `STAGE`, `ENV`, `DOD` y equivalentes.
+`VER`, `EV`, `EVE`, `ISSUE`, `OPS`, `EXT`, `STAGE`, `ENV`, `DOD` y equivalentes. **Del conjunto
+normativo: `AG`**, que cataloga los roles del catálogo de especialidades y los subagentes de fase. Es
+hoy la única familia del segundo ámbito, **y su forma vigente es de dos dígitos**: la renumeración al
+ancho de §9.2 es un **ítem diferido**, registrado en §12.3.
 
 **Regla de agotamiento.** Cinco dígitos se eligieron con holgura sobre la colección más grande que la
 evidencia registra, pero la regla que faltaba no era el número: era **qué hacer si el rango igualmente
@@ -473,9 +476,11 @@ Que la salida sea una y esté declarada es el punto. Lo que producía el daño n
 techo: era que cada agente eligiera una salida distinta sin ningún criterio del método para preferir
 una, y que dos corridas del mismo framework produjeran líneas de base incomparables.
 
-**La exclusión, con su motivo:**
+**`AG-XX` salió de esta tabla en la 7.2.** Desde que §9.1 declara el ámbito del conjunto normativo
+**pertenece al sistema de identificadores**, y §9.2 lo enumera entre las familias alcanzadas. Su
+renumeración **no es una exclusión: es un ítem diferido**, registrado en §12.3.
 
-**`AG-XX` salió de esta tabla en la 7.2**: desde que §9.1 declara el ámbito del conjunto normativo **pertenece al sistema de identificadores**, y su renumeración a cinco dígitos es un **ítem diferido de §12.2**, no una exclusión.
+**La exclusión, con su motivo:**
 
 | Excluida | Por qué |
 | --- | --- |
@@ -692,6 +697,22 @@ futura; el prefijo no dependía de nada, y el destino pasó ocho etapas sin pode
 orquestador de reanudación en su reconocimiento. **Ninguno de los dos existía para esto**, y ésa era
 exactamente la falla: el método sabía atar una decisión a un evento futuro y no sabía cerrar el lazo
 cuando ese evento llegaba.
+
+### 12.3 Ítems diferidos vigentes del framework
+
+**§12.2 declara la forma; esta subsección es el registro.** Un ítem diferido **del propio framework**
+—no de un destino— se anota acá con sus cuatro campos, y **se cierra borrándolo de esta tabla** cuando
+el evento ocurre. Sin un lugar donde vivir, un ítem diferido es una promesa en prosa, que es lo que
+§12.2 califica **P1**.
+
+| Qué falta | Por qué no hoy | Quién lo cierra | Evento de cierre |
+|---|---|---|---|
+| La familia **`AG`** usa dos dígitos y §9.2 exige cinco | La renumeración alcanza todas las ocurrencias del árbol **y artefactos ya emitidos** que hayan copiado la columna de responsable del ejemplo de §7.1. Mezclarla con un cambio normativo deja la etapa sin ser verificable por sí sola | La organización dueña del repositorio | La entrada del `CHANGELOG.md` que publique la renumeración de `AG` |
+| **`AG-03M` es una forma compuesta**, que §9.2 no admite | Darle número propio **pierde la información de que es el subagente de fase hermano del `03`**. O se acepta la pérdida, o §9.2 admite un sufijo declarado para subagentes de fase | Ídem | La misma entrada |
+
+**Por qué el registro vive en `Root-Rules.md` y no en una nota de coherencia.** Una nota **relata una
+intervención y se cierra con su fecha**; un ítem diferido **sigue vigente después**. Anotarlo sólo en la
+nota es exactamente el defecto que §12.2 corrige: la promesa queda donde nadie la vuelve a mirar.
 
 ---
 

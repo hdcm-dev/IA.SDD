@@ -17,7 +17,7 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
 **`_legacy/` queda fuera del espacio de candidatos**: el conjunto archiva una copia por versión publicada, y sin esa cláusula la comprobación de duplicados levantaría **uno por snapshot**.
 
-**§9.2 retira la exclusión de `AG-XX`** —la fila se elimina y la tabla queda con una—, y pasa a ser **ítem diferido de §12.2**: no está afuera del sistema, tiene su renumeración pendiente, con dueño y evento de cierre. Y **§10 R5** pasa de «único en el producto» a «único en su ámbito».
+**§9.2 retira la exclusión de `AG-XX`** —la fila se elimina y la tabla queda con una—, **lo enumera entre las familias alcanzadas** como la única del segundo ámbito, y su renumeración pasa a **§12.3**, el registro de ítems diferidos vigentes del framework que esta versión incorpora: no está afuera del sistema, tiene su renumeración pendiente, con dueño y evento de cierre. Y **§10 R5** pasa de «único en el producto» a «único en su ámbito».
 
 ### Cambiado — `README.md`, invariante **D3**
 
@@ -53,7 +53,7 @@ De *«son **únicos en el producto**»* a *«son **únicos en su ámbito declara
 
 ### Nota de coherencia
 
-`SDD/Devs/Guides/Coherencia-Ambito-Del-Framework.md` **2.0**, conjunto resultante **12.0**. La primera emisión de esta intervención fue **RECHAZADA** por auditoría independiente: se había publicado **minor** lo que §VI.5 declara **major** —*«se modifica una invariante D1-D9»* basta—, y afirmaba una **disyunción falsa** entre los dos ámbitos, refutada por el ejemplo de §7.1 del mismo archivo que la declaraba.
+`SDD/Devs/Guides/Coherencia-Ambito-Del-Framework.md` **4.0**, conjunto resultante **12.0**. **Esta intervención fue rechazada tres veces por auditoría independiente antes de publicarse.** La primera: se había publicado **minor** lo que §VI.5 declara **major**, y afirmaba una **disyunción falsa** entre los dos ámbitos. La segunda: **dos correcciones declaradas y no ejecutadas** —la frase falsa seguía en D3 y `AG-XX` seguía en la tabla de exclusiones—. La tercera: **`AG-XX` quedó sin declaración de ningún lado** —fuera de la exclusión y fuera de las familias alcanzadas—, y el barrido de la nota volvió a declarar verde lo medible-falso. Las tres están relatadas en la nota, y de la tercera salió **§12.3**: el registro donde un ítem diferido del framework vive **después** de que la nota que lo declaró se cierre.
 
 ## [11.2] - 2026-08-20
 
@@ -167,7 +167,7 @@ La auditoría construyó además la **lista de ítems donde diferir es ilegítim
 
 **Renombres de artefacto**
 
-| Nombre anterior | Nombre vigente | Naturaleza |
+| Artefacto | Nombre anterior | Nombre vigente |
 | --- | --- | --- |
 | — | — | **Vacía.** Ningún artefacto cambió de nombre |
 
@@ -250,7 +250,7 @@ Cuatro criterios nuevos de §12.2 y la fila de §12 recalificada a §12.1, por l
 
 **Renombres de artefacto**
 
-| Nombre anterior | Nombre vigente | Naturaleza |
+| Artefacto | Nombre anterior | Nombre vigente |
 | --- | --- | --- |
 | — | — | **Vacía.** Ningún artefacto cambió de nombre |
 
