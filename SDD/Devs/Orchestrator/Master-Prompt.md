@@ -271,7 +271,8 @@ porque este bloque es lo primero que recibe.
 
 **Mapa de rangos de identificadores.** Cuando el manifiesto declara **más de una unidad de entrega**,
 el orquestador deriva y publica, junto al bloque anterior, el reparto de rangos. Los identificadores
-son únicos en el producto (`Root-Rules.md` §9.1), de modo que el reparto tiene que existir **antes**
+de estas familias son únicos en el producto (`Root-Rules.md` §9.1, primer ámbito), de modo que el
+reparto tiene que existir **antes**
 de que se escriba el primer caso de uso: si se decide tarde, renumerar cuesta más que declararlo, y
 con varios subagentes en paralelo cada uno inventa el suyo y los prefijos naturales coinciden con
 certeza.
@@ -296,7 +297,7 @@ tiene que verse como una decisión y no como un olvido.
 
 ```text
 Mapa de rangos de identificadores (solo si hay más de una unidad de entrega):
-- Ámbito de unicidad: producto, dentro de cada familia (Root-Rules.md §9.1)
+- Ámbito de unicidad: el producto, dentro de cada familia — el primero de los dos ámbitos de Root-Rules.md §9.1
 - Ancho: cinco dígitos (Root-Rules.md §9.2)
 
 Familias repartidas (las que produce más de una unidad de entrega):
@@ -1602,7 +1603,7 @@ Términos canónicos del orquestador. Cualquier divergencia con estos términos 
 | Apartamiento declarado | ADR que declara por qué un artefacto obligatorio no se emite, con sus alternativas descartadas y sus disparadores de revisión. No aplica cuando la obligación ya está condicionada por un flag: ahí simplemente no corresponde emitirlo. Definido en `Root-Rules.md` §11. |
 | Despacho | El prompt con que el orquestador invoca a un subagente, construido con el esqueleto fijo de §8. Lo que no está en su lista de insumos, el subagente no lo lee: es la razón por la que las reglas transversales se inyectan siempre. |
 | Matriz de sensado de deriva | Artefacto de la categoría 08 que convierte la línea de base en una lista de comprobaciones corribles. Cada una de sus filas es una **sonda**. Es una colección **derivada**: su tamaño es la suma de las tablas que la alimentan (`Root-Rules.md` §9.4). |
-| Mapa de rangos de identificadores | Reparto de bloques de numeración por unidad de entrega que el orquestador deriva y publica antes de despachar la primera categoría, cuando el producto tiene más de una. Existe porque los identificadores son únicos en el producto y varios subagentes generan en paralelo. Definido en §3.4. |
+| Mapa de rangos de identificadores | Reparto de bloques de numeración por unidad de entrega que el orquestador deriva y publica antes de despachar la primera categoría, cuando el producto tiene más de una. Existe porque los identificadores de estas familias son únicos en el producto y varios subagentes generan en paralelo. Definido en §3.4. |
 | Conjunto cerrado | Enumeración completa de valores admitidos que una categoría declara y **marca como tal**: valores de un campo, estados de una entidad, códigos de resultado, clasificaciones. Marcarlo es lo que lo vuelve verificable entre categorías. Extenderlo cuando pertenece a otra categoría exige la detención por arbitraje de §7.0. |
 | Salida prometida | Lo que un sample de la categoría 10 declara que va a producir al correr, antes de que exista el código que lo produce. Es la única evidencia observable sobre la que su contrato de verificación puede asertar, y por eso un caso de uso está **recorrido** solo cuando alguna línea de ella cambia como consecuencia de un paso de su flujo. |
 | Glosario de categoría | Artefacto propio de una categoría que declara los términos que esa categoría acuña y que aparecen en más de uno de sus artefactos, con sus referentes cuando tiene más de uno. No es un glosario por documento: la regla de no duplicación manda referenciar el término ya declarado por otra categoría en lugar de redefinirlo. |

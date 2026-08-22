@@ -9,7 +9,7 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
 **Rige hacia adelante.** Ningún documento emitido se reaudita por esta versión, con el precedente que §III.7 fija para D9.
 
-### Cambiado — `Root-Rules.md` 7.1 → 8.0, §9.1, §9.2 y §10
+### Cambiado — `Root-Rules.md` 7.1 → 7.2, §9.1, §9.2 y §10
 
 **§9.1 declara dos ámbitos**: el **producto**, para las familias que catalogan lo que el framework genera, y el **conjunto normativo vigente**, para los artefactos y los roles del framework.
 
@@ -17,7 +17,7 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
 **`_legacy/` queda fuera del espacio de candidatos**: el conjunto archiva una copia por versión publicada, y sin esa cláusula la comprobación de duplicados levantaría **uno por snapshot**.
 
-**§9.2 retira la exclusión de `AG-XX`**, que pasa a ser **ítem diferido de §12.2**: no está afuera del sistema, tiene su renumeración pendiente, con dueño y evento de cierre. Y **§10 R5** pasa de «único en el producto» a «único en su ámbito».
+**§9.2 retira la exclusión de `AG-XX`** —la fila se elimina y la tabla queda con una—, y pasa a ser **ítem diferido de §12.2**: no está afuera del sistema, tiene su renumeración pendiente, con dueño y evento de cierre. Y **§10 R5** pasa de «único en el producto» a «único en su ámbito».
 
 ### Cambiado — `README.md`, invariante **D3**
 
@@ -33,20 +33,19 @@ De *«son **únicos en el producto**»* a *«son **únicos en su ámbito declara
 
 **Renombres de artefacto**
 
-| Artefacto | Nombre anterior | Nombre vigente |
+| Nombre anterior | Nombre vigente | Naturaleza |
 | --- | --- | --- |
 | — | — | **Vacía.** Ningún artefacto cambió de nombre |
 
 **Secciones movidas o partidas**
 
-| Regla | Antes | Ahora | Qué hacer en el destino |
-| --- | --- | --- | --- |
-| `Root-Rules.md` | §9.2, tabla de **dos** exclusiones | Tabla de **una**: `AG-XX` sale y pasa a §12.2 | **Nada en el destino.** La tabla gobierna al framework |
-| `README.md` | **D3**, «únicos en el producto» | «únicos en su **ámbito declarado**» | **Nada**: las familias del producto conservan su ámbito. Una cita a D3 sigue resolviendo |
+| Documento | Sección anterior | Destino vigente |
+| --- | --- | --- |
+| — | — | **Vacía.** Ninguna sección se movió ni se partió: §9.1 y §9.2 conservan su número y su título |
 
 **Campos bloqueantes nuevos**
 
-| Dónde | Campo | Qué pasa si falta |
+| Documento | Campo | Regla que lo exige |
 | --- | --- | --- |
 | — | — | **Vacía.** Esta versión no agrega ningún campo obligatorio |
 
@@ -168,7 +167,7 @@ La auditoría construyó además la **lista de ítems donde diferir es ilegítim
 
 **Renombres de artefacto**
 
-| Artefacto | Nombre anterior | Nombre vigente |
+| Nombre anterior | Nombre vigente | Naturaleza |
 | --- | --- | --- |
 | — | — | **Vacía.** Ningún artefacto cambió de nombre |
 
@@ -251,7 +250,7 @@ Cuatro criterios nuevos de §12.2 y la fila de §12 recalificada a §12.1, por l
 
 **Renombres de artefacto**
 
-| Artefacto | Nombre anterior | Nombre vigente |
+| Nombre anterior | Nombre vigente | Naturaleza |
 | --- | --- | --- |
 | — | — | **Vacía.** Ningún artefacto cambió de nombre |
 
