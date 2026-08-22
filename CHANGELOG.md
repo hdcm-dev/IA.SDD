@@ -3,6 +3,24 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [11.3] - 2026-08-22
+
+**§12.2 declara la forma de un ítem diferido, y el framework no tenía dónde anotar los suyos.** Las obligaciones que una intervención no puede cerrar se venían escribiendo en su **nota de coherencia** — y una nota **relata una intervención y se cierra con su fecha**, mientras el ítem **sigue vigente después**. Queda donde nadie lo vuelve a mirar, que es exactamente la forma de promesa que §12.2 califica **P1**.
+
+### Agregado — `Root-Rules.md` 7.1 → 7.2, §12.3
+
+**El registro de ítems diferidos vigentes del framework.** Cuatro campos, los de §12.2, **con el cuarto sujeto a la misma exigencia**: el evento se nombra por **artefacto y sección abribles**, no por un momento ni por una entrada que todavía no existe.
+
+Nace con los **dos ítems que la 11.2 declaró y no tenían lugar**: que **§13 no fija dónde queda escrita una resolución de precedencia** —de modo que el criterio de `Master-Prompt.md` §10 alcanza sólo a las que alguien escribió—, y la **duplicación de versión** de `SDD-Getting-Started-Guide.md`, que no se corrigió porque ese archivo **no tiene tabla de control de cambios** y tocarlo dejaría un cambio sin registro posible.
+
+**Declara quién la mira** —el orquestador de reanudación, en el paso donde ya lee los diferidos de un destino— porque una obligación sin comprobador es el error más silencioso. **Y declara que para un destino no aplica**, que es lo que sostiene el bump: ningún documento generado deja de cumplir.
+
+**Cómo se cierra un ítem:** se borra de la tabla, y la fila del control de cambios que lo cierra lo dice. **Una tabla vacía es el estado sano y se declara vacía**, por el mismo motivo por el que §VI.4 obliga a declarar vacías sus tres tablas de impacto.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Registro-De-Diferidos.md`, conjunto resultante **11.3**. **Su barrido publica la corrida y no el recuento**, con las dos cajas donde toda ocurrencia viva debe caer. El motivo está medido: tres notas seguidas de una intervención anterior declararon números que **eran ciertos al medirlos y falsos al publicarlos**, porque la nota y el `CHANGELOG` **son parte del árbol que la nota mide**.
+
 ## [11.2] - 2026-08-20
 
 **El corpus no declaraba ningún criterio para resolver un conflicto entre dos reglas, y eso hacía que todos cayeran del lado de la detención sin que nadie lo hubiera decidido.** `Master-Prompt.md` §8.1 declara que algo es **trabajo propio** cuando *«se contesta **abriendo los documentos** y contrastando, y la respuesta se puede sostener con una **cita literal**»*. Un conflicto entre dos reglas **no tenía con qué citarse**: no había criterio. El agente no podía sostener ninguna resolución y escalaba — **no por decisión, por falta de cita**.

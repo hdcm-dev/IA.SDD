@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-ROOT)
-**Versión de las reglas:** 7.2
+**Versión de las reglas:** 7.1
 
 ---
 
@@ -661,32 +661,6 @@ orquestador de reanudación en su reconocimiento. **Ninguno de los dos existía 
 exactamente la falla: el método sabía atar una decisión a un evento futuro y no sabía cerrar el lazo
 cuando ese evento llegaba.
 
-### 12.3 Ítems diferidos vigentes del framework
-
-**§12.2 declara la forma. Esta subsección es el registro, y existe porque el framework difiere cosas
-propias y no tenía dónde anotarlas.**
-
-**El defecto que corrige está medido.** Las obligaciones que una intervención no puede cerrar se venían
-anotando en su **nota de coherencia**, y una nota **relata una intervención y se cierra con su fecha**.
-El ítem, en cambio, **sigue vigente después**: queda escrito donde nadie lo vuelve a mirar, que es
-exactamente la forma de promesa que §12.2 califica **P1**.
-
-**Los cuatro campos son los de §12.2**, con el cuarto sujeto a la misma exigencia: **el evento se nombra
-por un artefacto y su sección**, no por un momento ni por una entrada que todavía no existe.
-
-| Qué falta | Por qué no hoy | Quién lo cierra | Evento de cierre: artefacto y sección |
-|---|---|---|---|
-| **§13 no fija dónde queda escrita una resolución de precedencia.** El criterio de aceptación de `Master-Prompt.md` §10 alcanza por eso **sólo a las resoluciones que alguien escribió**: un subagente que aplique §13 en silencio no deja nada que auditar | Fijar el lugar exige decidir **qué artefacto la recibe**, y ninguno de los existentes es titular natural: no es un ADR de §11 ni un campo de una §4.x | La organización dueña del repositorio | **`Master-Prompt.md` §10**, la matriz de criterios del audit: se abre y se mira si el criterio de precedencia nombra un artefacto de destino |
-| `SDD/Guides/SDD-Getting-Started-Guide.md` declara su versión **en dos lugares** —frontmatter y bloque legible—, la duplicación que la 11.2 corrigió en la guía de desarrollo | El archivo **no tiene tabla de control de cambios**, de modo que tocarlo dejaría un cambio **sin registro posible**, que es el defecto que esa misma intervención corrigió | Ídem | **`SDD/Guides/SDD-Getting-Started-Guide.md`, su cabecera**: se abre y se mira si declara la versión una sola vez |
-
-**Cómo se cierra un ítem.** **Se borra de esta tabla**, y la fila del control de cambios del archivo que
-lo cierra lo dice. Una tabla vacía es el estado sano y **no se omite**: se declara vacía, por el mismo
-motivo por el que §VI.4 obliga a declarar vacías sus tres tablas de impacto.
-
-**Quién la mira.** El orquestador de reanudación, en el mismo paso donde ya lee los ítems diferidos de
-un destino (`Master-Prompt-Reanudacion.md` R0 paso 4), **cuando el árbol que reanuda es el framework**.
-Para un destino, esta subsección no aplica.
-
 ---
 
 ## 13. Precedencia entre reglas
@@ -775,4 +749,3 @@ correcta y no se podía sostener con una cita. Esta sección la funda hacia atr�
 | 6.2 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
 | 7.0 | 2026-08-19 | **§12 pasa de una figura a dos y se parte en §12.1 y §12.2**, por el reporte `14` de `IA.SDD.Documentacion`. La cabecera declara que **son la misma figura con el evento de cierre en distinto lugar**: la referencia pendiente lo tiene **adentro** del método —el orquestador ve emitirse la categoría porque él mismo la produce— y el ítem diferido lo tiene **afuera**, en el ciclo de construcción que el método no gobierna, donde nadie lo ve pasar. **§12.2 es nueva**: un ítem que una §4.x declara obligatorio y no se puede contestar hoy **se difiere con forma de cuatro campos y no con una promesa en prosa**, y el cuarto —**el evento se nombra por un artefacto y su sección, no por un momento**— es el que la distingue: un momento no deja rastro que alguien pueda abrir, y un cierre que nadie comprueba no ocurre. Declara que **un ítem que empaqueta dos decisiones se difiere por partes**, y una tabla de escalamiento con **P1 para el ítem cuyo evento ya ocurrió** y P0 al cierre del producto. Evidencia: un destino real pasó **ocho etapas sin poder etiquetar ninguna** porque el prefijo de tag viajaba empaquetado con la herramienta de versionado, y el punto de control al que se difirió cerró sin registrarlo. Sube **major**: un documento generado antes que difiera un ítem en prosa **deja de cumplir**. |
 | 7.1 | 2026-08-21 | **§13 nueva, precedencia entre reglas, con un solo criterio**, y el control de cambios pasa a §14. El corpus no declaraba **ningún criterio para resolver un conflicto entre dos reglas**, y `Master-Prompt.md` §8.1 exige **cita literal** para que algo sea trabajo propio: sin criterio, el agente no podía sostener ninguna resolución y **todo conflicto caía en la detención por arbitraje sin que nadie lo hubiera decidido**. El criterio es **viaja o no viaja en la lista de insumos de todo despacho**, un hecho del árbol que se contesta abriendo §8. **Se evaluaron dos criterios más —especificidad y fecha— y se descartaron con motivo**: ninguno tenía caso medido y los dos producían resoluciones falsas. Si el criterio no decide, se detiene por §7.0. Funda hacia atrás la resolución de `Rules-Prompts-AI.md` §4.2 punto 9 contra §12.2, aplicada en la 11.0 sin cita posible. **§10 se reescribe además sin contar sus propias reglas** —decía «las cuatro» y son cinco desde que entró R5—, que es R1 aplicada a sí misma. Sube **minor**: agrega un criterio de resolución y ningún documento generado deja de cumplir. |
-| 7.2 | 2026-08-22 | **§12.3 nueva: el registro de ítems diferidos vigentes del framework.** §12.2 declaraba la forma y el framework **no tenía dónde anotar los suyos**: se venían escribiendo en la **nota de coherencia** de cada intervención, y una nota **se cierra con su fecha** mientras el ítem sigue vigente — queda donde nadie lo vuelve a mirar, que es la promesa que §12.2 califica **P1**. Entra con los **dos ítems declarados en la 11.2** y con la exigencia del cuarto campo aplicada: el evento se nombra por **artefacto y sección abribles**, no por una entrada futura. Sube **minor**: agrega un registro y **ningún documento generado deja de cumplir** — §12.3 gobierna al framework y su última línea lo declara. |
