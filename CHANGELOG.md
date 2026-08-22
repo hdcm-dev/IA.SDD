@@ -3,29 +3,58 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
-## [11.3] - 2026-08-21
+## [12.0] - 2026-08-22
 
-**El framework no tenía forma de nombrarse a sí mismo.** `Root-Rules.md` §9 declaraba **un solo ámbito de unicidad** —el producto— y por eso el único identificador propio del framework, `AG-XX`, estaba **excluido del sistema con motivo escrito**: *«no cataloga un elemento de una colección de un producto»*. El motivo era correcto, y dejaba una consecuencia que nadie había nombrado: **sus artefactos se identifican por ruta y nombre de archivo**, que es exactamente lo que §10 **R5** declara que **no es identidad** — *«una ruta relativa codifica la identidad del destino y la posición relativa, y la segunda se rompe cuando algo la altera»*.
+**El framework no tenía forma de nombrarse a sí mismo.** `Root-Rules.md` §9 declaraba **un solo ámbito de unicidad** —el producto— y por eso el único identificador propio del framework, `AG-XX`, estaba **excluido del sistema con motivo escrito**: *«no cataloga un elemento de una colección de un producto»*. El motivo era correcto, y dejaba una consecuencia sin nombrar: **sus artefactos se identifican por ruta y nombre de archivo**, que es exactamente lo que §10 **R5** declara que **no es identidad**.
 
-### Cambiado — `Root-Rules.md` 7.1 → 7.2, §9.1, §9.2 y §10
+**Rige hacia adelante.** Ningún documento emitido se reaudita por esta versión, con el precedente que §III.7 fija para D9.
 
-**§9.1 declara dos ámbitos**: el **producto**, para las familias que catalogan lo que el framework genera, y el **conjunto normativo vigente**, para los artefactos y los roles del propio framework. **Son disjuntos por construcción**: un identificador del framework no viaja a la documentación generada, no entra en su trazabilidad y no compite con las familias del producto.
+### Cambiado — `Root-Rules.md` 7.1 → 8.0, §9.1, §9.2 y §10
 
-**`_legacy/` queda fuera del espacio de candidatos del ámbito nuevo**, y no sólo como origen de enlaces. El motivo es de volumen: el conjunto archiva **una copia por versión publicada**, de modo que sin esa cláusula la comprobación 4 de §10.0 levantaría **un duplicado por snapshot** y quedaría apagada el primer día — el argumento con el que la 8.3 excluyó `_legacy/` como origen.
+**§9.1 declara dos ámbitos**: el **producto**, para las familias que catalogan lo que el framework genera, y el **conjunto normativo vigente**, para los artefactos y los roles del framework.
 
-**§9.2 conserva la exclusión de `AG-XX` y le cambia el motivo**: ya no está afuera por no pertenecer al sistema, sino porque **su renumeración a cinco dígitos es una migración pendiente**. Y **§10 R5** pasa de «único en el producto» a «único en su ámbito».
+**Y declara cómo se relacionan, que no es «no se tocan»:** **no colisionan en numeración** —ninguna familia del framework compite por rango con una del producto— y **sí se citan a través de la frontera**: el ejemplo de §7.1, cuyo destino es el `README.md` de un producto, nombra `AG-00`, `AG-05` y `AG-09` en su columna de responsable. **Esa cita sólo resuelve si el identificador está bien formado**, que es lo que R5 exige de toda referencia. **Que se lo cite desde afuera es el motivo del ámbito propio, no un argumento en contra.**
+
+**`_legacy/` queda fuera del espacio de candidatos**: el conjunto archiva una copia por versión publicada, y sin esa cláusula la comprobación de duplicados levantaría **uno por snapshot**.
+
+**§9.2 retira la exclusión de `AG-XX`**, que pasa a ser **ítem diferido de §12.2**: no está afuera del sistema, tiene su renumeración pendiente, con dueño y evento de cierre. Y **§10 R5** pasa de «único en el producto» a «único en su ámbito».
 
 ### Cambiado — `README.md`, invariante **D3**
 
-De *«son **únicos en el producto**»* a *«son **únicos en su ámbito declarado**»*, con los dos ámbitos nombrados y su disyunción declarada.
+De *«son **únicos en el producto**»* a *«son **únicos en su ámbito declarado**»*, con los dos ámbitos nombrados y su relación declarada.
 
-### Lo que esta entrada NO hace
+### Corregido — tres restatements de D3 que quedaron falsos aguas abajo
 
-**No asigna ningún identificador y no renumera nada.** La renumeración de `AG-XX` alcanza **585 ocurrencias en 36 archivos** y es un tramo propio: meterla acá dejaría esta etapa sin ser verificable por sí sola, contra el contrato de segmentación de §VI.3. Queda declarada como **ítem diferido** en la nota de coherencia, con la forma de §12.2.
+`Rules-Especificacion-Funcional.md` 5.4 → **5.5** declaraba su ámbito como *«producto, **como todo identificador**»* — literalmente falso con dos ámbitos, y **es el único lugar del corpus donde una categoría declara ámbito**. `Master-Prompt.md` 8.10 → **8.11**: la tabla de invariantes que §5 **le presenta al usuario** declaraba heredar D3 con la redacción anterior. `Rules-Documentacion.md` 5.4 → **5.5** llamaba «del framework» a familias que son **del producto**.
+
+**Los tres los levantó la auditoría independiente**, y ninguno lo había alcanzado el barrido: los tres usan redacciones que el patrón declarado no cubría.
+
+### Impacto sobre destinos existentes
+
+**Renombres de artefacto**
+
+| Artefacto | Nombre anterior | Nombre vigente |
+| --- | --- | --- |
+| — | — | **Vacía.** Ningún artefacto cambió de nombre |
+
+**Secciones movidas o partidas**
+
+| Regla | Antes | Ahora | Qué hacer en el destino |
+| --- | --- | --- | --- |
+| `Root-Rules.md` | §9.2, tabla de **dos** exclusiones | Tabla de **una**: `AG-XX` sale y pasa a §12.2 | **Nada en el destino.** La tabla gobierna al framework |
+| `README.md` | **D3**, «únicos en el producto» | «únicos en su **ámbito declarado**» | **Nada**: las familias del producto conservan su ámbito. Una cita a D3 sigue resolviendo |
+
+**Campos bloqueantes nuevos**
+
+| Dónde | Campo | Qué pasa si falta |
+| --- | --- | --- |
+| — | — | **Vacía.** Esta versión no agrega ningún campo obligatorio |
+
+**Qué migración obliga, y cuál no.** **Ninguna, hoy.** La versión **rige hacia adelante** y no agrega campos: un destino emitido bajo 11.2 sigue cumpliendo 12.0 sin tocar un archivo. **Lo que sí conviene saber**: cuando se renumere `AG-XX` a cinco dígitos —ítem diferido, no incluido acá—, **el cambio alcanzará también a artefactos del destino** que hayan copiado la columna de responsable del ejemplo de §7.1. Esa columna **§4.2 punto 4 no la exige**; el ejemplo la muestra, y un ejemplo que enseña algo se propaga a lo que se genera con él.
 
 ### Nota de coherencia
 
-`SDD/Devs/Guides/Coherencia-Ambito-Del-Framework.md`, conjunto resultante **11.3**. Su barrido cierra con **residuo 9 que no es residuo excluido: es residuo correcto** — las nueve ocurrencias que quedan nombran **familias del producto**, cuyo ámbito no cambió.
+`SDD/Devs/Guides/Coherencia-Ambito-Del-Framework.md` **2.0**, conjunto resultante **12.0**. La primera emisión de esta intervención fue **RECHAZADA** por auditoría independiente: se había publicado **minor** lo que §VI.5 declara **major** —*«se modifica una invariante D1-D9»* basta—, y afirmaba una **disyunción falsa** entre los dos ámbitos, refutada por el ejemplo de §7.1 del mismo archivo que la declaraba.
 
 ## [11.2] - 2026-08-20
 

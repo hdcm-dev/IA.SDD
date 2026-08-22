@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/02-Especificacion-Funcional/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Analista Funcional / Ingeniero de Requisitos (AG-02)
-**Versión de las reglas:** 5.4
+**Versión de las reglas:** 5.5
 
 ---
 
@@ -107,8 +107,9 @@ en paralelo sobre el mismo dominio los prefijos naturales coinciden con certeza 
 
 - **Forma**: `E-<DOMINIO>-NNNNN`, donde `<DOMINIO>` es un segmento corto en mayúsculas que nombra el
   área funcional del error, y el número sigue el ancho de `Root-Rules.md` §9.2.
-- **Ámbito**: producto, como todo identificador (`Root-Rules.md` §9.1). Dos unidades de entrega del
-  mismo producto no pueden emitir el mismo código de error, ni siquiera para situaciones análogas.
+- **Ámbito**: **el producto** — el primero de los dos que declara `Root-Rules.md` §9.1. Dos unidades
+  de entrega del mismo producto no pueden emitir el mismo código de error, ni siquiera para
+  situaciones análogas.
   Un prefijo que coincide **parcialmente** entre proyectos es peor que la divergencia total, porque
   invita a suponer una correspondencia que no existe.
 - **Quién lo asigna**: la categoría 02 de la unidad de entrega **dueño del error**, dentro del rango
@@ -527,3 +528,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/02-Especificacion-Fu
 | 5.2 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |
 | 5.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 5.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
+| 5.5 | 2026-08-22 | La declaración de ámbito de §3.2 decía «producto, **como todo identificador**», y desde que `Root-Rules.md` §9.1 declara **dos** ámbitos esa frase es **literalmente falsa**. Pasa a nombrar el suyo: **el producto, el primero de los dos**. Es el único lugar del corpus donde una categoría declara ámbito, y **el barrido de la intervención que cambió §9.1 no lo alcanzó** porque usa otra redacción: lo levantó la auditoría independiente. Sube **minor**: precisa una declaración existente y ningún documento generado deja de cumplir. |

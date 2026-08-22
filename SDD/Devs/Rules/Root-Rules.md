@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-ROOT)
-**Versión de las reglas:** 7.2
+**Versión de las reglas:** 8.0
 
 ---
 
@@ -400,9 +400,25 @@ comprobación 4 de `Master-Prompt.md` §10.0 —*«sin duplicados dentro del ám
 levantaría una vez por copia. **Una comprobación que avisa siempre es una comprobación apagada**, que
 es el argumento con el que la 8.3 excluyó `_legacy/` como origen.
 
-**Lo que el segundo ámbito no cambia.** Un identificador del framework **no viaja a la documentación
-generada**: no aparece en un artefacto del destino, no entra en su trazabilidad y no compite con las
-familias del producto. Los dos ámbitos son disjuntos por construcción.
+**Cómo se relacionan los dos ámbitos, y no es «no se tocan».**
+
+- **No colisionan en numeración.** Ninguna familia del framework compite por rango con una del producto:
+  un `AG-05` del framework y cualquier identificador de un producto son cosas distintas y nadie tiene
+  que repartir números entre ellos.
+- **Sí se citan a través de la frontera.** Un artefacto del destino puede nombrar un elemento del
+  framework —el ejemplo de §7.1 lo hace, en la columna de responsable del mapa de documentación— y esa
+  cita **sólo resuelve si el identificador está bien formado**, que es lo que **§10 R5** exige de toda
+  referencia. **Es el motivo por el que el framework necesita ámbito propio, no un argumento en
+  contra**: se lo cita desde afuera.
+
+**Lo que el segundo ámbito sí cambia, y lo que no.** Un identificador del framework **no entra en las
+colecciones del producto** ni en su trazabilidad: no se cuenta en sus recuentos, no consume su rango y
+ninguna regla de categoría lo emite. **Aparecer citado y pertenecer a la colección son cosas
+distintas.**
+
+**Y una consecuencia declarada:** como el ejemplo de §7.1 muestra la columna de responsable —que §4.2
+punto 4 **no exige**—, un destino puede haberla copiado. **Renumerar una familia del framework alcanza
+por lo tanto también a artefactos ya emitidos**, y eso es migración, no regla nueva.
 
 Es la lectura que hace resolver la trazabilidad que el framework ya exige: la tabla de trazabilidad a
 casos de uso de `Rules-Necesidades-Negocio.md` §4.4 cita el caso de uso por identificador desnudo,
@@ -440,7 +456,7 @@ techo elija una salida distinta y dos líneas de base del mismo framework queden
 Las tres propiedades que el ancho uniforme aporta se conservan enteras: los identificadores ordenan
 lexicográficamente igual que numéricamente, alinean en columna, y se reconocen de un vistazo.
 
-**Familias alcanzadas.** Toda familia que catalogue elementos de una colección de un producto: `NB`,
+**Familias alcanzadas.** Toda familia que catalogue elementos de una colección **de un producto o del conjunto normativo** (§9.1). Del producto: `NB`,
 `CU`, `RN`, `RC`, `ADR`, `US`, `BT`, `EP`, `TC`, `NFR`, `SUP`, `CMP`, `EST`, `NAV`, `DM`, `SD`,
 `VER`, `EV`, `EVE`, `ISSUE`, `OPS`, `EXT`, `STAGE`, `ENV`, `DOD` y equivalentes.
 
@@ -457,11 +473,11 @@ Que la salida sea una y esté declarada es el punto. Lo que producía el daño n
 techo: era que cada agente eligiera una salida distinta sin ningún criterio del método para preferir
 una, y que dos corridas del mismo framework produjeran líneas de base incomparables.
 
-**Las dos exclusiones, con su motivo:**
+**Las exclusiones, con su motivo:**
 
 | Excluida | Por qué |
 | --- | --- |
-| `AG-XX` | **Excluida del ancho, no del sistema.** Designa uno de los roles del catálogo de especialidades del framework: desde que §9.1 declara el ámbito del conjunto normativo, **pertenece al sistema de identificadores** y le corresponde el ancho de cinco dígitos. **Sigue excluida mientras su renumeración esté pendiente**, que es una migración del propio framework y no una regla nueva. Su cardinalidad la fija el framework y no crece con el producto |
+| `AG-XX` | **Ya no está excluida.** Desde que §9.1 declara el ámbito del conjunto normativo, **pertenece al sistema de identificadores** y le corresponde el ancho de cinco dígitos. **Su renumeración es un ítem diferido de §12.2**, no una exclusión: la deuda tiene dueño y evento de cierre, y hasta entonces la forma vigente es la de dos dígitos |
 | El ordinal de iteración (`Sprint-XX`, `S0` a `S9`) | Es una posición de calendario que el roadmap de la categoría 00 numera, no un identificador de catálogo. Su referente es una ventana de tiempo del producto |
 
 ### 9.3 Estabilidad y capacidad, enunciadas juntas
@@ -764,4 +780,4 @@ correcta y no se podía sostener con una cita. Esta sección la funda hacia atr�
 | 6.2 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
 | 7.0 | 2026-08-19 | **§12 pasa de una figura a dos y se parte en §12.1 y §12.2**, por el reporte `14` de `IA.SDD.Documentacion`. La cabecera declara que **son la misma figura con el evento de cierre en distinto lugar**: la referencia pendiente lo tiene **adentro** del método —el orquestador ve emitirse la categoría porque él mismo la produce— y el ítem diferido lo tiene **afuera**, en el ciclo de construcción que el método no gobierna, donde nadie lo ve pasar. **§12.2 es nueva**: un ítem que una §4.x declara obligatorio y no se puede contestar hoy **se difiere con forma de cuatro campos y no con una promesa en prosa**, y el cuarto —**el evento se nombra por un artefacto y su sección, no por un momento**— es el que la distingue: un momento no deja rastro que alguien pueda abrir, y un cierre que nadie comprueba no ocurre. Declara que **un ítem que empaqueta dos decisiones se difiere por partes**, y una tabla de escalamiento con **P1 para el ítem cuyo evento ya ocurrió** y P0 al cierre del producto. Evidencia: un destino real pasó **ocho etapas sin poder etiquetar ninguna** porque el prefijo de tag viajaba empaquetado con la herramienta de versionado, y el punto de control al que se difirió cerró sin registrarlo. Sube **major**: un documento generado antes que difiera un ítem en prosa **deja de cumplir**. |
 | 7.1 | 2026-08-21 | **§13 nueva, precedencia entre reglas, con un solo criterio**, y el control de cambios pasa a §14. El corpus no declaraba **ningún criterio para resolver un conflicto entre dos reglas**, y `Master-Prompt.md` §8.1 exige **cita literal** para que algo sea trabajo propio: sin criterio, el agente no podía sostener ninguna resolución y **todo conflicto caía en la detención por arbitraje sin que nadie lo hubiera decidido**. El criterio es **viaja o no viaja en la lista de insumos de todo despacho**, un hecho del árbol que se contesta abriendo §8. **Se evaluaron dos criterios más —especificidad y fecha— y se descartaron con motivo**: ninguno tenía caso medido y los dos producían resoluciones falsas. Si el criterio no decide, se detiene por §7.0. Funda hacia atrás la resolución de `Rules-Prompts-AI.md` §4.2 punto 9 contra §12.2, aplicada en la 11.0 sin cita posible. **§10 se reescribe además sin contar sus propias reglas** —decía «las cuatro» y son cinco desde que entró R5—, que es R1 aplicada a sí misma. Sube **minor**: agrega un criterio de resolución y ningún documento generado deja de cumplir. |
-| 7.2 | 2026-08-21 | **§9.1 declara un segundo ámbito de unicidad: el conjunto normativo vigente**, para los artefactos y los roles del framework. Hasta acá el ámbito era **uno solo** —el producto— y por eso el único identificador propio del framework, `AG-XX`, estaba **excluido del sistema con motivo escrito**: no cataloga elementos de un producto. El motivo era correcto y dejaba al framework **sin forma de nombrarse a sí mismo**, que es lo que impide resolver una referencia por identidad cuando un artefacto se mueve o se renombra. Los dos ámbitos son **disjuntos por construcción**: un identificador del framework no viaja a la documentación generada. **`_legacy/` queda fuera del espacio de candidatos** del ámbito nuevo, y no sólo como origen de enlaces: el conjunto archiva una copia por versión publicada, de modo que sin esa cláusula la comprobación 4 levantaría un duplicado por snapshot y quedaría apagada por volumen. La exclusión de `AG-XX` **se conserva y cambia de motivo**: ya no está afuera por no ser del producto, sino porque **su renumeración a cinco dígitos es una migración pendiente**. Sube **minor**: declara un ámbito y no obliga a renumerar nada todavía; ningún documento generado deja de cumplir. |
+| 8.0 | 2026-08-22 | **§9.1 declara un segundo ámbito de unicidad: el conjunto normativo vigente**, para los artefactos y los roles del framework. Hasta acá el ámbito era **uno solo** —el producto— y por eso el único identificador propio del framework, `AG-XX`, estaba **excluido del sistema con motivo escrito**. El motivo era correcto y dejaba al framework **sin forma de nombrarse a sí mismo**: sus artefactos se identifican por ruta y nombre de archivo, que es lo que §10 **R5** declara que **no es identidad**. Los dos ámbitos **no colisionan en numeración** y **sí se citan a través de la frontera** —el ejemplo de §7.1 nombra roles del framework en un artefacto del destino—, y esa cita sólo resuelve si el identificador está bien formado: **es el motivo del ámbito propio, no un argumento en contra**. **`_legacy/` queda fuera del espacio de candidatos** de los dos ámbitos. La exclusión de `AG-XX` **se retira de §9.2** y pasa a ser un **ítem diferido de §12.2**: no está afuera del sistema, tiene su renumeración pendiente. §10 R5 pasa de «único en el producto» a «único en su ámbito». **Rige hacia adelante**: ningún documento emitido se reaudita por esta versión. Sube **major** por §VI.5: modifica la invariante **D3**. |
