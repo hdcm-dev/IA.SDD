@@ -2,10 +2,10 @@
 
 **Producto:** {{Nombre-Producto}}
 **Documento:** Design-Rules-Web-Generico.md
-**Versión:** 1.3
+**Versión:** 1.4
 **Estado:** Vigente
 **Fecha:** 2026-07-18
-**Autor:** {{equipo-o-rol}} (AG-03 UX/UI)
+**Autor:** {{equipo-o-rol}} (AG-00030 UX/UI)
 **Ámbito:** Web genérico (agnóstico de framework)
 **Posición:** Insumo normativo de la categoría 03. Base del catálogo `References/Design/`. No es un artefacto operativo de `docs/`.
 
@@ -13,7 +13,7 @@
 
 ## 0. Propósito y alcance
 
-Este documento codifica el lenguaje de diseño que el subagente AG-03 aplica al producir los artefactos operativos de la categoría 03 (`experiencia-de-uso`, `wireframes-<superficie>`, `representacion-<concepto>`) de cualquier proyecto de código con interfaz web. Define tokens, patrones de componente, estados, iconografía vectorial, accesibilidad y criterios de calidad, de forma agnóstica del framework de presentación.
+Este documento codifica el lenguaje de diseño que el subagente AG-00030 aplica al producir los artefactos operativos de la categoría 03 (`experiencia-de-uso`, `wireframes-<superficie>`, `representacion-<concepto>`) de cualquier proyecto de código con interfaz web. Define tokens, patrones de componente, estados, iconografía vectorial, accesibilidad y criterios de calidad, de forma agnóstica del framework de presentación.
 
 Es la pieza base del catálogo de diseño. Los documentos por stack (`Design-Rules-Blazor-Mudblazor`, y los futuros de HTML puro, MAUI y Blazor en MAUI) heredan estas reglas y solo mapean cada token y cada patrón a su tecnología concreta. Si una regla de este documento entra en conflicto con la especialización, manda la regla base salvo limitación técnica explícita y justificada en el documento hijo.
 
@@ -254,7 +254,7 @@ Una superficie cumple el catálogo cuando: usa solo tokens del sistema (cero lit
 
 | Dimensión | Referencia |
 | --- | --- |
-| Especialidad dueña | AG-03 UX/UI |
+| Especialidad dueña | AG-00030 UX/UI |
 | Regla que lo invoca | `devs/Rules/Rules-UX-UI-DX.md` |
 | Documentos hijos | `Design-Rules-Blazor-Mudblazor.md` y futuros por stack |
 | Extensión por capacidad | `Design-Rules-Config-Esquema.md` (configuración dirigida por esquema) |
@@ -270,7 +270,8 @@ Una superficie cumple el catálogo cuando: usa solo tokens del sistema (cero lit
 
 | Versión | Fecha | Cambios | Autor |
 | --- | --- | --- | --- |
-| 1.0 | 2026-06-19 | Versión inicial. Tokens, layout, catálogo de patrones, estados, iconografía SVG, accesibilidad AA, responsive y anti-patrones. Base del catálogo `References/Design/`. | AG-03 UX/UI |
-| 1.1 | 2026-06-20 | Configuración dirigida por esquema: principio rector 8, estado semántico `info` (`color.text/background/border.info`) en §2.1 con confirmación de que `warning` corresponde a Atención, anti-patrón de default/ayuda hardcodeados en §10 y registro de la extensión por capacidad `Design-Rules-Config-Esquema` en §11. | AG-03 UX/UI |
-| 1.2 | 2026-07-18 | Registro en §11 de tres extensiones por capacidad nuevas (`Design-Rules-Primer-Arranque`, `Design-Rules-Acceso-Monousuario`, `Design-Rules-Identidad-De-Version`) y dos anti-patrones en §10: chrome de navegación en superficies sin sesión ni sistema operable, e instancia desplegada sin versión visible. | AG-03 UX/UI |
-| 1.3 | 2026-07-29 | Vocabulario normativo (framework 5.0), registrado en la 5.1. El cuerpo adopta «proyecto de código» donde el referente es la unidad de compilación y «producto» donde es el nivel superior, según `Vocabulario-Rules.md` §2. El campo de cabecera pasa de `**Proyecto:**` a `**Producto:** {{Nombre-Producto}}`: la migración lo había dejado como `**Proyecto de código:**` sobre un valor de nivel producto, que `Vocabulario-Rules.md` §4 R3 prohíbe. La fila se registra en la 5.1 porque la migración modificó el archivo sin dejar registro, contra `SDD-Development-Guide.md` §VI.1. | AG-03 UX/UI |
+| 1.0 | 2026-06-19 | Versión inicial. Tokens, layout, catálogo de patrones, estados, iconografía SVG, accesibilidad AA, responsive y anti-patrones. Base del catálogo `References/Design/`. | AG-00030 UX/UI |
+| 1.1 | 2026-06-20 | Configuración dirigida por esquema: principio rector 8, estado semántico `info` (`color.text/background/border.info`) en §2.1 con confirmación de que `warning` corresponde a Atención, anti-patrón de default/ayuda hardcodeados en §10 y registro de la extensión por capacidad `Design-Rules-Config-Esquema` en §11. | AG-00030 UX/UI |
+| 1.2 | 2026-07-18 | Registro en §11 de tres extensiones por capacidad nuevas (`Design-Rules-Primer-Arranque`, `Design-Rules-Acceso-Monousuario`, `Design-Rules-Identidad-De-Version`) y dos anti-patrones en §10: chrome de navegación en superficies sin sesión ni sistema operable, e instancia desplegada sin versión visible. | AG-00030 UX/UI |
+| 1.3 | 2026-07-29 | Vocabulario normativo (framework 5.0), registrado en la 5.1. El cuerpo adopta «proyecto de código» donde el referente es la unidad de compilación y «producto» donde es el nivel superior, según `Vocabulario-Rules.md` §2. El campo de cabecera pasa de `**Proyecto:**` a `**Producto:** {{Nombre-Producto}}`: la migración lo había dejado como `**Proyecto de código:**` sobre un valor de nivel producto, que `Vocabulario-Rules.md` §4 R3 prohíbe. La fila se registra en la 5.1 porque la migración modificó el archivo sin dejar registro, contra `SDD-Development-Guide.md` §VI.1. | AG-00030 UX/UI |
+| 1.4 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

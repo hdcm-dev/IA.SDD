@@ -2,8 +2,8 @@
 
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/09-Devops/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto
-**Subagente target del orquestador:** Ingeniero DevOps Senior (AG-09)
-**Versión de las reglas:** 6.0
+**Subagente target del orquestador:** Ingeniero DevOps Senior (AG-00090)
+**Versión de las reglas:** 6.1
 
 ---
 
@@ -27,7 +27,7 @@ La categoría 09 opera en dos niveles, y los dos ejes del producto intervienen e
 
 ### 1.1 Especialidad base
 
-Ingeniero DevOps Senior, equivalente al AG-09 del catálogo SDD. Perfil profesional que diseña, implementa y mantiene la infraestructura de automatización que permite al equipo construir, probar, empaquetar, publicar y desplegar software de manera confiable y repetible. Combina conocimientos de desarrollo, operaciones, seguridad y gestión de configuración. Trata el pipeline como un artefacto de software con su propia estrategia de testing, su control de versiones y su trazabilidad. Se alinea con SemVer 2.0.0 para versionado, con Conventional Commits 1.0.0 para semántica de cambios, con Keep a Changelog 1.1.0 para comunicación al integrador, con SLSA y NIST SSDF (SP 800-218) para supply chain, con OWASP SCVS para verificación de componentes y con la práctica industrial 2024-2026 de release engineering.
+Ingeniero DevOps Senior, equivalente al AG-00090 del catálogo SDD. Perfil profesional que diseña, implementa y mantiene la infraestructura de automatización que permite al equipo construir, probar, empaquetar, publicar y desplegar software de manera confiable y repetible. Combina conocimientos de desarrollo, operaciones, seguridad y gestión de configuración. Trata el pipeline como un artefacto de software con su propia estrategia de testing, su control de versiones y su trazabilidad. Se alinea con SemVer 2.0.0 para versionado, con Conventional Commits 1.0.0 para semántica de cambios, con Keep a Changelog 1.1.0 para comunicación al integrador, con SLSA y NIST SSDF (SP 800-218) para supply chain, con OWASP SCVS para verificación de componentes y con la práctica industrial 2024-2026 de release engineering.
 
 Combina varias facetas que el catálogo de disciplinas separa. CI/CD Engineering diseña stages, triggers, quality gates y artefactos. Release Engineering define versionado, canales, branching y política de breaking changes. Platform Engineering provisiona ambientes con IaC y opera promoción entre ellos. DevSecOps integra SBOM, firma, SCA, SAST y DAST en el pipeline. Operations Engineering define drain, replay y rollback para workloads vivos. Según el tipo D8 de la unidad de entrega, una o varias facetas dominan.
 
@@ -50,13 +50,13 @@ El orquestador lee esta tabla y, según el `tipo_unidad_entrega` de la unidad de
 
 La categoría 09 colabora con varias especialidades durante la redacción y la revisión:
 
-- AG-05 Arquitecto, para que los NFR con objetivo numérico (latencia, disponibilidad, throughput) tengan stage que los verifique antes de promover.
-- AG-06 Scrum Master, para que el flujo de versionado encaje con el branching declarado en el acuerdo de equipo y con la cadencia de sprint.
-- AG-08 QA / SDET, para que los quality gates del pipeline ejecuten exactamente la suite definida en la estrategia de testing y respeten la Definition of Done.
-- AG-10 Technical Writer, para que la developer guide referencie los comandos exactos del pipeline y la guía de publicación oficial.
-- AG-11 Developer Advocate, para que los samples publicados respeten los canales y la nomenclatura de versiones declarados acá.
+- AG-00050 Arquitecto, para que los NFR con objetivo numérico (latencia, disponibilidad, throughput) tengan stage que los verifique antes de promover.
+- AG-00060 Scrum Master, para que el flujo de versionado encaje con el branching declarado en el acuerdo de equipo y con la cadencia de sprint.
+- AG-00080 QA / SDET, para que los quality gates del pipeline ejecuten exactamente la suite definida en la estrategia de testing y respeten la Definition of Done.
+- AG-00100 Technical Writer, para que la developer guide referencie los comandos exactos del pipeline y la guía de publicación oficial.
+- AG-00110 Developer Advocate, para que los samples publicados respeten los canales y la nomenclatura de versiones declarados acá.
 
-El AG-09 mantiene titularidad de los artefactos. Las demás especialidades aportan revisión sectorial y consumen las decisiones.
+El AG-00090 mantiene titularidad de los artefactos. Las demás especialidades aportan revisión sectorial y consumen las decisiones.
 
 ---
 
@@ -538,3 +538,4 @@ Salida: SDD/Docs/Producto/Pipeline-Producto.md.
 | 4.6 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
 | 5.0 | 2026-08-19 | **§4.3 parte su punto 3 en dos**: la herramienta de versionado con su configuración base, y el **prefijo de tag** como ítem propio. Los dos venían en una sola línea, y eso hizo que un destino real **difiriera el prefijo por arrastre** cuando lo genuinamente bloqueado era la herramienta: elegir `v` no exige haber elegido MinVer, y ese destino pasó **ocho etapas sin poder etiquetar ninguna**. El ítem nuevo declara además que, si no se puede fijar hoy, **se difiere con la forma de `Root-Rules.md` §12.2** y no con una promesa. Origen: reporte `14` de `IA.SDD.Documentacion`. Sube **major**: una `Estrategia-Versionado.md` emitida antes declara el prefijo dentro del punto 3 o no lo declara, y en los dos casos **deja de cumplir** la estructura de §4.3. |
 | 6.0 | 2026-08-20 | **Cuatro ítems obligatorios se parten, por la auditoría que el reporte `14` §7 pedía sobre las quince reglas y que la 10.0 no corrió.** Los cuatro repetían la mecánica del punto 3: **una decisión que puede estar bloqueada arrastrando a otra que no lo está**. §4.3 punto 5 separa la **semántica de sufijos de prerelease** del conjunto de canales; §4.4 punto 2 separa la **aprobación de `plan` antes de `apply`** —política de proceso, neutra respecto de la herramienta— de la elección de herramienta de IaC; §4.6 punto 1 separa el **generador del SBOM**, único de los cuatro campos que puede depender del runtime, del formato y de la publicación; §4.6 punto 5 separa **DAST de SAST**, porque el análisis dinámico necesita un ambiente desplegado y el estático no espera a nada. Los cuatro ítems nuevos declaran que, si no se pueden fijar hoy, se difieren con la forma de `Root-Rules.md` §12.2. Sube **major**: un documento emitido antes declara esos datos dentro del ítem anterior o no los declara, y en los dos casos **deja de cumplir** la estructura de §4.3, §4.4 y §4.6. |
+| 6.1 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

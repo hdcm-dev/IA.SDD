@@ -3,6 +3,59 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [12.0] - 2026-08-22
+
+**La familia `AG` nunca cumplió el ancho de cinco dígitos que `Root-Rules.md` §9.2 exige, y estaba excluida con motivo escrito**: *«no cataloga un elemento de una colección de un producto»*. El motivo era correcto y dejaba una consecuencia sin nombrar — **el framework no tenía forma de nombrarse a sí mismo**, y sus roles se citaban con una forma que su propia regla prohíbe.
+
+**Esta versión la hace cumplir y recién entonces la declara alcanzada.** Ese orden es el objeto de la intervención: **dos intentos anteriores sobre el mismo objeto se retiraron tras cinco rondas de auditoría** por hacerlo al revés — declarar la regla aplicable sin producir el mapeo que la hace cumplible, con lo cual el corpus pasaba a incumplirse a sí mismo en cientos de lugares el mismo día.
+
+**Rige hacia adelante:** ningún documento emitido se reaudita por esta versión.
+
+### Cambiado — `Root-Rules.md` 7.1 → 8.0, §9.1, §9.2 y §10
+
+**§9.1 declara dos ámbitos** —el **producto** y el **conjunto normativo vigente**— y **cómo se relacionan**: **no colisionan en numeración**, y **sí se citan a través de la frontera**. Un artefacto del destino nombra roles del framework en su mapa de documentación, y **esa cita sólo resuelve si el identificador está bien formado**, que es lo que §10 **R5** exige. **Que se lo cite desde afuera es el motivo del ámbito propio, no un argumento en contra.** `_legacy/` queda fuera del espacio de candidatos de los dos.
+
+**§9.2 enumera `AG` entre las familias alcanzadas** —cuando ya cumple el ancho, no antes— y su tabla de exclusiones **suma `FA-NN`**, el flujo alternativo, que es una **posición dentro de un documento** como el ordinal de iteración. **§10 R5** pasa de «único en el producto» a «único en su ámbito».
+
+### Cambiado — la familia `AG`, en 30 archivos
+
+**El mapeo se escribió y se evaluó con cinco pruebas antes de tocar un archivo**: total, inyectivo, sin colisión, conforme al ancho, y preserva significado.
+
+| Clase | Viejo | Nuevo |
+|---|---|---|
+| Titular de categoría | `AG-00` … `AG-11` | `AG-00000` … `AG-00110` |
+| Titular de nivel producto | `AG-ROOT` | **`AG-00990`**, bloque reservado |
+| Subagente de fase | `AG-03M` | **`AG-00031`** — la hermandad con el `03` **queda escrita en el número** |
+| Marcador de plantilla | `AG-XX` | `AG-XXXXX` — se reescribe, no se renumera |
+
+**525 reemplazos.** El orden va de más específico a más general: al revés, `AG-03` habría convertido `AG-03M` en `AG-00030M`, **la forma compuesta que este tramo elimina**.
+
+### Impacto sobre destinos existentes
+
+**Renombres de artefacto**
+
+| Nombre anterior | Nombre vigente | Naturaleza |
+| --- | --- | --- |
+| — | — | **Vacía.** Ningún artefacto cambió de nombre |
+
+**Secciones movidas o partidas**
+
+| Documento | Sección anterior | Destino vigente |
+| --- | --- | --- |
+| — | — | **Vacía.** Ninguna sección se movió ni se partió |
+
+**Campos bloqueantes nuevos**
+
+| Documento | Campo | Regla que lo exige |
+| --- | --- | --- |
+| `SDD/Docs/README.md` del destino, **si su mapa de documentación declara responsable** | El identificador del rol, **con la forma nueva** | `Root-Rules.md` §9.2, ahora que la familia `AG` está alcanzada. La comprobación 4 de `Master-Prompt.md` §10.0 lo verifica |
+
+**Qué migración obliga, y cuál no.** **Un destino cuyo `README.md` no declara responsable no tiene trabajo**: §4.2 punto 4 **no exige esa columna** — la muestra el ejemplo de §7.1. **Un destino que sí la declara reemplaza `AG-NN` por su forma nueva**, con el mapeo de arriba, que **se lee al revés sin ambigüedad**. Es una sustitución mecánica en un solo archivo.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Renumeracion-AG.md`, conjunto resultante **12.0**. **Su barrido publica sus tres corridas y no sus recuentos**, y declara una corrección del propio alcance: la primera pasada **dejó afuera dos carpetas normativas** que el orquestador inyecta, y **lo detectó el barrido, no una auditoría posterior**.
+
 ## [11.2] - 2026-08-20
 
 **El corpus no declaraba ningún criterio para resolver un conflicto entre dos reglas, y eso hacía que todos cayeran del lado de la detención sin que nadie lo hubiera decidido.** `Master-Prompt.md` §8.1 declara que algo es **trabajo propio** cuando *«se contesta **abriendo los documentos** y contrastando, y la respuesta se puede sostener con una **cita literal**»*. Un conflicto entre dos reglas **no tenía con qué citarse**: no había criterio. El agente no podía sostener ninguna resolución y escalaba — **no por decisión, por falta de cita**.

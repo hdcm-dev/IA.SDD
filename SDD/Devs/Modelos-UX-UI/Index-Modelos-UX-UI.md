@@ -2,10 +2,10 @@
 
 **Framework:** SDD
 **Documento:** Index-Modelos-UX-UI.md
-**Versión:** 1.1
+**Versión:** 1.2
 **Estado:** Vigente
 **Fecha:** 2026-07-19
-**Autor:** AG-ROOT (Arquitecto de Soluciones)
+**Autor:** AG-00990 (Arquitecto de Soluciones)
 
 ---
 
@@ -64,7 +64,7 @@ Condición bloqueante de la escritura: `IA.SDD` es un repositorio público. Ning
 
 ## 5. Cómo se selecciona un modelo
 
-El subagente AG-03M no elige: ofrece y el humano decide. La secuencia está en `Maqueta-Rules.md` §3.1.
+El subagente AG-00031 no elige: ofrece y el humano decide. La secuencia está en `Maqueta-Rules.md` §3.1.
 
 Criterios que el orquestador usa para ordenar las opciones que presenta:
 
@@ -80,5 +80,6 @@ La opción por defecto (catálogo base sin modelo) se presenta siempre y primero
 
 | Versión | Fecha | Cambios | Autor |
 | --- | --- | --- | --- |
-| 1.0 | 2026-07-19 | Índice inicial del catálogo de modelos UX-UI, creado junto con la Fase B2 de validación visual de maqueta. Define el propósito del catálogo y su diferencia con `References/Design/`, la convención de nombres `Rules-Design-<Nombre-Modelo>.md` con su template ofuscado en `Templates/`, el procedimiento de registro con sus tres escrituras y su condición bloqueante de ofuscación, y el criterio de presentación de opciones en el paso 1 de la Fase B2. El catálogo arranca vacío. | AG-ROOT |
-| 1.1 | 2026-07-29 | Vocabulario normativo (framework 5.0), registrado en la 5.1. El índice adopta «proyecto de código» y «producto» según `Vocabulario-Rules.md` §2, y su cabecera pasa de `**Proyecto:** Template SDD` a `**Framework:** SDD`. La fila se registra en la 5.1 porque la migración modificó el archivo sin dejar registro, contra `SDD-Development-Guide.md` §VI.1. | AG-ROOT |
+| 1.0 | 2026-07-19 | Índice inicial del catálogo de modelos UX-UI, creado junto con la Fase B2 de validación visual de maqueta. Define el propósito del catálogo y su diferencia con `References/Design/`, la convención de nombres `Rules-Design-<Nombre-Modelo>.md` con su template ofuscado en `Templates/`, el procedimiento de registro con sus tres escrituras y su condición bloqueante de ofuscación, y el criterio de presentación de opciones en el paso 1 de la Fase B2. El catálogo arranca vacío. | AG-00990 |
+| 1.1 | 2026-07-29 | Vocabulario normativo (framework 5.0), registrado en la 5.1. El índice adopta «proyecto de código» y «producto» según `Vocabulario-Rules.md` §2, y su cabecera pasa de `**Proyecto:** Template SDD` a `**Framework:** SDD`. La fila se registra en la 5.1 porque la migración modificó el archivo sin dejar registro, contra `SDD-Development-Guide.md` §VI.1. | AG-00990 |
+| 1.2 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

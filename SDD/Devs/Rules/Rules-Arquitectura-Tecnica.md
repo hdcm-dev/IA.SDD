@@ -3,8 +3,8 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/05-Arquitectura-Tecnica/`
 **Carpeta target (nivel producto):** `SDD/Docs/Producto/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto
-**Subagente target del orquestador:** Arquitecto de Software Senior (AG-05)
-**Versión de las reglas:** 4.4
+**Subagente target del orquestador:** Arquitecto de Software Senior (AG-00050)
+**Versión de las reglas:** 4.5
 
 ---
 
@@ -24,7 +24,7 @@ La categoría 05 opera en dos niveles dentro de un producto con jerarquía de un
 
 ### 1.1 Especialidad base
 
-Arquitecto de Software Senior, equivalente al AG-05 del catálogo SDD. Su perfil profesional combina diseño estructural, evaluación de trade-offs y registro formal de decisiones. Traduce los CU y RN de 02 y los NFR derivados de 00 y 01 en un diseño técnico implementable. Se alinea con ISO/IEC 42010 para descripción arquitectónica, con IEEE 1016 para la especificación de diseño, con el modelo C4 de Simon Brown para vistas y con el formato ADR de Michael Nygard para registrar decisiones. Cuando la unidad de entrega requiere comunicación entre servicios autónomos, asume la variante de Arquitecto de Software Distribuido, alineada con los principios de DDD táctico, contratos asincrónicos y consistencia eventual.
+Arquitecto de Software Senior, equivalente al AG-00050 del catálogo SDD. Su perfil profesional combina diseño estructural, evaluación de trade-offs y registro formal de decisiones. Traduce los CU y RN de 02 y los NFR derivados de 00 y 01 en un diseño técnico implementable. Se alinea con ISO/IEC 42010 para descripción arquitectónica, con IEEE 1016 para la especificación de diseño, con el modelo C4 de Simon Brown para vistas y con el formato ADR de Michael Nygard para registrar decisiones. Cuando la unidad de entrega requiere comunicación entre servicios autónomos, asume la variante de Arquitecto de Software Distribuido, alineada con los principios de DDD táctico, contratos asincrónicos y consistencia eventual.
 
 ### 1.2 Variantes según tipo de unidad de entrega (8 valores D8)
 
@@ -47,12 +47,12 @@ Para la vista de producto de nivel `Producto/`, el orquestador no usa una varian
 
 La categoría 05 admite revisiones acotadas por otras especialidades cuando el dominio lo requiere:
 
-- AG-02 Analista Funcional, para validar que cada CU tiene un componente o conjunto de componentes que lo cubre y que el modelo lógico mantiene la semántica del modelo conceptual.
-- AG-04 Ingeniero de Prompts, cuando alguno de los componentes delega lógica en un LLM, para fijar cómo se incrusta el contrato de prompt en el diseño técnico.
-- AG-08 QA, para validar que cada NFR declara una métrica numérica medible y que cada ADR contempla cómo se verificará su cumplimiento.
-- AG-09 DevOps, para revisar viabilidad de la vista de despliegue antes de pasarla a la categoría 09.
+- AG-00020 Analista Funcional, para validar que cada CU tiene un componente o conjunto de componentes que lo cubre y que el modelo lógico mantiene la semántica del modelo conceptual.
+- AG-00040 Ingeniero de Prompts, cuando alguno de los componentes delega lógica en un LLM, para fijar cómo se incrusta el contrato de prompt en el diseño técnico.
+- AG-00080 QA, para validar que cada NFR declara una métrica numérica medible y que cada ADR contempla cómo se verificará su cumplimiento.
+- AG-00090 DevOps, para revisar viabilidad de la vista de despliegue antes de pasarla a la categoría 09.
 
-El AG-05 mantiene siempre la titularidad del artefacto; las demás especialidades aportan revisiones acotadas.
+El AG-00050 mantiene siempre la titularidad del artefacto; las demás especialidades aportan revisiones acotadas.
 
 ---
 
@@ -145,7 +145,7 @@ Esta convención asegura trazabilidad histórica de las decisiones y compatibili
 
 ### 3.5 README de la sección
 
-Recomendado para todos los tipos. Debe listar el documento maestro, el índice de ADRs con su estado actual, el modelo lógico si aplica, los contratos vigentes y los puntos de extensión. Sirve como punto de entrada navegable para revisores externos (AG-02, AG-06, AG-08, AG-09).
+Recomendado para todos los tipos. Debe listar el documento maestro, el índice de ADRs con su estado actual, el modelo lógico si aplica, los contratos vigentes y los puntos de extensión. Sirve como punto de entrada navegable para revisores externos (AG-00020, AG-00060, AG-00080, AG-00090).
 
 ### 3.6 Política de versionado
 
@@ -534,3 +534,4 @@ Salida: SDD/Docs/Producto/<estructura>.
 | 4.2 | 2026-08-16 | **Dos correcciones del mismo molde.** (1) La cabecera obligatoria de §4.1 declaraba `**Proyecto de código:**` cuando los documentos de esta categoría pertenecen a una **unidad de entrega**; pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Vivía dentro de un bloque de ejemplo cercado, que ningún barrido abría. (2) **§2.1 había renombrado el artefacto a `Arquitectura-Unidad-Entrega.md` y el renombre no se propagó dentro del propio archivo**: §4.2, el criterio de aceptación de §6, el ejemplo de §7 y los insumos de §5 seguían nombrando `Arquitectura-Proyecto-Codigo.md`. El criterio de aceptación es lo grave: **el audit verificaba la existencia del nombre viejo**, de modo que un documento generado con el nombre correcto lo habría reprobado. Sube **patch**. |
 | 4.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 4.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
+| 4.5 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

@@ -2,8 +2,8 @@
 
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/02-Especificacion-Funcional/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
-**Subagente target del orquestador:** Analista Funcional / Ingeniero de Requisitos (AG-02)
-**Versión de las reglas:** 5.4
+**Subagente target del orquestador:** Analista Funcional / Ingeniero de Requisitos (AG-00020)
+**Versión de las reglas:** 5.5
 
 ---
 
@@ -17,7 +17,7 @@ La categoría 02 es el nodo central de la cadena de trazabilidad D6. Recibe insu
 
 ### 1.1 Especialidad base
 
-Analista Funcional senior, equivalente AG-02 del catálogo SDD. Su perfil profesional combina elicitación, formalización y modelado de requisitos. Traduce cada NB-XXXXX en uno o más casos de uso (CU) verificables, identifica las reglas de negocio (RN) que restringen el dominio y, cuando aplica, levanta el modelo conceptual de datos junto con sus reglas conceptuales (RC). Se alinea con IREB CPRE para elicitación y gestión, con formato de casos de uso al estilo Cockburn y con criterios de aceptación en BDD (Given/When/Then).
+Analista Funcional senior, equivalente AG-00020 del catálogo SDD. Su perfil profesional combina elicitación, formalización y modelado de requisitos. Traduce cada NB-XXXXX en uno o más casos de uso (CU) verificables, identifica las reglas de negocio (RN) que restringen el dominio y, cuando aplica, levanta el modelo conceptual de datos junto con sus reglas conceptuales (RC). Se alinea con IREB CPRE para elicitación y gestión, con formato de casos de uso al estilo Cockburn y con criterios de aceptación en BDD (Given/When/Then).
 
 ### 1.2 Variantes según tipo de unidad de entrega (8 valores D8)
 
@@ -36,12 +36,12 @@ Analista Funcional senior, equivalente AG-02 del catálogo SDD. Su perfil profes
 
 La categoría 02 se combina con otras especialidades cuando el dominio lo requiere:
 
-- AG-05 Arquitecto, en unidades de entrega con DDD o con bounded contexts múltiples, para alinear el modelo conceptual con el modelo lógico que se produce en 05.
-- AG-04 Ingeniero de Prompts, cuando algún CU delega parte del flujo en un LLM (clasificación, extracción, generación), para fijar contratos de prompt y criterios de evaluación.
-- AG-03 DX/UX, cuando el CU describe interacción humana significativa, para que las decisiones de experiencia no contaminen el flujo funcional.
-- AG-08 QA, para revisar que cada criterio Given/When/Then sea automatizable y trazable a un test en 08.
+- AG-00050 Arquitecto, en unidades de entrega con DDD o con bounded contexts múltiples, para alinear el modelo conceptual con el modelo lógico que se produce en 05.
+- AG-00040 Ingeniero de Prompts, cuando algún CU delega parte del flujo en un LLM (clasificación, extracción, generación), para fijar contratos de prompt y criterios de evaluación.
+- AG-00030 DX/UX, cuando el CU describe interacción humana significativa, para que las decisiones de experiencia no contaminen el flujo funcional.
+- AG-00080 QA, para revisar que cada criterio Given/When/Then sea automatizable y trazable a un test en 08.
 
-El AG-02 mantiene siempre la titularidad del artefacto; las demás especialidades aportan revisiones acotadas.
+El AG-00020 mantiene siempre la titularidad del artefacto; las demás especialidades aportan revisiones acotadas.
 
 ---
 
@@ -107,7 +107,7 @@ en paralelo sobre el mismo dominio los prefijos naturales coinciden con certeza 
 
 - **Forma**: `E-<DOMINIO>-NNNNN`, donde `<DOMINIO>` es un segmento corto en mayúsculas que nombra el
   área funcional del error, y el número sigue el ancho de `Root-Rules.md` §9.2.
-- **Ámbito**: producto, como todo identificador (`Root-Rules.md` §9.1). Dos unidades de entrega del
+- **Ámbito**: **el producto**, el primero de los dos que declara `Root-Rules.md` §9.1. Dos unidades de entrega del
   mismo producto no pueden emitir el mismo código de error, ni siquiera para situaciones análogas.
   Un prefijo que coincide **parcialmente** entre proyectos es peor que la divergencia total, porque
   invita a suponer una correspondencia que no existe.
@@ -127,7 +127,7 @@ dueño.
 - Downstream: cada CU enumera las US que se generarán en 06, los componentes esperados en 05 y los tests previstos en 08.
 - RN es atemporal: no cambia con la versión del producto. Si cambia, la versión nueva de la RN se publica y la anterior se archiva (ver §3.5).
 - RC se vincula al modelo conceptual y a las RN o CU que la justifican.
-- El modelo conceptual se vincula a CU y RN, no al revés. Es el AG-02 quien decide qué CU lo consumen.
+- El modelo conceptual se vincula a CU y RN, no al revés. Es el AG-00020 quien decide qué CU lo consumen.
 - **Glosario, regla de inclusión.** Todo término del dominio que aparezca en más de un artefacto de 02 —dos CU, un CU y una RN, el modelo y un CU— debe estar en `Glosario-Funcional.md`. Un término que vive en un solo artefacto se define ahí y no entra.
 - **Glosario, regla de no duplicación.** Si un término ya está declarado en el glosario de 00 (`Vision-Producto` §9, glosario del dominio del cliente) con la misma semántica, se referencia y no se redefine. Si el sentido difiere, el glosario de 02 declara la diferencia en lugar de pisarla.
 - **Glosario, regla de polisemia.** Todo término del dominio con más de un referente lleva entrada que **enumera los referentes** y declara qué forma corresponde a cada uno. El criterio de cuándo esto hace falta es `Vocabulario-Rules.md` §9: se desambigua cuando los sentidos comparten contexto de lectura, y el contexto de lectura de un subagente es la sección. La forma desnuda de una familia calificada —«el registro», cuando el corpus ya usa «registro de auditoría» y «registro del contenedor»— es el caso que hay que resolver; las formas calificadas no lo son.
@@ -135,7 +135,7 @@ dueño.
 
 ### 3.4 README de la sección
 
-Recomendado para todos los tipos. Debe listar CU, RN, modelo y RC vigentes con propósito en una línea y estado actual. Sirve como punto de entrada navegable para revisores externos (AG-05, AG-06, AG-08).
+Recomendado para todos los tipos. Debe listar CU, RN, modelo y RC vigentes con propósito en una línea y estado actual. Sirve como punto de entrada navegable para revisores externos (AG-00050, AG-00060, AG-00080).
 
 ### 3.5 Política de versionado
 
@@ -527,3 +527,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/02-Especificacion-Fu
 | 5.2 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |
 | 5.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 5.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
+| 5.5 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

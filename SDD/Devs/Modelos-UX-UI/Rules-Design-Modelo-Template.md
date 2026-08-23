@@ -2,16 +2,16 @@
 
 **Framework:** SDD
 **Documento:** Rules-Design-Modelo-Template.md
-**Versión:** 1.1
+**Versión:** 1.2
 **Estado:** Vigente
 **Fecha:** 2026-07-19
-**Autor:** AG-ROOT (Arquitecto de Soluciones)
+**Autor:** AG-00990 (Arquitecto de Soluciones)
 
 ---
 
 ## Cómo se usa esta plantilla
 
-La completa el subagente AG-03M en el paso 7 de la Fase B2 (`Rules/Maqueta-Rules.md` §3.7), cuando el humano acepta capitalizar el diseño de una maqueta aprobada. El resultado se escribe como `Rules-Design-<Nombre-Modelo>.md` en este mismo directorio y se registra en `Index-Modelos-UX-UI.md` §2.
+La completa el subagente AG-00031 en el paso 7 de la Fase B2 (`Rules/Maqueta-Rules.md` §3.7), cuando el humano acepta capitalizar el diseño de una maqueta aprobada. El resultado se escribe como `Rules-Design-<Nombre-Modelo>.md` en este mismo directorio y se registra en `Index-Modelos-UX-UI.md` §2.
 
 Tres reglas de redacción que gobiernan todo el documento:
 
@@ -30,7 +30,7 @@ Los bloques `<...>` son placeholders a reemplazar. Los bloques rotulados como or
 **Versión:** 1.0
 **Estado:** Vigente
 **Fecha:** `<YYYY-MM-DD>`
-**Autor:** {{equipo-o-rol}} (AG-03M)
+**Autor:** {{equipo-o-rol}} (AG-00031)
 **Ámbito:** Modelo UX-UI capturado de maqueta aprobada
 **Hereda de:** `References/Design/Design-Rules-Web-Generico.md`
 **Posición:** Insumo normativo opcional de la Fase B2 y de la categoría 03. Se aplica por encima del catálogo base, nunca lo reemplaza.
@@ -216,5 +216,6 @@ No confundir con §15, que es el control de cambios del **documento que esta pla
 
 | Versión | Fecha | Cambios | Autor |
 | --- | --- | --- | --- |
-| 1.0 | 2026-07-19 | Plantilla inicial de captura de un modelo UX-UI, creada junto con el catálogo `Modelos-UX-UI/` y la Fase B2 de validación visual de maqueta (`CHANGELOG.md` [2.2]). | AG-ROOT |
-| 1.1 | 2026-07-29 | Vocabulario normativo (framework 5.0), registrado en la 5.1. El cuerpo adopta «proyecto de código» y «producto» según `Vocabulario-Rules.md` §2; la cabecera pasa de `**Proyecto:** Template SDD` a `**Framework:** SDD` y la del documento producido de `**Proyecto de código:** {{Nombre-Producto}}` a `**Producto:** {{Nombre-Producto}}`, porque nombraba al producto con la etiqueta del otro plano, contra `Vocabulario-Rules.md` §4 R3. Se agrega esta sección: la plantilla declaraba versión en cabecera sin tener control de cambios propio, aplicación incompleta de D5 que §15 hacía difícil de ver. | AG-ROOT |
+| 1.0 | 2026-07-19 | Plantilla inicial de captura de un modelo UX-UI, creada junto con el catálogo `Modelos-UX-UI/` y la Fase B2 de validación visual de maqueta (`CHANGELOG.md` [2.2]). | AG-00990 |
+| 1.1 | 2026-07-29 | Vocabulario normativo (framework 5.0), registrado en la 5.1. El cuerpo adopta «proyecto de código» y «producto» según `Vocabulario-Rules.md` §2; la cabecera pasa de `**Proyecto:** Template SDD` a `**Framework:** SDD` y la del documento producido de `**Proyecto de código:** {{Nombre-Producto}}` a `**Producto:** {{Nombre-Producto}}`, porque nombraba al producto con la etiqueta del otro plano, contra `Vocabulario-Rules.md` §4 R3. Se agrega esta sección: la plantilla declaraba versión en cabecera sin tener control de cambios propio, aplicación incompleta de D5 que §15 hacía difícil de ver. | AG-00990 |
+| 1.2 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

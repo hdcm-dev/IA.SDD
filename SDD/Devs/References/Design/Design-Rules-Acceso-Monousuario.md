@@ -2,10 +2,10 @@
 
 **Producto:** {{Nombre-Producto}}
 **Documento:** Design-Rules-Acceso-Monousuario.md
-**Versión:** 1.1
+**Versión:** 1.2
 **Estado:** Vigente
 **Fecha:** 2026-07-18
-**Autor:** {{equipo-o-rol}} (AG-03 UX/UI)
+**Autor:** {{equipo-o-rol}} (AG-00030 UX/UI)
 **Ámbito:** Capacidad transversal — autenticación y sesión de un solo operador (agnóstico de framework)
 **Hereda de:** `Design-Rules-Web-Generico.md`
 **Posición:** Insumo normativo de la categoría 03. Extensión por capacidad del catálogo `References/Design/`. No es un artefacto operativo de `docs/`.
@@ -16,7 +16,7 @@
 
 Este documento codifica el lenguaje de diseño del acceso en un perfil concreto: el panel de control monolítico de un servicio específico, operado por una sola persona sobre su propia instancia. Es una extensión por capacidad del catálogo, transversal a cualquier stack, y aplica a todo proyecto de código cuyo intake declare una única identidad de operación.
 
-Carga condicional: el subagente AG-03 lo suma al base solo cuando el proyecto de código declara acceso de operador único (Parte C del intake o casos de uso de 02 con una sola identidad y sin gestión de usuarios). No aplica a productos con varias identidades, roles diferenciados, invitaciones o federación de identidad; en esos casos rige el patrón de acceso general del documento base.
+Carga condicional: el subagente AG-00030 lo suma al base solo cuando el proyecto de código declara acceso de operador único (Parte C del intake o casos de uso de 02 con una sola identidad y sin gestión de usuarios). No aplica a productos con varias identidades, roles diferenciados, invitaciones o federación de identidad; en esos casos rige el patrón de acceso general del documento base.
 
 El perfil de operador único no es una versión recortada del acceso multiusuario: es un perfil con reglas propias. Su valor de diseño está en lo que omite deliberadamente. Cada ceremonia de identidad que se arrastra sin necesidad (registro, selección de cuenta, recuperación por correo, roles) agrega superficie, agrega decisiones y no compra nada, porque no hay a quién distinguir de quién.
 
@@ -214,7 +214,7 @@ Una superficie de acceso cumple esta extensión cuando: existe una sola identida
 
 | Dimensión | Referencia |
 | --- | --- |
-| Especialidad dueña | AG-03 UX/UI |
+| Especialidad dueña | AG-00030 UX/UI |
 | Hereda de | `Design-Rules-Web-Generico.md` |
 | Mapeado por | especializaciones por stack (por ejemplo `Design-Rules-Blazor-Mudblazor.md`) |
 | Extensión hermana | `Design-Rules-Primer-Arranque.md` (crea la identidad única y comparte el shell de acceso) |
@@ -231,5 +231,6 @@ Una superficie de acceso cumple esta extensión cuando: existe una sola identida
 
 | Versión | Fecha | Cambios | Autor |
 | --- | --- | --- | --- |
-| 1.0 | 2026-07-18 | Versión inicial. Extensión por capacidad: acceso de operador único en panel monolítico. Contrato del perfil por inclusión y omisión, shell partido acceso/trabajo, patrones de componente (tarjeta de acceso, banda de resultado por código, barra de identidad, cambio de secreto, restricción temporal, continuidad entre superficies), catálogo de resultados, frontera de sesión, esqueletos de referencia, accesibilidad AA y anti-patrones. Agnóstico de framework, sin literales de dominio. | AG-03 UX/UI |
-| 1.1 | 2026-07-29 | Vocabulario normativo (framework 5.0), registrado en la 5.1. El cuerpo adopta «proyecto de código» donde el referente es la unidad de compilación y «producto» donde es el nivel superior, según `Vocabulario-Rules.md` §2. El campo de cabecera pasa de `**Proyecto:**` a `**Producto:** {{Nombre-Producto}}`: la migración lo había dejado como `**Proyecto de código:**` sobre un valor de nivel producto, que `Vocabulario-Rules.md` §4 R3 prohíbe. La fila se registra en la 5.1 porque la migración modificó el archivo sin dejar registro, contra `SDD-Development-Guide.md` §VI.1. | AG-03 UX/UI |
+| 1.0 | 2026-07-18 | Versión inicial. Extensión por capacidad: acceso de operador único en panel monolítico. Contrato del perfil por inclusión y omisión, shell partido acceso/trabajo, patrones de componente (tarjeta de acceso, banda de resultado por código, barra de identidad, cambio de secreto, restricción temporal, continuidad entre superficies), catálogo de resultados, frontera de sesión, esqueletos de referencia, accesibilidad AA y anti-patrones. Agnóstico de framework, sin literales de dominio. | AG-00030 UX/UI |
+| 1.1 | 2026-07-29 | Vocabulario normativo (framework 5.0), registrado en la 5.1. El cuerpo adopta «proyecto de código» donde el referente es la unidad de compilación y «producto» donde es el nivel superior, según `Vocabulario-Rules.md` §2. El campo de cabecera pasa de `**Proyecto:**` a `**Producto:** {{Nombre-Producto}}`: la migración lo había dejado como `**Proyecto de código:**` sobre un valor de nivel producto, que `Vocabulario-Rules.md` §4 R3 prohíbe. La fila se registra en la 5.1 porque la migración modificó el archivo sin dejar registro, contra `SDD-Development-Guide.md` §VI.1. | AG-00030 UX/UI |
+| 1.2 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

@@ -2,10 +2,10 @@
 
 **Producto:** {{Nombre-Producto}}
 **Documento:** Design-Rules-Config-Esquema.md
-**Versión:** 1.2
+**Versión:** 1.3
 **Estado:** Vigente
 **Fecha:** 2026-07-18
-**Autor:** {{equipo-o-rol}} (AG-03 UX/UI)
+**Autor:** {{equipo-o-rol}} (AG-00030 UX/UI)
 **Ámbito:** Capacidad transversal — superficies de configuración (agnóstico de framework)
 **Hereda de:** `Design-Rules-Web-Generico.md`
 **Posición:** Insumo normativo de la categoría 03. Extensión por capacidad del catálogo `References/Design/`. No es un artefacto operativo de `docs/`.
@@ -16,7 +16,7 @@
 
 Este documento codifica el lenguaje de diseño de las superficies de configuración: pantallas donde el usuario fija parámetros que cambian el comportamiento del sistema. Es una extensión por capacidad del catálogo, distinta de las especializaciones por stack: aplica de forma transversal a cualquier proyecto de código que tenga superficies de configuración, sea cual sea el framework, y no aplica a la UI que no configura nada.
 
-Carga condicional: el subagente AG-03 lo suma al base solo cuando el proyecto de código declara superficies de configuración (Parte C del intake o casos de uso de 02 con configuración de parámetros). No reemplaza al documento base: hereda sus tokens, su tipografía, su espaciado, sus patrones de formulario y sus estados, y agrega encima los patrones propios de la configuración por esquema.
+Carga condicional: el subagente AG-00030 lo suma al base solo cuando el proyecto de código declara superficies de configuración (Parte C del intake o casos de uso de 02 con configuración de parámetros). No reemplaza al documento base: hereda sus tokens, su tipografía, su espaciado, sus patrones de formulario y sus estados, y agrega encima los patrones propios de la configuración por esquema.
 
 La capacidad queda preparada para enchufar asistencia de IA en el futuro sin rehacer el dominio. Ese enganche es forward-compatible: hoy se reserva la estructura (ver §7) y la IA se conecta después contra la misma frontera, sin tocar reglas, eventos ni acciones del dominio.
 
@@ -193,7 +193,7 @@ Una superficie de configuración cumple esta extensión cuando: cada parámetro 
 
 | Dimensión | Referencia |
 | --- | --- |
-| Especialidad dueña | AG-03 UX/UI |
+| Especialidad dueña | AG-00030 UX/UI |
 | Hereda de | `Design-Rules-Web-Generico.md` |
 | Mapeado por | especializaciones por stack (por ejemplo `Design-Rules-Blazor-Mudblazor.md`) |
 | Extensión hermana | `Design-Rules-Primer-Arranque.md` (la configuración de entorno se fija antes de la primera pantalla) |
@@ -210,6 +210,7 @@ Una superficie de configuración cumple esta extensión cuando: cada parámetro 
 
 | Versión | Fecha | Cambios | Autor |
 | --- | --- | --- | --- |
-| 1.0 | 2026-06-20 | Versión inicial. Extensión por capacidad: configuración dirigida por esquema. Contrato del descriptor de parámetro y sus cuatro consumidores, patrones de componente (campo dirigido por descriptor, ayuda contextual, divulgación progresiva, presets, explicación en palabras, indicador de simulación, ranura del asistente), estados y validación, frontera `PropuestaDeConfiguracion` (lado UX), enganche de IA forward-compat, accesibilidad AA y anti-patrones. Agnóstico de framework, sin literales de dominio. | AG-03 UX/UI |
-| 1.1 | 2026-07-18 | Incorporación de hallazgos de la extracción de características de un panel monolítico en producción: §2.1 fija la frontera entre configuración de aplicación y configuración de entorno (con la regla de no dibujar lo que la superficie no gobierna y la de descriptor sin superficie); §4.4 declara la derivación de los presets a partir de los `ejemplos` y el `default` de los descriptores; §9 suma ambos criterios de aceptación; §10 suma tres anti-patrones (preset con valores propios, parámetro de entorno dibujado, parámetro de entorno deshabilitado); §11 registra la extensión hermana de primer arranque y el cross-ref de despliegue. | AG-03 UX/UI |
-| 1.2 | 2026-07-29 | Vocabulario normativo (framework 5.0), registrado en la 5.1. El cuerpo adopta «proyecto de código» donde el referente es la unidad de compilación y «producto» donde es el nivel superior, según `Vocabulario-Rules.md` §2. El campo de cabecera pasa de `**Proyecto:**` a `**Producto:** {{Nombre-Producto}}`: la migración lo había dejado como `**Proyecto de código:**` sobre un valor de nivel producto, que `Vocabulario-Rules.md` §4 R3 prohíbe. La fila se registra en la 5.1 porque la migración modificó el archivo sin dejar registro, contra `SDD-Development-Guide.md` §VI.1. | AG-03 UX/UI |
+| 1.0 | 2026-06-20 | Versión inicial. Extensión por capacidad: configuración dirigida por esquema. Contrato del descriptor de parámetro y sus cuatro consumidores, patrones de componente (campo dirigido por descriptor, ayuda contextual, divulgación progresiva, presets, explicación en palabras, indicador de simulación, ranura del asistente), estados y validación, frontera `PropuestaDeConfiguracion` (lado UX), enganche de IA forward-compat, accesibilidad AA y anti-patrones. Agnóstico de framework, sin literales de dominio. | AG-00030 UX/UI |
+| 1.1 | 2026-07-18 | Incorporación de hallazgos de la extracción de características de un panel monolítico en producción: §2.1 fija la frontera entre configuración de aplicación y configuración de entorno (con la regla de no dibujar lo que la superficie no gobierna y la de descriptor sin superficie); §4.4 declara la derivación de los presets a partir de los `ejemplos` y el `default` de los descriptores; §9 suma ambos criterios de aceptación; §10 suma tres anti-patrones (preset con valores propios, parámetro de entorno dibujado, parámetro de entorno deshabilitado); §11 registra la extensión hermana de primer arranque y el cross-ref de despliegue. | AG-00030 UX/UI |
+| 1.2 | 2026-07-29 | Vocabulario normativo (framework 5.0), registrado en la 5.1. El cuerpo adopta «proyecto de código» donde el referente es la unidad de compilación y «producto» donde es el nivel superior, según `Vocabulario-Rules.md` §2. El campo de cabecera pasa de `**Proyecto:**` a `**Producto:** {{Nombre-Producto}}`: la migración lo había dejado como `**Proyecto de código:**` sobre un valor de nivel producto, que `Vocabulario-Rules.md` §4 R3 prohíbe. La fila se registra en la 5.1 porque la migración modificó el archivo sin dejar registro, contra `SDD-Development-Guide.md` §VI.1. | AG-00030 UX/UI |
+| 1.3 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

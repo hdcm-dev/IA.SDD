@@ -2,14 +2,14 @@
 
 **Carpeta target (por unidad de entrega visual):** `SDD/Maquetas/<Nombre-Unidad-Entrega>/` del repositorio destino
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
-**Subagente target del orquestador:** Maquetador de validación visual (AG-03M)
-**Versión de las reglas:** 4.3
+**Subagente target del orquestador:** Maquetador de validación visual (AG-00031)
+**Versión de las reglas:** 4.4
 
 ---
 
 ## 0. Posición en la cadena SDD
 
-La Fase B2 es una fase opcional del bucle por unidad de entrega que se ejecuta entre la Fase B (02, 03, 04 y su audit) y la Fase C (05). No es una categoría documental nueva: no agrega una carpeta a la numeración `00` a `11`. Es una fase de validación que toma la especificación de experiencia ya redactada por AG-03 y la materializa en una maqueta navegable, para que el humano vea antes de que se codifique.
+La Fase B2 es una fase opcional del bucle por unidad de entrega que se ejecuta entre la Fase B (02, 03, 04 y su audit) y la Fase C (05). No es una categoría documental nueva: no agrega una carpeta a la numeración `00` a `11`. Es una fase de validación que toma la especificación de experiencia ya redactada por AG-00030 y la materializa en una maqueta navegable, para que el humano vea antes de que se codifique.
 
 Resuelve tres problemas concretos del flujo:
 
@@ -27,9 +27,9 @@ Salida: la maqueta en `SDD/Maquetas/<Nombre-Unidad-Entrega>/` del destino, la re
 
 ### 1.1 Especialidad base
 
-Maquetador de validación visual, equivalente AG-03M del catálogo SDD. Perfil profesional: Frontend Engineer con foco en prototipado de alta fidelidad estructural, más Diseñador de Interacción. Domina HTML semántico, CSS con tokens, un framework de grilla y componentes, y JavaScript de interacción sin framework. Se alinea con WCAG 2.2 nivel AA como piso, con las heurísticas de Nielsen para la inspección y con el catálogo de diseño de `References/Design/` como fuente única de tokens y patrones.
+Maquetador de validación visual, equivalente AG-00031 del catálogo SDD. Perfil profesional: Frontend Engineer con foco en prototipado de alta fidelidad estructural, más Diseñador de Interacción. Domina HTML semántico, CSS con tokens, un framework de grilla y componentes, y JavaScript de interacción sin framework. Se alinea con WCAG 2.2 nivel AA como piso, con las heurísticas de Nielsen para la inspección y con el catálogo de diseño de `References/Design/` como fuente única de tokens y patrones.
 
-AG-03M no redefine la experiencia: la materializa. La titularidad de la especificación de experiencia sigue siendo de AG-03. Cuando la maqueta revela que la especificación estaba equivocada o incompleta, AG-03M no la corrige por su cuenta: emite el hallazgo y la corrección se aplica al documento de 03 en el paso de retroalimentación (§6).
+AG-00031 no redefine la experiencia: la materializa. La titularidad de la especificación de experiencia sigue siendo de AG-00030. Cuando la maqueta revela que la especificación estaba equivocada o incompleta, AG-00031 no la corrige por su cuenta: emite el hallazgo y la corrección se aplica al documento de 03 en el paso de retroalimentación (§6).
 
 ### 1.2 Variantes según tipo de unidad de entrega (8 valores D8)
 
@@ -49,10 +49,10 @@ La maqueta es siempre HTML, CSS y JavaScript ejecutados en un navegador, cualqui
 
 ### 1.3 Multi-especialidad
 
-- AG-02 Analista Funcional, para que los datos de ejemplo que exhibe la maqueta sean coherentes con el modelo conceptual y con las reglas de negocio, y para que cada superficie maquetada se ancle en un CU.
-- AG-03 Especialista UX/UI, dueño de la especificación que la maqueta materializa y receptor de las correcciones que la validación produce.
-- AG-05 Arquitecto, para que la línea de base visual no comprometa decisiones que corresponden a la capa de presentación.
-- AG-08 QA, para que la matriz de sensado de deriva sea verificable con los mismos criterios que la estrategia de testing.
+- AG-00020 Analista Funcional, para que los datos de ejemplo que exhibe la maqueta sean coherentes con el modelo conceptual y con las reglas de negocio, y para que cada superficie maquetada se ancle en un CU.
+- AG-00030 Especialista UX/UI, dueño de la especificación que la maqueta materializa y receptor de las correcciones que la validación produce.
+- AG-00050 Arquitecto, para que la línea de base visual no comprometa decisiones que corresponden a la capa de presentación.
+- AG-00080 QA, para que la matriz de sensado de deriva sea verificable con los mismos criterios que la estrategia de testing.
 
 ---
 
@@ -150,9 +150,9 @@ El humano responde `aprobar`, `aprobar con cambios <detalle>` o `rechazar <motiv
 
 ### 3.3 Paso 3 — Construcción
 
-AG-03M construye la maqueta según §4. Reglas duras de este paso:
+AG-00031 construye la maqueta según §4. Reglas duras de este paso:
 
-- Los datos de ejemplo salen de la documentación ya generada (ejemplos de los CU, del modelo conceptual, de las reglas de negocio). Si un campo no tiene ejemplo en la documentación, AG-03M no lo inventa: emite ambigüedad con el patrón de §9 del master-prompt.
+- Los datos de ejemplo salen de la documentación ya generada (ejemplos de los CU, del modelo conceptual, de las reglas de negocio). Si un campo no tiene ejemplo en la documentación, AG-00031 no lo inventa: emite ambigüedad con el patrón de §9 del master-prompt.
 - Ningún token visual se define ad hoc. Todo valor visual sale del catálogo de diseño y del modelo elegido, materializado como variable CSS con el nombre semántico del catálogo.
 - Toda superficie demuestra sus estados. El flujo feliz no alcanza.
 
@@ -204,7 +204,7 @@ Podés corregirla de dos maneras:
 
 El ciclo se repite hasta que el humano aprueba. Dos vías de corrección, y las dos tienen que estar soportadas:
 
-Vía A, corrección por prompt. El humano describe el cambio; AG-03M lo aplica sobre los archivos de la maqueta y vuelve al paso 4.
+Vía A, corrección por prompt. El humano describe el cambio; AG-00031 lo aplica sobre los archivos de la maqueta y vuelve al paso 4.
 
 Vía B, corrección manual del humano. El humano edita a mano los HTML, el CSS, el JavaScript o las imágenes y le pide al orquestador que reevalúe. El orquestador:
 
@@ -212,7 +212,7 @@ Vía B, corrección manual del humano. El humano edita a mano los HTML, el CSS, 
 2. Los compara contra el estado que él mismo había dejado. Si el repositorio destino tiene control de versiones, usa el diff; si no, compara contra el inventario que registró en la bitácora al cerrar la iteración anterior.
 3. Enumera las diferencias encontradas y las interpreta como decisiones de diseño del humano: qué cambió, en qué superficie, y qué implica para la especificación.
 4. Presenta esa lectura al humano para que confirme la interpretación antes de propagarla. Una corrección manual mal interpretada que se propaga a la documentación es peor que no haberla tomado.
-5. Preserva las correcciones manuales: en las iteraciones siguientes AG-03M no las pisa. Si un cambio pedido por prompt entra en conflicto con una corrección manual previa, AG-03M se detiene y pregunta.
+5. Preserva las correcciones manuales: en las iteraciones siguientes AG-00031 no las pisa. Si un cambio pedido por prompt entra en conflicto con una corrección manual previa, AG-00031 se detiene y pregunta.
 
 Cada iteración, por cualquiera de las dos vías, agrega una entrada a `Bitacora-Validacion-Maqueta.md` con fecha, vía, observación del humano, cambio aplicado y documento a retroalimentar.
 
@@ -303,7 +303,7 @@ Si preferís no capitalizarlo, la fase cierra acá y el diseño queda solo en el
 unidad de entrega.
 ```
 
-Si el humano acepta, AG-03M produce los dos artefactos según §5 y §6. Si no, la fase cierra.
+Si el humano acepta, AG-00031 produce los dos artefactos según §5 y §6. Si no, la fase cierra.
 
 Al cerrar la fase, el orquestador apaga el servidor estático que había levantado en el paso 4 y lo informa. Un servidor olvidado ocupando un puerto es una molestia que el humano descubre días después sin saber de dónde salió.
 
@@ -367,7 +367,7 @@ La maqueta exhibe en el pie de cada superficie el nombre de la unidad de entrega
 
 ## 5. Captura del modelo UX-UI
 
-Cuando el humano acepta capitalizar el diseño (§3.7), AG-03M redacta `../IA.SDD/SDD/Devs/Modelos-UX-UI/Rules-Design-<Nombre-Modelo>.md` siguiendo la plantilla `Rules-Design-Modelo-Template.md` del mismo directorio.
+Cuando el humano acepta capitalizar el diseño (§3.7), AG-00031 redacta `../IA.SDD/SDD/Devs/Modelos-UX-UI/Rules-Design-<Nombre-Modelo>.md` siguiendo la plantilla `Rules-Design-Modelo-Template.md` del mismo directorio.
 
 El documento no describe la maqueta: extrae de ella las reglas constructivas que permitirían a otro agente producir algo equivalente sin haberla visto. El criterio de inclusión de una regla es este: se incluye si su ausencia haría que un diseño posterior salga distinto de forma perceptible.
 
@@ -402,7 +402,7 @@ El documento nuevo se registra en `Index-Modelos-UX-UI.md` en la misma operació
 
 ## 6. Generación del template ofuscado
 
-En la misma operación de §5, AG-03M genera `../IA.SDD/Templates/<Nombre-Modelo>/` con la estructura declarada en `../IA.SDD/Templates/README.md`.
+En la misma operación de §5, AG-00031 genera `../IA.SDD/Templates/<Nombre-Modelo>/` con la estructura declarada en `../IA.SDD/Templates/README.md`.
 
 El template es un ejemplo ejecutable del modelo: reproduce las formas constructivas del HTML, del CSS y del JavaScript de la maqueta aprobada, para que un agente futuro no tenga que inferirlas de la prosa. Es al documento de reglas lo que un sample de `10-Examples` es a la referencia de API.
 
@@ -412,7 +412,7 @@ Regla de ofuscación, bloqueante:
 2. Se preserva la forma, se descarta el contenido: la estructura del HTML, los nombres de clase, la organización del CSS, la estrategia de render del JavaScript, la cantidad y el tipo de campos por entidad. Nada del significado del dominio original.
 3. Los textos de interfaz se reescriben en términos genéricos, conservando el tono y la longitud aproximada, porque la longitud del texto es una decisión de diseño.
 4. Se eliminan todos los assets de imagen que provengan de la unidad de entrega; se reemplazan por SVG neutros generados para el template.
-5. Antes de escribir, AG-03M hace una pasada de verificación explícita contra la lista de prohibiciones de §5 y declara su resultado en el bloque de devolución. Si la verificación no puede completarse con certeza, no se genera el template.
+5. Antes de escribir, AG-00031 hace una pasada de verificación explícita contra la lista de prohibiciones de §5 y declara su resultado en el bloque de devolución. Si la verificación no puede completarse con certeza, no se genera el template.
 
 El template incluye su propio `README.md` con qué patrones demuestra, cómo se relanza y qué hay que reemplazar al derivarlo.
 
@@ -560,7 +560,7 @@ Devolución:
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
-| 1.0 | 2026-07-19 | Reglas iniciales de la Fase B2 de validación visual de maqueta. Define el subagente AG-03M y sus variantes por D8, el flag `requiere_maqueta`, los artefactos de maqueta en `SDD/Maquetas/<Nombre-Proyecto>/` y los tres documentos de 03 que la fase produce, la secuencia de siete pasos con sus detenciones, las dos vías de corrección (por prompt y manual con relectura e interpretación confirmada), la matriz de propagación de la retroalimentación, las reglas constructivas de la maqueta, la captura del modelo UX-UI en `Modelos-UX-UI/`, la generación del template ofuscado en `Templates/` con verificación bloqueante, el lanzado automático del paso 4 con degradación a URL informada, el método de relanzado con sus cuatro formas soportadas, la recarga automática propia de la barra de validación y la decisión de no incorporar un paso de build, criterios de aceptación, anti-patrones y prompt-snippet. |
+| 1.0 | 2026-07-19 | Reglas iniciales de la Fase B2 de validación visual de maqueta. Define el subagente AG-00031 y sus variantes por D8, el flag `requiere_maqueta`, los artefactos de maqueta en `SDD/Maquetas/<Nombre-Proyecto>/` y los tres documentos de 03 que la fase produce, la secuencia de siete pasos con sus detenciones, las dos vías de corrección (por prompt y manual con relectura e interpretación confirmada), la matriz de propagación de la retroalimentación, las reglas constructivas de la maqueta, la captura del modelo UX-UI en `Modelos-UX-UI/`, la generación del template ofuscado en `Templates/` con verificación bloqueante, el lanzado automático del paso 4 con degradación a URL informada, el método de relanzado con sus cuatro formas soportadas, la recarga automática propia de la barra de validación y la decisión de no incorporar un paso de build, criterios de aceptación, anti-patrones y prompt-snippet. |
 | 1.1 | 2026-07-26 | Intercambio de categorías 10 ↔ 11: la analogía de §3.7 entre el template y un sample pasa a referenciar `10-Examples`. |
 | 2.0 | 2026-07-28 | Normalización del versionado (framework 4.0). El archivo vivo pierde el sufijo de versión del nombre y pasa a declarar su versión en el campo `Versión` de su cabecera; el sufijo `-v<X.Y>.md` queda reservado a las copias archivadas en `_legacy/`. Se actualizan los patrones de nombre, los ejemplos, las cabeceras modelo, los anti-patrones y los criterios de aceptación de la categoría. Sube major porque la documentación generada con la nomenclatura anterior deja de cumplir. Deriva de la reformulación de D4 y D5 en el `README.md` del framework. |
 | 3.0 | 2026-07-29 | Renombre de vocabulario normativo (framework 5.0). El nivel superior pasa de «solución» a **producto**, la unidad de compilación de «proyecto» a **proyecto de código**, y los cuatro planos de identidad del producto se separan en campos propios (`Nombre-Producto`, `Slug-Producto`, `Raiz-Codigo`, `Artefacto-Agrupacion`). Se declara el nivel de aplicación de la regla en su cabecera, según `Vocabulario-Rules.md` §4 R3. Sube major porque los identificadores y los nombres de artefacto cambian, y la documentación generada con la nomenclatura anterior deja de cumplir. |
@@ -570,3 +570,4 @@ Devolución:
 | 4.1 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 4.2 | 2026-08-17 | Los cuatro pasos de detención de la Fase B2 —1, 2, 5 y 7— adoptan la forma de `Master-Prompt.md` §8.1. El paso 5 suma el caso que la motivó: cuando la maqueta **dejó de reflejar el intake** porque el intake cambió, la detención no pregunta «¿qué hacemos?» sino que propone **modificar o replantear**, declarando **qué de lo hecho vale la pena conservar** —que es lo que decide entre las dos y lo sabe quien miró la maqueta, no quien la aprueba—. |
 | 4.3 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
+| 4.4 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
