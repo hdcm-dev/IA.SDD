@@ -1,7 +1,7 @@
 # Nota de coherencia — La renumeración de `AG`, con el mapeo escrito antes de tocar un archivo
 
 **Documento:** Coherencia-Renumeracion-AG.md
-**Versión:** 7.0 — sexta reemisión, tras siete rondas de auditoría independiente
+**Versión:** 8.0 — séptima reemisión, tras ocho rondas de auditoría y un ciclo de mejora continua con panel de nueve especialistas y jurado de cinco
 **Fecha:** 2026-08-23
 **Versión del conjunto resultante:** SDD **12.0**
 **Origen:** El tramo de identidad del plan de reestructuración, rediseñado después de que dos
@@ -49,7 +49,7 @@ categoría.
 |---|---|---|
 | 1 | **Total** | **Quince formas** distintas en el árbol —**catorce identificadores y un marcador de plantilla**, que `Root-Rules.md` §9.2 declara que **no es un identificador**—, quince filas de mapeo, **ninguna sin destino** |
 | 2 | **Inyectivo** | **Ningún destino repetido** |
-| 3 | **Sin colisión** | **Ninguno de los quince destinos existía** en el árbol |
+| 3 | **Sin colisión con lo existente** | **Ninguno de los quince destinos existía** en el árbol. **El nombre dice «con lo existente» y no «sin colisión» a secas, porque es lo que la prueba comprueba**: mira el estado del árbol, no el conjunto de valores que la regla de acuñación de §9.2 puede producir. La colisión latente entre el bloque `009xx` y las categorías `90`-`99` **no la ve esta prueba** y queda como ítem diferido en §8 |
 | 4 | **Conforme** | **Catorce** cumplen `AG-[0-9]{5}`; el decimoquinto, **`AG-XXXXX`**, es el **marcador de plantilla** y cumple el ancho con la notación que el corpus ya usa en `US-XXXXX` y `NB-XXXXX` |
 | 5 | **Preserva significado** *(interpretativo)* | Número de categoría: se sigue leyendo. Hermandad de fase: **se lee mejor**. Que `ROOT` no es de categoría: **se pierde y se compensa** con el bloque reservado |
 
@@ -126,8 +126,9 @@ evidencia** o **con un patrón que no matcheaba nada**.
 | **3** | La entrada **12.0** del `CHANGELOG`, y las publicadas **9.5, 8.4 y 7.0** | Las mismas dos cajas del comando 1: **declaración de esta intervención** y **registro fechado**. **Dos correcciones de la sexta ronda entran acá.** La emisión anterior declaraba la `5.1`, **y el comando no devuelve ninguna línea suya**: una caja sobre-declarada es tan hallazgo como una línea sin caja. Y la `8.4` **no aparecía**, porque `EXC` no estaba anclado a la ruta y **borraba toda línea cuyo texto nombrara una nota de coherencia** — `CHANGELOG.md:1250` nombra `Coherencia-Referencias-Derivadas` y desaparecía por eso. **Un filtro que descarta por contenido y no por ruta suprime evidencia**, que es el defecto que §VI.3.2 nombra al pedir exclusiones enumeradas |
 | **4** | Nada | — |
 | **5** | `AG-XX` y `RB-XX` en esta nota y en la entrada 12.0 del `CHANGELOG` | **La declaración de esta intervención**: son las dos reescrituras de marcador que el `CHANGELOG` narra en prosa por no ser renombres de identificador |
-| **5** | `CU-XX` en `Migracion-Rules.md` §4.3.1 y §4.4, y en `SDD-User-Guide.md` F-31 | **Narración de la forma anterior a la 7.0**: describen lo que un destino generado antes del salto **tiene escrito**, que es el objeto de la migración. Reescribirlos borraría lo que hay que reconocer |
-| **5** | `CU-XX`, `VER-XX`, `EV-XX`, `EVE-XX`, `EXT-XX` y `OPS-XX` en entradas publicadas —**2.2, 3.0, 3.2, 4.1, 5.1, 7.0 y 8.2**— | **Registro fechado**, la misma exclusión propia del caso que declaran los comandos 1 y 3 |
+| **5** | Líneas de esta nota, **en §3** —las propias filas de este residuo, que nombran las formas para clasificarlas— | **La declaración de la propia intervención**: son el patrón, no una ocurrencia del patrón. **Es la fila simétrica de la que el comando 3 ya tenía y a este comando le faltaba**: nació en la séptima emisión sin ella, que es la misma clase de hueco que las emisiones anteriores cerraron en los comandos 1 y 3 |
+| **5** | `CU-XX` en `Migracion-Rules.md` **§4.3.1**, y en `SDD-User-Guide.md` F-31 | **Narración de la forma anterior a la 7.0**: describen lo que un destino generado antes del salto **tiene escrito**, que es el objeto de la migración. Reescribirlos borraría lo que hay que reconocer |
+| **5** | `AG-XX`, `CU-XX`, `VER-XX`, `EV-XX`, `EVE-XX`, `EXT-XX` y `OPS-XX` en entradas publicadas —**2.2, 3.0, 3.2, 4.1, 5.1, 7.0 y 8.2**— | **Registro fechado**, la misma exclusión propia del caso que declaran los comandos 1 y 3. **La emisión anterior omitía `AG-XX` de esta lista** y dejaba sin caja las tres líneas de las entradas 4.1, 5.1 y 7.0: la caja enumeraba las entradas y no la familia |
 
 **Una línea que no caiga en ninguna de esas casillas es hallazgo**, y así se detectaron los dos P0 de la
 segunda ronda.
@@ -196,7 +197,7 @@ compara**, que es lo que `SDD-Development-Guide.md` §VI.3 fila 7 pide al decir 
 
 | # | Comprobación | Resultado |
 |---|---|---|
-| 1 | Invariantes D1–D9 en todo archivo tocado | **D3 se modifica: es el objeto.** Las otras ocho, intactas en todos los archivos que el comando de §4 devuelve |
+| 1 | Invariantes D1–D9 en todo archivo tocado | **Tabla propia más abajo**, una fila por invariante. §III.7 paso 4 la exige y la emisión anterior la resolvía en esta sola celda |
 | 2 | Autosuficiencia | Sin referencias nuevas fuera del árbol |
 | 3 | Referencias internas resuelven | Ningún archivo se movió ni se renombró |
 | 4 | Sin contradicción con lo que ya estaba | **§9.2 declara `AG` alcanzada cuando ya cumple**, no antes. Es la contradicción que hundió a las dos intervenciones retiradas |
@@ -209,6 +210,28 @@ compara**, que es lo que `SDD-Development-Guide.md` §VI.3 fila 7 pide al decir 
 | 11 | Cobertura de la nota | **Esta nota** |
 | 12 | Cobertura del catálogo | **Sin criterios nuevos**: no entra ninguna decisión que un agente deba tomar |
 | **13** | **Devolución al origen** | **§6** |
+
+**Comprobación 1 en detalle — las nueve invariantes.** §III.7 paso 4 pide verificarlas «en cada archivo
+tocado». Se verifican **por clase de archivo y no una tabla por archivo**: son 35 archivos dentro del
+alcance más 95 del snapshot, y §III.7 invoca el precedente de D9 contra el volumen que «ahoga a los
+reales». Cada fila declara **con qué** se verificó, para que la afirmación sea contrastable y no una
+declaración de buena fe.
+
+| # | Invariante | Verificación | Resultado |
+|---|---|---|---|
+| **D1** | Estructura de carpetas | `git diff b40cb0d --name-status` no devuelve ningún `R` ni `D`: ninguna carpeta se creó, movió ni eliminó fuera de `_legacy/11.2/`, que §VI.5 obliga | Intacta |
+| **D2** | Codificación y fin de línea | El diff no contiene cambios de encoding ni de terminador; los archivos tocados son los mismos blobs UTF-8 con LF | Intacta |
+| **D3** | Nombres e identificadores | **Se modifica: es el objeto.** El tramo de nombres de archivo queda **intacto** —ningún archivo cambió de nombre—; el tramo de identificadores pasa a «únicos en su ámbito declarado» | **Modificada, declarada** |
+| **D4** | Sufijo de versión en copias archivadas | El snapshot usa la convención de carpeta de §VI.5 (`_legacy/<version>/`), como los **cuarenta y seis** anteriores. Divergencia preexistente entre D4 y §VI.5, no introducida acá | Sin cambio |
+| **D5** | Registro de cambios por archivo | Comprobaciones **5** y **10** de esta misma tabla: una fila por archivo con tabla, y cabecera igual a la última fila en los 32 que la tienen | Intacta |
+| **D6** | Dirección del grafo de dependencias | Ninguna arista nueva hacia atrás: la titularidad de `AG` vive en `Root-Rules.md` §9.2, que **ya viajaba** en los insumos de todo despacho por §8. Verificado que §9 no ganó ningún lector nuevo | Intacta |
+| **D7** | Autosuficiencia del repositorio | Comprobación **2**: cero referencias nuevas fuera del árbol | Intacta |
+| **D8** | Conjunto cerrado de tipos de unidad de entrega | Ningún tipo agregado ni quitado; el diff no toca la enumeración | Intacta |
+| **D9** | Evidencia verificable | Esta nota publica **cinco comandos corribles** y su residuo encajonado, en lugar de recuentos que envejecen | Intacta |
+
+**El snapshot `_legacy/11.2/` queda fuera de esta verificación, y se declara:** §VI.5 lo declara
+**intocable**, de modo que verificar invariantes sobre él sería auditar el pasado. Lo que sí se verifica
+es que **sea byte a byte el estado de `b40cb0d`**, y eso está en la comprobación 7.
 
 ## 6. Comprobación 13 — los criterios del origen
 
@@ -230,28 +253,64 @@ compara**, que es lo que `SDD-Development-Guide.md` §VI.3 fila 7 pide al decir 
   reemisión: sube a **1.17** con sus dos filas —la 1.16 por la renumeración, y la 1.17 por el paso de
   acuñación del `AG` titular que §7.1 no tenía—. **La séptima ronda levantó que acá decía 1.16**: el
   recuento se midió antes de la corrección y se publicó después.
+- **El paso 1 de `SDD-Development-Guide.md` §III.7 está abierto y bloquea la publicación.** El
+  procedimiento obligatorio para modificar una invariante global empieza por *«1. Decisión explícita del
+  responsable del framework, registrada por escrito»*, y **esta intervención no la tiene**. El precedente
+  existe con su forma: `Coherencia-Reportes-00-11.md:89` registra *«Decisión explícita del responsable
+  del framework, tomada el 2026-08-15»* en la fila D3 de la anterior modificación de invariante.
+  **No es un ítem diferido y por eso no está en §8**: un diferido nombra un evento futuro, y acá falta
+  un acto que ya debía haber ocurrido. **Es una detención**, y ninguna reemisión la puede cerrar.
+- **Tres citas del corpus vivo nombran el rol equivocado**, y se registran como **observación y no se
+  corrigen acá**: `Rules-Devops.md:56` y `:57` —cruzadas entre sí— y `Rules-UX-UI-DX.md:53` dicen
+  `AG-00100 Technical Writer` y `AG-00110 Developer Advocate`, contra el padrón de
+  `Marco-Teorico-SDD.md` §4.3. **Verificado que preexisten en `b40cb0d`** con la forma vieja
+  —`AG-10 Technical Writer`—: son residuo del intercambio 10 ↔ 11 de la 3.0 y **el reemplazo de esta
+  intervención fue fiel**. `SDD-Development-Guide.md` §VI.3.2 lo resuelve: *«un descubrimiento no
+  habilita un cambio… se registra como observación, se reporta y se espera decisión»*. **Lo que sí es
+  hallazgo de método** es que ningún comando del barrido las puede ver: tienen la forma vigente y el
+  referente equivocado, y los cinco patrones buscan la forma anterior.
 - **Las tres notas de `References/Design/` conservan la forma vieja**, correctamente. Un lector que
   busque `AG-03` en el corpus va a encontrarlas: **es registro, no error**.
 
 ## 8. Veredicto
 
-**CONFORME.** `SDD-Development-Guide.md` §VI.3 declara que *«el veredicto es `CONFORME` o `NO CONFORME`»*:
+**NO CONFORME — detención por el paso 1 de `SDD-Development-Guide.md` §III.7.** El procedimiento
+obligatorio para modificar una invariante global empieza por *«decisión explícita del responsable del
+framework, registrada por escrito»*, y **no está**. Las trece comprobaciones pasan, el barrido publica
+sus cinco corridas con el residuo entero encajonado, y el mapeo se sostiene tras nueve auditorías — **y
+nada de eso sustituye el acto que falta**. `Master-Prompt.md` §8.1 lo clasifica sin ambigüedad: lo que
+requiere **autoridad** no es trabajo propio. **Ninguna reemisión de esta nota puede cerrarlo**, y por
+eso no se reemite hasta que se resuelva: el detalle está en §7.
+
+`SDD-Development-Guide.md` §VI.3 declara que *«el veredicto es `CONFORME` o `NO CONFORME`»*:
 son los dos valores que existen, y la emisión anterior publicaba «CONFORME POR DECISIÓN», que no es
 ninguno de los dos. **La calificación «cerró por decisión y no por criterio» de `Master-Prompt.md` §10.1
 no es un tercer veredicto: es una declaración sobre cómo cerró la fase**, y viene con dos condiciones
 —que la decisión suba al responsable de forma explícita y que se enumere lo que quedó abierto—. Tomar la
 concesión sin cumplir las condiciones fue el defecto que levantó la sexta ronda.
 
-**Las trece comprobaciones pasan**, el barrido publica sus **cinco** corridas con el residuo entero en
+**Lo verificado, que queda en pie y no depende de la detención:** las trece comprobaciones pasan, el barrido publica sus **cinco** corridas con el residuo entero en
 las clases estables de §VI.3.2 y en la exclusión propia del caso declarada en §3 —que **no** es una de
 las siete y por eso se declara—, el mapeo se evaluó con cinco pruebas **antes** de tocar un archivo, y el
 conjunto queda en **SDD 12.0**.
 
-**Lo que queda abierto, enumerado y no atribuible a esta intervención:**
+**Lo que queda abierto, en la forma de cuatro campos que `Root-Rules.md` §12.2 obliga.** La emisión
+anterior los enumeró en prosa y los declaró «diferidos por §12.2» **sin los campos 3 y 4**, con uno que
+empaquetaba dos decisiones. §12.2 califica eso **P1 — «no es contable»**, de modo que la comprobación 6
+de `Master-Prompt.md` §10.0 no podía verlos ni escalarlos. **Es el defecto que los reportes 12 a 14
+originaron, cometido por la nota que lo cita.** Va partido y con los cuatro campos:
 
-- **`Examples/` fuera del snapshot**, como en los cuarenta y seis anteriores. §VI.5 no lo excluye y tampoco lo nombra.
-- **`E-` con dos referentes vivos**: el código de error `E-<DOMINIO>-NNNNN` y el escenario de intake `E-1`.
-- **`F-NN` con dos referentes vivos, y sin clasificar en §9.2**: las entradas de la FAQ de `SDD-User-Guide.md` §6 —**citadas desde otros documentos**, de modo que el motivo «posición dentro de un documento» que excluye a `FA-NN`, `CA-NN` y `PASO-N` **no le aplica**— y la capacidad funcional del intake, `PRODUCT-INTAKE-template.md`. **Lo levantó la séptima ronda, después de que la sexta lo retirara por un barrido que no lo encontró.** Se difiere por el mismo motivo que `E-`: elegir cuál de los dos referentes se renombra **no se contesta abriendo el árbol**, y `Master-Prompt.md` §8.1 manda eso a intención de producto.
-- **El bloque `009xx` sin regla de asignación interna**, y la **regla de agotamiento** de §9.2, que al ampliar el ancho destruiría la codificación posicional `00NN0`/`00NN1`.
+| # | Qué falta, y qué sección lo exige | Por qué no hoy, y de qué depende | Quién lo cierra | En qué evento se cierra |
+|---|---|---|---|---|
+| 1 | **`Examples/` no entra al snapshot** y §VI.5 no lo excluye ni lo nombra | §VI.5 enumera tres exclusiones y ninguna lo alcanza; incluirlo o excluirlo cambia los **cuarenta y seis** snapshots ya publicados | La organización dueña del repositorio (§12.2, cláusula de defecto) | Cuando `SDD-Development-Guide.md` **§VI.5** declare `Examples/` en su lista de exclusiones o en la de contenido obligatorio |
+| 2 | **El prefijo `E-` tiene dos referentes vivos** —`E-<DOMINIO>-NNNNN` y el escenario de intake `E-1`— y §9.5 exige que toda familia viva quede clasificada | Elegir **cuál de los dos se renombra** no se contesta abriendo el árbol: `Master-Prompt.md` §8.1 lo manda a intención de producto | La organización dueña del repositorio | Cuando `Root-Rules.md` **§9.2** liste `E-` en su tabla de alcanzadas o en la de exclusiones |
+| 3 | **`F-NN` sin clasificar**, con dos referentes: la FAQ de `SDD-User-Guide.md` §6 —citada **desde otros documentos**— y la capacidad funcional del intake | Mismo motivo que el 2, y agravado: el motivo «posición dentro de un documento» que excluye a `FA-NN` **no le aplica**, porque se cita cruzando la frontera del documento | La organización dueña del repositorio | Cuando `Root-Rules.md` **§9.2** liste `F-NN` en una de sus dos tablas |
+| 4 | **El bloque `009xx` no tiene regla de asignación interna**, y §9.2 lo declara reservado sin decir cómo se reparte | No hay un segundo rol de nivel producto que fuerce la decisión: fijarla ahora sería inventar el caso | La organización dueña del repositorio | Cuando `Root-Rules.md` **§9.2** sume la regla de asignación a la tabla de titularidad y bloques |
+| 5 | **La regla de agotamiento de §9.2 es incompatible con la codificación posicional de `AG`**: ampliar el ancho reasigna el referente de todo identificador de la familia, y el bloque `009xx` **se solapa con las categorías `90` a `99`** | El solapamiento es latente y no vivo —hay doce categorías y `NN` llega a `11`—, y acotar `NN` hoy clava un techo que la categoría 90 tendría que migrar. **Se difiere por separado del 4: son dos decisiones y §12.2 prohíbe empaquetarlas** | La organización dueña del repositorio | Cuando `Root-Rules.md` **§9.2** declare la excepción de agotamiento para familias con codificación posicional, o acote el dominio de `NN` en su tabla de bloques |
+| 6 | **El padrón de `AG` no tiene las columnas que §9.3 presupone.** §9.3 exige que un identificador retirado deje *«su fila con estado `Retirado` y la fecha»*, y la tabla §4.3 de `Marco-Teorico-SDD.md` no las tiene | La regla **recién ahora alcanza a `AG`**: en la base la familia estaba excluida. Corregirlo exige decidir **dónde vive el padrón** —hoy la familia se acuña en una regla y el catálogo vive en una guía—, que es una intervención propia | La organización dueña del repositorio | Cuando `Root-Rules.md` **§9.2** declare cuál es el registro de la familia `AG`, y ese registro tenga las columnas de §9.3 |
 
-Los cinco son ítems diferidos por `Root-Rules.md` §12.2.
+**Ninguno de los seis es atribuible a esta intervención**, salvo el 6, que ella vuelve aplicable al
+incorporar `AG` al sistema. **Los seis son contables**: cada uno nombra un artefacto y una sección que
+alguien puede abrir, que es lo que §12.2 pide y lo que distingue esta figura de una promesa.
+
+

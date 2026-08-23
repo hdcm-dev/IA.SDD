@@ -15,7 +15,7 @@ traces:
 # Guía de desarrollo y extensibilidad del framework SDD
 
 **Documento:** SDD-Development-Guide.md
-**Versión:** 1.23
+**Versión:** 1.24
 **Estado:** Vigente
 **Fecha:** 2026-07-29
 **Rol de intervención:** Mantenedor del framework
@@ -793,6 +793,7 @@ que no se redescubran cada vez:
 | Notas de coherencia anteriores | Relatan un hallazgo de su fecha |
 | Rutas ilustrativas de los ejemplos | Describen el árbol de un destino, no la navegación del framework (§VI.3, comprobación 3) |
 | Renombres declarados | «Reemplaza a las antiguas X» es lo que permite reconocer un destino generado con la versión vieja |
+| **Entradas publicadas del `CHANGELOG.md`** | Narran el estado del árbol **en su fecha**, igual que una fila de control de cambios. La lista nombraba las filas y no las entradas, y una renumeración masiva alcanza las dos. Lo destapó el barrido de la 12.0 |
 | **La declaración de la propia intervención** | Escribe la forma anterior **como patrón literal** porque esta misma sección se lo exige: **nombrarla es su función**. Un barrido que no pudiera nombrar lo que corrige sería inútil. Observado en dos intervenciones seguidas, y en la primera **no se enumeró**: la corrida afirmó cero con dos ocurrencias vivas, y una auditoría posterior lo levantó como P2 |
 
 **La sección de barrido de la nota de coherencia CITA esta tabla en lugar de reescribirla**, y
@@ -806,6 +807,27 @@ delante de quien enumera.
 la parte que faltó las cinco veces: el barrido se corrió sobre el árbol y **no sobre el texto propio**.
 Una intervención que introduce la forma vigente puede introducir también la anterior —en un ejemplo
 nuevo, en una fila nueva, en una cita— y es el único lugar donde nadie está mirando.
+
+**Y una corrida más, que ninguna de las tres primeras podía sustituir.** Las exclusiones de esta tabla
+**descartan líneas antes de clasificarlas**, de modo que un barrido que reescriba por error una línea
+excluida **obtiene su cero filtrando la evidencia**. Ocurrió y está medido: una renumeración masiva
+reescribió **52 filas de control de cambios fechadas**, insertando en registros de julio identificadores
+nacidos en agosto, y los tres comandos declarados devolvían cero porque el filtro de filas de registro
+las descartaba primero. **Toda intervención que corra un reemplazo masivo publica además esta corrida:**
+
+```bash
+# ninguna línea de una clase estable fue alterada por el reemplazo
+git diff <base> -- $ALC | grep -E '^-\| [0-9]+\.[0-9]+ \| 20'
+```
+
+**Devuelve vacío o es hallazgo.** No se puede derivar del residuo de los otros comandos: mira lo que
+ellos descartan.
+
+**Y el orden de reemplazo es parte del método.** De **más específico a más general**, con frontera de
+palabra. Cuando una familia tiene una forma base y otra derivada que la contiene como prefijo, reemplazar
+la base primero **convierte la derivada en una forma compuesta** que la propia regla prohíbe — y que ya
+no matchea ningún patrón, así que el barrido la da por buena. El caso medido está en la nota de
+coherencia de la 12.0; acá va la regla, no el caso.
 
 **El límite, declarado.** Esto cubre los conceptos con **huella textual**: renombres, cambios de
 nivel, nombres de variable y de campo. **No cubre un cambio semántico sin forma anterior distinta** —
@@ -943,3 +965,4 @@ que diga otra cosa.
 | 1.21 | 2026-08-20 | **§VI.3 suma la comprobación 13, devolución al origen.** Una intervención que nace de un encargo **contesta menos de lo que el encargo pedía y lo declara resuelto igual**: la verificación mira el árbol que quedó y no el criterio de aceptación que la trajo, que vive afuera. Medido: una intervención declaró resuelto un origen de cinco criterios con **uno sin auditar** —el que pedía barrer la clase y no el caso—, con las doce comprobaciones anteriores en verde, porque **el trabajo que faltaba no estaba en ningún archivo tocado**. La nota pasa a **enumerar los criterios del origen y darles veredicto uno por uno**. Está enunciada sobre la propiedad —el *origen*, no el *reporte*— y **no nombra dónde vive**: la comprobación 2 lo prohíbe, de modo que lo que se exige es traer los criterios adentro de la nota. Sube **minor**: una comprobación más, ningún procedimiento existente cambia. |
 | 1.22 | 2026-08-20 | **El frontmatter declaraba una segunda versión, y estaba once menores atrás**: `version: 1.10` contra `**Versión:** 1.21`, con la última fila del registro en 1.21. Es la comprobación 10 incumplida **en el archivo que la define**. Se **elimina** el campo duplicado en lugar de actualizarlo, por §10 **R1** de `Root-Rules.md` —preferir la forma que no cuenta— y por el fundamento que `Master-Prompt.md` §10.0 declara: *«una duplicación que hay que mantener en paralelo se desincroniza»*. Cae con él `last_review`, que **no estaba desfasado** pero pertenece al mismo par duplicado. **La primera emisión no subió versión ni registró fila**, invocando §VI.1 «corrección de redacción sin cambio semántico»; la auditoría independiente objetó que **borrar metadato estructurado no es redacción** y que la comprobación 5 exige fila **en cada archivo modificado**, sin excepción por ausencia de bump. Se reemite **con fila**. Sube **patch**. |
 | 1.23 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
+| 1.24 | 2026-08-23 | **§VI.3.2 sube tres piezas de método que vivían sólo en la nota de la intervención que las descubrió**, y una nota se cierra con su fecha. La tabla de clases estables suma la **octava**, «entradas publicadas del `CHANGELOG.md`»: nombraba las filas de control de cambios y no las entradas, y una renumeración masiva alcanza las dos. Entra la **corrida contra la base** que detecta que el reemplazo alteró una línea de clase estable — nació del peor daño medido de la 12.0, **52 filas fechadas reescritas** que los tres comandos declarados no podían ver porque el filtro de filas las descartaba antes de clasificar, de modo que su cero **se obtenía filtrando la evidencia**. Y entra el **orden de reemplazo de más específico a más general**, cuya inversión produce formas compuestas que ningún patrón vuelve a matchear. La sección ya declaraba que existe «para que no se redescubran cada vez» y registraba tres intervenciones que la reconstruyeron a mano. Sube **minor**: agrega una exclusión, una corrida y una regla de orden, sin derogar nada. |

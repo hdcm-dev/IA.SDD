@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-00990)
-**Versión de las reglas:** 8.2
+**Versión de las reglas:** 8.3
 
 ---
 
@@ -516,6 +516,13 @@ y su **ámbito**. Un identificador cuya forma no está declarada lo inventa quie
 y con varios subagentes generando en paralelo sobre el mismo dominio los prefijos naturales coinciden
 con certeza y no por azar.
 
+**Y toda familia viva queda clasificada: alcanzada o excluida.** Una familia que aparece en el árbol y
+no está en ninguna de las dos listas de §9.2 **no tiene forma exigible ni ámbito**, de modo que la
+pregunta «¿es único?» no se puede contestar sobre ella. La clasificación la hace la regla que la acuña
+si la acuña una categoría, y §9.2 si la acuña el framework. **Esta obligación se enunciaba en §9.2
+atribuida a esta sección y no estaba escrita en ninguna parte**: por ese hueco pasaron `FA-NN`, `CA-NN`
+y `PASO-N` sin clasificar durante versiones.
+
 **Una categoría no acuña identificadores para artefactos de otra.** Si necesita citar un elemento que
 su categoría de origen no identificó, lo **escala** al orquestador en lugar de ponerle nombre, y la
 regla de la categoría de origen dice qué identificador emitir. Un identificador acuñado aguas abajo
@@ -793,3 +800,4 @@ correcta y no se podía sostener con una cita. Esta sección la funda hacia atr�
 | 8.0 | 2026-08-22 | **La familia `AG` entra al sistema de identificadores y se renumera al ancho de cinco dígitos.** Hasta acá §9.2 la excluía con motivo escrito —«no cataloga un elemento de una colección de un producto»—, y el motivo era correcto: dejaba al framework **sin forma de nombrarse a sí mismo**, que es lo que §10 **R5** declara que no es identidad. **§9.1 declara dos ámbitos** —el producto y el conjunto normativo vigente— y **cómo se relacionan**: no colisionan en numeración, **y sí se citan a través de la frontera**, que es el motivo del ámbito propio y no un argumento en contra. **`_legacy/` queda fuera del espacio de candidatos de los dos.** §9.2 **enumera `AG`** entre las familias alcanzadas —ya cumple el ancho cuando se la declara, no antes— y su tabla de exclusiones **suma `FA-NN`**, el flujo alternativo, que es una **posición dentro de un documento** como el ordinal de iteración. §10 R5 pasa de «único en el producto» a «único en su ámbito». Sube **major**: un `SDD/Docs/README.md` emitido antes **publica `AG-00` en su mapa de documentación** y deja de cumplir la comprobación 4 de `Master-Prompt.md` §10.0. |
 | 8.1 | 2026-08-23 | **§9.2 declara el marcador de plantilla `<PREFIJO>-XXXXX`**, que el corpus ya usaba en `US-XXXXX`, `NB-XXXXX` y `AG-XXXXX` **sin que ninguna regla lo escribiera**: no es un identificador y no se le exige la forma. Y la fila de `FA-NN` **deja de atribuirle un ámbito**: §9.1 declara **dos**, y los dos son de las familias **alcanzadas** — una familia excluida no toma ninguno. Las dos las levantó la cuarta ronda de auditoría, la segunda como daño que la reemisión anterior había introducido. Sube **minor**: declara una convención en uso y quita una atribución que contradecía a §9.1. |
 | 8.2 | 2026-08-23 | **Dos familias vivas quedaban sin clasificar**, y §9.5 exige que toda familia lo esté: `CA-NN` —el criterio de aceptación de `Rules-Especificacion-Funcional.md` §3.2— y `PASO-N`. `CA-NN` es **gemela de `FA-NN`**: misma regla, tablas contiguas, y el motivo escrito para `FA-NN` le aplica sin cambiar una palabra —es una **posición dentro de un documento** y no cataloga un elemento de una colección—. `PASO-N` es un **ordinal de secuencia**, del mismo orden que el ordinal de iteración. Las dos entran a la tabla de exclusiones. Y **§9.1 decía «los roles del framework»** mientras §9.2 sólo alcanza a los del catálogo de especialidades y a los subagentes de fase: **el orquestador y el auditor quedaban prometidos y no cubiertos**. El enunciado se acota a lo que §9.2 cubre. Lo levantó la sexta ronda. Sube **minor**: clasifica familias que ya existían y acota un enunciado que prometía de más. |
+| 8.3 | 2026-08-23 | **§9.2 fundaba su tabla de exclusiones en una exigencia que §9.5 no contenía.** Decía «§9.5 exige que toda familia viva quede clasificada» y §9.5 sólo exigía, a **toda categoría que acuñe un identificador**, declarar prefijo, forma y ámbito en §3.2 de su regla: nada sobre clasificar familias. La obligación **se escribe en §9.5**, que es donde §9.2 y el registro de la 8.2 la invocan, en lugar de corregir las citas — porque sin ella **ninguna regla obliga a clasificar la próxima familia viva que aparezca**, que es el hueco por el que `FA-NN`, `CA-NN` y `PASO-N` pasaron sin clasificar durante versiones. Lo levantaron cinco jueces por unanimidad en el primer ciclo de mejora continua. Sube **minor**: escribe una obligación que ya se citaba y no deroga nada. |
