@@ -1,7 +1,7 @@
 # Nota de coherencia — La renumeración de `AG`, con el mapeo escrito antes de tocar un archivo
 
 **Documento:** Coherencia-Renumeracion-AG.md
-**Versión:** 8.0 — séptima reemisión, tras ocho rondas de auditoría y un ciclo de mejora continua con panel de nueve especialistas y jurado de cinco
+**Versión:** 9.0 — octava reemisión, tras nueve rondas de auditoría, un ciclo de mejora continua con panel de nueve especialistas y jurado de cinco, y la autorización del paso 1 de §III.7
 **Fecha:** 2026-08-23
 **Versión del conjunto resultante:** SDD **12.0**
 **Origen:** El tramo de identidad del plan de reestructuración, rediseñado después de que dos
@@ -221,7 +221,7 @@ declaración de buena fe.
 |---|---|---|---|
 | **D1** | Estructura de carpetas | `git diff b40cb0d --name-status` no devuelve ningún `R` ni `D`: ninguna carpeta se creó, movió ni eliminó fuera de `_legacy/11.2/`, que §VI.5 obliga | Intacta |
 | **D2** | Codificación y fin de línea | El diff no contiene cambios de encoding ni de terminador; los archivos tocados son los mismos blobs UTF-8 con LF | Intacta |
-| **D3** | Nombres e identificadores | **Se modifica: es el objeto.** El tramo de nombres de archivo queda **intacto** —ningún archivo cambió de nombre—; el tramo de identificadores pasa a «únicos en su ámbito declarado» | **Modificada, declarada** |
+| **D3** | Nombres e identificadores | **Se modifica: es el objeto.** El tramo de nombres de archivo queda **intacto** —ningún archivo cambió de nombre—; el tramo de identificadores pasa a «únicos en su ámbito declarado». **Decisión explícita del responsable del framework, tomada el 2026-08-23** (`SDD-Development-Guide.md` §III.7, paso 1) | **Modificada, declarada y autorizada** |
 | **D4** | Sufijo de versión en copias archivadas | El snapshot usa la convención de carpeta de §VI.5 (`_legacy/<version>/`), como los **cuarenta y seis** anteriores. Divergencia preexistente entre D4 y §VI.5, no introducida acá | Sin cambio |
 | **D5** | Registro de cambios por archivo | Comprobaciones **5** y **10** de esta misma tabla: una fila por archivo con tabla, y cabecera igual a la última fila en los 32 que la tienen | Intacta |
 | **D6** | Dirección del grafo de dependencias | Ninguna arista nueva hacia atrás: la titularidad de `AG` vive en `Root-Rules.md` §9.2, que **ya viajaba** en los insumos de todo despacho por §8. Verificado que §9 no ganó ningún lector nuevo | Intacta |
@@ -253,13 +253,14 @@ es que **sea byte a byte el estado de `b40cb0d`**, y eso está en la comprobaci�
   reemisión: sube a **1.17** con sus dos filas —la 1.16 por la renumeración, y la 1.17 por el paso de
   acuñación del `AG` titular que §7.1 no tenía—. **La séptima ronda levantó que acá decía 1.16**: el
   recuento se midió antes de la corrección y se publicó después.
-- **El paso 1 de `SDD-Development-Guide.md` §III.7 está abierto y bloquea la publicación.** El
-  procedimiento obligatorio para modificar una invariante global empieza por *«1. Decisión explícita del
-  responsable del framework, registrada por escrito»*, y **esta intervención no la tiene**. El precedente
-  existe con su forma: `Coherencia-Reportes-00-11.md:89` registra *«Decisión explícita del responsable
-  del framework, tomada el 2026-08-15»* en la fila D3 de la anterior modificación de invariante.
-  **No es un ítem diferido y por eso no está en §8**: un diferido nombra un evento futuro, y acá falta
-  un acto que ya debía haber ocurrido. **Es una detención**, y ninguna reemisión la puede cerrar.
+- **El paso 1 de `SDD-Development-Guide.md` §III.7 estuvo abierto y quedó cerrado.** El procedimiento
+  obligatorio para modificar una invariante global empieza por *«1. Decisión explícita del responsable
+  del framework, registrada por escrito»*, y las **nueve** rondas de auditoría anteriores no lo miraron:
+  la intervención citaba de esa lista los pasos 3 y 5 y nunca el 1. Lo levantaron dos especialistas por
+  caminos independientes y el jurado lo votó **5-0**. **La decisión se tomó el 2026-08-23** y quedó
+  registrada en la fila D3 de §5, con la forma del precedente —`Coherencia-Reportes-00-11.md:89`, la
+  anterior modificación de invariante—. **Se deja escrito acá porque el hecho de que faltara es el
+  hallazgo**, y borrarlo dejaría el procedimiento pareciendo cumplido desde el principio.
 - **Tres citas del corpus vivo nombran el rol equivocado**, y se registran como **observación y no se
   corrigen acá**: `Rules-Devops.md:56` y `:57` —cruzadas entre sí— y `Rules-UX-UI-DX.md:53` dicen
   `AG-00100 Technical Writer` y `AG-00110 Developer Advocate`, contra el padrón de
@@ -274,13 +275,11 @@ es que **sea byte a byte el estado de `b40cb0d`**, y eso está en la comprobaci�
 
 ## 8. Veredicto
 
-**NO CONFORME — detención por el paso 1 de `SDD-Development-Guide.md` §III.7.** El procedimiento
-obligatorio para modificar una invariante global empieza por *«decisión explícita del responsable del
-framework, registrada por escrito»*, y **no está**. Las trece comprobaciones pasan, el barrido publica
-sus cinco corridas con el residuo entero encajonado, y el mapeo se sostiene tras nueve auditorías — **y
-nada de eso sustituye el acto que falta**. `Master-Prompt.md` §8.1 lo clasifica sin ambigüedad: lo que
-requiere **autoridad** no es trabajo propio. **Ninguna reemisión de esta nota puede cerrarlo**, y por
-eso no se reemite hasta que se resuelva: el detalle está en §7.
+**CONFORME.** Los cinco pasos del procedimiento de `SDD-Development-Guide.md` §III.7 están cumplidos, y
+el **paso 1 —la decisión explícita del responsable, tomada el 2026-08-23— es el último que se cerró**:
+estuvo abierto durante nueve rondas sin que ninguna lo mirara, porque la intervención citaba de esa
+lista los pasos 3 y 5 y nunca el 1. `Master-Prompt.md` §8.1 lo clasificaba sin ambigüedad —lo que
+requiere **autoridad** no es trabajo propio— y por eso ninguna reemisión podía cerrarlo.
 
 `SDD-Development-Guide.md` §VI.3 declara que *«el veredicto es `CONFORME` o `NO CONFORME`»*:
 son los dos valores que existen, y la emisión anterior publicaba «CONFORME POR DECISIÓN», que no es
