@@ -413,7 +413,7 @@ Cada eje sigue la misma estructura: qué estás agregando, qué archivos tocar y
 
 **Qué estás cambiando.** Una de las reglas D1 a D9 que gobiernan todo el framework.
 
-**Es el cambio de mayor impacto que existe**, y conviene entender por qué antes de intentarlo. Una invariante no vive en un archivo: vive en los diecinueve archivos de reglas que la citan, en los dos master-prompts que la inyectan a cada subagente, en los criterios de todos los auditores, y en **toda la documentación ya emitida en todos los repositorios destino**. Cambiar D3, por ejemplo, invalida el nombre de cada archivo que el framework generó alguna vez.
+**Es el cambio de mayor impacto que existe**, y conviene entender por qué antes de intentarlo. Una invariante no vive en un archivo: vive en los dieciocho archivos de reglas que la citan, en los dos master-prompts que la inyectan a cada subagente, en los criterios de todos los auditores, y en **toda la documentación ya emitida en todos los repositorios destino**. Cambiar D3, por ejemplo, invalida el nombre de cada archivo que el framework generó alguna vez.
 
 **Archivos a tocar:** todos los que la citen, sin excepción, más el marco teórico donde la fundamenta.
 

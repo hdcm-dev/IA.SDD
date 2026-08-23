@@ -3,6 +3,48 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [12.2] - 2026-08-23
+
+**El framework tiene método y casi no tiene oficio, y eso es una decisión de diseño, no una carencia.** Su identidad son las metodologías ágiles y la gestión: cómo se especifica, cómo se descompone, cómo se audita, cómo se planifica. **No puede opinar sobre cómo estructurar la capa de datos de una casa sin dejar de servirle a la de al lado.** Lo que faltaba no era el oficio: era **dónde lo pone quien lo tiene**.
+
+**Esta versión incorpora el continente y ni un solo documento de conocimiento.** `Rules-Base-Conocimiento.md` regula el formato de un documento de conocimiento y el contrato del índice que lo cataloga. Los documentos viven en una **base de la organización**, fuera de este repositorio, que el intake declara. El catálogo del framework **arranca y se queda vacío**: es una interfaz, no una biblioteca.
+
+**Nadie la consume todavía, y es intencional.** Ningún orquestador la lee y ninguna otra regla la cita. El andamiaje de intake, la mecánica del orquestador, el alta de `AG-00980` en `Root-Rules.md` §9.2 y la separación de capas de `Maqueta-Rules.md` §4 son pasos posteriores del plan. **Emitir la norma antes que sus consumidores es lo que permite corregirla mientras corregirla todavía es barato.**
+
+### Agregado — `Rules-Base-Conocimiento.md` 1.0
+
+**El decimonoveno archivo de reglas, y el primero transversal que gobierna un artefacto que no vive acá.**
+
+**§0 fija la frontera**, que es lo que decide si la capacidad sirve o degenera. Un documento de conocimiento **describe un artefacto externo, no el método**: cómo está construido un template y cómo declara sus variables, qué nomenclatura sigue un esquema de datos, qué forma tiene una arquitectura concreta. Qué produce una categoría y con qué criterios se acepta **sigue viviendo en las reglas y no se toca desde afuera**.
+
+**El piso mínimo del framework se conserva entero y se declara en dos capas.** El **método** —los cuatro estados por superficie, WCAG 2.2 AA, la fuente única de datos de `Maqueta-Rules.md` §4.2 a §4.6— **no se desplaza**. La **decisión de stack** —vanilla, Bootstrap por CDN, sin build, de §4.1 y §7.2— es una elección legítima entre alternativas legítimas y **sí se sustituye**, declarándolo. De ahí los **tres modos de aportar**: sumar, especializar y **sustituir**.
+
+**La sustitución la habilita el framework por adelantado, no el que escribe el conocimiento.** Un ítem sólo es sustituible si la regla que lo contiene lo rotuló como decisión de stack. Sin rótulo, el caso vuelve a ser conflicto y **manda la regla de categoría**. Esa subordinación existe además por un motivo mecánico: ni el documento de conocimiento ni la regla de categoría viajan en los insumos obligatorios de todo despacho, de modo que `Root-Rules.md` §13 **no decidiría y el conflicto se detendría**.
+
+El resto: el **alias citable** con sus tres reglas —nombre establecido cuando existe, unicidad en el índice de su base, honestidad del nombre frente al canon— y su regla de colisión con el catálogo del framework (§3); la plantilla del documento §0 a §10 y las **siete propiedades de forma** (§4); las **veinte preguntas guía** del relevamiento, con las cuatro de orientación como bloqueantes (§5); los criterios de aceptación con **techo de tamaño diferenciado**, 250 líneas para `canonico` y 600 para `propio` (§6); las **diez columnas del índice**, ocho obligatorias, incluido `sustituye` y un consumidor que **admite subagentes de fase** y no sólo categorías (§7); el prompt-snippet citable (§8); y el contrato de **`AG-00980`**, el bibliotecario que **entrega identificadores y nunca texto** (§9).
+
+**Por qué el conocimiento canónico escribe el delta.** `README.md` ya manda que «los estándares de industria **se nombran, no se enlazan**». Acá aplica igual: se nombran, no se reexplican. Un documento que reexplica el patrón DAO es exactamente el desperdicio que la capacidad existe para evitar.
+
+### Cambiado — `Catalogo-De-Criterios.md` 1.12 → 1.13
+
+Entra la regla nueva por la comprobación 12 de `SDD-Development-Guide.md` §VI.3 —**quien toca, registra**—. §3 suma **cuatro criterios**; §4 suma su fila de **6 situaciones** y los totales pasan de **202 a 208**, `[enumerable]` de 97 a 100 e `[interpretativo]` de 105 a 108. Es la primera intervención que mueve ese recuento desde que el catálogo se emitió.
+
+### Cambiado — recuentos en prosa
+
+`README.md` en dos lugares y `SDD-Development-Guide.md` §VI: los archivos de reglas pasan de **dieciocho a diecinueve**, y los transversales de seis a siete.
+
+### Por qué el conjunto sube 12.2
+
+**Es un minor** por la tabla de §VI.5: se incorpora una regla nueva y **ninguna sube major**. Ningún documento generado con la 12.1 deja de cumplir, porque la regla nueva **no alcanza a nada que el framework genere hoy**.
+
+### Impacto sobre destinos existentes
+
+**Ninguno.** No hay renombres, no hay secciones movidas, no hay campos bloqueantes nuevos y no hay ningún orquestador que lea la regla nueva. Ningún destino tiene trabajo.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Base-Conocimiento.md`, conjunto resultante **12.2**.
+
 ## [12.1] - 2026-08-23
 
 **El framework no lleva código ejecutable desde su origen, y ninguna sección lo declaraba.** `find SDD -type f -not -name '*.md'` devuelve vacío en las **cuarenta y siete** versiones publicadas: es un hecho del árbol, sostenido por cada decisión de diseño que el método tomó. Lo que faltaba era la regla. **Un agente que propusiera un verificador, un resolvedor de referencias o un barrido que corriera solo no tenía con qué cita detenerse**, y quien lo rechazara no tenía con qué sostener el rechazo — que es la misma figura que esta serie viene corrigiendo: una decisión que gobierna el corpus y no tiene dónde citarse.
