@@ -1,7 +1,7 @@
 # Nota de coherencia — La renumeración de `AG`, con el mapeo escrito antes de tocar un archivo
 
 **Documento:** Coherencia-Renumeracion-AG.md
-**Versión:** 2.0 — reemitida tras auditoría independiente
+**Versión:** 3.0 — segunda reemisión, tras dos rondas de auditoría independiente
 **Fecha:** 2026-08-22
 **Versión del conjunto resultante:** SDD **12.0**
 **Origen:** El tramo de identidad del plan de reestructuración, rediseñado después de que dos
@@ -70,23 +70,58 @@ no se reescriben.** De ellas, este caso toca cuatro: notas de coherencia anterio
 —no editable por §I.2—, filas de control de cambios, y **la declaración de la propia intervención**.
 
 ```bash
-# 1 · ninguna forma vieja fuera de las clases estables
-grep -rnP "AG-([0-9]{2}|ROOT|XX)(?![0-9A-Za-z])" SDD PROMPTS Templates README.md   | grep -v "_legacy\|/Bootstrap/\|Coherencia-" | grep -vP "^\S+:\d+:\| [\d.]+ \| 20"
+# 1 · ninguna forma vieja fuera de las clases estables.
+#     La rama M captura AG-03M, que el patrón de la primera emisión no matcheaba.
+grep -rnP "AG-([0-9]{2}M?|ROOT|XX)(?![0-9A-Za-z])" SDD PROMPTS Templates README.md CHANGELOG.md \
+  | grep -v "_legacy\|/Bootstrap/\|Coherencia-" | grep -vP "^\S+:\d+:\| [\d.]+ \| 20"
 
 # 2 · ninguna forma compuesta, que es lo que el orden de reemplazo evita
 grep -rnoE "AG-[0-9]{5}[A-Za-z]" SDD PROMPTS Templates README.md \
   | grep -v "_legacy\|Coherencia-Renumeracion"
 
-# 3 · ningún enunciado que declare el ámbito como si fuera uno solo
-grep -rniE "(única?s? en el producto|como todo identificador|Ámbito de unicidad: producto)" \
-  SDD PROMPTS Templates README.md | grep -v "_legacy\|Coherencia-\|/Bootstrap/" \
-  | grep -vP "^\S+:\d+:\| [\d.]+ \| 20" | grep -viE "de estas familias|primer ámbito|su ámbito"
+# 3 · ningún enunciado que declare el ámbito como si fuera uno solo.
+#     El patrón de la primera emisión era única?s?, ciego a «únicos», que es la forma que el corpus usa.
+grep -rniE "únic[oa]s? en el producto" SDD PROMPTS Templates README.md \
+  | grep -v "_legacy\|Coherencia-\|/Bootstrap/" | grep -vP "^\S+:\d+:\| [\d.]+ \| 20" \
+  | grep -viE "de estas familias|primer ámbito|su ámbito"
+
+# 4 · ninguna fila de control de cambios histórica alterada
+git diff b40cb0d -- SDD Templates README.md | grep -E '^-\| [0-9]+\.[0-9]+ \| 20'
 ```
 
-**Los tres devuelven cero.** El primero, en su versión anterior, filtraba **el match** en lugar de **la
-línea** y por eso devolvía 30: las treinta filas nuevas que narran el mapeo —«`AG-ROOT` toma
-`AG-00990`»— son la séptima clase, y **escribir la forma anterior como patrón literal es la función de
-esta sección**.
+**Cómo se leen. Los comandos 1 y 3 devuelven residuo, y eso es lo esperado: §VI.3.2 no pide que el
+comando devuelva vacío, pide que *toda ocurrencia viva caiga en una exclusión enumerada*.** Declarar
+«cero» fue el defecto de las dos emisiones anteriores, y las dos veces el cero se obtenía **filtrando la
+evidencia** o **con un patrón que no matcheaba nada**.
+
+| Comando | Qué devuelve hoy | Dónde cae |
+|---|---|---|
+| **1** | La entrada **12.0** del `CHANGELOG`, que escribe las formas viejas como patrón literal | **La declaración de la propia intervención**, séptima clase |
+| **2** | Nada | — |
+| **3** | Cinco líneas de `Rules-Backlog-Tecnico.md`, `Deriva-Rules.md` y `Rules-Documentacion.md` | **Familias del producto**: nombran `US`, `BT`, `EP`, `SUP`, `CMP`, `OPS`… cuyo ámbito **no cambió**. Exclusión propia del caso |
+| **4** | Nada | — |
+
+**Una línea que no caiga en ninguna de esas casillas es hallazgo**, y así se detectaron los dos P0 de la
+segunda ronda.
+
+**Y el comando 4 es nuevo, por el peor hallazgo de la intervención.**
+
+**El reemplazo reescribió 52 filas de control de cambios fechadas**, insertando en registros de julio
+identificadores nacidos el 2026-08-22 — una fila de `Rules-Examples.md` del 2026-07-26 llegó a decir
+«pasa de `AG-00110` a `AG-00100`» **y terminaba invocando el principio que acababa de romper**. Es la
+clase que §VI.3.2 declara intocable: *«reescribirlas lo falsea»*.
+
+**Y el barrido no podía verlo por construcción:** el comando 1 descarta toda línea que sea fila de
+registro fechada, de modo que su cero **se obtenía filtrando la evidencia**. Por eso entra el comando 4,
+que mira exactamente eso.
+
+**Las 52 filas se restituyeron desde el commit publicado.** Y la restitución **rompió dos más**: un
+archivo tiene tres filas `1.0` con la misma fecha y distinto texto —dos de bloques de ejemplo, una del
+registro propio—, y un reemplazo indexado por versión las pisó. Restituidas por contexto.
+
+**Los otros dos patrones también estaban mal escritos:** el 1 no matcheaba `AG-03M` —una de las quince
+formas del mapeo— y el 3 usaba `única?s?`, **ciego a `únicos`**, que es la forma que el corpus usa: el
+cero se obtenía **sin haber mirado**.
 
 **El orden de reemplazo es parte del método, no un detalle:** de más específico a más general
 —`AG-03M`, `AG-ROOT`, `AG-XX` primero— y con frontera de palabra. Al revés, `AG-03` habría convertido
@@ -121,9 +156,9 @@ git diff b40cb0d --stat -- SDD PROMPTS Templates   # archivos y líneas tocadas
 | 5 | Control de cambios **en cada archivo modificado** | **Una fila por archivo con tabla de registro.** `SDD-User-Guide.md` **sí la tiene** —la primera emisión afirmó dos veces que no, y era falso: lo levantó la auditoría—. **`README.md` es el único sin tabla**, y eso queda en §7 |
 | 6 | El caso degenerado sigue produciendo el layout aplanado | Nada del layout se tocó |
 | 7 | Nada fuera del alcance declarado | 32 archivos, más `CHANGELOG`, esta nota y el snapshot |
-| 8 | Barrido por concepto | **§3**, con sus tres corridas **que devuelven cero** y las clases estables **citadas de §VI.3.2**, no reescritas |
+| 8 | Barrido por concepto | **§3**, con **cuatro** corridas que devuelven cero y las clases estables **citadas de §VI.3.2**, no reescritas. La cuarta existe porque las tres primeras **no podían ver** que se estaban reescribiendo filas históricas |
 | 9 | Coherencia interna | §9.1, §9.2 y §10 R5 dicen lo mismo sobre el ámbito, y la familia que §9.2 enumera **cumple el ancho que §9.2 exige** |
-| 10 | Integridad del registro | **Verificado en los 30**: cabecera = última fila |
+| 10 | Integridad del registro | **Cabecera = última fila en todos los archivos con tabla**, recalculable con el comando de §4. **Y ninguna fila histórica alterada**, que es el comando 4 de §3 |
 | 11 | Cobertura de la nota | **Esta nota** |
 | 12 | Cobertura del catálogo | **Sin criterios nuevos**: no entra ninguna decisión que un agente deba tomar |
 | **13** | **Devolución al origen** | **§6** |

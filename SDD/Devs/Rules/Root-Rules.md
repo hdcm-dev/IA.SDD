@@ -444,6 +444,23 @@ lexicográficamente igual que numéricamente, alinean en columna, y se reconocen
 `CU`, `RN`, `RC`, `ADR`, `US`, `BT`, `EP`, `TC`, `NFR`, `SUP`, `CMP`, `EST`, `NAV`, `DM`, `SD`,
 `VER`, `EV`, `EVE`, `ISSUE`, `OPS`, `EXT`, `STAGE`, `ENV`, `DOD` y equivalentes.
 
+**Titularidad y bloques de la familia `AG`.** §9.5 exige que toda familia declare **prefijo, forma y
+ámbito** en la regla que la acuña, y `AG` no la acuña ninguna categoría: la acuña el framework, de modo
+que **se declara acá**.
+
+| Campo | Valor |
+|---|---|
+| **Prefijo** | `AG` |
+| **Forma** | `AG-[0-9]{5}` |
+| **Ámbito** | El **conjunto normativo vigente** (§9.1) |
+| **Bloque `00NN0`** | El titular de la categoría `NN` |
+| **Bloque `00NN1` a `00NN9`** | Los **subagentes de fase** de esa categoría. `AG-00031` es el de la Fase B2, y **la hermandad con el `03` queda escrita en el número** en lugar de en un sufijo compuesto, que §9.2 no admite |
+| **Bloque `009xx`** | **Reservado** a los roles que **no son de categoría**. `AG-00990` es el titular de nivel producto |
+
+**Sin esta tabla los bloques vivirían sólo en la nota de la intervención que los creó**, y una nota se
+cierra con su fecha: el que tenga que numerar el próximo subagente de fase **no tendría de dónde
+leerlo**.
+
 **Regla de agotamiento.** Cinco dígitos se eligieron con holgura sobre la colección más grande que la
 evidencia registra, pero la regla que faltaba no era el número: era **qué hacer si el rango igualmente
 se agota**. La salida del método es **una sola, y es ampliar el ancho de esa familia**, declarando la
@@ -747,7 +764,7 @@ correcta y no se podía sostener con una cita. Esta sección la funda hacia atr�
 | 1.1 | 2026-06-09 | Validación ST-06: el README raíz se genera a nivel solución; §1.2 usa la variante del proyecto principal del manifiesto. El README presenta la solución y la tabla de proyectos (la reformulación de contenido se completa en ST-08). |
 | 1.2 | 2026-06-09 | Reformulación ST-08: el README raíz se reformula a documento de solución. La cabecera (§4.1) declara la solución, su composición y el proyecto principal en lugar de un único tipo D8. Se agrega la sección obligatoria "Proyectos de la solución" (§4.2) con la tabla de proyectos (D8, rol, dependencias, redistribuible). El mapa de documentación (§4.4) refleja las categorías de solución (00, 01), `Solucion/` y la carpeta de cada proyecto. Se actualizan §1.1, §3.3, anti-patrones, criterios de aceptación, preguntas guía, ejemplos (uno multi-proyecto y el caso degenerado) y el prompt-snippet. |
 | 1.3 | 2026-06-10 | Migración de referencias de intake al documento unificado SOLUTION-INTAKE (unificación de intake). |
-| 1.4 | 2026-07-26 | Intercambio de categorías 10 ↔ 11 en el layout canónico: el mapa de documentación pasa a listar `10-Examples/` (AG-00100) y `11-Documentacion/` (AG-00110), y el flujo de lectura del integrador invierte su orden a 10 → 11 → 02. Se reasignan los subagentes citados en §1.3. Se normaliza el vocabulario de actores: «consumidor» pasa a «integrador» y «audiencia» a «rol de intervención». |
+| 1.4 | 2026-07-26 | Intercambio de categorías 10 ↔ 11 en el layout canónico: el mapa de documentación pasa a listar `10-Examples/` (AG-10) y `11-Documentacion/` (AG-11), y el flujo de lectura del integrador invierte su orden a 10 → 11 → 02. Se reasignan los subagentes citados en §1.3. Se normaliza el vocabulario de actores: «consumidor» pasa a «integrador» y «audiencia» a «rol de intervención». |
 | 1.5 | 2026-07-28 | Reparación de la política de archivado (Revisión SDD): §3.1 declara que el README raíz recibe el sufijo de versión al archivarse, tomado del campo `Versión` de su cabecera, y que `CHANGELOG.md` queda exento por acumulativo. Corrige la colisión silenciosa por la que dos archivados del mismo artefacto el mismo día se sobrescribían. La regla general y su tabla de exenciones viven en `Master-Prompt.md` §5.1. |
 | 2.0 | 2026-07-28 | Normalización del versionado (framework 4.0). El archivo vivo pierde el sufijo de versión del nombre y pasa a declarar su versión en el campo `Versión` de su cabecera; el sufijo `-v<X.Y>.md` queda reservado a las copias archivadas en `_legacy/`. Se actualizan los patrones de nombre, los ejemplos, las cabeceras modelo, los anti-patrones y los criterios de aceptación de la categoría. Sube major porque la documentación generada con la nomenclatura anterior deja de cumplir. Deriva de la reformulación de D4 y D5 en el `README.md` del framework. |
 | 2.1 | 2026-07-29 | Normalización de los ejemplos de `Slug-Producto` y `Nombre-Proyecto-Codigo` a Título-Con-Guiones con cada palabra capitalizada (D3 y `Master-Prompt.md` §3.2). Los ejemplos usaban minúsculas, variante que tres archivos de reglas prohíben explícitamente. |
