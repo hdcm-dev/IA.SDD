@@ -3,7 +3,7 @@
 ```yaml
 Documento: Guia-Usuario-SDD.md
 Versión: 1.16
-Fecha: 2026-08-15
+Fecha: 2026-08-22
 Audiencia: profesionales y estudiantes que usan el template para un producto real
 Idioma: español rioplatense neutro técnico
 Estado: vigente
@@ -1283,7 +1283,7 @@ Pasos:
 
 1. Creá la carpeta `../IA.SDD/SDD/Devs/Rules/Rules-Observabilidad.md` siguiendo la estructura de las reglas existentes (§1 Especialidad, §2 Documentos, §3 Nomenclatura, §4 Estructura, §5 Preguntas guía, §6 Criterios, §7 Anti-patrones, §8 Prompt-snippet).
 2. Definí la especialidad base (por ejemplo, "Site Reliability Engineer Senior") y las variantes por tipo D8.
-3. Listá los documentos a producir: `Estrategia-Observabilidad.md`, `Dashboards.md`, `Alertas.md`, `runbooks/RB-XX-<Nombre>.md`, `README.md`.
+3. Listá los documentos a producir: `Estrategia-Observabilidad.md`, `Dashboards.md`, `Alertas.md`, `runbooks/RB-XXXXX-<Nombre>.md`, `README.md`.
 4. Actualizá `../IA.SDD/SDD/Devs/Orchestrator/Master-Prompt.md` §6 (plan de generación por categoría) para incluir la nueva categoría. Subí minor del master-prompt.
 5. Decidí en qué fase entra (si es transversal, queda como fase F o G; si es post-DevOps, queda como fase F2 nueva).
 6. Probá el flujo completo con una unidad de entrega piloto.

@@ -461,10 +461,11 @@ que **se declara acá**.
 cierra con su fecha: el que tenga que numerar el próximo subagente de fase **no tendría de dónde
 leerlo**.
 
-**El marcador de plantilla.** Cuando una regla o un ejemplo tiene que nombrar «cualquier miembro de la
-familia» escribe `<PREFIJO>-XXXXX`: `US-XXXXX`, `NB-XXXXX`, `AG-XXXXX`. **No es un identificador y no se
+**El marcador de plantilla.** Cuando una regla o un ejemplo tiene que nombrar «cualquier miembro de una
+familia **alcanzada**» escribe `<PREFIJO>-XXXXX`: `US-XXXXX`, `NB-XXXXX`, `AG-XXXXX`. **No es un identificador y no se
 le exige la forma**: es el hueco que un documento deja para el que sí lo es. La convención ya estaba en
-uso y **no estaba declarada en ninguna parte**.
+uso y **no estaba declarada en ninguna parte**. **Las familias excluidas no la usan**: escriben el marcador
+con su propia forma —`FA-NN`, `Sprint-XX`—, que es lo que las hace reconocibles como excluidas.
 
 **Regla de agotamiento.** Cinco dígitos se eligieron con holgura sobre la colección más grande que la
 evidencia registra, pero la regla que faltaba no era el número: era **qué hacer si el rango igualmente

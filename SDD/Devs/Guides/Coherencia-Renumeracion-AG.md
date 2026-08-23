@@ -2,7 +2,7 @@
 
 **Documento:** Coherencia-Renumeracion-AG.md
 **Versión:** 5.0 — cuarta reemisión, tras cuatro rondas de auditoría independiente
-**Fecha:** 2026-08-22
+**Fecha:** 2026-08-23
 **Versión del conjunto resultante:** SDD **12.0**
 **Origen:** El tramo de identidad del plan de reestructuración, rediseñado después de que dos
 intervenciones anteriores sobre el mismo objeto se retiraran tras cinco rondas de auditoría
@@ -87,7 +87,7 @@ grep -rnoE "AG-[0-9]{5}[A-Za-z]" $ALC | grep -vE "$EXC"
 
 # 3 · enunciados que declaran el ámbito como si fuera uno solo.
 #     El patrón anterior era única?s?, ciego a «únicos», que es la forma que el corpus usa.
-grep -rniE "únic[oa]s? en el producto|como todo identificador|ámbito de unicidad:? ?(el )?producto" \
+grep -rniE "únic[oa]s? en el producto|como todo identificador|ámbito de unicidad[^.]{0,20}producto" \
   $ALC | grep -vE "$EXC" | grep -vP "$FILA"
 
 # 4 · ninguna fila de control de cambios histórica alterada
@@ -105,8 +105,8 @@ evidencia** o **con un patrón que no matcheaba nada**.
 | **1** | Líneas de **entradas publicadas** del `CHANGELOG` —**7.0, 5.1, 4.1, 3.0, 2.2 y 2.1**— que narran el estado de su fecha | **Exclusión propia del caso**: son **registro fechado**, intocables por el mismo motivo que las filas de control de cambios. §VI.3.2 nombra las filas y no las entradas, y **esta intervención lo declara acá porque el barrido lo destapó** |
 | **2** | `AG-00030M`, en la entrada 12.0 | **La declaración de esta intervención**: es la **ilustración contrafáctica** de qué habría producido el orden de reemplazo equivocado |
 | **3** | Líneas de `Rules-Backlog-Tecnico.md`, `Deriva-Rules.md` y `Rules-Documentacion.md` | **Familias del producto**: nombran `US`, `BT`, `EP`, `SUP`, `CMP`, `OPS`… cuyo ámbito **no cambió** |
-| **3** | `Master-Prompt.md` §3.4 y §15, `Master-Prompt-Reanudacion.md` §4, `SDD-User-Guide.md` y `Migracion-Rules.md` §4.3.1 | **Enunciados ya calificados por esta intervención** —«de estas familias», «para las familias del producto», «primer ámbito»—. **La emisión anterior los suprimía con un `grep -v` no declarado**, que es una exclusión sin enumerar; y dos **no estaban calificados**: `Migracion-Rules.md:152`, que la tercera ronda destapó porque el patrón declarado **no tenía comando que lo corriera**, y `Master-Prompt-Reanudacion.md:266`, que la cuarta destapó porque el patrón decía «ámbito de unicidad**:** producto» y el texto dice «unicidad **en el** producto» — **la preposición lo esquivaba** |
-| **3** | La entrada **12.0** del `CHANGELOG`, y la entrada publicada **7.0** | Las mismas dos cajas del comando 1: **declaración de esta intervención** y **registro fechado** |
+| **3** | `Master-Prompt.md` §3.4 y §15, `Master-Prompt-Reanudacion.md` §4, `SDD-User-Guide.md` y `Migracion-Rules.md` §4.3.1 | **Enunciados ya calificados por esta intervención** —«de estas familias», «para las familias del producto», «primer ámbito»—. **La emisión anterior los suprimía con un `grep -v` no declarado**, que es una exclusión sin enumerar; y dos **no estaban calificados**: `Migracion-Rules.md:152`, que la tercera ronda destapó porque el patrón declarado **no tenía comando que lo corriera**, `Master-Prompt-Reanudacion.md:266`, que la cuarta destapó, y `Migracion-Rules.md:213`, que **destapó el patrón nuevo de esta quinta emisión**. Las tres esquivaban el patrón anterior por la preposición: decía «ámbito de unicidad**:** producto» y los textos dicen «unicidad **en el** producto» y «unicidad **pasa de** … **a** producto». **El patrón pasa a `ámbito de unicidad[^.]{0,20}producto`**, que es la corrección del instrumento y no de la ocurrencia |
+| **3** | La entrada **12.0** del `CHANGELOG`, y las publicadas **9.5, 7.0 y 5.1** | Las mismas dos cajas del comando 1: **declaración de esta intervención** y **registro fechado** |
 | **4** | Nada | — |
 
 **Una línea que no caiga en ninguna de esas casillas es hallazgo**, y así se detectaron los dos P0 de la
@@ -150,21 +150,21 @@ restituyeron**: son clase estable.
 **El alcance se recalcula, no se declara:**
 
 ```bash
-git diff b40cb0d --stat -- SDD PROMPTS Templates   # archivos y líneas tocadas
+git diff b40cb0d --stat -- $ALC   # archivos y líneas tocadas, con el mismo alcance que §3
 ```
 
 ## 5. Verificación — las trece comprobaciones
 
 | # | Comprobación | Resultado |
 |---|---|---|
-| 1 | Invariantes D1–D9 en todo archivo tocado | **D3 se modifica: es el objeto.** Las otras ocho, intactas en los 32 |
+| 1 | Invariantes D1–D9 en todo archivo tocado | **D3 se modifica: es el objeto.** Las otras ocho, intactas en todos los archivos que el comando de §4 devuelve |
 | 2 | Autosuficiencia | Sin referencias nuevas fuera del árbol |
 | 3 | Referencias internas resuelven | Ningún archivo se movió ni se renombró |
 | 4 | Sin contradicción con lo que ya estaba | **§9.2 declara `AG` alcanzada cuando ya cumple**, no antes. Es la contradicción que hundió a las dos intervenciones retiradas |
 | 5 | Control de cambios **en cada archivo modificado** | **Una fila por archivo con tabla de registro.** `SDD-User-Guide.md` **sí la tiene** —la primera emisión afirmó dos veces que no, y era falso: lo levantó la auditoría—. **`README.md` es el único sin tabla**, y eso queda en §7 |
 | 6 | El caso degenerado sigue produciendo el layout aplanado | Nada del layout se tocó |
-| 7 | Nada fuera del alcance declarado | 32 archivos, más `CHANGELOG`, esta nota y el snapshot |
-| 8 | Barrido por concepto | **§3**, con **cuatro corridas y su residuo declarado caja por caja**. Ninguna devuelve «cero» salvo la 2 y la 4: los comandos 1 y 3 **devuelven residuo, y eso es lo esperado** —§VI.3.2 pide que toda ocurrencia caiga en una exclusión enumerada, no que el comando salga vacío—. La cuarta existe porque las tres primeras **no podían ver** que se estaban reescribiendo filas históricas |
+| 7 | Nada fuera del alcance declarado | **El alcance se recalcula con el comando de §4**, no se declara: es lo que ese comando devuelve, más el snapshot |
+| 8 | Barrido por concepto | **§3**, con **cuatro corridas y su residuo declarado caja por caja**. Ninguna devuelve «cero» salvo la 4: los comandos 1 y 3 **devuelven residuo, y eso es lo esperado** —§VI.3.2 pide que toda ocurrencia caiga en una exclusión enumerada, no que el comando salga vacío—. La cuarta existe porque las tres primeras **no podían ver** que se estaban reescribiendo filas históricas |
 | 9 | Coherencia interna | §9.1, §9.2 y §10 R5 dicen lo mismo sobre el ámbito, y la familia que §9.2 enumera **cumple el ancho que §9.2 exige** |
 | 10 | Integridad del registro | **Cabecera = última fila en todos los archivos con tabla**, verificado archivo por archivo. **Y ninguna fila histórica alterada**, que es el comando 4 de §3 |
 | 11 | Cobertura de la nota | **Esta nota** |
@@ -194,6 +194,6 @@ git diff b40cb0d --stat -- SDD PROMPTS Templates   # archivos y líneas tocadas
 
 ## 8. Veredicto
 
-**CONFORME.** Las trece comprobaciones pasan, el barrido publica sus tres corridas con residuo entero en
+**CONFORME POR DECISIÓN, no por criterio.** Las trece comprobaciones pasan y el barrido publica sus **cuatro** corridas con residuo entero en **las clases estables y en la exclusión propia del caso declarada en §3** —que **no** es una de las siete—, en
 clases estables, el mapeo se evaluó con cinco pruebas **antes** de tocar un archivo, y el conjunto queda
 en **SDD 12.0**.

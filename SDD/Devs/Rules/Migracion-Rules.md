@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino para los dos artefactos propios. El alcance sobre el que la migración opera es `SDD/Intake/` y `SDD/Docs/` del mismo repositorio
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto, unidad de entrega y proyecto de código
 **Subagente target del orquestador:** el orquestador de migración para el plan y el cierre; el auditor independiente para el informe; el subagente titular de cada categoría para re-expresar los documentos de esa categoría
-**Versión de las reglas:** 3.18
+**Versión de las reglas:** 3.19
 
 Dentro de este archivo «migración» se usa en forma desnuda, según la excepción que `Vocabulario-Rules.md` §9.6 declara: en este contexto de lectura no hay otro referente con el que colisione. En cualquier otro archivo del framework el término va calificado como «migración normativa».
 
@@ -210,7 +210,7 @@ comprobaciones bloqueantes:
 1. **Ninguna referencia colgada.** Toda cita que apuntaba a un identificador de origen resuelve
    contra su destino.
 2. **Ninguna colisión.** Dos identificadores de origen distintos no terminan en el mismo destino,
-   que es el riesgo real cuando el ámbito de unicidad pasa de proyecto de código a producto y dos
+   que es el riesgo real cuando el ámbito de unicidad de las familias del producto pasa de proyecto de código a producto y dos
    proyectos traían el mismo número.
 3. **Ningún residuo de la forma vieja** fuera de `_legacy/`, donde los snapshots conservan la
    nomenclatura con que se emitieron y **no se renombran** (`Master-Prompt.md` §5.1).
@@ -779,3 +779,4 @@ Para el despacho del auditor, los criterios de §6 de este archivo se suman a lo
 | 3.16 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
 | 3.17 | 2026-08-22 | **§4.3.1 declaraba `AG` entre las familias excluidas del ancho, y desde la 12.0 no lo está.** El reemplazo de la renumeración convirtió la forma vieja en la nueva **adentro de la frase que decía que la familia estaba excluida**, de modo que la contradicción quedó escrita con la forma vigente y no se veía. Pasa a nombrar las dos exclusiones reales —`FA-NN` y el ordinal— y **declara qué hace una migración de destino con `AG`**: no la renumera, porque su ámbito es el conjunto normativo; el destino sólo reemplaza la cita si su `README.md` declara responsable. Sube **minor**: precisa una regla existente. |
 | 3.18 | 2026-08-23 | §4.3.1 describía el salto a la 7.0 como el que fija «**ámbito de unicidad producto**» a secas, y desde la 12.0 hay **dos ámbitos**. Queda acotado a **las familias del producto**. Lo levantó la tercera ronda de auditoría: el patrón que la intervención había declarado barrer **no tenía comando que lo corriera**. Sube **minor**: precisa una descripción histórica sin cambiar la regla. |
+| 3.19 | 2026-08-23 | Un segundo enunciado de ámbito sin calificar, en §4.3.1: «cuando el **ámbito de unicidad pasa de** proyecto de código **a** producto». Lo destapó **el patrón ampliado** de la quinta emisión, no una ocurrencia buscada a mano — que es la diferencia entre corregir el instrumento y corregir el síntoma. Sube **minor**. |
