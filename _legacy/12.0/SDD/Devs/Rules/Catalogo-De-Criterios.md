@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Catalogo-De-Criterios.md
-**Versión:** 1.12
+**Versión:** 1.11
 **Estado:** Vigente
 **Fecha:** 2026-08-17
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
@@ -40,7 +40,6 @@ aplica sin su fundamento — y el fundamento es lo que permite reconocer cuándo
 
 | Situación | Qué hay que decidir | Dónde vive el criterio |
 |---|---|---|
-| Una intervención necesita un mecanismo que exigiría **código ejecutable** en el framework —un verificador, un resolvedor de referencias, un barrido que corra solo— | Si se incorpora, y dónde está la frontera entre un comando publicado en la prosa y un artefacto con versión propia | [`SDD-Development-Guide.md`](../../Guides/SDD-Development-Guide.md) §II.7 |
 | El árbol se contradice a sí mismo: una fuente declarativa contra su contraste observable | Cuál de las dos lecturas gana | [`Master-Prompt-Reanudacion.md`](../Orchestrator/Master-Prompt-Reanudacion.md) §1, regla de resolución |
 | Una fuente declarativa de estado no tiene quién la mantenga | Quién es el responsable, y si la fuente es la adecuada | `Master-Prompt-Reanudacion.md` §1.1, R1 a R3 |
 | No se sabe en qué estado quedó un destino | Qué salida corresponde entre las cinco | `Master-Prompt-Reanudacion.md` §4 |
@@ -187,4 +186,3 @@ regla—. Lo que no corresponde adoptar es la **infraestructura** de DMN, no su 
 | 1.9 | 2026-08-20 | Un criterio nuevo por la comprobación 13 de `SDD-Development-Guide.md` §VI.3: **qué se le devuelve al origen que trajo la intervención**, y cuándo se lo puede declarar resuelto. Se registra acá por la comprobación 12 —quien toca, registra—. Sube minor. |
 | 1.10 | 2026-08-20 | Un criterio nuevo por `Root-Rules.md` **§13**: **cuándo un conflicto entre dos reglas lo resuelve el agente y cuándo lo arbitra el humano**. Y §4.1 punto 2 se refina: antes de escalar, se prueba si la diferencia es **de forma** —jerarquía, especificidad, fecha—. **No deroga el arbitraje: le pone delante el caso que sí tiene respuesta en el árbol.** Sube minor. |
 | 1.11 | 2026-08-21 | §4.1 punto 2 y el criterio de §3 se reescriben contra el **§13 reducido a un solo criterio**. La redacción anterior citaba una formulación —«cuando el árbol contiene el dato que decide»— que §13 derogó en la misma intervención, **y que el barrido no alcanzó**: lo levantó la tercera ronda de auditoría como contradicción literal entre §13 y la entrada que enruta hacia §13. Sube minor. |
-| 1.12 | 2026-08-23 | Entra el criterio de **§II.7 de la guía de desarrollo**: qué hacer cuando una intervención necesita un mecanismo que exigiría código ejecutable en el framework. El corpus lo resolvía sin criterio escrito, de modo que la decisión dependía de que el agente conociera la práctica. Sube **minor**: agrega una fila al índice por la comprobación 12 de §VI.3 —quien toca, registra—. |
