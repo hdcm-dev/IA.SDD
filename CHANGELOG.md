@@ -80,7 +80,7 @@ El orden de reemplazo va de más específico a más general: al revés, `AG-03` 
 
 ### Nota de coherencia
 
-`SDD/Devs/Guides/Coherencia-Renumeracion-AG.md`, conjunto resultante **12.0**. **Su barrido publica cuatro corridas con su residuo declarado caja por caja** —no «cero»: §VI.3.2 pide que toda ocurrencia caiga en una exclusión enumerada, no que el comando salga vacío—, con el mismo alcance en las cuatro **incluido este archivo**, porque el único lugar donde nadie mira es lo que la intervención acaba de escribir, y declara una corrección del propio alcance: la primera pasada **dejó afuera dos carpetas normativas** que el orquestador inyecta, y **lo detectó el barrido, no una auditoría posterior**.
+`SDD/Devs/Guides/Coherencia-Renumeracion-AG.md`, conjunto resultante **12.0**. **Su §8 enumera cinco ítems diferidos por `Root-Rules.md` §12.2**, ninguno atribuible a esta versión, entre ellos **`F-NN` sin clasificar en §9.2** —dos referentes vivos, la FAQ y la capacidad del intake—, que se difiere porque elegir cuál se renombra **no se contesta abriendo el árbol**. **Su barrido publica cinco corridas con su residuo declarado caja por caja** —no «cero»: §VI.3.2 pide que toda ocurrencia caiga en una exclusión enumerada, no que el comando salga vacío—, con el mismo alcance en las cuatro **incluido este archivo**, porque el único lugar donde nadie mira es lo que la intervención acaba de escribir, y declara una corrección del propio alcance: la primera pasada **dejó afuera dos carpetas normativas** que el orquestador inyecta, y **lo detectó el barrido, no una auditoría posterior**.
 
 ## [11.2] - 2026-08-20
 
