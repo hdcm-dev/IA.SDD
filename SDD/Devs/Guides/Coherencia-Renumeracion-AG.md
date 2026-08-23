@@ -1,7 +1,7 @@
 # Nota de coherencia — La renumeración de `AG`, con el mapeo escrito antes de tocar un archivo
 
 **Documento:** Coherencia-Renumeracion-AG.md
-**Versión:** 4.0 — tercera reemisión, tras tres rondas de auditoría independiente
+**Versión:** 5.0 — cuarta reemisión, tras cuatro rondas de auditoría independiente
 **Fecha:** 2026-08-22
 **Versión del conjunto resultante:** SDD **12.0**
 **Origen:** El tramo de identidad del plan de reestructuración, rediseñado después de que dos
@@ -57,7 +57,7 @@ categoría.
 
 | Concepto | Forma anterior | Forma vigente |
 |---|---|---|
-| La familia `AG` deja de tener dos dígitos | `AG-NN`, `AG-ROOT`, `AG-03M`, `AG-XX` | `AG-00NN0`, `AG-00990`, `AG-00031`, `AG-XXXXX` |
+| La familia `AG` deja de tener dos dígitos | `AG-00` a `AG-11`, `AG-ROOT`, `AG-03M`, `AG-XX` | `AG-00NN0`, `AG-00990`, `AG-00031`, `AG-XXXXX` |
 | El ámbito de unicidad deja de ser uno solo | `únicos en el producto` **cuando enuncia el ámbito como si fuera uno**, `como todo identificador`, `Ámbito de unicidad: producto` | `únicos en su ámbito declarado` |
 
 **La corrida, no el recuento.** Esta nota **publica los comandos**, con sus exclusiones adentro para
@@ -91,7 +91,7 @@ grep -rniE "únic[oa]s? en el producto|como todo identificador|ámbito de unicid
   $ALC | grep -vE "$EXC" | grep -vP "$FILA"
 
 # 4 · ninguna fila de control de cambios histórica alterada
-git diff b40cb0d -- SDD Templates README.md PROMPTS | grep -E '^-\| [0-9]+\.[0-9]+ \| 20'
+git diff b40cb0d -- $ALC | grep -E '^-\| [0-9]+\.[0-9]+ \| 20'
 ```
 
 **Cómo se leen. Los comandos 1 y 3 devuelven residuo, y eso es lo esperado: §VI.3.2 no pide que el
@@ -102,11 +102,11 @@ evidencia** o **con un patrón que no matcheaba nada**.
 | Comando | Qué devuelve | Dónde cae |
 |---|---|---|
 | **1** | Líneas de la entrada **12.0** del `CHANGELOG` | **La declaración de esta intervención**, séptima clase |
-| **1** | Líneas de **entradas publicadas** del `CHANGELOG` —de la 8.x a la 11.x— que narran el estado de su fecha | **Exclusión propia del caso**: son **registro fechado**, intocables por el mismo motivo que las filas de control de cambios. §VI.3.2 nombra las filas y no las entradas, y **esta intervención lo declara acá porque el barrido lo destapó** |
+| **1** | Líneas de **entradas publicadas** del `CHANGELOG` —**7.0, 5.1, 4.1, 3.0, 2.2 y 2.1**— que narran el estado de su fecha | **Exclusión propia del caso**: son **registro fechado**, intocables por el mismo motivo que las filas de control de cambios. §VI.3.2 nombra las filas y no las entradas, y **esta intervención lo declara acá porque el barrido lo destapó** |
 | **2** | `AG-00030M`, en la entrada 12.0 | **La declaración de esta intervención**: es la **ilustración contrafáctica** de qué habría producido el orden de reemplazo equivocado |
 | **3** | Líneas de `Rules-Backlog-Tecnico.md`, `Deriva-Rules.md` y `Rules-Documentacion.md` | **Familias del producto**: nombran `US`, `BT`, `EP`, `SUP`, `CMP`, `OPS`… cuyo ámbito **no cambió** |
-| **3** | `Master-Prompt.md` §3.4 y §15, `SDD-User-Guide.md` y `Migracion-Rules.md` §4.3.1 | **Enunciados ya calificados por esta intervención** —«de estas familias», «para las familias del producto», «primer ámbito»—. **La emisión anterior los suprimía con un `grep -v` no declarado**, que es una exclusión sin enumerar; y `Migracion-Rules.md:152` **no estaba calificado**: lo destapó la tercera ronda, porque el patrón declarado **no tenía comando que lo corriera** |
-| **3** | La entrada **12.0** del `CHANGELOG`, y entradas publicadas de la 8.x a la 11.x | Las mismas dos cajas del comando 1: **declaración de esta intervención** y **registro fechado** |
+| **3** | `Master-Prompt.md` §3.4 y §15, `Master-Prompt-Reanudacion.md` §4, `SDD-User-Guide.md` y `Migracion-Rules.md` §4.3.1 | **Enunciados ya calificados por esta intervención** —«de estas familias», «para las familias del producto», «primer ámbito»—. **La emisión anterior los suprimía con un `grep -v` no declarado**, que es una exclusión sin enumerar; y dos **no estaban calificados**: `Migracion-Rules.md:152`, que la tercera ronda destapó porque el patrón declarado **no tenía comando que lo corriera**, y `Master-Prompt-Reanudacion.md:266`, que la cuarta destapó porque el patrón decía «ámbito de unicidad**:** producto» y el texto dice «unicidad **en el** producto» — **la preposición lo esquivaba** |
+| **3** | La entrada **12.0** del `CHANGELOG`, y la entrada publicada **7.0** | Las mismas dos cajas del comando 1: **declaración de esta intervención** y **registro fechado** |
 | **4** | Nada | — |
 
 **Una línea que no caiga en ninguna de esas casillas es hallazgo**, y así se detectaron los dos P0 de la
@@ -166,7 +166,7 @@ git diff b40cb0d --stat -- SDD PROMPTS Templates   # archivos y líneas tocadas
 | 7 | Nada fuera del alcance declarado | 32 archivos, más `CHANGELOG`, esta nota y el snapshot |
 | 8 | Barrido por concepto | **§3**, con **cuatro corridas y su residuo declarado caja por caja**. Ninguna devuelve «cero» salvo la 2 y la 4: los comandos 1 y 3 **devuelven residuo, y eso es lo esperado** —§VI.3.2 pide que toda ocurrencia caiga en una exclusión enumerada, no que el comando salga vacío—. La cuarta existe porque las tres primeras **no podían ver** que se estaban reescribiendo filas históricas |
 | 9 | Coherencia interna | §9.1, §9.2 y §10 R5 dicen lo mismo sobre el ámbito, y la familia que §9.2 enumera **cumple el ancho que §9.2 exige** |
-| 10 | Integridad del registro | **Cabecera = última fila en todos los archivos con tabla**, recalculable con el comando de §4. **Y ninguna fila histórica alterada**, que es el comando 4 de §3 |
+| 10 | Integridad del registro | **Cabecera = última fila en todos los archivos con tabla**, verificado archivo por archivo. **Y ninguna fila histórica alterada**, que es el comando 4 de §3 |
 | 11 | Cobertura de la nota | **Esta nota** |
 | 12 | Cobertura del catálogo | **Sin criterios nuevos**: no entra ninguna decisión que un agente deba tomar |
 | **13** | **Devolución al origen** | **§6** |

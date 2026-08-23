@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-00990)
-**Versión de las reglas:** 8.0
+**Versión de las reglas:** 8.1
 
 ---
 
@@ -461,6 +461,11 @@ que **se declara acá**.
 cierra con su fecha: el que tenga que numerar el próximo subagente de fase **no tendría de dónde
 leerlo**.
 
+**El marcador de plantilla.** Cuando una regla o un ejemplo tiene que nombrar «cualquier miembro de la
+familia» escribe `<PREFIJO>-XXXXX`: `US-XXXXX`, `NB-XXXXX`, `AG-XXXXX`. **No es un identificador y no se
+le exige la forma**: es el hueco que un documento deja para el que sí lo es. La convención ya estaba en
+uso y **no estaba declarada en ninguna parte**.
+
 **Regla de agotamiento.** Cinco dígitos se eligieron con holgura sobre la colección más grande que la
 evidencia registra, pero la regla que faltaba no era el número: era **qué hacer si el rango igualmente
 se agota**. La salida del método es **una sola, y es ampliar el ancho de esa familia**, declarando la
@@ -478,7 +483,7 @@ una, y que dos corridas del mismo framework produjeran líneas de base incompara
 
 | Excluida | Por qué |
 | --- | --- |
-| `FA-NN` | Designa un **flujo alternativo dentro del caso de uso que lo contiene** (`Rules-Especificacion-Funcional.md` §3.2). Es una **posición dentro de un documento**, como el ordinal de iteración: no cataloga un elemento de una colección y su ámbito es **local al artefacto** |
+| `FA-NN` | Designa un **flujo alternativo dentro del caso de uso que lo contiene** (`Rules-Especificacion-Funcional.md` §3.2). Es una **posición dentro de un documento**, como el ordinal de iteración: **no cataloga un elemento de una colección**, y por eso queda fuera del sistema. **Una familia excluida no toma ámbito de §9.1**: los dos ámbitos son de las familias alcanzadas |
 | El ordinal de iteración (`Sprint-XX`, `S0` a `S9`) | Es una posición de calendario que el roadmap de la categoría 00 numera, no un identificador de catálogo. Su referente es una ventana de tiempo del producto |
 
 ### 9.3 Estabilidad y capacidad, enunciadas juntas
@@ -782,3 +787,4 @@ correcta y no se podía sostener con una cita. Esta sección la funda hacia atr�
 | 7.0 | 2026-08-19 | **§12 pasa de una figura a dos y se parte en §12.1 y §12.2**, por el reporte `14` de `IA.SDD.Documentacion`. La cabecera declara que **son la misma figura con el evento de cierre en distinto lugar**: la referencia pendiente lo tiene **adentro** del método —el orquestador ve emitirse la categoría porque él mismo la produce— y el ítem diferido lo tiene **afuera**, en el ciclo de construcción que el método no gobierna, donde nadie lo ve pasar. **§12.2 es nueva**: un ítem que una §4.x declara obligatorio y no se puede contestar hoy **se difiere con forma de cuatro campos y no con una promesa en prosa**, y el cuarto —**el evento se nombra por un artefacto y su sección, no por un momento**— es el que la distingue: un momento no deja rastro que alguien pueda abrir, y un cierre que nadie comprueba no ocurre. Declara que **un ítem que empaqueta dos decisiones se difiere por partes**, y una tabla de escalamiento con **P1 para el ítem cuyo evento ya ocurrió** y P0 al cierre del producto. Evidencia: un destino real pasó **ocho etapas sin poder etiquetar ninguna** porque el prefijo de tag viajaba empaquetado con la herramienta de versionado, y el punto de control al que se difirió cerró sin registrarlo. Sube **major**: un documento generado antes que difiera un ítem en prosa **deja de cumplir**. |
 | 7.1 | 2026-08-21 | **§13 nueva, precedencia entre reglas, con un solo criterio**, y el control de cambios pasa a §14. El corpus no declaraba **ningún criterio para resolver un conflicto entre dos reglas**, y `Master-Prompt.md` §8.1 exige **cita literal** para que algo sea trabajo propio: sin criterio, el agente no podía sostener ninguna resolución y **todo conflicto caía en la detención por arbitraje sin que nadie lo hubiera decidido**. El criterio es **viaja o no viaja en la lista de insumos de todo despacho**, un hecho del árbol que se contesta abriendo §8. **Se evaluaron dos criterios más —especificidad y fecha— y se descartaron con motivo**: ninguno tenía caso medido y los dos producían resoluciones falsas. Si el criterio no decide, se detiene por §7.0. Funda hacia atrás la resolución de `Rules-Prompts-AI.md` §4.2 punto 9 contra §12.2, aplicada en la 11.0 sin cita posible. **§10 se reescribe además sin contar sus propias reglas** —decía «las cuatro» y son cinco desde que entró R5—, que es R1 aplicada a sí misma. Sube **minor**: agrega un criterio de resolución y ningún documento generado deja de cumplir. |
 | 8.0 | 2026-08-22 | **La familia `AG` entra al sistema de identificadores y se renumera al ancho de cinco dígitos.** Hasta acá §9.2 la excluía con motivo escrito —«no cataloga un elemento de una colección de un producto»—, y el motivo era correcto: dejaba al framework **sin forma de nombrarse a sí mismo**, que es lo que §10 **R5** declara que no es identidad. **§9.1 declara dos ámbitos** —el producto y el conjunto normativo vigente— y **cómo se relacionan**: no colisionan en numeración, **y sí se citan a través de la frontera**, que es el motivo del ámbito propio y no un argumento en contra. **`_legacy/` queda fuera del espacio de candidatos de los dos.** §9.2 **enumera `AG`** entre las familias alcanzadas —ya cumple el ancho cuando se la declara, no antes— y su tabla de exclusiones **suma `FA-NN`**, el flujo alternativo, que es una **posición dentro de un documento** como el ordinal de iteración. §10 R5 pasa de «único en el producto» a «único en su ámbito». Sube **major**: un `SDD/Docs/README.md` emitido antes **publica `AG-00` en su mapa de documentación** y deja de cumplir la comprobación 4 de `Master-Prompt.md` §10.0. |
+| 8.1 | 2026-08-23 | **§9.2 declara el marcador de plantilla `<PREFIJO>-XXXXX`**, que el corpus ya usaba en `US-XXXXX`, `NB-XXXXX` y `AG-XXXXX` **sin que ninguna regla lo escribiera**: no es un identificador y no se le exige la forma. Y la fila de `FA-NN` **deja de atribuirle un ámbito**: §9.1 declara **dos**, y los dos son de las familias **alcanzadas** — una familia excluida no toma ninguno. Las dos las levantó la cuarta ronda de auditoría, la segunda como daño que la reemisión anterior había introducido. Sube **minor**: declara una convención en uso y quita una atribución que contradecía a §9.1. |

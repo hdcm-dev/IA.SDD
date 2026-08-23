@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de reanudación
 
 **Archivo:** `Master-Prompt-Reanudacion.md`
-**Versión:** 1.8
+**Versión:** 1.9
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** lectura, diagnóstico y **entrega de contexto**, con detención obligatoria. **No escribe nada del destino salvo su propio informe**, y no ejecuta el trabajo que despacha
 **Prerequisitos:** un repositorio destino con `SDD/` poblado. No exige memoria de ninguna sesión anterior
@@ -263,7 +263,7 @@ regla actual describe. Seguir construyendo ahí **produce documentación nueva c
 cada documento agregado agranda la migración futura en lugar de acercarla.
 
 **Y hay un caso que el método vivió y conviene nombrar: las procedencias tempranas.** Los conjuntos
-anteriores al que introdujo el ámbito de unicidad en el producto y el nivel de unidad de entrega no
+anteriores al que introdujo el ámbito de unicidad en el producto para las familias del producto y el nivel de unidad de entrega no
 tienen un historial que permita continuar sin ambigüedad: sus identificadores no son direcciones
 válidas y su layout no existe. Sobre esas procedencias, **C no se recomienda nunca**, y la
 recomendación lo dice con su motivo en lugar de ofrecerla como si fuera equivalente.
@@ -440,3 +440,4 @@ entonces el contexto vuelve a vivir sólo en la sesión.
 | 1.6 | 2026-08-17 | R1 y R2 se declaran como casos de `Master-Prompt.md` §8.1, que generaliza a toda detención lo que §4.0 había hecho para las salidas de R2. La recomendación de §4.0 **es** la propuesta que §8.1 exige. |
 | 1.7 | 2026-08-18 | Adopta el **cierre de unidad** de `Master-Prompt.md` §8.1 —entrega y decisiones en un solo bloque, cada decisión con su contexto— y su regla de **autocorrección**. |
 | 1.8 | 2026-08-19 | **R0 paso 4 suma los ítems diferidos** de `Root-Rules.md` §12.2 a los pendientes declarados, **con su evento de cierre contrastado**, y **R1 los publica** en un bloque propio con tres renglones: declarados, vencidos y sin forma. Va acá porque **es la comprobación más barata del método**: la reanudación ya lee el árbol entero sin memoria, y preguntarle «¿qué se difirió y ya venció?» no cuesta una pasada nueva. Origen: el reporte `14`, nacido de un destino donde el diferimiento se destapó **por el síntoma** —cero etiquetas en el repositorio— y no por el diferimiento, ocho etapas tarde. Sube **minor**: un insumo más en un paso existente y un bloque más en la presentación. |
+| 1.9 | 2026-08-23 | La descripción del salto a la 7.0 decía «**el ámbito de unicidad en el producto**» a secas, y desde la 12.0 hay **dos ámbitos**. Queda acotado a las familias del producto. Lo levantó la cuarta ronda de auditoría: el patrón del barrido decía `ámbito de unicidad: producto` y **la preposición lo esquivaba**. Sube **minor**: precisa una descripción histórica. |
