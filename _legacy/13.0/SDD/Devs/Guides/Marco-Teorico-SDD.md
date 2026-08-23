@@ -1,7 +1,7 @@
 # Marco Teórico SDD
 
 **Documento:** Marco-Teorico-SDD.md
-**Versión:** 3.7
+**Versión:** 3.6
 **Estado:** Aprobado
 **Fecha:** 2026-08-23
 **Autor:** Equipo Template SDD — UTN
@@ -102,11 +102,10 @@ workspace/
 │       │   ├── Guides/              Marco teórico (este documento)
 │       │   ├── Intake/              Plantillas de carga inicial (PRODUCT-INTAKE/MANIFEST-template)
 │       │   ├── Orchestrator/        Prompts orquestadores y subagentes (Master-Prompt)
-│       │   ├── Rules/               Reglas de nomenclatura, decisiones D1..D9
+│       │   ├── Rules/               Reglas de nomenclatura, decisiones D1..D8
 │       │   ├── References/          Catálogo de reglas de diseño por stack y por capacidad (insumo de AG-00030)
 │       │   └── Bootstrap/           Auditoría del fuente SDD 1.0, ADR de origen
 │       └── Guides/                  Guía de usuario
-│   └── Conocimiento/                Catálogo de oficio (carpeta anexa, puede estar vacía)
 │
 └── <Repositorio-Destino>/          Repositorio destino del producto
     └── SDD/
@@ -1253,27 +1252,6 @@ Además de las especializaciones por stack, el catálogo admite extensiones por 
 
 Tres extensiones más completan el eje, y juntas describen el arquetipo del panel de control monolítico: una instancia propia que arranca vacía, la aprovisiona su único operador y se identifica por la versión que corre. El primer arranque (`Design-Rules-Primer-Arranque`) trata el despliegue sin configurar como una capacidad de primera clase: un predicado único de aprovisionamiento que todas las superficies consultan, un corte redundante en tres capas (ruteo, superficie y acción), una superficie sin chrome de navegación porque todavía no hay a dónde ir, y un acto explícito, indivisible e irreversible que cierra su lazo con un acuse en la pantalla siguiente. El acceso de operador único (`Design-Rules-Acceso-Monousuario`) define un perfil cuyo valor de diseño está en lo que omite: sin registro, sin selector de cuenta, sin recuperación, sin roles visibles, con un shell partido entre acceso y trabajo, mensajes resueltos desde un catálogo de códigos y un rechazo de credenciales deliberadamente indiferenciado. La identidad de versión (`Design-Rules-Identidad-De-Version`) fija que la versión que muestra una instancia se deriva del proceso que la construyó y nunca se transcribe a mano, y que sin ella la instancia no es diagnosticable. Las cuatro extensiones son ortogonales entre sí; una unidad de entrega carga las que su intake habilita.
 
-## 8.7.1 El límite del catálogo: método contra oficio
-
-El catálogo anterior es **método**: material metodológico, neutro por construcción, insumo normativo de la 03. Y ese es exactamente su límite, que conviene enunciar porque explica una capa entera del framework.
-
-**SDD está fundado en metodologías ágiles y gestión** —cómo se especifica, cómo se descompone, cómo se audita, cómo se planifica—. Su identidad es el proceso. Lo que casi no tiene, y por buenas razones de diseño, es **oficio**: cómo se codea esto o aquello, según la casa.
-
-**Y no puede tenerlo dentro del conjunto normativo.** En el momento en que el framework opina sobre cómo estructurar la capa de datos de una organización, deja de servirle a la de al lado. La neutralidad de dominio que D7 protege no es una formalidad: es lo que hace al framework reutilizable entre organizaciones.
-
-De ahí la separación que el framework adopta desde el conjunto 13.0:
-
-| | Método | Oficio |
-| --- | --- | --- |
-| Qué responde | Qué artefactos se producen, con qué criterios se aceptan, cómo se trazan | Cómo se construye concretamente una cosa, según la casa |
-| Dónde vive | El conjunto normativo: reglas, plantillas, orquestadores | `Conocimiento/`, carpeta anexa |
-| Se puede vaciar | No. Sin él no hay método | **Sí.** El framework corre igual |
-| Cómo se extiende | Interviniendo el framework | Agregando documentos, **sin tocar una regla** |
-
-**El desacoplamiento es verificable y hay que enunciarlo así**: el framework corre con `Conocimiento/` vacía, y ninguna regla nombra un documento de conocimiento. Lo único que el conjunto normativo fija es el formato del documento y el contrato de su índice, en `Rules-Base-Conocimiento.md`. Es lo que permite que una organización sume su oficio **sin desfigurar el método**, forkeando el repositorio y poblando esa carpeta.
-
-**La frontera con `Modelos-UX-UI/` es el origen, no el contenido.** Un modelo UX-UI capitaliza una salida del propio framework —una maqueta aprobada en la Fase B2—; un documento de conocimiento caracteriza algo externo que el framework no gobierna. Los dos producen material reusable y los dos exigen ofuscación, porque el repositorio es público.
-
 ## 8.8 La maqueta como instrumento de validación
 
 Entre la especificación de experiencia y el código hay una brecha que ningún documento cierra por sí solo. La categoría 03 produce texto: un marco de experiencia, wireframes esquemáticos, tablas de estados. Ese texto es preciso, pero exige del lector humano una simulación mental costosa y poco confiable: leer una descripción de layout y anticipar cómo se va a sentir usarlo es una habilidad que casi nadie tiene y que nadie ejerce bien sobre cuarenta páginas.
@@ -1980,7 +1958,6 @@ W3C. (2024). *ARIA — Accessible Rich Internet Applications*. https://www.w3.or
 | 1.5 | 2026-07-18 | Incorporación del arquetipo de panel de control monolítico: §8.7 suma las tres extensiones por capacidad nuevas (primer arranque, acceso de operador único, identidad de versión) y su lectura conjunta como perfil del arquetipo. Fila agregada a posteriori: el cambio de contenido se había incorporado sin subir versión ni registrar entrada, en incumplimiento de la política de versionado D5 del propio template. | Reformulación SDD (arquetipo de panel monolítico) |
 | 1.6 | 2026-07-19 | Fundamentación de la Fase B2 de validación visual de maqueta y del sensado de deriva: §8.8 (la maqueta como instrumento de diseño y de control, su doble validación de experiencia y de modelo de datos, y sus dos capitalizaciones hacia el proyecto y hacia el template) y §9.7 (la deriva como separación acumulativa, la insuficiencia de la trazabilidad D6 y de la auditoría estructural por ser verificaciones internas, la línea de base como referente externo falsable, la invariante D9 de evidencia verificable con su alcance acotado y su vigencia hacia adelante, y los umbrales como condición de sostenibilidad del instrumento). | Framework SDD (validación visual y sensado de deriva) |
 | 1.7 | 2026-07-26 | Intercambio de categorías 10 ↔ 11: el mapa visual de §1.5, el catálogo de especialidades de §4.2 y la tabla Diátaxis de §8.5 pasan a declarar `10-Examples/` con titular AG-10 Developer Advocate y `11-Documentacion/` con titular AG-11 Technical Writer. §4.2 reformula la responsabilidad de la categoría de documentación en términos de los tres roles de intervención sobre el producto terminado. Normalización del vocabulario de actores. Se corrige el nombre de la carpeta de prompts de entrada en el árbol de §1.5.  Reformulación SDD |
-| 3.7 | 2026-08-23 | **Nueva §8.7.1: el límite del catálogo de diseño, y con él el encuadre de método contra oficio.** SDD está fundado en metodologías ágiles y gestión, y su identidad es el proceso; lo que casi no tiene, por diseño, es **oficio** —cómo se codea esto o aquello según la casa—, y **no puede tenerlo dentro del conjunto normativo** sin dejar de servirle a la organización de al lado, que es lo que D7 protege. La sección declara la separación que el conjunto 13.0 adopta, con la tabla que la hace verificable: el método no se puede vaciar, el oficio sí, y **el framework corre con `Conocimiento/` vacía porque ninguna regla nombra un documento de conocimiento**. Escribe además la frontera con `Modelos-UX-UI/`, que es **el origen y no el contenido**. §1.5 suma la carpeta al mapa y corrige `decisiones D1..D8` por `D1..D9`, que la 1.8 ya había normalizado en el resto del documento. |
 | 1.8 | 2026-07-26 | Normalización de la nomenclatura de invariantes a D1–D9 en §3 y §11. Se corrige el bloque de ejemplo de §11.2, que citaba `devs/Rules/decisiones-D1-D8.md`, un archivo inexistente en el layout vigente, y rutas en minúsculas del modelo previo al repositorio de tres niveles. | Reformulación SDD |
 | 1.9 | 2026-07-29 | Corrección del catálogo de especialidades y del mapeo de roles Scrum. Las **fichas de §4.2 de AG-10 y AG-11 seguían intercambiadas**: AG-10 figuraba como Technical Writer y AG-11 como Developer Advocate, al revés de lo que declaran sus archivos de reglas y la tabla resumen de §4.3. La entrada 1.7 de este control de cambios registraba esa corrección sobre §4.2 sin que se hubiera aplicado a las fichas. Se corrigen además el diagrama de trazabilidad de §4.4, que arrastraba la misma inversión, la fila de interacciones cross-rol de AG-03 y la ruta `03-UX-UI/` de §4.3, que debía ser `03-UX-UI-DX/`. §5.5 corrige el mapeo del rol Scrum **Product Owner**, que apuntaba a AG-00: AG-00 es Product Manager y opera aguas abajo del intake, formalizando decisiones ya tomadas, mientras el Product Owner opera aguas arriba y es quien las toma. §5.1 se alinea. Dos rutas `rules/` obsoletas corregidas. |
 | 2.0 | 2026-07-29 | Vocabulario normativo (framework 5.0). El nivel superior pasa de «solución» a **producto** y la unidad de compilación de «proyecto» a **proyecto de código** en todo el cuerpo. El glosario de §13 abandona las definiciones por papel en la herramienta —*Proyecto* como «unidad de especialización del template» y *Solución* como «agrupación de una jerarquía de N proyectos»— y adopta las definiciones **por frontera** de `Vocabulario-Rules.md` §2, que es lo que esta versión declara como causa del problema: un término definido por lo que la herramienta hace con él absorbe cualquier significado. Fila registrada retroactivamente en la 5.1: la migración subió la versión de cabecera sin dejar su fila. |

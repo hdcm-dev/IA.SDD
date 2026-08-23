@@ -2,7 +2,7 @@
 
 ```yaml
 Documento: Guia-Usuario-SDD.md
-Versión: 1.18
+Versión: 1.17
 Fecha: 2026-08-23
 Audiencia: profesionales y estudiantes que usan el template para un producto real
 Idioma: español rioplatense neutro técnico
@@ -373,7 +373,7 @@ ls ../IA.SDD/SDD/Devs/Orchestrator/   # Master-Prompt.md, Master-Prompt-Migracio
 ls ../IA.SDD/SDD/Devs/Rules/          # reglas de la fuente
 ```
 
-Debería listar los **tres** master-prompts en `Orchestrator/` de la fuente —`Master-Prompt.md`, que genera; `Master-Prompt-Migracion.md`, que lleva un destino ya especificado a la versión vigente; y `Master-Prompt-Reanudacion.md`, que determina en qué estado quedó un destino y con qué salida continuar—, los doce archivos de reglas por categoría `Rules-*.md` (de `Rules-Contexto.md` a `Rules-Examples.md`), más las siete reglas transversales `Root-Rules.md`, `Intake-Rules.md`, `Maqueta-Rules.md`, `Deriva-Rules.md`, `Vocabulario-Rules.md`, `Migracion-Rules.md` y `Rules-Base-Conocimiento.md` en `Rules/` de la fuente —diecinueve archivos en total—, y tu intake personalizado en `SDD/Intake/` del destino (el único `PRODUCT-INTAKE` del producto). El `PRODUCT-MANIFEST` no lo creás vos: lo deriva el orquestador y lo escribe también en `SDD/Intake/` del destino.
+Debería listar los **tres** master-prompts en `Orchestrator/` de la fuente —`Master-Prompt.md`, que genera, y `Master-Prompt-Migracion.md`, que lleva un destino ya especificado a la versión vigente—, los doce archivos de reglas por categoría `Rules-*.md` (de `Rules-Contexto.md` a `Rules-Examples.md`), más las seis reglas transversales `Root-Rules.md`, `Intake-Rules.md`, `Maqueta-Rules.md`, `Deriva-Rules.md`, `Vocabulario-Rules.md` y `Migracion-Rules.md` en `Rules/` de la fuente —dieciocho archivos en total—, y tu intake personalizado en `SDD/Intake/` del destino (el único `PRODUCT-INTAKE` del producto). El `PRODUCT-MANIFEST` no lo creás vos: lo deriva el orquestador y lo escribe también en `SDD/Intake/` del destino.
 
 ### 4.5 Paso 5 — Ejecutar el master-prompt en Claude Code
 
@@ -1169,25 +1169,6 @@ Conviene capturar uno cuando el diseño que aprobaste resuelve bien un problema 
 
 Tené presente que `IA.SDD` es un repositorio público. Cuando aceptás capitalizar un modelo, el orquestador ofusca todo el dominio antes de escribir: reemplaza entidades, campos, valores, textos y assets por equivalentes sintéticos, y preserva solo la forma. Si no puede completar esa verificación con certeza, no escribe nada.
 
-### F-23.1 — ¿Y qué es la carpeta `Conocimiento/`? ¿En qué se diferencia de un modelo UX-UI?
-
-`Conocimiento/`, en la raíz del repositorio fuente, es el catálogo de **oficio**: caracterizaciones de cosas que el método deliberadamente no gobierna. Cómo está construida una arquitectura concreta, cómo se declara un template y sus variables, qué nomenclatura sigue un esquema de base de datos.
-
-**La diferencia con un modelo UX-UI es el origen, no el parecido del resultado.** Los dos producen material reusable y los dos usan nombres agnósticos del dominio, así que se confunden:
-
-| | Modelo UX-UI | Documento de conocimiento |
-| --- | --- | --- |
-| De dónde sale | De una **maqueta que el framework generó** y vos aprobaste | De **algo externo**: una app existente, un sistema legado, un diseño ajeno |
-| Dónde vive | `Devs/Modelos-UX-UI/` más su ejemplo en `Templates/` | `Conocimiento/` |
-| Cuándo se captura | En el paso 7 de la Fase B2 | Fuera de una corrida, cuando querés |
-| Qué regla lo gobierna | `Maqueta-Rules.md` §5 | `Rules-Base-Conocimiento.md` |
-
-**El framework corre exactamente igual con `Conocimiento/` vacía.** No hay nada que apagar: sin documentos, su índice no tiene filas.
-
-**Qué podés hacer hoy con esto, y qué no.** Podés **poblar** el catálogo, y sirve como referencia escrita de cómo se hacen las cosas en tu casa. Lo que **todavía no** podés es citarlo desde el intake para que el orquestador lo inyecte en una corrida: esa parte no está cableada. Cuando lo esté, esta sección lo va a decir.
-
-Y vale lo mismo que para un modelo: `IA.SDD` es un repositorio público, así que la ofuscación es bloqueante y previa a escribir.
-
 ### F-24 — ¿Por qué se intercambiaron las categorías 10 y 11?
 
 Porque la dependencia real entre ellas iba al revés de como estaba declarada. Los ejemplos ejecutables son insumo de la documentación final, no al revés: la documentación los referencia, los contextualiza y los enlaza. Además, los ejemplos cumplen un segundo rol que solo tiene sentido durante la codificación —verificar que cada incremento sigue satisfaciendo los casos de uso—, así que tienen que existir antes.
@@ -1523,8 +1504,6 @@ Términos esenciales para usar el template. Para el glosario exhaustivo del marc
 | Fase B2 | Fase opcional de validación visual de maqueta, por unidad de entrega, entre la Fase B y la Fase C. Se activa con el flag `requiere_maqueta`. Materializa la especificación de 03 en una maqueta navegable, la valida con vos, retroalimenta la documentación y emite la línea de base del sensado de deriva. Su regla es `Maqueta-Rules.md`. |
 | Maqueta | Sitio estático navegable en `SDD/Maquetas/<Nombre-Proyecto-Codigo>/`: HTML, CSS, Bootstrap 5 y JavaScript, sin proceso de build, con los datos de ejemplo de la documentación hardcodeados. Sirve para validar de una sola vez la experiencia y el modelo de datos. No es el producto ni documentación viva: es la línea de base de un momento, aprobada explícitamente. |
 | Modelo UX-UI | Diseño capturado de una maqueta aprobada, escrito como reglas constructivas en `Modelos-UX-UI/` con su ejemplo ofuscado en `Templates/`. Opcional; se aplica por encima del catálogo base de `References/Design/`, nunca en su reemplazo. |
-| Documento de conocimiento | Caracterización de un artefacto o convención que el framework **no gobierna** —una arquitectura, un template, una nomenclatura—, escrita en `Conocimiento/` con su fila en `Index-Knowledge.md`. Se distingue de un modelo UX-UI por el **origen**: un modelo sale de una maqueta del propio framework, un documento de conocimiento sale de algo externo. Su regla es `Rules-Base-Conocimiento.md`. |
-| Alias citable | El nombre corto y estable con que se referencia un documento de conocimiento, desacoplado de su nombre de archivo. Usa el nombre establecido de la cosa cuando existe: `Clean-Architecture`, `Patron-DAO`. |
 | Línea de base visual | Inventario identificado (`SUP-XXXXX` superficies, `CMP-XXXXX` componentes, `EST-XXXXX` estados, `NAV-XXXXX` rutas) de lo aprobado en la maqueta, más el contrato de datos (`DM-XXXXX`) que exhibía. Punto de comparación externo del sensado de deriva. |
 | Sensado de deriva | Mecanismo de control que contrasta lo construido contra la línea de base visual y el contrato de datos, con umbrales declarados de deriva menor y mayor. Se opera con la `Matriz-Sensado-Deriva.md` de la categoría 08, sprint a sprint. Su regla es `Deriva-Rules.md`. |
 | Evidencia verificable (D9) | Invariante global: toda afirmación sobre el estado del sistema cita un artefacto localizable, reproducible, contemporáneo e independiente de quien afirma. No aplica a afirmaciones de diseño, de especificación ni de contexto, que necesitan justificación y no evidencia. Rige hacia adelante desde su incorporación. |
@@ -1701,7 +1680,6 @@ Notas sobre el árbol:
 - `AGENTS.md` vive en la raíz del repositorio, fuera de `SDD/`. Es la única salida del orquestador que no está bajo `SDD/`, y es a propósito: las herramientas de agentes lo buscan ahí. Se emite en la primera corrida de la Fase I.
 - `SDD/Maquetas/` aparece solo si alguna unidad de entrega ejecutó la Fase B2. Es hermana de `SDD/Docs/` y no está dentro de ella: `SDD/Docs/` es exclusivamente prosa generada por el orquestador, y la maqueta es material ejecutable que vos editás a mano durante la validación.
 - El catálogo de modelos UX-UI (`Devs/Modelos-UX-UI/`) y sus ejemplos ejecutables (`Templates/`, en la raíz del repositorio fuente `IA.SDD`, hermana de `SDD/`) viven del lado del template, no del repositorio destino. Se poblan solo si aceptás capitalizar el diseño de una maqueta aprobada.
-- El catálogo de conocimiento (`Conocimiento/`, también en la raíz de la fuente) vive del mismo lado y por el mismo motivo. Es **carpeta anexa**: no forma parte del conjunto normativo, y el framework corre igual con ella vacía.
 - El árbol mostrado es el caso completo; tu producto va a tener algunas omisiones por unidad de entrega según el `tipo_unidad_entrega` de cada uno y sus flags.
 
 ---
@@ -1732,7 +1710,6 @@ Esta guía de usuario está distribuida en 10 capítulos completos según la est
 | 1.14 | 2026-08-16 | El árbol de ejemplo del capítulo 5 mostraba `Arquitectura-Proyecto-Codigo.md`, nombre que la regla de la categoría 05 ya había cambiado a `Arquitectura-Unidad-Entrega.md`. |
 | 1.15 | 2026-08-16 | El campo del manifiesto pasa a **«Unidad de entrega principal»** en el capítulo 5 y en el glosario, **cuya definición ya decía «la unidad de entrega cabeza del producto»**: la definición se había migrado en la 8.0 y el término no. |
 | 1.16 | 2026-08-22 | **La renumeración de `AG` al ancho de cinco dígitos** (framework 12.0), y **el glosario deja de declarar un solo ámbito**: decía que todo identificador es «único en el producto» y que `AG` queda **fuera** del sistema. Desde la 12.0 hay **dos ámbitos** y `AG` pertenece al del conjunto normativo. Sube **minor**: corrige una declaración de la cara al usuario sin cambiar ningún procedimiento. |
-| 1.18 | 2026-08-23 | **Puesta al día contra el conjunto 13.0, que incorporó la capa de conocimiento y que esta guía no mencionaba en ninguna línea.** Nueva **F-23.1**: qué es `Conocimiento/` y en qué se diferencia de un modelo UX-UI, con la tabla que fija el criterio —**el origen, no el parecido del resultado**: un modelo sale de una maqueta que el framework generó, un documento de conocimiento sale de algo externo—. Declara además **qué se puede hacer hoy y qué no**: el catálogo se puede poblar, pero **citarlo desde el intake todavía no está cableado**. **§4.4 corrige dos recuentos viejos**: las reglas transversales pasan de seis a **siete** con `Rules-Base-Conocimiento.md` y el total de dieciocho a **diecinueve**; y la frase anunciaba **tres** master-prompts nombrando sólo dos, así que entra `Master-Prompt-Reanudacion.md`, que existe desde antes y no figuraba. El árbol de salida suma la nota de `Conocimiento/` como carpeta anexa, y el glosario suma **Documento de conocimiento** y **Alias citable**. Sube **minor**: pone al día y corrige conteos sin cambiar ningún procedimiento. |
 | 1.17 | 2026-08-23 | **El procedimiento de alta de categoría de §7.1 no acuñaba el identificador del rol titular.** Con `AG` alcanzada, una categoría nueva sin su `AG-00NN0` deja a su especialidad **sin forma de ser citada** desde el mapa de documentación del destino, que es lo que §9.5 exige y lo que la comprobación 4 de `Master-Prompt.md` §10.0 verifica. Entra el paso, con el bloque `00NN1` a `00NN9` para los subagentes de fase. Y se registra que la emisión anterior reescribió `runbooks/RB-XX-` como `RB-XXXXX-` **sin declararlo**: la reescritura es correcta —`RB` está alcanzada por el «y equivalentes» de §9.2— y **pasó por el hueco de una comprobación 7 tautológica**. Lo levantó la sexta ronda. Sube **minor**. |
 
 ---
