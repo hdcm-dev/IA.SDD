@@ -3,6 +3,34 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [12.3] - 2026-08-23
+
+**El primer documento escrito contra `Rules-Base-Conocimiento.md` encontró cuatro defectos en la regla, y ese era el trabajo del piloto.** El plan lo pone como **compuerta entre bloques**: si el archivo de reglas no alcanza para caracterizar un artefacto externo, se corrige **antes** de tocar el intake, que es la parte cara.
+
+**Los cuatro son del mismo tipo, y conviene nombrarlo**: la regla se escribió mirando el documento y el índice **por separado**, y los defectos viven en la costura entre los dos. Ninguno se habría visto releyendo el archivo.
+
+### Cambiado — `Rules-Base-Conocimiento.md` 1.0 → 1.1
+
+**§4.1 suma el campo `Tema`.** El índice lo exigía como columna y la cabecera no lo tenía: un documento podía cumplir §4.1 entero y **aun así no poder completar su fila**. Pasa de diez campos a **once**.
+
+**§4.1 adopta literalmente los nombres de columna del índice** —`Condicion-de-carga`, `Hereda-de`, `Sustituye`, `Compatible-con`—. Estaban escritos de dos formas distintas en los dos lugares, y una comprobación campo por campo sobre nombres que no coinciden **se resuelve por interpretación**, que es lo que un criterio `[enumerable]` existe para evitar.
+
+**§6.1 reformula el ítem de coincidencia con el índice, que era inverificable.** Decía «sus campos coinciden con la cabecera»; no todos los campos de la cabecera viajan al índice ni todas las columnas tienen campo. Ahora nombra los **ocho comunes**, y §7.1 declara la correspondencia del otro lado.
+
+**§6.1 suma el ítem de numeración interna contigua.** El piloto escribió una `§4.3` sin `§4.1` ni `§4.2`, y **los doce ítems de la lista la dieron por buena**. Una sección con una sola subsección la lleva sin numerar. La lista pasa de doce ítems a **trece**.
+
+### Por qué el conjunto sube 12.3
+
+**Es un minor** por la tabla de §VI.5: `Rules-Base-Conocimiento.md` sube minor y ninguna otra regla se toca. **Ningún documento generado deja de cumplir**, porque la regla sigue sin alcanzar a nada que el framework genere hoy.
+
+### Impacto sobre destinos existentes
+
+**Ninguno.** Sigue sin haber orquestador que lea la regla. El único documento escrito contra la 1.0 vive en una base de conocimiento fuera de este repositorio y se alineó a la 1.1 en la misma jornada.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Base-Conocimiento.md` 1.1, §8. Conjunto resultante **12.3**.
+
 ## [12.2] - 2026-08-23
 
 **El framework tiene método y casi no tiene oficio, y eso es una decisión de diseño, no una carencia.** Su identidad son las metodologías ágiles y la gestión: cómo se especifica, cómo se descompone, cómo se audita, cómo se planifica. **No puede opinar sobre cómo estructurar la capa de datos de una casa sin dejar de servirle a la de al lado.** Lo que faltaba no era el oficio: era **dónde lo pone quien lo tiene**.

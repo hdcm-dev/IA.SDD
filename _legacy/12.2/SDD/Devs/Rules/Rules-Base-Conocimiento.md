@@ -3,7 +3,7 @@
 **Carpeta target:** la raíz de base de conocimiento que el intake del producto declara (`PRODUCT-INTAKE-template.md`, Parte B). **No es una carpeta de este repositorio.**
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
 **Agente target:** el prompt de relevamiento que cita este archivo, fuera de una corrida de generación, y AG-00980 (Bibliotecario de conocimiento) en tiempo de ejecución
-**Versión de las reglas:** 1.1
+**Versión de las reglas:** 1.0
 
 ---
 
@@ -189,21 +189,15 @@ consumidor declarado y el artefacto de referencia si lo hay. La trazabilidad hac
 
 **Alias:** <Alias-Citable>
 **Naturaleza:** canonico | propio
-**Tema:** <una línea, la misma que va al índice>
 **Consumidor:** <categoría 00 a 11 | transversal | subagente de fase, por ejemplo AG-00031>
-**Condicion-de-carga:** <expresada contra campos del intake, flags o tipo D8>
-**Hereda-de:** <alias o documento del piso, o —>
+**Condición de carga:** <expresada contra campos del intake, flags o tipo D8>
+**Hereda de:** <alias o documento del piso, o —>
 **Sustituye:** <referencia literal al ítem del piso, o —>
-**Compatible-con:** Rules-Base-Conocimiento.md <versión>
+**Compatible con:** Rules-Base-Conocimiento.md <versión>
 **Versión:** <X.Y>
 **Estado:** Vigente | Superado
 **Fecha:** YYYY-MM-DD
 ```
-
-**Once campos, ninguno vacío**: los que no aplican llevan `—`. Los nombres de los siete primeros son
-**literalmente los de las columnas del índice** (§7.1), para que la comprobación de coincidencia se
-pueda hacer campo por campo y no por interpretación. `Versión`, `Estado` y `Fecha` son propios del
-documento y no viajan al índice, salvo `Estado`, que sí.
 
 La cabecera y el índice son lo que hace barata la **divulgación progresiva**: se decide si el documento
 aplica leyendo el índice, y se confirma leyendo la cabecera, sin cargar el cuerpo.
@@ -316,13 +310,12 @@ el modo de falla más frecuente y el más caro, porque el resultado parece un do
 
 ### 6.1 Lista de comprobación
 
-- [ ] `[enumerable]` La cabecera lleva los once campos de §4.1, ninguno vacío. Los que no aplican llevan `—`.
+- [ ] `[enumerable]` La cabecera lleva los diez campos de §4.1, ninguno vacío. Los que no aplican llevan `—`.
 - [ ] `[enumerable]` El nombre de archivo cumple `Knowledge-<Tema>.md`, ASCII, sin prefijo numérico.
 - [ ] `[enumerable]` El alias es único en el índice de la base.
 - [ ] `[enumerable]` Están las secciones §0 a §10 de §4.2, salvo las omisiones que §0 declare.
 - [ ] `[enumerable]` El documento entra bajo el techo de §6.2.
-- [ ] `[enumerable]` Existe la fila en `Index-Knowledge.md` y sus **ocho campos comunes** coinciden con la cabecera: alias, naturaleza, tema, consumidor, condición de carga, hereda-de, sustituye y compatible-con. `Documento` sale del nombre de archivo; `Versión` y `Fecha` no viajan al índice.
-- [ ] `[enumerable]` **La numeración interna es contigua y sin huecos**: no hay una `§N.3` sin `§N.1` y `§N.2`. Una sección con una sola subsección la lleva sin numerar.
+- [ ] `[enumerable]` Existe la fila en `Index-Knowledge.md` y sus campos coinciden con la cabecera.
 - [ ] `[enumerable]` Si el documento contradice un ítem del piso, o el índice declara `sustituye`, o §8 declara la desviación con su justificación.
 - [ ] `[interpretativo]` §0 declara qué queda afuera, y no en términos genéricos.
 - [ ] `[interpretativo]` Un documento `canonico` escribe el delta y no reexplica el canon.
@@ -365,11 +358,6 @@ orquestador abre para resolver un alias. Una base cuyo índice no cumpla este co
 | `Sustituye` | Referencia literal al ítem del piso que reemplaza, por ejemplo `Maqueta-Rules.md §4.1 · tecnología de construcción` | Si aplica |
 | `Compatible-con` | Versión de este archivo contra la que se escribió el documento | Sí |
 | `Estado` | `Vigente` o `Superado` | Sí |
-
-**Correspondencia con la cabecera del documento.** Ocho de estas diez columnas existen también como
-campo de §4.1 y con el mismo nombre: alias, naturaleza, tema, consumidor, condición de carga,
-hereda-de, sustituye y compatible-con. `Documento` sale del nombre de archivo y `Estado` se replica.
-Es lo que vuelve verificable campo por campo la comprobación de §6.1.
 
 ### 7.2 Por qué el consumidor admite subagentes de fase
 
@@ -485,5 +473,4 @@ que tienda a cero a medida que las condiciones se afinan.
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
-| 1.1 | 2026-08-23 | **Cuatro correcciones que trajo el primer documento real escrito contra esta regla**, que es para lo que el piloto existe. La cabecera de §4.1 suma el campo **`Tema`**, que el índice exigía y que la cabecera no tenía, y **alinea los nombres de sus campos con los de las columnas del índice** —`Condicion-de-carga`, `Hereda-de`, `Sustituye`, `Compatible-con`—: estaban escritos de dos formas distintas en los dos lugares. Pasa de diez campos a **once**. §6.1 suma el ítem de **numeración interna contigua** —el piloto escribió una `§4.3` sin `§4.1` ni `§4.2` y **la lista de trece ítems no lo detectaba**— y reformula el ítem de coincidencia con el índice, que era **inverificable como estaba**: no todos los campos de la cabecera viajan al índice ni todas las columnas tienen campo, así que ahora nombra los **ocho comunes**. §7.1 declara esa correspondencia de forma explícita. La lista pasa de doce ítems a **trece**. |
 | 1.0 | 2026-08-23 | Emisión inicial. Regula el **formato de un documento de conocimiento** y el **contrato del índice** de una base de conocimiento de la organización, que vive **fuera de este repositorio** y que el intake declara. El framework aporta el continente y no aporta ni un documento. Fija: la frontera entre conocimiento y método (§0.1); la capacidad como opcional y apagada por defecto (§0.2); las **dos capas del piso mínimo** —método no desplazable y decisión de stack sustituible— y los **tres modos de aportar**, sumar, especializar y sustituir, con la sustitución habilitada por el framework y nunca por el conocimiento (§0.3 y §0.4); la regla de subordinación que evita que un choque caiga en `Root-Rules.md` §13 y detenga; el patrón de nombres y las tres reglas del **alias citable** (§3); la plantilla del documento §0 a §10 y las **siete propiedades de forma** (§4); las **veinte preguntas guía** del relevamiento (§5); los criterios de aceptación con **techo de tamaño diferenciado** entre `canonico` y `propio` (§6); las diez columnas obligatorias del índice, incluido `sustituye` y el consumidor que **admite subagentes de fase** (§7); el prompt-snippet que el prompt de relevamiento cita literalmente (§8); y el contrato de **AG-00980**, el bibliotecario que entrega identificadores y nunca texto (§9). |
