@@ -15,7 +15,7 @@ traces:
 # Guía de desarrollo y extensibilidad del framework SDD
 
 **Documento:** SDD-Development-Guide.md
-**Versión:** 1.25
+**Versión:** 1.24
 **Estado:** Vigente
 **Fecha:** 2026-07-29
 **Rol de intervención:** Mantenedor del framework
@@ -268,42 +268,6 @@ Los flags de §4 del master-prompt no los inventa el orquestador ni los pregunta
 | `tiene_extensibilidad` | Puntos de extensión declarados en el intake | Artefactos de extensión en 05 y guía de extensión en 11 |
 
 El patrón es siempre el mismo y conviene respetarlo al agregar un flag: **derivar un valor propuesto, presentarlo, y dejar que el humano lo confirme o lo invierta**. Un flag que el orquestador fija sin preguntar convierte una decisión de producto en un efecto secundario de una regla de derivación, y el usuario se entera cuando ve el resultado.
-
-### II.7 El framework no distribuye código ejecutable
-
-**El conjunto normativo es Markdown y nada más.** Se versiona por intervención, se archiva por versión
-en `_legacy/` y **se audita leyendo**. No hay binarios, ni scripts, ni dependencias de ejecución: un
-agente que quiera proponer un verificador, un resolvedor de referencias o un barrido que corra solo
-**se detiene acá y cita esta sección**.
-
-**No es una preferencia de estilo, y el fundamento ya estaba escrito en el corpus.** `Migracion-Rules.md`
-§3 rechazó los playbooks por salto de versión con un argumento que aplica igual: *«el estado objetivo ya
-está declarado y no hay que escribirlo. Un playbook lo duplicaría, y **una duplicación que hay que
-mantener en paralelo se desincroniza**»*. **Un verificador que reimplementa las condiciones de las reglas
-es exactamente esa duplicación**, con el agravante de que decide con autoridad de máquina: uno que
-implemente la regla anterior **es peor que no tenerlo**, porque produce una afirmación de conformidad
-que nadie comprobó. El método ya registró esa clase de falla en otro lugar —la 9.10, donde un snapshot
-de `_legacy/` corrido un lugar hacía que el diff normativo de un salto saliera vacío y una migración se
-declarara completa sin aplicar nada—.
-
-**Las tres consecuencias que se evitan, y ninguna es técnica:**
-
-| Si hubiera código | Qué se rompe |
-|---|---|
-| **Qué significa versionar el conjunto** | Hoy una versión es un estado del texto. Con código es texto **más** un comportamiento, y los dos pueden divergir sin que ninguna comprobación lo vea |
-| **Cómo se audita** | Las trece comprobaciones de §VI.3 están definidas **sobre texto**. Ninguna contempla probar código, de modo que el código entraría sin compuerta |
-| **Quién lo mantiene** | Cada regla nueva con anti-patrones enumerables obligaría a actualizarlo, y el método ya tiene registrado qué pasa cuando algo depende de que alguien se acuerde |
-
-**Qué sí está permitido, y la frontera es nítida.** Una intervención **publica comandos dentro de su
-texto** —el barrido de §VI.3.2 es el caso—, los corre un agente y los lee una persona. **Eso no es código
-distribuido**: no se versiona aparte, no se instala, y **no puede desincronizarse de la regla porque vive
-en el mismo documento que la regla**. La frontera es esa: un comando citado en la prosa que lo funda, sí;
-un artefacto ejecutable con versión propia, no.
-
-**Qué reabriría esta sección.** No una preferencia, sino **mediciones**, y están enumeradas en el reporte
-`12` de `IA.SDD.Documentacion`: cuántos anti-patrones `[enumerable]` son evaluables sin leer prosa, si un
-verificador puede **derivar** sus reglas del texto en vez de codificarlas, cuánto cuesta mantenerlo, y
-dónde viviría. **Ninguna de las cuatro está contestada**, y hasta que lo estén esta sección rige.
 
 ---
 
@@ -659,7 +623,6 @@ respuesta cuando es «no tiene».
 | **Hardcodear un stack comercial en un nombre de archivo** | Aparece el nombre de un producto en un patrón de nomenclatura | El framework queda atado a ese stack; los proyectos de código con otro objetivo no pueden usar la regla | Parametrizar con slug genérico, como `guia-integracion-<sistema-objetivo>` |
 | **Agregar un artefacto sin declarar su gating por D8** | La tabla de §2.1 tiene una fila con columnas de gating vacías | El orquestador no sabe si generarlo; el resultado varía entre corridas | Ocho decisiones explícitas, una por tipo |
 | **Agregar un artefacto sin criterio en §6** | El artefacto se genera pero ningún audit lo menciona | Sale vacío o mal formado y nadie lo nota. Es el error más silencioso | Criterio de aceptación evaluable por cada artefacto nuevo |
-| **Proponer un verificador, resolvedor o script para el framework** | Aparece un archivo que no es `.md`, o una sección que describe un artefacto ejecutable con versión propia | El conjunto pasa a ser texto **más** comportamiento, y los dos divergen sin que ninguna de las trece comprobaciones lo vea | Publicar el comando **dentro del texto que lo funda**, como hace el barrido de §VI.3.2. Contrato en §II.7. `find SDD -type f -not -name '*.md'` devuelve vacío |
 | **Romper la estructura canónica de nueve secciones** | Un archivo de reglas tiene §0 a §7, o mete contenido en una sección que no le corresponde | Quien busca los criterios donde siempre están no los encuentra | Respetar §0 a §9; si el contenido no encaja, va como subsección |
 | **Referenciar una sección por número en lugar de por título** | Una regla dice «los anti-patrones de §4.5» | La numeración de subsecciones varía por archivo; la referencia queda rota en la mitad de los casos | Ubicar por título |
 | **Introducir una referencia a un repositorio externo** | Aparece una ruta que sale del árbol de este repositorio | Se pierde la autosuficiencia: el repositorio deja de poder clonarse solo | Rutas relativas internas; los estándares se nombran, no se enlazan |
@@ -1003,4 +966,3 @@ que diga otra cosa.
 | 1.22 | 2026-08-20 | **El frontmatter declaraba una segunda versión, y estaba once menores atrás**: `version: 1.10` contra `**Versión:** 1.21`, con la última fila del registro en 1.21. Es la comprobación 10 incumplida **en el archivo que la define**. Se **elimina** el campo duplicado en lugar de actualizarlo, por §10 **R1** de `Root-Rules.md` —preferir la forma que no cuenta— y por el fundamento que `Master-Prompt.md` §10.0 declara: *«una duplicación que hay que mantener en paralelo se desincroniza»*. Cae con él `last_review`, que **no estaba desfasado** pero pertenece al mismo par duplicado. **La primera emisión no subió versión ni registró fila**, invocando §VI.1 «corrección de redacción sin cambio semántico»; la auditoría independiente objetó que **borrar metadato estructurado no es redacción** y que la comprobación 5 exige fila **en cada archivo modificado**, sin excepción por ausencia de bump. Se reemite **con fila**. Sube **patch**. |
 | 1.23 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
 | 1.24 | 2026-08-23 | **§VI.3.2 sube tres piezas de método que vivían sólo en la nota de la intervención que las descubrió**, y una nota se cierra con su fecha. La tabla de clases estables suma la **octava**, «entradas publicadas del `CHANGELOG.md`»: nombraba las filas de control de cambios y no las entradas, y una renumeración masiva alcanza las dos. Entra la **corrida contra la base** que detecta que el reemplazo alteró una línea de clase estable — nació del peor daño medido de la 12.0, **52 filas fechadas reescritas** que los tres comandos declarados no podían ver porque el filtro de filas las descartaba antes de clasificar, de modo que su cero **se obtenía filtrando la evidencia**. Y entra el **orden de reemplazo de más específico a más general**, cuya inversión produce formas compuestas que ningún patrón vuelve a matchear. La sección ya declaraba que existe «para que no se redescubran cada vez» y registraba tres intervenciones que la reconstruyeron a mano. Sube **minor**: agrega una exclusión, una corrida y una regla de orden, sin derogar nada. |
-| 1.25 | 2026-08-23 | **§II.7 es nueva: el framework no distribuye código ejecutable.** El corpus lo cumplía desde el origen —`find SDD -type f -not -name '*.md'` devuelve vacío en las cuarenta y siete versiones publicadas— y **ninguna sección lo declaraba**, de modo que un agente que propusiera un verificador o un barrido ejecutable **no tenía con qué cita detenerse**, y quien lo rechazara no tenía con qué sostenerlo. El fundamento ya estaba escrito en `Migracion-Rules.md` §3 —«una duplicación que hay que mantener en paralelo se desincroniza»— y en el reporte `12`, que arma el caso en contra citando al propio framework. La sección declara además **la frontera**: un comando publicado dentro del texto que lo funda no es código distribuido, porque no se versiona aparte ni puede desincronizarse de su regla. La Parte V suma el anti-patrón con su detección. Sube **minor**: agrega un contrato interno y no deroga ninguno. |

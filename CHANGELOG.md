@@ -3,6 +3,38 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [12.1] - 2026-08-23
+
+**El framework no lleva código ejecutable desde su origen, y ninguna sección lo declaraba.** `find SDD -type f -not -name '*.md'` devuelve vacío en las **cuarenta y siete** versiones publicadas: es un hecho del árbol, sostenido por cada decisión de diseño que el método tomó. Lo que faltaba era la regla. **Un agente que propusiera un verificador, un resolvedor de referencias o un barrido que corriera solo no tenía con qué cita detenerse**, y quien lo rechazara no tenía con qué sostener el rechazo — que es la misma figura que esta serie viene corrigiendo: una decisión que gobierna el corpus y no tiene dónde citarse.
+
+**El fundamento ya estaba escrito en dos lugares y en ninguno como norma.** `Migracion-Rules.md` §3 rechazó los playbooks por salto de versión —*«una duplicación que hay que mantener en paralelo se desincroniza»*— y un verificador que reimplementa las condiciones de las reglas **es** esa duplicación, con el agravante de que decide con autoridad de máquina. Y el reporte `12` de `IA.SDD.Documentacion`, que planteó la pregunta, **arma el caso en contra citando al propio framework**.
+
+### Agregado — `SDD-Development-Guide.md` 1.24 → 1.25, §II.7
+
+**El séptimo contrato interno: el conjunto normativo es Markdown y nada más.** Se versiona por intervención, se archiva en `_legacy/` y **se audita leyendo**.
+
+**Declara la frontera, que es lo que hacía falta y no existía.** Una intervención **publica comandos dentro de su texto** —el barrido de §VI.3.2 es el caso— y **eso no es código distribuido**: no se versiona aparte, no se instala, y **no puede desincronizarse de la regla porque vive en el mismo documento que la regla**. Un artefacto ejecutable con versión propia, no.
+
+**Y declara qué la reabriría**, que no es una preferencia sino **cuatro mediciones** que el reporte `12` enumera y que nadie contestó: cuántos anti-patrones `[enumerable]` son evaluables sin leer prosa, si un verificador puede **derivar** sus reglas del texto en vez de codificarlas, cuánto cuesta mantenerlo, y dónde viviría.
+
+La **Parte V** suma el anti-patrón correspondiente con su detección: `find SDD -type f -not -name '*.md'` devuelve vacío.
+
+### Cambiado — `Catalogo-De-Criterios.md` 1.11 → 1.12
+
+Entra la fila que indexa el criterio nuevo, por la comprobación 12 de §VI.3 —**quien toca, registra**—: un agente que se choque con la necesidad de un mecanismo ejecutable llega a §II.7 sin haber leído las diecinueve reglas.
+
+### Por qué el conjunto sube 12.1 y no 13.0
+
+**Es un patch de conjunto** por la tabla de §VI.5 —*«no cambia ninguna regla ni plantilla, ni el comportamiento de ningún orquestador»*—: §II.7 declara lo que el corpus ya cumplía y **ningún documento generado deja de cumplir**. Se publica como **12.1** porque el formato `X.Y` no puede expresar patch, y se declara acá para que el número no se lea como un minor que incorpora algo nuevo.
+
+### Impacto sobre destinos existentes
+
+**Ninguno.** No hay renombres, no hay secciones movidas y no hay campos bloqueantes nuevos: la sección gobierna **de qué está hecho el framework**, no lo que el framework genera. Ningún destino tiene trabajo.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Sin-Codigo-Ejecutable.md`, conjunto resultante **12.1**.
+
 ## [12.0] - 2026-08-23
 
 **La familia `AG` nunca cumplió el ancho de cinco dígitos que `Root-Rules.md` §9.2 exige, y estaba excluida con motivo escrito**: *«no cataloga un elemento de una colección de un producto»*. El motivo era correcto y dejaba una consecuencia sin nombrar — **el framework no tenía forma de nombrarse a sí mismo**, y sus roles se citaban con una forma que su propia regla prohíbe.
