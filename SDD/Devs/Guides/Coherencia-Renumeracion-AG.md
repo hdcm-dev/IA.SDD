@@ -1,7 +1,7 @@
 # Nota de coherencia — La renumeración de `AG`, con el mapeo escrito antes de tocar un archivo
 
 **Documento:** Coherencia-Renumeracion-AG.md
-**Versión:** 3.0 — segunda reemisión, tras dos rondas de auditoría independiente
+**Versión:** 4.0 — tercera reemisión, tras tres rondas de auditoría independiente
 **Fecha:** 2026-08-22
 **Versión del conjunto resultante:** SDD **12.0**
 **Origen:** El tramo de identidad del plan de reestructuración, rediseñado después de que dos
@@ -50,7 +50,7 @@ categoría.
 | 1 | **Total** | 15 identificadores distintos en el árbol, 15 filas de mapeo, **ninguno sin destino** |
 | 2 | **Inyectivo** | **Ningún destino repetido** |
 | 3 | **Sin colisión** | **Ninguno de los quince destinos existía** en el árbol |
-| 4 | **Conforme** | Los quince cumplen `AG-[0-9]{5}`, y el marcador cumple el ancho |
+| 4 | **Conforme** | **Catorce** cumplen `AG-[0-9]{5}`; el decimoquinto, **`AG-XXXXX`**, es el **marcador de plantilla** y cumple el ancho con la notación que el corpus ya usa en `US-XXXXX` y `NB-XXXXX` |
 | 5 | **Preserva significado** *(interpretativo)* | Número de categoría: se sigue leyendo. Hermandad de fase: **se lee mejor**. Que `ROOT` no es de categoría: **se pierde y se compensa** con el bloque reservado |
 
 ## 3. Barrido declarado (`SDD-Development-Guide.md` §VI.3.2)
@@ -69,24 +69,29 @@ el `CHANGELOG` **son parte del árbol que la nota mide**.
 no se reescriben.** De ellas, este caso toca cuatro: notas de coherencia anteriores, `SDD/Devs/Bootstrap/`
 —no editable por §I.2—, filas de control de cambios, y **la declaración de la propia intervención**.
 
+**El alcance es el mismo en los cuatro**, y **incluye `CHANGELOG.md`**: §VI.3.2 obliga a correr los
+patrones **sobre lo que la intervención acaba de escribir**, que *«es el único lugar donde nadie está
+mirando»*. En la emisión anterior el comando 2 omitía ese archivo, **que era el único donde su patrón
+matcheaba**.
+
 ```bash
-# 1 · ninguna forma vieja fuera de las clases estables.
-#     La rama M captura AG-03M, que el patrón de la primera emisión no matcheaba.
-grep -rnP "AG-([0-9]{2}M?|ROOT|XX)(?![0-9A-Za-z])" SDD PROMPTS Templates README.md CHANGELOG.md \
-  | grep -v "_legacy\|/Bootstrap/\|Coherencia-" | grep -vP "^\S+:\d+:\| [\d.]+ \| 20"
+ALC="SDD PROMPTS Templates README.md CHANGELOG.md"
+EXC='_legacy|/Bootstrap/|Coherencia-'
+FILA='^\S+:\d+:\| [\d.]+ \| 20'          # filas de control de cambios
 
-# 2 · ninguna forma compuesta, que es lo que el orden de reemplazo evita
-grep -rnoE "AG-[0-9]{5}[A-Za-z]" SDD PROMPTS Templates README.md \
-  | grep -v "_legacy\|Coherencia-Renumeracion"
+# 1 · formas viejas. La rama M captura AG-03M, que el patrón anterior no matcheaba.
+grep -rnP "AG-([0-9]{2}M?|ROOT|XX)(?![0-9A-Za-z])" $ALC | grep -vE "$EXC" | grep -vP "$FILA"
 
-# 3 · ningún enunciado que declare el ámbito como si fuera uno solo.
-#     El patrón de la primera emisión era única?s?, ciego a «únicos», que es la forma que el corpus usa.
-grep -rniE "únic[oa]s? en el producto" SDD PROMPTS Templates README.md \
-  | grep -v "_legacy\|Coherencia-\|/Bootstrap/" | grep -vP "^\S+:\d+:\| [\d.]+ \| 20" \
-  | grep -viE "de estas familias|primer ámbito|su ámbito"
+# 2 · formas compuestas, que es lo que el orden de reemplazo evita
+grep -rnoE "AG-[0-9]{5}[A-Za-z]" $ALC | grep -vE "$EXC"
+
+# 3 · enunciados que declaran el ámbito como si fuera uno solo.
+#     El patrón anterior era única?s?, ciego a «únicos», que es la forma que el corpus usa.
+grep -rniE "únic[oa]s? en el producto|como todo identificador|ámbito de unicidad:? ?(el )?producto" \
+  $ALC | grep -vE "$EXC" | grep -vP "$FILA"
 
 # 4 · ninguna fila de control de cambios histórica alterada
-git diff b40cb0d -- SDD Templates README.md | grep -E '^-\| [0-9]+\.[0-9]+ \| 20'
+git diff b40cb0d -- SDD Templates README.md PROMPTS | grep -E '^-\| [0-9]+\.[0-9]+ \| 20'
 ```
 
 **Cómo se leen. Los comandos 1 y 3 devuelven residuo, y eso es lo esperado: §VI.3.2 no pide que el
@@ -94,11 +99,14 @@ comando devuelva vacío, pide que *toda ocurrencia viva caiga en una exclusión 
 «cero» fue el defecto de las dos emisiones anteriores, y las dos veces el cero se obtenía **filtrando la
 evidencia** o **con un patrón que no matcheaba nada**.
 
-| Comando | Qué devuelve hoy | Dónde cae |
+| Comando | Qué devuelve | Dónde cae |
 |---|---|---|
-| **1** | La entrada **12.0** del `CHANGELOG`, que escribe las formas viejas como patrón literal | **La declaración de la propia intervención**, séptima clase |
-| **2** | Nada | — |
-| **3** | Cinco líneas de `Rules-Backlog-Tecnico.md`, `Deriva-Rules.md` y `Rules-Documentacion.md` | **Familias del producto**: nombran `US`, `BT`, `EP`, `SUP`, `CMP`, `OPS`… cuyo ámbito **no cambió**. Exclusión propia del caso |
+| **1** | Líneas de la entrada **12.0** del `CHANGELOG` | **La declaración de esta intervención**, séptima clase |
+| **1** | Líneas de **entradas publicadas** del `CHANGELOG` —de la 8.x a la 11.x— que narran el estado de su fecha | **Exclusión propia del caso**: son **registro fechado**, intocables por el mismo motivo que las filas de control de cambios. §VI.3.2 nombra las filas y no las entradas, y **esta intervención lo declara acá porque el barrido lo destapó** |
+| **2** | `AG-00030M`, en la entrada 12.0 | **La declaración de esta intervención**: es la **ilustración contrafáctica** de qué habría producido el orden de reemplazo equivocado |
+| **3** | Líneas de `Rules-Backlog-Tecnico.md`, `Deriva-Rules.md` y `Rules-Documentacion.md` | **Familias del producto**: nombran `US`, `BT`, `EP`, `SUP`, `CMP`, `OPS`… cuyo ámbito **no cambió** |
+| **3** | `Master-Prompt.md` §3.4 y §15, `SDD-User-Guide.md` y `Migracion-Rules.md` §4.3.1 | **Enunciados ya calificados por esta intervención** —«de estas familias», «para las familias del producto», «primer ámbito»—. **La emisión anterior los suprimía con un `grep -v` no declarado**, que es una exclusión sin enumerar; y `Migracion-Rules.md:152` **no estaba calificado**: lo destapó la tercera ronda, porque el patrón declarado **no tenía comando que lo corriera** |
+| **3** | La entrada **12.0** del `CHANGELOG`, y entradas publicadas de la 8.x a la 11.x | Las mismas dos cajas del comando 1: **declaración de esta intervención** y **registro fechado** |
 | **4** | Nada | — |
 
 **Una línea que no caiga en ninguna de esas casillas es hallazgo**, y así se detectaron los dos P0 de la
@@ -156,7 +164,7 @@ git diff b40cb0d --stat -- SDD PROMPTS Templates   # archivos y líneas tocadas
 | 5 | Control de cambios **en cada archivo modificado** | **Una fila por archivo con tabla de registro.** `SDD-User-Guide.md` **sí la tiene** —la primera emisión afirmó dos veces que no, y era falso: lo levantó la auditoría—. **`README.md` es el único sin tabla**, y eso queda en §7 |
 | 6 | El caso degenerado sigue produciendo el layout aplanado | Nada del layout se tocó |
 | 7 | Nada fuera del alcance declarado | 32 archivos, más `CHANGELOG`, esta nota y el snapshot |
-| 8 | Barrido por concepto | **§3**, con **cuatro** corridas que devuelven cero y las clases estables **citadas de §VI.3.2**, no reescritas. La cuarta existe porque las tres primeras **no podían ver** que se estaban reescribiendo filas históricas |
+| 8 | Barrido por concepto | **§3**, con **cuatro corridas y su residuo declarado caja por caja**. Ninguna devuelve «cero» salvo la 2 y la 4: los comandos 1 y 3 **devuelven residuo, y eso es lo esperado** —§VI.3.2 pide que toda ocurrencia caiga en una exclusión enumerada, no que el comando salga vacío—. La cuarta existe porque las tres primeras **no podían ver** que se estaban reescribiendo filas históricas |
 | 9 | Coherencia interna | §9.1, §9.2 y §10 R5 dicen lo mismo sobre el ámbito, y la familia que §9.2 enumera **cumple el ancho que §9.2 exige** |
 | 10 | Integridad del registro | **Cabecera = última fila en todos los archivos con tabla**, recalculable con el comando de §4. **Y ninguna fila histórica alterada**, que es el comando 4 de §3 |
 | 11 | Cobertura de la nota | **Esta nota** |

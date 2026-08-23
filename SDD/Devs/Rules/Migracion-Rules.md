@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino para los dos artefactos propios. El alcance sobre el que la migración opera es `SDD/Intake/` y `SDD/Docs/` del mismo repositorio
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto, unidad de entrega y proyecto de código
 **Subagente target del orquestador:** el orquestador de migración para el plan y el cierre; el auditor independiente para el informe; el subagente titular de cada categoría para re-expresar los documentos de esa categoría
-**Versión de las reglas:** 3.17
+**Versión de las reglas:** 3.18
 
 Dentro de este archivo «migración» se usa en forma desnuda, según la excepción que `Vocabulario-Rules.md` §9.6 declara: en este contexto de lectura no hay otro referente con el que colisione. En cualquier otro archivo del framework el término va calificado como «migración normativa».
 
@@ -149,7 +149,7 @@ La severidad se lee de la propia numeración de las versiones, no se infiere del
 Un salto normativo puede cambiar **la forma de los identificadores**, y con ella el nombre de los
 archivos que los llevan: `CU-XX-<Nombre>.md` no es solo texto, es un nombre de archivo, y toda
 referencia que lo apunte tiene que seguirlo. Es el caso del salto a la versión 7.0, que fija cinco
-dígitos uniformes y ámbito de unicidad producto (`Root-Rules.md` §9).
+dígitos uniformes y **ámbito de unicidad producto para las familias del producto** (`Root-Rules.md` §9.1, primer ámbito).
 
 **La renumeración se hace en dos pasadas, y nunca en una.** Una sustitución archivo por archivo
 deja referencias colgadas: en una corrida real, renumerar treinta y nueve archivos produjo por sí
@@ -778,3 +778,4 @@ Para el despacho del auditor, los criterios de §6 de este archivo se suman a lo
 | 3.15 | 2026-08-18 | El criterio de secciones duplicadas que la 3.14 acababa de sumar **excluye los bloques de ejemplo**. En su primera corrida devolvió **24 falsos positivos** sobre un corpus con plantillas: un documento que muestra el esqueleto de otro repite sus encabezados **a propósito**. Corregido en la misma unidad, porque un verificador que sobre-reporta entrena a ignorarlo, que es lo que §6 declara de sí mismo desde la 3.10. |
 | 3.16 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
 | 3.17 | 2026-08-22 | **§4.3.1 declaraba `AG` entre las familias excluidas del ancho, y desde la 12.0 no lo está.** El reemplazo de la renumeración convirtió la forma vieja en la nueva **adentro de la frase que decía que la familia estaba excluida**, de modo que la contradicción quedó escrita con la forma vigente y no se veía. Pasa a nombrar las dos exclusiones reales —`FA-NN` y el ordinal— y **declara qué hace una migración de destino con `AG`**: no la renumera, porque su ámbito es el conjunto normativo; el destino sólo reemplaza la cita si su `README.md` declara responsable. Sube **minor**: precisa una regla existente. |
+| 3.18 | 2026-08-23 | §4.3.1 describía el salto a la 7.0 como el que fija «**ámbito de unicidad producto**» a secas, y desde la 12.0 hay **dos ámbitos**. Queda acotado a **las familias del producto**. Lo levantó la tercera ronda de auditoría: el patrón que la intervención había declarado barrer **no tenía comando que lo corriera**. Sube **minor**: precisa una descripción histórica sin cambiar la regla. |
