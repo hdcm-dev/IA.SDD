@@ -2,8 +2,8 @@
 
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/08-Calidad-Y-Pruebas/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
-**Subagente target del orquestador:** Ingeniero QA / SDET Senior (AG-08)
-**Versión de las reglas:** 4.5
+**Subagente target del orquestador:** Ingeniero QA / SDET Senior (AG-00080)
+**Versión de las reglas:** 4.6
 
 ---
 
@@ -15,7 +15,7 @@ Esta categoría es **obligatoria para los ocho tipos D8**. Ninguna unidad de ent
 
 La auditoría de Fase 0 (`Bootstrap/Audit-SDD1.md`) detectó dos déficits del fuente SDD 1.0 que SDD corrige aquí. Primero, los artefactos del fuente usan un sufijo de dominio (por ejemplo `estrategia-testing-<dominio>.md`, `criterios-validacion-<dominio>.md`, `estrategia-calidad-<dominio>.md`) que ata el nombre al producto particular. SDD unifica todos los nombres con el sufijo `.md` sin marcador de dominio. Segundo, el material teórico de calidad estaba ausente en `/References/` y debía deducirse de los `docs/`; estas reglas formalizan el marco.
 
-**Dos clases de sonda en la matriz de sensado.** Esta categoría es dueña operativa de `Matriz-Sensado-Deriva.md`, cuya mecánica define `Deriva-Rules.md`. La matriz se puebla con dos clases de sonda de origen distinto: las **visuales**, que emite AG-03M al cerrar la Fase B2 y miden si lo construido se parece a lo que el humano aprobó mirando; y las de **contrato y comportamiento** (`VER-XXXXX`), que aporta la categoría 10 desde sus contratos de verificación y miden si el sistema sigue haciendo lo que la especificación dice. Las segundas no dependen de la maqueta, así que una unidad de entrega sin interfaz visual también tiene matriz.
+**Dos clases de sonda en la matriz de sensado.** Esta categoría es dueña operativa de `Matriz-Sensado-Deriva.md`, cuya mecánica define `Deriva-Rules.md`. La matriz se puebla con dos clases de sonda de origen distinto: las **visuales**, que emite AG-00031 al cerrar la Fase B2 y miden si lo construido se parece a lo que el humano aprobó mirando; y las de **contrato y comportamiento** (`VER-XXXXX`), que aporta la categoría 10 desde sus contratos de verificación y miden si el sistema sigue haciendo lo que la especificación dice. Las segundas no dependen de la maqueta, así que una unidad de entrega sin interfaz visual también tiene matriz.
 
 **Frontera con la categoría 11.** Esta categoría es dueña de la estrategia de testing, de los casos de prueba y de la matriz de sensado de deriva. La categoría 11 **cita** esa estrategia para explicarle al mantenedor cómo correr los tests y qué deberían devolver, en su `Guia-Contribucion`. **No la redefine.** Un procedimiento de testing que aparece descripto en 08 y en 11 con criterios distintos es un hallazgo: el de 08 es el que rige.
 ---
@@ -24,7 +24,7 @@ La auditoría de Fase 0 (`Bootstrap/Audit-SDD1.md`) detectó dos déficits del f
 
 ### 1.1 Especialidad base
 
-Ingeniero QA / SDET Senior, equivalente al AG-08 del catálogo SDD. Perfil profesional que diseña, implementa y mantiene la estrategia de calidad del software, define quality gates en CI/CD y articula el equilibrio entre niveles de testing. No se limita a la ejecución manual: trata cada caso de prueba como un artefacto de software con trazabilidad explícita a CU, RN y NFR, con setup determinista y con expected output verificable. Se alinea con ISTQB para vocabulario de testing, con IEEE 829 para la especificación de planes y casos de prueba, con ISO/IEC 25010 para atributos de calidad, con la pirámide de testing de Martin Fowler para distribución de esfuerzo y con la Definition of Done de la Scrum Guide 2020.
+Ingeniero QA / SDET Senior, equivalente al AG-00080 del catálogo SDD. Perfil profesional que diseña, implementa y mantiene la estrategia de calidad del software, define quality gates en CI/CD y articula el equilibrio entre niveles de testing. No se limita a la ejecución manual: trata cada caso de prueba como un artefacto de software con trazabilidad explícita a CU, RN y NFR, con setup determinista y con expected output verificable. Se alinea con ISTQB para vocabulario de testing, con IEEE 829 para la especificación de planes y casos de prueba, con ISO/IEC 25010 para atributos de calidad, con la pirámide de testing de Martin Fowler para distribución de esfuerzo y con la Definition of Done de la Scrum Guide 2020.
 
 Combina dos facetas que históricamente estaban separadas. La cara QA define qué probar, el enfoque por niveles, los quality gates y los criterios de aceptación. La cara SDET implementa frameworks de automatización, fixtures reutilizables, snapshot baselines, integración en CI y reportes de cobertura. Cuando el sistema tiene SLAs estrictos o exposición pública, el rol se extiende a testing de performance (load, stress, soak) y de seguridad (OWASP ZAP, threat modeling, fuzz), siempre con métricas numéricas verificables.
 
@@ -47,13 +47,13 @@ El orquestador lee esta tabla y, según el `tipo_unidad_entrega` de la unidad de
 
 La categoría 08 colabora con varias especialidades durante la redacción y la revisión:
 
-- AG-02 Analista Funcional, para validar que cada CU tiene al menos un caso de prueba que cubre cada criterio Given-When-Then declarado.
-- AG-05 Arquitecto, para validar que cada NFR con objetivo numérico tiene un test que lo verifica (latencia, throughput, disponibilidad).
-- AG-06 Scrum Master, para que la Definition of Done quede referenciada desde el backlog y desde el DoR, sin redefinirse en cada sprint.
-- AG-09 DevOps, para que los quality gates declarados en 08 se materialicen como stages del pipeline en 09.
-- AG-11 Technical Writer / Documentation Lead, para que la guía de testing del repositorio en 11 cite y respete la estrategia definida acá.
+- AG-00020 Analista Funcional, para validar que cada CU tiene al menos un caso de prueba que cubre cada criterio Given-When-Then declarado.
+- AG-00050 Arquitecto, para validar que cada NFR con objetivo numérico tiene un test que lo verifica (latencia, throughput, disponibilidad).
+- AG-00060 Scrum Master, para que la Definition of Done quede referenciada desde el backlog y desde el DoR, sin redefinirse en cada sprint.
+- AG-00090 DevOps, para que los quality gates declarados en 08 se materialicen como stages del pipeline en 09.
+- AG-00110 Technical Writer / Documentation Lead, para que la guía de testing del repositorio en 11 cite y respete la estrategia definida acá.
 
-El AG-08 mantiene titularidad de los artefactos. Las demás especialidades aportan revisión sectorial y consumen los criterios.
+El AG-00080 mantiene titularidad de los artefactos. Las demás especialidades aportan revisión sectorial y consumen los criterios.
 
 ---
 
@@ -495,3 +495,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/08-Calidad-Y-Pruebas
 | 4.3 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |
 | 4.4 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 4.5 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
+| 4.6 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

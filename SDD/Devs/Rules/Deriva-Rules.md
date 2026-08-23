@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/03-UX-UI-DX/` para la línea de base, `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/08-Calidad-Y-Pruebas/` para la matriz de sensado
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** el subagente de la categoría que emite la afirmación; el auditor independiente para la verificación
-**Versión de las reglas:** 5.3
+**Versión de las reglas:** 5.4
 
 ---
 
@@ -126,9 +126,9 @@ desborda cualquier techo, porque hereda el tamaño de todo lo que la alimenta.
 | Estado | `Sin verificar`, `Conforme`, `Deriva menor`, `Deriva mayor` |
 | Fecha de la última verificación | — |
 
-La matriz vive en 08 y no en 03 porque es un instrumento de verificación, y 08 es la categoría dueña de la verificación. La emite AG-03M al cerrar la Fase B2, y AG-08 la incorpora a la estrategia de testing de la unidad de entrega cuando genera la Fase E.
+La matriz vive en 08 y no en 03 porque es un instrumento de verificación, y 08 es la categoría dueña de la verificación. La emite AG-00031 al cerrar la Fase B2, y AG-00080 la incorpora a la estrategia de testing de la unidad de entrega cuando genera la Fase E.
 
-Cuando la unidad de entrega no ejecuta Fase B2 pero sí tiene categoría 10, la matriz se emite igual: la abre AG-08 en la Fase E, poblada solo con sondas `VER-XXXXX` tomadas de los contratos de verificación. Una matriz sin filas es una unidad de entrega sin instrumento de sensado, y eso hay que evitarlo, no documentarlo.
+Cuando la unidad de entrega no ejecuta Fase B2 pero sí tiene categoría 10, la matriz se emite igual: la abre AG-00080 en la Fase E, poblada solo con sondas `VER-XXXXX` tomadas de los contratos de verificación. Una matriz sin filas es una unidad de entrega sin instrumento de sensado, y eso hay que evitarlo, no documentarlo.
 
 
 ### 2.4 Contratos de verificación de la categoría 10 (`VER-XXXXX`)
@@ -177,9 +177,9 @@ El sensado no es un evento único al final. Son cinco momentos, cada uno con su 
 
 | Momento | Quién lo corre | Alcance | Salida |
 | --- | --- | --- | --- |
-| Al cerrar la Fase B2 | AG-03M | Emisión de la línea de base y de la matriz con todo en `Sin verificar` | Los artefactos de §2.1 a §2.3 |
-| Al cerrar la fase que genera la categoría 10 | AG-10 | Alta de una sonda `VER-XXXXX` por cada contrato de verificación declarado en la pasada de diseño, todas en `Sin verificar` | Matriz con las filas de contratos incorporadas |
-| Al cerrar la Fase E (08) | AG-08 | Incorporación de la matriz a la estrategia de testing: qué filas se cubren con test automatizado y cuáles quedan como inspección. Las filas `VER-XXXXX` ya traen su comando, así que se resuelven como automatizadas salvo justificación | Matriz con método de verificación resuelto por fila |
+| Al cerrar la Fase B2 | AG-00031 | Emisión de la línea de base y de la matriz con todo en `Sin verificar` | Los artefactos de §2.1 a §2.3 |
+| Al cerrar la fase que genera la categoría 10 | AG-00100 | Alta de una sonda `VER-XXXXX` por cada contrato de verificación declarado en la pasada de diseño, todas en `Sin verificar` | Matriz con las filas de contratos incorporadas |
+| Al cerrar la Fase E (08) | AG-00080 | Incorporación de la matriz a la estrategia de testing: qué filas se cubren con test automatizado y cuáles quedan como inspección. Las filas `VER-XXXXX` ya traen su comando, así que se resuelven como automatizadas salvo justificación | Matriz con método de verificación resuelto por fila |
 | Al cerrar cada sprint de codificación | El humano, asistido por el orquestador | Verificación de las filas cuyos elementos toca el sprint. En las `VER-XXXXX` esto significa correr el comando del contrato y volcar la salida real al campo `evidencia` del sample | Matriz con estado y fecha actualizados, derivas mayores escaladas |
 | Ante una regeneración parcial | El orquestador | Revalidación de las filas que dependen de lo regenerado | Filas afectadas devueltas a `Sin verificar` |
 
@@ -241,7 +241,7 @@ auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
 | --- | --- | --- | --- |
 | Línea de base escrita como prosa descriptiva | No se puede rastrear ni verificar elemento por elemento | Inventario con identificadores estables, con el ancho de `Root-Rules.md` §9.2 | [interpretativo] |
 | Matriz sin umbrales | Toda diferencia parece deriva; el equipo la abandona en dos sprints | Declarar umbral por fila según la tabla del §3 | [enumerable] |
-| Matriz sin método de verificación | Nadie sabe cómo comprobar la fila, así que nadie la comprueba | Método concreto por fila, resuelto por AG-08 en la Fase E | [enumerable] |
+| Matriz sin método de verificación | Nadie sabe cómo comprobar la fila, así que nadie la comprueba | Método concreto por fila, resuelto por AG-00080 en la Fase E | [enumerable] |
 | Evidencia que cita al mismo agente que afirma | Verificación circular: el agente se cita a sí mismo | La evidencia es independiente de quien afirma | [interpretativo] |
 | Evidencia sin fecha ni commit | No se sabe si sigue siendo cierta | Contemporaneidad obligatoria en el formato de cita | [enumerable] |
 | Deriva mayor registrada y no escalada | La matriz se convierte en un registro de deudas que nadie paga | Toda deriva mayor se resuelve por corrección o por actualización aprobada de la línea de base | [interpretativo] |
@@ -306,3 +306,4 @@ Devolución:
 | 5.1 | 2026-08-16 | Corrige la **ruta de salida** de su prompt de despacho de referencia, que seguía emitiendo a `SDD/Docs/Proyectos/{{NOMBRE_UNIDAD_ENTREGA}}/` —el layout que la 8.0 reemplazó— y que además citaba un marcador que el contexto de despacho ya no define. Pasa a `SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/`. Corrige además las concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5). Sube **patch**: ningún documento generado deja de cumplir. |
 | 5.2 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 5.3 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
+| 5.4 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

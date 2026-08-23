@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino para los dos artefactos propios. El alcance sobre el que la migración opera es `SDD/Intake/` y `SDD/Docs/` del mismo repositorio
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto, unidad de entrega y proyecto de código
 **Subagente target del orquestador:** el orquestador de migración para el plan y el cierre; el auditor independiente para el informe; el subagente titular de cada categoría para re-expresar los documentos de esa categoría
-**Versión de las reglas:** 3.15
+**Versión de las reglas:** 3.19
 
 Dentro de este archivo «migración» se usa en forma desnuda, según la excepción que `Vocabulario-Rules.md` §9.6 declara: en este contexto de lectura no hay otro referente con el que colisione. En cualquier otro archivo del framework el término va calificado como «migración normativa».
 
@@ -149,7 +149,7 @@ La severidad se lee de la propia numeración de las versiones, no se infiere del
 Un salto normativo puede cambiar **la forma de los identificadores**, y con ella el nombre de los
 archivos que los llevan: `CU-XX-<Nombre>.md` no es solo texto, es un nombre de archivo, y toda
 referencia que lo apunte tiene que seguirlo. Es el caso del salto a la versión 7.0, que fija cinco
-dígitos uniformes y ámbito de unicidad producto (`Root-Rules.md` §9).
+dígitos uniformes y **ámbito de unicidad producto para las familias del producto** (`Root-Rules.md` §9.1, primer ámbito).
 
 **La renumeración se hace en dos pasadas, y nunca en una.** Una sustitución archivo por archivo
 deja referencias colgadas: en una corrida real, renumerar treinta y nueve archivos produjo por sí
@@ -210,7 +210,7 @@ comprobaciones bloqueantes:
 1. **Ninguna referencia colgada.** Toda cita que apuntaba a un identificador de origen resuelve
    contra su destino.
 2. **Ninguna colisión.** Dos identificadores de origen distintos no terminan en el mismo destino,
-   que es el riesgo real cuando el ámbito de unicidad pasa de proyecto de código a producto y dos
+   que es el riesgo real cuando el ámbito de unicidad de las familias del producto pasa de proyecto de código a producto y dos
    proyectos traían el mismo número.
 3. **Ningún residuo de la forma vieja** fuera de `_legacy/`, donde los snapshots conservan la
    nomenclatura con que se emitieron y **no se renombran** (`Master-Prompt.md` §5.1).
@@ -299,7 +299,10 @@ quedaron afuera dos conjuntos, y los dos volvieron como hallazgos:
 
 **Qué no se renumera.** Los identificadores de los informes de audit ya emitidos y los hallazgos que
 citan, porque son registros de lo que se verificó en un momento dado. Las familias excluidas del
-ancho por `Root-Rules.md` §9.2 —`AG-XX` y el ordinal de iteración— tampoco. Y **un documento cuyos
+ancho por `Root-Rules.md` §9.2 —`FA-NN` y el ordinal de iteración— tampoco. **Y `AG` tampoco, por otro
+motivo**: desde la 12.0 pertenece al sistema, pero su ámbito es **el conjunto normativo** (§9.1), de
+modo que **una migración de destino no la renumera**: la renumera el framework, y el destino sólo
+reemplaza la cita si su `README.md` declara responsable. Y **un documento cuyos
 recuentos también quedaron viejos no se reconecta a medias**: reescribirle los identificadores y
 dejarle las cifras produce un documento que afirma cosas que nunca fueron ciertas, que es peor que uno
 viejo con su fecha declarada. Se **declara superado**, con un puntero a dónde vive hoy cada cosa que
@@ -773,3 +776,7 @@ Para el despacho del auditor, los criterios de §6 de este archivo se suman a lo
 | 3.13 | 2026-08-18 | La lección de forma que la 3.12 había escrito adentro de **E4** **se sube a `SDD-Development-Guide.md` Parte IV**, donde le sirve a quien escribe una regla nueva en cualquier categoría y no sólo a quien lee E4. Acá queda **el caso**, que esa parte cita como una de sus tres familias de evidencia. **No se duplica**: dos declaraciones de la misma regla hay que mantenerlas sincronizadas, y el propio framework lo declara anti-patrón. Sube **minor**. | Framework SDD (el simétrico de la regla) |
 | 3.14 | 2026-08-18 | **El procedimiento de emitir suma E5 a E8, y la comparación suma C0**, los cinco con daño medido en la misma corrida y **ninguno detectado por las verificaciones existentes**. **E5**: el índice de un documento absorbido **no es contenido suyo** —93 entradas transpuestas, todas con ancla rota—. **E6**: dos secciones que sólo difieren en su número **son la misma**, y el daño mayor no es duplicarlas sino que **lo que se agregue después se registre en la equivocada**. **E7**: un documento que sale por **S4 también sube su versión** —28 documentos con el registro contradiciéndose—. **E8**: ninguna unificación de encabezados por **sustitución de cadena**, que produjo «a este cada proyecto de código» **sin que ninguna verificación lo viera, porque el resultado seguía siendo un encabezado válido**. **C0**: la medición decide **si** fusionar y no **con quién** ligar; la correspondencia se establece **por trazabilidad y no por parecido**. §6 suma **tres criterios enumerables**, incluida la verificación de **anclas internas**, que el verificador de enlaces no miraba. Sube **minor**. | Framework SDD (lo que el audit independiente destapó) |
 | 3.15 | 2026-08-18 | El criterio de secciones duplicadas que la 3.14 acababa de sumar **excluye los bloques de ejemplo**. En su primera corrida devolvió **24 falsos positivos** sobre un corpus con plantillas: un documento que muestra el esqueleto de otro repite sus encabezados **a propósito**. Corregido en la misma unidad, porque un verificador que sobre-reporta entrena a ignorarlo, que es lo que §6 declara de sí mismo desde la 3.10. |
+| 3.16 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
+| 3.17 | 2026-08-22 | **§4.3.1 declaraba `AG` entre las familias excluidas del ancho, y desde la 12.0 no lo está.** El reemplazo de la renumeración convirtió la forma vieja en la nueva **adentro de la frase que decía que la familia estaba excluida**, de modo que la contradicción quedó escrita con la forma vigente y no se veía. Pasa a nombrar las dos exclusiones reales —`FA-NN` y el ordinal— y **declara qué hace una migración de destino con `AG`**: no la renumera, porque su ámbito es el conjunto normativo; el destino sólo reemplaza la cita si su `README.md` declara responsable. Sube **minor**: precisa una regla existente. |
+| 3.18 | 2026-08-23 | §4.3.1 describía el salto a la 7.0 como el que fija «**ámbito de unicidad producto**» a secas, y desde la 12.0 hay **dos ámbitos**. Queda acotado a **las familias del producto**. Lo levantó la tercera ronda de auditoría: el patrón que la intervención había declarado barrer **no tenía comando que lo corriera**. Sube **minor**: precisa una descripción histórica sin cambiar la regla. |
+| 3.19 | 2026-08-23 | Un segundo enunciado de ámbito sin calificar, en §4.3.1: «cuando el **ámbito de unicidad pasa de** proyecto de código **a** producto». Lo destapó **el patrón ampliado** de la quinta emisión, no una ocurrencia buscada a mano — que es la diferencia entre corregir el instrumento y corregir el síntoma. Sube **minor**. |

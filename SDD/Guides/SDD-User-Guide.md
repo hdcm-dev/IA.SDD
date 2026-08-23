@@ -2,8 +2,8 @@
 
 ```yaml
 Documento: Guia-Usuario-SDD.md
-Versión: 1.15
-Fecha: 2026-08-15
+Versión: 1.17
+Fecha: 2026-08-23
 Audiencia: profesionales y estudiantes que usan el template para un producto real
 Idioma: español rioplatense neutro técnico
 Estado: vigente
@@ -1261,7 +1261,7 @@ El triaje se ejecuta en cada corte de la Fase I, junto con la actualización inc
 
 Porque el ancho es una decisión de capacidad tomada una sola vez para todo el framework, y no una convención tipográfica que cada corrida ajusta a su tamaño. Con dos dígitos, las colecciones enumeradas a mano sobraban y las **derivadas** desbordaban: una corrida real emitió 191 estados de superficie y 374 sondas en un solo unidad de entrega, y el agente tuvo que elegir entre romper la uniformidad, fragmentar el identificador o comprimir el inventario, sin ningún criterio del método para preferir una. Dos corridas del mismo framework habrían elegido distinto y sus líneas de base habrían quedado incomparables.
 
-Lo que ganás a cambio: los identificadores ordenan igual lexicográfica y numéricamente, alinean en columna y se reconocen de un vistazo, en todas las familias por igual. Y como son únicos en el producto, una necesidad de negocio puede citar `CU-00014` sin decir de qué unidad de entrega es.
+Lo que ganás a cambio: los identificadores ordenan igual lexicográfica y numéricamente, alinean en columna y se reconocen de un vistazo, en todas las familias por igual. Y como los de estas familias son únicos en el producto, una necesidad de negocio puede citar `CU-00014` sin decir de qué unidad de entrega es.
 
 ### F-31 — Migré un destino generado con la versión anterior y los identificadores cambiaron de forma. ¿Se me rompen los enlaces?
 
@@ -1283,10 +1283,11 @@ Pasos:
 
 1. Creá la carpeta `../IA.SDD/SDD/Devs/Rules/Rules-Observabilidad.md` siguiendo la estructura de las reglas existentes (§1 Especialidad, §2 Documentos, §3 Nomenclatura, §4 Estructura, §5 Preguntas guía, §6 Criterios, §7 Anti-patrones, §8 Prompt-snippet).
 2. Definí la especialidad base (por ejemplo, "Site Reliability Engineer Senior") y las variantes por tipo D8.
-3. Listá los documentos a producir: `Estrategia-Observabilidad.md`, `Dashboards.md`, `Alertas.md`, `runbooks/RB-XX-<Nombre>.md`, `README.md`.
+3. Listá los documentos a producir: `Estrategia-Observabilidad.md`, `Dashboards.md`, `Alertas.md`, `runbooks/RB-XXXXX-<Nombre>.md`, `README.md`.
 4. Actualizá `../IA.SDD/SDD/Devs/Orchestrator/Master-Prompt.md` §6 (plan de generación por categoría) para incluir la nueva categoría. Subí minor del master-prompt.
-5. Decidí en qué fase entra (si es transversal, queda como fase F o G; si es post-DevOps, queda como fase F2 nueva).
-6. Probá el flujo completo con una unidad de entrega piloto.
+5. **Acuñá el identificador del rol titular** de la categoría: `AG-00NN0`, donde `NN` es el número de la carpeta —para `12-Observabilidad/`, `AG-00120`—. La titularidad y los bloques están en `../IA.SDD/SDD/Devs/Rules/Root-Rules.md` §9.2, y §9.5 exige que toda familia declare el suyo: **una categoría sin titular acuñado deja a su especialidad sin forma de ser citada** desde el mapa de documentación del destino. Si la categoría suma subagentes de fase, van al bloque `00NN1` a `00NN9`.
+6. Decidí en qué fase entra (si es transversal, queda como fase F o G; si es post-DevOps, queda como fase F2 nueva).
+7. Probá el flujo completo con una unidad de entrega piloto.
 
 Tiempo estimado: medio día para la definición, otro medio día para la prueba.
 
@@ -1466,7 +1467,7 @@ Términos esenciales para usar el template. Para el glosario exhaustivo del marc
 | Proyecto de código | La unidad de compilación dentro de una solución de código: lo que tu ecosistema llama *project*, *module*, *subproject* o *package*. Lo delimita producir un artefacto de compilación propio y declarar sus propias dependencias. Lleva exactamente uno de los 8 tipos D8, y sobre cada uno se generan las categorías 02 a 11. |
 | Proyecto | El emprendimiento: el esfuerzo temporal de construir o evolucionar el producto. Tiene principio, fin y alcance acordado; el producto no. **«Proyecto» a secas siempre significa esto**, nunca la unidad de compilación. Excepción única: los compuestos `multi-proyecto`, `inter-proyecto` y `cross-proyecto`. |
 | Los cuatro planos de identidad | Un producto se nombra distinto en cada plano y los cuatro nombres son independientes: `Nombre-Producto` (prosa de negocio, «Gestión de Turnos»), `Slug-Producto` (Título-Con-Guiones para archivos y rutas, `Gestion-De-Turnos`, el único que se deriva), `Raiz-Codigo` (identidad de código, **la declarás vos** en el perfil de convención y admite segmentos, `Contoso.Turnos`) y `Artefacto-Agrupacion` (el agrupador de construcción, `Contoso.Turnos.sln`). Dos de ellos no pueden distinguirse solo por puntuación: es validación bloqueante. |
-| Identificador | Toda pieza catalogada lleva prefijo y **cinco dígitos uniformes** (`CU-00014`, `NB-00003`), y es **única en el producto**: si tenés varias unidades de entrega, el orquestador les reparte rangos antes de generar y ningún subagente inventa el suyo. El ancho es holgado a propósito: las colecciones que salen de combinar otras —los estados de las superficies, las sondas de la matriz de sensado— crecen mucho más rápido de lo que parece. Quedan fuera `AG-XX`, que nombra los roles del framework, y el número de iteración, que lo fija el roadmap. |
+| Identificador | Toda pieza catalogada lleva prefijo y **cinco dígitos uniformes** (`CU-00014`, `NB-00003`), y es **única en su ámbito** —el **producto** para las familias que el framework genera—: si tenés varias unidades de entrega, el orquestador les reparte rangos antes de generar y ningún subagente inventa el suyo. El ancho es holgado a propósito: las colecciones que salen de combinar otras —los estados de las superficies, las sondas de la matriz de sensado— crecen mucho más rápido de lo que parece. `AG-XXXXX`, que nombra los roles del framework, es de la misma forma pero su ámbito es **el conjunto normativo**. Quedan fuera `FA-NN`, el flujo alternativo, y el número de iteración, que lo fija el roadmap. |
 | Compuerta mecánica | Comprobación automática que corre **antes** de cada audit y verifica lo que se decide contando: enlaces que resuelven, recuentos que coinciden con lo que cuentan, generadores idempotentes e identificadores bien formados. Sirve para que el auditor gaste su atención en lo único que un guion no puede hacer, que es leer el documento citado y ver si dice lo que el que lo cita afirma. Su salida **declara qué no miró**: una compuerta en verde no es una aprobación. |
 | Decisiones pendientes | Registro único del producto, fuera de los documentos que originan las preguntas, que el orquestador te muestra **al cerrar cada fase** y no solo al final. Ahí van las ambigüedades diferidas, las extensiones de un conjunto cerrado sin arbitrar, las referencias a categorías todavía no emitidas y los apartamientos propuestos. Una decisión pendiente escrita como nota dentro de un documento no interrumpe a nadie: por eso tiene registro propio. |
 | Referencia pendiente | Forma con la que un documento cita algo que todavía no existe, porque lo emite una categoría de una fase posterior. Declara que no existe, qué rige mientras tanto y cuándo se cierra. Al emitirse la categoría referenciada, el orquestador reabre los documentos que la esperaban **y les lleva el insumo que les faltaba**, no solo el turno. |
@@ -1480,7 +1481,7 @@ Términos esenciales para usar el template. Para el glosario exhaustivo del marc
 | Vista de producto | Artefacto de nivel producto (`Producto/Vista-Producto.md`), solo si hay más de una unidad de entrega. Contiene el mapa de unidades de entrega, los contratos inter-proyecto y el grafo de dependencias. |
 | Pipeline de producto | Artefacto de nivel producto (`Producto/Pipeline-Producto.md`), solo si hay más de un proyecto de código. Contiene el orden de build topológico y la matriz de artefactos publicables por unidad de entrega. |
 | Intake | Documento único de entrada del producto: el `PRODUCT-INTAKE`. Es fuente de verdad. Reemplaza a las antiguas plantillas PROJECT-BRIEF y PROJECT-README, hoy deprecadas. |
-| Product Owner | Rol humano, aguas arriba del intake y fuera de la cadena AG-XX. Conoce el producto, reúne el material que lo define, arbitra entre intereses en conflicto y declara las decisiones de producto en el intake: la priorización MoSCoW (§4) y las exclusiones (§9). Es el autor responsable del intake y quien lo aprueba. No es AG-00: AG-00 es Product Manager y opera aguas abajo, formalizando lo ya decidido. |
+| Product Owner | Rol humano, aguas arriba del intake y fuera de la cadena AG-XXXXX. Conoce el producto, reúne el material que lo define, arbitra entre intereses en conflicto y declara las decisiones de producto en el intake: la priorización MoSCoW (§4) y las exclusiones (§9). Es el autor responsable del intake y quien lo aprueba. No es AG-00000: AG-00000 es Product Manager y opera aguas abajo, formalizando lo ya decidido. |
 | Stakeholder | Categoría de relación con el producto, no un puesto. Plural y parcial por definición: aporta un interés o una restricción y puede pedir cosas incompatibles con las de otro stakeholder. No arbitra: produce el material que el Product Owner arbitra. La tríada propietario / implementador / beneficiario clasifica stakeholders; el Product Owner cae en «propietario» sin agotar la categoría. |
 | PRODUCT-INTAKE | Plantilla de intake unificada `PRODUCT-INTAKE-<Slug-Producto>.md`, una por producto. Tres partes: A negocio (§1-§12), B composición con la tabla de unidades de entrega de §13 (§13-§16), C técnica por unidad de entrega (§17, bloque P.1-P.12), más §18 samples y §19 checklist. El único documento que completa el usuario. |
 | Reconciliación normativa | Fase previa a todo, dirigida por `Master-Prompt.md` §2.1. Solo corre si `SDD/Docs/` del destino ya tiene contenido. Compara la versión del framework declarada en el bloque de procedencia del manifiesto contra la vigente, enumera los documentos potencialmente invalidados por los saltos major y ofrece tres salidas: plan de migración normativa, regeneración desde cero o continuar bajo la versión de origen. No modifica nada. |
@@ -1539,7 +1540,7 @@ mi-proyecto/
 │   │   │   ├── Rules-Devops.md
 │   │   │   ├── Rules-Documentacion.md
 │   │   │   └── Rules-Examples.md
-│   │   ├── references/                                  # Catálogo de reglas de diseño por stack, insumo de AG-03
+│   │   ├── references/                                  # Catálogo de reglas de diseño por stack, insumo de AG-00030
 │   │   │   └── design/
 │   │   │       ├── Index-Design-Rules.md
 │   │   │       ├── Design-Rules-Web-Generico.md
@@ -1577,9 +1578,9 @@ mi-proyecto/
 │   │   │       ├── NB-00002-<Nombre>.md
 │   │   │       └── NB-XXXXX-<Nombre>.md
 │   │   ├── Producto/                                    # Solo si hay más de una unidad de entrega (Fase H)
-│   │   │   ├── Vista-Producto.md                    # AG-05: mapa, contratos, grafo
-│   │   │   ├── Pipeline-Producto.md                 # AG-09: build topológico, artefactos
-│   │   │   └── 11-Documentacion/                         # AG-11: artefactos de nivel producto
+│   │   │   ├── Vista-Producto.md                    # AG-00050: mapa, contratos, grafo
+│   │   │   ├── Pipeline-Producto.md                 # AG-00090: build topológico, artefactos
+│   │   │   └── 11-Documentacion/                         # AG-00110: artefactos de nivel producto
 │   │   │       ├── README.md                             # Matriz de ruteo actor x intención
 │   │   │       ├── Vision-General-Sistema.md
 │   │   │       ├── Guia-Inicio-Rapido.md
@@ -1708,6 +1709,8 @@ Esta guía de usuario está distribuida en 10 capítulos completos según la est
 | 1.13 | 2026-08-16 | Barrido retroactivo del concepto de la 8.0. §5.2 decía que las Fases B a G se recorren **por proyecto de código**, cuando desde la 8.0 se recorren **por unidad de entrega** y en el orden topológico del **grafo de integración**, que no es el de compilación. El glosario declaraba la matriz de artefactos publicables por proyecto de código: se publica por unidad de entrega. |
 | 1.14 | 2026-08-16 | El árbol de ejemplo del capítulo 5 mostraba `Arquitectura-Proyecto-Codigo.md`, nombre que la regla de la categoría 05 ya había cambiado a `Arquitectura-Unidad-Entrega.md`. |
 | 1.15 | 2026-08-16 | El campo del manifiesto pasa a **«Unidad de entrega principal»** en el capítulo 5 y en el glosario, **cuya definición ya decía «la unidad de entrega cabeza del producto»**: la definición se había migrado en la 8.0 y el término no. |
+| 1.16 | 2026-08-22 | **La renumeración de `AG` al ancho de cinco dígitos** (framework 12.0), y **el glosario deja de declarar un solo ámbito**: decía que todo identificador es «único en el producto» y que `AG` queda **fuera** del sistema. Desde la 12.0 hay **dos ámbitos** y `AG` pertenece al del conjunto normativo. Sube **minor**: corrige una declaración de la cara al usuario sin cambiar ningún procedimiento. |
+| 1.17 | 2026-08-23 | **El procedimiento de alta de categoría de §7.1 no acuñaba el identificador del rol titular.** Con `AG` alcanzada, una categoría nueva sin su `AG-00NN0` deja a su especialidad **sin forma de ser citada** desde el mapa de documentación del destino, que es lo que §9.5 exige y lo que la comprobación 4 de `Master-Prompt.md` §10.0 verifica. Entra el paso, con el bloque `00NN1` a `00NN9` para los subagentes de fase. Y se registra que la emisión anterior reescribió `runbooks/RB-XX-` como `RB-XXXXX-` **sin declararlo**: la reescritura es correcta —`RB` está alcanzada por el «y equivalentes» de §9.2— y **pasó por el hueco de una comprobación 7 tautológica**. Lo levantó la sexta ronda. Sube **minor**. |
 
 ---
 

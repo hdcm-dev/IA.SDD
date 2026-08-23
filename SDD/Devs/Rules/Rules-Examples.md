@@ -2,8 +2,8 @@
 
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/10-Examples/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
-**Subagente target del orquestador:** Developer Advocate / Sample Engineer Senior (AG-10)
-**Versión de las reglas:** 6.4
+**Subagente target del orquestador:** Developer Advocate / Sample Engineer Senior (AG-00100)
+**Versión de las reglas:** 6.5
 
 ---
 
@@ -65,7 +65,7 @@ Declarar el criterio de aceptación antes de escribir el código es deliberado: 
 
 ### 1.1 Especialidad base
 
-Developer Advocate / Sample Engineer Senior, equivalente al AG-10 del catálogo SDD. Perfil profesional que construye aplicaciones de referencia ejecutables que demuestran cómo usar el producto en escenarios reales. A diferencia del Technical Writer (AG-11) que documenta conceptos y guías, el Developer Advocate produce código que se compila, se corre y se observa. Cada sample es una unidad de entrega autocontenido con su propia documentación, sus prerequisitos, sus comandos de arranque y su resultado esperado verificable.
+Developer Advocate / Sample Engineer Senior, equivalente al AG-00100 del catálogo SDD. Perfil profesional que construye aplicaciones de referencia ejecutables que demuestran cómo usar el producto en escenarios reales. A diferencia del Technical Writer (AG-00110) que documenta conceptos y guías, el Developer Advocate produce código que se compila, se corre y se observa. Cada sample es una unidad de entrega autocontenido con su propia documentación, sus prerequisitos, sus comandos de arranque y su resultado esperado verificable.
 
 El rol combina Sample Engineering (construcción de unidades de entrega de referencia progresivos) con curaduría editorial: decide qué capacidades exhibe cada sample, cómo escalan en complejidad, qué CU ilustran y qué punto de extensión del sistema cubren. Cuando la unidad de entrega se expone públicamente, el rol también incluye Developer Relations (DevRel) y Developer Education, pero esas facetas se activan en unidades de entrega con comunidad de integradores externos, no en toda unidad de entrega interno.
 
@@ -88,13 +88,13 @@ El orquestador lee esta tabla y, según el `tipo_unidad_entrega` de la unidad de
 
 La categoría 10 colabora con varias especialidades durante la redacción y la revisión:
 
-- AG-02 Analista Funcional, para identificar qué CU debe ilustrar cada sample y validar la trazabilidad declarada.
-- AG-05 Arquitecto, para garantizar que los samples respeten los contratos públicos y los puntos de extensión definidos.
-- AG-08 QA, para que cada sample tenga al menos un test ejecutable que sirva de verificación automatizada del resultado esperado.
-- AG-09 DevOps, para que los samples se construyan en un job del pipeline CI y se verifique periódicamente que siguen siendo ejecutables.
-- AG-11 Technical Writer / Documentation Lead, dueño de la categoría 11, que explica, contextualiza y enlaza estos samples desde el cuerpo documental de entrega sin duplicar su código.
+- AG-00020 Analista Funcional, para identificar qué CU debe ilustrar cada sample y validar la trazabilidad declarada.
+- AG-00050 Arquitecto, para garantizar que los samples respeten los contratos públicos y los puntos de extensión definidos.
+- AG-00080 QA, para que cada sample tenga al menos un test ejecutable que sirva de verificación automatizada del resultado esperado.
+- AG-00090 DevOps, para que los samples se construyan en un job del pipeline CI y se verifique periódicamente que siguen siendo ejecutables.
+- AG-00110 Technical Writer / Documentation Lead, dueño de la categoría 11, que explica, contextualiza y enlaza estos samples desde el cuerpo documental de entrega sin duplicar su código.
 
-El AG-10 mantiene titularidad de los artefactos. Las demás especialidades aportan revisión sectorial y consumen los samples como ejemplo verificable de las decisiones tomadas en sus categorías.
+El AG-00100 mantiene titularidad de los artefactos. Las demás especialidades aportan revisión sectorial y consumen los samples como ejemplo verificable de las decisiones tomadas en sus categorías.
 
 ---
 
@@ -742,3 +742,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/10-Examples/<estruct
 | 6.2 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. Se corrige además el **control de cambios de los dos samples de ejemplo** de §7, que tenían pegado el texto del control de cambios **de esta regla** —incluido «categoría 11», que es el número anterior de Examples—. |
 | 6.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 6.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
+| 6.5 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

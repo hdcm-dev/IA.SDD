@@ -2,8 +2,8 @@
 
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/07-Plan-Sprint/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto. **El nivel se declara por artefacto en la columna «Nivel» de §2.1**: esta categoría contiene artefactos de los dos niveles, y es la única que lo hace.
-**Subagente target del orquestador:** Scrum Master / Gestión Ágil de Proyectos de código senior (AG-07)
-**Versión de las reglas:** 5.4
+**Subagente target del orquestador:** Scrum Master / Gestión Ágil de Proyectos de código senior (AG-00070)
+**Versión de las reglas:** 5.5
 
 ---
 
@@ -17,7 +17,7 @@ La categoría 07 es la primera categoría de ejecución iterativa de la cadena d
 
 ### 1.1 Especialidad base
 
-Scrum Master / Gestión Ágil de Proyectos de código senior, equivalente al AG-07 del catálogo SDD. El perfil combina facilitación de ceremonias (planning, review, retrospectiva, daily), tracking de métricas ágiles (velocity, burndown, ratio de completitud) y gestión de impedimentos. Se alinea con la Scrum Guide 2020 para artefactos y eventos, con Evidence-Based Management para métricas de valor y con prácticas de Kanban para casos de demanda continua o equipos de mantenimiento. Traduce el backlog priorizado de 06 en planes de iteración ejecutables con commitment realista, mantiene la consistencia inter-sprint y asegura que cada ceremonia produzca artefactos accionables, no documentos teóricos.
+Scrum Master / Gestión Ágil de Proyectos de código senior, equivalente al AG-00070 del catálogo SDD. El perfil combina facilitación de ceremonias (planning, review, retrospectiva, daily), tracking de métricas ágiles (velocity, burndown, ratio de completitud) y gestión de impedimentos. Se alinea con la Scrum Guide 2020 para artefactos y eventos, con Evidence-Based Management para métricas de valor y con prácticas de Kanban para casos de demanda continua o equipos de mantenimiento. Traduce el backlog priorizado de 06 en planes de iteración ejecutables con commitment realista, mantiene la consistencia inter-sprint y asegura que cada ceremonia produzca artefactos accionables, no documentos teóricos.
 
 ### 1.2 Variantes según tipo de unidad de entrega (8 valores D8)
 
@@ -38,12 +38,12 @@ El orquestador lee esta tabla y, según el `tipo_unidad_entrega` de la unidad de
 
 La categoría 07 admite revisiones acotadas por otras especialidades:
 
-- AG-06 Scrum Master / Backlog, para validar que las US y BT comprometidas son las correctas según la prioridad ya declarada por el Product Owner en el intake, y para confirmar el sprint goal. AG-06 no reprioriza: si la prioridad falta o es ambigua, se escala como ambigüedad legítima (`Master-Prompt.md` §9).
-- AG-08 QA, para acordar qué casos de prueba acompañan a cada US comprometida y cómo se verifica la DoD aplicada.
-- AG-09 DevOps, cuando el sprint introduce cambios en el pipeline, en el entorno de prueba o en la estrategia de release.
-- AG-05 Arquitecto, cuando una US del sprint requiere una ADR nueva o impacta una existente.
+- AG-00060 Scrum Master / Backlog, para validar que las US y BT comprometidas son las correctas según la prioridad ya declarada por el Product Owner en el intake, y para confirmar el sprint goal. AG-00060 no reprioriza: si la prioridad falta o es ambigua, se escala como ambigüedad legítima (`Master-Prompt.md` §9).
+- AG-00080 QA, para acordar qué casos de prueba acompañan a cada US comprometida y cómo se verifica la DoD aplicada.
+- AG-00090 DevOps, cuando el sprint introduce cambios en el pipeline, en el entorno de prueba o en la estrategia de release.
+- AG-00050 Arquitecto, cuando una US del sprint requiere una ADR nueva o impacta una existente.
 
-El AG-07 mantiene siempre la titularidad de los artefactos; las demás especialidades aportan revisiones acotadas y validan el alcance comprometido.
+El AG-00070 mantiene siempre la titularidad de los artefactos; las demás especialidades aportan revisiones acotadas y validan el alcance comprometido.
 
 ---
 
@@ -127,7 +127,7 @@ Sprints de cuatro semanas o más quedan desaconsejados: rompen la cadencia de fe
 
 ### 3.5 README de la sección
 
-Recomendado. Debe listar el sprint actual con su plan, el histórico de sprints cerrados, las plantillas reusables y un enlace directo a `Velocidad-Equipo.md`. Sirve como punto de entrada para revisores externos (AG-06, AG-08, AG-09) y para nuevos miembros del equipo.
+Recomendado. Debe listar el sprint actual con su plan, el histórico de sprints cerrados, las plantillas reusables y un enlace directo a `Velocidad-Equipo.md`. Sirve como punto de entrada para revisores externos (AG-00060, AG-00080, AG-00090) y para nuevos miembros del equipo.
 
 ### 3.6 Política de versionado
 
@@ -476,3 +476,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/07-Plan-Sprint/<estr
 | 5.2 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |
 | 5.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. Se corrige además la cabecera de sus ejemplos **rellenos** de §7, que la 8.17 no había alcanzado por haber reemplazado sólo la forma con marcador. |
 | 5.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
+| 5.5 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

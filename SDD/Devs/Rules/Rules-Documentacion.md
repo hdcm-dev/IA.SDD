@@ -6,8 +6,8 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto
 **Carpeta target (caso degenerado, producto de una unidad de entrega):** `SDD/Docs/11-Documentacion/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto
-**Subagente target del orquestador:** Technical Writer / Documentation Lead (AG-11)
-**Versión de las reglas:** 5.4
+**Subagente target del orquestador:** Technical Writer / Documentation Lead (AG-00110)
+**Versión de las reglas:** 5.5
 
 ---
 
@@ -193,7 +193,7 @@ El caso testigo es un servicio que se comunica con un dispositivo físico conect
 
 ### 1.1 Especialidad base
 
-Technical Writer / Documentation Lead, equivalente al AG-11 del catálogo SDD. Perfil profesional de documentación técnica orientada a quien interviene sobre el producto terminado, no a quien participó de su especificación. Se apoya en el framework Diátaxis para separar tutoriales, how-to, referencia y explicación; en la práctica de *Docs as Code* para el versionado y la entrega junto al código; y en el principio del test del developer nuevo, que estas reglas operacionalizan como ensayo de entrega en §0.5.
+Technical Writer / Documentation Lead, equivalente al AG-00110 del catálogo SDD. Perfil profesional de documentación técnica orientada a quien interviene sobre el producto terminado, no a quien participó de su especificación. Se apoya en el framework Diátaxis para separar tutoriales, how-to, referencia y explicación; en la práctica de *Docs as Code* para el versionado y la entrega junto al código; y en el principio del test del developer nuevo, que estas reglas operacionalizan como ensayo de entrega en §0.5.
 
 Combina tres facetas. La cara **Technical Writer** redacta conceptos, referencias y troubleshooting con precisión, sin jerga interna del equipo y con vocabulario consistente. La cara **Developer Advocate** prioriza el tiempo a primer éxito, publica snippets copiables y mantiene un onboarding corto. La cara **Documentation Lead**, que es la incorporación de esta versión, sostiene el cuerpo completo a lo largo de la construcción: decide qué documento absorbe cada hallazgo, corre el triaje de la bitácora, ejecuta el ensayo automatizado y mantiene coherente un conjunto que crece incremento a incremento.
 
@@ -218,14 +218,14 @@ El orquestador lee esta tabla y, según el `tipo_unidad_entrega` de la unidad de
 
 Esta categoría colabora con varias especialidades durante la redacción y la revisión:
 
-- **AG-02 Analista Funcional**, para alinear el vocabulario de conceptos fundamentales con los CU y el modelo de datos lógico, evitando que la documentación y la especificación se contradigan.
-- **AG-05 Arquitecto**, para que la referencia, los conceptos y el recorrido de código respeten los contratos públicos, los puntos de extensión y las NFR declaradas. Es la colaboración más delicada, porque es donde está la frontera que más se cruza.
-- **AG-08 QA / SDET**, para que la guía de contribución cite la estrategia de testing sin redefinirla, y para que los hallazgos del ensayo de entrega entren a la maquinaria de auditoría.
-- **AG-09 DevOps**, para que la guía de despliegue y el contrato de contenedor sean el procedimiento verificado de la política que 09 define, y no una segunda política paralela.
-- **AG-10 Developer Advocate**, dueño de la carpeta 10, que produce los examples ejecutables y sus contratos de verificación. La frontera es nítida: 10 demuestra con código ejecutable y verificable, 11 explica, referencia y enlaza esos ejemplos sin duplicar su código.
-- **AG-ROOT Arquitecto de Soluciones**, para que la visión general del sistema y el README raíz de `SDD/Docs/` no se contradigan ni se dupliquen.
+- **AG-00020 Analista Funcional**, para alinear el vocabulario de conceptos fundamentales con los CU y el modelo de datos lógico, evitando que la documentación y la especificación se contradigan.
+- **AG-00050 Arquitecto**, para que la referencia, los conceptos y el recorrido de código respeten los contratos públicos, los puntos de extensión y las NFR declaradas. Es la colaboración más delicada, porque es donde está la frontera que más se cruza.
+- **AG-00080 QA / SDET**, para que la guía de contribución cite la estrategia de testing sin redefinirla, y para que los hallazgos del ensayo de entrega entren a la maquinaria de auditoría.
+- **AG-00090 DevOps**, para que la guía de despliegue y el contrato de contenedor sean el procedimiento verificado de la política que 09 define, y no una segunda política paralela.
+- **AG-00100 Developer Advocate**, dueño de la carpeta 10, que produce los examples ejecutables y sus contratos de verificación. La frontera es nítida: 10 demuestra con código ejecutable y verificable, 11 explica, referencia y enlaza esos ejemplos sin duplicar su código.
+- **AG-00990 Arquitecto de Soluciones**, para que la visión general del sistema y el README raíz de `SDD/Docs/` no se contradigan ni se dupliquen.
 
-El AG-11 mantiene titularidad de los artefactos de 11. Las demás especialidades aportan revisión sectorial y validan paridad con su carpeta upstream.
+El AG-00110 mantiene titularidad de los artefactos de 11. Las demás especialidades aportan revisión sectorial y validan paridad con su carpeta upstream.
 
 ### 1.4 Estilo narrativo formativo
 
@@ -389,7 +389,7 @@ Los enlaces y las trazas apuntan al identificador, no a la ruta. Una ruta cambia
 | `ISSUE-XXXXX` | Entrada de troubleshooting del integrador | `Troubleshooting` | Preexistente, se conserva |
 | `VER-XXXXX` | Sonda de verificación de un sample | `10-Examples`, sección 9 de cada markdown | `Rules-Examples.md` §4.6. Esta categoría lo **cita**, no lo redefine |
 
-Todos llevan el ancho uniforme de `Root-Rules.md` §9.2 y son únicos en el producto, como el resto de los identificadores del framework. Son estables: un elemento que se retira no libera su número; su entrada queda con estado `Retirado` y la fecha, para que una referencia vieja no apunte a otra cosa.
+Todos llevan el ancho uniforme de `Root-Rules.md` §9.2 y son únicos en el producto, como el resto de los identificadores que el framework hace emitir. Son estables: un elemento que se retira no libera su número; su entrada queda con estado `Retirado` y la fecha, para que una referencia vieja no apunte a otra cosa.
 
 Además, cada concepto fundamental se nombra con un identificador Título-Con-Guiones dentro de su documento, y cada paso del onboarding se numera declarando su tiempo objetivo en minutos.
 
@@ -1026,3 +1026,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/11-Documentacion/<es
 | 5.2 | 2026-08-16 | **La cabecera obligatoria de §4.1 declaraba el nivel anterior a la 8.0.** Cada documento generado copia esa plantilla literal, y empezaba con `**Proyecto de código:** {{Nombre-Proyecto-Codigo}}` cuando los documentos de las categorías 02 a 11 pertenecen a una **unidad de entrega** y viven bajo `Unidades-Entrega/`. Pasa a `**Unidad de entrega:** {{Nombre-Unidad-Entrega}}`. Los tres barridos anteriores no la vieron porque vive **dentro de un bloque de ejemplo cercado**, que ninguno abría; `SDD-Development-Guide.md` §VI.3.1 suma la regla. Sube **patch**: corrige el nivel declarado en la cabecera sin cambiar ninguna sección ni ningún artefacto. |
 | 5.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. Se corrige además la cabecera de sus ejemplos **rellenos** de §7, que la 8.17 no había alcanzado por haber reemplazado sólo la forma con marcador. |
 | 5.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
+| 5.5 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

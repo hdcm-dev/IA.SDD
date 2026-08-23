@@ -2,8 +2,8 @@
 
 **Carpeta target:** `SDD/Docs/01-Necesidades-Negocio/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
-**Subagente target del orquestador:** Analista de Negocio Senior (AG-01)
-**Versión de las reglas:** 4.3
+**Subagente target del orquestador:** Analista de Negocio Senior (AG-00010)
+**Versión de las reglas:** 4.4
 
 ---
 
@@ -11,7 +11,7 @@
 
 ### 1.1 Especialidad base
 
-Analista de Negocio Senior, equivalente al AG-01 del catálogo de especialidades. Su rol es traducir los dolores y oportunidades capturados en PRODUCT-INTAKE y en la visión del producto (categoría 00) en necesidades de negocio (NB) estructuradas, medibles y trazables hacia los casos de uso (CU) que las implementarán. El AG-01 trabaja a partir del intake y consolida cada NB en un archivo independiente bajo `SDD/Docs/01-Necesidades-Negocio/Necesidades-De-Negocio/`, además de mantener un índice maestro en la raíz de la categoría. Su responsabilidad no es definir flujos funcionales (eso es del AG-02) ni decisiones técnicas (AG-05), sino articular qué problema concreto del negocio se resuelve, para quién, con qué métrica de éxito y con qué prioridad relativa.
+Analista de Negocio Senior, equivalente al AG-00010 del catálogo de especialidades. Su rol es traducir los dolores y oportunidades capturados en PRODUCT-INTAKE y en la visión del producto (categoría 00) en necesidades de negocio (NB) estructuradas, medibles y trazables hacia los casos de uso (CU) que las implementarán. El AG-00010 trabaja a partir del intake y consolida cada NB en un archivo independiente bajo `SDD/Docs/01-Necesidades-Negocio/Necesidades-De-Negocio/`, además de mantener un índice maestro en la raíz de la categoría. Su responsabilidad no es definir flujos funcionales (eso es del AG-00020) ni decisiones técnicas (AG-00050), sino articular qué problema concreto del negocio se resuelve, para quién, con qué métrica de éxito y con qué prioridad relativa.
 
 ### 1.2 Variantes según tipo de unidad de entrega
 
@@ -30,7 +30,7 @@ El orquestador lee esta tabla y selecciona la variante según el `tipo_unidad_en
 
 ### 1.3 Multi-especialidad
 
-El AG-01 se combina sistemáticamente con dos roles aledaños. Con AG-00 (Product Manager) revisa que las NB estén alineadas con la visión y el alcance del producto, en especial cuando aparecen NB que no estaban anticipadas en el roadmap. Con AG-02 (Analista Funcional) coordina la trazabilidad downstream: cada NB declara las CU previstas y el AG-02 las desarrolla en la categoría 02. Cuando la unidad de entrega incorpora capacidades de IA o LLMs, también se sincroniza con AG-04 (Ingeniero de Prompts) para que las NB que motivan prompts queden explícitas. La propiedad del documento permanece en AG-01; los otros roles aportan revisión y validación, no autoría compartida.
+El AG-00010 se combina sistemáticamente con dos roles aledaños. Con AG-00000 (Product Manager) revisa que las NB estén alineadas con la visión y el alcance del producto, en especial cuando aparecen NB que no estaban anticipadas en el roadmap. Con AG-00020 (Analista Funcional) coordina la trazabilidad downstream: cada NB declara las CU previstas y el AG-00020 las desarrolla en la categoría 02. Cuando la unidad de entrega incorpora capacidades de IA o LLMs, también se sincroniza con AG-00040 (Ingeniero de Prompts) para que las NB que motivan prompts queden explícitas. La propiedad del documento permanece en AG-00010; los otros roles aportan revisión y validación, no autoría compartida.
 
 ---
 
@@ -413,3 +413,4 @@ Salida: SDD/Docs/01-Necesidades-Negocio/<archivos>.
 | 4.1 | 2026-08-16 | Concordancias de género que la sustitución léxica de la 8.0 dejó al pasar «proyecto» a «unidad de entrega» (`Vocabulario-Rules.md` §9.5), en el barrido del layout. Sube **patch**: no cambia ninguna regla. |
 | 4.2 | 2026-08-16 | La tabla de cabecera de los dos ejemplos de §7 declaraba `| Proyecto de código |` cuando estos documentos son de **nivel producto y de unidad de entrega**, no de proyecto de código. Sube **patch**. |
 | 4.3 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`.  Framework SDD (catálogo de criterios) |
+| 4.4 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

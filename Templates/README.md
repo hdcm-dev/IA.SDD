@@ -1,10 +1,10 @@
 # Templates — Ejemplos ejecutables de los modelos UX-UI
 
 **Documento:** Templates/README.md
-**Versión:** 1.1
+**Versión:** 1.2
 **Estado:** Vigente
 **Fecha:** 2026-07-19
-**Autor:** AG-ROOT (Arquitecto de Soluciones)
+**Autor:** AG-00990 (Arquitecto de Soluciones)
 
 ---
 
@@ -98,3 +98,4 @@ Para una mirada rápida también alcanza con abrir `index.html` directo en el na
 | --- | --- | --- | --- |
 | 1.0 | 2026-07-19 | Índice inicial de la carpeta de templates, creada junto con la Fase B2 de validación visual de maqueta. Define el propósito de los templates y su relación con el catálogo `Modelos-UX-UI/`, la estructura obligatoria de un template, sus reglas constructivas, la ofuscación bloqueante por tratarse de un repositorio público y el método de apertura. Registra `Modelo-Generico/` como ejemplo de referencia de la estructura. | AG-ROOT |
 | 1.1 | 2026-07-29 | Vocabulario normativo (framework 5.0), registrado en la 5.1. El índice adopta «proyecto de código» y «producto» según `Vocabulario-Rules.md` §2, y su cabecera pasa de `**Proyecto:** Template SDD` a `**Framework:** SDD`. La fila se registra en la 5.1 porque la migración modificó el archivo sin dejar registro, contra `SDD-Development-Guide.md` §VI.1. | AG-ROOT |
+| 1.2 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

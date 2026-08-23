@@ -1,9 +1,9 @@
 # Marco Teórico SDD
 
 **Documento:** Marco-Teorico-SDD.md
-**Versión:** 3.4
+**Versión:** 3.6
 **Estado:** Aprobado
-**Fecha:** 2026-07-19
+**Fecha:** 2026-08-23
 **Autor:** Equipo Template SDD — UTN
 **Audiencia:** estudiantes universitarios (UTN), docentes, profesionales que adopten el template
 **Idioma:** español rioplatense neutro técnico
@@ -103,7 +103,7 @@ workspace/
 │       │   ├── Intake/              Plantillas de carga inicial (PRODUCT-INTAKE/MANIFEST-template)
 │       │   ├── Orchestrator/        Prompts orquestadores y subagentes (Master-Prompt)
 │       │   ├── Rules/               Reglas de nomenclatura, decisiones D1..D8
-│       │   ├── References/          Catálogo de reglas de diseño por stack y por capacidad (insumo de AG-03)
+│       │   ├── References/          Catálogo de reglas de diseño por stack y por capacidad (insumo de AG-00030)
 │       │   └── Bootstrap/           Auditoría del fuente SDD 1.0, ADR de origen
 │       └── Guides/                  Guía de usuario
 │
@@ -112,24 +112,24 @@ workspace/
         ├── Intake/                  PRODUCT-INTAKE-<Slug-Producto>.md (humano)
         │                            PRODUCT-MANIFEST-<Slug-Producto>.md (derivado)
         ├── Docs/                    Plano operativo del producto generado
-        │   ├── 00-Contexto/         AG-00  Product Manager        (nivel producto)
-        │   ├── 01-Necesidades-Negocio/     AG-01  Analista de Negocio  (nivel producto)
+        │   ├── 00-Contexto/         AG-00000  Product Manager        (nivel producto)
+        │   ├── 01-Necesidades-Negocio/     AG-00010  Analista de Negocio  (nivel producto)
         │   ├── Producto/            Consolidación de producto: vista de producto
         │   │                        (mapa de unidades de entrega, contratos inter-proyecto,
         │   │                        grafo de dependencias) y pipeline de producto
         │   ├── Unidades-Entrega/           Una carpeta por unidad de entrega (Título-Con-Guiones)
         │   │   └── <Nombre-Proyecto-Codigo>/
-        │   │       ├── 02-Especificacion-Funcional/   AG-02  Analista Funcional
-        │   │       ├── 03-UX-UI-DX/            AG-03  Especialista DX/UX
-        │   │       ├── 04-Prompts-AI/          AG-04  Ingeniero de Prompts
-        │   │       ├── 05-Arquitectura-Tecnica/       AG-05  Arquitecto de Software
-        │   │       ├── 06-Backlog-Tecnico/     AG-06  Scrum Master (backlog)
-        │   │       ├── 07-Plan-Sprint/         AG-07  Scrum Master (planificación)
-        │   │       ├── 08-Calidad-Y-Pruebas/          AG-08  QA / SDET
-        │   │       ├── 09-Devops/              AG-09  DevOps Engineer
-        │   │       ├── 10-Examples/            AG-10  Developer Advocate
-        │   │       └── 11-Documentacion/       AG-11  Technical Writer
-        │   └── README.md            AG-ROOT  Arquitecto de Soluciones
+        │   │       ├── 02-Especificacion-Funcional/   AG-00020  Analista Funcional
+        │   │       ├── 03-UX-UI-DX/            AG-00030  Especialista DX/UX
+        │   │       ├── 04-Prompts-AI/          AG-00040  Ingeniero de Prompts
+        │   │       ├── 05-Arquitectura-Tecnica/       AG-00050  Arquitecto de Software
+        │   │       ├── 06-Backlog-Tecnico/     AG-00060  Scrum Master (backlog)
+        │   │       ├── 07-Plan-Sprint/         AG-00070  Scrum Master (planificación)
+        │   │       ├── 08-Calidad-Y-Pruebas/          AG-00080  QA / SDET
+        │   │       ├── 09-Devops/              AG-00090  DevOps Engineer
+        │   │       ├── 10-Examples/            AG-00100  Developer Advocate
+        │   │       └── 11-Documentacion/       AG-00110  Technical Writer
+        │   └── README.md            AG-00990  Arquitecto de Soluciones
         └── README.md
 ```
 
@@ -299,7 +299,7 @@ El template provee un único documento de intake que el humano completa manualme
 
 El intake se organiza en tres partes:
 
-- Parte A — Negocio (§1 a §12): visión del producto, problema, usuarios, alcance, stakeholders, criterios de éxito y exclusiones. Es el insumo de negocio de AG-00 (Product Manager) y AG-01 (Analista de Negocio). Se carga una vez, porque el negocio es uno por producto (intake a nivel producto, ver §3.10.5).
+- Parte A — Negocio (§1 a §12): visión del producto, problema, usuarios, alcance, stakeholders, criterios de éxito y exclusiones. Es el insumo de negocio de AG-00000 (Product Manager) y AG-00010 (Analista de Negocio). Se carga una vez, porque el negocio es uno por producto (intake a nivel producto, ver §3.10.5).
 - Parte B — Composición (§13 a §16): la tabla de unidades de entrega tipadas (§13), el estilo de producto (§14), la descomposición (§15) y la estructura (§16). La tabla de unidades de entrega tipadas del §13 declara, para cada unidad de entrega, su tipo D8, su rol y sus dependencias; es la fuente desde la que se deriva el PRODUCT-MANIFEST (ver §3.10.3). En un producto de un único unidad de entrega, la tabla tiene una sola fila y la composición se comporta igual que en el modelo de tipo único.
 - Parte C — Técnica por unidad de entrega (§17): un bloque repetible P.1 a P.12 por cada unidad de entrega vigente, con el stack tentativo de los proyectos de código que la componen, las decisiones D1–D9 que ese proyecto de código adopta y las secciones del SDD que aplican y las que no.
 
@@ -349,7 +349,7 @@ Confirmado el manifiesto, el orquestador ejecuta la generación. Esta etapa:
 
 El producto del paso 5 es el árbol `SDD/Docs/` poblado con las categorías de producto, las carpetas `Unidades-Entrega/<Nombre>/` de cada unidad de entrega y la consolidación `Producto/`, listo para revisión humana. En el caso degenerado de un único unidad de entrega, el árbol se aplana y el resultado es indistinguible del modelo de tipo único.
 
-**Paralelización vs serialización.** Las secciones que dependen del resultado de otras se ejecutan en serie. Dentro de cada unidad de entrega, el orden canónico de especialidades es: AG-02 → AG-03 → AG-04 → AG-05 → AG-06 → AG-07 → AG-08 → AG-09 → AG-10 → AG-11, precedido por AG-00 y AG-01 a nivel producto; las secciones que no dependen entre sí (por ejemplo AG-08 y AG-10) pueden ejecutarse en paralelo si el agente lo soporta. Entre unidades de entrega, el orden lo dicta el grafo de dependencias: una unidad de entrega se genera después de aquellos de los que depende, de modo que sus contratos ya estén disponibles.
+**Paralelización vs serialización.** Las secciones que dependen del resultado de otras se ejecutan en serie. Dentro de cada unidad de entrega, el orden canónico de especialidades es: AG-00020 → AG-00030 → AG-00040 → AG-00050 → AG-00060 → AG-00070 → AG-00080 → AG-00090 → AG-00100 → AG-00110, precedido por AG-00000 y AG-00010 a nivel producto; las secciones que no dependen entre sí (por ejemplo AG-00080 y AG-00100) pueden ejecutarse en paralelo si el agente lo soporta. Entre unidades de entrega, el orden lo dicta el grafo de dependencias: una unidad de entrega se genera después de aquellos de los que depende, de modo que sus contratos ya estén disponibles.
 
 ## 3.7 Paso 6 — Confirmación y handoff a codificación
 
@@ -357,7 +357,7 @@ El humano revisa la documentación generada en `/Docs/`. Si encuentra inconsiste
 
 1. Se hace commit del estado completo en git.
 2. Se etiqueta como `docs-v1.0` (estado base de la documentación).
-3. Se inicia el primer sprint con el backlog producido por AG-06 y AG-07.
+3. Se inicia el primer sprint con el backlog producido por AG-00060 y AG-00070.
 4. La codificación comienza con la documentación como referencia obligatoria.
 
 A partir de este punto, el equipo opera en nivel Spec-Anchored: cualquier cambio significativo del comportamiento del sistema requiere primero actualizar la spec correspondiente, después modificar el código.
@@ -437,7 +437,7 @@ El diagrama representa el flujo lineal pero los pasos 5 y 6 pueden iterar. La Fa
 
 ## 3.9 Diferencias con SDD 1.0
 
-SDD hereda el patrón general del fuente SDD 1.0 (la cadena AG-00 → AG-11, la numeración `00..11`, las plantillas de CU/NB/RN/US/BT) pero introduce mejoras tomadas de la auditoría Fase 0:
+SDD hereda el patrón general del fuente SDD 1.0 (la cadena AG-00000 → AG-00110, la numeración `00..11`, las plantillas de CU/NB/RN/US/BT) pero introduce mejoras tomadas de la auditoría Fase 0:
 
 | Aspecto | SDD 1.0 | SDD |
 |---|---|---|
@@ -525,50 +525,50 @@ Decidir qué unidades de entrega integran el producto y qué dependencias hay en
 
 El template asigna una especialidad por carpeta de `/Docs/` siguiendo una premisa: cada artefacto documental tiene un responsable claro con un perfil profesional específico. Esto cumple dos funciones:
 
-1. **Criterio de calidad.** Cada especialidad define qué cuenta como un buen artefacto desde su disciplina. El AG-08 (QA) sabe qué hace que una matriz de cobertura sea útil; el AG-05 (Arquitecto) sabe qué hace que un ADR sea completo. Mezclar perfiles diluye los criterios.
+1. **Criterio de calidad.** Cada especialidad define qué cuenta como un buen artefacto desde su disciplina. El AG-00080 (QA) sabe qué hace que una matriz de cobertura sea útil; el AG-00050 (Arquitecto) sabe qué hace que un ADR sea completo. Mezclar perfiles diluye los criterios.
 2. **Trazabilidad RACI.** Para cada documento existe un responsable (R) y un aprobador (A) explícitos. Esto evita el clásico "alguien debería actualizar esto" que termina sin actualizar.
 
 Trece especialidades no implican trece personas. En equipos pequeños una persona cubre varios roles. Lo que el template fija es el perfil profesional necesario para cumplir el rol, no la dotación de personal.
 
-Las 13 especialidades son las que producen artefactos documentales: una por cada una de las 12 categorías de `Docs/` más AG-ROOT. La Fase B2 de validación visual (§8.8) incorpora un subagente adicional, AG-03M, que no altera ese número porque no es titular de ninguna categoría: materializa en una maqueta la especificación que AG-03 redactó, y los documentos que emite quedan bajo la titularidad documental de las categorías 03 y 08. Es un subagente de fase, no de categoría. La distinción importa porque es la que mantiene el criterio de un responsable por artefacto: si AG-03M fuera titular de la experiencia, habría dos especialidades decidiendo sobre el mismo documento.
+Las 13 especialidades son las que producen artefactos documentales: una por cada una de las 12 categorías de `Docs/` más AG-00990. La Fase B2 de validación visual (§8.8) incorpora un subagente adicional, AG-00031, que no altera ese número porque no es titular de ninguna categoría: materializa en una maqueta la especificación que AG-00030 redactó, y los documentos que emite quedan bajo la titularidad documental de las categorías 03 y 08. Es un subagente de fase, no de categoría. La distinción importa porque es la que mantiene el criterio de un responsable por artefacto: si AG-00031 fuera titular de la experiencia, habría dos especialidades decidiendo sobre el mismo documento.
 
-Las 13 especialidades siguen siendo válidas sin cambios en el modelo de producto más jerarquía de unidades de entrega (§3.10). Lo que se precisa es el alcance de cada una: AG-00 (Product Manager) y AG-01 (Analista de Negocio) operan a nivel producto, porque el negocio es uno por producto; las especialidades AG-02 a AG-11 operan por unidad de entrega, porque la técnica se especializa según el tipo D8 de cada unidad de entrega. Las variantes por tipo D8 que cada especialidad documenta más abajo se aplican, por lo tanto, por unidad de entrega: en un producto con varias unidades de entrega de tipos distintos, una misma especialidad puede producir artefactos con foco distinto en cada unidad de entrega.
+Las 13 especialidades siguen siendo válidas sin cambios en el modelo de producto más jerarquía de unidades de entrega (§3.10). Lo que se precisa es el alcance de cada una: AG-00000 (Product Manager) y AG-00010 (Analista de Negocio) operan a nivel producto, porque el negocio es uno por producto; las especialidades AG-00020 a AG-00110 operan por unidad de entrega, porque la técnica se especializa según el tipo D8 de cada unidad de entrega. Las variantes por tipo D8 que cada especialidad documenta más abajo se aplican, por lo tanto, por unidad de entrega: en un producto con varias unidades de entrega de tipos distintos, una misma especialidad puede producir artefactos con foco distinto en cada unidad de entrega.
 
 ## 4.2 Catálogo de las 13 especialidades
 
-### AG-ROOT — Arquitecto de Soluciones Senior
+### AG-00990 — Arquitecto de Soluciones Senior
 
 **Alias.** Solutions Architect, Tech Lead documental.
 **Responsabilidad principal.** Coherencia integral del repositorio. Onboarding de personas nuevas en cinco minutos de lectura. Validación cruzada entre secciones.
 **Documentos que produce.** `docs/README.md` (índice maestro), referencias cruzadas, mapa de trazabilidad.
 **Variantes por tipo de unidad de entrega.** Estable en todos los D8.
-**Interacciones cross-rol.** Consume artefactos de todos los AG-XX para componer la narrativa global. Valida que la documentación de cada AG-XX es consistente con el resto.
+**Interacciones cross-rol.** Consume artefactos de todos los AG-XXXXX para componer la narrativa global. Valida que la documentación de cada AG-XXXXX es consistente con el resto.
 
-### AG-00 — Product Manager
+### AG-00000 — Product Manager
 
 **Alias.** PM, Product Owner senior en contextos donde el rol no existe formalmente.
 **Responsabilidad principal.** Estrategia del producto, alineación con stakeholders, métricas de éxito.
 **Documentos que produce.** Visión del producto, alcance, roadmap, acuerdo de equipo, compatibilidad de plataformas.
 **Variantes por tipo de unidad de entrega.** En unidades de entrega D8 = library el roadmap es más técnico y menos comercial; en unidades de entrega D8 = web-monolith o D8 = rest-api el roadmap suele integrar fases de adopción por terceros.
-**Interacciones cross-rol.** Alimenta a AG-01 (necesidades) y AG-06 (priorización del backlog).
+**Interacciones cross-rol.** Alimenta a AG-00010 (necesidades) y AG-00060 (priorización del backlog).
 
-### AG-01 — Analista de Negocio Senior
+### AG-00010 — Analista de Negocio Senior
 
 **Alias.** BA, CBAP certificado en contextos formales.
 **Responsabilidad principal.** Elicitación de requisitos de negocio, traducción a necesidades concretas, identificación de stakeholders.
 **Documentos que produce.** Necesidades de negocio (NB-XXXXX), criterios de éxito por NB, métricas de valor.
 **Variantes por tipo de unidad de entrega.** En library/cli-tool/worker-service los stakeholders son típicamente otros desarrolladores (DX); en web/mobile los stakeholders son usuarios finales (UX).
-**Interacciones cross-rol.** Consume visión de AG-00, alimenta a AG-02 (casos de uso) y a AG-06 (épicas).
+**Interacciones cross-rol.** Consume visión de AG-00000, alimenta a AG-00020 (casos de uso) y a AG-00060 (épicas).
 
-### AG-02 — Analista Funcional
+### AG-00020 — Analista Funcional
 
 **Alias.** Ingeniero de Requisitos, IREB certificado en contextos formales.
 **Responsabilidad principal.** Especificación funcional formal, casos de uso, reglas de negocio, modelo conceptual de datos.
 **Documentos que produce.** Casos de uso (CU-XXXXX), reglas de negocio (RN-XXXXX), reglas conceptuales (RC-XXXXX), modelo conceptual, criterios de aceptación Given/When/Then.
 **Variantes por tipo de unidad de entrega.** En library/cli-tool puede no haber actores humanos directos; los actores son consumidores programáticos.
-**Interacciones cross-rol.** Consume necesidades de AG-01, alimenta a AG-03 (DX), AG-05 (arquitectura), AG-06 (US), AG-08 (test cases).
+**Interacciones cross-rol.** Consume necesidades de AG-00010, alimenta a AG-00030 (DX), AG-00050 (arquitectura), AG-00060 (US), AG-00080 (test cases).
 
-### AG-03 — Especialista en Developer Experience / UX
+### AG-00030 — Especialista en Developer Experience / UX
 
 **Alias.** DX Specialist, UX Designer cuando la unidad de entrega tiene usuarios finales.
 **Responsabilidad principal.** Diseño de la experiencia de uso, sea de usuarios finales (UX) o de desarrolladores integradores (DX).
@@ -586,115 +586,115 @@ Las 13 especialidades siguen siendo válidas sin cambios en el modelo de product
 | desktop-app | UX completo, ergonomía de teclado/mouse, accesibilidad |
 | mobile-app-maui | UX completo, gestos, touch targets, modos offline |
 
-**Configuración dirigida por esquema.** En unidades de entrega con superficies de configuración, AG-03 carga la extensión por capacidad `Design-Rules-Config-Esquema` y produce superficies donde cada parámetro se describe por su descriptor (default, límites, leyenda y ejemplos), con ayuda contextual derivada del descriptor, presets, explicación en lenguaje natural, modo simulación y la ranura del asistente de IA reservada (forward-compat).
-**Interacciones cross-rol.** Consume casos de uso de AG-02, alimenta a AG-05 (contratos del API), AG-10 (ejemplos ejecutables), AG-11 (cuerpo documental).
+**Configuración dirigida por esquema.** En unidades de entrega con superficies de configuración, AG-00030 carga la extensión por capacidad `Design-Rules-Config-Esquema` y produce superficies donde cada parámetro se describe por su descriptor (default, límites, leyenda y ejemplos), con ayuda contextual derivada del descriptor, presets, explicación en lenguaje natural, modo simulación y la ranura del asistente de IA reservada (forward-compat).
+**Interacciones cross-rol.** Consume casos de uso de AG-00020, alimenta a AG-00050 (contratos del API), AG-00100 (ejemplos ejecutables), AG-00110 (cuerpo documental).
 
-### AG-04 — Ingeniero de Prompts
+### AG-00040 — Ingeniero de Prompts
 
 **Alias.** AI Specialist, ML Engineer cuando la unidad de entrega incorpora modelos.
 **Responsabilidad principal.** Diseño de prompts estructurados, guardrails, esquemas JSON de salida, evaluación de outputs.
 **Documentos que produce.** Prompts versionados, esquemas de salida, few-shot examples, métricas de evaluación.
-**Variantes por tipo de unidad de entrega.** Esta sección puede marcarse "no aplica" si la unidad de entrega no incorpora IA en su superficie funcional. La distinción es importante: usar IA como asistente de desarrollo (Copilot) no requiere AG-04; integrarle IA al producto (clasificador, RAG, chatbot) sí.
-**Asistente de configuración por esquema.** Cuando se conecta el asistente de IA de las superficies de configuración (§8.7), AG-04 define los descriptores de parámetro como tool definitions y las salidas estructuradas con las que el modelo devuelve una `PropuestaDeConfiguracion` válida; el modelo propone contra esa frontera y nunca ejecuta directo.
-**Interacciones cross-rol.** Consume especificación de AG-02, alimenta a AG-05 (integración del modelo en la arquitectura) y AG-08 (evaluación de outputs).
+**Variantes por tipo de unidad de entrega.** Esta sección puede marcarse "no aplica" si la unidad de entrega no incorpora IA en su superficie funcional. La distinción es importante: usar IA como asistente de desarrollo (Copilot) no requiere AG-00040; integrarle IA al producto (clasificador, RAG, chatbot) sí.
+**Asistente de configuración por esquema.** Cuando se conecta el asistente de IA de las superficies de configuración (§8.7), AG-00040 define los descriptores de parámetro como tool definitions y las salidas estructuradas con las que el modelo devuelve una `PropuestaDeConfiguracion` válida; el modelo propone contra esa frontera y nunca ejecuta directo.
+**Interacciones cross-rol.** Consume especificación de AG-00020, alimenta a AG-00050 (integración del modelo en la arquitectura) y AG-00080 (evaluación de outputs).
 
-### AG-05 — Arquitecto de Software Senior
+### AG-00050 — Arquitecto de Software Senior
 
 **Alias.** Software Architect, Solution Architect técnico.
 **Responsabilidad principal.** Diseño técnico del sistema, decisiones de arquitectura (ADR), contratos, modelo lógico de datos.
 **Documentos que produce.** Arquitectura del producto, ADRs individuales (`ADR-XXXXX-<Nombre>.md`), contratos, modelo lógico, extensibilidad, diagramas (C4 o equivalente).
 **Variantes por tipo de unidad de entrega.** Ver §7 para la decisión arquitectónica por tipo D8.
-**Motor de configuración dirigida por esquema.** Cuando la unidad de entrega tiene superficies de configuración, AG-05 diseña el motor detrás de la frontera `PropuestaDeConfiguracion`: el registro de descriptores como fuente única, la validación contra esos descriptores, las salidas estructuradas / tool calling del asistente de IA y la mecánica de plan-and-apply. El catálogo de diseño (AG-03) define el lado UX; la arquitectura define el motor.
-**Interacciones cross-rol.** Consume requisitos de AG-02 y AG-03, alimenta a AG-06 (BT técnico), AG-08 (testabilidad), AG-09 (deploy).
+**Motor de configuración dirigida por esquema.** Cuando la unidad de entrega tiene superficies de configuración, AG-00050 diseña el motor detrás de la frontera `PropuestaDeConfiguracion`: el registro de descriptores como fuente única, la validación contra esos descriptores, las salidas estructuradas / tool calling del asistente de IA y la mecánica de plan-and-apply. El catálogo de diseño (AG-00030) define el lado UX; la arquitectura define el motor.
+**Interacciones cross-rol.** Consume requisitos de AG-00020 y AG-00030, alimenta a AG-00060 (BT técnico), AG-00080 (testabilidad), AG-00090 (deploy).
 
-### AG-06 — Scrum Master / Agile Coach (Backlog)
+### AG-00060 — Scrum Master / Agile Coach (Backlog)
 
 **Alias.** Backlog Owner, Agile BA.
 **Responsabilidad principal.** Construcción y mantenimiento del Product Backlog, definición de DoR, priorización MoSCoW.
 **Documentos que produce.** Product Backlog (US-XXXXX), Backlog técnico (BT-XXXXX), Definition of Ready, mapa US → CU → BT.
 **Variantes por tipo de unidad de entrega.** Estable en todos los D8.
-**Interacciones cross-rol.** Consume casos de uso de AG-02, alimenta a AG-07 (sprint planning).
+**Interacciones cross-rol.** Consume casos de uso de AG-00020, alimenta a AG-00070 (sprint planning).
 
-### AG-07 — Scrum Master / Gestión Ágil
+### AG-00070 — Scrum Master / Gestión Ágil
 
 **Alias.** Scrum Master operativo, Project Manager ágil.
 **Responsabilidad principal.** Planificación de sprints, métricas (velocity, burndown), templates de Review y Retro.
 **Documentos que produce.** Plan de sprint por iteración, templates de Review, templates de Retro, tabla de velocidad.
 **Variantes por tipo de unidad de entrega.** Estable en todos los D8.
-**Interacciones cross-rol.** Consume backlog priorizado de AG-06, coordina ejecución con AG-08 (quality gates) y AG-09 (deploy).
+**Interacciones cross-rol.** Consume backlog priorizado de AG-00060, coordina ejecución con AG-00080 (quality gates) y AG-00090 (deploy).
 
-### AG-08 — Ingeniero QA / SDET Senior
+### AG-00080 — Ingeniero QA / SDET Senior
 
 **Alias.** QA Engineer, SDET, Test Engineer.
 **Responsabilidad principal.** Estrategia de testing, Definition of Done, matriz de cobertura, quality gates.
 **Documentos que produce.** Estrategia de testing, DoD canónico, casos de prueba referenciales, matriz de cobertura, criterios de validación.
 **Variantes por tipo de unidad de entrega.** La pirámide concreta varía: library puede tolerar 80% unit / 15% integración / 5% E2E; web-microservices necesita contract testing explícito.
-**Interacciones cross-rol.** Consume criterios de aceptación de AG-02, alimenta a AG-09 (gates del CI/CD).
+**Interacciones cross-rol.** Consume criterios de aceptación de AG-00020, alimenta a AG-00090 (gates del CI/CD).
 
-### AG-09 — Ingeniero DevOps Senior
+### AG-00090 — Ingeniero DevOps Senior
 
 **Alias.** DevOps Engineer, Release Engineer, Platform Engineer.
 **Responsabilidad principal.** Pipeline CI/CD, versionado SemVer, entornos de deploy, supply chain.
 **Documentos que produce.** Pipeline CI/CD, estrategia de versionado, entornos de deploy, guía de publicación, SBOM.
 **Variantes por tipo de unidad de entrega.** Ver §10 para detalle. library publica en un feed de paquetes; rest-api se despliega a runtime; cli-tool produce binarios firmados.
-**Interacciones cross-rol.** Consume DoD de AG-08 y versionado de AG-00, opera transversalmente.
+**Interacciones cross-rol.** Consume DoD de AG-00080 y versionado de AG-00000, opera transversalmente.
 
-### AG-10 — Developer Advocate
+### AG-00100 — Developer Advocate
 
 **Alias.** DevRel, Application Engineer, Solutions Engineer, Sample Engineer.
 **Responsabilidad principal.** Aplicaciones de referencia, ejemplos ejecutables, progresión didáctica.
 **Documentos que produce.** Ejemplos de complejidad creciente (básico, intermedio, avanzado), README de ejemplos, assets de soporte, contratos de verificación `VER-XXXXX`.
 **Variantes por tipo de unidad de entrega.** Estable en todos los D8 pero el material concreto cambia: library produce snippets compilables; cli-tool produce scripts; rest-api produce colecciones Postman / Insomnia.
-**Interacciones cross-rol.** Consume arquitectura de AG-05 y especificación funcional de AG-02; alimenta a AG-11, porque los ejemplos son insumo de la documentación final.
+**Interacciones cross-rol.** Consume arquitectura de AG-00050 y especificación funcional de AG-00020; alimenta a AG-00110, porque los ejemplos son insumo de la documentación final.
 
-### AG-11 — Technical Writer
+### AG-00110 — Technical Writer
 
 **Alias.** Documentation Engineer, Documentation Lead.
 **Responsabilidad principal.** Documentación orientada a quien interviene sobre el producto terminado (integrador, mantenedor u operador), tutorial, referencia, troubleshooting.
 **Documentos que produce.** Quick start, conceptos fundamentales, referencia de API, guías de integración, troubleshooting, `Contrato-Agentes.md` y su `AGENTS.md` derivado.
 **Variantes por tipo de unidad de entrega.** En library el target es desarrollador integrador; en web/mobile incluye también usuario final.
-**Interacciones cross-rol.** Consume todo (necesita ver el panorama completo) y en particular los ejemplos de AG-10, que referencia y enlaza sin duplicar su código.
+**Interacciones cross-rol.** Consume todo (necesita ver el panorama completo) y en particular los ejemplos de AG-00100, que referencia y enlaza sin duplicar su código.
 
 ## 4.3 Tabla resumen del catálogo
 
 | ID | Especialidad | Sección de docs | Artefacto principal | Aplica si |
 |---|---|---|---|---|
-| AG-ROOT | Arquitecto de Soluciones | `README.md` | Índice maestro | Siempre |
-| AG-00 | Product Manager | `00-Contexto/` | Visión, alcance | Siempre |
-| AG-01 | Analista de Negocio | `01-Necesidades-Negocio/` | NB-XXXXX | Siempre |
-| AG-02 | Analista Funcional | `02-Especificacion-Funcional/` | CU-XXXXX, RN-XXXXX | Siempre |
-| AG-03 | DX/UX Specialist | `03-UX-UI-DX/` | Flujos, wireframes | Siempre (varía foco) |
-| AG-04 | Ingeniero de Prompts | `04-Prompts-AI/` | Prompts versionados | Solo si producto integra IA |
-| AG-05 | Arquitecto de Software | `05-Arquitectura-Tecnica/` | ADR, contratos | Siempre |
-| AG-06 | SM Backlog | `06-Backlog-Tecnico/` | US, BT, DoR | Siempre |
-| AG-07 | SM Sprints | `07-Plan-Sprint/` | Sprint plans | Siempre |
-| AG-08 | QA / SDET | `08-Calidad-Y-Pruebas/` | Estrategia testing, DoD | Siempre |
-| AG-09 | DevOps | `09-Devops/` | Pipeline, versionado | Siempre |
-| AG-10 | Developer Advocate | `10-Examples/` | Ejemplos ejecutables y verificables | Siempre |
-| AG-11 | Technical Writer | `11-Documentacion/` | Cuerpo documental de entrega | Siempre |
-| AG-03M | Maquetador de validación visual | Sin categoría propia; escribe en `SDD/Maquetas/` y aporta a `03-UX-UI/` y `08-Calidad-Y-Pruebas/` | Maqueta navegable, línea de base visual | Solo si `requiere_maqueta` (Fase B2) |
+| AG-00990 | Arquitecto de Soluciones | `README.md` | Índice maestro | Siempre |
+| AG-00000 | Product Manager | `00-Contexto/` | Visión, alcance | Siempre |
+| AG-00010 | Analista de Negocio | `01-Necesidades-Negocio/` | NB-XXXXX | Siempre |
+| AG-00020 | Analista Funcional | `02-Especificacion-Funcional/` | CU-XXXXX, RN-XXXXX | Siempre |
+| AG-00030 | DX/UX Specialist | `03-UX-UI-DX/` | Flujos, wireframes | Siempre (varía foco) |
+| AG-00040 | Ingeniero de Prompts | `04-Prompts-AI/` | Prompts versionados | Solo si producto integra IA |
+| AG-00050 | Arquitecto de Software | `05-Arquitectura-Tecnica/` | ADR, contratos | Siempre |
+| AG-00060 | SM Backlog | `06-Backlog-Tecnico/` | US, BT, DoR | Siempre |
+| AG-00070 | SM Sprints | `07-Plan-Sprint/` | Sprint plans | Siempre |
+| AG-00080 | QA / SDET | `08-Calidad-Y-Pruebas/` | Estrategia testing, DoD | Siempre |
+| AG-00090 | DevOps | `09-Devops/` | Pipeline, versionado | Siempre |
+| AG-00100 | Developer Advocate | `10-Examples/` | Ejemplos ejecutables y verificables | Siempre |
+| AG-00110 | Technical Writer | `11-Documentacion/` | Cuerpo documental de entrega | Siempre |
+| AG-00031 | Maquetador de validación visual | Sin categoría propia; escribe en `SDD/Maquetas/` y aporta a `03-UX-UI/` y `08-Calidad-Y-Pruebas/` | Maqueta navegable, línea de base visual | Solo si `requiere_maqueta` (Fase B2) |
 
 ## 4.4 Flujo de trazabilidad entre especialidades
 
 ```text
-AG-00 (Vision)
-  -> AG-01 (Necesidades de negocio)
-     -> AG-02 (Casos de uso + reglas)
-        -> AG-03 (DX/UX)
-        -> AG-04 (Prompts si aplica)
-        -> AG-05 (Arquitectura + ADR)
-           -> AG-06 (Backlog priorizado)
-              -> AG-07 (Sprint planning)
-                 -> AG-08 (Calidad y pruebas)
-                 -> AG-09 (DevOps)
-                    -> AG-10 (Ejemplos ejecutables)
-                       -> AG-11 (Cuerpo documental de entrega)
-                          -> AG-ROOT (Integracion y coherencia global)
+AG-00000 (Vision)
+  -> AG-00010 (Necesidades de negocio)
+     -> AG-00020 (Casos de uso + reglas)
+        -> AG-00030 (DX/UX)
+        -> AG-00040 (Prompts si aplica)
+        -> AG-00050 (Arquitectura + ADR)
+           -> AG-00060 (Backlog priorizado)
+              -> AG-00070 (Sprint planning)
+                 -> AG-00080 (Calidad y pruebas)
+                 -> AG-00090 (DevOps)
+                    -> AG-00100 (Ejemplos ejecutables)
+                       -> AG-00110 (Cuerpo documental de entrega)
+                          -> AG-00990 (Integracion y coherencia global)
 ```
 
 Esta cadena es la materialización de la trazabilidad vertical que define el enfoque SDD. Cada artefacto downstream traza explícitamente a su upstream mediante referencias por ID (CU traza a NB, US traza a CU, BT traza a US, Test traza a CU, etc.). Sin esa trazabilidad la documentación se vuelve archipiélago de islas inconexas.
 
-En el modelo de producto más jerarquía de unidades de entrega (§3.10), la cadena conserva su forma pero cierra en dos niveles complementarios. A nivel producto, la visión y las necesidades de negocio (AG-00 y AG-01) son únicas y trazan al valor de negocio del producto completo. A nivla unidad de entrega, la cadena de especificación funcional a ejemplos (AG-02 a AG-11) se materializa por unidad de entrega, y los casos de uso de cada unidad de entrega trazan hacia arriba a las necesidades de negocio compartidas a nivel producto. La consolidación en `Producto/` cierra además la trazabilidad horizontal entre unidades de entrega: los contratos inter-proyecto y el grafo de dependencias documentan cómo lo que una unidad de entrega produce satisface lo que otro consume. En el caso degenerado de un único unidad de entrega, ambos niveles colapsan en uno y la cadena se lee tal como en el modelo de tipo único.
+En el modelo de producto más jerarquía de unidades de entrega (§3.10), la cadena conserva su forma pero cierra en dos niveles complementarios. A nivel producto, la visión y las necesidades de negocio (AG-00000 y AG-00010) son únicas y trazan al valor de negocio del producto completo. A nivla unidad de entrega, la cadena de especificación funcional a ejemplos (AG-00020 a AG-00110) se materializa por unidad de entrega, y los casos de uso de cada unidad de entrega trazan hacia arriba a las necesidades de negocio compartidas a nivel producto. La consolidación en `Producto/` cierra además la trazabilidad horizontal entre unidades de entrega: los contratos inter-proyecto y el grafo de dependencias documentan cómo lo que una unidad de entrega produce satisface lo que otro consume. En el caso degenerado de un único unidad de entrega, ambos niveles colapsan en uno y la cadena se lee tal como en el modelo de tipo único.
 
 ---
 
@@ -705,7 +705,7 @@ En el modelo de producto más jerarquía de unidades de entrega (§3.10), la cad
 El template SDD propone Scrum como metodología ágil por defecto. La elección no es dogmática: se justifica porque Scrum aporta tres cosas que SDD necesita:
 
 1. **Cadencia fija para sincronización spec-código.** El sprint funciona como ventana en la que la spec y el código se alinean. Al cierre de cada sprint, ambos artefactos están coherentes.
-2. **Roles explícitos.** Product Owner (que decide qué vale y valida la spec contra el negocio) y Scrum Master (que protege el ritmo) tienen lugar declarado en SDD: el PO aguas arriba, como autor del intake, y el Scrum Master como contraparte de AG-06 y AG-07. Ver §5.5 para el mapeo completo.
+2. **Roles explícitos.** Product Owner (que decide qué vale y valida la spec contra el negocio) y Scrum Master (que protege el ritmo) tienen lugar declarado en SDD: el PO aguas arriba, como autor del intake, y el Scrum Master como contraparte de AG-00060 y AG-00070. Ver §5.5 para el mapeo completo.
 3. **Eventos como puntos de control.** Sprint Review valida que el incremento cumple la spec; Retro identifica problemas en el flujo spec-código.
 
 Cuando Scrum no encaja, el template admite Kanban o Scrumban. La elección depende del contexto de la unidad de entrega, no de una preferencia ideológica.
@@ -730,17 +730,17 @@ El Sprint 0 es el sprint conceptual previo al primer sprint productivo. No es un
 
 | Artefacto | Producido por | Estado al cierre del Sprint 0 |
 |---|---|---|
-| Visión del producto | AG-00 | Aprobada |
-| Alcance + exclusiones | AG-00 | Aprobado |
-| Necesidades de negocio (NB-00001..NB-N) | AG-01 | Versionadas |
-| Casos de uso prioritarios (Must Have) | AG-02 | Versionados, con criterios Given/When/Then |
-| Arquitectura del producto (alto nivel) | AG-05 | Diagrama C4 nivel 1 (contexto) y nivel 2 (contenedores) |
-| ADRs iniciales (D1..D8 + decisiones técnicas fundacionales) | AG-05 | Aprobados |
-| Product Backlog inicial | AG-06 | US Must Have estimadas en story points |
-| DoR | AG-06 | Acordada por el equipo |
-| DoD | AG-08 | Acordada por el equipo |
-| Pipeline CI mínimo (build + test) | AG-09 | Funcional en verde |
-| Acuerdo de equipo | AG-00 | Firmado |
+| Visión del producto | AG-00000 | Aprobada |
+| Alcance + exclusiones | AG-00000 | Aprobado |
+| Necesidades de negocio (NB-00001..NB-XXXXX) | AG-00010 | Versionadas |
+| Casos de uso prioritarios (Must Have) | AG-00020 | Versionados, con criterios Given/When/Then |
+| Arquitectura del producto (alto nivel) | AG-00050 | Diagrama C4 nivel 1 (contexto) y nivel 2 (contenedores) |
+| ADRs iniciales (D1..D8 + decisiones técnicas fundacionales) | AG-00050 | Aprobados |
+| Product Backlog inicial | AG-00060 | US Must Have estimadas en story points |
+| DoR | AG-00060 | Acordada por el equipo |
+| DoD | AG-00080 | Acordada por el equipo |
+| Pipeline CI mínimo (build + test) | AG-00090 | Funcional en verde |
+| Acuerdo de equipo | AG-00000 | Firmado |
 
 Solo cuando estos artefactos están en su lugar, el equipo arranca el Sprint 1.
 
@@ -765,11 +765,11 @@ Solo cuando estos artefactos están en su lugar, el equipo arranca el Sprint 1.
 
 | Rol Scrum | Mapeo en SDD | Responsabilidad nuclear |
 |---|---|---|
-| **Product Owner** | Humano, aguas arriba del intake. No es ninguna especialidad AG-XX | Maximizar el valor del producto; dueño del Product Backlog; arbitra prioridades y exclusiones y las declara en el `PRODUCT-INTAKE` |
-| **Scrum Master** | AG-06 + AG-07 | Facilitar el proceso; remover impedimentos; coachar al equipo |
+| **Product Owner** | Humano, aguas arriba del intake. No es ninguna especialidad AG-XXXXX | Maximizar el valor del producto; dueño del Product Backlog; arbitra prioridades y exclusiones y las declara en el `PRODUCT-INTAKE` |
+| **Scrum Master** | AG-00060 + AG-00070 | Facilitar el proceso; remover impedimentos; coachar al equipo |
 | **Development Team** | Implementadores (devs, QA embebido) | Construir el incremento que cumple el Sprint Goal y el DoD |
 
-**Por qué el Product Owner no mapea a AG-00.** AG-00 es Product Manager y opera **aguas abajo** del intake: consume decisiones ya tomadas y las formaliza en la visión, el alcance y el roadmap. El Product Owner opera aguas arriba: es quien toma esas decisiones y quien redacta el intake que las declara. Mapear el PO a AG-00 llevaba a que una especialidad de generación arbitrara decisiones de producto después del punto en que el humano ya confirmó qué era el producto. La ficha de AG-00 conserva a «Product Owner senior» como alias, pero **condicionado a contextos donde el rol no existe formalmente**; cuando el PO existe, el alias no aplica.
+**Por qué el Product Owner no mapea a AG-00000.** AG-00000 es Product Manager y opera **aguas abajo** del intake: consume decisiones ya tomadas y las formaliza en la visión, el alcance y el roadmap. El Product Owner opera aguas arriba: es quien toma esas decisiones y quien redacta el intake que las declara. Mapear el PO a AG-00000 llevaba a que una especialidad de generación arbitrara decisiones de producto después del punto en que el humano ya confirmó qué era el producto. La ficha de AG-00000 conserva a «Product Owner senior» como alias, pero **condicionado a contextos donde el rol no existe formalmente**; cuando el PO existe, el alias no aplica.
 
 En equipos pequeños es común que una persona cubra varios roles, pero Scrum prohíbe explícitamente que el PO sea el mismo que el SM (conflicto de intereses) y que el SM sea miembro de tiempo completo del Development Team (porque entonces no protege el proceso).
 
@@ -1138,7 +1138,7 @@ Independientemente del tipo D8, hay patrones que aplican universalmente:
 - **CQRS** (Young, 2010): separación de lecturas y escrituras. Aplicable en rest-api, microservicios y monolitos modulares con dominio rico.
 - **Event-driven**: comunicación por eventos en lugar de llamadas directas. Aplicable en microservicios y worker-service.
 - **Repository pattern**: abstracción del acceso a datos. Aplicable en cualquier unidad de entrega con persistencia.
-- **Plan-and-apply con frontera validable** (`PropuestaDeConfiguracion`): en sistemas con configuración, todo cambio se modela como una propuesta que se valida contra los descriptores, se previsualiza y se confirma antes de aplicar, con modo simulación y human-in-the-loop. Es transversal: aplica a cualquier tipo D8 con superficies de configuración, independiente del estilo interno. El lado UX se detalla en §8.7; el motor es responsabilidad de AG-05.
+- **Plan-and-apply con frontera validable** (`PropuestaDeConfiguracion`): en sistemas con configuración, todo cambio se modela como una propuesta que se valida contra los descriptores, se previsualiza y se confirma antes de aplicar, con modo simulación y human-in-the-loop. Es transversal: aplica a cualquier tipo D8 con superficies de configuración, independiente del estilo interno. El lado UX se detalla en §8.7; el motor es responsabilidad de AG-00050.
 
 ## 7.6 La composición del producto como decisión arquitectónica
 
@@ -1246,9 +1246,9 @@ Cuando el "usuario" es un desarrollador integrador, las heurísticas se instanci
 
 ## 8.7 Catálogo de reglas de diseño
 
-El plano `devs/` incluye un catálogo de reglas de diseño en `devs/References/Design/`, insumo normativo de la categoría 03. Sigue un modelo base→especialización: un documento base de diseño web genérico (`Design-Rules-Web-Generico.md`), agnóstico de framework, y especializaciones por stack que heredan del base y mapean cada token y patrón a su tecnología concreta (la primera es `Design-Rules-Blazor-Mudblazor.md`; están previstas las de HTML puro, MAUI y Blazor en MAUI). El AG-03 carga el catálogo a través de su índice `Index-Design-Rules.md`, aplica siempre el documento base y, si existe, la especialización del stack declarado en el intake. Los tokens, patrones, estados e iconografía del catálogo son normativos: el subagente los hereda en lugar de definir decisiones visuales ad hoc por proyecto de código. Este subárbol es metodológico, vive en `devs/` y no en `docs/`.
+El plano `devs/` incluye un catálogo de reglas de diseño en `devs/References/Design/`, insumo normativo de la categoría 03. Sigue un modelo base→especialización: un documento base de diseño web genérico (`Design-Rules-Web-Generico.md`), agnóstico de framework, y especializaciones por stack que heredan del base y mapean cada token y patrón a su tecnología concreta (la primera es `Design-Rules-Blazor-Mudblazor.md`; están previstas las de HTML puro, MAUI y Blazor en MAUI). El AG-00030 carga el catálogo a través de su índice `Index-Design-Rules.md`, aplica siempre el documento base y, si existe, la especialización del stack declarado en el intake. Los tokens, patrones, estados e iconografía del catálogo son normativos: el subagente los hereda en lugar de definir decisiones visuales ad hoc por proyecto de código. Este subárbol es metodológico, vive en `devs/` y no en `docs/`.
 
-Además de las especializaciones por stack, el catálogo admite extensiones por capacidad transversal. La primera es la configuración dirigida por esquema (`Design-Rules-Config-Esquema`): en superficies donde el usuario fija parámetros, cada parámetro se describe con un descriptor único, fuente de verdad de su default, límites, leyenda y ejemplos, que alimenta cuatro consumidores a la vez: el render del campo, la ayuda contextual, la validación y el contrato para una IA futura. Toda forma de cambiar la configuración (formulario, preset o, más adelante, una sugerencia de IA) llena una misma frontera `PropuestaDeConfiguracion`, que se previsualiza y se confirma antes de aplicar: plan-and-apply con human-in-the-loop, con el modo simulación como red de seguridad. El enganche de IA queda forward-compatible (registro de descriptores, frontera validable, simulación y una ranura de UI reservada), de modo que la IA se conecta después sin tocar el dominio. AG-03 carga esta extensión solo cuando el proyecto de código tiene superficies de configuración.
+Además de las especializaciones por stack, el catálogo admite extensiones por capacidad transversal. La primera es la configuración dirigida por esquema (`Design-Rules-Config-Esquema`): en superficies donde el usuario fija parámetros, cada parámetro se describe con un descriptor único, fuente de verdad de su default, límites, leyenda y ejemplos, que alimenta cuatro consumidores a la vez: el render del campo, la ayuda contextual, la validación y el contrato para una IA futura. Toda forma de cambiar la configuración (formulario, preset o, más adelante, una sugerencia de IA) llena una misma frontera `PropuestaDeConfiguracion`, que se previsualiza y se confirma antes de aplicar: plan-and-apply con human-in-the-loop, con el modo simulación como red de seguridad. El enganche de IA queda forward-compatible (registro de descriptores, frontera validable, simulación y una ranura de UI reservada), de modo que la IA se conecta después sin tocar el dominio. AG-00030 carga esta extensión solo cuando el proyecto de código tiene superficies de configuración.
 
 Tres extensiones más completan el eje, y juntas describen el arquetipo del panel de control monolítico: una instancia propia que arranca vacía, la aprovisiona su único operador y se identifica por la versión que corre. El primer arranque (`Design-Rules-Primer-Arranque`) trata el despliegue sin configurar como una capacidad de primera clase: un predicado único de aprovisionamiento que todas las superficies consultan, un corte redundante en tres capas (ruteo, superficie y acción), una superficie sin chrome de navegación porque todavía no hay a dónde ir, y un acto explícito, indivisible e irreversible que cierra su lazo con un acuse en la pantalla siguiente. El acceso de operador único (`Design-Rules-Acceso-Monousuario`) define un perfil cuyo valor de diseño está en lo que omite: sin registro, sin selector de cuenta, sin recuperación, sin roles visibles, con un shell partido entre acceso y trabajo, mensajes resueltos desde un catálogo de códigos y un rechazo de credenciales deliberadamente indiferenciado. La identidad de versión (`Design-Rules-Identidad-De-Version`) fija que la versión que muestra una instancia se deriva del proceso que la construyó y nunca se transcribe a mano, y que sin ella la instancia no es diagnosticable. Las cuatro extensiones son ortogonales entre sí; una unidad de entrega carga las que su intake habilita.
 
@@ -1511,7 +1511,7 @@ Patrón donde el estado deseado de infraestructura y aplicaciones está declarad
 El patrón de trabajo con IA que SDD adopta se llama **plan-then-confirm con subagentes especializados y audit independiente**. Sus tres elementos:
 
 1. **Plan-then-confirm.** El agente IA primero declara qué va a hacer (lectura previa, archivos a crear, restricciones a respetar, criterios de éxito). El humano confirma antes de que el agente actúe. Esto evita acciones destructivas no intencionadas y obliga al humano a internalizar el plan.
-2. **Subagentes especializados.** El trabajo se divide entre agentes con perfil profesional acotado (uno por especialidad AG-XX). Cada subagente conoce solo su scope y sus criterios. Esto evita que un solo agente cubra demasiado terreno y diluya criterios.
+2. **Subagentes especializados.** El trabajo se divide entre agentes con perfil profesional acotado (uno por especialidad AG-XXXXX). Cada subagente conoce solo su scope y sus criterios. Esto evita que un solo agente cubra demasiado terreno y diluya criterios.
 3. **Audit independiente.** Un agente revisor distinto de los productores verifica el resultado contra los criterios. Esto evita que el productor sea juez de su propia obra.
 
 El mismo patrón opera en runtime dentro del producto cuando hay configuración dirigida por esquema (§8.7): la UI propone una `PropuestaDeConfiguracion`, el humano la confirma sobre una previsualización y el sistema la valida contra los descriptores antes de aplicar. Es plan-then-confirm con human-in-the-loop llevado del flujo de generación documental al comportamiento del sistema: la IA (o el formulario) propone, nunca ejecuta directo.
@@ -1531,12 +1531,12 @@ El orquestador no escribe artefactos finales (eso es trabajo del subagente produ
 
 | Caso | Paralelizar | Serializar |
 |---|---|---|
-| Secciones independientes (AG-04 y AG-10) | Sí | — |
-| Secciones con dependencia upstream (AG-01 → AG-02) | — | Sí |
+| Secciones independientes (AG-00040 y AG-00100) | Sí | — |
+| Secciones con dependencia upstream (AG-00010 → AG-00020) | — | Sí |
 | Refinamiento masivo de coherencia | Sí (12 auditores paralelos) | — |
 | Generación inicial de toda la doc | — | Sí (la cadena 00 → 11) |
 | Bug fixes correlacionados | — | Sí |
-| Test cases que dependen de spec aprobada | — | Sí (después de AG-02) |
+| Test cases que dependen de spec aprobada | — | Sí (después de AG-00020) |
 
 **Regla práctica.** Paralelizar lo que no depende; serializar lo que depende. La trazabilidad SDD ya marca las dependencias (ver §4.4); seguir esa cadena evita errores.
 
@@ -1550,7 +1550,7 @@ Todo prompt destinado a generar artefactos comienza con una lista explícita de 
 Antes de escribir nada, leé en orden:
 1. SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md (en el repositorio destino)
 2. SDD/Devs/Rules/Rules-<Categoria>.md (la regla de la categoría que vas a generar)
-3. SDD/Devs/Guides/Marco-Teorico-SDD.md (sección §4 si el rol que asumis es AG-XX)
+3. SDD/Devs/Guides/Marco-Teorico-SDD.md (sección §4 si el rol que asumis es AG-XXXXX)
 
 Respondeme solo con:
 - Los puntos clave que entendiste del contexto
@@ -1650,7 +1650,7 @@ Spec actualizada
                     -> Spec actualizada (vuelta al inicio)
 ```
 
-Cada paso del ciclo tiene un dueño (especialidad AG-XX) y un artefacto verificable. Cuando un eslabón se rompe (la spec dice X pero el código hace Y), el problema es trazable a un punto concreto del ciclo, no a "el sistema en general".
+Cada paso del ciclo tiene un dueño (especialidad AG-XXXXX) y un artefacto verificable. Cuando un eslabón se rompe (la spec dice X pero el código hace Y), el problema es trazable a un punto concreto del ciclo, no a "el sistema en general".
 
 ---
 
@@ -1750,7 +1750,7 @@ Términos canónicos del template SDD. Cada uno con definición operativa en una
 | Término | Definición |
 |---|---|
 | **ADR (Architecture Decision Record)** | Documento corto que registra una decisión arquitectónica con su contexto, alternativas evaluadas y consecuencias. Un archivo por decisión. |
-| **AG-XX** | Identificador de especialidad del template (AG-ROOT, AG-00 a AG-11). Cada AG-XX es responsable de una sección de `/Docs/`. |
+| **AG-XXXXX** | Identificador de especialidad del template (AG-00990, AG-00000 a AG-00110). Cada AG-XXXXX es responsable de una sección de `/Docs/`. |
 | **ATDD** | Acceptance Test-Driven Development. Los criterios de aceptación se escriben primero como tests ejecutables. |
 | **BDD** | Behavior-Driven Development. Escenarios Given/When/Then ejecutables que validan el comportamiento del sistema. |
 | **BFF (Backend for Frontend)** | Capa backend intermedia diseñada para las necesidades específicas de un tipo de frontend. |
@@ -1817,7 +1817,7 @@ Términos canónicos del template SDD. Cada uno con definición operativa en una
 | **Vertical slicing** | Técnica de descomposición que corta features verticalmente atravesando todas las capas. |
 | **Walking skeleton** | Esqueleto mínimo del sistema que atraviesa todas las capas y se despliega lo antes posible. |
 | **WCAG 2.2** | Web Content Accessibility Guidelines 2.2. Estándar W3C de accesibilidad web. |
-| **AG-03M** | Subagente maquetador de validación visual. Actúa en la Fase B2. No es titular de ninguna categoría: materializa la especificación de 03 y sus documentos quedan bajo la titularidad de 03 y 08. |
+| **AG-00031** | Subagente maquetador de validación visual. Actúa en la Fase B2. No es titular de ninguna categoría: materializa la especificación de 03 y sus documentos quedan bajo la titularidad de 03 y 08. |
 | **D9** | Invariante de evidencia verificable: toda afirmación sobre el estado del sistema cita evidencia localizable, reproducible, contemporánea e independiente de quien afirma. No aplica a afirmaciones de diseño, de especificación ni de contexto. |
 | **Deriva (de agente)** | Separación progresiva entre lo que un agente produce y lo que se especificó, sin manifestación en el momento en que ocurre. Acumulativa y de descubrimiento tardío. |
 | **Fase B2** | Fase opcional de validación visual de maqueta, por unidad de entrega, entre la Fase B y la Fase C. Su regla es `Maqueta-Rules.md`. |
@@ -1970,3 +1970,5 @@ W3C. (2024). *ARIA — Accessible Rich Internet Applications*. https://www.w3.or
 | 3.2 | 2026-08-16 | Concordancias de género de la sustitución léxica de la 8.0 (`Vocabulario-Rules.md` §9.5), doce en este archivo, en el barrido del layout. |
 | 3.3 | 2026-08-16 | Barrido retroactivo del concepto de la 8.0. §3.9 describía la consolidación de producto con **una** vista de un solo eje y los artefactos publicables **por proyecto de código**: pasa a los **dos** grafos con su matriz de composición, y a la publicación **por unidad de entrega**. |
 | 3.4 | 2026-08-18 | El ancla del índice a §3 arrastraba un sufijo `-21` de una conversión y no resolvía. Encontrada por la **verificación de anclas internas** que la 9.19 incorpora a `Migracion-Rules.md` §6, en su primera corrida sobre el propio framework. |
+| 3.5 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
+| 3.6 | 2026-08-23 | La tabla del Sprint 0 escribía el rango de necesidades como `NB-00001..NB-N`, y **`NB-N` es la forma que `Root-Rules.md` §9.2 reserva a las familias excluidas**, con `NB` alcanzada. Pasa a `NB-00001..NB-XXXXX`, el marcador que §9.2 declara. Lo levantó la sexta ronda. Sube **minor**: corrige una forma sin cambiar ningún enunciado. |

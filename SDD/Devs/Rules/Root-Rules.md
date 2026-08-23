@@ -3,8 +3,8 @@
 **Carpeta target:** `SDD/Docs/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
-**Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-ROOT)
-**Versión de las reglas:** 7.1
+**Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-00990)
+**Versión de las reglas:** 8.3
 
 ---
 
@@ -12,7 +12,7 @@
 
 ### 1.1 Especialidad base
 
-Arquitecto de Soluciones Senior, equivalente al AG-ROOT del catálogo de especialidades. Su rol es garantizar la coherencia integral del producto desde una perspectiva sistémica, asegurando que el README raíz funcione como punto de entrada efectivo, narrativa técnica ejecutiva, presentación de la jerarquía de unidades de entrega y mapa navegable hacia la documentación de cada unidad de entrega y del producto. Su responsabilidad no es producir contenido de detalle (eso corresponde a los AG-00 a AG-11), sino integrar, vincular y validar la coherencia transversal entre las unidades de entrega del producto. Su alcance abarca: definición de la estructura documental, redacción del README maestro, presentación de la tabla de unidades de entrega con su tipo D8 y dependencias, validación de enlaces internos, diseño del flujo de lectura por rol de intervención y alineación entre la visión del producto y la organización de las carpetas.
+Arquitecto de Soluciones Senior, equivalente al AG-00990 del catálogo de especialidades. Su rol es garantizar la coherencia integral del producto desde una perspectiva sistémica, asegurando que el README raíz funcione como punto de entrada efectivo, narrativa técnica ejecutiva, presentación de la jerarquía de unidades de entrega y mapa navegable hacia la documentación de cada unidad de entrega y del producto. Su responsabilidad no es producir contenido de detalle (eso corresponde a los AG-00000 a AG-00110), sino integrar, vincular y validar la coherencia transversal entre las unidades de entrega del producto. Su alcance abarca: definición de la estructura documental, redacción del README maestro, presentación de la tabla de unidades de entrega con su tipo D8 y dependencias, validación de enlaces internos, diseño del flujo de lectura por rol de intervención y alineación entre la visión del producto y la organización de las carpetas.
 
 ### 1.2 Variantes según tipo de unidad de entrega
 
@@ -31,7 +31,7 @@ El orquestador lee esta tabla y selecciona la variante según el `tipo_unidad_en
 
 ### 1.3 Multi-especialidad
 
-Cuando el README raíz necesita atender roles de intervención mixtos, se admite combinar AG-ROOT con el Technical Writer (AG-11) para refinar la narrativa orientada a desarrollador externo, y con el Analista de Negocio (AG-01) para validar que la propuesta de valor expuesta en la sección de identidad coincide con la visión declarada en `SDD/Docs/00-Contexto/`. En unidades de entrega `library` y `cli-tool` se recomienda incorporar a AG-10 (Developer Advocate) para curar el bloque de quick-start. La regla es: AG-ROOT mantiene la propiedad del documento; las multi-especialidades aportan revisión y enmienda, no autoría compartida.
+Cuando el README raíz necesita atender roles de intervención mixtos, se admite combinar AG-00990 con el Technical Writer (AG-00110) para refinar la narrativa orientada a desarrollador externo, y con el Analista de Negocio (AG-00010) para validar que la propuesta de valor expuesta en la sección de identidad coincide con la visión declarada en `SDD/Docs/00-Contexto/`. En unidades de entrega `library` y `cli-tool` se recomienda incorporar a AG-00100 (Developer Advocate) para curar el bloque de quick-start. La regla es: AG-00990 mantiene la propiedad del documento; las multi-especialidades aportan revisión y enmienda, no autoría compartida.
 
 ---
 
@@ -93,7 +93,7 @@ Todos los nombres respetan Título-Con-Guiones estricto (D3) y sufijo de versió
 
 ### 3.4 README de la sección
 
-No aplica. Este archivo es el README de la raíz de `SDD/Docs/`. Los README de sección (uno por cada carpeta numerada) son responsabilidad de los respectivos AG-00 a AG-11 y se rigen por su propio archivo de reglas.
+No aplica. Este archivo es el README de la raíz de `SDD/Docs/`. Los README de sección (uno por cada carpeta numerada) son responsabilidad de los respectivos AG-00000 a AG-00110 y se rigen por su propio archivo de reglas.
 
 ---
 
@@ -161,10 +161,10 @@ Tabla A: Mapa de documentación.
 
 | Sección | Propósito | Responsable | Enlace |
 | --- | --- | --- | --- |
-| 00-Contexto (producto) | Visión, alcance, roadmap del negocio | AG-00 | [00-Contexto](00-Contexto/) |
-| 01-Necesidades-Negocio (producto) | Necesidades de negocio | AG-01 | [01-Necesidades-Negocio](01-Necesidades-Negocio/) |
-| Producto (producto) | Vista de producto y pipeline de producto | AG-05, AG-09 | [Producto](Producto/) |
-| Unidades-Entrega/<Nombre-Unidad-Entrega> (por unidad de entrega) | Documentación 02 a 11 de la unidad de entrega | AG-02 a AG-11 | [Unidades-Entrega/<Nombre-Unidad-Entrega>](Unidades-Entrega/<Nombre-Unidad-Entrega>/) |
+| 00-Contexto (producto) | Visión, alcance, roadmap del negocio | AG-00000 | [00-Contexto](00-Contexto/) |
+| 01-Necesidades-Negocio (producto) | Necesidades de negocio | AG-00010 | [01-Necesidades-Negocio](01-Necesidades-Negocio/) |
+| Producto (producto) | Vista de producto y pipeline de producto | AG-00050, AG-00090 | [Producto](Producto/) |
+| Unidades-Entrega/<Nombre-Unidad-Entrega> (por unidad de entrega) | Documentación 02 a 11 de la unidad de entrega | AG-00020 a AG-00110 | [Unidades-Entrega/<Nombre-Unidad-Entrega>](Unidades-Entrega/<Nombre-Unidad-Entrega>/) |
 
 Tabla B: Flujo de lectura por rol de intervención.
 
@@ -300,9 +300,9 @@ asincrónica y reutiliza un paquete de validaciones independiente del producto.
 
 | Sección | Propósito | Responsable | Enlace |
 | --- | --- | --- | --- |
-| 00-Contexto | Visión, alcance, roadmap | AG-00 | [00-Contexto](00-Contexto/) |
-| Producto | Vista y pipeline de producto | AG-05, AG-09 | [Producto](Producto/) |
-| Unidades-Entrega/Gestion-De-Turnos-API | Documentación de la unidad de entrega | AG-02 a AG-11 | [api](Unidades-Entrega/Gestion-De-Turnos-API/) |
+| 00-Contexto | Visión, alcance, roadmap | AG-00000 | [00-Contexto](00-Contexto/) |
+| Producto | Vista y pipeline de producto | AG-00050, AG-00090 | [Producto](Producto/) |
+| Unidades-Entrega/Gestion-De-Turnos-API | Documentación de la unidad de entrega | AG-00020 a AG-00110 | [api](Unidades-Entrega/Gestion-De-Turnos-API/) |
 ```
 
 ### 7.2 Ejemplo B: Producto de una unidad de entrega (caso degenerado), librería de parsing CSV
@@ -342,9 +342,9 @@ del módulo y ejemplo de 5 líneas que parsea un archivo y devuelve filas.
 
 | Categoría | Propósito | Responsable | Enlace |
 | --- | --- | --- | --- |
-| 02-Especificacion-Funcional | Contrato de la API pública | AG-02 | [02-Especificacion-Funcional](02-Especificacion-Funcional/) |
-| 10-Examples | Ejemplos ejecutables y verificables | AG-10 | [10-Examples](10-Examples/) |
-| 11-Documentacion | Cuerpo documental de entrega | AG-11 | [11-Documentacion](11-Documentacion/) |
+| 02-Especificacion-Funcional | Contrato de la API pública | AG-00020 | [02-Especificacion-Funcional](02-Especificacion-Funcional/) |
+| 10-Examples | Ejemplos ejecutables y verificables | AG-00100 | [10-Examples](10-Examples/) |
+| 11-Documentacion | Cuerpo documental de entrega | AG-00110 | [11-Documentacion](11-Documentacion/) |
 
 ## 4. Flujo de lectura recomendado
 
@@ -386,8 +386,23 @@ regla que las reglas de categoría citan y que no llega al despacho no la lee na
 
 ### 9.1 Ámbito de unicidad
 
-Todo identificador declara en qué ámbito es único, y ese ámbito es el **producto**. Un `CU-00014` es
-uno solo en todo el producto, cualquiera sea la cantidad de unidades de entrega que lo componen.
+Todo identificador declara en qué ámbito es único. **Hay dos, y cada familia declara el suyo:**
+
+| Ámbito | Qué cataloga | Ejemplo |
+|---|---|---|
+| **El producto** | Los elementos de las colecciones que el framework **genera** | Un `CU-00014` es uno solo en todo el producto, cualquiera sea la cantidad de unidades de entrega que lo componen |
+| **El conjunto normativo vigente** | Los roles del **catálogo de especialidades** y los **subagentes de fase** | Un `AG-00030` es uno solo en la versión publicada del conjunto |
+
+**Cómo se relacionan, y no es «no se tocan».** **No colisionan en numeración**: ninguna familia del
+framework compite por rango con una del producto. **Y sí se citan a través de la frontera** —el ejemplo
+de §7.1 nombra roles del framework en el mapa de documentación de un producto—, y **esa cita sólo
+resuelve si el identificador está bien formado**, que es lo que §10 R5 exige de toda referencia. **Que
+se lo cite desde afuera es el motivo del ámbito propio, no un argumento en contra.**
+
+**`_legacy/` queda fuera del espacio de candidatos de los dos ámbitos**, y no sólo como origen de
+enlaces. El motivo es de volumen: se archiva **una copia por versión publicada**, de modo que un
+identificador de cabecera aparece tantas veces como snapshots haya y la comprobación de duplicados
+**quedaría apagada el primer día**.
 
 Es la lectura que hace resolver la trazabilidad que el framework ya exige: la tabla de trazabilidad a
 casos de uso de `Rules-Necesidades-Negocio.md` §4.4 cita el caso de uso por identificador desnudo,
@@ -425,9 +440,32 @@ techo elija una salida distinta y dos líneas de base del mismo framework queden
 Las tres propiedades que el ancho uniforme aporta se conservan enteras: los identificadores ordenan
 lexicográficamente igual que numéricamente, alinean en columna, y se reconocen de un vistazo.
 
-**Familias alcanzadas.** Toda familia que catalogue elementos de una colección de un producto: `NB`,
+**Familias alcanzadas.** Toda familia que catalogue elementos de una colección **de un producto o del conjunto normativo** (§9.1). **Del conjunto normativo: `AG`**, los roles del catálogo de especialidades y los subagentes de fase. Del producto: `NB`,
 `CU`, `RN`, `RC`, `ADR`, `US`, `BT`, `EP`, `TC`, `NFR`, `SUP`, `CMP`, `EST`, `NAV`, `DM`, `SD`,
 `VER`, `EV`, `EVE`, `ISSUE`, `OPS`, `EXT`, `STAGE`, `ENV`, `DOD` y equivalentes.
+
+**Titularidad y bloques de la familia `AG`.** §9.5 exige que toda familia declare **prefijo, forma y
+ámbito** en la regla que la acuña, y `AG` no la acuña ninguna categoría: la acuña el framework, de modo
+que **se declara acá**.
+
+| Campo | Valor |
+|---|---|
+| **Prefijo** | `AG` |
+| **Forma** | `AG-[0-9]{5}` |
+| **Ámbito** | El **conjunto normativo vigente** (§9.1) |
+| **Bloque `00NN0`** | El titular de la categoría `NN` |
+| **Bloque `00NN1` a `00NN9`** | Los **subagentes de fase** de esa categoría. `AG-00031` es el de la Fase B2, y **la hermandad con el `03` queda escrita en el número** en lugar de en un sufijo compuesto, que §9.2 no admite |
+| **Bloque `009xx`** | **Reservado** a los roles que **no son de categoría**. `AG-00990` es el titular de nivel producto |
+
+**Sin esta tabla los bloques vivirían sólo en la nota de la intervención que los creó**, y una nota se
+cierra con su fecha: el que tenga que numerar el próximo subagente de fase **no tendría de dónde
+leerlo**.
+
+**El marcador de plantilla.** Cuando una regla o un ejemplo tiene que nombrar «cualquier miembro de una
+familia **alcanzada**» escribe `<PREFIJO>-XXXXX`: `US-XXXXX`, `NB-XXXXX`, `AG-XXXXX`. **No es un identificador y no se
+le exige la forma**: es el hueco que un documento deja para el que sí lo es. La convención ya estaba en
+uso y **no estaba declarada en ninguna parte**. **Las familias excluidas no la usan**: escriben el marcador
+con su propia forma —`FA-NN`, `Sprint-XX`—, que es lo que las hace reconocibles como excluidas.
 
 **Regla de agotamiento.** Cinco dígitos se eligieron con holgura sobre la colección más grande que la
 evidencia registra, pero la regla que faltaba no era el número: era **qué hacer si el rango igualmente
@@ -442,11 +480,14 @@ Que la salida sea una y esté declarada es el punto. Lo que producía el daño n
 techo: era que cada agente eligiera una salida distinta sin ningún criterio del método para preferir
 una, y que dos corridas del mismo framework produjeran líneas de base incomparables.
 
-**Las dos exclusiones, con su motivo:**
+**Las exclusiones, con su motivo.** §9.5 exige que toda familia viva quede clasificada: alcanzada o
+excluida. Las cuatro que siguen son las excluidas.
 
 | Excluida | Por qué |
 | --- | --- |
-| `AG-XX` | Designa uno de los roles del catálogo de especialidades **del framework**, no un elemento de una colección de un producto. Su cardinalidad la fija el propio framework y no crece con el producto |
+| `FA-NN` | Designa un **flujo alternativo dentro del caso de uso que lo contiene** (`Rules-Especificacion-Funcional.md` §3.2). Es una **posición dentro de un documento**, como el ordinal de iteración: **no cataloga un elemento de una colección**, y por eso queda fuera del sistema. **Una familia excluida no toma ámbito de §9.1**: los dos ámbitos son de las familias alcanzadas |
+| `CA-NN` | Designa un **criterio de aceptación dentro del caso de uso o la historia que lo contiene** (`Rules-Especificacion-Funcional.md` §3.2). Le aplica **sin cambiar una palabra** el motivo de `FA-NN`, con el que comparte regla y tablas contiguas: es una **posición dentro de un documento** y **no cataloga un elemento de una colección** |
+| `PASO-N` | Designa un **paso dentro del procedimiento que lo contiene** (`SDD-Getting-Started-Guide.md`). Es un **ordinal de secuencia**, del mismo orden que el ordinal de iteración: su referente es la posición en un recorrido, no un elemento catalogado |
 | El ordinal de iteración (`Sprint-XX`, `S0` a `S9`) | Es una posición de calendario que el roadmap de la categoría 00 numera, no un identificador de catálogo. Su referente es una ventana de tiempo del producto |
 
 ### 9.3 Estabilidad y capacidad, enunciadas juntas
@@ -474,6 +515,13 @@ Toda categoría que acuñe un identificador declara, en §3.2 de su regla, su **
 y su **ámbito**. Un identificador cuya forma no está declarada lo inventa quien lo necesita primero,
 y con varios subagentes generando en paralelo sobre el mismo dominio los prefijos naturales coinciden
 con certeza y no por azar.
+
+**Y toda familia viva queda clasificada: alcanzada o excluida.** Una familia que aparece en el árbol y
+no está en ninguna de las dos listas de §9.2 **no tiene forma exigible ni ámbito**, de modo que la
+pregunta «¿es único?» no se puede contestar sobre ella. La clasificación la hace la regla que la acuña
+si la acuña una categoría, y §9.2 si la acuña el framework. **Esta obligación se enunciaba en §9.2
+atribuida a esta sección y no estaba escrita en ninguna parte**: por ese hueco pasaron `FA-NN`, `CA-NN`
+y `PASO-N` sin clasificar durante versiones.
 
 **Una categoría no acuña identificadores para artefactos de otra.** Si necesita citar un elemento que
 su categoría de origen no identificó, lo **escala** al orquestador en lugar de ponerle nombre, y la
@@ -523,7 +571,7 @@ nivel—. Es el mismo defecto que R1 a R4 describen para los números, aplicado 
 
 De ahí las dos obligaciones:
 
-- **La identidad de una referencia es el identificador del destino**, que es único en el producto
+- **La identidad de una referencia es el identificador del destino**, que es único en su ámbito
   (§9.1). Toda referencia a un artefacto identificado lo nombra: `[CU-00014](ruta)`, nunca solo la
   ruta. Con el identificador presente, la ruta se puede **recalcular**; sin él, hay que adivinar.
 - **La ruta es derivada y se trata como tal.** Una ruta que no resuelve pero cuyo identificador
@@ -749,3 +797,7 @@ correcta y no se podía sostener con una cita. Esta sección la funda hacia atr�
 | 6.2 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
 | 7.0 | 2026-08-19 | **§12 pasa de una figura a dos y se parte en §12.1 y §12.2**, por el reporte `14` de `IA.SDD.Documentacion`. La cabecera declara que **son la misma figura con el evento de cierre en distinto lugar**: la referencia pendiente lo tiene **adentro** del método —el orquestador ve emitirse la categoría porque él mismo la produce— y el ítem diferido lo tiene **afuera**, en el ciclo de construcción que el método no gobierna, donde nadie lo ve pasar. **§12.2 es nueva**: un ítem que una §4.x declara obligatorio y no se puede contestar hoy **se difiere con forma de cuatro campos y no con una promesa en prosa**, y el cuarto —**el evento se nombra por un artefacto y su sección, no por un momento**— es el que la distingue: un momento no deja rastro que alguien pueda abrir, y un cierre que nadie comprueba no ocurre. Declara que **un ítem que empaqueta dos decisiones se difiere por partes**, y una tabla de escalamiento con **P1 para el ítem cuyo evento ya ocurrió** y P0 al cierre del producto. Evidencia: un destino real pasó **ocho etapas sin poder etiquetar ninguna** porque el prefijo de tag viajaba empaquetado con la herramienta de versionado, y el punto de control al que se difirió cerró sin registrarlo. Sube **major**: un documento generado antes que difiera un ítem en prosa **deja de cumplir**. |
 | 7.1 | 2026-08-21 | **§13 nueva, precedencia entre reglas, con un solo criterio**, y el control de cambios pasa a §14. El corpus no declaraba **ningún criterio para resolver un conflicto entre dos reglas**, y `Master-Prompt.md` §8.1 exige **cita literal** para que algo sea trabajo propio: sin criterio, el agente no podía sostener ninguna resolución y **todo conflicto caía en la detención por arbitraje sin que nadie lo hubiera decidido**. El criterio es **viaja o no viaja en la lista de insumos de todo despacho**, un hecho del árbol que se contesta abriendo §8. **Se evaluaron dos criterios más —especificidad y fecha— y se descartaron con motivo**: ninguno tenía caso medido y los dos producían resoluciones falsas. Si el criterio no decide, se detiene por §7.0. Funda hacia atrás la resolución de `Rules-Prompts-AI.md` §4.2 punto 9 contra §12.2, aplicada en la 11.0 sin cita posible. **§10 se reescribe además sin contar sus propias reglas** —decía «las cuatro» y son cinco desde que entró R5—, que es R1 aplicada a sí misma. Sube **minor**: agrega un criterio de resolución y ningún documento generado deja de cumplir. |
+| 8.0 | 2026-08-22 | **La familia `AG` entra al sistema de identificadores y se renumera al ancho de cinco dígitos.** Hasta acá §9.2 la excluía con motivo escrito —«no cataloga un elemento de una colección de un producto»—, y el motivo era correcto: dejaba al framework **sin forma de nombrarse a sí mismo**, que es lo que §10 **R5** declara que no es identidad. **§9.1 declara dos ámbitos** —el producto y el conjunto normativo vigente— y **cómo se relacionan**: no colisionan en numeración, **y sí se citan a través de la frontera**, que es el motivo del ámbito propio y no un argumento en contra. **`_legacy/` queda fuera del espacio de candidatos de los dos.** §9.2 **enumera `AG`** entre las familias alcanzadas —ya cumple el ancho cuando se la declara, no antes— y su tabla de exclusiones **suma `FA-NN`**, el flujo alternativo, que es una **posición dentro de un documento** como el ordinal de iteración. §10 R5 pasa de «único en el producto» a «único en su ámbito». Sube **major**: un `SDD/Docs/README.md` emitido antes **publica `AG-00` en su mapa de documentación** y deja de cumplir la comprobación 4 de `Master-Prompt.md` §10.0. |
+| 8.1 | 2026-08-23 | **§9.2 declara el marcador de plantilla `<PREFIJO>-XXXXX`**, que el corpus ya usaba en `US-XXXXX`, `NB-XXXXX` y `AG-XXXXX` **sin que ninguna regla lo escribiera**: no es un identificador y no se le exige la forma. Y la fila de `FA-NN` **deja de atribuirle un ámbito**: §9.1 declara **dos**, y los dos son de las familias **alcanzadas** — una familia excluida no toma ninguno. Las dos las levantó la cuarta ronda de auditoría, la segunda como daño que la reemisión anterior había introducido. Sube **minor**: declara una convención en uso y quita una atribución que contradecía a §9.1. |
+| 8.2 | 2026-08-23 | **Dos familias vivas quedaban sin clasificar**, y §9.5 exige que toda familia lo esté: `CA-NN` —el criterio de aceptación de `Rules-Especificacion-Funcional.md` §3.2— y `PASO-N`. `CA-NN` es **gemela de `FA-NN`**: misma regla, tablas contiguas, y el motivo escrito para `FA-NN` le aplica sin cambiar una palabra —es una **posición dentro de un documento** y no cataloga un elemento de una colección—. `PASO-N` es un **ordinal de secuencia**, del mismo orden que el ordinal de iteración. Las dos entran a la tabla de exclusiones. Y **§9.1 decía «los roles del framework»** mientras §9.2 sólo alcanza a los del catálogo de especialidades y a los subagentes de fase: **el orquestador y el auditor quedaban prometidos y no cubiertos**. El enunciado se acota a lo que §9.2 cubre. Lo levantó la sexta ronda. Sube **minor**: clasifica familias que ya existían y acota un enunciado que prometía de más. |
+| 8.3 | 2026-08-23 | **§9.2 fundaba su tabla de exclusiones en una exigencia que §9.5 no contenía.** Decía «§9.5 exige que toda familia viva quede clasificada» y §9.5 sólo exigía, a **toda categoría que acuñe un identificador**, declarar prefijo, forma y ámbito en §3.2 de su regla: nada sobre clasificar familias. La obligación **se escribe en §9.5**, que es donde §9.2 y el registro de la 8.2 la invocan, en lugar de corregir las citas — porque sin ella **ninguna regla obliga a clasificar la próxima familia viva que aparezca**, que es el hueco por el que `FA-NN`, `CA-NN` y `PASO-N` pasaron sin clasificar durante versiones. Lo levantaron cinco jueces por unanimidad en el primer ciclo de mejora continua. Sube **minor**: escribe una obligación que ya se citaba y no deroga nada. |

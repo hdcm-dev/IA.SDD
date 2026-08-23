@@ -2,8 +2,8 @@
 
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/04-Prompts-AI/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
-**Subagente target del orquestador:** Ingeniero de Prompts / AI Specialist (AG-04)
-**Versión de las reglas:** 4.5
+**Subagente target del orquestador:** Ingeniero de Prompts / AI Specialist (AG-00040)
+**Versión de las reglas:** 4.6
 
 ---
 
@@ -17,7 +17,7 @@ La categoría 04 produce los artefactos que rigen toda interacción del sistema 
 
 ### 1.1 Especialidad base
 
-Ingeniero de Prompts senior, equivalente AG-04 del catálogo SDD. Perfil profesional que combina ingeniería de instrucciones para LLMs, diseño de contratos de entrada/salida estructurada, evaluación empírica con datasets versionados y governance de uso responsable. Trata cada prompt como un artefacto de software: lleva versión, contrato, few-shot, guardrails, dataset de evaluación y métricas. Se alinea con OWASP LLM Top 10 para guardrails, con prompt-engineering guidelines de los principales proveedores (OpenAI, Anthropic, Google) y con métricas estándar de evaluación de NLP (accuracy, precision/recall, F1, BLEU/ROUGE, exact match, latencia p99, costo por request).
+Ingeniero de Prompts senior, equivalente AG-00040 del catálogo SDD. Perfil profesional que combina ingeniería de instrucciones para LLMs, diseño de contratos de entrada/salida estructurada, evaluación empírica con datasets versionados y governance de uso responsable. Trata cada prompt como un artefacto de software: lleva versión, contrato, few-shot, guardrails, dataset de evaluación y métricas. Se alinea con OWASP LLM Top 10 para guardrails, con prompt-engineering guidelines de los principales proveedores (OpenAI, Anthropic, Google) y con métricas estándar de evaluación de NLP (accuracy, precision/recall, F1, BLEU/ROUGE, exact match, latencia p99, costo por request).
 
 ### 1.2 Variantes según tipo de unidad de entrega (8 valores D8)
 
@@ -36,12 +36,12 @@ Ingeniero de Prompts senior, equivalente AG-04 del catálogo SDD. Perfil profesi
 
 La categoría 04 colabora con otras especialidades de forma frecuente:
 
-- AG-02 Analista Funcional, para identificar qué CU delegan en LLM y mantener la trazabilidad CU→prompt.
-- AG-05 Arquitecto, para fijar el pipeline AI (cliente LLM, fallback, cache, observabilidad) y los ADR sobre proveedor o vendor lock-in.
-- AG-08 QA, para que las métricas declaradas en la política y en la evaluación del prompt tengan tests automáticos en 08.
-- AG-09 DevOps, para gestionar secrets de API keys, rate limits y costos por entorno.
+- AG-00020 Analista Funcional, para identificar qué CU delegan en LLM y mantener la trazabilidad CU→prompt.
+- AG-00050 Arquitecto, para fijar el pipeline AI (cliente LLM, fallback, cache, observabilidad) y los ADR sobre proveedor o vendor lock-in.
+- AG-00080 QA, para que las métricas declaradas en la política y en la evaluación del prompt tengan tests automáticos en 08.
+- AG-00090 DevOps, para gestionar secrets de API keys, rate limits y costos por entorno.
 
-El AG-04 mantiene titularidad del prompt, del dataset de evaluación y de la política de uso. Las demás especialidades aportan revisión y consumen sus salidas.
+El AG-00040 mantiene titularidad del prompt, del dataset de evaluación y de la política de uso. Las demás especialidades aportan revisión y consumen sus salidas.
 
 ---
 
@@ -469,3 +469,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/04-Prompts-AI/<estru
 | 4.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 4.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
 | 4.5 | 2026-08-20 | **§4.2 punto 9 dejaba de tener razón desde la 10.0 y nadie lo miró.** Declaraba que el costo sin moneda «no se resuelve con la forma de `Root-Rules.md` §12.1 sino declarando de dónde sale el dato», y su diagnóstico era correcto: **es un dato que falta, no una referencia colgada**. Ésa es exactamente la figura que §12.2 incorporó, publicada después de que la frase se escribiera; el barrido de la 10.0 le corrigió el número de sección y **no vio que la frase quedaba mandando lo contrario de la figura nueva**. Peor: la salida que autorizaba —«la magnitud declarada como pendiente»— es una promesa en prosa, que la tabla de escalamiento de §12.2 califica **P1** y que la comprobación 6 de `Master-Prompt.md` §10.0 levanta **en todo destino con `usa_llm` en true**. El punto remite ahora a §12.2, cuyo evento de cierre se nombra solo: el artefacto de la categoría 09 que fija la moneda. Sube **minor**: §12.2 es transversal y rige sobre ese ítem desde la 10.0, de modo que lo que se quita es una excepción sin efecto y **ningún documento que hoy cumpla deja de cumplir**. |
+| 4.6 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

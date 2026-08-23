@@ -2,10 +2,10 @@
 
 **Producto:** {{Nombre-Producto}}
 **Documento:** Design-Rules-Identidad-De-Version.md
-**Versión:** 1.1
+**Versión:** 1.2
 **Estado:** Vigente
 **Fecha:** 2026-07-18
-**Autor:** {{equipo-o-rol}} (AG-03 UX/UI)
+**Autor:** {{equipo-o-rol}} (AG-00030 UX/UI)
 **Ámbito:** Capacidad transversal — identidad de versión de una instancia desplegada (agnóstico de framework)
 **Hereda de:** `Design-Rules-Web-Generico.md`
 **Posición:** Insumo normativo de la categoría 03. Extensión por capacidad del catálogo `References/Design/`. No es un artefacto operativo de `docs/`.
@@ -16,7 +16,7 @@
 
 Este documento codifica cómo una instancia desplegada declara qué versión de sí misma está corriendo, y cómo esa declaración se presenta al usuario que la opera. Es una extensión por capacidad del catálogo, transversal a cualquier stack, y aplica a todo proyecto de código que se despliegue en instancias que alguien tenga que identificar, diagnosticar o actualizar.
 
-Carga condicional: el subagente AG-03 lo suma al base cuando el proyecto de código produce artefactos desplegables identificables (Parte C del intake) y tiene una superficie donde exhibirlos. En proyectos de código sin UI final, la capacidad sigue vigente pero se materializa en la superficie DX correspondiente (salida de ayuda, encabezado de diagnóstico, registro de arranque) en vez de en una pantalla.
+Carga condicional: el subagente AG-00030 lo suma al base cuando el proyecto de código produce artefactos desplegables identificables (Parte C del intake) y tiene una superficie donde exhibirlos. En proyectos de código sin UI final, la capacidad sigue vigente pero se materializa en la superficie DX correspondiente (salida de ayuda, encabezado de diagnóstico, registro de arranque) en vez de en una pantalla.
 
 La versión no es un adorno del pie de página: es el dato que convierte un reporte de problema en un diagnóstico. Sin versión visible, toda conversación sobre una instancia empieza por averiguar qué instancia es. Este documento trata la identidad de versión como una capacidad de UX con contrato propio, y fija el criterio para que ese dato sea derivado y no inventado.
 
@@ -178,7 +178,7 @@ Una superficie cumple esta extensión cuando: la versión que se muestra se deri
 
 | Dimensión | Referencia |
 | --- | --- |
-| Especialidad dueña | AG-03 UX/UI |
+| Especialidad dueña | AG-00030 UX/UI |
 | Hereda de | `Design-Rules-Web-Generico.md` |
 | Mapeado por | especializaciones por stack (por ejemplo `Design-Rules-Blazor-Mudblazor.md`) |
 | Extensión hermana | `Design-Rules-Acceso-Monousuario.md` (aloja el sello en la superficie de acceso) |
@@ -197,3 +197,4 @@ Una superficie cumple esta extensión cuando: la versión que se muestra se deri
 | --- | --- | --- | --- |
 | 1.0 | 2026-07-18 | Versión inicial. Extensión por capacidad: identidad de versión y su superficie. Principio de versión derivada, contrato de identidad de versión y sus consumidores, patrones de componente (sello, ubicación obligatoria, distintivo de preliminar, detalle de diagnóstico, marcador de origen indeterminado), estados, frontera con la ingeniería de entrega, esqueleto de referencia, accesibilidad AA y anti-patrones. Agnóstico de framework, sin literales de dominio. | AG-03 UX/UI |
 | 1.1 | 2026-07-29 | Vocabulario normativo (framework 5.0), registrado en la 5.1. El cuerpo adopta «proyecto de código» donde el referente es la unidad de compilación y «producto» donde es el nivel superior, según `Vocabulario-Rules.md` §2. El campo de cabecera pasa de `**Proyecto:**` a `**Producto:** {{Nombre-Producto}}`: la migración lo había dejado como `**Proyecto de código:**` sobre un valor de nivel producto, que `Vocabulario-Rules.md` §4 R3 prohíbe. La fila se registra en la 5.1 porque la migración modificó el archivo sin dejar registro, contra `SDD-Development-Guide.md` §VI.1. | AG-03 UX/UI |
+| 1.2 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

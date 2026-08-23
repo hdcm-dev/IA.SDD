@@ -2,10 +2,10 @@
 
 **Producto:** {{Nombre-Producto}}
 **Documento:** Design-Rules-Blazor-Mudblazor.md
-**Versión:** 1.3
+**Versión:** 1.4
 **Estado:** Vigente
 **Fecha:** 2026-07-18
-**Autor:** {{equipo-o-rol}} (AG-03 UX/UI + Frontend Architect .NET)
+**Autor:** {{equipo-o-rol}} (AG-00030 UX/UI + Frontend Architect .NET)
 **Ámbito:** Web — Blazor Interactive Server (.NET 8/9) con MudBlazor v9
 **Hereda de:** `Design-Rules-Web-Generico.md`
 **Posición:** Insumo normativo de la categoría 03 para proyectos de código `tipo_unidad_entrega = web-monolith` o `web-microservices (con frontend)` cuyo stack declarado en la Parte C del intake sea Blazor + MudBlazor.
@@ -261,7 +261,7 @@ Además de los criterios del documento base, una superficie Blazor + MudBlazor c
 | Dimensión | Referencia |
 | --- | --- |
 | Documento base | `Design-Rules-Web-Generico.md` |
-| Especialidad dueña | AG-03 UX/UI + Frontend Architect .NET |
+| Especialidad dueña | AG-00030 UX/UI + Frontend Architect .NET |
 | Regla que lo invoca | `devs/Rules/Rules-UX-UI-DX.md` (selección por stack) |
 | Aplica a `tipo_unidad_entrega` | web-monolith, web-microservices (con frontend) con stack Blazor + MudBlazor |
 | Extensiones por capacidad que mapea | `Design-Rules-Config-Esquema.md` (§4.1); `Design-Rules-Primer-Arranque.md`, `Design-Rules-Acceso-Monousuario.md` e `Design-Rules-Identidad-De-Version.md` (§4.2) |
@@ -277,3 +277,4 @@ Además de los criterios del documento base, una superficie Blazor + MudBlazor c
 | 1.1 | 2026-06-20 | Mapeo de los patrones de la extensión `Design-Rules-Config-Esquema` a componentes MudBlazor (nueva §4.1): campo dirigido por descriptor, ayuda contextual, divulgación progresiva, presets, explicación en palabras, indicador de simulación y ranura del asistente; estado `info` vía `Color.Info`/`Palette.Info`; previsualización de la propuesta con `MudDialog`. | AG-03 UX/UI + Frontend Architect |
 | 1.2 | 2026-07-18 | Mapeo de los patrones de las extensiones `Design-Rules-Primer-Arranque`, `Design-Rules-Acceso-Monousuario` e `Design-Rules-Identidad-De-Version` a componentes MudBlazor (nueva §4.2): shell partido sin `MudAppBar`/`MudDrawer`, tarjeta de aprovisionamiento y de acceso, redirección con `MudProgressLinear` y `replace: true`, banda de resultado con `MudAlert`, barra de identidad, orientación posterior, sello de versión y detalle de diagnóstico. Nota de fidelidad sobre formularios de identidad por POST a endpoints (fuera del circuito interactivo) con `AntiforgeryToken` y `autocomplete` declarado. §11 registra las extensiones mapeadas. | AG-03 UX/UI + Frontend Architect |
 | 1.3 | 2026-07-29 | Vocabulario normativo (framework 5.0), registrado en la 5.1. El cuerpo adopta «proyecto de código» donde el referente es la unidad de compilación y «producto» donde es el nivel superior, según `Vocabulario-Rules.md` §2. El campo de cabecera pasa de `**Proyecto:**` a `**Producto:** {{Nombre-Producto}}`: la migración lo había dejado como `**Proyecto de código:**` sobre un valor de nivel producto, que `Vocabulario-Rules.md` §4 R3 prohíbe. La fila se registra en la 5.1 porque la migración modificó el archivo sin dejar registro, contra `SDD-Development-Guide.md` §VI.1. | AG-03 UX/UI |
+| 1.4 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

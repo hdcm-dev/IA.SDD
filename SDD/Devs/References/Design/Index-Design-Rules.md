@@ -2,10 +2,10 @@
 
 **Framework:** SDD
 **Documento:** Index-Design-Rules.md
-**Versión:** 1.4
+**Versión:** 1.5
 **Estado:** Vigente
 **Fecha:** 2026-07-19
-**Autor:** AG-ROOT (Arquitecto de Soluciones)
+**Autor:** AG-00990 (Arquitecto de Soluciones)
 
 ---
 
@@ -20,7 +20,7 @@ El catálogo sigue un modelo base→especialización. Hay un documento base de d
 
 Este subárbol vive en `devs/` porque es material metodológico estable, no salida generada por proyecto de código. No se ubica en `docs/`, que es exclusivamente la salida del orquestador.
 
-Este índice es el punto de entrada del catálogo: el subagente AG-03 lo carga primero y desde acá resuelve qué documento o documentos aplicar.
+Este índice es el punto de entrada del catálogo: el subagente AG-00030 lo carga primero y desde acá resuelve qué documento o documentos aplicar.
 
 ## 2. Catálogo de reglas de diseño
 
@@ -56,7 +56,7 @@ Sobre las extensiones por capacidad: el documento `Design-Rules-Config-Esquema` 
 
 ## 4. Cómo se selecciona el documento
 
-El subagente AG-03 elige la especialización según el stack declarado en la Parte C del intake (bloque técnico del proyecto de código) y el `tipo_unidad_entrega` del proyecto de código en curso:
+El subagente AG-00030 elige la especialización según el stack declarado en la Parte C del intake (bloque técnico del proyecto de código) y el `tipo_unidad_entrega` del proyecto de código en curso:
 
 1. Aplica siempre el documento base `Design-Rules-Web-Generico.md`.
 2. Si existe una especialización para el stack declarado, la suma por encima del base (por ejemplo `Design-Rules-Blazor-Mudblazor.md` cuando el stack es Blazor Interactive Server + MudBlazor).
@@ -98,3 +98,4 @@ Un modelo UX-UI nunca reemplaza al documento base. Ante conflicto entre un model
 | 1.2 | 2026-07-18 | Incorporación de tres extensiones por capacidad derivadas de la extracción de características de un panel de control monolítico en producción: §2 registra `Design-Rules-Primer-Arranque.md`, `Design-Rules-Acceso-Monousuario.md` y `Design-Rules-Identidad-De-Version.md` con la nota del arquetipo que las agrupa; §4 reemplaza el criterio de carga en prosa por una tabla con la condición de carga de cada extensión y declara su ortogonalidad mutua. | AG-ROOT |
 | 1.3 | 2026-07-19 | Nueva §4.1: registro del catálogo de modelos UX-UI de `Devs/Modelos-UX-UI/` como tercer eje del sistema de diseño del template, con su diferencia de origen y obligatoriedad respecto de este catálogo, el orden de apilado de las cuatro capas y la regla de conflicto. Incorporado junto con la Fase B2 de validación visual de maqueta. | AG-ROOT |
 | 1.4 | 2026-07-29 | Vocabulario normativo (framework 5.0), registrado en la 5.1. El índice adopta «proyecto de código» y «producto» según `Vocabulario-Rules.md` §2, y su cabecera pasa de `**Proyecto:** Template SDD` a `**Framework:** SDD`. La fila se registra en la 5.1 porque la migración modificó el archivo sin dejar registro, contra `SDD-Development-Guide.md` §VI.1. | AG-ROOT |
+| 1.5 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

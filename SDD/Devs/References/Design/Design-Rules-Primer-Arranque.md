@@ -2,10 +2,10 @@
 
 **Producto:** {{Nombre-Producto}}
 **Documento:** Design-Rules-Primer-Arranque.md
-**Versión:** 1.1
+**Versión:** 1.2
 **Estado:** Vigente
 **Fecha:** 2026-07-18
-**Autor:** {{equipo-o-rol}} (AG-03 UX/UI)
+**Autor:** {{equipo-o-rol}} (AG-00030 UX/UI)
 **Ámbito:** Capacidad transversal — primer arranque de un despliegue sin configurar (agnóstico de framework)
 **Hereda de:** `Design-Rules-Web-Generico.md`
 **Posición:** Insumo normativo de la categoría 03. Extensión por capacidad del catálogo `References/Design/`. No es un artefacto operativo de `docs/`.
@@ -16,7 +16,7 @@
 
 Este documento codifica el lenguaje de diseño del primer arranque: qué ve y qué hace el usuario la primera vez que abre un sistema recién desplegado, cuando todavía no existe la configuración mínima que lo hace utilizable. Es una extensión por capacidad del catálogo, transversal a cualquier stack, y aplica a todo proyecto de código que se despliegue en una instancia propia y arranque vacío.
 
-Carga condicional: el subagente AG-03 lo suma al base solo cuando el proyecto de código se despliega por instancia y arranca sin datos de configuración (Parte C del intake o casos de uso de 02 que describan alta inicial, instalación o puesta en marcha). No aplica a productos multi-inquilino donde el aprovisionamiento lo hace el proveedor antes de que el usuario entre.
+Carga condicional: el subagente AG-00030 lo suma al base solo cuando el proyecto de código se despliega por instancia y arranca sin datos de configuración (Parte C del intake o casos de uso de 02 que describan alta inicial, instalación o puesta en marcha). No aplica a productos multi-inquilino donde el aprovisionamiento lo hace el proveedor antes de que el usuario entre.
 
 El primer arranque es el único momento del ciclo de vida en el que el sistema no puede asumir nada de sí mismo. Diseñarlo como un caso especial improvisado produce pantallas huérfanas, bucles de redirección y sistemas que quedan a medio configurar sin que nadie lo note. Este documento lo trata como una capacidad de primera clase, con un predicado explícito, un guard en capas y una superficie propia.
 
@@ -205,7 +205,7 @@ Una superficie de primer arranque cumple esta extensión cuando: existe un únic
 
 | Dimensión | Referencia |
 | --- | --- |
-| Especialidad dueña | AG-03 UX/UI |
+| Especialidad dueña | AG-00030 UX/UI |
 | Hereda de | `Design-Rules-Web-Generico.md` |
 | Mapeado por | especializaciones por stack (por ejemplo `Design-Rules-Blazor-Mudblazor.md`) |
 | Extensión hermana | `Design-Rules-Acceso-Monousuario.md` (comparte el shell partido y el catálogo de códigos de resultado) |
@@ -224,3 +224,4 @@ Una superficie de primer arranque cumple esta extensión cuando: existe un únic
 | --- | --- | --- | --- |
 | 1.0 | 2026-07-18 | Versión inicial. Extensión por capacidad: primer arranque y aprovisionamiento inicial. Predicado único de aprovisionamiento y su contrato, guard en tres capas, patrones de componente (shell partido, tarjeta de aprovisionamiento, redirección con estado de resolución, banda de mensaje, requisito declarado, orientación posterior), estados, frontera del acto de aprovisionamiento, esqueletos de referencia, accesibilidad AA y anti-patrones. Agnóstico de framework, sin literales de dominio. | AG-03 UX/UI |
 | 1.1 | 2026-07-29 | Vocabulario normativo (framework 5.0), registrado en la 5.1. El cuerpo adopta «proyecto de código» donde el referente es la unidad de compilación y «producto» donde es el nivel superior, según `Vocabulario-Rules.md` §2. El campo de cabecera pasa de `**Proyecto:**` a `**Producto:** {{Nombre-Producto}}`: la migración lo había dejado como `**Proyecto de código:**` sobre un valor de nivel producto, que `Vocabulario-Rules.md` §4 R3 prohíbe. La fila se registra en la 5.1 porque la migración modificó el archivo sin dejar registro, contra `SDD-Development-Guide.md` §VI.1. | AG-03 UX/UI |
+| 1.2 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |

@@ -2,8 +2,8 @@
 
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/06-Backlog-Tecnico/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
-**Subagente target del orquestador:** Scrum Master / Agile Coach senior (AG-06)
-**Versión de las reglas:** 5.0
+**Subagente target del orquestador:** Scrum Master / Agile Coach senior (AG-00060)
+**Versión de las reglas:** 5.1
 
 ---
 
@@ -17,7 +17,7 @@ La categoría 06 es la bisagra entre el diseño y la ejecución dentro de la cad
 
 ### 1.1 Especialidad base
 
-Scrum Master con perfil de Agile Coach orientado al backlog, equivalente al AG-06 del catálogo SDD. Su perfil profesional combina la facilitación ágil con la curaduría del backlog: asegura que las historias de usuario cumplan INVEST, que la priorización MoSCoW refleje el valor real de negocio, que cada historia trace a uno o más CU y que la Definition of Ready filtre trabajo no refinado antes del Sprint Planning. Conecta la capa funcional (CU y RN de 02) y la capa técnica (componentes y ADRs de 05) con el trabajo planificable en sprints. Se alinea con la Scrum Guide 2020 para los artefactos de producto, con el método MoSCoW (DSDM Atern) para priorización y con la práctica de Backlog Refinement como mecanismo continuo de curaduría.
+Scrum Master con perfil de Agile Coach orientado al backlog, equivalente al AG-00060 del catálogo SDD. Su perfil profesional combina la facilitación ágil con la curaduría del backlog: asegura que las historias de usuario cumplan INVEST, que la priorización MoSCoW refleje el valor real de negocio, que cada historia trace a uno o más CU y que la Definition of Ready filtre trabajo no refinado antes del Sprint Planning. Conecta la capa funcional (CU y RN de 02) y la capa técnica (componentes y ADRs de 05) con el trabajo planificable en sprints. Se alinea con la Scrum Guide 2020 para los artefactos de producto, con el método MoSCoW (DSDM Atern) para priorización y con la práctica de Backlog Refinement como mecanismo continuo de curaduría.
 
 ### 1.2 Variantes según tipo de unidad de entrega (8 valores D8)
 
@@ -38,12 +38,12 @@ El orquestador lee esta tabla y, según el `tipo_unidad_entrega` de la unidad de
 
 La categoría 06 admite revisiones acotadas por otras especialidades:
 
-- AG-02 Analista Funcional, para validar que cada US traza a un CU y que la columna `CU relacionados` está poblada sin huérfanas.
-- AG-05 Arquitecto, para validar que cada BT se justifica en un componente, una ADR o un contrato declarado en 05, sin BT inventadas.
-- AG-08 QA, para validar que los criterios de aceptación de cada US son verificables y aptos para alimentar los acceptance tests de 08.
-- AG-07 PM ágil, para alinear capacidad y secuencia con el plan de sprints de 07 sin invadir su titularidad.
+- AG-00020 Analista Funcional, para validar que cada US traza a un CU y que la columna `CU relacionados` está poblada sin huérfanas.
+- AG-00050 Arquitecto, para validar que cada BT se justifica en un componente, una ADR o un contrato declarado en 05, sin BT inventadas.
+- AG-00080 QA, para validar que los criterios de aceptación de cada US son verificables y aptos para alimentar los acceptance tests de 08.
+- AG-00070 PM ágil, para alinear capacidad y secuencia con el plan de sprints de 07 sin invadir su titularidad.
 
-El AG-06 mantiene siempre la titularidad del artefacto; las demás especialidades aportan revisiones acotadas.
+El AG-00060 mantiene siempre la titularidad del artefacto; las demás especialidades aportan revisiones acotadas.
 
 ---
 
@@ -117,7 +117,7 @@ Esta convención asegura coherencia visual entre product-backlog y backlog-tecni
 
 ### 3.5 README de la sección
 
-Recomendado para todos los tipos. Debe listar el `Product-Backlog.md`, el `Backlog-Tecnico.md`, el resumen de épicas vigentes, las US Must Have del MVP, las BT prioritarias y la DoR vigente. Sirve como punto de entrada navegable para revisores externos (AG-02, AG-05, AG-07, AG-08).
+Recomendado para todos los tipos. Debe listar el `Product-Backlog.md`, el `Backlog-Tecnico.md`, el resumen de épicas vigentes, las US Must Have del MVP, las BT prioritarias y la DoR vigente. Sirve como punto de entrada navegable para revisores externos (AG-00020, AG-00050, AG-00070, AG-00080).
 
 ### 3.6 Política de versionado
 
@@ -243,7 +243,7 @@ Tabla de trazabilidad de la US:
 | Backlog sin refinement con cadencia | El backlog envejece sin curaduría; entra trabajo crudo al sprint | Política explícita de refinement (mínimo una sesión por sprint) documentada en §5 del backlog | [enumerable] |
 | IDs heterogéneos | `US-00001` y `BT-001` conviviendo rompen búsquedas y matrices de trazabilidad (lección documentada del fuente Motor DSL) | Forzar el ancho uniforme de `Root-Rules.md` §9.2 en US, BT y EP | [interpretativo] |
 | Todo Must Have | No hay priorización real; el equipo no puede recortar alcance | Forzar distribución 60/20/20 entre Must, Should y Could como ejercicio mínimo | [interpretativo] |
-| US huérfanas de CU | No se puede validar completitud del sistema contra la especificación funcional | Columna `CU relacionados` obligatoria; AG-02 firma trazabilidad | [interpretativo] |
+| US huérfanas de CU | No se puede validar completitud del sistema contra la especificación funcional | Columna `CU relacionados` obligatoria; AG-00020 firma trazabilidad | [interpretativo] |
 | BT sin US consumidora | Tarea técnica que nadie usa; deuda inventada | Cada BT debe declarar al menos una US que la consume o justificarse como infraestructura compartida con ADR explícita | [enumerable] |
 | Criterios de aceptación vagos | "Funciona correctamente" no se puede testear | Formato Given/When/Then obligatorio en US Must y Should | [interpretativo] |
 | DoR de 15 criterios | Nada nunca está ready; el filtro se vuelve burocrático | Máximo 8 criterios DoR para US y 6 para BT | [interpretativo] |
@@ -476,3 +476,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/06-Backlog-Tecnico/<
 | 4.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 4.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
 | 5.0 | 2026-08-20 | **§4.4 parte su punto 5 en dos**: la **prioridad** MoSCoW y la **estimación**. Venían en un solo ítem obligatorio y son **dos decisiones de dueños distintos** —la prioridad es del Product Owner, la estimación es del equipo y sale del refinamiento—, de modo que una podía estar bloqueada y arrastrar a la otra. Es el mismo defecto de forma que `Rules-Devops.md` §4.3 punto 3 tenía y que un destino real pagó con ocho etapas sin etiquetar. El ítem nuevo declara que, si una de las dos no se puede fijar hoy, se difiere **esa** con la forma de `Root-Rules.md` §12.2. Origen: la auditoría del criterio 4 de `Reportes/14` §7 sobre las quince reglas. Sube **major**: una `US-XXXXX` emitida antes declara las dos dentro del punto 5, y **deja de cumplir** la estructura de §4.4. |
+| 5.1 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
