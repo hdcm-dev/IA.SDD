@@ -1,21 +1,42 @@
-# Reglas constructivas — Base de conocimiento de la organización
+# Reglas constructivas — Base de conocimiento
 
-**Carpeta target:** la raíz de base de conocimiento que el intake del producto declara (`PRODUCT-INTAKE-template.md`, Parte B). **No es una carpeta de este repositorio.**
+**Carpeta target:** `Conocimiento/` de este repositorio
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
 **Agente target:** el prompt de relevamiento que cita este archivo, fuera de una corrida de generación, y AG-00980 (Bibliotecario de conocimiento) en tiempo de ejecución
-**Versión de las reglas:** 1.0
+**Versión de las reglas:** 2.0
 
 ---
 
 ## 0. Qué gobierna este archivo, y qué no
 
 Este archivo **regula el formato de un documento de conocimiento y el contrato del índice que lo
-cataloga**. No aporta ni un documento de conocimiento, y el framework no lleva ninguno: los documentos
-son de la organización que los escribe y viven en su repositorio, no acá.
+cataloga**. Los documentos viven en `Conocimiento/`, una carpeta anexa de este mismo repositorio.
 
-Es la diferencia que hace posible la capacidad entera. **El framework aporta el continente; la
-organización, el contenido.** Un framework que trajera los documentos quedaría acoplado a la casa que
-los escribió, y dejaría de servirle a la de al lado.
+### 0.0 El modelo, porque de él se deriva todo lo demás
+
+**El framework tiene método y casi no tiene oficio**, y es una decisión de diseño: el momento en que
+opine sobre cómo estructurar la capa de datos de una casa, deja de servirle a la de al lado. La base de
+conocimiento es donde el oficio entra **sin desfigurar la esencia del método**.
+
+`Conocimiento/` es una **carpeta anexa**, no parte del conjunto normativo. La distinción es la que
+sostiene el modelo entero:
+
+| | El conjunto normativo | `Conocimiento/` |
+| --- | --- | --- |
+| Qué es | Reglas, plantillas, orquestadores | Documentos que se consultan |
+| Quién lo gobierna | El framework | Quien tenga el repositorio |
+| Se puede vaciar | No. Sin él no hay método | **Sí.** El framework corre igual con cero documentos |
+| Cómo se extiende | Interviniendo el framework | **Agregando documentos, sin tocar una sola regla** |
+
+**Desacoplamiento acá no significa privacidad ni ubicación: significa que el framework funciona con la
+carpeta vacía y que su comportamiento base no cambia cuando se llena.** Ninguna regla nombra un
+documento de conocimiento; sólo existe el contrato del índice (§7). Es lo que permite agregar sin
+desfigurar.
+
+**El mecanismo de extensión es el fork.** Quien quiera su propia base forkea el repositorio y agrega sus
+documentos a `Conocimiento/`: se lleva el método intacto y le suma su oficio. No hay una segunda
+raíz que declarar, ni una ruta que configurar, ni un repositorio ajeno que el framework tenga que
+alcanzar —lo que además deja intacta la autosuficiencia que `README.md` declara—.
 
 ### 0.1 Qué es un documento de conocimiento
 
@@ -39,10 +60,15 @@ no se toca desde acá.
 término**. Una convención de nomenclatura de base de datos no declara términos: declara **cómo se
 construye un nombre**. Son objetos distintos y no compiten.
 
-### 0.2 La capacidad es opcional y está apagada por defecto
+### 0.2 La capacidad es opcional, y lo es por construcción
 
-Si el intake no declara base de conocimiento, **nada de este archivo aplica** y el framework se comporta
-exactamente como si no existiera. Es el mismo patrón que `requiere_maqueta` o `usa_llm`.
+**Con `Conocimiento/` vacío el framework se comporta exactamente como si esta regla no existiera.** No
+hace falta un flag que la apague: no hay documentos, el índice no tiene filas, ninguna condición
+dispara y ningún alias resuelve.
+
+Esa propiedad es la que hay que preservar en cada cambio posterior. **Si algún día el framework deja de
+funcionar con la carpeta vacía, la capacidad dejó de ser una extensión y pasó a ser parte del método**,
+que es exactamente lo que este archivo existe para evitar.
 
 ### 0.3 Frontera con el piso mínimo del framework
 
@@ -128,11 +154,18 @@ documentos: lo resuelve §4.5, no la especialidad.
   alcanza a transmitirlo. El precedente del framework es `Templates/README.md`: «las formas
   constructivas del HTML, del CSS y del JavaScript se transmiten mal en prosa». Si se deposita, se
   declara en §9 del documento.
-- **Nada de esto se escribe en el repositorio del framework.** Una captura no emite nota de coherencia,
-  no toca el `CHANGELOG.md` de `IA.SDD` y no copia nada a `_legacy/`: esas obligaciones rigen para las
-  intervenciones sobre el framework, y una captura no lo es.
-- **La compuerta de ofuscación no corre en la captura.** La base es privada y D7 no la alcanza. Rige
-  **sólo en la promoción** de un documento al catálogo público del framework, si algún día ocurre.
+- **Una captura escribe en este repositorio, y por lo tanto es una intervención sobre él.** Rigen las
+  obligaciones de `README.md`: nota de coherencia si alcanza a varios archivos, entrada en el
+  `CHANGELOG.md` y copia del conjunto superado a `_legacy/`. `Conocimiento/` **entra en el snapshot**,
+  por el mismo criterio que `Templates/`: `SDD-Development-Guide.md` §VI.5 sólo excluye lo que **no
+  condiciona lo que el orquestador genera**, y un documento cargado sí lo condiciona.
+- **La compuerta de ofuscación corre, y es bloqueante.** `IA.SDD` es un repositorio público. Ningún
+  documento puede llevar nombres de clientes, datos reales, assets del proyecto de origen ni decisiones
+  que sólo tengan sentido en su dominio. Es la misma condición que `Index-Modelos-UX-UI.md` §4 y
+  `Maqueta-Rules.md` §6 punto 5 ya imponen, y se verifica igual: búsqueda de términos del dominio, del
+  cliente y del stack de origen, con los falsos positivos léxicos declarados uno por uno.
+- **Lo que no es publicable no va acá.** Un fork privado puede guardar lo que quiera en su propia
+  `Conocimiento/`; este repositorio, no. La regla de formato es la misma en los dos casos.
 
 ---
 
@@ -169,8 +202,8 @@ un producto ya generado no debería romperse por eso.
    justamente el lector al que el alias sirve.
 
 **Nombre agnóstico del dominio de origen**, con el mismo criterio que `Index-Modelos-UX-UI.md` §3:
-`Panel-Operativo-Denso` sí, `Panel-Cliente-Acme` no. Acá la regla es recomendación y no obligación,
-porque la base es privada; se vuelve obligación en la promoción.
+`Panel-Operativo-Denso` sí, `Panel-Cliente-Acme` no. **Es obligación, no recomendación**: el
+repositorio es público y el alias es lo primero que se lee.
 
 ### 3.3 Vinculación
 
@@ -189,15 +222,21 @@ consumidor declarado y el artefacto de referencia si lo hay. La trazabilidad hac
 
 **Alias:** <Alias-Citable>
 **Naturaleza:** canonico | propio
+**Tema:** <una línea, la misma que va al índice>
 **Consumidor:** <categoría 00 a 11 | transversal | subagente de fase, por ejemplo AG-00031>
-**Condición de carga:** <expresada contra campos del intake, flags o tipo D8>
-**Hereda de:** <alias o documento del piso, o —>
+**Condicion-de-carga:** <expresada contra campos del intake, flags o tipo D8>
+**Hereda-de:** <alias o documento del piso, o —>
 **Sustituye:** <referencia literal al ítem del piso, o —>
-**Compatible con:** Rules-Base-Conocimiento.md <versión>
+**Compatible-con:** Rules-Base-Conocimiento.md <versión>
 **Versión:** <X.Y>
 **Estado:** Vigente | Superado
 **Fecha:** YYYY-MM-DD
 ```
+
+**Once campos, ninguno vacío**: los que no aplican llevan `—`. Los nombres de los siete primeros son
+**literalmente los de las columnas del índice** (§7.1), para que la comprobación de coincidencia se
+pueda hacer campo por campo y no por interpretación. `Versión`, `Estado` y `Fecha` son propios del
+documento y no viajan al índice, salvo `Estado`, que sí.
 
 La cabecera y el índice son lo que hace barata la **divulgación progresiva**: se decide si el documento
 aplica leyendo el índice, y se confirma leyendo la cabecera, sin cargar el cuerpo.
@@ -310,12 +349,14 @@ el modo de falla más frecuente y el más caro, porque el resultado parece un do
 
 ### 6.1 Lista de comprobación
 
-- [ ] `[enumerable]` La cabecera lleva los diez campos de §4.1, ninguno vacío. Los que no aplican llevan `—`.
+- [ ] `[enumerable]` La cabecera lleva los once campos de §4.1, ninguno vacío. Los que no aplican llevan `—`.
 - [ ] `[enumerable]` El nombre de archivo cumple `Knowledge-<Tema>.md`, ASCII, sin prefijo numérico.
 - [ ] `[enumerable]` El alias es único en el índice de la base.
 - [ ] `[enumerable]` Están las secciones §0 a §10 de §4.2, salvo las omisiones que §0 declare.
 - [ ] `[enumerable]` El documento entra bajo el techo de §6.2.
-- [ ] `[enumerable]` Existe la fila en `Index-Knowledge.md` y sus campos coinciden con la cabecera.
+- [ ] `[enumerable]` Existe la fila en `Index-Knowledge.md` y sus **ocho campos comunes** coinciden con la cabecera: alias, naturaleza, tema, consumidor, condición de carga, hereda-de, sustituye y compatible-con. `Documento` sale del nombre de archivo; `Versión` y `Fecha` no viajan al índice.
+- [ ] `[enumerable]` **La verificación de ofuscación está declarada**: términos del dominio, del cliente y del stack de origen buscados, con los falsos positivos léxicos enumerados uno por uno.
+- [ ] `[enumerable]` **La numeración interna es contigua y sin huecos**: no hay una `§N.3` sin `§N.1` y `§N.2`. Una sección con una sola subsección la lleva sin numerar.
 - [ ] `[enumerable]` Si el documento contradice un ítem del piso, o el índice declara `sustituye`, o §8 declara la desviación con su justificación.
 - [ ] `[interpretativo]` §0 declara qué queda afuera, y no en términos genéricos.
 - [ ] `[interpretativo]` Un documento `canonico` escribe el delta y no reexplica el canon.
@@ -359,6 +400,11 @@ orquestador abre para resolver un alias. Una base cuyo índice no cumpla este co
 | `Compatible-con` | Versión de este archivo contra la que se escribió el documento | Sí |
 | `Estado` | `Vigente` o `Superado` | Sí |
 
+**Correspondencia con la cabecera del documento.** Ocho de estas diez columnas existen también como
+campo de §4.1 y con el mismo nombre: alias, naturaleza, tema, consumidor, condición de carga,
+hereda-de, sustituye y compatible-con. `Documento` sale del nombre de archivo y `Estado` se replica.
+Es lo que vuelve verificable campo por campo la comprobación de §6.1.
+
 ### 7.2 Por qué el consumidor admite subagentes de fase
 
 Porque hay conocimiento cuyo consumidor natural no es una categoría. El caso concreto: quien construye
@@ -372,11 +418,15 @@ Es lo que evita la inflación de contexto. Sin él, un alias citado en el intake
 los doce despachos. Un documento puede declarar más de un consumidor —la caracterización de un template
 alimenta razonablemente a 03 y a 11—, y por eso el campo admite lista; lo que no admite es estar vacío.
 
-### 7.4 Identidad de versión de la base
+### 7.4 Identidad de versión
 
-La base declara una **identidad de versión citable** —la forma la elige la organización— y el intake la
-registra. Es lo que hace reconstruible una corrida **sin copiar los documentos** al `_legacy/` del
-framework: los documentos no son suyos, de modo que se cita la versión, no se copia el archivo.
+**No hay una identidad de versión propia de la base, y no hace falta: es la del framework.** Al vivir
+`Conocimiento/` en este repositorio y entrar en el snapshot, un destino que declara con qué versión del
+framework se generó **ya declara con qué conocimiento se generó**. `_legacy/<version>/Conocimiento/`
+tiene los documentos exactos que estaban vigentes.
+
+Es la simplificación más grande que trae anexar la carpeta en vez de referenciar una base externa: el
+intake **no declara ninguna raíz ni ninguna versión de base**. Cita alias, y nada más.
 
 ---
 
@@ -393,11 +443,12 @@ Antes de escribir nada, respondé las veinte preguntas guía de §5, en orden. L
 bloqueantes: sin orientación declarada, la captura produce un resumen del proyecto y no conocimiento
 reutilizable.
 
-Producís exactamente dos cosas, y las dos en la raíz de la base de conocimiento indicada:
+Producís exactamente dos cosas, y las dos en `Conocimiento/`:
   1. `Knowledge-<Tema>.md`, con la cabecera de §4.1 y las secciones de §4.2.
-  2. La fila correspondiente en su `Index-Knowledge.md`, con las columnas de §7.1.
+  2. La fila correspondiente en `Index-Knowledge.md`, con las columnas de §7.1.
 
-No escribís nada en el repositorio del framework.
+Escribís en el repositorio del framework, que es público: la verificación de ofuscación de §2.2 es
+previa y bloqueante, y la aceptación humana también.
 
 Reglas que no se negocian:
   - Describís el artefacto, no el método del framework (§0.1).
@@ -473,4 +524,6 @@ que tienda a cero a medida que las condiciones se afinan.
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
+| 2.0 | 2026-08-23 | **Cambia el modelo de dónde vive la base, y con él tres reglas de esta.** La base **deja de ser un repositorio externo declarado en el intake** y pasa a ser `Conocimiento/`, una **carpeta anexa de este repositorio**. El motivo es operativo y decide: `IA.SDD` es el repositorio desde el que se lanza, de modo que la base viaja con lo que se clona en vez de tener que ser alcanzada. **El desacoplamiento no cambia y se declara mejor en §0.0**: no es privacidad ni ubicación, es que **el framework corre con la carpeta vacía y su comportamiento base no cambia cuando se llena**, porque ninguna regla nombra un documento y sólo existe el contrato del índice. **El mecanismo de extensión es el fork**: quien quiera su base forkea, agrega sus documentos y se lleva el método intacto. Tres consecuencias, y las tres invierten lo que la 1.1 decía. **§2.2**: una captura **escribe en este repositorio y por lo tanto es una intervención sobre él**, con nota de coherencia, `CHANGELOG.md` y copia a `_legacy/`; **`Conocimiento/` entra en el snapshot**, por el criterio de `SDD-Development-Guide.md` §VI.5 —sólo se excluye lo que no condiciona lo que el orquestador genera— y con el precedente de `Templates/`. **La compuerta de ofuscación corre y es bloqueante**, porque el repositorio es público: es la misma condición de `Index-Modelos-UX-UI.md` §4, y §6.1 suma su ítem, con lo que la lista pasa de trece a **catorce**. **§7.4**: no hay identidad de versión propia de la base, **es la del framework**, y por lo tanto **el intake no declara ninguna raíz ni ninguna versión**: cita alias y nada más. §3.2 vuelve **obligación** el nombre agnóstico del dominio, que en la 1.1 era recomendación. |
+| 1.1 | 2026-08-23 | **Cuatro correcciones que trajo el primer documento real escrito contra esta regla**, que es para lo que el piloto existe. La cabecera de §4.1 suma el campo **`Tema`**, que el índice exigía y que la cabecera no tenía, y **alinea los nombres de sus campos con los de las columnas del índice** —`Condicion-de-carga`, `Hereda-de`, `Sustituye`, `Compatible-con`—: estaban escritos de dos formas distintas en los dos lugares. Pasa de diez campos a **once**. §6.1 suma el ítem de **numeración interna contigua** —el piloto escribió una `§4.3` sin `§4.1` ni `§4.2` y **la lista de trece ítems no lo detectaba**— y reformula el ítem de coincidencia con el índice, que era **inverificable como estaba**: no todos los campos de la cabecera viajan al índice ni todas las columnas tienen campo, así que ahora nombra los **ocho comunes**. §7.1 declara esa correspondencia de forma explícita. La lista pasa de doce ítems a **trece**. |
 | 1.0 | 2026-08-23 | Emisión inicial. Regula el **formato de un documento de conocimiento** y el **contrato del índice** de una base de conocimiento de la organización, que vive **fuera de este repositorio** y que el intake declara. El framework aporta el continente y no aporta ni un documento. Fija: la frontera entre conocimiento y método (§0.1); la capacidad como opcional y apagada por defecto (§0.2); las **dos capas del piso mínimo** —método no desplazable y decisión de stack sustituible— y los **tres modos de aportar**, sumar, especializar y sustituir, con la sustitución habilitada por el framework y nunca por el conocimiento (§0.3 y §0.4); la regla de subordinación que evita que un choque caiga en `Root-Rules.md` §13 y detenga; el patrón de nombres y las tres reglas del **alias citable** (§3); la plantilla del documento §0 a §10 y las **siete propiedades de forma** (§4); las **veinte preguntas guía** del relevamiento (§5); los criterios de aceptación con **techo de tamaño diferenciado** entre `canonico` y `propio` (§6); las diez columnas obligatorias del índice, incluido `sustituye` y el consumidor que **admite subagentes de fase** (§7); el prompt-snippet que el prompt de relevamiento cita literalmente (§8); y el contrato de **AG-00980**, el bibliotecario que entrega identificadores y nunca texto (§9). |

@@ -27,6 +27,7 @@ Hay **una sola excepción** a la regla de que un orquestador no escribe en este 
 | Ruta | Qué contiene |
 | --- | --- |
 | [`SDD/Devs/Rules/`](SDD/Devs/Rules/) | Los diecinueve archivos de reglas constructivas: uno por categoría documental más siete transversales. Es el corazón normativo del framework |
+| [`Conocimiento/`](Conocimiento/) | **Carpeta anexa, no parte del conjunto normativo.** El catálogo de oficio: caracterizaciones de arquitecturas, templates y convenciones que el método no gobierna. **El framework corre igual con la carpeta vacía**, y se extiende forkeando y agregando documentos, sin tocar una sola regla |
 | [`SDD/Devs/Orchestrator/`](SDD/Devs/Orchestrator/) | Los dos master-prompts. El de **generación** despacha subagentes por fase, con auditoría entre fases y confirmación humana en cada corte. El de **migración normativa** lleva un destino ya especificado a la versión vigente del framework, y cita el despacho y la auditoría del primero en lugar de redefinirlos |
 | [`SDD/Devs/Intake/`](SDD/Devs/Intake/) | Plantillas de carga inicial: `PRODUCT-INTAKE-template.md` que completa el usuario y `PRODUCT-MANIFEST-template.md` que deriva el orquestador |
 | [`SDD/Devs/Guides/`](SDD/Devs/Guides/) | Guías internas del framework: el marco teórico y las notas de coherencia de auditoría |

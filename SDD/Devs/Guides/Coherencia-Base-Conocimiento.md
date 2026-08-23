@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Coherencia-Base-Conocimiento.md
-**Versión:** 1.0
+**Versión:** 1.2
 **Estado:** Vigente
 **Fecha:** 2026-08-23
 **Autor:** AG-00990 (Arquitecto de Soluciones)
@@ -109,8 +109,70 @@ corrida: no hay orquestador que la lea, no hay despacho que cambie de forma y ni
 con la 12.1 deja de cumplir. El conjunto sube **minor** por incorporación, según la tabla de
 `SDD-Development-Guide.md` §VI.5.
 
-## 7. Control de cambios
+## 8. Segunda intervención: lo que el piloto encontró (12.3)
+
+El paso 3 del plan escribió **el primer documento real contra la regla**: la caracterización de una
+variante de Clean Architecture con capa de datos por DataManager, `canonico`, 247 líneas bajo un techo
+de 250. El documento salió; **la regla no salió intacta**, que es exactamente para lo que el piloto
+está en el plan como compuerta entre bloques.
+
+| # | Hallazgo | Corrección en 1.1 |
+| --- | --- | --- |
+| 1 | **La cabecera no tenía `Tema`** y el índice lo exigía como columna. Un documento cumplía §4.1 y aun así no podía completar su fila | §4.1 suma el campo. Pasa de diez campos a once |
+| 2 | **Los nombres de campo diferían entre §4.1 y §7.1** —`Condición de carga` contra `Condicion-de-carga`, `Hereda de` contra `Hereda-de`— | §4.1 adopta literalmente los nombres del índice |
+| 3 | **El ítem de coincidencia con el índice era inverificable.** Decía «sus campos coinciden con la cabecera», y no todos los campos viajan al índice ni todas las columnas tienen campo | Nombra los **ocho campos comunes**. §7.1 declara la correspondencia |
+| 4 | **La lista no detectaba numeración interna rota.** El piloto escribió una `§4.3` sin `§4.1` ni `§4.2` y los doce ítems la dieron por buena | §6.1 suma el ítem de numeración contigua. Pasa de doce a trece |
+
+**Los cuatro son del mismo tipo y conviene nombrarlo**: la regla se escribió mirando el documento y el
+índice **por separado**, y los defectos aparecen en la costura entre los dos. Ninguno se habría visto
+releyendo el archivo; los tres primeros se ven al completar una fila con una cabecera al lado, y el
+cuarto al correr la lista sobre un documento que la incumple.
+
+**Veredicto de la compuerta: se pasa.** El archivo de reglas sirvió para caracterizar un artefacto
+externo, que es lo que el paso 3 tenía que probar. Las cuatro correcciones son de costura y ninguna
+toca la estructura del documento ni el contrato del índice, de modo que **el Bloque II puede avanzar**.
+
+## 9. Tercera intervención: la base se anexa al repositorio (13.0)
+
+**Se revierte la decisión de §4.8 del plan, y el motivo es operativo.** `IA.SDD` es el repositorio desde
+el que se lanza el orquestador: la base tiene que viajar con lo que se clona, no ser alcanzada. Pasa a
+`Conocimiento/`, carpeta anexa de este repositorio.
+
+**El desacoplamiento se conserva entero y queda mejor declarado.** No era privacidad ni ubicación: es
+que **el framework corre con la carpeta vacía y su comportamiento base no cambia cuando se llena**,
+porque ninguna regla nombra un documento de conocimiento y lo único que el framework fija es el
+contrato del índice. El mecanismo de extensión es el **fork**.
+
+### 9.1 Las tres inversiones respecto de la 1.1
+
+| Qué decía la 1.1 | Qué dice la 2.0 | Fundamento |
+| --- | --- | --- |
+| Una captura no toca el framework | Una captura **es una intervención sobre el framework**, con `CHANGELOG.md`, `_legacy/` y nota de coherencia | Escribe en su repositorio |
+| Los documentos no entran en el snapshot | **`Conocimiento/` entra**, como `Templates/` | `SDD-Development-Guide.md` §VI.5 sólo excluye lo que **no condiciona lo que el orquestador genera** |
+| La ofuscación no corre en la captura | **Corre y es bloqueante** | El repositorio es público (`Maqueta-Rules.md` §310, `Index-Modelos-UX-UI.md` §61) |
+
+Y una simplificación: **el intake ya no declara raíz ni identidad de versión de base**. Cita alias y
+nada más. La identidad es la del framework, porque el snapshot ya lleva los documentos.
+
+### 9.2 Verificación de ofuscación del primer documento
+
+Corrida sobre `Knowledge-Clean-Architecture-DataManager.md`, con búsqueda de términos del proyecto de
+origen, de su dominio y de su stack.
+
+| Término buscado | Coincidencias | Resolución |
+| --- | --- | --- |
+| Nombre del proyecto y de la solución de origen | 0 | — |
+| Proveedores externos del origen | 0 | — |
+| Nombres de entidad del origen | **2** | **Corregido.** `ILut<Entidad>DataManager` e `ISys<Entidad>DataManager` reemplazan a los dos nombres reales, y quedan además consistentes con los marcadores que el resto del documento ya usaba |
+| «mensajes» | 1 | **Falso positivo léxico declarado**: es «bus de mensajes», el patrón de integración, no la entidad |
+| Prefijos `Sys` y `Lut` | 2 | **Se conservan a propósito.** Son la convención de esquema de la casa, que es el conocimiento que el documento existe para transmitir. No identifican cliente ni dominio |
+
+**La compuerta encontró material real en su primera corrida.** Es la evidencia de que no es ceremonia.
+
+## 10. Control de cambios
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
+| 1.2 | 2026-08-23 | Suma §9 con la tercera intervención: la base se anexa como `Conocimiento/`, las tres inversiones respecto de la 1.1 y la verificación de ofuscación del primer documento, que **encontró dos nombres de entidad del origen y los corrigió**. Conjunto resultante **13.0**. |
+| 1.1 | 2026-08-23 | Suma §8 con los cuatro hallazgos del piloto del paso 3 y el veredicto de la compuerta entre bloques. Conjunto resultante **12.3**. |
 | 1.0 | 2026-08-23 | Emisión inicial. Cubre la incorporación de `Rules-Base-Conocimiento.md` 1.0, su registro en `Catalogo-De-Criterios.md` y la actualización de los tres recuentos de archivos de reglas que el árbol lleva en prosa. |
