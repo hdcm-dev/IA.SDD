@@ -1,7 +1,7 @@
 # Nota de coherencia — La renumeración de `AG`, con el mapeo escrito antes de tocar un archivo
 
 **Documento:** Coherencia-Renumeracion-AG.md
-**Versión:** 1.0
+**Versión:** 2.0 — reemitida tras auditoría independiente
 **Fecha:** 2026-08-22
 **Versión del conjunto resultante:** SDD **12.0**
 **Origen:** El tramo de identidad del plan de reestructuración, rediseñado después de que dos
@@ -60,52 +60,55 @@ categoría.
 | La familia `AG` deja de tener dos dígitos | `AG-NN`, `AG-ROOT`, `AG-03M`, `AG-XX` | `AG-00NN0`, `AG-00990`, `AG-00031`, `AG-XXXXX` |
 | El ámbito de unicidad deja de ser uno solo | `únicos en el producto` **cuando enuncia el ámbito como si fuera uno**, `como todo identificador`, `Ámbito de unicidad: producto` | `únicos en su ámbito declarado` |
 
-**La corrida, no el recuento.** Esta nota **publica el comando**; el motivo está medido en las
-intervenciones retiradas, donde tres notas seguidas declararon números que **eran ciertos al medirlos y
-falsos al publicarlos**, porque la nota y el `CHANGELOG` **son parte del árbol que la nota mide**.
+**La corrida, no el recuento.** Esta nota **publica los comandos**, con sus exclusiones adentro para
+que se puedan correr tal cual. El motivo está medido: en las intervenciones retiradas, tres notas
+seguidas declararon números que **eran ciertos al medirlos y falsos al publicarlos**, porque la nota y
+el `CHANGELOG` **son parte del árbol que la nota mide**.
+
+**Las exclusiones son las siete clases estables de `SDD-Development-Guide.md` §VI.3.2, que se citan y
+no se reescriben.** De ellas, este caso toca cuatro: notas de coherencia anteriores, `SDD/Devs/Bootstrap/`
+—no editable por §I.2—, filas de control de cambios, y **la declaración de la propia intervención**.
 
 ```bash
 # 1 · ninguna forma vieja fuera de las clases estables
-grep -rloP "AG-([0-9]{2}|ROOT|XX)(?![0-9A-Za-z])" SDD PROMPTS Templates README.md \
-  | grep -v "_legacy\|/Bootstrap/\|Coherencia-"
+grep -rnP "AG-([0-9]{2}|ROOT|XX)(?![0-9A-Za-z])" SDD PROMPTS Templates README.md   | grep -v "_legacy\|/Bootstrap/\|Coherencia-" | grep -vP "^\S+:\d+:\| [\d.]+ \| 20"
+
 # 2 · ninguna forma compuesta, que es lo que el orden de reemplazo evita
-grep -rhoE "AG-[0-9]{5}[A-Za-z]" SDD PROMPTS Templates README.md | grep -v _legacy
-# 3 · ningún enunciado universal de ámbito sobreviviente
-grep -rniE "(identificadores son únicos en el producto|como todo identificador|Ámbito de unicidad: producto)" \
-  SDD PROMPTS Templates README.md | grep -v "_legacy\|Coherencia-\|/Bootstrap/"
+grep -rnoE "AG-[0-9]{5}[A-Za-z]" SDD PROMPTS Templates README.md \
+  | grep -v "_legacy\|Coherencia-Renumeracion"
+
+# 3 · ningún enunciado que declare el ámbito como si fuera uno solo
+grep -rniE "(única?s? en el producto|como todo identificador|Ámbito de unicidad: producto)" \
+  SDD PROMPTS Templates README.md | grep -v "_legacy\|Coherencia-\|/Bootstrap/" \
+  | grep -vP "^\S+:\d+:\| [\d.]+ \| 20" | grep -viE "de estas familias|primer ámbito|su ámbito"
 ```
 
-**Los tres devuelven vacío.** Toda ocurrencia viva de la forma anterior cae en una de estas tres cajas,
-y **una que quede afuera es hallazgo**:
+**Los tres devuelven cero.** El primero, en su versión anterior, filtraba **el match** en lugar de **la
+línea** y por eso devolvía 30: las treinta filas nuevas que narran el mapeo —«`AG-ROOT` toma
+`AG-00990`»— son la séptima clase, y **escribir la forma anterior como patrón literal es la función de
+esta sección**.
 
-| Caja | Por qué queda |
-|---|---|
-| **Notas de coherencia anteriores** | Clase estable de §VI.3.2. Relatan un hallazgo de su fecha |
-| **`SDD/Devs/Bootstrap/`** | Clase estable: §I.2 lo declara **no editable** |
-| **Filas del `CHANGELOG` y de los controles de cambios** anteriores | Clase estable: reescribirlas falsea el registro |
-| **La declaración de esta intervención** | La séptima clase, que la 10.1 incorporó. Cubre las **30 filas nuevas** que narran el mapeo —«`AG-ROOT` toma `AG-00990`»—, la entrada 12.0 del `CHANGELOG` y **el ejemplo `AG-00030M` de §3**, que esta nota escribe para mostrar qué produciría el orden equivocado. **Escribir la forma anterior como patrón literal es la función de esta sección**: un barrido que no pudiera nombrar lo que corrige sería inútil |
-
-**Y el orden de reemplazo es parte del método, no un detalle:** de más específico a más general
+**El orden de reemplazo es parte del método, no un detalle:** de más específico a más general
 —`AG-03M`, `AG-ROOT`, `AG-XX` primero— y con frontera de palabra. Al revés, `AG-03` habría convertido
-`AG-03M` en `AG-00030M`, **una forma compuesta que es justo lo que este tramo viene a eliminar**.
+`AG-03M` en `AG-00030M`, **la forma compuesta que este tramo elimina**.
 
 ## 4. Alcance, y una corrección del propio alcance
 
 **El alcance declarado inicialmente dejaba afuera dos carpetas normativas** —`SDD/Devs/References/Design/`
 y `SDD/Devs/Modelos-UX-UI/`—, que el orquestador **inyecta en el despacho**. Lo detectó el barrido, no
-una auditoría posterior: la primera corrida dejó **48 ocurrencias vivas** fuera de las clases estables.
+una auditoría posterior: la primera corrida dejó ocurrencias vivas fuera de las clases estables.
 
-**Se declara porque es el defecto que este tramo corrige, cometido por este tramo, y detectado a
-tiempo por tenerlo escrito.**
+**Se declara porque es el defecto que este tramo corrige, cometido por este tramo, y detectado a tiempo
+por tener el mapeo escrito.**
 
-| Grupo | Reemplazos |
-|---|---|
-| `SDD/Devs/Rules/`, `SDD/Devs/Orchestrator/`, `Marco-Teorico-SDD.md`, `SDD/Guides/`, `Templates/` | **457** |
-| `SDD/Devs/References/Design/`, `SDD/Devs/Modelos-UX-UI/` | **68** |
-| **Total** | **525**, en **30 archivos** |
-
-**Tres notas de coherencia de `References/Design/` fueron alcanzadas por el segundo pase y se
+**Y tres notas de coherencia de `References/Design/` fueron alcanzadas por el segundo pase y se
 restituyeron**: son clase estable.
+
+**El alcance se recalcula, no se declara:**
+
+```bash
+git diff b40cb0d --stat -- SDD PROMPTS Templates   # archivos y líneas tocadas
+```
 
 ## 5. Verificación — las trece comprobaciones
 
@@ -115,10 +118,10 @@ restituyeron**: son clase estable.
 | 2 | Autosuficiencia | Sin referencias nuevas fuera del árbol |
 | 3 | Referencias internas resuelven | Ningún archivo se movió ni se renombró |
 | 4 | Sin contradicción con lo que ya estaba | **§9.2 declara `AG` alcanzada cuando ya cumple**, no antes. Es la contradicción que hundió a las dos intervenciones retiradas |
-| 5 | Control de cambios **en cada archivo modificado** | **30 filas.** `README.md` y `SDD-User-Guide.md` **no tienen tabla**: declarado en §7 |
+| 5 | Control de cambios **en cada archivo modificado** | **Una fila por archivo con tabla de registro.** `SDD-User-Guide.md` **sí la tiene** —la primera emisión afirmó dos veces que no, y era falso: lo levantó la auditoría—. **`README.md` es el único sin tabla**, y eso queda en §7 |
 | 6 | El caso degenerado sigue produciendo el layout aplanado | Nada del layout se tocó |
 | 7 | Nada fuera del alcance declarado | 32 archivos, más `CHANGELOG`, esta nota y el snapshot |
-| 8 | Barrido por concepto | **§3**, con sus tres corridas y sus tres cajas |
+| 8 | Barrido por concepto | **§3**, con sus tres corridas **que devuelven cero** y las clases estables **citadas de §VI.3.2**, no reescritas |
 | 9 | Coherencia interna | §9.1, §9.2 y §10 R5 dicen lo mismo sobre el ámbito, y la familia que §9.2 enumera **cumple el ancho que §9.2 exige** |
 | 10 | Integridad del registro | **Verificado en los 30**: cabecera = última fila |
 | 11 | Cobertura de la nota | **Esta nota** |
@@ -137,9 +140,12 @@ restituyeron**: son clase estable.
 
 ## 7. Ítems declarados y no resueltos
 
-- **`README.md` y `SDD-User-Guide.md` no tienen tabla de control de cambios**, de modo que su cambio
-  **no se registra en el archivo**. Es el hueco de §VI.1 que la 11.2 declaró: admite un bump «Ninguno»
-  y la comprobación 5 exige una fila que empieza por su versión. **Sigue sin dueño.**
+- **`README.md` no tiene tabla de control de cambios**, de modo que su cambio **no se registra en el
+  archivo**. Es el hueco de §VI.1 que la 11.2 declaró: admite un bump «Ninguno» y la comprobación 5
+  exige una fila que empieza por su versión. **Sigue sin dueño.**
+- **La primera emisión de esta nota afirmó dos veces que `SDD-User-Guide.md` tampoco la tiene, y es
+  falso**: la tiene, con quince filas. El archivo se modificó **sin fila y sin bump**. Corregido en la
+  reemisión: sube a **1.16** con su fila.
 - **Las tres notas de `References/Design/` conservan la forma vieja**, correctamente. Un lector que
   busque `AG-03` en el corpus va a encontrarlas: **es registro, no error**.
 

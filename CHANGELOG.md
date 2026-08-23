@@ -17,18 +17,13 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
 **§9.2 enumera `AG` entre las familias alcanzadas** —cuando ya cumple el ancho, no antes— y su tabla de exclusiones **suma `FA-NN`**, el flujo alternativo, que es una **posición dentro de un documento** como el ordinal de iteración. **§10 R5** pasa de «único en el producto» a «único en su ámbito».
 
-### Cambiado — la familia `AG`, en 30 archivos
+### Cambiado — la familia `AG`
 
 **El mapeo se escribió y se evaluó con cinco pruebas antes de tocar un archivo**: total, inyectivo, sin colisión, conforme al ancho, y preserva significado.
 
-| Clase | Viejo | Nuevo |
-|---|---|---|
-| Titular de categoría | `AG-00` … `AG-11` | `AG-00000` … `AG-00110` |
-| Titular de nivel producto | `AG-ROOT` | **`AG-00990`**, bloque reservado |
-| Subagente de fase | `AG-03M` | **`AG-00031`** — la hermandad con el `03` **queda escrita en el número** |
-| Marcador de plantilla | `AG-XX` | `AG-XXXXX` — se reescribe, no se renumera |
+**Las cuatro clases, con el mapeo completo en el bloque de impacto de más abajo:** titulares de categoría a `AG-00NN0`; el titular de nivel producto a **`AG-00990`**, en bloque reservado; el subagente de fase a **`AG-00031`**, con **la hermandad con el `03` escrita en el número** en lugar de en un sufijo compuesto que §9.2 prohíbe; y el marcador de plantilla a `AG-XXXXX`, que **se reescribe, no se renumera**.
 
-**525 reemplazos.** El orden va de más específico a más general: al revés, `AG-03` habría convertido `AG-03M` en `AG-00030M`, **la forma compuesta que este tramo elimina**.
+El orden de reemplazo va de más específico a más general: al revés, `AG-03` habría convertido `AG-03M` en `AG-00030M`, **la forma compuesta que este tramo elimina**.
 
 ### Impacto sobre destinos existentes
 
@@ -36,7 +31,23 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
 | Nombre anterior | Nombre vigente | Naturaleza |
 | --- | --- | --- |
-| — | — | **Vacía.** Ningún artefacto cambió de nombre |
+| `AG-00` | `AG-00000` | identificador |
+| `AG-01` | `AG-00010` | identificador |
+| `AG-02` | `AG-00020` | identificador |
+| `AG-03` | `AG-00030` | identificador |
+| `AG-03M` | `AG-00031` | identificador |
+| `AG-04` | `AG-00040` | identificador |
+| `AG-05` | `AG-00050` | identificador |
+| `AG-06` | `AG-00060` | identificador |
+| `AG-07` | `AG-00070` | identificador |
+| `AG-08` | `AG-00080` | identificador |
+| `AG-09` | `AG-00090` | identificador |
+| `AG-10` | `AG-00100` | identificador |
+| `AG-11` | `AG-00110` | identificador |
+| `AG-ROOT` | `AG-00990` | identificador |
+| `AG-XX` | `AG-XXXXX` | identificador |
+
+**Ningún archivo ni carpeta cambió de nombre.** Los quince renombres son de **identificador**, que es una de las naturalezas que §VI.4 declara, y **son el mapeo completo**: se lee al derecho para migrar y al revés para reconocer un destino con la forma vieja.
 
 **Secciones movidas o partidas**
 
@@ -54,7 +65,7 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
 ### Nota de coherencia
 
-`SDD/Devs/Guides/Coherencia-Renumeracion-AG.md`, conjunto resultante **12.0**. **Su barrido publica sus tres corridas y no sus recuentos**, y declara una corrección del propio alcance: la primera pasada **dejó afuera dos carpetas normativas** que el orquestador inyecta, y **lo detectó el barrido, no una auditoría posterior**.
+`SDD/Devs/Guides/Coherencia-Renumeracion-AG.md`, conjunto resultante **12.0**. **Su barrido publica tres corridas que devuelven cero**, con sus exclusiones adentro para que se puedan correr tal cual, y declara una corrección del propio alcance: la primera pasada **dejó afuera dos carpetas normativas** que el orquestador inyecta, y **lo detectó el barrido, no una auditoría posterior**.
 
 ## [11.2] - 2026-08-20
 
