@@ -3,7 +3,7 @@ doc_id: GUIDE-SDD-GETTING-STARTED
 doc_type: getting-started-guide
 title: SDD Getting Started Guide
 status: vigente
-version: 1.6
+version: 1.5
 origin: ai-assisted
 confidence: alta
 owner: Framework SDD
@@ -219,7 +219,6 @@ workspace/
         ├── PROMPTS/PROMPT-Agente-Bootstrap-SDD.md
         └── SDD/
             ├── Devs/  (Rules, Intake, Orchestrator, References, …)
-            ├── Conocimiento/  (catálogo de oficio; opcional, puede estar vacío)
             └── Guides/  (esta guía y la Guía de usuario)
 ```
 

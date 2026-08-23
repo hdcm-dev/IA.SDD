@@ -3,6 +3,48 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.1] - 2026-08-23
+
+**Tres versiones seguidas incorporaron la capa de conocimiento y ninguna guía la mencionaba.** El hueco estaba medido, no supuesto: antes de esta intervención, `grep -c "Rules-Base-Conocimiento\|Conocimiento/"` devolvía **0 en los cuatro documentos**. Las guías describían un framework que ya no era el publicado.
+
+**El reparto se hizo por audiencia, y es la decisión de fondo.** Un hecho contado cuatro veces con palabras distintas es el modo de falla propio de una actualización que toca cuatro documentos a la vez. El marco teórico da el **porqué**, la guía de desarrollo el **cómo se extiende**, la de usuario el **qué es y qué se puede hacer**, y la de arranque **que existe y se puede ignorar**.
+
+### Agregado — `SDD-Development-Guide.md` 1.25 → 1.26, §III.11
+
+**El eje de extensión de un documento de conocimiento, y es el único de los once que no toca una sola regla.** Se agrega el documento y su fila en el índice, y con eso alcanza: ninguna regla nombra un documento de conocimiento.
+
+Declara **la propiedad que no se puede romper** —el framework tiene que seguir funcionando con `Conocimiento/` vacía—, la ofuscación bloqueante por el mismo motivo que §III.6, las obligaciones de intervención que dispara, y que **`Conocimiento/` entra en el snapshot**. Escribe la **frontera con §III.6**: el criterio es **el origen**, no el parecido del resultado.
+
+### Agregado — `Marco-Teorico-SDD.md` 3.6 → 3.7, §8.7.1
+
+**El encuadre: método contra oficio.** SDD está fundado en metodologías ágiles y gestión, y su identidad es el proceso. Lo que casi no tiene, por diseño, es oficio —cómo se codea esto o aquello según la casa— y **no puede tenerlo dentro del conjunto normativo** sin dejar de servirle a la organización de al lado, que es lo que D7 protege.
+
+### Agregado — `SDD-User-Guide.md` 1.17 → 1.18, F-23.1
+
+Qué es `Conocimiento/` y en qué se diferencia de un modelo UX-UI, con la tabla que fija el criterio. Y **declara el estado real de cableado**: el catálogo se puede poblar, pero **citarlo desde el intake todavía no está cableado**. Se documenta lo que hay, no lo previsto: es lo que evita que alguien intente algo que no va a funcionar.
+
+### Cambiado — tres defectos previos que los chequeos mecánicos encontraron
+
+No tienen relación con la capa nueva y estaban desde antes:
+
+**Dos recuentos viejos.** `SDD-Development-Guide.md` §I.2 y `SDD-User-Guide.md` §4.4 declaraban dieciocho archivos normativos y seis transversales. Son **diecinueve y siete**.
+
+**Y uno peor: «los tres master-prompts», describiendo sólo dos.** `Master-Prompt-Reanudacion.md` existe y no figuraba en ninguna de las dos guías. Un lector que corría la verificación del árbol veía tres archivos donde la guía le describía dos — el mismo defecto que la 1.9 de la guía de usuario ya había corregido una vez al pasar de uno a dos master-prompts.
+
+**Dos falsos positivos declarados** para que no se vuelvan a levantar: `Rules-Observabilidad.md` es un ejemplo hipotético de un recorrido de extensión, y `devs/Rules/decisiones-D1-D8.md` es una fila histórica de control de cambios.
+
+### Por qué el conjunto sube 13.1
+
+**Es un minor.** Se ponen al día cuatro documentos de guía y no cambia ninguna regla, ninguna plantilla ni el comportamiento de ningún orquestador. Ningún documento generado deja de cumplir.
+
+### Impacto sobre destinos existentes
+
+**Ninguno.** Ningún destino tiene trabajo.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Guias-Capa-Conocimiento.md`, conjunto resultante **13.1**.
+
 ## [13.0] - 2026-08-23
 
 **La base de conocimiento se anexa al repositorio como `Conocimiento/`, y el modelo queda declarado.** El motivo es operativo y decide: `IA.SDD` es el repositorio **desde el que se lanza** el orquestador, de modo que la base tiene que viajar con lo que se clona en vez de tener que ser alcanzada. La versión anterior la ubicaba en un repositorio externo declarado en el intake.
