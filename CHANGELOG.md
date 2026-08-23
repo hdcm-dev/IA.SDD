@@ -3,6 +3,54 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.2] - 2026-08-23
+
+**El circuito de la capa de conocimiento queda cerrado.** Hasta la 13.1 el catálogo se podía **poblar** pero el orquestador **no lo consumía en una corrida**. Ahora se cita en el intake, se valida antes de la Fase A, se resuelve contra el índice y se inyecta en el despacho del consumidor que la fila declara.
+
+**Los dos pasos se hacen juntos y es deliberado.** Agregar la subsección de intake sin la mecánica de despacho dejaría un campo que el usuario llena y que no hace nada — peor que no tenerlo, porque la plantilla prometería una capacidad inexistente.
+
+**Todo lo agregado es aditivo y está condicionado.** Con `Conocimiento/` vacía o sin índice, los cuatro archivos se comportan exactamente como antes.
+
+### Agregado — `PRODUCT-INTAKE-template.md` 3.4 → 3.5, `§17.P.13`
+
+La puerta de entrada del catálogo a una corrida: una tabla de **alias**, con su motivo y su alcance, por proyecto de código. **Opcional, con `Ninguno` como valor válido.**
+
+Declara sus cuatro reglas, y dos importan más que las otras. **Un alias que no resuelve es bloqueante.** Y **citar un conocimiento cuya condición no dispara no es un apartamiento y no lleva ADR**: la condición del índice es un disparador por defecto, no una obligación, así que citar de más amplía el conjunto sin incumplir nada — `Root-Rules.md` §11 no aplica, y su propia cláusula lo respalda.
+
+Se agrega **al final del bloque repetible, sin renumerar** ninguna subsección existente.
+
+### Agregado — `Master-Prompt.md` 8.11 → 8.12, dos notas en §6 y una línea en §8
+
+La primera nota arma `{{LISTA_DOCUMENTOS_DE_CONOCIMIENTO}}` con la **unión de dos conjuntos**: las filas cuya condición de carga dispara, y las que el intake cita por alias. Cada documento se suma **únicamente** al despacho del **consumidor** que su fila declara —una categoría o un subagente de fase—, que es lo que evita que un alias citado termine inyectado en los doce despachos. El conjunto cargado y el motivo de cada documento van al log.
+
+La segunda fija la **precedencia**: el conocimiento es insumo **consultivo**, y ante conflicto manda la regla de categoría salvo sustitución declarada sobre un ítem rotulado como decisión de stack.
+
+**Ninguna nota operativa existente se tocó.** El catálogo de diseño de `References/Design/` se sigue resolviendo por las suyas y **no se funde** con este: uno está siempre y es normativo, el otro puede no existir y es consultivo.
+
+### Agregado — `Root-Rules.md` 8.3 → 8.4, `AG-00980`
+
+El bibliotecario de conocimiento, en el bloque `009xx` que la 12.0 reservó a los roles que no son de categoría. **No se acuña familia nueva**: `AG` ya existe. El identificador se verificó libre antes de acuñarlo. Su contrato vive en `Rules-Base-Conocimiento.md` §9 y esta regla lo **cita**, no lo duplica.
+
+### Cambiado — `Intake-Rules.md` 4.1 → 4.2
+
+§5 valida que **todo alias resuelva** contra el índice y contra una fila `Vigente`; §7 lo declara **bloqueante**. Corre en la validación previa a la Fase A y no en runtime, por el mismo criterio de costo que las demás: detectado ahí cuesta una corrección del intake, detectado en la Fase B cuesta la Fase A entera.
+
+### Por qué el conjunto sube 13.2 y no 14.0
+
+**Es un minor, y la plantilla de intake es la que lo decide** por `README.md`. Sube minor porque `§17.P.13` se agregó al final del bloque repetible **sin renumerar** nada: **ningún intake escrito contra la 3.4 deja de cumplir**, porque la subsección nueva es opcional y admite `Ninguno`.
+
+### Impacto sobre destinos existentes
+
+**Ninguno.** Un destino generado con la 13.1 no tiene trabajo: la subsección es opcional y su ausencia no bloquea. Un intake existente puede sumarla cuando quiera aplicar conocimiento.
+
+### Pendiente declarado
+
+`SDD-User-Guide.md` 1.18 dice, en F-23.1, que citar el catálogo desde el intake «todavía no está cableado». **Desde esta versión sí lo está**, y esa frase queda mintiendo. Se corrige en la próxima intervención sobre guías.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Cita-De-Conocimiento.md`, conjunto resultante **13.2**.
+
 ## [13.1] - 2026-08-23
 
 **Tres versiones seguidas incorporaron la capa de conocimiento y ninguna guía la mencionaba.** El hueco estaba medido, no supuesto: antes de esta intervención, `grep -c "Rules-Base-Conocimiento\|Conocimiento/"` devolvía **0 en los cuatro documentos**. Las guías describían un framework que ya no era el publicado.
