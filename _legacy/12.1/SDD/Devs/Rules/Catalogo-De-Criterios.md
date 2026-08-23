@@ -2,9 +2,9 @@
 
 **Framework:** SDD
 **Documento:** Catalogo-De-Criterios.md
-**Versión:** 1.13
+**Versión:** 1.12
 **Estado:** Vigente
-**Fecha:** 2026-08-23
+**Fecha:** 2026-08-17
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
 **Lector:** todo agente que enfrenta una situación y necesita saber qué criterio del método la resuelve
 
@@ -15,9 +15,9 @@
 **Es un índice, no una regla.** No define ningún criterio: dice **dónde vive cada uno** y **qué
 decide**. Todo criterio sigue viviendo en su archivo, con su fundamento y su historia.
 
-**Existe porque los criterios estaban y no se podían encontrar.** El método tiene 208 situaciones
+**Existe porque los criterios estaban y no se podían encontrar.** El método tiene 202 situaciones
 catalogadas en tablas de anti-patrones, umbrales numéricos, salidas con condición de elección y reglas
-de resolución, repartidas en diecinueve archivos de reglas y tres orquestadores, **sin ningún punto de
+de resolución, repartidas en dieciocho archivos de reglas y tres orquestadores, **sin ningún punto de
 entrada**. Un agente que enfrenta una situación tenía que haberlos leído todos para saber que existían.
 
 **No reemplaza la lectura de la regla.** Un criterio aplicado desde el índice, sin abrir su sección, se
@@ -67,10 +67,6 @@ aplica sin su fundamento — y el fundamento es lo que permite reconocer cuándo
 | El evento que cierra un diferimiento **ya ocurrió** | Si sigue abierto, es hallazgo y de qué nivel | `Root-Rules.md` §12.2, tabla de escalamiento |
 | El intake no permite derivar el manifiesto | Qué detiene la cadena | [`Intake-Rules.md`](../Rules/Intake-Rules.md) §4 |
 | Se intervino el framework y hay que versionarlo | Qué bump corresponde | [`SDD-Development-Guide.md`](../../Guides/SDD-Development-Guide.md) §VI.1 y §VI.5 |
-| Hay conocimiento sobre **un artefacto que el framework no gobierna** y se lo quiere reutilizar | Si va a la base de conocimiento o es una regla mal ubicada | [`Rules-Base-Conocimiento.md`](../Rules/Rules-Base-Conocimiento.md) §0.1 |
-| Un documento de conocimiento **contradice** algo que el framework fija | Si es **sustitución** —el ítem está rotulado como decisión de stack— o **desviación justificada**, en cuyo caso manda la regla | `Rules-Base-Conocimiento.md` §0.3 y §0.4 |
-| Hay que **nombrar** un conocimiento para poder citarlo desde el intake | Qué alias le corresponde, y qué pasa si colisiona con el catálogo del framework | `Rules-Base-Conocimiento.md` §3.2 |
-| Un subagente necesita un procedimiento específico que **sus insumos no cubren** | Si lo pide, a quién, y qué recibe | `Rules-Base-Conocimiento.md` §9, contrato de AG-00980 |
 | El barrido de una intervención deja residuo que su autor sabe legítimo | Si la exclusión se escribe a mano o **se cita** | `SDD-Development-Guide.md` §VI.3.2, **siete clases estables** |
 | Se cambió un concepto en el framework | Cómo se barre y con qué residuo aceptable | `SDD-Development-Guide.md` §VI.3.1 y §VI.3.2 |
 | Una intervención nace de un origen con criterios de aceptación | Si se puede declarar resuelto, y qué se le devuelve al origen | `SDD-Development-Guide.md` §VI.3 comprobación 13 |
@@ -103,9 +99,8 @@ esta versión cada uno lleva su **marca de detección**: `[enumerable]` si un gu
 | [`Rules-Necesidades-Negocio.md`](../Rules/Rules-Necesidades-Negocio.md) | 8 | 4 | 4 |
 | [`Rules-Plan-Sprint.md`](../Rules/Rules-Plan-Sprint.md) | 11 | 7 | 4 |
 | [`Rules-Prompts-AI.md`](../Rules/Rules-Prompts-AI.md) | 10 | 7 | 3 |
-| [`Rules-Base-Conocimiento.md`](../Rules/Rules-Base-Conocimiento.md) | 6 | 3 | 3 |
 | [`Rules-UX-UI-DX.md`](../Rules/Rules-UX-UI-DX.md) | 25 | 12 | 13 |
-| **Total** | **208** | **100** | **108** |
+| **Total** | **202** | **97** | **105** |
 
 **La marca no es decorativa: la consume la compuerta.** Desde la 9.13, `Master-Prompt.md` §10.0 toma como parte de su conjunto de reglas **los anti-patrones `[enumerable]` de la regla de la categoría en curso**, y los evalúa antes de que el audit interprete nada. Los `[interpretativo]` quedan para el audit y para el humano.
 
@@ -183,7 +178,6 @@ regla—. Lo que no corresponde adoptar es la **infraestructura** de DMN, no su 
 | 1.0 | 2026-08-17 | Emisión inicial. Índice de **202 situaciones** catalogadas y **22 criterios** de decisión repartidos en dieciocho reglas y tres orquestadores, que existían **sin punto de entrada**. Las tablas de anti-patrones suman su **marca de detección** `[enumerable]` / `[interpretativo]`, reusando la clasificación que el método ya aplicaba a los criterios de aceptación. |
 | 1.1 | 2026-08-17 | **§4.1 nueva: la política de coincidencia**, que el método no declaraba. La tabla de §3 es **única** —dos criterios para una situación son un defecto del catálogo— y la de §4 es **acumulativa** —varios anti-patrones alcanzan al mismo documento y todos sus remedios aplican—. Cuando dos criterios difieren, es la **detención por arbitraje** de `Master-Prompt.md` §7.0, que ya existe: no se estrena mecanismo. **§5 corrige el fundamento sobre DMN**: separa sus tres piezas y declara que **la representación nunca fue el obstáculo** —una tabla de decisión se expresa en Markdown sin pérdida—; lo que no se adopta es la serialización XML y el motor, porque acá el motor es el agente que lee. |
 | 1.2 | 2026-08-17 | §4 declara que la marca `[enumerable]` **la consume la compuerta mecánica** de `Master-Prompt.md` §10.0 desde la 9.13, y no sólo documenta quién decide. |
-| 1.13 | 2026-08-23 | Entra `Rules-Base-Conocimiento.md` por la comprobación 12 de `SDD-Development-Guide.md` §VI.3 —**quien toca, registra**—. §3 suma **cuatro criterios**: dónde va el conocimiento sobre un artefacto que el framework no gobierna, cómo se resuelve que un documento de conocimiento contradiga al framework —**sustitución** si el ítem está rotulado como decisión de stack, **desviación justificada** si no, y ahí manda la regla—, cómo se acuña el alias citable y su colisión con el catálogo del framework, y qué hace un subagente que necesita un procedimiento que sus insumos no cubren. §4 suma la fila de la regla nueva con sus **6 situaciones**: el total pasa de **202 a 208**, `[enumerable]` de 97 a 100 e `[interpretativo]` de 105 a 108. El recuento de §1 pasa de dieciocho a **diecinueve** archivos de reglas. |
 | 1.3 | 2026-08-18 | Corrección de recuento encontrada por el **barrido por concepto** (`SDD-Development-Guide.md` §VI.3.1): la fila de §3 decía «las **once** comprobaciones» y §VI.3 tiene **doce** desde la 9.10. El catálogo indexa por situación y **su valor depende de que el puntero sea exacto**: un índice que manda a once comprobaciones cuando hay doce enseña a no contarlas. |
 | 1.4 | 2026-08-18 | §3 suma la situación **«se escribe una regla nueva a partir de un caso observado»**, que la Parte IV de `SDD-Development-Guide.md` incorporó en la 9.18. Es la comprobación **12** de §VI.3 funcionando: un criterio nuevo entra al índice en la misma intervención que lo crea. |
 | 1.5 | 2026-08-18 | §3 suma dos situaciones que la 9.19 incorporó: **«apareció un hallazgo y no se sabe si detener o resolverlo»**, que resuelve la pregunta previa de §8.1, y **«hay que encargarle una verificación a un auditor»**, que resuelven las tres partes del encargo de §10. |

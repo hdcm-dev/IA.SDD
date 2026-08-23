@@ -26,7 +26,7 @@ Hay **una sola excepción** a la regla de que un orquestador no escribe en este 
 
 | Ruta | Qué contiene |
 | --- | --- |
-| [`SDD/Devs/Rules/`](SDD/Devs/Rules/) | Los diecinueve archivos de reglas constructivas: uno por categoría documental más siete transversales. Es el corazón normativo del framework |
+| [`SDD/Devs/Rules/`](SDD/Devs/Rules/) | Los dieciocho archivos de reglas constructivas: uno por categoría documental más seis transversales. Es el corazón normativo del framework |
 | [`SDD/Devs/Orchestrator/`](SDD/Devs/Orchestrator/) | Los dos master-prompts. El de **generación** despacha subagentes por fase, con auditoría entre fases y confirmación humana en cada corte. El de **migración normativa** lleva un destino ya especificado a la versión vigente del framework, y cita el despacho y la auditoría del primero en lugar de redefinirlos |
 | [`SDD/Devs/Intake/`](SDD/Devs/Intake/) | Plantillas de carga inicial: `PRODUCT-INTAKE-template.md` que completa el usuario y `PRODUCT-MANIFEST-template.md` que deriva el orquestador |
 | [`SDD/Devs/Guides/`](SDD/Devs/Guides/) | Guías internas del framework: el marco teórico y las notas de coherencia de auditoría |
@@ -140,7 +140,7 @@ La formulación actual elimina la duplicidad en lugar de parchearla. Un solo arc
 | Agregar un artefacto a una categoría, un anti-patrón o un criterio de aceptación | Subir **minor** del archivo de reglas, con fila nueva en su §9 control de cambios |
 | Cambiar el gating de una categoría por tipo D8, o el conjunto de artefactos que produce | Subir **major** del archivo de reglas. La documentación ya generada con la versión anterior deja de cumplir |
 | Agregar una categoría documental o una fase al orquestador | Subir **major** del archivo afectado, y actualizar el master-prompt, `Root-Rules.md` y la guía de usuario en la misma intervención |
-| Modificar una invariante D1 a D9 | Es el cambio de mayor impacto del framework: alcanza a los diecinueve archivos de reglas, a los dos orquestadores y a toda la documentación ya emitida. Requiere decisión explícita del responsable y nota de coherencia |
+| Modificar una invariante D1 a D9 | Es el cambio de mayor impacto del framework: alcanza a los dieciocho archivos de reglas, a los dos orquestadores y a toda la documentación ya emitida. Requiere decisión explícita del responsable y nota de coherencia |
 | **Cambiar un concepto** —el nivel del que cuelga un artefacto, el dueño de un campo, un conjunto cerrado, un término normativo— | **Barrido por concepto** antes de cerrar: enumerar el término en **todo el árbol**, sin filtrar por el alcance declarado, e **incluir el interior de los archivos ya tocados**. Las apariciones que se dejan se declaran con su motivo. El procedimiento y los tres casos que lo produjeron están en [`SDD-Development-Guide.md`](SDD/Guides/SDD-Development-Guide.md) §VI.3.1 |
 | Cualquier intervención sobre varios archivos | Emitir una nota de coherencia siguiendo el patrón de [`Coherencia-Auditoria-Marco.md`](SDD/Devs/Guides/Coherencia-Auditoria-Marco.md): alcance, inventario, verificación de invariantes, trazabilidad, observaciones y veredicto |
 | Publicar una versión nueva del framework | Entrada en el [`CHANGELOG.md`](CHANGELOG.md) y copia del conjunto normativo superado en [`_legacy/<version>/`](_legacy/), en la misma intervención. La versión del conjunto se deriva de la mayor severidad de sus partes: major si alguna regla **o alguna plantilla de intake** sube major, o se toca una invariante; minor si alguna sube minor; patch si no cambia ninguna regla |
