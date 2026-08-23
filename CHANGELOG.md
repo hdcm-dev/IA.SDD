@@ -3,19 +3,31 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
-## [12.0] - 2026-08-22
+## [12.0] - 2026-08-23
 
 **La familia `AG` nunca cumplió el ancho de cinco dígitos que `Root-Rules.md` §9.2 exige, y estaba excluida con motivo escrito**: *«no cataloga un elemento de una colección de un producto»*. El motivo era correcto y dejaba una consecuencia sin nombrar — **el framework no tenía forma de nombrarse a sí mismo**, y sus roles se citaban con una forma que su propia regla prohíbe.
 
 **Esta versión la hace cumplir y recién entonces la declara alcanzada.** Ese orden es el objeto de la intervención: **dos intentos anteriores sobre el mismo objeto se retiraron tras cinco rondas de auditoría** por hacerlo al revés — declarar la regla aplicable sin producir el mapeo que la hace cumplible, con lo cual el corpus pasaba a incumplirse a sí mismo en cientos de lugares el mismo día.
 
-**Rige hacia adelante:** ningún documento emitido se reaudita por esta versión.
+**Rige hacia adelante** (`SDD-Development-Guide.md` §III.7 paso 3): **ningún documento emitido se reaudita** por esta versión. Eso responde al paso 3 —hacia adelante o retroactivamente— y **no es la opción 3 de §VI.4**: no se congela nada.
 
-### Cambiado — `Root-Rules.md` 7.1 → 8.0, §9.1, §9.2 y §10
+**La opción de §VI.4 es la 1, regeneración parcial**, reducida a su mínimo: **una cita, en un archivo**. `Migracion-Rules.md` §4.3.1 declara que **una migración de destino no renumera la familia** —la renumera el framework— y que el destino **sólo reemplaza la cita en su mapa de documentación**. El destino actúa **cuando corre la migración normativa del salto**, que es el momento que ese árbol ya fija; no hay un momento nuevo que aprender.
+
+**Modifica la invariante `D3`** (§III.7 paso 5). D3 pasa de *«son únicos en el producto»* a *«son **únicos en su ámbito declarado**»*, con los dos ámbitos de §9.1 que **no colisionan en numeración** y **sí se citan a través de la frontera**. Es lo que habilita que el framework se nombre a sí mismo sin invadir el espacio del producto. El impacto sobre lo ya emitido es el del bloque de más abajo: **ningún nombre de archivo cambia** —D3 gobierna también los nombres, y ese tramo de D3 queda intacto—, y lo único alcanzado es la **cita del rol** en el mapa de documentación.
+
+### Cambiado — `Root-Rules.md` 7.1 → 8.2, §9.1, §9.2 y §10
 
 **§9.1 declara dos ámbitos** —el **producto** y el **conjunto normativo vigente**— y **cómo se relacionan**: **no colisionan en numeración**, y **sí se citan a través de la frontera**. Un artefacto del destino nombra roles del framework en su mapa de documentación, y **esa cita sólo resuelve si el identificador está bien formado**, que es lo que §10 **R5** exige. **Que se lo cite desde afuera es el motivo del ámbito propio, no un argumento en contra.** `_legacy/` queda fuera del espacio de candidatos de los dos.
 
-**§9.2 enumera `AG` entre las familias alcanzadas** —cuando ya cumple el ancho, no antes— y su tabla de exclusiones **suma `FA-NN`**, el flujo alternativo, que es una **posición dentro de un documento** como el ordinal de iteración. **§10 R5** pasa de «único en el producto» a «único en su ámbito».
+**§9.2 enumera `AG` entre las familias alcanzadas** —cuando ya cumple el ancho, no antes— y **declara su titularidad y sus bloques** en tabla propia, para que no vivan sólo en la nota de la intervención que los creó. **§10 R5** pasa de «único en el producto» a «único en su ámbito».
+
+**Su tabla de exclusiones suma tres familias vivas que estaban sin clasificar**, y §9.5 exige que toda familia lo esté: `FA-NN`, el flujo alternativo; **`CA-NN`**, el criterio de aceptación, **gemelo de `FA-NN`** —misma regla, tablas contiguas, y el motivo escrito para una le aplica a la otra sin cambiar una palabra—; y **`PASO-N`**, un ordinal de secuencia. Las tres son **posiciones dentro de un documento** y no catalogan elementos de una colección.
+
+**Y el enunciado de §9.1 queda acotado a lo que §9.2 cubre.** Decía «los roles del framework» mientras la familia alcanza a los del **catálogo de especialidades** y a los **subagentes de fase**: **el orquestador y el auditor quedaban prometidos y no cubiertos**. Que tomen identificador propio es un ítem diferido, no una omisión de esta versión.
+
+**§9.2 declara además el marcador de plantilla `<PREFIJO>-XXXXX`** —`US-XXXXX`, `NB-XXXXX`, `AG-XXXXX`—, que el corpus ya usaba **sin que ninguna regla lo escribiera**. **No es un identificador y no se le exige la forma.** La `8.1` lo agrega junto con quitarle a `FA-NN` la atribución de ámbito, que contradecía a §9.1: **una familia excluida no toma ninguno de los dos**.
+
+**`Migracion-Rules.md` 3.15 → 3.19** en el mismo salto: su §4.3.1 declara que la renumeración de una familia del conjunto normativo **la hace el framework y no el destino**, y acota el trabajo del destino a reemplazar la cita.
 
 ### Cambiado — la familia `AG`
 
@@ -45,9 +57,10 @@ El orden de reemplazo va de más específico a más general: al revés, `AG-03` 
 | `AG-10` | `AG-00100` | identificador |
 | `AG-11` | `AG-00110` | identificador |
 | `AG-ROOT` | `AG-00990` | identificador |
-| `AG-XX` | `AG-XXXXX` | identificador |
 
-**Ningún archivo ni carpeta cambió de nombre.** Los quince renombres son de **identificador**, que es una de las naturalezas que §VI.4 declara, y **son el mapeo completo**: se lee al derecho para migrar y al revés para reconocer un destino con la forma vieja.
+**Ningún archivo ni carpeta cambió de nombre.** Los **catorce** renombres son de **identificador** —una de las cuatro naturalezas que §VI.4 declara— y **son el mapeo completo de la familia**: se lee al derecho para migrar y al revés para reconocer un destino con la forma vieja.
+
+**Dos reescrituras de marcador, que no van en esta tabla y por eso se declaran acá.** `AG-XX → AG-XXXXX` y `RB-XX → RB-XXXXX` **no son renombres de identificador**: §9.2 dice del marcador de plantilla que **«no es un identificador y no se le exige la forma»**, y §VI.4 admite cuatro naturalezas —archivo, carpeta, identificador, campo— entre las que no hay ninguna que le corresponda. Meterlas en la tabla las declararía identidad, que es exactamente lo que esta versión niega. **Un destino no tiene trabajo por ellas**: un marcador es el hueco que un documento deja para el identificador que sí lo es, y no viaja a ningún artefacto emitido. `RB` queda alcanzado por el «y equivalentes» de §9.2 —un runbook cataloga elementos de una colección del producto—, así que **la forma nueva es la aplicación de la regla del marcador a una segunda familia**, y se registra por eso.
 
 **Secciones movidas o partidas**
 
@@ -59,9 +72,11 @@ El orden de reemplazo va de más específico a más general: al revés, `AG-03` 
 
 | Documento | Campo | Regla que lo exige |
 | --- | --- | --- |
-| `SDD/Docs/README.md` del destino, **si su mapa de documentación declara responsable** | El identificador del rol, **con la forma nueva** | `Root-Rules.md` §9.2, ahora que la familia `AG` está alcanzada. La comprobación 4 de `Master-Prompt.md` §10.0 lo verifica |
+| `SDD/Docs/README.md` del destino | El identificador del rol en la columna **Responsable** de su mapa de documentación, **con la forma nueva** | `Root-Rules.md` §9.2, ahora que la familia `AG` está alcanzada. La comprobación 4 de `Master-Prompt.md` §10.0 lo verifica |
 
-**Qué migración obliga, y cuál no.** **Un destino cuyo `README.md` no declara responsable no tiene trabajo**: §4.2 punto 4 **no exige esa columna** — la muestra el ejemplo de §7.1. **Un destino que sí la declara reemplaza `AG-NN` por su forma nueva**, con el mapeo de arriba, que **se lee al revés sin ambigüedad**. Es una sustitución mecánica en un solo archivo.
+**Qué migración obliga, y a quién.** **Alcanza a todo destino conforme, y no a un subconjunto.** `Root-Rules.md` **§4.4** dice que *«el documento **debe** usar las siguientes tablas estandarizadas»*, y la **Tabla A** —el mapa de documentación— declara el encabezado `| Sección | Propósito | Responsable | Enlace |`. **§4.5** lo refuerza con un anti-patrón marcado `[enumerable]`: *«README sin tabla de unidades de entrega ni enlaces… Incluir la tabla de unidades de entrega **y la Tabla A**»*. **La columna «Responsable» es obligatoria**: un destino que no la tenga no está conforme por un motivo anterior a esta versión, y no por eso queda exento.
+
+**El trabajo es el mismo para todos y es mínimo:** reemplazar la cita del rol por su forma nueva, con el mapeo de arriba, que **se lee al revés sin ambigüedad**. **Una sustitución mecánica, en un solo archivo, por unidad de entrega.**
 
 ### Nota de coherencia
 

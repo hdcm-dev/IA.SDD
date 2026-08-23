@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-00990)
-**Versión de las reglas:** 8.1
+**Versión de las reglas:** 8.2
 
 ---
 
@@ -391,7 +391,7 @@ Todo identificador declara en qué ámbito es único. **Hay dos, y cada familia 
 | Ámbito | Qué cataloga | Ejemplo |
 |---|---|---|
 | **El producto** | Los elementos de las colecciones que el framework **genera** | Un `CU-00014` es uno solo en todo el producto, cualquiera sea la cantidad de unidades de entrega que lo componen |
-| **El conjunto normativo vigente** | Los roles del framework | Un `AG-00030` es uno solo en la versión publicada del conjunto |
+| **El conjunto normativo vigente** | Los roles del **catálogo de especialidades** y los **subagentes de fase** | Un `AG-00030` es uno solo en la versión publicada del conjunto |
 
 **Cómo se relacionan, y no es «no se tocan».** **No colisionan en numeración**: ninguna familia del
 framework compite por rango con una del producto. **Y sí se citan a través de la frontera** —el ejemplo
@@ -480,11 +480,14 @@ Que la salida sea una y esté declarada es el punto. Lo que producía el daño n
 techo: era que cada agente eligiera una salida distinta sin ningún criterio del método para preferir
 una, y que dos corridas del mismo framework produjeran líneas de base incomparables.
 
-**Las dos exclusiones, con su motivo:**
+**Las exclusiones, con su motivo.** §9.5 exige que toda familia viva quede clasificada: alcanzada o
+excluida. Las cuatro que siguen son las excluidas.
 
 | Excluida | Por qué |
 | --- | --- |
 | `FA-NN` | Designa un **flujo alternativo dentro del caso de uso que lo contiene** (`Rules-Especificacion-Funcional.md` §3.2). Es una **posición dentro de un documento**, como el ordinal de iteración: **no cataloga un elemento de una colección**, y por eso queda fuera del sistema. **Una familia excluida no toma ámbito de §9.1**: los dos ámbitos son de las familias alcanzadas |
+| `CA-NN` | Designa un **criterio de aceptación dentro del caso de uso o la historia que lo contiene** (`Rules-Especificacion-Funcional.md` §3.2). Le aplica **sin cambiar una palabra** el motivo de `FA-NN`, con el que comparte regla y tablas contiguas: es una **posición dentro de un documento** y **no cataloga un elemento de una colección** |
+| `PASO-N` | Designa un **paso dentro del procedimiento que lo contiene** (`SDD-Getting-Started-Guide.md`). Es un **ordinal de secuencia**, del mismo orden que el ordinal de iteración: su referente es la posición en un recorrido, no un elemento catalogado |
 | El ordinal de iteración (`Sprint-XX`, `S0` a `S9`) | Es una posición de calendario que el roadmap de la categoría 00 numera, no un identificador de catálogo. Su referente es una ventana de tiempo del producto |
 
 ### 9.3 Estabilidad y capacidad, enunciadas juntas
@@ -789,3 +792,4 @@ correcta y no se podía sostener con una cita. Esta sección la funda hacia atr�
 | 7.1 | 2026-08-21 | **§13 nueva, precedencia entre reglas, con un solo criterio**, y el control de cambios pasa a §14. El corpus no declaraba **ningún criterio para resolver un conflicto entre dos reglas**, y `Master-Prompt.md` §8.1 exige **cita literal** para que algo sea trabajo propio: sin criterio, el agente no podía sostener ninguna resolución y **todo conflicto caía en la detención por arbitraje sin que nadie lo hubiera decidido**. El criterio es **viaja o no viaja en la lista de insumos de todo despacho**, un hecho del árbol que se contesta abriendo §8. **Se evaluaron dos criterios más —especificidad y fecha— y se descartaron con motivo**: ninguno tenía caso medido y los dos producían resoluciones falsas. Si el criterio no decide, se detiene por §7.0. Funda hacia atrás la resolución de `Rules-Prompts-AI.md` §4.2 punto 9 contra §12.2, aplicada en la 11.0 sin cita posible. **§10 se reescribe además sin contar sus propias reglas** —decía «las cuatro» y son cinco desde que entró R5—, que es R1 aplicada a sí misma. Sube **minor**: agrega un criterio de resolución y ningún documento generado deja de cumplir. |
 | 8.0 | 2026-08-22 | **La familia `AG` entra al sistema de identificadores y se renumera al ancho de cinco dígitos.** Hasta acá §9.2 la excluía con motivo escrito —«no cataloga un elemento de una colección de un producto»—, y el motivo era correcto: dejaba al framework **sin forma de nombrarse a sí mismo**, que es lo que §10 **R5** declara que no es identidad. **§9.1 declara dos ámbitos** —el producto y el conjunto normativo vigente— y **cómo se relacionan**: no colisionan en numeración, **y sí se citan a través de la frontera**, que es el motivo del ámbito propio y no un argumento en contra. **`_legacy/` queda fuera del espacio de candidatos de los dos.** §9.2 **enumera `AG`** entre las familias alcanzadas —ya cumple el ancho cuando se la declara, no antes— y su tabla de exclusiones **suma `FA-NN`**, el flujo alternativo, que es una **posición dentro de un documento** como el ordinal de iteración. §10 R5 pasa de «único en el producto» a «único en su ámbito». Sube **major**: un `SDD/Docs/README.md` emitido antes **publica `AG-00` en su mapa de documentación** y deja de cumplir la comprobación 4 de `Master-Prompt.md` §10.0. |
 | 8.1 | 2026-08-23 | **§9.2 declara el marcador de plantilla `<PREFIJO>-XXXXX`**, que el corpus ya usaba en `US-XXXXX`, `NB-XXXXX` y `AG-XXXXX` **sin que ninguna regla lo escribiera**: no es un identificador y no se le exige la forma. Y la fila de `FA-NN` **deja de atribuirle un ámbito**: §9.1 declara **dos**, y los dos son de las familias **alcanzadas** — una familia excluida no toma ninguno. Las dos las levantó la cuarta ronda de auditoría, la segunda como daño que la reemisión anterior había introducido. Sube **minor**: declara una convención en uso y quita una atribución que contradecía a §9.1. |
+| 8.2 | 2026-08-23 | **Dos familias vivas quedaban sin clasificar**, y §9.5 exige que toda familia lo esté: `CA-NN` —el criterio de aceptación de `Rules-Especificacion-Funcional.md` §3.2— y `PASO-N`. `CA-NN` es **gemela de `FA-NN`**: misma regla, tablas contiguas, y el motivo escrito para `FA-NN` le aplica sin cambiar una palabra —es una **posición dentro de un documento** y no cataloga un elemento de una colección—. `PASO-N` es un **ordinal de secuencia**, del mismo orden que el ordinal de iteración. Las dos entran a la tabla de exclusiones. Y **§9.1 decía «los roles del framework»** mientras §9.2 sólo alcanza a los del catálogo de especialidades y a los subagentes de fase: **el orquestador y el auditor quedaban prometidos y no cubiertos**. El enunciado se acota a lo que §9.2 cubre. Lo levantó la sexta ronda. Sube **minor**: clasifica familias que ya existían y acota un enunciado que prometía de más. |

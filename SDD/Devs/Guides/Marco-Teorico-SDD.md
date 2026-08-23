@@ -1,9 +1,9 @@
 # Marco Teórico SDD
 
 **Documento:** Marco-Teorico-SDD.md
-**Versión:** 3.5
+**Versión:** 3.6
 **Estado:** Aprobado
-**Fecha:** 2026-07-19
+**Fecha:** 2026-08-23
 **Autor:** Equipo Template SDD — UTN
 **Audiencia:** estudiantes universitarios (UTN), docentes, profesionales que adopten el template
 **Idioma:** español rioplatense neutro técnico
@@ -732,7 +732,7 @@ El Sprint 0 es el sprint conceptual previo al primer sprint productivo. No es un
 |---|---|---|
 | Visión del producto | AG-00000 | Aprobada |
 | Alcance + exclusiones | AG-00000 | Aprobado |
-| Necesidades de negocio (NB-00001..NB-N) | AG-00010 | Versionadas |
+| Necesidades de negocio (NB-00001..NB-XXXXX) | AG-00010 | Versionadas |
 | Casos de uso prioritarios (Must Have) | AG-00020 | Versionados, con criterios Given/When/Then |
 | Arquitectura del producto (alto nivel) | AG-00050 | Diagrama C4 nivel 1 (contexto) y nivel 2 (contenedores) |
 | ADRs iniciales (D1..D8 + decisiones técnicas fundacionales) | AG-00050 | Aprobados |
@@ -1971,3 +1971,4 @@ W3C. (2024). *ARIA — Accessible Rich Internet Applications*. https://www.w3.or
 | 3.3 | 2026-08-16 | Barrido retroactivo del concepto de la 8.0. §3.9 describía la consolidación de producto con **una** vista de un solo eje y los artefactos publicables **por proyecto de código**: pasa a los **dos** grafos con su matriz de composición, y a la publicación **por unidad de entrega**. |
 | 3.4 | 2026-08-18 | El ancla del índice a §3 arrastraba un sufijo `-21` de una conversión y no resolvía. Encontrada por la **verificación de anclas internas** que la 9.19 incorpora a `Migracion-Rules.md` §6, en su primera corrida sobre el propio framework. |
 | 3.5 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
+| 3.6 | 2026-08-23 | La tabla del Sprint 0 escribía el rango de necesidades como `NB-00001..NB-N`, y **`NB-N` es la forma que `Root-Rules.md` §9.2 reserva a las familias excluidas**, con `NB` alcanzada. Pasa a `NB-00001..NB-XXXXX`, el marcador que §9.2 declara. Lo levantó la sexta ronda. Sube **minor**: corrige una forma sin cambiar ningún enunciado. |

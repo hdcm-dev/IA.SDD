@@ -2,8 +2,8 @@
 
 ```yaml
 Documento: Guia-Usuario-SDD.md
-Versión: 1.16
-Fecha: 2026-08-22
+Versión: 1.17
+Fecha: 2026-08-23
 Audiencia: profesionales y estudiantes que usan el template para un producto real
 Idioma: español rioplatense neutro técnico
 Estado: vigente
@@ -1285,8 +1285,9 @@ Pasos:
 2. Definí la especialidad base (por ejemplo, "Site Reliability Engineer Senior") y las variantes por tipo D8.
 3. Listá los documentos a producir: `Estrategia-Observabilidad.md`, `Dashboards.md`, `Alertas.md`, `runbooks/RB-XXXXX-<Nombre>.md`, `README.md`.
 4. Actualizá `../IA.SDD/SDD/Devs/Orchestrator/Master-Prompt.md` §6 (plan de generación por categoría) para incluir la nueva categoría. Subí minor del master-prompt.
-5. Decidí en qué fase entra (si es transversal, queda como fase F o G; si es post-DevOps, queda como fase F2 nueva).
-6. Probá el flujo completo con una unidad de entrega piloto.
+5. **Acuñá el identificador del rol titular** de la categoría: `AG-00NN0`, donde `NN` es el número de la carpeta —para `12-Observabilidad/`, `AG-00120`—. La titularidad y los bloques están en `../IA.SDD/SDD/Devs/Rules/Root-Rules.md` §9.2, y §9.5 exige que toda familia declare el suyo: **una categoría sin titular acuñado deja a su especialidad sin forma de ser citada** desde el mapa de documentación del destino. Si la categoría suma subagentes de fase, van al bloque `00NN1` a `00NN9`.
+6. Decidí en qué fase entra (si es transversal, queda como fase F o G; si es post-DevOps, queda como fase F2 nueva).
+7. Probá el flujo completo con una unidad de entrega piloto.
 
 Tiempo estimado: medio día para la definición, otro medio día para la prueba.
 
@@ -1709,6 +1710,7 @@ Esta guía de usuario está distribuida en 10 capítulos completos según la est
 | 1.14 | 2026-08-16 | El árbol de ejemplo del capítulo 5 mostraba `Arquitectura-Proyecto-Codigo.md`, nombre que la regla de la categoría 05 ya había cambiado a `Arquitectura-Unidad-Entrega.md`. |
 | 1.15 | 2026-08-16 | El campo del manifiesto pasa a **«Unidad de entrega principal»** en el capítulo 5 y en el glosario, **cuya definición ya decía «la unidad de entrega cabeza del producto»**: la definición se había migrado en la 8.0 y el término no. |
 | 1.16 | 2026-08-22 | **La renumeración de `AG` al ancho de cinco dígitos** (framework 12.0), y **el glosario deja de declarar un solo ámbito**: decía que todo identificador es «único en el producto» y que `AG` queda **fuera** del sistema. Desde la 12.0 hay **dos ámbitos** y `AG` pertenece al del conjunto normativo. Sube **minor**: corrige una declaración de la cara al usuario sin cambiar ningún procedimiento. |
+| 1.17 | 2026-08-23 | **El procedimiento de alta de categoría de §7.1 no acuñaba el identificador del rol titular.** Con `AG` alcanzada, una categoría nueva sin su `AG-00NN0` deja a su especialidad **sin forma de ser citada** desde el mapa de documentación del destino, que es lo que §9.5 exige y lo que la comprobación 4 de `Master-Prompt.md` §10.0 verifica. Entra el paso, con el bloque `00NN1` a `00NN9` para los subagentes de fase. Y se registra que la emisión anterior reescribió `runbooks/RB-XX-` como `RB-XXXXX-` **sin declararlo**: la reescritura es correcta —`RB` está alcanzada por el «y equivalentes» de §9.2— y **pasó por el hueco de una comprobación 7 tautológica**. Lo levantó la sexta ronda. Sube **minor**. |
 
 ---
 
