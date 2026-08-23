@@ -3,6 +3,46 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.0] - 2026-08-23
+
+**La base de conocimiento se anexa al repositorio como `Conocimiento/`, y el modelo queda declarado.** El motivo es operativo y decide: `IA.SDD` es el repositorio **desde el que se lanza** el orquestador, de modo que la base tiene que viajar con lo que se clona en vez de tener que ser alcanzada. La versión anterior la ubicaba en un repositorio externo declarado en el intake.
+
+**El desacoplamiento no se pierde: se declara mejor.** No era privacidad ni ubicación. Es que **el framework corre con la carpeta vacía y su comportamiento base no cambia cuando se llena**, porque ninguna regla nombra un documento de conocimiento y lo único que el framework fija es el contrato del índice. **El mecanismo de extensión es el fork**: quien quiera su base forkea, agrega sus documentos y se lleva el método intacto.
+
+**Es la propiedad a preservar en todo cambio posterior.** Si algún día el framework deja de funcionar con `Conocimiento/` vacía, la capacidad dejó de ser una extensión y pasó a ser parte del método.
+
+### Agregado — `Conocimiento/`
+
+La carpeta, su `README.md` 1.0, su `Index-Knowledge.md` 1.0 y el primer documento del catálogo, `Clean-Architecture-DataManager`: una variante de Clean Architecture con capa de datos por DataManager sobre ADO.NET, sin ORM. Es `canonico`, de modo que **escribe el delta y no reexplica el canon**, y declara su desviación —los puertos del dominio llevan nombre de tabla— en lugar de disimularla, que es por lo que su alias no es `Clean-Architecture` a secas.
+
+### Cambiado — `Rules-Base-Conocimiento.md` 1.1 → 2.0
+
+**Tres inversiones**, las tres derivadas de que la carpeta ahora vive acá.
+
+**Una captura es una intervención sobre el framework.** Escribe en su repositorio, así que lleva entrada en el `CHANGELOG.md`, copia del conjunto superado a `_legacy/` y nota de coherencia si alcanza a varios archivos. La 1.1 decía lo contrario.
+
+**`Conocimiento/` entra en el snapshot.** Por el criterio de `SDD-Development-Guide.md` §VI.5 —sólo se excluye lo que **no condiciona lo que el orquestador genera**— y con el precedente exacto de `Templates/`. `Examples/` no servía de analogía. La consecuencia es la que importa: un destino que declara con qué versión del framework se generó **ya declara con qué conocimiento se generó**.
+
+**La compuerta de ofuscación corre y es bloqueante**, porque el repositorio es público. Es la misma condición de `Index-Modelos-UX-UI.md` §4. §6.1 suma su ítem y la lista pasa de trece a **catorce**; §3.2 vuelve **obligación** el nombre agnóstico del dominio, que era recomendación.
+
+**Y una simplificación grande**: el intake **no declara ninguna raíz ni ninguna versión de base**. Cita alias, y nada más.
+
+### Cambiado — `README.md` y `Coherencia-Base-Conocimiento.md` 1.1 → 1.2
+
+La anatomía del repositorio suma la fila de `Conocimiento/`, declarada como carpeta anexa que **no es parte del conjunto normativo**. La nota de coherencia suma §9 con las tres inversiones y la verificación de ofuscación del primer documento, **que encontró dos nombres de entidad del proyecto de origen y los corrigió**. La compuerta no es ceremonia: encontró material real en su primera corrida.
+
+### Por qué el conjunto sube 13.0 y no 12.4
+
+**Es un major.** `Rules-Base-Conocimiento.md` sube major porque **un documento escrito contra la 1.1 deja de cumplir**: vivía fuera del repositorio, no pasaba por ofuscación y dependía de una raíz declarada en el intake que ya no existe. Es el criterio sustantivo de §VI.1, y no importa que el corpus alcanzado sea de un solo documento.
+
+### Impacto sobre destinos existentes
+
+**Ninguno.** Sigue sin haber orquestador que lea la regla: el andamiaje de intake y la mecánica de despacho son pasos posteriores del plan. Ningún destino tiene trabajo.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Base-Conocimiento.md` 1.2, §9. Conjunto resultante **13.0**.
+
 ## [12.3] - 2026-08-23
 
 **El primer documento escrito contra `Rules-Base-Conocimiento.md` encontró cuatro defectos en la regla, y ese era el trabajo del piloto.** El plan lo pone como **compuerta entre bloques**: si el archivo de reglas no alcanza para caracterizar un artefacto externo, se corrige **antes** de tocar el intake, que es la parte cara.
