@@ -2,7 +2,7 @@
 
 ```yaml
 Documento: Guia-Usuario-SDD.md
-Versión: 1.19
+Versión: 1.18
 Fecha: 2026-08-23
 Audiencia: profesionales y estudiantes que usan el template para un producto real
 Idioma: español rioplatense neutro técnico
@@ -280,7 +280,7 @@ Acá entra en juego una única plantilla oficial del template, a nivel producto,
 - `PRODUCT-INTAKE-template.md`: el intake unificado del producto. Reemplaza a las antiguas `PROJECT-BRIEF-template.md` y `PROJECT-README-template.md` (deprecadas). Está organizado en tres partes:
   - Parte A — Negocio (§1 a §12): idea y problema, audiencia y stakeholders, propuesta de valor, alcance funcional MoSCoW, historias de usuario, flujos típicos, casos límite, métricas de éxito, exclusiones, restricciones, riesgos y glosario del dominio. Todo en lenguaje de negocio, sin decisiones técnicas.
   - Parte B — Composición (§13 a §16): §13 la tabla de unidades de entrega tipadas (cada fila una unidad de entrega con su tipo D8, rol, bandera `redistribuible` y dependencias), §14 el estilo del producto y los contratos entre unidades de entrega, §15 el esquema de descomposición y delivery, §16 la estructura de repositorio.
-  - Parte C — Técnica por proyecto de código (§17): un bloque técnico repetible P.1 a P.13 por cada proyecto de código (stack, arquitectura, comunicación, persistencia, seguridad, testing, versionado, pipeline, compatibilidad, NFR, pre-ADR, trade-offs). Cierra con §18 estrategia de demo/samples y §19 el checklist de completitud.
+  - Parte C — Técnica por proyecto de código (§17): un bloque técnico repetible P.1 a P.12 por cada proyecto de código (stack, arquitectura, comunicación, persistencia, seguridad, testing, versionado, pipeline, compatibilidad, NFR, pre-ADR, trade-offs). Cierra con §18 estrategia de demo/samples y §19 el checklist de completitud.
 
 El tipo D8 se declara por unidad de entrega en la tabla de §13, no por el producto: el producto no tiene un D8 propio. No completás un manifiesto a mano: el `PRODUCT-MANIFEST` lo deriva el orquestador a partir de §13 (ver paso 5).
 
@@ -298,7 +298,7 @@ antes y completes la plantilla entera. Reglas:
    uno con su tipo D8 (uno de los 8 cerrados por unidad de entrega), su rol, su
    bandera redistribuible y sus dependencias. Verificá que el grafo de
    dependencias sea acíclico y que haya exactamente una unidad de entrega principal.
-3. En la Parte C, §17, repetí el bloque técnico P.1 a P.13 por cada
+3. En la Parte C, §17, repetí el bloque técnico P.1 a P.12 por cada
    unidad de entrega declarada en §13.
 4. Si falta información para algún campo, marcalo como PENDIENTE y
    listá al final las preguntas concretas que necesitás que yo le
@@ -313,7 +313,7 @@ Si el producto tiene un solo unidad de entrega, §13 tiene una sola fila
 
 Claude genera el documento. Lo va a sacar con muchas secciones tildadas y, casi seguro, con algunos PENDIENTES que requieren ida y vuelta con el cliente real o con tu propio criterio.
 
-Hacé la ronda de preguntas pendientes (las podés llevar al cliente si las hay), volvés a Claude con las respuestas y le pedís que regenere el intake con esas nuevas respuestas incorporadas. Repetí hasta que el checklist final de §19 esté íntegramente tildado y la Parte C tenga un bloque P.1 a P.13 por cada unidad de entrega de §13.
+Hacé la ronda de preguntas pendientes (las podés llevar al cliente si las hay), volvés a Claude con las respuestas y le pedís que regenere el intake con esas nuevas respuestas incorporadas. Repetí hasta que el checklist final de §19 esté íntegramente tildado y la Parte C tenga un bloque P.1 a P.12 por cada unidad de entrega de §13.
 
 No completás ningún manifiesto en este paso: el `PRODUCT-MANIFEST` no lo llena el usuario. Lo deriva el orquestador automáticamente a partir de §13 del intake, en la Fase de validación de intake, y te lo presenta para confirmación (ver paso 5).
 
@@ -397,7 +397,7 @@ en SDD/Intake/. El producto se llama [nombre del producto].
 Claude Code arranca con una Fase de validación de intake, previa a la Fase A y dirigida por `../IA.SDD/SDD/Devs/Rules/Intake-Rules.md`. En ella va a:
 
 1. Leer tu único `PRODUCT-INTAKE` (las tres partes: negocio, composición, técnica por unidad de entrega).
-2. Validar la completitud del intake: campos bloqueantes presentes, ausencia de placeholders sin completar (`PENDIENTE`, `[Nombre]`, etc.) y coherencia entre partes (por ejemplo, que la Parte C tenga un bloque P.1 a P.13 por cada unidad de entrega de §13).
+2. Validar la completitud del intake: campos bloqueantes presentes, ausencia de placeholders sin completar (`PENDIENTE`, `[Nombre]`, etc.) y coherencia entre partes (por ejemplo, que la Parte C tenga un bloque P.1 a P.12 por cada unidad de entrega de §13).
 3. Derivar el `PRODUCT-MANIFEST` a partir de la tabla de proyectos de código de §13: enumeración de proyectos de código, su `tipo_unidad_entrega` D8, rol, bandera `redistribuible`, dependencias y, derivados, los `Identidad-Codigo` según el perfil de convención de nombres. Validar que cada `tipo_unidad_entrega` sea uno de los 8 valores D8, que haya exactamente un unidad de entrega principal, que no haya colisión de nombres, que cada dependencia apunte a un proyecto de código existente y que el grafo sea acíclico.
 4. Si falta completar algo bloqueante o una validación falla, se detiene y te emite una batería consolidada de preguntas (agrupadas por sección del intake) en lugar de avanzar a ciegas. Respondés, el orquestador actualiza el intake y revalida.
 5. Presentar el manifiesto derivado y esperar tu confirmación explícita antes de tratarlo como artefacto canónico. El manifiesto no se completa a mano: se deriva y se confirma.
@@ -1116,7 +1116,7 @@ El cliente típicamente no lee toda la documentación, pero sí lee el README ra
 
 ### F-16 — ¿Cómo declaro varias unidades de entrega en un producto?
 
-En §13 de tu `PRODUCT-INTAKE`. Esa sección tiene una tabla de proyectos de código donde cada fila es un proyecto de código: su `Nombre-Proyecto-Codigo`, su `tipo_unidad_entrega` (uno de los 8 D8), su rol, su bandera `redistribuible` y sus dependencias hacia otros proyectos de código de la mismo producto. Declarás un único unidad de entrega principal y armás el grafo de dependencias listando, en la columna Dependencias, los proyectos de código de los que depende cada uno. El grafo tiene que ser acíclico. Además, por cada proyecto de código declarado en §13 repetís el bloque técnico P.1 a P.13 en §17. No completás un manifiesto a mano: durante la Fase de validación de intake, el orquestador valida §13 (tipos válidos, un solo principal, sin colisiones de nombre, dependencias resueltas, grafo acíclico), deriva el `PRODUCT-MANIFEST` con los `Identidad-Codigo` y te lo presenta para confirmación. Recién entonces ordena los proyectos de código en orden topológico y genera la documentación de cada uno.
+En §13 de tu `PRODUCT-INTAKE`. Esa sección tiene una tabla de proyectos de código donde cada fila es un proyecto de código: su `Nombre-Proyecto-Codigo`, su `tipo_unidad_entrega` (uno de los 8 D8), su rol, su bandera `redistribuible` y sus dependencias hacia otros proyectos de código de la mismo producto. Declarás un único unidad de entrega principal y armás el grafo de dependencias listando, en la columna Dependencias, los proyectos de código de los que depende cada uno. El grafo tiene que ser acíclico. Además, por cada proyecto de código declarado en §13 repetís el bloque técnico P.1 a P.12 en §17. No completás un manifiesto a mano: durante la Fase de validación de intake, el orquestador valida §13 (tipos válidos, un solo principal, sin colisiones de nombre, dependencias resueltas, grafo acíclico), deriva el `PRODUCT-MANIFEST` con los `Identidad-Codigo` y te lo presenta para confirmación. Recién entonces ordena los proyectos de código en orden topológico y genera la documentación de cada uno.
 
 ### F-17 — ¿Qué pasa si mi producto es un solo unidad de entrega?
 
@@ -1128,7 +1128,7 @@ Por convención `<Raiz-Codigo>.<Sufijo>`, donde `<Raiz-Codigo>` es la raíz de c
 
 ### F-19 — ¿Cuántos documentos de intake completo?
 
-Uno solo: el `PRODUCT-INTAKE`. Es el intake unificado que reemplaza a las antiguas plantillas `PROJECT-BRIEF` y `PROJECT-README` (deprecadas). En él va todo: negocio (Parte A, §1 a §12), composición del producto con la tabla de unidades de entrega (Parte B, §13 a §16) y la técnica por unidad de entrega (Parte C, §17, bloque P.1 a P.13 repetido por unidad de entrega). No completás un `PRODUCT-MANIFEST` a mano: el orquestador lo deriva de §13 durante la Fase de validación de intake, lo valida y te lo presenta para confirmación. El manifiesto queda como artefacto derivado, no como plantilla a llenar.
+Uno solo: el `PRODUCT-INTAKE`. Es el intake unificado que reemplaza a las antiguas plantillas `PROJECT-BRIEF` y `PROJECT-README` (deprecadas). En él va todo: negocio (Parte A, §1 a §12), composición del producto con la tabla de unidades de entrega (Parte B, §13 a §16) y la técnica por unidad de entrega (Parte C, §17, bloque P.1 a P.12 repetido por unidad de entrega). No completás un `PRODUCT-MANIFEST` a mano: el orquestador lo deriva de §13 durante la Fase de validación de intake, lo valida y te lo presenta para confirmación. El manifiesto queda como artefacto derivado, no como plantilla a llenar.
 
 ### F-20 — ¿Puedo saltearme la validación de maqueta?
 
@@ -1184,20 +1184,7 @@ Tené presente que `IA.SDD` es un repositorio público. Cuando aceptás capitali
 
 **El framework corre exactamente igual con `Conocimiento/` vacía.** No hay nada que apagar: sin documentos, su índice no tiene filas.
 
-**Cómo se aplica un conocimiento a tu producto.** En `§17.P.13` del bloque técnico de cada proyecto de código, citás el **alias** del documento, con el motivo y el alcance. Es opcional: si no aplica ninguno, escribís `Ninguno`.
-
-| Paso | Quién | Qué pasa |
-| --- | --- | --- |
-| 1 | Vos | Escribís el alias en `§17.P.13`, con su motivo |
-| 2 | El orquestador, al validar el intake | Resuelve el alias contra `Conocimiento/Index-Knowledge.md`. **Si no existe, o si su fila está `Superado`, es bloqueante** |
-| 3 | El orquestador, al despachar | Suma el documento **sólo** al despacho de la categoría o el subagente que el índice declara como consumidor, y lo registra en el log |
-| 4 | El subagente | Lo lee como un insumo más, junto al intake y a su archivo de reglas |
-
-**No hace falta citar todo.** Cada documento del índice declara una **condición de carga**, y lo que esa condición dispare se carga solo, sin que vos sepas que el catálogo existe. La cita explícita sirve para forzar la carga de algo que la condición no dispararía, o para dejar registro de intención.
-
-**Un documento de conocimiento es insumo consultivo.** Ante conflicto con el archivo de reglas de su categoría **manda la regla**, salvo que el documento declare una sustitución sobre un ítem que el framework haya rotulado como decisión de stack. No redefine criterios de aceptación ni nomenclatura de lo que el framework genera.
-
-Y citar algo cuya condición no dispara **no es un apartamiento y no lleva ADR**: la condición es un disparador por defecto, no una obligación.
+**Qué podés hacer hoy con esto, y qué no.** Podés **poblar** el catálogo, y sirve como referencia escrita de cómo se hacen las cosas en tu casa. Lo que **todavía no** podés es citarlo desde el intake para que el orquestador lo inyecte en una corrida: esa parte no está cableada. Cuando lo esté, esta sección lo va a decir.
 
 Y vale lo mismo que para un modelo: `IA.SDD` es un repositorio público, así que la ofuscación es bloqueante y previa a escribir.
 
@@ -1420,7 +1407,7 @@ Tres recorridos según tu perfil al acercarte al template.
 Si nunca usaste SDD ni un template parecido, este es el orden de lectura recomendado:
 
 1. Esta guía completa (§1 a §10). Tiempo estimado: 1 hora.
-2. La plantilla `PRODUCT-INTAKE-template.md`. Leela completa, recorriendo sus tres partes: negocio (§1 a §12), composición con la tabla de unidades de entrega de §13 (tipo D8 por unidad de entrega) que define la jerarquía, y técnica por unidad de entrega (§17, bloque P.1 a P.13). Mirá el ejemplo aplicado multi-proyecto y el caso degenerado. Tiempo estimado: 1 hora.
+2. La plantilla `PRODUCT-INTAKE-template.md`. Leela completa, recorriendo sus tres partes: negocio (§1 a §12), composición con la tabla de unidades de entrega de §13 (tipo D8 por unidad de entrega) que define la jerarquía, y técnica por unidad de entrega (§17, bloque P.1 a P.12). Mirá el ejemplo aplicado multi-proyecto y el caso degenerado. Tiempo estimado: 1 hora.
 3. La regla `Intake-Rules.md`. Es la que dirige la Fase de validación de intake: cómo se valida la completitud del intake y cómo se deriva el `PRODUCT-MANIFEST` de §13. Tiempo estimado: 20 minutos.
 4. La plantilla `PRODUCT-MANIFEST-template.md`. Leela como referencia del formato del artefacto que el orquestador deriva (no es una plantilla a llenar a mano). Tiempo estimado: 15 minutos.
 5. Tres archivos de reglas a elección: `Rules-Contexto.md`, `Rules-Especificacion-Funcional.md` y `Rules-Arquitectura-Tecnica.md`. Tiempo estimado: 1 hora.
@@ -1537,7 +1524,7 @@ Términos esenciales para usar el template. Para el glosario exhaustivo del marc
 | Maqueta | Sitio estático navegable en `SDD/Maquetas/<Nombre-Proyecto-Codigo>/`: HTML, CSS, Bootstrap 5 y JavaScript, sin proceso de build, con los datos de ejemplo de la documentación hardcodeados. Sirve para validar de una sola vez la experiencia y el modelo de datos. No es el producto ni documentación viva: es la línea de base de un momento, aprobada explícitamente. |
 | Modelo UX-UI | Diseño capturado de una maqueta aprobada, escrito como reglas constructivas en `Modelos-UX-UI/` con su ejemplo ofuscado en `Templates/`. Opcional; se aplica por encima del catálogo base de `References/Design/`, nunca en su reemplazo. |
 | Documento de conocimiento | Caracterización de un artefacto o convención que el framework **no gobierna** —una arquitectura, un template, una nomenclatura—, escrita en `Conocimiento/` con su fila en `Index-Knowledge.md`. Se distingue de un modelo UX-UI por el **origen**: un modelo sale de una maqueta del propio framework, un documento de conocimiento sale de algo externo. Su regla es `Rules-Base-Conocimiento.md`. |
-| Alias citable | El nombre corto y estable con que se referencia un documento de conocimiento, desacoplado de su nombre de archivo. Usa el nombre establecido de la cosa cuando existe: `Clean-Architecture`, `Patron-DAO`. Se cita en `§17.P.13` del intake, y un alias que no resuelve contra el índice es error bloqueante de validación. |
+| Alias citable | El nombre corto y estable con que se referencia un documento de conocimiento, desacoplado de su nombre de archivo. Usa el nombre establecido de la cosa cuando existe: `Clean-Architecture`, `Patron-DAO`. |
 | Línea de base visual | Inventario identificado (`SUP-XXXXX` superficies, `CMP-XXXXX` componentes, `EST-XXXXX` estados, `NAV-XXXXX` rutas) de lo aprobado en la maqueta, más el contrato de datos (`DM-XXXXX`) que exhibía. Punto de comparación externo del sensado de deriva. |
 | Sensado de deriva | Mecanismo de control que contrasta lo construido contra la línea de base visual y el contrato de datos, con umbrales declarados de deriva menor y mayor. Se opera con la `Matriz-Sensado-Deriva.md` de la categoría 08, sprint a sprint. Su regla es `Deriva-Rules.md`. |
 | Evidencia verificable (D9) | Invariante global: toda afirmación sobre el estado del sistema cita un artefacto localizable, reproducible, contemporáneo e independiente de quien afirma. No aplica a afirmaciones de diseño, de especificación ni de contexto, que necesitan justificación y no evidencia. Rige hacia adelante desde su incorporación. |
@@ -1745,7 +1732,6 @@ Esta guía de usuario está distribuida en 10 capítulos completos según la est
 | 1.14 | 2026-08-16 | El árbol de ejemplo del capítulo 5 mostraba `Arquitectura-Proyecto-Codigo.md`, nombre que la regla de la categoría 05 ya había cambiado a `Arquitectura-Unidad-Entrega.md`. |
 | 1.15 | 2026-08-16 | El campo del manifiesto pasa a **«Unidad de entrega principal»** en el capítulo 5 y en el glosario, **cuya definición ya decía «la unidad de entrega cabeza del producto»**: la definición se había migrado en la 8.0 y el término no. |
 | 1.16 | 2026-08-22 | **La renumeración de `AG` al ancho de cinco dígitos** (framework 12.0), y **el glosario deja de declarar un solo ámbito**: decía que todo identificador es «único en el producto» y que `AG` queda **fuera** del sistema. Desde la 12.0 hay **dos ámbitos** y `AG` pertenece al del conjunto normativo. Sube **minor**: corrige una declaración de la cara al usuario sin cambiar ningún procedimiento. |
-| 1.19 | 2026-08-23 | **La cita de conocimiento pasa de anunciada a operativa** (conjunto 13.2). **F-23.1 corrige una afirmación que la 1.18 dejó y que la 13.2 volvió falsa**: decía que citar el catálogo desde el intake «todavía no está cableado», y ya lo está. En su lugar entra el procedimiento real, en cuatro pasos: se cita el alias en `§17.P.13`, el orquestador lo resuelve al validar el intake —**y un alias que no existe es bloqueante**—, lo suma **sólo** al despacho del consumidor que el índice declara, y el subagente lo lee como un insumo más. Se declara además lo que evita citar de más: **cada documento tiene condición de carga y lo que dispara se carga solo**; y que el conocimiento es **insumo consultivo**, de modo que ante conflicto manda la regla de categoría. **Siete ocurrencias de «P.1 a P.12» pasan a «P.1 a P.13»** por la subsección nueva de la plantilla 3.5. El glosario amplía la entrada *Alias citable*. Sube **minor**: describe una capacidad nueva y corrige una afirmación falsa, sin cambiar ningún procedimiento existente. |
 | 1.18 | 2026-08-23 | **Puesta al día contra el conjunto 13.0, que incorporó la capa de conocimiento y que esta guía no mencionaba en ninguna línea.** Nueva **F-23.1**: qué es `Conocimiento/` y en qué se diferencia de un modelo UX-UI, con la tabla que fija el criterio —**el origen, no el parecido del resultado**: un modelo sale de una maqueta que el framework generó, un documento de conocimiento sale de algo externo—. Declara además **qué se puede hacer hoy y qué no**: el catálogo se puede poblar, pero **citarlo desde el intake todavía no está cableado**. **§4.4 corrige dos recuentos viejos**: las reglas transversales pasan de seis a **siete** con `Rules-Base-Conocimiento.md` y el total de dieciocho a **diecinueve**; y la frase anunciaba **tres** master-prompts nombrando sólo dos, así que entra `Master-Prompt-Reanudacion.md`, que existe desde antes y no figuraba. El árbol de salida suma la nota de `Conocimiento/` como carpeta anexa, y el glosario suma **Documento de conocimiento** y **Alias citable**. Sube **minor**: pone al día y corrige conteos sin cambiar ningún procedimiento. |
 | 1.17 | 2026-08-23 | **El procedimiento de alta de categoría de §7.1 no acuñaba el identificador del rol titular.** Con `AG` alcanzada, una categoría nueva sin su `AG-00NN0` deja a su especialidad **sin forma de ser citada** desde el mapa de documentación del destino, que es lo que §9.5 exige y lo que la comprobación 4 de `Master-Prompt.md` §10.0 verifica. Entra el paso, con el bloque `00NN1` a `00NN9` para los subagentes de fase. Y se registra que la emisión anterior reescribió `runbooks/RB-XX-` como `RB-XXXXX-` **sin declararlo**: la reescritura es correcta —`RB` está alcanzada por el «y equivalentes» de §9.2— y **pasó por el hueco de una comprobación 7 tautológica**. Lo levantó la sexta ronda. Sube **minor**. |
 
