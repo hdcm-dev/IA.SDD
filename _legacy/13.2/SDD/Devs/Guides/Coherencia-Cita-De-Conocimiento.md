@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Coherencia-Cita-De-Conocimiento.md
-**Versión:** 1.1
+**Versión:** 1.0
 **Estado:** Vigente
 **Fecha:** 2026-08-23
 **Autor:** AG-00990 (Arquitecto de Soluciones)
@@ -126,30 +126,8 @@ repetible sin renumerar** ninguna subsección existente, de modo que **ningún i
 contra el índice y se inyecta en el despacho del consumidor declarado. Ningún documento generado con la
 13.1 deja de cumplir y ningún destino tiene trabajo. El conjunto sube **minor**.
 
-## 10. Segunda intervención: las guías dejan de mentir (13.3)
-
-La observación 1 de §7 anticipaba esto: la 13.2 volvió falsa una afirmación que las guías traían de la
-13.1. Se corrigió, y el barrido encontró **dos defectos más** del mismo tipo que nadie había levantado.
-
-| # | Afirmación | Dónde | Corrección |
-| --- | --- | --- | --- |
-| 1 | «citarlo desde el intake **todavía no está cableado**» | `SDD-User-Guide.md` F-23.1 | Entra el procedimiento real en cuatro pasos, con la validación bloqueante y la precedencia consultiva |
-| 2 | «el orquestador **todavía no lo consume en una corrida**» | `SDD-Development-Guide.md` §III.11 | Entra cómo llega el documento al despacho, por condición y por cita, y cuál de las dos vías conviene |
-| 3 | «bloque técnico **P.1 a P.12**», **siete veces** | `SDD-User-Guide.md` | P.1 a P.13, por la subsección nueva de la plantilla 3.5 |
-| 4 | El catálogo de especialidades nombraba a `AG-00031` como el único rol no titular | `Marco-Teorico-SDD.md` §4.1 | Se suma `AG-00980`. El razonamiento ya lo cubría; **el rol no estaba nombrado** |
-
-**Los cuatro son de la misma clase y conviene nombrarla**: una intervención que agrega capacidad deja
-mintiendo a la documentación que describía su ausencia. El tercero y el cuarto lo muestran mejor que los
-dos primeros, porque **nadie los declaró como pendientes**: salieron del barrido mecánico.
-
-**Un pendiente que se conserva y está declarado en las dos guías**: `AG-00980` existe como identificador
-y tiene contrato, pero **todavía no se convoca**. Falta el aviso en el despacho que le dice al subagente
-que la biblioteca existe y cómo pedir. Mientras tanto el conocimiento llega por condición y por cita,
-que es el camino determinista y el que cubre el caso común.
-
-## 11. Control de cambios
+## 9. Control de cambios
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
-| 1.1 | 2026-08-23 | Suma §10 con la puesta al día de las guías contra la 13.2: dos afirmaciones que la capacidad nueva volvió falsas y **dos defectos más que el barrido encontró sin que nadie los declarara**. Conjunto resultante **13.3**. |
 | 1.0 | 2026-08-23 | Emisión inicial. Cubre la incorporación de `§17.P.13`, su validación bloqueante, las dos notas operativas del master-prompt, la línea del esqueleto de despacho y el alta de `AG-00980`. |

@@ -3,6 +3,44 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.3] - 2026-08-23
+
+**Una intervención que agrega capacidad deja mintiendo a la documentación que describía su ausencia.** La 13.2 cerró el circuito de la cita de conocimiento y con eso volvió falsas dos afirmaciones que las guías traían de la 13.1. El barrido encontró **dos defectos más de la misma clase que nadie había declarado**.
+
+### Cambiado — `SDD-User-Guide.md` 1.18 → 1.19
+
+**F-23.1 decía que citar el catálogo desde el intake «todavía no está cableado».** Ya lo está. En su lugar entra el procedimiento real, en cuatro pasos: se cita el alias en `§17.P.13`, el orquestador lo resuelve al validar el intake —**y un alias que no existe es bloqueante**—, lo suma **sólo** al despacho del consumidor que el índice declara, y el subagente lo lee como un insumo más.
+
+Se declara además lo que evita citar de más: **cada documento tiene condición de carga y lo que dispara se carga solo**, sin que el usuario tenga que saber que el catálogo existe. Y que el conocimiento es **insumo consultivo**: ante conflicto manda la regla de categoría.
+
+**Siete ocurrencias de «bloque técnico P.1 a P.12» pasan a P.1 a P.13**, por la subsección nueva de la plantilla 3.5. **Nadie las había declarado como pendientes**: salieron del barrido.
+
+### Cambiado — `SDD-Development-Guide.md` 1.26 → 1.27
+
+**§III.11 decía que el orquestador «todavía no lo consume en una corrida».** En su lugar, cómo llega el documento a un despacho: por la **unión** de la condición de carga de su fila y la cita explícita del alias, con el consumidor declarado decidiendo a qué despacho va.
+
+Y cuál de las dos vías conviene, que es lo que importa para quien extiende: **la condición es la buena**, porque se carga sola. **Si un documento se cita siempre a mano, su condición está mal calibrada.**
+
+### Cambiado — `Marco-Teorico-SDD.md` 3.7 → 3.8
+
+**§4.1 nombraba a `AG-00031` como el único rol que no es titular de categoría.** El razonamiento de la sección ya cubría a `AG-00980` —no altera el número de especialidades porque no es titular de ninguna—, pero **el rol no estaba nombrado**, de modo que el catálogo describía una nómina incompleta.
+
+### Pendiente que se conserva
+
+**`AG-00980` existe pero todavía no se convoca.** Tiene identificador y contrato; falta el aviso en el despacho que le dice al subagente que la biblioteca existe y cómo pedir. Está declarado en las dos guías, no escondido. Mientras tanto el conocimiento llega por condición y por cita, que es el camino determinista.
+
+### Por qué el conjunto sube 13.3
+
+**Es un minor.** Se ponen al día tres documentos de guía y no cambia ninguna regla, ninguna plantilla ni el comportamiento de ningún orquestador.
+
+### Impacto sobre destinos existentes
+
+**Ninguno.**
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Cita-De-Conocimiento.md` 1.1, §10. Conjunto resultante **13.3**.
+
 ## [13.2] - 2026-08-23
 
 **El circuito de la capa de conocimiento queda cerrado.** Hasta la 13.1 el catálogo se podía **poblar** pero el orquestador **no lo consumía en una corrida**. Ahora se cita en el intake, se valida antes de la Fase A, se resuelve contra el índice y se inyecta en el despacho del consumidor que la fila declara.
