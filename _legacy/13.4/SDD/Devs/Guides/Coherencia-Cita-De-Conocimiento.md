@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Coherencia-Cita-De-Conocimiento.md
-**Versión:** 1.2
+**Versión:** 1.1
 **Estado:** Vigente
 **Fecha:** 2026-08-23
 **Autor:** AG-00990 (Arquitecto de Soluciones)
@@ -147,54 +147,9 @@ y tiene contrato, pero **todavía no se convoca**. Falta el aviso en el despacho
 que la biblioteca existe y cómo pedir. Mientras tanto el conocimiento llega por condición y por cita,
 que es el camino determinista y el que cubre el caso común.
 
-## 12. Tercera intervención: se activa el bibliotecario (13.5)
-
-La observación 3 de §7 y el pendiente que las dos guías declaran quedan saldados. `AG-00980` tenía
-identificador desde la 13.2 y contrato desde la 12.2, y **no se convocaba nunca**: faltaba la vía por la
-que un subagente pide.
-
-### 12.1 Qué se agregó
-
-| Dónde | Qué |
-| --- | --- |
-| `Master-Prompt.md` §8 | `{{AVISO_BIBLIOTECA}}`, **una sola línea** en el esqueleto de despacho |
-| `Master-Prompt.md` §9.1 | El bloque `PEDIDO DE CONOCIMIENTO` y el ciclo que lo resuelve |
-| `Rules-Base-Conocimiento.md` §9.3 | Cita la mecánica en lugar de duplicarla, y suma la salvaguarda del pedido único |
-
-### 12.2 Las tres decisiones que hacen seguro al mecanismo
-
-1. **El subagente no lleva el índice encima: lleva la necesidad.** El aviso es una línea, y el bloque de
-   pedido describe **la necesidad en prosa, no el alias**. Con eso el costo deja de crecer con el tamaño
-   del catálogo y pasa a crecer con la **frecuencia de faltantes**, que es lo que se quiere que tienda a
-   cero a medida que las condiciones del índice se afinan.
-
-2. **El orquestador entrega, AG-00980 nunca.** Si el bibliotecario devolviera extractos crearía la
-   **segunda fuente** que `Master-Prompt.md` §6 punto 1 prohíbe por nombre, y la corrida dejaría de ser
-   reproducible porque una síntesis no se repite igual. Devolviendo identificadores, lo que llega al
-   subagente es el documento **intacto**.
-
-3. **Un pedido por despacho.** Un subagente que ya recibió sus documentos y vuelve a pedir está en un
-   bucle. El segundo pedido se registra y no se atiende; si de verdad falta algo, sale por §9 como
-   ambigüedad.
-
-### 12.3 Dos propiedades que conviene aprovechar
-
-**La respuesta vacía no es una falla.** Significa que la base no tiene lo pedido, y escala al humano
-como cualquier ambigüedad. **Eso es información**: dice qué habría que capturar.
-
-**Todo pedido es evidencia de una condición mal calibrada.** Si un subagente pidió el patrón de acceso a
-datos de la casa, esa era una condición que el índice debería haber disparado sola. El log de pedidos
-permite afinar el catálogo **con su propio uso en lugar de con opinión**.
-
-### 12.4 La propiedad de siempre, verificada
-
-Con `Conocimiento/` vacía el índice no tiene filas, la lista de documentos viaja vacía, **el aviso viaja
-vacío**, y §9.1 no existe para el subagente. El despacho se arma exactamente como antes.
-
-## 13. Control de cambios
+## 11. Control de cambios
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
-| 1.2 | 2026-08-23 | Suma §12 con la activación de `AG-00980`: el aviso en el despacho, el ciclo de pedido de `Master-Prompt.md` §9.1 y las tres decisiones que lo hacen seguro. Conjunto resultante **13.5**. |
 | 1.1 | 2026-08-23 | Suma §10 con la puesta al día de las guías contra la 13.2: dos afirmaciones que la capacidad nueva volvió falsas y **dos defectos más que el barrido encontró sin que nadie los declarara**. Conjunto resultante **13.3**. |
 | 1.0 | 2026-08-23 | Emisión inicial. Cubre la incorporación de `§17.P.13`, su validación bloqueante, las dos notas operativas del master-prompt, la línea del esqueleto de despacho y el alta de `AG-00980`. |

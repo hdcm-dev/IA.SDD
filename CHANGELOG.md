@@ -3,6 +3,42 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.5] - 2026-08-23
+
+**Se activa `AG-00980`, y con eso la capa de conocimiento queda completa.** El rol tenía contrato desde la 12.2 e identificador desde la 13.2, y **no se convocaba nunca**: faltaba la vía por la que un subagente pide. Las dos guías lo declaraban como pendiente.
+
+**El subagente no lleva el índice encima: lleva la necesidad.** Es la decisión que ordena el resto. El aviso que viaja en el despacho es **una sola línea**, y el bloque de pedido describe **la necesidad en prosa, no el alias** — el subagente no conoce el catálogo y no tiene por qué. Con eso el costo deja de crecer con el tamaño del catálogo y pasa a crecer con la **frecuencia de faltantes**, que es lo que se quiere que tienda a cero a medida que las condiciones del índice se afinan.
+
+### Agregado — `Master-Prompt.md` 8.12 → 8.13
+
+**§8 suma `{{AVISO_BIBLIOTECA}}`** al esqueleto de despacho: una línea que habilita al subagente a pedir lo que sus insumos no cubran, en lugar de inventarlo o buscarlo.
+
+**§9.1 es nueva: el pedido de conocimiento**, y es una detención **de otra clase**: no va al humano, **la resuelve el orquestador**. Recibe el bloque `PEDIDO DE CONOCIMIENTO`, despacha a AG-00980 con el índice filtrado por consumidor, resuelve a rutas los alias que devuelva, registra el pedido y la respuesta, y **reanuda con los documentos enteros y verbatim**.
+
+**Si la respuesta viene vacía, escala por §9**, y es correcto: significa que la base no tiene lo pedido, **y eso es información** — dice qué habría que capturar.
+
+**Tres salvaguardas.** **El orquestador entrega y AG-00980 nunca**: si el bibliotecario devolviera extractos crearía la segunda fuente que §6 punto 1 prohíbe por nombre, y una síntesis no se repite igual. **Un pedido por despacho**: el segundo es un bucle, se registra y no se atiende. Y **todo pedido es evidencia de una condición mal calibrada**, de modo que el log permite afinar el catálogo con su propio uso en lugar de con opinión.
+
+### Cambiado — `Rules-Base-Conocimiento.md` 2.1 → 2.2
+
+§9.3 **cita** la mecánica de `Master-Prompt.md` §9.1 en lugar de duplicarla, precisa que el pedido describe la necesidad y no el alias, y suma la salvaguarda del pedido único.
+
+### Por qué el conjunto sube 13.5
+
+**Es un minor.** Se agrega una capacidad y no cambia ninguna regla existente. **Con `Conocimiento/` vacía el aviso viaja vacío y §9.1 no existe para el subagente**: el despacho se arma exactamente como antes.
+
+### Impacto sobre destinos existentes
+
+**Ninguno.**
+
+### Pendiente declarado
+
+`SDD-User-Guide.md` 1.19 y `SDD-Development-Guide.md` 1.27 declaran que `AG-00980` «existe pero todavía no se convoca». **Desde esta versión sí se convoca.** Se corrige en la próxima intervención sobre guías.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Cita-De-Conocimiento.md` 1.2, §12. Conjunto resultante **13.5**.
+
 ## [13.4] - 2026-08-23
 
 **La sustitución deja de ser una previsión y pasa a tener contra qué validarse.** `Rules-Base-Conocimiento.md` §0.4 declara desde la 12.2 que un documento puede **sustituir** una decisión de stack del framework, y hasta ahora **no había nada del otro lado**: ninguna regla rotulaba sus ítems, de modo que la sustitución no se podía comprobar.
