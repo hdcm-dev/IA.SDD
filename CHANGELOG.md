@@ -3,6 +3,48 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.4] - 2026-08-23
+
+**La sustitución deja de ser una previsión y pasa a tener contra qué validarse.** `Rules-Base-Conocimiento.md` §0.4 declara desde la 12.2 que un documento puede **sustituir** una decisión de stack del framework, y hasta ahora **no había nada del otro lado**: ninguna regla rotulaba sus ítems, de modo que la sustitución no se podía comprobar.
+
+`Maqueta-Rules.md` §4 es la primera en rotularlos, y es la que bloqueaba el caso que originó toda esta serie: el framework construye **toda** maqueta con una tecnología fija —vanilla, Bootstrap por CDN, sin build— y una casa que trabaja distinto no tenía dónde declararlo sin editar el framework.
+
+### Cambiado — `Maqueta-Rules.md` 4.4 → 4.5
+
+**§4 declara sus dos capas.** **§4.1, ahora «Tecnología de construcción», es decisión de stack y es sustituible**; **§4.2 a §4.7 son método y no lo son**. Cada subsección declara su capa en su primera línea, para que se lea sola.
+
+**Ninguna regla cambia de contenido y dos cambian de subsección**, porque §4.1 llevaba dos ítems que no eran tecnología: la **autonomía sin backend** pasa a §4.2, donde define qué **es** una maqueta; la **iconografía vectorial** pasa a la nueva §4.7, porque es una regla de calidad. La equivalencia se verificó contrastando el conjunto de ítems normativos en las dos direcciones: **ninguno perdido, ninguno agregado**.
+
+**Y se declara qué no alcanza la sustitución aunque cambie el stack**: los tokens del catálogo de diseño siguen rigiendo y todo §4.2 a §4.7 se cumple con la tecnología que sea. **Sustituir cambia el cómo, no el qué tiene que ser verdad.** Sin esa cláusula, «sustituyo §4.1» se podía leer como permiso para bajar la vara.
+
+**§7.2 distingue el caso puntual del caso de escala.** Ya admitía apartarse del no-build por **ADR de proyecto de código**, y eso es correcto para lo que imagina —una librería que sólo se demuestra compilada, una vez— y **equivocado para una casa que construye siempre así**: produce el mismo ADR en cada proyecto, con la misma justificación, para siempre. Eso no es una excepción, es una convención disfrazada de excepción, y es el anti-patrón que `Root-Rules.md` §11 nombra. El caso de organización se declara **una sola vez** como sustitución.
+
+**§1 suma la base de conocimiento a los insumos de `AG-00031`**, que era una lista cerrada. Sin eso, el conocimiento sobre cómo construir una página web **no llegaba al agente que la construye**.
+
+### Cambiado — `Rules-Base-Conocimiento.md` 2.0 → 2.1
+
+§0.3 ajusta el rango citado a §4.2 a §4.7 y nombra que el rótulo ya existe del otro lado.
+
+### Un hallazgo de la propia verificación
+
+La primera redacción de §4.7 puso la regla de iconografía como **prosa** en lugar de ítem de lista, y **la comprobación de equivalencia la marcó como perdida**. El contenido estaba, la forma no. Se restituyó como ítem: es la clase de defecto que una lectura no levanta y un contraste mecánico sí, y el rótulo `[enumerable]` del método depende de que las reglas sigan siendo enumerables.
+
+### Por qué el conjunto sube 13.4
+
+**Es un minor.** `Maqueta-Rules.md` sube minor y **ninguna maqueta que cumplía deja de cumplir**: el conjunto de exigencias sobre una maqueta generada sin base declarada es idéntico al de la 13.3.
+
+### Impacto sobre destinos existentes
+
+**Ninguno.**
+
+### Pendiente declarado
+
+**`Maqueta-Rules.md` es la única regla rotulada.** Las de 02, 05, 08 y 09 cargan la misma mezcla y siguen sin separar. No bloquea: un documento que intente sustituir un ítem de ellas no encuentra rótulo, de modo que el caso vuelve a ser conflicto y **manda la regla**, que es el comportamiento seguro por defecto.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Capas-Del-Piso.md`, conjunto resultante **13.4**.
+
 ## [13.3] - 2026-08-23
 
 **Una intervención que agrega capacidad deja mintiendo a la documentación que describía su ausencia.** La 13.2 cerró el circuito de la cita de conocimiento y con eso volvió falsas dos afirmaciones que las guías traían de la 13.1. El barrido encontró **dos defectos más de la misma clase que nadie había declarado**.
