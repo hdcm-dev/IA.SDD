@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 8.13
+**Versión:** 8.12
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -570,7 +570,7 @@ Notas operativas sobre el plan:
 - Para proyectos de código con `requiere_maqueta` == true, la Fase B2 corre después del audit de la Fase B y antes de la Fase C. Su mecánica completa (los siete pasos, sus tres detenciones, las dos vías de corrección y la matriz de propagación de la retroalimentación) vive en `Maqueta-Rules.md`; el orquestador la lee, no la duplica. El paso 1 de esa fase ofrece al humano de qué modelo UX-UI partir, leyendo `../IA.SDD/SDD/Devs/Modelos-UX-UI/Index-Modelos-UX-UI.md`: el catálogo base de `References/Design/` es la opción por defecto y los modelos registrados son alternativas que se aplican por encima del base, nunca en su reemplazo.
 - La retroalimentación del paso 6 de la Fase B2 puede alcanzar categorías ya generadas y auditadas. Cuando alcanza a 00 o 01, que son de nivel producto, el orquestador se detiene, informa el alcance real del cambio y pide confirmación antes de tocarlas. Cuando alcanza al `PRODUCT-INTAKE`, aplica §13 de este master-prompt.
 - Las cuatro extensiones por capacidad son ortogonales entre sí y respecto de la especialización por stack: se cargan en cualquier combinación según las condiciones anteriores, y el arquetipo de panel de control monolítico de un servicio específico las carga a las cuatro. Todas son insumo normativo adicional para 03; ninguna altera la mecánica plan-then-confirm ni las fases.
-- **Base de conocimiento.** Si `../IA.SDD/Conocimiento/Index-Knowledge.md` existe y tiene filas, el orquestador lo abre antes de cada despacho y arma `{{LISTA_DOCUMENTOS_DE_CONOCIMIENTO}}` con la unión de dos conjuntos: las filas cuya **condición de carga** evalúa verdadera contra el intake, los flags y el tipo D8 del proyecto de código en curso, y las filas cuyo **alias** el intake cita en `§17.P.13` de ese proyecto de código, hayan disparado o no por condición. Cada documento se suma **únicamente** al despacho del **consumidor** que su fila declara —una categoría `00` a `11`, `transversal`, o un subagente de fase como `AG-00031`—, y el campo admite lista. El conjunto cargado, con el motivo de cada documento —condición o cita—, se registra en el log del orquestador. El orquestador completa además `{{AVISO_BIBLIOTECA}}` con la línea de §9.1, que habilita al subagente a **pedir** lo que sus insumos no cubran. **Con la carpeta vacía o sin índice, la lista y el aviso viajan vacíos y el despacho se arma exactamente como sin esta nota.** El formato del índice y del documento lo fija `Rules-Base-Conocimiento.md`; el orquestador lo lee, no lo duplica.
+- **Base de conocimiento.** Si `../IA.SDD/Conocimiento/Index-Knowledge.md` existe y tiene filas, el orquestador lo abre antes de cada despacho y arma `{{LISTA_DOCUMENTOS_DE_CONOCIMIENTO}}` con la unión de dos conjuntos: las filas cuya **condición de carga** evalúa verdadera contra el intake, los flags y el tipo D8 del proyecto de código en curso, y las filas cuyo **alias** el intake cita en `§17.P.13` de ese proyecto de código, hayan disparado o no por condición. Cada documento se suma **únicamente** al despacho del **consumidor** que su fila declara —una categoría `00` a `11`, `transversal`, o un subagente de fase como `AG-00031`—, y el campo admite lista. El conjunto cargado, con el motivo de cada documento —condición o cita—, se registra en el log del orquestador. **Con la carpeta vacía o sin índice, la lista viaja vacía y el despacho se arma exactamente como sin esta nota.** El formato del índice y del documento lo fija `Rules-Base-Conocimiento.md`; el orquestador lo lee, no lo duplica.
 - **Precedencia del conocimiento.** Un documento de conocimiento es insumo **consultivo**: ante conflicto con el archivo de reglas de la categoría que lo consume **manda la regla**, salvo que el documento declare una **sustitución** en el campo `sustituye` de su fila sobre un ítem que el framework haya rotulado como decisión de stack. Un documento de conocimiento nunca redefine criterios de aceptación, nomenclatura de artefactos generados ni gating.
 
 Procedimiento de lectura de las reglas (refuerza el principio de delegación de §1):
@@ -781,8 +781,6 @@ Sos un {{ESPECIALIDAD_VARIANTE}}, leído literal de la sección §1.2 del archiv
 - Mapa de rangos de identificadores del producto: {{BLOQUE_RANGOS_DE_SECCION_3_4}} (solo cuando el manifiesto declara más de un proyecto de código)
 - Documentos upstream ya generados: {{LISTA_PATHS_UPSTREAM}}
 - Documentos de conocimiento aplicables: {{LISTA_DOCUMENTOS_DE_CONOCIMIENTO}} (puede venir vacía; son insumo **consultivo**, ver la nota de §6)
-
-{{AVISO_BIBLIOTECA}}
 
 ## Documentos a producir
 
@@ -1037,58 +1035,6 @@ Heurísticas para detectar ambigüedad legítima vs improvisación:
 - Existen múltiples interpretaciones razonables y la regla pide elegir una sin dar criterio explícito: es ambigüedad.
 - Falta el nombre de un stakeholder, una métrica o una fecha objetivo declarada como bloqueante en el intake: es ambigüedad.
 - El subagente cree que sería mejor agregar una sección extra no pedida: NO es ambigüedad, no se pregunta.
-
-### §9.1 Pedido de conocimiento
-
-Es una detención de otra clase, y la diferencia importa: **no va al humano, la resuelve el orquestador**.
-Un subagente que necesita un procedimiento o una convención específica que sus insumos no cubren **no la
-inventa y no la busca**: la pide.
-
-**Cuándo aplica.** Sólo cuando `{{AVISO_BIBLIOTECA}}` viajó en el despacho, es decir cuando
-`../IA.SDD/Conocimiento/Index-Knowledge.md` tiene filas. Con el catálogo vacío no hay a quién pedirle y
-esta subsección no existe para el subagente.
-
-**El aviso que viaja en el despacho**, y es una sola línea porque el subagente **no lleva el índice
-encima**: lleva la necesidad.
-
-> Existe una base de conocimiento declarada. Si para resolver tu entregable necesitás un procedimiento o
-> una convención específica que tus insumos no cubren, no la inventes ni la busques: pedila con el
-> bloque de §9.1, describiendo la necesidad en tus términos.
-
-**El bloque del pedido.** Se describe **la necesidad, no el alias**: el subagente no conoce el catálogo
-y no tiene por qué.
-
-```text
-PEDIDO DE CONOCIMIENTO
-- Subagente: {{NOMBRE_SUBAGENTE}}
-- Producto / unidad de entrega: {{NOMBRE_PRODUCTO}} / {{NOMBRE_UNIDAD_ENTREGA}}
-- Documento en curso: {{PATH_DOCUMENTO}}
-- Qué se necesita: {{la necesidad en prosa, en los términos del subagente}}
-- Por qué los insumos actuales no alcanzan: {{JUSTIFICACION}}
-- Qué haría sin esto: {{la salida por defecto, para que el costo de no tenerlo sea visible}}
-```
-
-**Qué hace el orquestador con el pedido:**
-
-| Paso | Qué |
-| --- | --- |
-| 1 | Despacha a **AG-00980** con la necesidad en prosa y el índice **filtrado por el consumidor** de este subagente. No le manda el catálogo entero |
-| 2 | AG-00980 devuelve una lista de **alias**, cada uno con una línea de fundamento, **o vacía**. Su contrato completo está en `Rules-Base-Conocimiento.md` §9: **no devuelve texto de los documentos y no propone alias fuera del índice** |
-| 3 | Si la lista no está vacía: el orquestador resuelve alias a ruta, registra el pedido y la respuesta en su log, y **reanuda** el despacho con los documentos sumados **enteros y verbatim** a `{{LISTA_DOCUMENTOS_DE_CONOCIMIENTO}}` |
-| 4 | Si la lista está vacía: escala al humano como una ambigüedad de §9, declarando que la base no tiene lo pedido |
-
-**Por qué el orquestador entrega y no AG-00980.** Un bibliotecario entrega el libro; no lo lee por vos ni
-te lo resume. Si AG-00980 devolviera extractos, crearía la **segunda fuente** que §6 punto 1 prohíbe por
-nombre, y la corrida dejaría de ser reproducible porque una síntesis no se repite igual. Devolviendo
-identificadores, lo que llega al subagente es el documento intacto.
-
-**Un pedido por despacho.** Un subagente que ya recibió sus documentos y vuelve a pedir está en un
-bucle: el segundo pedido no se atiende, se registra y la fase sigue con lo que hay. Si de verdad falta
-algo más, sale por §9 como ambigüedad.
-
-**Todo pedido es evidencia de una condición mal calibrada.** Si un subagente pidió el patrón de acceso a
-datos de la casa, esa era una condición que el índice debería haber disparado sola. El log de pedidos es
-lo que permite afinar el catálogo con su propio uso en lugar de con opinión.
 
 ---
 
@@ -1714,7 +1660,6 @@ Reglas de versionado:
 | 8.0 | 2026-08-16 | **El bloque informativo de §3.4 —lo primero que el orquestador imprime y lo primero que un subagente ve— era de un solo eje.** Enumeraba proyectos de código llevando `tipo_unidad_entrega`, `redistribuible` y `path-docs`, que es exactamente la mezcla que `Intake-Rules.md` §4 valida como imposible y que la 8.12 corrigió en la regla sin llegar acá. Pasa a **tres bloques** —unidades de entrega de §2.A, proyectos de código de §2.B y la matriz de §2.C— con la constancia de que ningún D8 sale del eje de construcción y ninguna `Identidad-Codigo` del de entrega. El campo del producto pasa a `unidad-de-entrega-principal` y el orden topológico se desdobla en **compilación** e **integración**, que no son el mismo grafo. §3.1 y §15 acompañan el renombre. Sube **major**: cambia la forma del bloque que gobierna toda la generación. |
 | 8.1 | 2026-08-17 | **§12.1 es nueva: el traspaso por pull request**, y la leen los tres orquestadores. Declara un protocolo que **se usaba y no estaba escrito**: **T1** el agente no fusiona —el merge es el único control que no es suyo—; **T2** nada se escribe sobre un árbol sucio, porque el historial es el contraste observable de varias dimensiones y **no incluye lo que no está commiteado**; **T3** una unidad de trabajo, un pull request, declarada antes de empezar; **T4** la forma literal de la entrega, con «qué sigue después del merge» obligatorio; **T5** el aviso del humano **se verifica y no se cree**, comprobando que el commit entregado es alcanzable desde la principal; **T6** su límite. Sube **minor**: agrega una mecánica de traspaso sin cambiar ninguna fase ni entregable. | Framework SDD (traspaso por pull request) |
 | 8.2 | 2026-08-17 | **§12.1 suma T0, la compuerta de arranque**, con sus cinco comprobaciones sobre el repositorio local contra el remoto y su salida publicada siempre, también cuando está todo en orden —que es lo que distingue «no había nada que arreglar» de «no se miró»—. **Su comprobación 4 vuelve verificable a T3**: lo que nadie miraba era que no hubiera **dos unidades vivas a la vez**, y empezar una segunda mientras la primera espera merge produce dos ramas que se pisan. **T5 pasa de verificar a verificar y preparar**: poda referencias, comprueba si la principal **trajo algo más** —trabajo de otra sesión que vuelve viejo lo medido antes del merge— y deja el repositorio en el estado que la unidad siguiente necesita, publicado con el formato de T0. Sube **minor**. | Framework SDD (compuerta de arranque) |
-| 8.13 | 2026-08-23 | **Se activa `AG-00980`** (framework 13.5), que desde la 13.2 tenía identificador y contrato pero **no se convocaba nunca**: faltaba la vía por la que un subagente pide. **§8 suma `{{AVISO_BIBLIOTECA}}`** al esqueleto de despacho, **una sola línea** que le dice al subagente que la biblioteca existe y cómo pedir — el subagente **no lleva el índice encima, lleva la necesidad**, con lo que el costo deja de crecer con el tamaño del catálogo y pasa a crecer con la frecuencia de faltantes. **Nueva §9.1, el pedido de conocimiento**, que es una detención de otra clase: **no va al humano, la resuelve el orquestador**. El bloque describe **la necesidad y no el alias**, porque el subagente no conoce el catálogo; el orquestador despacha a AG-00980 con el índice filtrado por consumidor, resuelve los alias que devuelva, registra, y **reanuda con los documentos enteros y verbatim**. Si la respuesta viene vacía escala por §9, que es correcto: significa que la base no tiene lo pedido, **y eso es información**. Tres salvaguardas: el orquestador entrega y AG-00980 nunca, para no crear la **segunda fuente** que §6 punto 1 prohíbe; **un pedido por despacho**, porque el segundo es un bucle; y el log de pedidos como evidencia de **condiciones mal calibradas**. Con el catálogo vacío el aviso viaja vacío y nada de esto existe para el subagente. Sube **minor**. | Framework SDD (bibliotecario activo) |
 | 8.12 | 2026-08-23 | **La base de conocimiento entra al despacho** (framework 13.2), y los dos cambios son **aditivos**: ninguna nota operativa existente se toca y ninguna condición vigente cambia de comportamiento. **§6 suma dos notas.** La primera arma `{{LISTA_DOCUMENTOS_DE_CONOCIMIENTO}}` con la unión de dos conjuntos —las filas del índice cuya **condición de carga** dispara, y las que el intake **cita por alias** en `§17.P.13`—, y asigna cada documento **únicamente** al despacho del **consumidor** que su fila declara, que puede ser una categoría o un subagente de fase; el conjunto cargado y el motivo de cada documento van al log. La segunda fija la **precedencia**: el conocimiento es insumo **consultivo** y ante conflicto manda la regla de categoría, salvo sustitución declarada sobre un ítem que el framework haya rotulado como decisión de stack. **§8 suma una línea** al esqueleto de despacho, que **puede venir vacía**. El catálogo de diseño de `References/Design/` se sigue resolviendo por sus propias notas y **no se funde** con este: uno está siempre y es normativo, el otro puede no existir y es consultivo. **Con `Conocimiento/` vacía o sin índice el despacho se arma exactamente como antes.** Sube **minor**. | Framework SDD (base de conocimiento) |
 | 8.3 | 2026-08-17 | **T3 admite el caso que T0 no puede detectar en lugar de prohibirlo sin control.** Una rama puede terminar con dos unidades —una reparación que aparece a mitad de fase, dos pasos que resultaron inseparables— y también por descuido; **los dos se tratan igual**: la entrega de T4 nombra las **dos**, en su orden, y dice **cuál se puede revertir sin la otra**, con lo que el humano recupera lo que T3 protege —decidir con la información completa, aunque ya no pueda decidir por separado—. Lo inaceptable pasa a ser **la rama que lleva dos y declara una**. El bloque de T4 suma la fila `Unidades`. Sube **minor**. | Framework SDD (T3 admite y declara) |
 | 8.4 | 2026-08-17 | **§8.1 es nueva: toda detención lleva análisis y propuesta**, y la leen los tres orquestadores. Medido sobre el propio framework: de las cuatro familias de detención, **dos llevaban contexto por construcción** —la confirmación de un plan y el traspaso de §12.1 T4— y **las dos que preguntan no proponían nada**: la ambigüedad tenía ocho campos cuyo centro es «pregunta concreta», y el **arbitraje de §7.0 no declaraba formato alguno**. Una detención sin propuesta **le traslada al humano el análisis que el agente ya tiene hecho**. Declara el bloque obligatorio —qué pasó, **estado de avance cuantificado** cuando lo que se decide está a medias, opciones con **qué se conserva de lo hecho**, propuesta con alternativa, y qué se espera de vuelta— y sus cuatro reglas. §9 y §7.0 adoptan la forma. **No agrega ni quita ninguna detención**: cambia la de las que ya existen. Sube **minor**. | Framework SDD (toda detención lleva propuesta) |

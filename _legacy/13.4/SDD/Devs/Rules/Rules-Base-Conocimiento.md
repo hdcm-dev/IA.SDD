@@ -3,7 +3,7 @@
 **Carpeta target:** `Conocimiento/` de este repositorio
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
 **Agente target:** el prompt de relevamiento que cita este archivo, fuera de una corrida de generación, y AG-00980 (Bibliotecario de conocimiento) en tiempo de ejecución
-**Versión de las reglas:** 2.2
+**Versión de las reglas:** 2.1
 
 ---
 
@@ -499,17 +499,14 @@ conjunto declarado no deriva, elige.
 
 | Paso | Quién | Qué |
 | --- | --- | --- |
-| 1 | Subagente | Se detiene con el bloque `PEDIDO DE CONOCIMIENTO` de `Master-Prompt.md` §9.1, describiendo **la necesidad en prosa y no el alias**: no conoce el catálogo y no tiene por qué |
+| 1 | Subagente | Se detiene con el bloque de `Master-Prompt.md` §9, con la necesidad en «Qué se necesita» |
 | 2 | Orquestador | Despacha a AG-00980 con la necesidad y el índice filtrado |
 | 3 | AG-00980 | Devuelve los alias que corresponden, con fundamento. O ninguno |
 | 4 | Orquestador | Resuelve alias a ruta, registra, y reanuda el despacho con los documentos sumados enteros |
 | 5 | Subagente | Sigue, con el conocimiento en su lista de insumos obligatorios |
 
-Si el paso 3 vuelve vacío, la detención escala al humano como cualquier otra ambigüedad de `Master-Prompt.md` §9. Es
+Si el paso 3 vuelve vacío, la detención escala al humano como cualquier otra ambigüedad de §9. Es
 correcto: significa que la base no tiene lo que hacía falta, y **eso es información**, no una falla.
-
-**Un pedido por despacho.** Un subagente que ya recibió sus documentos y vuelve a pedir está en un
-bucle: el segundo pedido se registra y no se atiende. Lo fija `Master-Prompt.md` §9.1.
 
 ### 9.4 Dos propiedades que conviene aprovechar
 
@@ -527,7 +524,6 @@ que tienda a cero a medida que las condiciones se afinan.
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
-| 2.2 | 2026-08-23 | **El contrato de `AG-00980` deja de ser una especificación sin uso** (framework 13.5). §9.3 precisa que el pedido sale por el bloque `PEDIDO DE CONOCIMIENTO` de `Master-Prompt.md` §9.1 —que es donde la mecánica quedó escrita— y que describe **la necesidad en prosa y no el alias**, porque el subagente no conoce el catálogo. Suma la salvaguarda de **un pedido por despacho**: el segundo es un bucle, se registra y no se atiende. |
 | 2.1 | 2026-08-23 | **Se actualiza la referencia al piso rotulado** (framework 13.4). `Maqueta-Rules.md` §4 pasó a declarar sus dos capas explícitamente: §4.1 es decisión de stack y **§4.2 a §4.7** es método, con dos ítems que cambiaron de subsección. §0.3 ajusta el rango citado y nombra que el rótulo ya existe del otro lado, con lo que la **sustitución de §0.4 deja de ser una previsión y pasa a tener contra qué validarse**. |
 | 2.0 | 2026-08-23 | **Cambia el modelo de dónde vive la base, y con él tres reglas de esta.** La base **deja de ser un repositorio externo declarado en el intake** y pasa a ser `Conocimiento/`, una **carpeta anexa de este repositorio**. El motivo es operativo y decide: `IA.SDD` es el repositorio desde el que se lanza, de modo que la base viaja con lo que se clona en vez de tener que ser alcanzada. **El desacoplamiento no cambia y se declara mejor en §0.0**: no es privacidad ni ubicación, es que **el framework corre con la carpeta vacía y su comportamiento base no cambia cuando se llena**, porque ninguna regla nombra un documento y sólo existe el contrato del índice. **El mecanismo de extensión es el fork**: quien quiera su base forkea, agrega sus documentos y se lleva el método intacto. Tres consecuencias, y las tres invierten lo que la 1.1 decía. **§2.2**: una captura **escribe en este repositorio y por lo tanto es una intervención sobre él**, con nota de coherencia, `CHANGELOG.md` y copia a `_legacy/`; **`Conocimiento/` entra en el snapshot**, por el criterio de `SDD-Development-Guide.md` §VI.5 —sólo se excluye lo que no condiciona lo que el orquestador genera— y con el precedente de `Templates/`. **La compuerta de ofuscación corre y es bloqueante**, porque el repositorio es público: es la misma condición de `Index-Modelos-UX-UI.md` §4, y §6.1 suma su ítem, con lo que la lista pasa de trece a **catorce**. **§7.4**: no hay identidad de versión propia de la base, **es la del framework**, y por lo tanto **el intake no declara ninguna raíz ni ninguna versión**: cita alias y nada más. §3.2 vuelve **obligación** el nombre agnóstico del dominio, que en la 1.1 era recomendación. |
 | 1.1 | 2026-08-23 | **Cuatro correcciones que trajo el primer documento real escrito contra esta regla**, que es para lo que el piloto existe. La cabecera de §4.1 suma el campo **`Tema`**, que el índice exigía y que la cabecera no tenía, y **alinea los nombres de sus campos con los de las columnas del índice** —`Condicion-de-carga`, `Hereda-de`, `Sustituye`, `Compatible-con`—: estaban escritos de dos formas distintas en los dos lugares. Pasa de diez campos a **once**. §6.1 suma el ítem de **numeración interna contigua** —el piloto escribió una `§4.3` sin `§4.1` ni `§4.2` y **la lista de trece ítems no lo detectaba**— y reformula el ítem de coincidencia con el índice, que era **inverificable como estaba**: no todos los campos de la cabecera viajan al índice ni todas las columnas tienen campo, así que ahora nombra los **ocho comunes**. §7.1 declara esa correspondencia de forma explícita. La lista pasa de doce ítems a **trece**. |
