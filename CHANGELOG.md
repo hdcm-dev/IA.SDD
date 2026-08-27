@@ -3,6 +3,77 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.7] - 2026-08-27
+
+**El método lee dónde está el trabajo y audita lo que acaba de producir, y entre esas dos cosas se toma la decisión más cara que existe: qué hacer con un destino que ya tiene documentación.** `Master-Prompt-Reanudacion.md` §2 lo declara por escrito —*«no se abre ninguna categoría documental para juzgar su contenido»*— y `Master-Prompt.md` §10 corre al cerrar una fase, es decir sobre lo que se acaba de escribir. **Nadie abre el corpus antes de planificar sobre él**, y el plan que sale de ahí se compone con el diff normativo, que compara dos versiones del framework y es ciego a lo que el destino dice de sí mismo.
+
+**El costo estaba medido dos veces, en el propio framework, y de los dos lados del mismo defecto.** Del lado del humano: de **cinco detenciones** presentadas al Product Owner en una corrida real, **tres no eran suyas** y tenían respuesta en el árbol (`Master-Prompt.md` §8.1). Del lado del árbol: **diez hallazgos abiertos repartidos en cinco informes**, y al abrirlos **tres no eran lo que declaraban ser** — cuatro «enlaces rotos» que no lo eran **viajaron tres informes** antes de que alguien los abriera (`IA.SDD.Documentacion/Informes/Memoria-De-Antecedentes-Casos-Resueltos.md` §2.2).
+
+**Entra la mesa de evaluación**, la etapa preplanificadora: un panel armado por señal observable que refuta el corpus a ciegas, un jurado de cinco funciones objetivo que vota hallazgo por hallazgo, y un cuerpo de parches que diseña la corrección **sin aprobarla**. Su salida no es un veredicto: es **un plan de cambios**, con su deuda declarada y sus consultas **agrupadas y con default**.
+
+### Agregado — `SDD/Devs/Rules/Mesa-Rules.md` 1.0
+
+Once secciones. La frontera con el audit —**el audit mira lo que se acaba de producir y emite un veredicto; la mesa mira lo que ya existía y emite un plan**—, el contrato de entrada que el orquestador alimenta y la mesa no releva, la composición por **señal observable con su ubicación**, el ciclo P0 a P5, **catorce criterios de aceptación** y **doce anti-patrones**.
+
+**Lo que la mesa reusa y no redefine, que es la mitad del diseño:** los niveles de hallazgo son **P0 a P3** de §10; la base mecánica es **la compuerta de §10.0** con el banco que la 13.6 le exigió; el criterio de corte es **§10.1**; la deuda va a los **ítems diferidos de `Root-Rules.md` §12.2**; las escaladas a **`Decisiones-Pendientes.md`** de §7.0; y las capas a revalidar son los **hallazgos aguas arriba** de §10. Cuatro mecanismos del marco de origen se rechazaron por eso mismo: severidades S1-S4, chequeos mecánicos propios, criterio de parada propio y esquemas JSON.
+
+**Lo único que agrega como escala nueva es la clase del ancla, E1 a E4 y C.** El método exige cita literal desde la 9.19 y **no la gradúa**, y graduarla resuelve mecánicamente la pregunta previa de §8.1: con ancla, lo cierra el agente; sin ancla posible, es del humano. **Un hallazgo heredado de un informe anterior entra como `C`** y no funda ningún parche hasta que alguien lo abre — que es exactamente lo que los cuatro falsos enlaces rotos no tenían.
+
+### Agregado — `Master-Prompt-Reanudacion.md` 1.9 → 1.10, §3.1
+
+**R1.5, la mesa, entre la presentación del estado y las salidas.** Es la única fase del prompt **sin detención**: no pregunta, analiza.
+
+**Va exactamente ahí, y los tres motivos se sostienen contra el árbol.** **Antes no puede**: su contrato de entrada es la salida de R0, y convocarla antes sería el playbook que `Migracion-Rules.md` §3 rechazó con cinco fundamentos. **Después es tarde**: R2 elige la salida, y elegir sin saber si el corpus se sostiene es elegir sobre la mitad de la información — el mismo argumento por el que §3 presenta las divergencias antes que las salidas. **Y es el único punto donde una corrida sirve a las cinco salidas**: su plan es la lista de trabajo de la A, entra al plan de migración de la B y la E, funda la verificación que la C exige y es el punto de continuación de la D.
+
+§4.0 suma **cuatro renglones a la recomendación**, que vuelven cuantificable lo que antes se adjetivaba: hallazgos procedentes por nivel, parches listos, deuda declarada y escaladas.
+
+### Cambiado — `Master-Prompt-Migracion.md` 2.8 → 2.9, M1
+
+**M1 convoca la mesa cuando la invocación es directa, y verifica su registro cuando llega desde la reanudación.** No es una optimización: es el precedente que la 2.3 fijó para el diff normativo — reconstruirlo desde cero no lo hace más confiable, lo hace más lento y arriesga dos lecturas del mismo salto que no coinciden.
+
+**Y consolida la batería de preguntas.** La regla de no invención de `Migracion-Rules.md` §4.1 obliga a preguntar por cada sección sin fuente; sin mesa, esas preguntas nacen dispersas a lo largo de M2 y M4, de a una y sobre un árbol ya en escritura. **Es el mecanismo que produce las rondas**, y es el que se corrige.
+
+M6 suma un P0: un parche aplicado **aguas abajo del defecto que corrige**, contra la compuerta de capa de origen de `Mesa-Rules.md` §6.5.
+
+### Agregado — `Root-Rules.md` 8.5 → 8.6, §9.2: `AG-00970`
+
+El presidente de mesa, que **convoca, consolida y no vota**. Se acuñó por la regla que la 8.5 escribió —el mayor libre descendiendo desde `00990`— y se verificó el identificador antes de tomarlo.
+
+**Se hizo además la pregunta que la 8.5 declaró instructiva por haberla omitido**: a qué ítem diferido le cumple la condición esta acuñación. **A ninguno.** El único abierto del bloque es el solapamiento con las categorías `90` a `99`, que **se agrava** —tres ocupantes en lugar de dos— y sigue diferido con su evento de cierre intacto.
+
+### Cambiado — el barrido por concepto, y dos recuentos que ya estaban viejos
+
+Concepto barrido: los recuentos de archivos de reglas y las enumeraciones de master-prompts. **Cinco lugares alcanzados, cuatro actualizados y uno declarado.** Los recuentos pasan de **diecinueve a veinte** archivos de reglas y de siete a **ocho** transversales, en `README.md`, `SDD-Development-Guide.md` 1.29, `SDD-User-Guide.md` 1.20 y `Catalogo-De-Criterios.md` 1.14.
+
+**Y encontró dos que envejecieron antes de esta intervención**: `README.md` y `SDD-Development-Guide.md` §V decían que una invariante alcanza a **«los dos orquestadores»**, y el tercero existe desde el conjunto 8.10.
+
+Las apariciones en este `CHANGELOG.md` y en notas de coherencia anteriores **se declaran y no se tocan**: son registros de lo que se verificó en su fecha.
+
+`Catalogo-De-Criterios.md` suma la fila de la regla nueva con sus **12 situaciones** —el total pasa de **208 a 220**, `[enumerable]` de 100 a **107** e `[interpretativo]` de 108 a **113**— y **cinco criterios** a §3, entre ellos el que faltaba desde siempre: **cuándo una consulta es del humano**, por la lista cerrada de siete disparadores de `Mesa-Rules.md` §7.
+
+### Lo que se difiere, con los cuatro campos de §12.2
+
+**Cuánto cuesta una mesa y cuánto ahorra.** Un panel de núcleo más hasta cinco variables, con jurado de cinco y cuerpo de parches, es el despacho más caro que el método declara, y **nadie corrió una mesa sobre un destino real todavía**. Los topes de `Mesa-Rules.md` §5.5 y §6.7 lo acotan y no lo miden.
+
+- **Qué se difiere**: la calibración de los topes de panel y de ciclos contra costo medido.
+- **Por qué**: fijar un techo hoy sería inventar el caso, que es lo que `Root-Rules.md` §9.2 declara como motivo legítimo de diferimiento.
+- **Qué rige mientras tanto**: los topes escritos —cinco variables, cuatro rondas por §10.1—.
+- **Evento de cierre**: la primera corrida real que emita su registro de mesa. Lo que hay que medir está declarado: **hallazgos procedentes sobre convocados**, y **detenciones presentadas al humano antes y después**, que es la cifra que originó la intervención.
+
+### Por qué el conjunto sube 13.7
+
+**Es un minor.** Se agrega un mecanismo, una regla, un rol y una fase sin detención propia; **ninguna regla se deroga y ningún documento generado deja de cumplir**.
+
+### Impacto sobre destinos existentes
+
+**Ninguno forzado por la publicación, y no es una migración.** Un destino no tiene que hacer nada: la mesa se convoca la próxima vez que se lo reanude o se lo migre, y su registro nace ahí. Un destino cuya reanudación anterior corrió sin mesa **no queda no conforme**: la fase no existía. El precedente de alcance temporal es el de §10.0 en la 13.6.
+
+**Lo que sí cambia para quien lo opera**: las consultas dejan de llegar de a una durante la ejecución y pasan a llegar **en lote, antes del plan y con default declarado**.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Mesa-De-Evaluacion.md`, conjunto resultante **13.7**.
+
 ## [13.6] - 2026-08-23
 
 **El método concedía una exclusión de alcance a cambio de una declaración, y nada comprobaba que la declaración fuera verdadera.** Es el reporte `16`, y la asimetría que describe es la que lo hace reincidente: **una comprobación que sobredeclara produce exactamente la misma salida verde que una correcta**, y el único lector capaz de notarlo es el auditor, que es precisamente a quien la exclusión se lo prohíbe mirar. Un defecto que sólo puede ver quien tiene prohibido mirarlo no se corrige por atención.

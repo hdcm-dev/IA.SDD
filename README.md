@@ -26,7 +26,7 @@ Hay **una sola excepción** a la regla de que un orquestador no escribe en este 
 
 | Ruta | Qué contiene |
 | --- | --- |
-| [`SDD/Devs/Rules/`](SDD/Devs/Rules/) | Los diecinueve archivos de reglas constructivas: uno por categoría documental más siete transversales. Es el corazón normativo del framework |
+| [`SDD/Devs/Rules/`](SDD/Devs/Rules/) | Los veinte archivos de reglas constructivas: uno por categoría documental más ocho transversales. Es el corazón normativo del framework |
 | [`Conocimiento/`](Conocimiento/) | **Carpeta anexa, no parte del conjunto normativo.** El catálogo de oficio: caracterizaciones de arquitecturas, templates y convenciones que el método no gobierna. **El framework corre igual con la carpeta vacía**, y se extiende forkeando y agregando documentos, sin tocar una sola regla |
 | [`SDD/Devs/Orchestrator/`](SDD/Devs/Orchestrator/) | Los dos master-prompts. El de **generación** despacha subagentes por fase, con auditoría entre fases y confirmación humana en cada corte. El de **migración normativa** lleva un destino ya especificado a la versión vigente del framework, y cita el despacho y la auditoría del primero en lugar de redefinirlos |
 | [`SDD/Devs/Intake/`](SDD/Devs/Intake/) | Plantillas de carga inicial: `PRODUCT-INTAKE-template.md` que completa el usuario y `PRODUCT-MANIFEST-template.md` que deriva el orquestador |
@@ -60,6 +60,7 @@ Es el núcleo de este documento. Buscá la fila que describe lo que venís a hac
 | Saber qué reglas rigen la redacción de un documento generado | §4 del archivo de reglas de su categoría. Para el cuerpo documental de entrega, [`SDD/Devs/Rules/Rules-Documentacion.md`](SDD/Devs/Rules/Rules-Documentacion.md) §1.4, §1.5, §4.6 y §4.7 |
 | Encontrar el orquestador de generación | [`SDD/Devs/Orchestrator/Master-Prompt.md`](SDD/Devs/Orchestrator/Master-Prompt.md) |
 | **Retomar un destino sin saber en qué estado quedó** | [`SDD/Devs/Orchestrator/Master-Prompt-Reanudacion.md`](SDD/Devs/Orchestrator/Master-Prompt-Reanudacion.md), o su prompt de entrada [`PROMPTS/PROMPT-Agente-Reanudacion-SDD.md`](PROMPTS/PROMPT-Agente-Reanudacion-SDD.md) |
+| **Evaluar un corpus ya existente antes de decidir qué hacer con él** | [`SDD/Devs/Rules/Mesa-Rules.md`](SDD/Devs/Rules/Mesa-Rules.md), que se convoca desde `Master-Prompt-Reanudacion.md` **R1.5** y desde `Master-Prompt-Migracion.md` **M1** |
 | Encontrar el orquestador de migración | [`SDD/Devs/Orchestrator/Master-Prompt-Migracion.md`](SDD/Devs/Orchestrator/Master-Prompt-Migracion.md) |
 | Encontrar las plantillas de intake | [`SDD/Devs/Intake/`](SDD/Devs/Intake/) |
 | Entender el orden de fases y qué produce cada una | [`SDD/Devs/Orchestrator/Master-Prompt.md`](SDD/Devs/Orchestrator/Master-Prompt.md) §6 y §7 |
@@ -141,7 +142,7 @@ La formulación actual elimina la duplicidad en lugar de parchearla. Un solo arc
 | Agregar un artefacto a una categoría, un anti-patrón o un criterio de aceptación | Subir **minor** del archivo de reglas, con fila nueva en su §9 control de cambios |
 | Cambiar el gating de una categoría por tipo D8, o el conjunto de artefactos que produce | Subir **major** del archivo de reglas. La documentación ya generada con la versión anterior deja de cumplir |
 | Agregar una categoría documental o una fase al orquestador | Subir **major** del archivo afectado, y actualizar el master-prompt, `Root-Rules.md` y la guía de usuario en la misma intervención |
-| Modificar una invariante D1 a D9 | Es el cambio de mayor impacto del framework: alcanza a los diecinueve archivos de reglas, a los dos orquestadores y a toda la documentación ya emitida. Requiere decisión explícita del responsable y nota de coherencia |
+| Modificar una invariante D1 a D9 | Es el cambio de mayor impacto del framework: alcanza a los veinte archivos de reglas, a los tres orquestadores y a toda la documentación ya emitida. Requiere decisión explícita del responsable y nota de coherencia |
 | **Cambiar un concepto** —el nivel del que cuelga un artefacto, el dueño de un campo, un conjunto cerrado, un término normativo— | **Barrido por concepto** antes de cerrar: enumerar el término en **todo el árbol**, sin filtrar por el alcance declarado, e **incluir el interior de los archivos ya tocados**. Las apariciones que se dejan se declaran con su motivo. El procedimiento y los tres casos que lo produjeron están en [`SDD-Development-Guide.md`](SDD/Guides/SDD-Development-Guide.md) §VI.3.1 |
 | Cualquier intervención sobre varios archivos | Emitir una nota de coherencia siguiendo el patrón de [`Coherencia-Auditoria-Marco.md`](SDD/Devs/Guides/Coherencia-Auditoria-Marco.md): alcance, inventario, verificación de invariantes, trazabilidad, observaciones y veredicto |
 | Publicar una versión nueva del framework | Entrada en el [`CHANGELOG.md`](CHANGELOG.md) y copia del conjunto normativo superado en [`_legacy/<version>/`](_legacy/), en la misma intervención. La versión del conjunto se deriva de la mayor severidad de sus partes: major si alguna regla **o alguna plantilla de intake** sube major, o se toca una invariante; minor si alguna sube minor; patch si no cambia ninguna regla |
