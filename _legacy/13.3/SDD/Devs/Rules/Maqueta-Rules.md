@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega visual):** `SDD/Maquetas/<Nombre-Unidad-Entrega>/` del repositorio destino
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Maquetador de validación visual (AG-00031)
-**Versión de las reglas:** 4.5
+**Versión de las reglas:** 4.4
 
 ---
 
@@ -17,7 +17,7 @@ Resuelve tres problemas concretos del flujo:
 2. La especificación de UX y UI no se puede apreciar en prosa. Lo que el humano aprueba en `Experiencia-De-Uso` y en los `wireframes-<superficie>` no es necesariamente lo que imaginó.
 3. El resultado de la codificación no tiene contra qué contrastarse. La maqueta aprobada, junto con el modelo de datos que exhibe, es la línea de base verificable del sensado de deriva (ver `Deriva-Rules.md`).
 
-Insumos: 02 de la unidad de entrega (casos de uso, reglas de negocio, modelo conceptual de datos), 03 de la unidad de entrega (`Experiencia-De-Uso`, `wireframes-<superficie>`, `representacion-<concepto>`, `Glosario-UX`), 00 (persona objetivo), el catálogo de diseño de `References/Design/`, el catálogo de modelos UX-UI de `Modelos-UX-UI/` y los documentos de `Conocimiento/` que el orquestador haya resuelto para este subagente —por condición de carga o por cita del intake— según `Master-Prompt.md` §6. Esa última lista **puede venir vacía**, y con la carpeta de conocimiento vacía siempre lo está.
+Insumos: 02 de la unidad de entrega (casos de uso, reglas de negocio, modelo conceptual de datos), 03 de la unidad de entrega (`Experiencia-De-Uso`, `wireframes-<superficie>`, `representacion-<concepto>`, `Glosario-UX`), 00 (persona objetivo), el catálogo de diseño de `References/Design/` y el catálogo de modelos UX-UI de `Modelos-UX-UI/`.
 
 Salida: la maqueta en `SDD/Maquetas/<Nombre-Unidad-Entrega>/` del destino, la retroalimentación de los documentos de 03 (y la propagación al resto de las categorías afectadas), los artefactos de línea de base del sensado de deriva y, si el humano lo aprueba, un modelo nuevo en el catálogo `Modelos-UX-UI/` del template más su ejemplo ofuscado en `Templates/`.
 
@@ -313,46 +313,22 @@ Nota operativa: los dos artefactos se escriben en el repositorio fuente `IA.SDD`
 
 ## 4. Reglas constructivas de la maqueta
 
-Las reglas de esta sección viven en **dos capas**, y la distinción decide qué puede reemplazar una base
-de conocimiento y qué no.
-
-| Capa | Qué es | Subsecciones | ¿Sustituible? |
-| --- | --- | --- | --- |
-| **Decisión de stack** | Una elección razonada entre alternativas legítimas. Es del framework porque alguien tenía que elegir, no porque sea la única correcta | **§4.1** | **Sí**, declarándolo |
-| **Método** | Criterio de aceptación de la maqueta. Es lo que la hace servir, independientemente de con qué se la construya | **§4.2 a §4.7** | **No** |
-
-**Cómo se sustituye.** Un documento del catálogo `Conocimiento/` que reemplaza la tecnología de
-construcción lo declara en el campo `sustituye` de su fila del índice, con la referencia literal
-`Maqueta-Rules.md §4.1 · tecnología de construcción`. **Sin esa declaración no hay sustitución**: el
-caso vuelve a ser conflicto y manda esta regla (`Rules-Base-Conocimiento.md` §0.4).
-
-**Y lo que la sustitución no alcanza, aunque cambie el stack.** Los tokens del catálogo de diseño de
-`References/Design/` siguen rigiendo, y todo §4.2 a §4.7 se cumple igual con la tecnología que sea: una
-maqueta construida con componentes y proceso de build sigue demostrando los cuatro estados, sigue
-teniendo fuente única de datos de ejemplo, sigue siendo autónoma y sigue cumpliendo WCAG 2.2 AA.
-**Sustituir cambia el cómo, no el qué tiene que ser verdad.**
-
-### 4.1 Tecnología de construcción
-
-**Capa: decisión de stack.** Sustituible con declaración, según la tabla de arriba.
+### 4.1 Tecnología
 
 - HTML5 semántico, CSS y JavaScript vanilla, con Bootstrap 5.0 como framework de grilla y componentes.
 - Sin proceso de build, sin gestor de paquetes, sin `node_modules`: lo que se edita es lo que se sirve. La justificación está en §7.
-- Bootstrap se carga por CDN. El CSS propio se carga después y sobreescribe con los tokens del catálogo de diseño. **Que los tokens del catálogo rijan no es sustituible**: cambia cómo se los materializa, no que se los use.
+- Bootstrap se carga por CDN. El CSS propio se carga después y sobreescribe con los tokens del catálogo de diseño.
+- Íconos SVG inline con `currentColor`. Prohibido el raster para iconografía y prohibidos los packs de íconos por CDN.
+- Nada de llamadas de red a servicios reales. La maqueta es autónoma y funciona sin backend.
 
 ### 4.2 Datos de ejemplo
 
-**Capa: método.**
-
-- **Nada de llamadas de red a servicios reales. La maqueta es autónoma y funciona sin backend.** Es lo que define qué **es** una maqueta y no cómo se la construye, de modo que rige cualquiera sea la tecnología.
 - Fuente única: `assets/js/Datos-Maqueta.js`, que expone un objeto global con el arreglo de datos de ejemplo, el contrato de campos (nombre, tipo, ejemplo, entidad de origen) y, si la unidad de entrega tiene superficies de configuración, los descriptores de configuración.
 - Ningún HTML hardcodea datos. Los renderiza el JavaScript desde esa fuente. La razón es funcional: si los datos están dispersos en el HTML, la maqueta no sirve para validar el modelo de datos, que es uno de sus dos propósitos.
 - Los datos salen de los ejemplos de la documentación de 02. Cantidad suficiente para que se vean los casos límite declarados en los CU: la fila más larga, el valor nulo, la categoría con muchos elementos, el estado de error.
 - Los datos de ejemplo son verosímiles dentro del dominio de la unidad de entrega pero no son datos reales del cliente. La maqueta vive en el repositorio destino; los datos reales no entran ahí ni siquiera en una maqueta.
 
 ### 4.3 Estados y barra de validación
-
-**Capa: método.**
 
 Toda superficie demuestra como mínimo los estados vacío, cargando, con datos y error, más los que declare su wireframe.
 
@@ -368,8 +344,6 @@ La barra incluye además un interruptor de recarga automática, apagado por defe
 
 ### 4.4 Cobertura mínima por tipo
 
-**Capa: método.**
-
 | Tipo D8 | Superficies mínimas en la maqueta |
 | --- | --- |
 | web-monolith | Las cuatro del piso de 03 (acceso, home, flujo principal, error) más una por flujo crítico |
@@ -383,23 +357,11 @@ El mínimo es piso. La cota superior la fija la cobertura de los CU con interacc
 
 ### 4.5 Accesibilidad
 
-**Capa: método.**
-
 WCAG 2.2 nivel AA es piso obligatorio también en la maqueta, no solo en el producto. Una maqueta que se valida sin foco visible, sin navegación por teclado o sin contraste suficiente enseña al validador humano a aprobar una superficie inaccesible. Mínimos verificables: landmarks semánticos, `label` asociados, foco visible en todos los controles, recorrido completo por teclado, `aria-live` para los cambios de estado, contraste 4.5:1 en texto.
 
 ### 4.6 Sello de versión
 
-**Capa: método.**
-
 La maqueta exhibe en el pie de cada superficie el nombre de la unidad de entrega, el modelo UX-UI aplicado y la fecha de la iteración vigente. Es lo que permite al humano saber qué está mirando cuando vuelve a la maqueta días después.
-
-### 4.7 Iconografía
-
-**Capa: método.**
-
-- Íconos SVG inline con `currentColor`. Prohibido el raster para iconografía y prohibidos los packs de íconos por CDN.
-
-No es una elección de tecnología sino de calidad, y por eso no se sustituye: un ícono vectorial que hereda el color del contexto es lo que hace que la iconografía funcione en cualquier tema, en cualquier tamaño y con cualquier contraste. La regla vale igual construyendo con componentes, con build o con lo que sea.
 
 ---
 
@@ -491,8 +453,6 @@ La maqueta no usa empaquetador ni transpilador. La decisión no es contra ningun
 A eso se suma que un empaquetador acá no aporta nada: no hay módulos que resolver, ni sintaxis que transpilar, ni tamaño que optimizar. La recarga automática, que sí es útil, la da el servidor del editor sin build.
 
 Si una unidad de entrega futura necesitara compilar para maquetar (por ejemplo, una librería de componentes que solo se puede demostrar compilada), se registra como ADR en 05 del proyecto de código y la maqueta documenta su propio comando de build en su `README.md`. Es la excepción, no el camino.
-
-**Esa vía es para el caso puntual, y hay que distinguirla del caso de escala.** Una organización que construye **siempre** con proceso de build no tiene una excepción: tiene una convención, y resolverla con un ADR por proyecto produce el mismo ADR una y otra vez, que es el anti-patrón que `Root-Rules.md` §11 nombra. Ese caso se declara **una sola vez**, como **sustitución** de §4.1 en un documento de `Conocimiento/`, según la tabla de §4. El ADR queda para lo que de verdad es excepcional.
 
 ---
 
@@ -610,5 +570,4 @@ Devolución:
 | 4.1 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 4.2 | 2026-08-17 | Los cuatro pasos de detención de la Fase B2 —1, 2, 5 y 7— adoptan la forma de `Master-Prompt.md` §8.1. El paso 5 suma el caso que la motivó: cuando la maqueta **dejó de reflejar el intake** porque el intake cambió, la detención no pregunta «¿qué hacemos?» sino que propone **modificar o replantear**, declarando **qué de lo hecho vale la pena conservar** —que es lo que decide entre las dos y lo sabe quien miró la maqueta, no quien la aprueba—. |
 | 4.3 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
-| 4.5 | 2026-08-23 | **§4 se separa en dos capas** (framework 13.4), y es lo que habilita que una organización aporte su forma de construir sin editar el framework. **§4.1, ahora «Tecnología de construcción», es la capa de decisión de stack y es sustituible**; **§4.2 a §4.7 son método y no lo son**. Cada subsección declara su capa en su primera línea, para que se lea sola. **Ninguna regla cambia de contenido y dos cambian de lugar**, porque §4.1 llevaba dos ítems que no son tecnología: la autonomía sin backend pasa a **§4.2**, donde define qué **es** una maqueta, y la iconografía vectorial pasa a la nueva **§4.7**, porque es una regla de calidad y no una elección de stack. Se declara además **qué no alcanza la sustitución**: los tokens del catálogo de diseño siguen rigiendo y todo §4.2 a §4.7 se cumple con la tecnología que sea —**sustituir cambia el cómo, no el qué tiene que ser verdad**—. **§7.2 distingue el caso puntual del caso de escala**: una unidad de entrega que necesita compilar va por ADR, pero una organización que construye siempre así **no tiene una excepción, tiene una convención**, y resolverla con un ADR por proyecto es el anti-patrón que `Root-Rules.md` §11 nombra; se declara una sola vez como sustitución. **§1 suma la base de conocimiento a los insumos de AG-00031**, que era una lista cerrada: sin eso, el conocimiento sobre cómo construir una página web no llegaba al agente que la construye. Sube **minor**: ninguna maqueta que cumplía deja de cumplir. |
 | 4.4 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
