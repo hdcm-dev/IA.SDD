@@ -3,6 +3,66 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.6] - 2026-08-23
+
+**El método concedía una exclusión de alcance a cambio de una declaración, y nada comprobaba que la declaración fuera verdadera.** Es el reporte `16`, y la asimetría que describe es la que lo hace reincidente: **una comprobación que sobredeclara produce exactamente la misma salida verde que una correcta**, y el único lector capaz de notarlo es el auditor, que es precisamente a quien la exclusión se lo prohíbe mirar. Un defecto que sólo puede ver quien tiene prohibido mirarlo no se corrige por atención.
+
+La versión trae además el **barrido de pendientes del framework**, que encontró un ítem diferido con su evento de cierre cumplido y dos afirmaciones vencidas. Van juntas porque tocan los mismos archivos y comparten la misma clase de defecto: **algo declarado que nadie comprueba**.
+
+### Cambiado — `Master-Prompt.md` 8.13 → 8.14, §10.0
+
+**Tres obligaciones, y las tres son del destino que escribe su compuerta.** Toda comprobación entra **con un caso que la ejerce**: aplica el defecto sobre una copia, corre, y verifica que lo reporte. Todo **recorte declarado** entra con su caso de la clase inversa: el defecto **no** se reporta **y** la salida declara que ahí no mira. Y **un hallazgo sobre la propia compuerta no pasa a «cerrado» sin su caso**, que tiene que **fallar antes de la corrección y pasar después** — es el decisivo, porque es el que corta el ciclo de reincidencia.
+
+**El banco es del destino y el framework no lo distribuye**, por `SDD-Development-Guide.md` §II.7: los casos dependen de las comprobaciones que cada destino escribió, y un banco central reimplementaría condiciones que el destino ya declara. **La obligación es del método; el banco es del destino.**
+
+**Y no se pide cobertura completa.** El punto no es que la compuerta mida todo: es que **declare con precisión lo que mide**. Un recorte declarado y probado es conforme; el callado no lo es.
+
+**La declaración de alcance pasa de prosa a lista enumerada de recortes**, para que el despacho del audit pueda distinguir *«esto quedó verificado y sale de tu alcance»* de *«esto la compuerta declara no haberlo mirado, y es tuyo»*, que era la mitad que se perdía.
+
+### Cambiado — el recuento de anti-patrones sale de la prosa
+
+§10.0 decía «97 de las 202 situaciones». **Medido sobre los archivos vivos: 100 de 208**, que es exactamente lo que `Catalogo-De-Criterios.md` §4 declara. El catálogo estaba bien y §10.0 era el que había quedado viejo.
+
+**La corrección no fue actualizar el número.** Ya había envejecido dos veces sin que nada lo detectara, que es lo que `Root-Rules.md` §10 prohíbe para un dato derivado en la prosa. §10.0 **deja de transcribirlo** y cita el catálogo como única fuente. Corregir el número lo dejaba listo para envejecer una tercera vez.
+
+### Cambiado — `Root-Rules.md` 8.4 → 8.5, §9.2: un hallazgo P1 del barrido
+
+**Un ítem diferido cuyo evento de cierre ya había ocurrido siguió abierto tres versiones.** El ítem 4 de `Coherencia-Renumeracion-AG.md` §8 no escribía la regla de reparto del bloque `009xx` con este motivo textual: *«No hay un segundo rol de nivel producto que fuerce la decisión»*. **`AG-00980` fue ese segundo rol y se acuñó en la 13.2.**
+
+`Root-Rules.md` §12.2 lo califica sin ambigüedad: **ítem diferido cuyo evento ya ocurrió y sigue abierto → Hallazgo P1**.
+
+La regla entra: los roles toman `009N0` **descendiendo desde `00990`**, sus subagentes de fase `009N1` a `009N9`, con la misma gramática que las categorías. El ítem queda **cerrado**.
+
+**Y lo que la regla no resuelve queda declarado**: el bloque **se solapa con las categorías `90` a `99`** si alguna vez existieran. Sigue diferido, y **se agrava**: ahora hay dos ocupantes en vez de uno.
+
+**Cómo pasó, que es lo instructivo.** La intervención que acuñó `AG-00980` verificó que el identificador estuviera libre y que el bloque lo admitiera. **Lo que no hizo fue preguntarse a qué ítem diferido le cumplía la condición.**
+
+### Cambiado — `SDD-Development-Guide.md` 1.27 → 1.28
+
+§III.11 decía que `AG-00980` «existe pero todavía no se convoca». La 13.5 lo volvió falso. Entra en su lugar el ciclo de `Master-Prompt.md` §9.1.
+
+### Corrección de una entrada publicada
+
+**La entrada [13.5] de este mismo archivo afirma que `SDD-User-Guide.md` 1.19 declara que `AG-00980` «existe pero todavía no se convoca».** Es falso: **la guía de usuario no menciona `AG-00980` en ninguna línea** —`grep -c` devuelve 0— y nunca lo mencionó. La afirmación sólo era cierta de la guía de desarrollo.
+
+**La entrada anterior no se reescribe**: el `CHANGELOG.md` es acumulativo y su historia es su contenido. La corrección se declara acá, que es donde corresponde.
+
+### Lo que se difiere, con los cuatro campos de §12.2
+
+**§8.2 del reporte** —qué hacer cuando un archivado a `_legacy/` salió mal— **se difiere**, y la decisión se declara porque el prompt del fix pedía elegir explícitamente. Converge con un hallazgo medido en un destino **cuyo reporte todavía no existe**, y resolverlo ahora importaría esa evidencia por la puerta de atrás. Se cierra cuando ese reporte se emita, o cuando un segundo destino mida el mismo defecto.
+
+### Por qué el conjunto sube 13.6
+
+**Es un minor.** Se agregan obligaciones y una regla de acuñación; **ninguna regla se deroga y ningún documento generado deja de cumplir**.
+
+### Impacto sobre destinos existentes
+
+**Ninguno forzado por la publicación, y no es una migración.** §10.0 declara que la obligación del banco rige para las compuertas escritas **desde esta versión en adelante**; una compuerta ya escrita trae su banco en la próxima intervención que la toque y hasta entonces declara la ausencia como recorte. El precedente del alcance temporal es la conformidad D9 de la propia §10.0.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Compuerta-Con-Banco.md`, conjunto resultante **13.6**.
+
 ## [13.5] - 2026-08-23
 
 **Se activa `AG-00980`, y con eso la capa de conocimiento queda completa.** El rol tenía contrato desde la 12.2 e identificador desde la 13.2, y **no se convocaba nunca**: faltaba la vía por la que un subagente pide. Las dos guías lo declaraban como pendiente.

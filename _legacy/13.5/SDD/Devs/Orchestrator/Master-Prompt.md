@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 8.14
+**Versión:** 8.13
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -1142,11 +1142,8 @@ existía el primero:
 
 1. **Las comprobaciones transversales**, que se enumeran abajo y valen para toda fase y toda categoría.
 2. **Los anti-patrones marcados `[enumerable]`** en la tabla §4.8 —o equivalente— del archivo de reglas
-   de la categoría que la fase está generando. Están declarados, marcados y **son
-   aproximadamente la mitad del catálogo**. **El recuento exacto no se escribe acá**: vive en
-   `Catalogo-De-Criterios.md` §4, que los inventaria por regla y es su única fuente. Esta sección
-   llevaba el número transcripto y **quedó desactualizada dos veces** sin que nada lo detectara, que es
-   exactamente lo que `Root-Rules.md` §10 prohíbe para un dato derivado.
+   de la categoría que la fase está generando. Están declarados, marcados y **son la mayoría**: 97 de
+   las 202 situaciones que el método cataloga. `Catalogo-De-Criterios.md` los inventaria por regla.
 
 **Por qué el segundo conjunto no se escribe acá.** Duplicarlo en esta sección lo pondría en dos
 lugares, y una duplicación que hay que mantener en paralelo se desincroniza — es el mismo fundamento
@@ -1194,49 +1191,12 @@ Comprobaciones mínimas de la compuerta, cada una de naturaleza enumerable:
    promesa **sin la forma de §12.2** también es hallazgo, y por el motivo que lo hace peligroso: sin
    marca no es contable, de modo que ninguna de las otras comprobaciones lo alcanza.
 
-**La compuerta declara qué no mira, y lo declara como lista.** Su salida, incluso en verde, enuncia el
-alcance de lo que verificó y **enumera uno por uno los recortes**: qué comprobación no corrió, o corrió
-parcial, y sobre qué parte del árbol. Una compuerta que se lee como aprobación es peor que ninguna,
-porque el audit siguiente llega con la guardia baja.
+**La compuerta declara qué no mira.** Su salida, incluso en verde, enuncia explícitamente el alcance
+de lo que verificó y lo que queda sin verificar. Una compuerta que se lee como aprobación es peor que
+ninguna, porque el audit siguiente llega con la guardia baja.
 
-**Por qué lista y no prosa.** El resultado de la compuerta es insumo del despacho del audit, y el
-despacho tiene que poder decir dos cosas distintas: *«esto quedó verificado y sale de tu alcance»* y
-*«esto la compuerta declara no haberlo mirado, y es tuyo»*. En prosa la segunda mitad se pierde, y es
-la que más vale.
-
-**Y la exclusión de alcance se concede contra evidencia, no contra la declaración.** Es la corrección de
-fondo de esta sección, y el motivo se enuncia primero porque sin él la obligación parece burocracia:
-
-> Un instrumento que sobredeclara produce **exactamente la misma salida verde** que uno correcto, y el
-> único lector capaz de notarlo es el auditor, que es precisamente a quien la exclusión se lo prohíbe
-> mirar. Un defecto que sólo puede ver quien tiene prohibido mirarlo no se corrige por atención: se
-> corrige cambiando quién lo mira.
-
-De ahí tres obligaciones, y las tres son **del destino que escribe su compuerta**, no del framework:
-
-1. **Toda comprobación entra a la compuerta con un caso que la ejerce.** El caso aplica sobre una copia
-   el defecto que la comprobación dice cubrir, corre la compuerta y verifica que lo reporte. Una
-   comprobación sin caso no está verificada: está declarada.
-2. **Todo recorte declarado entra con su caso de la clase inversa**: aplica el defecto sobre la parte
-   recortada, corre, y verifica que la compuerta **no** lo reporte **y** que su salida declare que ahí
-   no mira. Es lo que distingue un recorte declarado de un recorte callado.
-3. **Un hallazgo sobre la propia compuerta no pasa a «cerrado» sin el caso que lo ejerce**, y el caso
-   tiene que **fallar antes de la corrección y pasar después**. Sin esto, la próxima corrección del
-   instrumento vuelve a declararse cerrada sin evidencia, que es el ciclo que esta sección corta.
-
-**El banco de casos es del destino y el framework no lo distribuye.** Los casos dependen de las
-comprobaciones que cada destino escribió; un banco central reimplementaría condiciones que el destino
-ya declara, y cae en `SDD-Development-Guide.md` §II.7 por el mismo fundamento con el que
-`Migracion-Rules.md` §3 rechazó los playbooks. **La obligación es del método; el banco es del destino.**
-
-**Y no se pide cobertura completa.** El punto no es que la compuerta mida todo: es que **declare con
-precisión lo que mide**. Un recorte declarado y probado es conforme. Lo que no lo es es el recorte
-callado.
-
-**Alcance temporal.** Rige para las compuertas escritas desde la versión que incorpora esta obligación
-en adelante. Una compuerta ya escrita **no queda incumpliendo el día de la publicación**: trae su banco
-en la próxima intervención que la toque, y hasta entonces declara la ausencia como recorte. Es el mismo
-criterio con que la conformidad D9 de esta sección no se aplicó retroactivamente.
+El resultado de la compuerta es **insumo del despacho del audit**: el prompt del auditor recibe qué
+quedó verificado y lo excluye explícitamente de su alcance.
 
 Si la compuerta falla, la fase no despacha audit: se corrige y se vuelve a correr. Un fallo de
 compuerta no consume una ronda de auditoría.
@@ -1754,7 +1714,6 @@ Reglas de versionado:
 | 8.0 | 2026-08-16 | **El bloque informativo de §3.4 —lo primero que el orquestador imprime y lo primero que un subagente ve— era de un solo eje.** Enumeraba proyectos de código llevando `tipo_unidad_entrega`, `redistribuible` y `path-docs`, que es exactamente la mezcla que `Intake-Rules.md` §4 valida como imposible y que la 8.12 corrigió en la regla sin llegar acá. Pasa a **tres bloques** —unidades de entrega de §2.A, proyectos de código de §2.B y la matriz de §2.C— con la constancia de que ningún D8 sale del eje de construcción y ninguna `Identidad-Codigo` del de entrega. El campo del producto pasa a `unidad-de-entrega-principal` y el orden topológico se desdobla en **compilación** e **integración**, que no son el mismo grafo. §3.1 y §15 acompañan el renombre. Sube **major**: cambia la forma del bloque que gobierna toda la generación. |
 | 8.1 | 2026-08-17 | **§12.1 es nueva: el traspaso por pull request**, y la leen los tres orquestadores. Declara un protocolo que **se usaba y no estaba escrito**: **T1** el agente no fusiona —el merge es el único control que no es suyo—; **T2** nada se escribe sobre un árbol sucio, porque el historial es el contraste observable de varias dimensiones y **no incluye lo que no está commiteado**; **T3** una unidad de trabajo, un pull request, declarada antes de empezar; **T4** la forma literal de la entrega, con «qué sigue después del merge» obligatorio; **T5** el aviso del humano **se verifica y no se cree**, comprobando que el commit entregado es alcanzable desde la principal; **T6** su límite. Sube **minor**: agrega una mecánica de traspaso sin cambiar ninguna fase ni entregable. | Framework SDD (traspaso por pull request) |
 | 8.2 | 2026-08-17 | **§12.1 suma T0, la compuerta de arranque**, con sus cinco comprobaciones sobre el repositorio local contra el remoto y su salida publicada siempre, también cuando está todo en orden —que es lo que distingue «no había nada que arreglar» de «no se miró»—. **Su comprobación 4 vuelve verificable a T3**: lo que nadie miraba era que no hubiera **dos unidades vivas a la vez**, y empezar una segunda mientras la primera espera merge produce dos ramas que se pisan. **T5 pasa de verificar a verificar y preparar**: poda referencias, comprueba si la principal **trajo algo más** —trabajo de otra sesión que vuelve viejo lo medido antes del merge— y deja el repositorio en el estado que la unidad siguiente necesita, publicado con el formato de T0. Sube **minor**. | Framework SDD (compuerta de arranque) |
-| 8.14 | 2026-08-23 | **§10.0 deja de conceder la exclusión de alcance contra una declaración** (framework 13.6, reporte `16`). La compuerta le dice al auditor qué no mire, y **nada comprobaba que lo declarado fuera lo medido**: una comprobación que sobredeclara produce **la misma salida verde** que una correcta, y el único que podría notarlo es el auditor, a quien la exclusión se lo prohíbe. Entran **tres obligaciones, todas del destino que escribe su compuerta**: toda comprobación entra **con un caso que la ejerce**; todo **recorte declarado** entra con su caso de la clase inversa —el defecto no se reporta **y** la salida declara que ahí no mira—; y **un hallazgo sobre la propia compuerta no pasa a «cerrado» sin su caso**, que tiene que fallar antes y pasar después. **El banco es del destino y el framework no lo distribuye**, por `SDD-Development-Guide.md` §II.7. **No se pide cobertura completa**: un recorte declarado y probado es conforme, el callado no. La declaración de alcance pasa de prosa a **lista enumerada de recortes**, para que el despacho del audit pueda distinguir «esto salió de tu alcance» de «esto la compuerta no lo miró y es tuyo», que era la mitad que se perdía. **Alcance temporal declarado**: rige hacia adelante y una compuerta ya escrita trae su banco en la próxima intervención que la toque, con el precedente de la conformidad D9 de esta misma sección. Y **el recuento de anti-patrones `[enumerable]` sale de la prosa**: decía «97 de las 202» y la medición sobre las tablas vivas da **100 de 208**; el número deja de transcribirse y se cita `Catalogo-De-Criterios.md` §4 como única fuente, que es lo que `Root-Rules.md` §10 exige de un dato derivado. Sube **minor**. | Framework SDD (reporte 16) |
 | 8.13 | 2026-08-23 | **Se activa `AG-00980`** (framework 13.5), que desde la 13.2 tenía identificador y contrato pero **no se convocaba nunca**: faltaba la vía por la que un subagente pide. **§8 suma `{{AVISO_BIBLIOTECA}}`** al esqueleto de despacho, **una sola línea** que le dice al subagente que la biblioteca existe y cómo pedir — el subagente **no lleva el índice encima, lleva la necesidad**, con lo que el costo deja de crecer con el tamaño del catálogo y pasa a crecer con la frecuencia de faltantes. **Nueva §9.1, el pedido de conocimiento**, que es una detención de otra clase: **no va al humano, la resuelve el orquestador**. El bloque describe **la necesidad y no el alias**, porque el subagente no conoce el catálogo; el orquestador despacha a AG-00980 con el índice filtrado por consumidor, resuelve los alias que devuelva, registra, y **reanuda con los documentos enteros y verbatim**. Si la respuesta viene vacía escala por §9, que es correcto: significa que la base no tiene lo pedido, **y eso es información**. Tres salvaguardas: el orquestador entrega y AG-00980 nunca, para no crear la **segunda fuente** que §6 punto 1 prohíbe; **un pedido por despacho**, porque el segundo es un bucle; y el log de pedidos como evidencia de **condiciones mal calibradas**. Con el catálogo vacío el aviso viaja vacío y nada de esto existe para el subagente. Sube **minor**. | Framework SDD (bibliotecario activo) |
 | 8.12 | 2026-08-23 | **La base de conocimiento entra al despacho** (framework 13.2), y los dos cambios son **aditivos**: ninguna nota operativa existente se toca y ninguna condición vigente cambia de comportamiento. **§6 suma dos notas.** La primera arma `{{LISTA_DOCUMENTOS_DE_CONOCIMIENTO}}` con la unión de dos conjuntos —las filas del índice cuya **condición de carga** dispara, y las que el intake **cita por alias** en `§17.P.13`—, y asigna cada documento **únicamente** al despacho del **consumidor** que su fila declara, que puede ser una categoría o un subagente de fase; el conjunto cargado y el motivo de cada documento van al log. La segunda fija la **precedencia**: el conocimiento es insumo **consultivo** y ante conflicto manda la regla de categoría, salvo sustitución declarada sobre un ítem que el framework haya rotulado como decisión de stack. **§8 suma una línea** al esqueleto de despacho, que **puede venir vacía**. El catálogo de diseño de `References/Design/` se sigue resolviendo por sus propias notas y **no se funde** con este: uno está siempre y es normativo, el otro puede no existir y es consultivo. **Con `Conocimiento/` vacía o sin índice el despacho se arma exactamente como antes.** Sube **minor**. | Framework SDD (base de conocimiento) |
 | 8.3 | 2026-08-17 | **T3 admite el caso que T0 no puede detectar en lugar de prohibirlo sin control.** Una rama puede terminar con dos unidades —una reparación que aparece a mitad de fase, dos pasos que resultaron inseparables— y también por descuido; **los dos se tratan igual**: la entrega de T4 nombra las **dos**, en su orden, y dice **cuál se puede revertir sin la otra**, con lo que el humano recupera lo que T3 protege —decidir con la información completa, aunque ya no pueda decidir por separado—. Lo inaceptable pasa a ser **la rama que lleva dos y declara una**. El bloque de T4 suma la fila `Unidades`. Sube **minor**. | Framework SDD (T3 admite y declara) |

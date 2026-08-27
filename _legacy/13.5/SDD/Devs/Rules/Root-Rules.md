@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-00990)
-**Versión de las reglas:** 8.5
+**Versión de las reglas:** 8.4
 
 ---
 
@@ -461,26 +461,6 @@ que **se declara acá**.
 cierra con su fecha: el que tenga que numerar el próximo subagente de fase **no tendría de dónde
 leerlo**.
 
-**Cómo se reparte el bloque `009xx` por dentro.** La tabla lo declaraba reservado sin decir cómo se
-asigna, y eso quedó como ítem diferido con su evento de cierre escrito: *«no hay un segundo rol de nivel
-producto que fuerce la decisión»*. **Con `AG-00980` ese evento ocurrió**, de modo que la regla se
-escribe acá y el ítem se cierra:
-
-| Sub-bloque | Qué toma | Vivos |
-| --- | --- | --- |
-| `009N0`, **descendiendo desde `00990`** | Un rol que no es de categoría | `AG-00990` titular de producto; `AG-00980` bibliotecario de conocimiento |
-| `009N1` a `009N9` | Los **subagentes de fase** de ese rol | Ninguno todavía |
-
-**Se asigna el mayor libre, no el menor**, y el motivo es que `00990` ya estaba tomado por el rol más
-general: descender ordena los roles por alcance decreciente sin que haya que declararlo aparte. La forma
-interna replica la de las categorías —decena para el titular, unidades para sus fases— para que la
-lectura del número no cambie de gramática según el bloque.
-
-**Lo que esta regla no resuelve, y sigue diferido.** El bloque `009xx` **se solapa con las categorías
-`90` a `99`** si alguna vez existieran: la categoría `98` reclamaría `AG-00980`. El solapamiento no lo
-crea esta regla y no lo cierra: se agrava, porque ahora hay **dos** ocupantes en lugar de uno. Sigue
-como ítem diferido, con su evento de cierre intacto.
-
 **El marcador de plantilla.** Cuando una regla o un ejemplo tiene que nombrar «cualquier miembro de una
 familia **alcanzada**» escribe `<PREFIJO>-XXXXX`: `US-XXXXX`, `NB-XXXXX`, `AG-XXXXX`. **No es un identificador y no se
 le exige la forma**: es el hueco que un documento deja para el que sí lo es. La convención ya estaba en
@@ -820,6 +800,5 @@ correcta y no se podía sostener con una cita. Esta sección la funda hacia atr�
 | 8.0 | 2026-08-22 | **La familia `AG` entra al sistema de identificadores y se renumera al ancho de cinco dígitos.** Hasta acá §9.2 la excluía con motivo escrito —«no cataloga un elemento de una colección de un producto»—, y el motivo era correcto: dejaba al framework **sin forma de nombrarse a sí mismo**, que es lo que §10 **R5** declara que no es identidad. **§9.1 declara dos ámbitos** —el producto y el conjunto normativo vigente— y **cómo se relacionan**: no colisionan en numeración, **y sí se citan a través de la frontera**, que es el motivo del ámbito propio y no un argumento en contra. **`_legacy/` queda fuera del espacio de candidatos de los dos.** §9.2 **enumera `AG`** entre las familias alcanzadas —ya cumple el ancho cuando se la declara, no antes— y su tabla de exclusiones **suma `FA-NN`**, el flujo alternativo, que es una **posición dentro de un documento** como el ordinal de iteración. §10 R5 pasa de «único en el producto» a «único en su ámbito». Sube **major**: un `SDD/Docs/README.md` emitido antes **publica `AG-00` en su mapa de documentación** y deja de cumplir la comprobación 4 de `Master-Prompt.md` §10.0. |
 | 8.1 | 2026-08-23 | **§9.2 declara el marcador de plantilla `<PREFIJO>-XXXXX`**, que el corpus ya usaba en `US-XXXXX`, `NB-XXXXX` y `AG-XXXXX` **sin que ninguna regla lo escribiera**: no es un identificador y no se le exige la forma. Y la fila de `FA-NN` **deja de atribuirle un ámbito**: §9.1 declara **dos**, y los dos son de las familias **alcanzadas** — una familia excluida no toma ninguno. Las dos las levantó la cuarta ronda de auditoría, la segunda como daño que la reemisión anterior había introducido. Sube **minor**: declara una convención en uso y quita una atribución que contradecía a §9.1. |
 | 8.2 | 2026-08-23 | **Dos familias vivas quedaban sin clasificar**, y §9.5 exige que toda familia lo esté: `CA-NN` —el criterio de aceptación de `Rules-Especificacion-Funcional.md` §3.2— y `PASO-N`. `CA-NN` es **gemela de `FA-NN`**: misma regla, tablas contiguas, y el motivo escrito para `FA-NN` le aplica sin cambiar una palabra —es una **posición dentro de un documento** y no cataloga un elemento de una colección—. `PASO-N` es un **ordinal de secuencia**, del mismo orden que el ordinal de iteración. Las dos entran a la tabla de exclusiones. Y **§9.1 decía «los roles del framework»** mientras §9.2 sólo alcanza a los del catálogo de especialidades y a los subagentes de fase: **el orquestador y el auditor quedaban prometidos y no cubiertos**. El enunciado se acota a lo que §9.2 cubre. Lo levantó la sexta ronda. Sube **minor**: clasifica familias que ya existían y acota un enunciado que prometía de más. |
-| 8.5 | 2026-08-23 | **§9.2 escribe la regla de asignación interna del bloque `009xx`, y con eso cierra un ítem diferido cuyo evento de cierre ya había ocurrido.** El ítem 4 de `Coherencia-Renumeracion-AG.md` §8 declaraba que la regla no se escribía porque *«no hay un segundo rol de nivel producto que fuerce la decisión: fijarla ahora sería inventar el caso»*. **`AG-00980`, acuñado en la 13.2, es ese segundo rol**, y el ítem quedó abierto tres versiones después de que su condición se cumpliera — que es exactamente el **hallazgo P1** que §12.2 califica. La regla: los roles toman `009N0` **descendiendo desde `00990`**, y sus subagentes de fase `009N1` a `009N9`, con la misma gramática que las categorías usan en `00NN0`. Se asigna el mayor libre y no el menor, con lo que los roles quedan ordenados por alcance decreciente sin declararlo aparte. **Se declara además lo que la regla no resuelve**: el solapamiento del bloque con las categorías `90` a `99` sigue diferido y **se agrava**, porque ahora hay dos ocupantes. Sube **minor**: agrega una regla de acuñación y ningún identificador vivo cambia. |
 | 8.4 | 2026-08-23 | **Alta de `AG-00980` en el bloque `009xx`** (framework 13.2), el bibliotecario de conocimiento. El bloque estaba reservado desde la 12.0 a los roles que no son de categoría y sólo nombraba a `AG-00990`; el identificador estaba libre y se verificó antes de acuñarlo. **No se acuña familia nueva**: `AG` ya existe y su ámbito es el conjunto normativo vigente. El contrato del rol —entra una necesidad en prosa, sale una lista de alias con fundamento, y tiene prohibido devolver texto o proponer fuera del índice— vive en `Rules-Base-Conocimiento.md` §9 y esta regla lo cita, no lo duplica. Sube **minor**: agrega una entrada a una tabla y **ningún documento generado deja de cumplir**. |
 | 8.3 | 2026-08-23 | **§9.2 fundaba su tabla de exclusiones en una exigencia que §9.5 no contenía.** Decía «§9.5 exige que toda familia viva quede clasificada» y §9.5 sólo exigía, a **toda categoría que acuñe un identificador**, declarar prefijo, forma y ámbito en §3.2 de su regla: nada sobre clasificar familias. La obligación **se escribe en §9.5**, que es donde §9.2 y el registro de la 8.2 la invocan, en lugar de corregir las citas — porque sin ella **ninguna regla obliga a clasificar la próxima familia viva que aparezca**, que es el hueco por el que `FA-NN`, `CA-NN` y `PASO-N` pasaron sin clasificar durante versiones. Lo levantaron cinco jueces por unanimidad en el primer ciclo de mejora continua. Sube **minor**: escribe una obligación que ya se citaba y no deroga nada. |
