@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de migración normativa
 
 **Archivo:** `Master-Prompt-Migracion.md`
-**Versión:** 2.8
+**Versión:** 2.9
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente. La mecánica de despacho y de auditoría **no se define acá**: se cita de `Master-Prompt.md` §8 y §10
 **Prerequisitos:** un repositorio destino con `SDD/Docs/` poblado y, opcionalmente, un `Plan-Migracion-<origen>-a-<vigente>.md` emitido por la reconciliación normativa del orquestador de generación
@@ -43,6 +43,7 @@ Este prompt es un archivo de fases, no un segundo orquestador completo. Todo lo 
 | Derivación del manifiesto | `Master-Prompt.md` §3 y §3.1, e `Intake-Rules.md` §4 | La ejecuta en M3 sobre el intake migrado |
 | Orden topológico de las unidades de entrega, por el grafo de integración | `Master-Prompt.md` §3.3 | Lo usa en M4 |
 | Invariantes globales | `Master-Prompt.md` §5 y el `README.md` del framework | Las inyecta en cada despacho, sin alterarlas |
+| **Mesa de evaluación** | `Mesa-Rules.md`, con su contrato de entrada, su composición por señal, su jurado y su lista cerrada de escaladas | La **convoca en M1** si la invocación no llega desde la reanudación, y **verifica su registro** si llega con él. No la redefine ni la reconvoca dos veces |
 
 **Cierre de cada fase.** Toda fase terminada se entrega con el **cierre de unidad** de `Master-Prompt.md` §8.1: la entrega y las decisiones pendientes **en un solo bloque**, cada decisión con su contexto, sus opciones con impacto y una recomendación. Y rige su **autocorrección**: un defecto de la propia fase se corrige antes de entregar; uno que cambiaría una decisión ya tomada por el humano, detiene.
 
@@ -65,6 +66,7 @@ se arranca la fase siguiente, porque las dos ramas se pisarían sobre los mismos
 Insumos, todos de lectura:
 
 - `Migracion-Rules.md`, íntegra. Es la regla que gobierna esta corrida.
+- `Mesa-Rules.md`, íntegra, por la fase M1.
 - `Master-Prompt.md`, por los mecanismos que §1 enumera.
 - `Vocabulario-Rules.md`, que va en la lista de insumos de todo despacho sin excepción, por la regla de construcción de `Master-Prompt.md` §8.
 - El archivo de reglas de cada categoría cuyos documentos se migren, y las plantillas vigentes de intake y de manifiesto.
@@ -85,7 +87,7 @@ Precondiciones, verificables antes de M0:
 | Fase | Qué hace | Detención | Salida |
 | --- | --- | --- | --- |
 | **M0** | Reconocimiento del destino: resuelve intake y manifiesto tolerando nombres legados, y lee la procedencia | Sí, si el destino no es reconocible | Bloque informativo de estado del destino |
-| **M1** | Diff normativo: consume el plan si existe, lo emite si no. Sin despachar subagentes | Sí: presenta el plan completo y espera aprobación | `Plan-Migracion-<origen>-a-<vigente>.md` |
+| **M1** | Diff normativo **y mesa de evaluación**: consume el plan y el registro de mesa si existen, los emite si no | Sí: presenta el plan completo y espera aprobación | `Plan-Migracion-<origen>-a-<vigente>.md` y `Mesa-<AAAA-MM-DD>.md` |
 | **M2** | Migración del intake, como propuesta con diff de estructura | Sí, doble: aprobación del diff y resolución de la batería | Intake migrado, bump major, con archivado previo |
 | **M3** | Re-derivación del manifiesto desde el intake migrado, con la procedencia todavía apuntando al origen | Sí: confirmación del manifiesto | Manifiesto migrado |
 | **M4** | Migración de `SDD/Docs/` en orden D6, documento por documento según su clasificación | Sí, por corte, con audit entre medio | Documentos migrados, archivados y con su fila de control de cambios |
@@ -143,6 +145,40 @@ El plan agrega, respecto del informe de reconciliación:
 - **La clasificación de cada documento**: regenerar, revisar o no tocar, según `Migracion-Rules.md` §4.3.
 - **Los renombres de artefacto aplicables**, leídos de los bloques «Impacto sobre destinos existentes» del `CHANGELOG.md` del framework.
 - **La revisión de apartamientos** (`Migracion-Rules.md` §4.7): una fila por ADR de apartamiento vigente del destino, con su resultado —**absorbido**, **contradicho** o **no contemplado**—, resuelto contra el **campo 4 del propio ADR** y no por criterio del agente. Los **contradichos** se llevan a la detención de esta fase, que es la **detención por arbitraje** de `Master-Prompt.md` §7.0 y no una nueva. Los **no contemplados** incrementan su contador, y los que llegan a **dos o más saltos** se declaran **candidatos a regla del framework**.
+
+**La mesa de evaluación corre en M1, y es lo que separa un plan del diff que lo motiva.**
+
+El diff normativo dice **qué cambió en el framework**; no dice nada de lo que el destino dice de sí
+mismo. Un plan construido sólo con el diff es ciego a las contradicciones internas del corpus, y esas
+contradicciones aparecen igual — pero en **M4, documento por documento**, y cada una es una detención
+sobre un árbol que ya se está escribiendo. La mesa las levanta antes, en lote, sobre un árbol que
+todavía nadie tocó.
+
+| De dónde llega la invocación | Qué hace M1 con la mesa |
+| --- | --- |
+| Desde `Master-Prompt-Reanudacion.md` **R1.5** | **La verifica, no la reconvoca.** Comprueba que su registro corresponda al corpus y al par de versiones que M0 resolvió, y sigue. Es el mismo criterio con que verifica el diff normativo en lugar de rehacerlo |
+| Directa, sin pasar por la reanudación | **La convoca**, con el contrato de entrada de `Mesa-Rules.md` §4 armado desde M0 y desde el diff de esta fase |
+| El registro existe pero es de otro par de versiones o de otro corpus | Se descarta y se convoca de nuevo, **declarando por qué**. Es el mismo tratamiento que el plan que no corresponde |
+
+**Qué agrega la mesa al plan**, sobre lo que el diff ya aporta:
+
+- **Filas de hallazgo del corpus**, con su nivel P0-P3 y su parche, que el diff no podía producir
+  porque no leyó el destino.
+- **La batería de preguntas, consolidada y con default declarado.** Es lo que M2 y M4 emitían de a
+  una: la regla de no invención de `Migracion-Rules.md` §4.1 obliga a preguntar por cada sección sin
+  fuente, y sin mesa esas preguntas nacen dispersas a lo largo de la fase larga.
+- **La deuda declarada**, como ítems diferidos de `Root-Rules.md` §12.2 con su evento de cierre.
+- **Las capas a revalidar**, que son los hallazgos aguas arriba de `Master-Prompt.md` §10.
+
+**Y una comprobación que la mesa hace y ninguna otra fase hacía: los pendientes heredados.** Los
+hallazgos abiertos que M0 arrastra de informes anteriores entran a la mesa con ancla `C` de
+`Mesa-Rules.md` §6.1 y **no fundan ningún parche hasta que un especialista los abre**. Está medido:
+diez hallazgos repartidos en cinco informes de un destino real, y **tres no eran lo que declaraban
+ser** — cuatro «enlaces rotos» que no lo eran viajaron **tres informes** antes de que alguien los
+abriera (`IA.SDD.Documentacion/Informes/Memoria-De-Antecedentes-Casos-Resueltos.md` §2.2).
+
+**La mesa no aplica nada en M1.** Entrega el plan; aplicarlo es de M2 a M4, con las detenciones que
+esas fases ya tienen.
 
 Estructura del plan:
 
@@ -288,6 +324,8 @@ Auditor independiente, invocado desde cero, con el perfil y la mecánica de `Mas
 - Una corrección manual del usuario fue pisada sin declarar la interpretación y esperar confirmación.
 - El estado previo de un documento migrado no quedó archivado en el `_legacy/` de su carpeta.
 - Una fila del plan quedó sin resolver y sin declararse como pendiente en el informe.
+- Un parche de la mesa se aplicó **aguas abajo del defecto que corrige**, contra la compuerta de capa
+  de origen de `Mesa-Rules.md` §6.5.
 
 **Salida.** `SDD/Docs/Audit/Informe-Migracion-<origen>-a-<vigente>.md`, con la estructura de informe de `Master-Prompt.md` §10 más tres secciones propias: el estado final de cada fila del plan, el contenido sin destino enumerado con su texto localizable, y la declaración de migración completa o parcial.
 
@@ -333,3 +371,4 @@ Si la migración quedó parcial, la reconciliación vuelve a encontrar el destin
 | 2.6 | 2026-08-17 | M1 suma la **revisión de apartamientos** al plan (`Migracion-Rules.md` §4.7): una fila por ADR vigente con su resultado, los **contradichos** llevados a la detención que la fase **ya tiene** —el arbitraje de `Master-Prompt.md` §7.0, no una nueva—, y los que sobrevivieron **dos o más saltos** declarados **candidatos a regla del framework**. |
 | 2.7 | 2026-08-17 | Las detenciones de M1 a M6 adoptan la forma de `Master-Prompt.md` §8.1: **análisis y propuesta**, con el **estado de avance cuantificado** cuando lo que se decide está a medias. Es lo que faltaba para poder aprobar el cierre de una fase parcial: sin saber si lo que falta es accesorio o vital, la aprobación es a ciegas. |
 | 2.8 | 2026-08-18 | Adopta el **cierre de unidad** de `Master-Prompt.md` §8.1 —entrega y decisiones en un solo bloque, cada decisión con su contexto— y su regla de **autocorrección**. |
+| 2.9 | 2026-08-27 | **M1 suma la mesa de evaluación** (`Mesa-Rules.md`): la **convoca** cuando la invocación es directa y **verifica su registro** cuando llega desde `Master-Prompt-Reanudacion.md` R1.5, con el mismo criterio con que ya verificaba el diff normativo en lugar de rehacerlo. El motivo es la asimetría entre las dos entradas del plan: **el diff dice qué cambió en el framework y no dice nada de lo que el destino dice de sí mismo**, de modo que las contradicciones internas del corpus aparecían recién en M4, documento por documento y cada una como detención sobre un árbol ya en escritura. La mesa las levanta antes y en lote, y **consolida la batería de preguntas** que la regla de no invención de `Migracion-Rules.md` §4.1 obligaba a emitir dispersa. Suma además el tratamiento de los **pendientes heredados**, que entran con ancla `C` y no fundan parche hasta que un especialista los abre — medido: de diez hallazgos arrastrados en cinco informes, **tres no eran lo que declaraban ser**. M6 suma un P0: un parche aplicado aguas abajo del defecto que corrige. Sube **minor**: ninguna fase, detención ni orden cambia; M1 gana un insumo y una condición de verificación. | Framework SDD (mesa de evaluación) |

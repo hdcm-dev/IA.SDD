@@ -4,7 +4,7 @@
 > - `Leer y Ejecutar /IA/SDD/IA.SDD/PROMPTS/PROMPT-Agente-Reanudacion-SDD.md en el repositorio: /<Repositorio-Destino>`
 
 **Archivo:** `PROMPT-Agente-Reanudacion-SDD.md`
-**Versión:** 1.0
+**Versión:** 1.4
 **Idioma:** Español rioplatense neutro técnico
 **Modo de ejecución:** Local en Claude Code, en una sesión sin memoria de las anteriores
 **Resultado esperado:** El estado del destino reconstruido desde el árbol, sus divergencias declaradas, y una decisión del humano sobre cómo continuar
@@ -60,8 +60,13 @@ se quedó, este prompt no serviría para lo que existe.
 Leer y ejecutar `SDD/Devs/Orchestrator/Master-Prompt-Reanudacion.md` del repositorio del framework,
 con el repositorio destino como objetivo.
 
-El orquestador declara sus fases —**R0** reconocimiento, **R1** presentación, **R2** salidas, **R3**
-informe, **R4** continuación— y sus dos detenciones obligatorias. Este prompt no las repite.
+El orquestador declara sus fases —**R0** reconocimiento, **R1** presentación, **R1.5** mesa de
+evaluación, **R2** salidas, **R3** informe, **R4** continuación— y sus dos detenciones obligatorias.
+Este prompt no las repite.
+
+**R1.5 es la etapa preplanificadora, y es la única fase sin detención.** No pregunta: analiza el
+corpus que ya existe —lo que R0 deliberadamente no juzga— y devuelve un plan de cambios con sus
+parches, su deuda declarada y sus consultas **agrupadas**. Su mecánica vive en `Mesa-Rules.md`.
 
 ## 4 · Qué esperar al terminar
 
@@ -75,8 +80,13 @@ informe, **R4** continuación— y sus dos detenciones obligatorias. Este prompt
 - **La continuación efectiva en la misma sesión**, con el contexto ya reconstruido: no hace falta
   abrir otra para seguir. El informe lleva el punto de continuación, y si la salida elegida invoca a
   otro orquestador, **la decisión viaja con ella** para que no vuelva a preguntar lo mismo.
-- **Ningún cambio en el destino** fuera de ese informe, salvo el que la salida elegida ejecute con su
-  propia confirmación.
+- Un **registro de mesa** en `SDD/Docs/Audit/Mesa-<AAAA-MM-DD>.md`, con el panel que se convocó y por
+  qué, los hallazgos con su nivel y su ancla, los parches diseñados y la deuda que se decidió asumir.
+- **Las consultas que te llegan van en lote y con default declarado.** Fuera de la lista cerrada de
+  siete disparadores de `Mesa-Rules.md` §7, la mesa resuelve sola y lo registra. Es la respuesta a las
+  rondas de preguntas que el árbol ya contestaba.
+- **Ningún cambio en el destino** fuera de esos dos informes, salvo el que la salida elegida ejecute
+  con su propia confirmación.
 
 **Cuidado con «seguir en la versión declarada» cuando la procedencia es vieja.** El orquestador lo
 evalúa con un umbral mecánico: cuántos saltos major **con impacto sobre destinos existentes** hay
@@ -97,3 +107,4 @@ motivo.
 | 1.1 | 2026-08-16 | Las fases pasan de cuatro a **cinco** con **R4, la continuación**, y §4 declara que la reanudación **sigue en la misma sesión** en lugar de terminar en un informe. |
 | 1.2 | 2026-08-17 | Las salidas pasan de cuatro a **cinco** con **E, retomar una migración a medias**, y cada una declara en qué estado deja al destino, si vuelve a preguntar y qué **no** resuelve. §0 anticipa el paso 0 de R0: **normalizar el repositorio antes de diagnosticar**, con el motivo —el historial es el contraste observable de dos dimensiones y no incluye lo que no está commiteado—. |
 | 1.3 | 2026-08-17 | §4 declara que el resultado incluye una **recomendación con su fundamento y su alternativa**, y anticipa el **umbral de continuidad**: con dos o más major con impacto entre la procedencia y la vigente, el prompt **no ofrece C como equivalente**. |
+| 1.4 | 2026-08-27 | §3 declara la fase **R1.5, la mesa de evaluación**, que es la etapa preplanificadora y la única sin detención; §4 suma el **registro de mesa** a lo que se recibe al terminar y declara que **las consultas llegan en lote y con default**, porque fuera de los siete disparadores de `Mesa-Rules.md` §7 la mesa resuelve sola. **Y se corrige un defecto propio detectado al abrir el archivo**: la cabecera declaraba **1.0** con el registro en **1.3**, y un dato derivado que envejece en la prosa es lo que `Root-Rules.md` §10 prohíbe. |

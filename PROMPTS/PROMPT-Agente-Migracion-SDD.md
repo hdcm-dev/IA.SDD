@@ -4,7 +4,7 @@
 > - `Leer y Ejecutar /IA/SDD/IA.SDD/PROMPTS/PROMPT-Agente-Migracion-SDD.md en el repositorio: /<Repositorio-Destino>`
 
 **Archivo:** `PROMPT-Agente-Migracion-SDD.md`
-**Versión:** 2.0
+**Versión:** 2.1
 **Idioma:** Español rioplatense neutro técnico
 **Modo de ejecución:** Local en Claude Code. La invocación declara dos rutas: la del prompt de entrada (de la que se deriva la raíz del repositorio fuente `IA.SDD`) y la del repositorio destino del producto. Su ubicación relativa en el workspace es indistinta.
 **Resultado esperado:** El destino re-expresado bajo la normativa vigente del framework, con su bloque de procedencia actualizado si la cadena quedó completa, y su informe de migración auditado en `SDD/Docs/Audit/`.
@@ -97,7 +97,7 @@ generada en SDD/Docs/. El producto se llama [Nombre del producto].
 A partir de ahí el orquestador toma el control y recorre sus siete fases, deteniéndose en cada una:
 
 1. **M0 — Reconocimiento del destino.** Resuelve el intake y el manifiesto tolerando nombres legados, lee el bloque de procedencia y verifica si el conjunto normativo de origen es reconstruible.
-2. **M1 — Diff normativo.** Consume el plan de migración si existe, y si no lo emite. Presenta el plan completo, con filas para el intake y el manifiesto, y espera aprobación. No modifica nada todavía.
+2. **M1 — Diff normativo y mesa de evaluación.** Consume el plan de migración si existe, y si no lo emite. **Convoca la mesa de evaluación** (`Mesa-Rules.md`) sobre el corpus del destino —o verifica su registro, si la invocación llegó desde la reanudación, que ya la corrió—: el diff dice qué cambió en el framework y la mesa dice qué dice el destino de sí mismo. Presenta el plan completo, con filas para el intake y el manifiesto y con los hallazgos del corpus, y espera aprobación. No modifica nada todavía.
 3. **M2 — Migración del intake.** Propone el intake bajo la plantilla vigente y presenta un diff de estructura. Lo que no tiene fuente va a una batería de preguntas, no se rellena. Escribe recién con aprobación explícita.
 4. **M3 — Re-derivación del manifiesto**, desde el intake migrado, y confirmación.
 5. **M4 — Migración de `SDD/Docs/`**, en el orden de la cadena D6, documento por documento, con audit independiente en cada corte.
@@ -113,6 +113,7 @@ Toda la mecánica —qué se preserva, qué no se inventa, cómo se clasifica ca
 - El intake y el manifiesto re-expresados bajo las plantillas vigentes, con sus estados previos archivados en `SDD/Intake/_legacy/<fecha>/`.
 - Los documentos de `SDD/Docs/` migrados según su clasificación, cada uno con su estado previo archivado en el `_legacy/` de su propia carpeta y su fila de control de cambios.
 - `SDD/Docs/Audit/Plan-Migracion-<origen>-a-<vigente>.md` con el estado final de cada fila.
+- `SDD/Docs/Audit/Mesa-<AAAA-MM-DD>.md` con el registro de la mesa: su panel, sus hallazgos, sus parches y la deuda que quedó declarada.
 - `SDD/Docs/Audit/Informe-Migracion-<origen>-a-<vigente>.md` con el veredicto, el contenido que quedó sin destino y la declaración de migración completa o parcial.
 - El bloque de procedencia del manifiesto actualizado a las versiones vigentes **solo si la cadena quedó completa**. Si quedó parcial, sigue declarando el origen, que es lo que sigue siendo cierto.
 
@@ -126,3 +127,4 @@ Con la migración completa, reinvocá `PROMPT-Agente-Bootstrap-SDD.md` para segu
 | --- | --- | --- | --- |
 | 1.0 | 2026-07-29 | Prompt de entrada inicial de la migración normativa, par del prompt de entrada de bootstrap. Fija el modelo de dos repositorios con las dos lecturas propias de la migración —`_legacy/` y el `CHANGELOG.md` del framework, de donde salen el conjunto de origen y los renombres de artefacto—, cinco prerrequisitos verificables, la tabla que decide entre este prompt y el de bootstrap según el estado del destino, la invocación que delega en `Master-Prompt-Migracion.md` y el resumen de las siete fases con lo que el usuario recibe al terminar. Declara explícitamente que el nombre legado del intake **no es un prerrequisito a corregir** sino el caso que la migración atiende, y que el plan de migración es opcional porque la fase M1 lo emite si falta. No contiene lógica de orquestación, igual que su par de bootstrap. | Framework SDD (migración normativa) |
 | 2.0 | 2026-08-15 | El nivel de unidad de entrega (framework 8.0). La migración normativa incorpora el salto estructural de `Migracion-Rules.md` §4.3.2: al migrar un destino generado con una versión anterior, el agente **propone** qué proyectos de código son unidades de entrega y **se detiene** para que el humano confirme, porque el manifiesto de origen no lo declara. Sube **major** por coherencia con el conjunto. |
+| 2.1 | 2026-08-27 | **M1 suma la mesa de evaluación** de `Mesa-Rules.md`: la convoca cuando la invocación es directa y verifica su registro cuando llega desde la reanudación. Es lo que separa un plan del diff que lo motiva — el diff dice qué cambió en el framework, la mesa dice qué dice el destino de sí mismo. §4 suma el registro de mesa a lo que se recibe al terminar. Sube minor: ninguna fase ni detención cambia. | Framework SDD (mesa de evaluación) |

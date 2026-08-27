@@ -2,9 +2,9 @@
 
 **Framework:** SDD
 **Documento:** Catalogo-De-Criterios.md
-**Versión:** 1.13
+**Versión:** 1.14
 **Estado:** Vigente
-**Fecha:** 2026-08-23
+**Fecha:** 2026-08-27
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
 **Lector:** todo agente que enfrenta una situación y necesita saber qué criterio del método la resuelve
 
@@ -15,9 +15,9 @@
 **Es un índice, no una regla.** No define ningún criterio: dice **dónde vive cada uno** y **qué
 decide**. Todo criterio sigue viviendo en su archivo, con su fundamento y su historia.
 
-**Existe porque los criterios estaban y no se podían encontrar.** El método tiene 208 situaciones
+**Existe porque los criterios estaban y no se podían encontrar.** El método tiene 220 situaciones
 catalogadas en tablas de anti-patrones, umbrales numéricos, salidas con condición de elección y reglas
-de resolución, repartidas en diecinueve archivos de reglas y tres orquestadores, **sin ningún punto de
+de resolución, repartidas en veinte archivos de reglas y tres orquestadores, **sin ningún punto de
 entrada**. Un agente que enfrenta una situación tenía que haberlos leído todos para saber que existían.
 
 **No reemplaza la lectura de la regla.** Un criterio aplicado desde el índice, sin abrir su sección, se
@@ -77,6 +77,11 @@ aplica sin su fundamento — y el fundamento es lo que permite reconocer cuándo
 | **Dos reglas alcanzan el mismo ítem y dicen cosas distintas** | Si **una de las dos viaja en todo despacho y la otra no** —la resuelve el agente— o no —la arbitra el humano— | `Root-Rules.md` **§13**, y `Master-Prompt.md` §7.0 para el resto |
 | Se escribe una regla nueva a partir de un caso observado | Si está enunciada sobre el caso o sobre la propiedad, y cuál es su simétrico | `SDD-Development-Guide.md` Parte IV, «sobre las reglas que escribas a partir de un caso observado» |
 | Hay que verificar una intervención antes de cerrarla | Las trece comprobaciones | `SDD-Development-Guide.md` §VI.3 |
+| Hay que decidir qué hacer con un destino ya existente y **nadie leyó su contenido** | Si se convoca la mesa de evaluación, y en qué punto | [`Mesa-Rules.md`](../Rules/Mesa-Rules.md) §0.2 y `Master-Prompt-Reanudacion.md` §3.1.1 |
+| Hay que armar un panel de revisión y **no se sabe a quién convocar** | Qué especialidades entran, con qué señal, y qué se registra de las que no | `Mesa-Rules.md` §5.2 y §5.5 |
+| Un hallazgo llega **heredado de un informe anterior** | Si funda trabajo o hay que abrirlo primero | `Mesa-Rules.md` §4 y §6.1, ancla `C` |
+| Un hallazgo está probado y **corregirlo puede no valer la pena** | Quién lo juzga, con qué funciones objetivo y qué pasa con el defecto que no se corrige | `Mesa-Rules.md` §6.4 y §6.6, deuda declarada |
+| Hay una consulta para el humano y **no se sabe si le corresponde** | La lista cerrada de siete disparadores; fuera de ella, resuelve el agente y registra | `Mesa-Rules.md` §7, y `Master-Prompt.md` §8.1 para el criterio general |
 
 ---
 
@@ -104,8 +109,9 @@ esta versión cada uno lleva su **marca de detección**: `[enumerable]` si un gu
 | [`Rules-Plan-Sprint.md`](../Rules/Rules-Plan-Sprint.md) | 11 | 7 | 4 |
 | [`Rules-Prompts-AI.md`](../Rules/Rules-Prompts-AI.md) | 10 | 7 | 3 |
 | [`Rules-Base-Conocimiento.md`](../Rules/Rules-Base-Conocimiento.md) | 6 | 3 | 3 |
+| [`Mesa-Rules.md`](../Rules/Mesa-Rules.md) | 12 | 7 | 5 |
 | [`Rules-UX-UI-DX.md`](../Rules/Rules-UX-UI-DX.md) | 25 | 12 | 13 |
-| **Total** | **208** | **100** | **108** |
+| **Total** | **220** | **107** | **113** |
 
 **La marca no es decorativa: la consume la compuerta.** Desde la 9.13, `Master-Prompt.md` §10.0 toma como parte de su conjunto de reglas **los anti-patrones `[enumerable]` de la regla de la categoría en curso**, y los evalúa antes de que el audit interprete nada. Los `[interpretativo]` quedan para el audit y para el humano.
 
@@ -194,3 +200,4 @@ regla—. Lo que no corresponde adoptar es la **infraestructura** de DMN, no su 
 | 1.10 | 2026-08-20 | Un criterio nuevo por `Root-Rules.md` **§13**: **cuándo un conflicto entre dos reglas lo resuelve el agente y cuándo lo arbitra el humano**. Y §4.1 punto 2 se refina: antes de escalar, se prueba si la diferencia es **de forma** —jerarquía, especificidad, fecha—. **No deroga el arbitraje: le pone delante el caso que sí tiene respuesta en el árbol.** Sube minor. |
 | 1.11 | 2026-08-21 | §4.1 punto 2 y el criterio de §3 se reescriben contra el **§13 reducido a un solo criterio**. La redacción anterior citaba una formulación —«cuando el árbol contiene el dato que decide»— que §13 derogó en la misma intervención, **y que el barrido no alcanzó**: lo levantó la tercera ronda de auditoría como contradicción literal entre §13 y la entrada que enruta hacia §13. Sube minor. |
 | 1.12 | 2026-08-23 | Entra el criterio de **§II.7 de la guía de desarrollo**: qué hacer cuando una intervención necesita un mecanismo que exigiría código ejecutable en el framework. El corpus lo resolvía sin criterio escrito, de modo que la decisión dependía de que el agente conociera la práctica. Sube **minor**: agrega una fila al índice por la comprobación 12 de §VI.3 —quien toca, registra—. |
+| 1.14 | 2026-08-27 | Entra `Mesa-Rules.md` por la comprobación 12 de `SDD-Development-Guide.md` §VI.3 —**quien toca, registra**—. §3 suma **cinco criterios**: cuándo se convoca la mesa de evaluación sobre un corpus existente, cómo se arma un panel por señal observable y qué se registra de los descartes, qué hacer con un hallazgo heredado de un informe anterior, quién juzga si corregir un hallazgo probado vale la pena, y **la lista cerrada de siete disparadores de escalada** que dice cuándo una consulta es del humano. §4 suma la fila de la regla nueva con sus **12 situaciones**: el total pasa de **208 a 220**, `[enumerable]` de 100 a 107 e `[interpretativo]` de 108 a 113. El recuento de §1 pasa de diecinueve a **veinte** archivos de reglas. |
