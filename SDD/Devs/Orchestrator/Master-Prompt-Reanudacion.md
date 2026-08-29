@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de reanudación
 
 **Archivo:** `Master-Prompt-Reanudacion.md`
-**Versión:** 1.10
+**Versión:** 1.11
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** lectura, diagnóstico y **entrega de contexto**, con detención obligatoria. **No escribe nada del destino salvo su propio informe**, y no ejecuta el trabajo que despacha
 **Prerequisitos:** un repositorio destino con `SDD/` poblado. No exige memoria de ninguna sesión anterior
@@ -252,9 +252,16 @@ decisión más cara del método —qué hacer con el destino— sin que nadie ha
 | `SDD/Docs/` vacía | **No se convoca.** No hay corpus que evaluar y el que corresponde es el prompt de bootstrap |
 | El humano pide sólo el diagnóstico | **Se ofrece y se puede declinar**, y el informe declara que no corrió. Lo que no es válido es correrla y no registrarla |
 
-**La mesa no se convoca en la generación desde cero, y conviene decirlo acá porque es la pregunta
-inmediata.** No hay corpus previo que refutar, y lo que se va a producir lo audita §10 fase por fase.
-Convocarla ahí duplicaría el audit sobre el mismo material.
+**La mesa no se convoca sobre un destino vacío, y conviene decirlo acá porque es la pregunta
+inmediata.** Sin corpus previo no hay nada que refutar, y lo que se va a producir lo audita §10 fase por
+fase: convocarla ahí duplicaría el audit sobre el mismo material.
+
+**Lo que no vale es leer eso como «nunca en la generación».** Es la corrección de `Mesa-Rules.md` §0.3:
+un destino deja de estar vacío apenas la primera fase produce algo, y desde ahí la generación **tiene
+corpus previo que nadie mira como conjunto**. Lo que decide es la condición de `Mesa-Rules.md` §0.0 —hay
+corpus previo, el estado está leído, hay un plan o una decisión de alcance por tomar— y no qué
+orquestador esté corriendo. **Con su límite:** la mesa mira lo que ya existía al abrir la corrida, nunca
+lo que la fase acaba de producir.
 
 ### §3.1.2 Qué recibe R2 de la mesa
 
@@ -535,3 +542,4 @@ entonces el contexto vuelve a vivir sólo en la sesión.
 | 1.8 | 2026-08-19 | **R0 paso 4 suma los ítems diferidos** de `Root-Rules.md` §12.2 a los pendientes declarados, **con su evento de cierre contrastado**, y **R1 los publica** en un bloque propio con tres renglones: declarados, vencidos y sin forma. Va acá porque **es la comprobación más barata del método**: la reanudación ya lee el árbol entero sin memoria, y preguntarle «¿qué se difirió y ya venció?» no cuesta una pasada nueva. Origen: el reporte `14`, nacido de un destino donde el diferimiento se destapó **por el síntoma** —cero etiquetas en el repositorio— y no por el diferimiento, ocho etapas tarde. Sube **minor**: un insumo más en un paso existente y un bloque más en la presentación. |
 | 1.9 | 2026-08-23 | La descripción del salto a la 7.0 decía «**el ámbito de unicidad en el producto**» a secas, y desde la 12.0 hay **dos ámbitos**. Queda acotado a las familias del producto. Lo levantó la cuarta ronda de auditoría: el patrón del barrido decía `ámbito de unicidad: producto` y **la preposición lo esquivaba**. Sube **minor**: precisa una descripción histórica. |
 | 1.10 | 2026-08-27 | **Entra R1.5, la mesa de evaluación**, entre la presentación del estado y las salidas: es la etapa preplanificadora del método, y su mecánica vive en `Mesa-Rules.md`. Va exactamente ahí por tres motivos: **antes no puede** —su contrato de entrada es la salida de R0, y convocarla antes sería el playbook que `Migracion-Rules.md` §3 rechaza—, **después es tarde** —R2 elige la salida, y elegir sin saber si el corpus se sostiene es elegir sobre la mitad de la información—, y **es el único punto donde una sola corrida sirve a las cinco salidas**. §4.0 suma cuatro renglones a la recomendación, que vuelven cuantificable lo que antes se adjetivaba; §5 suma el bloque de resultado de la mesa al informe; R4 declara que la salida **A aplica los parches que la mesa ya diseñó** y que la **B los lleva a M1**, que verifica en lugar de reconvocarla. Origen: el Product Owner, sobre la observación de que el método entra en rondas de consultas que el agente debería poder resolver solo, y las dos mediciones del propio framework que la sostienen —**tres de cinco detenciones con respuesta en el árbol** (`Master-Prompt.md` §8.1) y **tres de diez hallazgos heredados que no eran lo que declaraban** (`Memoria-De-Antecedentes-Casos-Resueltos.md` §2.2)—. Sube **minor**: agrega una fase sin detención propia y no cambia ninguna de las existentes. |
+| 1.11 | 2026-08-29 | **§3.1.1 deja de excluir a la generación por categoría y pasa a la condición.** Decía «la mesa no se convoca en la generación desde cero», que es una derivación de `Mesa-Rules.md` §0.3 —«no corre sobre un destino vacío»— y **no dice lo mismo**: un destino deja de estar vacío apenas la primera fase produce algo, y desde ahí hay corpus previo que ninguna auditoría de fase mira como conjunto. Lo que decide es la **condición de `Mesa-Rules.md` §0.0**, con el límite contra el audit escrito. Sube **minor**: precisa cuándo se convoca y no cambia ninguna fase. | Intervención de la condición de convocatoria |

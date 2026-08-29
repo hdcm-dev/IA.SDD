@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
 **Agente target:** los orquestadores de reanudación y de migración, y AG-00970 (Presidente de mesa) en tiempo de ejecución
-**Versión de las reglas:** 1.0
+**Versión de las reglas:** 1.1
 
 ---
 
@@ -15,8 +15,33 @@ apruebe y se aplique.
 
 **No es un orquestador y no tiene fases propias del método.** Es un mecanismo, como la auditoría entre
 fases de `Master-Prompt.md` §10: lo invocan los orquestadores en un punto declarado, produce un
-artefacto y devuelve el control. Este archivo declara **qué es correcto**; el orquestador que la
-invoca declara **cuándo**, por el principio de delegación de la especialidad de `Master-Prompt.md` §1.
+artefacto y devuelve el control. Este archivo declara **qué es correcto y cuándo hace falta**; el
+orquestador que la invoca declara **desde dónde**.
+
+### 0.0 La condición que la convoca, y por qué no es una lista de puntos
+
+**La mesa se convoca cuando se cumplen las tres:**
+
+1. **Hay corpus previo** que no fue producido en esta corrida.
+2. **El estado ya está leído** y disponible con la forma del contrato de entrada de §4.
+3. **Hay un plan por aprobar o una decisión de alcance por tomar** sobre ese corpus.
+
+**Los puntos de invocación que declaran los orquestadores son casos de esta condición, y no su
+definición.** Hoy son dos —`Master-Prompt-Reanudacion.md` §3.1 y `Master-Prompt-Migracion.md` M1—, y
+enumerarlos no agota la condición: **un caso que la cumple y no tiene orquestador que la convoque se
+convoca igual**, y el registro de §2.2 declara desde dónde en su punto 1.
+
+**Por qué la condición y no la lista, que es lo que este archivo hacía.** La versión 1.0 declaraba los
+puntos y no la condición, y las dos cosas producían la misma lista el día que se escribió: en agosto de
+2026 los únicos dos prompts que leían estado y aprobaban plan eran ésos. La diferencia se vuelve visible
+con el primer caso que satisface la condición desde otro lugar, y **apareció ocho días después**: un
+destino con un `P0` que ocho rondas de auditoría no lograron cerrar, sin ninguna reanudación en curso ni
+ninguna migración que se invocara directa. El mecanismo existía, el caso lo pedía, y no había quién lo
+llamara. Cuando se convocó fuera de norma, encontró en una corrida lo que las ocho rondas no habían
+visto, porque miró **las ocho como corpus** en lugar de cada una por separado.
+
+**Y agregar el punto que faltó habría dejado el defecto donde estaba**: la lista y la condición vuelven a
+coincidir hasta el siguiente caso no previsto. Es por eso que lo que se declara es la condición.
 
 ### 0.1 El hueco que existe, medido
 
@@ -65,8 +90,16 @@ entrena a ignorarlo»*—. La mesa existe para el corpus, y por eso tiene jurado
 
 - **No audita una fase.** Si lo que hay que evaluar es un entregable recién producido, el que
   corresponde es §10 y no este archivo.
-- **No corre sobre un destino vacío.** Sin corpus previo no hay nada que refutar: la generación desde
-  cero se gobierna con el orquestador de generación y sus audits por fase.
+- **No corre sobre un destino vacío.** Sin corpus previo no hay nada que refutar. **Y eso no es lo
+  mismo que «no corre en la generación»**, que es la derivación que la 1.0 dejó escrita: un destino
+  deja de estar vacío apenas la primera fase produce algo, y a partir de ahí la generación **tiene
+  corpus previo y nadie lo mira como conjunto** —el audit de `Master-Prompt.md` §10 corre fase por
+  fase, sobre lo que se acaba de producir—. Lo que decide es la condición 1 de §0.0 y no el
+  orquestador que esté corriendo.
+
+  **Con su límite, o esto duplica el audit:** la mesa mira **lo que ya existía al abrir la corrida**,
+  nunca lo que la fase acaba de producir. Es la frontera de §0.2, y sigue valiendo dentro de una
+  generación.
 - **No decide el alcance del producto.** Toda decisión de intención, autoridad o preferencia sale por
   la escalada de §7 y la toma el humano.
 - **No aplica los parches que diseña.** Los aplica el orquestador que la invocó, con la confirmación
@@ -120,7 +153,12 @@ categoría**, y no crea roles paralelos para lo que ya tiene dueño.
 
 | Artefacto | Path | Cuándo | Quién lo escribe |
 | --- | --- | --- | --- |
-| Registro de mesa | `SDD/Docs/Audit/Mesa-<AAAA-MM-DD>.md` | Siempre que la mesa se convoca, aunque no encuentre nada | AG-00970 |
+| Registro de mesa | `SDD/Docs/Audit/Mesa-<AAAA-MM-DD>[-ciclo-<N>].md` | Siempre que la mesa se convoca, aunque no encuentre nada | AG-00970 |
+
+**El sufijo de ciclo entra cuando hay más de uno en la misma fecha**, y no es hipotético: un destino corrió
+**tres ciclos el 2026-08-27** y el tercero tuvo que apartarse de la forma. Con la condición de §0.0, que
+vuelve la convocatoria más frecuente, el caso deja de ser excepcional. Con un solo ciclo en el día el
+sufijo se omite.
 | Plan de cambios | Sección del registro, **no artefacto aparte** | Siempre | AG-00970, desde los parches aprobados |
 
 **El plan de cambios no es un artefacto propio, y es deliberado.** El método ya tiene dos contenedores
@@ -131,7 +169,14 @@ al bloque de decisiones pendientes cuando no.
 
 ### 2.2 Estructura obligatoria del registro
 
-1. Cabecera: destino, fecha, orquestador que la convocó, contrato de entrada de §4 transcripto.
+1. Cabecera: destino, fecha, **desde dónde se convocó** —el orquestador y su fase, o la condición de §0.0
+   con el caso que la cumple cuando no hay orquestador—, y contrato de entrada de §4 transcripto.
+   **Y el prefijo de familia que el ciclo usa para sus hallazgos**, que es propio del ciclo y **no reusa
+   ninguna familia ya presente en la carpeta de auditoría del destino**. Medido: un ciclo tomó la familia
+   `M`, que ya nombraba los hallazgos de dos informes de migración, y el identificador `M-01` quedó con
+   **cuatro significados distintos** en la misma carpeta. La comprobación mecánica no puede verlo —las
+   familias de hallazgo están exentas del ancho y `Audit/` suele quedar fuera del anclaje—, de modo que
+   la única defensa es declararlo al abrir.
 2. **Registro de convocatoria**: convocados con su señal y su ubicación, **descartados con su motivo**,
    postergados por cupo, y agentes ad hoc con su carta de mandato.
 3. Resultado de la compuerta mecánica (§6.2), con el alcance que ella misma declaró no haber mirado.
@@ -324,6 +369,21 @@ para la misma pregunta, que es el conflicto que §7.0 existe para arbitrar.
 | **E4** | Regla declarada: una obligación del conjunto normativo vigente o una restricción dura del contrato de entrada | Un parche directo |
 | **C** | Conjetura, experiencia general, «suele ser mejor», o un hallazgo heredado de un informe anterior sin abrir | **Sólo una pregunta.** Nunca un parche |
 
+**Un hallazgo `P0` anclado en una fuente declarativa exige contrastarla contra su observable antes de
+proceder.** Una fila de plan, una casilla de checklist, un campo de estado o un recuento en prosa son
+**afirmaciones sobre el trabajo y no el trabajo**. La mesa no releva el estado —§4 se lo prohíbe, y el
+fundamento sigue en pie— pero **sí abre la fuente que va a citar**, y si el contraste no se puede hacer,
+el hallazgo no llega a `P0`.
+
+**Es el anti-patrón que el método nombra primero** —`Master-Prompt-Reanudacion.md` §7, «confiar en la
+fuente declarativa sin contrastarla»— y la mesa lo cometió **dos veces en su primera corrida real**, las
+dos en la misma dirección. Una: elevó como `P0` cuatro filas de un plan que declaraban «pendiente de
+respuesta humana», que es la columna de **fuente de contenido** de `Migracion-Rules.md` §2.1 escrita al
+planificar, y **no un campo de estado**; la fase que las gobernaba las había resuelto tres días antes.
+Otra: dio por buena la declaración de un documento que afirmaba que cierta cifra «no existe en ninguna
+parte del árbol», sobre cuatro planes que la tenían completa. **Las dos las destapó el humano con una
+pregunta**, que es la forma más cara de encontrarlas.
+
 **El corte entre E y C es la pregunta previa de `Master-Prompt.md` §8.1, resuelta antes de detener.**
 Un hallazgo con ancla se sostiene contra el árbol y lo cierra el agente; uno de nivel `C` sólo se
 sostiene opinando, y por eso no funda un parche. **Un `C` que sobrevive dos ciclos sin ascender de
@@ -429,6 +489,20 @@ por la compuerta. Si no se alcanza en **cuatro rondas**, la decisión sube al hu
 declara que **cerró por decisión y no por criterio**, con la lista de lo que quedó abierto.
 
 También cierra si aparece una escalada bloqueante sin responder (§7, disparadores 2 y 3).
+
+**El contador de este ciclo es propio y no acumula con el de las rondas de audit**, aunque los dos usen
+§10.1. Son dos cuentas sobre dos cosas distintas —las rondas internas de **este** ciclo de mesa, y las
+rondas de auditoría que cierran una fase— y el registro **nombra cuál declara** al cerrar. Medido: un
+destino quedó con los dos contadores vivos a la vez —ocho rondas de migración y un ciclo de mesa— y un
+panel independiente leyó el registro de mesa como si estuviera certificando la migración. **Que un panel
+independiente lo lea mal es la medición del defecto**, y hubo que abrir esta sección para dirimirlo.
+
+**Y una advertencia que sale de las primeras corridas reales.** El rendimiento por especialista **no cayó
+entre ciclos** —4,9 y 5,8 hallazgos procedentes por especialista en dos corridas consecutivas sobre el
+mismo destino—. Si no cae, este criterio va a cerrar **por decisión y no por criterio de forma
+sistemática**, que es exactamente lo que le pasó al audit por rondas y lo que §10.1 anticipa con su
+válvula de las cuatro rondas. **Cerrar por decisión es una salida legítima y no un fracaso**; lo que no
+es legítimo es cerrar por decisión sin declararlo.
 
 Bloque de cierre obligatorio:
 
@@ -591,3 +665,4 @@ Insumos: {{LISTA}}, `Vocabulario-Rules.md`, y el contrato de entrada de la mesa.
 | Versión | Fecha | Cambios | Autor |
 | --- | --- | --- | --- |
 | 1.0 | 2026-08-27 | Emisión inicial. Regula **la mesa de evaluación**, el mecanismo de preplanificación que convierte un corpus existente en un plan de cambios antes de que ese plan se apruebe. Declara el hueco con su medición —de cinco detenciones reales **tres tenían respuesta en el árbol**, y de diez hallazgos heredados en cinco informes **tres no eran lo que declaraban ser**— y **la frontera con el audit** de `Master-Prompt.md` §10, que es lo que impide que se dupliquen: el audit mira lo que se acaba de producir y emite un veredicto; la mesa mira lo que ya existía y emite un plan. Fija el rol **AG-00970** que preside y no vota, la **separación de las cuatro funciones** —detectar, juzgar, diseñar y aprobar—, el **contrato de entrada** alimentado por el orquestador, la **composición por señal observable** con su registro de descartes, el ciclo P0 a P5 con su **jurado de cinco funciones objetivo**, y la **lista cerrada de siete disparadores de escalada**, que completa la pregunta previa de `Master-Prompt.md` §8.1 nombrando los casos en que la respuesta no está en el árbol. **Reusa y no redefine**: los niveles de hallazgo son P0-P3 de §10, la base mecánica es la compuerta de §10.0, el criterio de corte es §10.1, la deuda va a los ítems diferidos de `Root-Rules.md` §12.2, las escaladas a `Decisiones-Pendientes.md` de §7.0 y las capas a revalidar son los hallazgos aguas arriba de §10. Lo único que agrega como escala propia es **la clase del ancla E1-E4/C**, porque el framework exigía cita y no la graduaba. | Framework SDD (mesa de evaluación) |
+| 1.1 | 2026-08-29 | **La convocatoria pasa de una lista de puntos a una condición declarada, y §0.0 es nueva.** La 1.0 declaraba que «el orquestador que la invoca declara **cuándo**», y los puntos que los orquestadores enumeran **no agotaban** el momento que el mecanismo pide: los dos que existían y la condición producían la misma lista el día que se escribió, y la diferencia apareció con el primer caso que la cumplía desde otro lugar. Entran las **tres cláusulas** —corpus previo, estado leído, plan o decisión de alcance por tomar—, los puntos quedan como **casos y no como definición**, y se declara que un caso sin orquestador **se convoca igual**. **§0.3 corrige la otra cara**: «no corre sobre un destino vacío» **no es** «no corre en la generación», que es la derivación que la 1.0 dejó escrita — un destino deja de estar vacío apenas la primera fase produce algo, y desde ahí nadie mira el corpus como conjunto; con su límite escrito, para no duplicar el audit de fase. **§6.1 suma la obligación de contrastar la fuente** cuando un `P0` se ancla en una declaración —fila de plan, casilla, campo de estado— porque la mesa lo incumplió **dos veces en su primera corrida real**, en el anti-patrón que el método nombra primero. **§2.1** admite el sufijo de ciclo cuando hay más de uno por fecha; **§2.2** obliga a declarar el prefijo de familia del ciclo, que no reusa una familia ya presente en la carpeta; y **§6.7** declara que el contador del ciclo **es propio y no acumula** con el de las rondas de audit, con la advertencia de que el rendimiento por especialista no cayó entre las dos primeras corridas. **Sube minor**: agrega obligaciones y no deroga ninguna regla; un registro de mesa emitido bajo la 1.0 sigue cumpliendo. | Intervención de la condición de convocatoria |

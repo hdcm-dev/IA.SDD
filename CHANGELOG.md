@@ -3,6 +3,62 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.8] - 2026-08-29
+
+**Un mecanismo se cableó a los puntos donde nació, y no a la condición que lo hace necesario.** Es el reporte `18`, y su evidencia son **tres corridas reales de la mesa de evaluación** sobre un destino — la primera vez que el mecanismo de la 13.7 se usa fuera del papel.
+
+**La tercera se convocó fuera de norma, porque el caso más caro no tenía punto de invocación.** Un destino con un `P0` que **ocho rondas de auditoría** no lograron cerrar: sin reanudación en curso, sin migración invocada directa, y sin ser una generación desde cero. Ninguno de los tres puntos que `Mesa-Rules.md` §0 declaraba lo alcanzaba. Cuando corrió igual, encontró en una sola corrida lo que las ocho rondas no habían visto —**el criterio de corte de §10.1 pide una propiedad que ningún informe registra**—, porque miró las ocho **como corpus** en lugar de cada una por separado.
+
+**La causa no era que faltara un cuarto punto.** El análisis que creó la mesa había enunciado el momento **como condición**: *«después de leer el estado, antes de aprobar el plan»*. La intervención de la 13.7 cableó esa condición a los dos prompts donde ocurría en agosto de 2026, y ese día enumerar y declarar la condición producían la misma lista. La diferencia aparece con el primer caso que la cumple desde otro lugar, y apareció ocho días después. **Agregar el punto que faltó habría dejado el defecto donde estaba.**
+
+### Cambiado — `Mesa-Rules.md` 1.0 → 1.1
+
+**§0.0 es nueva: la condición, con sus tres cláusulas** —hay corpus previo que no se produjo en esta corrida, el estado ya está leído con la forma del contrato de entrada, y hay un plan por aprobar o una decisión de alcance por tomar—. **Los puntos de invocación de los orquestadores quedan como casos de la condición y no como su definición**, y un caso que la cumple sin orquestador que la convoque **se convoca igual**, declarando desde dónde.
+
+**§0.3 corrige la otra cara del mismo defecto.** «No corre sobre un destino vacío» **no es** «no corre en la generación», que es la derivación que la 1.0 dejó escrita: un destino deja de estar vacío apenas la primera fase produce algo, y desde ahí la generación **tiene corpus previo que nadie mira como conjunto** — el audit de §10 corre fase por fase, sobre lo que se acaba de producir. Con su límite escrito, para no duplicar ese audit: la mesa mira lo que ya existía al abrir la corrida.
+
+**§6.1 suma la obligación de contrastar la fuente.** Un `P0` anclado en una fila de plan, una casilla o un campo de estado exige abrir su observable antes de proceder. **La mesa lo incumplió dos veces en su primera corrida real**, las dos en la misma dirección y las dos destapadas por una pregunta del humano. La mesa sigue sin relevar el estado —§4 se lo prohíbe y el fundamento se mantiene— pero abre la fuente que va a citar.
+
+**Y tres correcciones de forma que sólo aparecen con volumen:** §2.1 admite **sufijo de ciclo** cuando hay más de uno en la misma fecha —un destino corrió tres el mismo día—; §2.2 obliga a declarar el **prefijo de familia** del ciclo, que no reusa una familia ya presente en la carpeta de auditoría, porque un ciclo tomó la familia `M` y el identificador `M-01` quedó con **cuatro significados**; y §6.7 declara que **el contador del ciclo es propio y no acumula** con el de las rondas de audit, porque quedaron los dos vivos y un panel independiente leyó mal cuál gobernaba qué.
+
+### Cambiado — `Master-Prompt-Reanudacion.md` 1.10 → 1.11, §3.1.1
+
+Deja de excluir a la generación por categoría y remite a la condición de `Mesa-Rules.md` §0.0.
+
+### Cambiado — `Catalogo-De-Criterios.md` 1.14 → 1.15
+
+Dos criterios nuevos por la comprobación 12 de §VI.3: **el caso pide una mesa y ningún orquestador la convoca desde ahí**, y **un `P0` apoyado en una declaración y no en un observable**. El total pasa de 220 a **222**.
+
+### Corregido — dos snapshots de `_legacy/` que faltaban
+
+**Las intervenciones que publicaron la 13.6 y la 13.7 no tomaron el suyo**, y `_legacy/` llegaba hasta la 13.5. §VI.5 declara qué rompe eso: `Master-Prompt-Migracion.md` construye el diff normativo leyendo `_legacy/`, de modo que **un salto desde 13.6 o desde 13.7 salía vacío** y una migración sin nada que aplicar se declara completa sin haber hecho nada.
+
+Se reponen `_legacy/13.6/` y `_legacy/13.7/` desde los commits de publicación de cada versión, y se verifica lo que §VI.5 pide: la versión de cabecera de cada archivo dentro del snapshot es la **anterior** a los cambios que publicaron la siguiente. `_legacy/13.6/` no contiene `Mesa-Rules.md`, que es correcto: la mesa entró en la 13.7.
+
+### Lo que este conjunto NO toca, y se declara
+
+El **refutador**, la **ceguera del panel**, la **escala de ancla**, el **jurado**, el **cuerpo de parches** y el **contrato de entrada** se midieron funcionando en tres corridas y quedan intactos. El reporte `18` §2 los delimita uno por uno. Y la corrección de la 13.6 —el banco de casos— se midió **detectando un defecto en los parches de la propia mesa**, que es la mejor constancia que puede tener una intervención anterior.
+
+### Se cierra el ítem diferido de la 13.7, con su medición
+
+Su evento era **«la primera corrida real»** y lo que había que medir estaba escrito. Hubo tres: **4,9 y 5,8 hallazgos procedentes por especialista**, **20 parches con texto exacto**, **cero especialidades con aporte nulo**, y las detenciones al humano pasando de «cinco, tres de ellas con respuesta en el árbol» a **seis en lote con default declarado**, ninguna contestada y siendo eso válido por diseño. **El modo de falla que el análisis mandaba vigilar —un panel que produce actas y ningún parche— no ocurrió.**
+
+**Con una advertencia que la medición agrega y el análisis no anticipaba**, declarada en §6.7: el rendimiento por especialista **no cae entre ciclos**. Si no cae, el criterio de corte del ciclo va a cerrar por decisión y no por criterio de forma sistemática, que es exactamente lo que le pasó al audit por rondas.
+
+### Por qué el conjunto sube 13.8
+
+**Es un minor.** Se agregan obligaciones y una condición; **ninguna regla se deroga y ningún documento generado deja de cumplir**. Un registro de mesa emitido bajo la 1.0 sigue siendo conforme.
+
+### Impacto sobre destinos existentes
+
+**Ninguno forzado por la publicación, y no es una migración.** Un destino no tiene que hacer nada: la condición de §0.0 rige para las convocatorias **desde esta versión en adelante**, y un registro de mesa anterior no queda no conforme. El precedente de alcance temporal es el de §10.0 en la 13.6 y el de la mesa en la 13.7.
+
+**Lo que sí cambia para quien lo opera**: la mesa deja de depender de que haya un orquestador que la llame. Si el caso cumple las tres cláusulas, se convoca y el registro declara desde dónde.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Condicion-De-Convocatoria.md`, conjunto resultante **13.8**.
+
 ## [13.7] - 2026-08-27
 
 **El método lee dónde está el trabajo y audita lo que acaba de producir, y entre esas dos cosas se toma la decisión más cara que existe: qué hacer con un destino que ya tiene documentación.** `Master-Prompt-Reanudacion.md` §2 lo declara por escrito —*«no se abre ninguna categoría documental para juzgar su contenido»*— y `Master-Prompt.md` §10 corre al cerrar una fase, es decir sobre lo que se acaba de escribir. **Nadie abre el corpus antes de planificar sobre él**, y el plan que sale de ahí se compone con el diff normativo, que compara dos versiones del framework y es ciego a lo que el destino dice de sí mismo.
