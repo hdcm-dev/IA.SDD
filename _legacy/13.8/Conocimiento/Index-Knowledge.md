@@ -2,7 +2,7 @@
 
 **Documento:** Conocimiento/Index-Knowledge.md
 **Compatible con:** Rules-Base-Conocimiento.md 2.0
-**Fecha:** 2026-08-29
+**Fecha:** 2026-08-23
 
 ---
 
@@ -32,7 +32,6 @@ coherencia. Y la verificación de ofuscación es previa y bloqueante.
 | Documento | Alias | Naturaleza | Tema | Consumidor | Condicion-de-carga | Hereda-de | Sustituye | Compatible-con | Estado |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `Knowledge-Clean-Architecture-DataManager.md` | `Clean-Architecture-DataManager` | canonico | Arquitectura interna en cuatro capas con acceso a datos por DataManager sobre ADO.NET, sin ORM | 05 | proyectos de código `rest-api` o `web-monolith` sobre stack .NET con persistencia SQL Server | — | — | 1.1 | Vigente |
-| `Knowledge-Conformacion-Pull-Request-Manual.md` | `Conformacion-Pull-Request-Manual` | canonico | Ciclo de entrega de una unidad de trabajo entre un agente orquestador y un agente humano: compuerta, rama, informe con el enlace del pull request, merge y borrado del humano, acuse y reanudación verificada | transversal | — | — | — | 2.2 | Vigente |
 
 ## 4. Identidad de versión
 
@@ -45,5 +44,4 @@ y nada más.
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
-| 1.1 | 2026-08-29 | Alta de `Conformacion-Pull-Request-Manual`: el procedimiento de traspaso de una unidad de trabajo al agente humano, vigente por defecto y hasta ahora sin alias con el que citarlo desde un intake. |
 | 1.0 | 2026-08-23 | Emisión inicial, con el alta de `Clean-Architecture-DataManager`. |
