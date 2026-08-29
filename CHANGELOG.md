@@ -3,6 +3,34 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.9] - 2026-08-29
+
+**El procedimiento con el que el trabajo sale del agente y llega al humano estaba reglado y no se podía citar.** `Master-Prompt.md` §12.1 lo declara desde la 9.2 y §8.1 fija la forma de su cierre desde la 9.16, pero **el catálogo de `Conocimiento/` no lo tenía**, y sin alias no hay forma de nombrarlo desde un intake ni de declarar una variante por diferencia. Esta versión lo cataloga, **sin mover una coma de la norma**.
+
+### Agregado — `Conocimiento/Knowledge-Conformacion-Pull-Request-Manual.md` 1.0
+
+Alias `Conformacion-Pull-Request-Manual`, `canonico`, consumidor `transversal`, 218 líneas. Caracteriza el ciclo completo de ocho turnos —compuerta de arranque, unidad declarada, rama y push, cierre de unidad con el enlace del pull request y «qué sigue después del merge», **merge y borrado del humano en la plataforma**, acuse, verificación por alcanzabilidad y republicación del estado— con **el archivo y la sección de donde sale cada turno**.
+
+**«Manual» designa quién conforma el pull request**: el merge y el borrado son del agente humano, y nunca del agente que escribió el cambio. Es el punto por el que esta variante se separa de cualquier otra, y por eso está en el alias y no sólo en el cuerpo.
+
+**Es catálogo y no norma, y el documento lo hace verificable.** No copia ninguno de los tres bloques literales —los cita— y su §8 declara la frontera: lo normativo vive en `Master-Prompt.md` §12.1 y §8.1, que los tres orquestadores citan y no redefinen. Escribirlo de otro modo habría sido el anti-patrón **conocimiento disfrazado de regla** de `Rules-Base-Conocimiento.md` §4.5 y una segunda fuente de lo mismo.
+
+**Lo que habilita es el objetivo secundario del pedido**: una tabla de **puntos de variación** —quién fusiona, quién borra la rama, granularidad de la unidad, concurrencia, forma de la reanudación, publicación del estado— contra la cual **una variante hermana se declara por diferencia**, sin desplazar la acordada.
+
+### Cambiado — `Index-Knowledge.md` 1.0 → 1.1
+
+La fila del alta, con las diez columnas de §7.1. El catálogo pasa de uno a **dos** documentos, y es el primero cuyo consumidor es `transversal`.
+
+### Lo que este alta NO habilita, y se declara
+
+**Una variante que cambie quién fusiona todavía no puede sustituir a ésta.** `Rules-Base-Conocimiento.md` §0.4 habilita la sustitución **sólo sobre ítems rotulados como decisión de stack**, y ningún ítem de §12.1 lleva ese rótulo: hoy una variante es **desviación**, manda la regla del framework y se declara con su justificación. Rotular §12.1 sería una intervención sobre el master-prompt y una decisión del responsable, fuera del alcance de un alta de conocimiento.
+
+### Por qué es minor
+
+**No cambia ninguna regla, ningún orquestador ni ninguna plantilla**, de modo que por la tabla estricta de `SDD-Development-Guide.md` §VI.5 sería patch. Se publica como **minor** por lo que sí cambia: **el catálogo condiciona lo que el orquestador genera** —es el criterio con el que `Conocimiento/` entra en el snapshot— y un destino que declare 13.9 declara un catálogo que 13.8 no tenía. La numeración del conjunto, además, nunca usó un tercer nivel.
+
+`SDD/Devs/Guides/Coherencia-Conformacion-Pull-Request-Manual.md` 1.0, §10. Conjunto resultante **13.9**.
+
 ## [13.8] - 2026-08-29
 
 **Un mecanismo se cableó a los puntos donde nació, y no a la condición que lo hace necesario.** Es el reporte `18`, y su evidencia son **tres corridas reales de la mesa de evaluación** sobre un destino — la primera vez que el mecanismo de la 13.7 se usa fuera del papel.
