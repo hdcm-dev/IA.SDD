@@ -3,6 +3,56 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.10] - 2026-09-01
+
+**El framework venía produciendo maquetas con una forma constructiva estable, y esa forma no estaba escrita en ninguna parte.** Vivía repartida entre lo que las reglas exigen —`Maqueta-Rules.md` la autonomía, los cuatro estados y el sello; `Design-Rules-Web-Generico.md` los tokens y los diez patrones; `Deriva-Rules.md` los umbrales— y lo que cada corrida reconstruía de memoria: el layout de archivos, el contrato entre el HTML y el JavaScript, el conmutador de estados, la resolución de los cuatro tipos de diálogo. **Las reglas dicen qué tiene que cumplir la maqueta; ninguna dice cómo se construye.** Esta versión cataloga ese cómo, y el cómo de llevarlo a un proyecto Blazor, **sin mover una coma de la norma**.
+
+### Agregado — `Conocimiento/Knowledge-Template-HTML-SDD-Default.md` 1.0
+
+Alias `Template-HTML-SDD-Default`, naturaleza `propio`, consumidores `03` y `AG-00031`, 877 líneas. Caracteriza la maqueta navegable estática que el framework produce: **el layout de cuatro archivos**, el orden contractual de las tres piezas de JavaScript y su inversión de control —el motor llama a la página, no al revés—, **los dos shells** con la transición entre ellos como navegación completa y nunca como un `hidden`, el conmutador declarativo `data-mq-estado` que hace el estado **relevable del DOM**, y los cuatro tipos de diálogo —ABM clásico, asistente de varios niveles, ventana modal y presentación de datos—.
+
+**Su condición de carga es `requiere_maqueta == true` con construcción en HTML, CSS y JavaScript planos**, de modo que llega por el camino determinista y no hace falta citarlo a mano.
+
+**La medida del documento es una sola, y está escrita como criterio:** un agente que nunca vio una maqueta SDD tiene que poder producir una equivalente leyendo sólo esto.
+
+### Agregado — `Conocimiento/Knowledge-Template-Blazor-Interactive-Server-SDD-Default.md` 1.0
+
+Alias `Template-Blazor-Interactive-Server-SDD-Default`, naturaleza `propio`, consumidores `03` y `05`, 937 líneas. **Hereda del anterior y escribe sólo el delta**: qué cambia de forma cuando el que renderiza es un componente Razor sobre un circuito, y qué hay que resolver que en HTML plano no existía —el render mode por superficie con **la identidad en SSR estático**, el ingreso y el cierre de sesión por POST a un endpoint fuera del circuito, las tres capas de guard, la prevención del doble envío con la bandera **antes** del `await`, el prerrenderizado y la carga idempotente—.
+
+**Es el primer par del catálogo que ejercita `Hereda-de`.** Las dos filas existentes lo tenían en `—`, y la herencia es lo que permite que el segundo documento no repita ni los tokens, ni las anatomías de patrón, ni el vocabulario de estados, ni los criterios de accesibilidad.
+
+### La desviación declarada, que es la pieza a mirar
+
+**§8.1 del documento de Blazor invierte una cláusula de `Design-Rules-Blazor-Mudblazor.md`**: ese archivo pide que los patrones se realicen con los componentes de la librería mapeada y **no con HTML propio cuando existe componente equivalente**, y el documento los realiza con **componentes Razor propios**.
+
+**No es una sustitución, y el campo `Sustituye` queda en `—` a propósito.** `Rules-Base-Conocimiento.md` §0.4 sólo habilita sustituir un ítem **rotulado como decisión de stack**, y ese archivo no lleva el rótulo en ninguna de sus reglas: el caso es **conflicto**, ante conflicto manda la regla, y lo único que el conocimiento puede hacer es declarar la desviación con su justificación. **Es el mismo límite que la 13.9 dejó anotado para `Master-Prompt.md` §12.1, ahora desde otra categoría** — la segunda vez que el catálogo choca contra la ausencia del rótulo.
+
+**El motivo de fondo es la deriva:** la maqueta que el humano aprueba es HTML plano, y con una librería de componentes hay un salto de tecnología entre lo validado y lo construido. **Lo que cuesta también está declarado**: se pierde la accesibilidad que la librería daba gratis —teclado y ARIA de grilla, asistente, diálogo y menú—, y perder el recorrido por teclado, el foco visible o el contraste **es deriva mayor y bloquea**. Por eso los criterios de §6 exigen la verificación explícita de teclado en esos tres componentes.
+
+### Cambiado — `Index-Knowledge.md` 1.1 → 1.2
+
+Las dos filas del alta, con las diez columnas de §7.1. El catálogo pasa de dos a **cuatro** documentos, y son los **dos primeros de naturaleza `propio`**.
+
+### Lo que se mide y no se toca: el techo de `Rules-Base-Conocimiento.md` §6.2
+
+**Los dos documentos superan el techo de 600 líneas de un documento `propio`, y los dos se acogen a la única excepción que la regla admite** —un §5 de esqueletos que no se puede partir sin volverlo inútil—, declarada en su §0 con su motivo.
+
+**Se registra porque es la primera medición real del número.** La propia §6.2 dice que los techos «son calibrables» y que «se revisan con los primeros documentos reales en la mano»: éstos son los primeros documentos `propio` del catálogo, los dos exceden en más del cuarenta por ciento, y **el §5 explica casi la mitad de cada uno** —440 líneas de 877, y 548 de 937—. **No se toca §6.2 acá**: un alta de conocimiento no modifica la regla que la gobierna. Queda como evidencia para quien decida la calibración.
+
+### Corregido — el snapshot de `_legacy/` que la 13.9 no tomó
+
+`_legacy/` llegaba hasta la 13.8. Se repone **`_legacy/13.9/`** desde el estado sin editar del control de versiones, con el conjunto entero menos lo que §VI.5 excluye —el `CHANGELOG.md`, la propia `_legacy/` y los archivos de configuración del repositorio—. Se verifica lo que §VI.5 pide: **`Index-Knowledge.md` dentro del snapshot está en 1.1 y no en 1.2**, y los dos documentos de esta versión no aparecen ahí. Es el mismo defecto que la 13.8 corrigió para la 13.6 y la 13.7, y **vuelve a ocurrir en la intervención siguiente**: el snapshot lo toma la versión que publica, no la que se archiva, y esa asimetría se sigue olvidando.
+
+### Lo que este conjunto NO toca, y se declara
+
+**Ninguna regla, ningún orquestador y ninguna plantilla.** Los dos documentos citan y no copian: `Maqueta-Rules.md`, `Design-Rules-Web-Generico.md`, `Design-Rules-Acceso-Monousuario.md`, `Design-Rules-Primer-Arranque.md`, `Design-Rules-Identidad-De-Version.md`, `Design-Rules-Blazor-Mudblazor.md`, `Rules-UX-UI-DX.md` y `Deriva-Rules.md` quedan intactos. Y los dos declaran, en su §8, **los huecos del piso que llenan sin normar** —el patrón agnóstico de diálogo modal, la paginación y el ordenamiento, la separación `.razor` / `.razor.cs`, el ciclo de vida, el prerrenderizado y la estructura de carpetas del proyecto de interfaz—, con la cláusula de que si el framework los incorpora, manda el framework.
+
+### Por qué es minor
+
+Por la misma derivación que la 13.9: **no cambia ninguna regla, ningún orquestador ni ninguna plantilla**, de modo que por la tabla estricta de `SDD-Development-Guide.md` §VI.5 sería patch. Se publica como **minor** porque **el catálogo condiciona lo que el orquestador genera** —es el criterio con el que `Conocimiento/` entra en el snapshot— y un destino que declare 13.10 declara un catálogo que 13.9 no tenía.
+
+`SDD/Devs/Guides/Coherencia-Templates-De-Maqueta.md` 1.0, §12. Conjunto resultante **13.10**.
+
 ## [13.9] - 2026-08-29
 
 **El procedimiento con el que el trabajo sale del agente y llega al humano estaba reglado y no se podía citar.** `Master-Prompt.md` §12.1 lo declara desde la 9.2 y §8.1 fija la forma de su cierre desde la 9.16, pero **el catálogo de `Conocimiento/` no lo tenía**, y sin alias no hay forma de nombrarlo desde un intake ni de declarar una variante por diferencia. Esta versión lo cataloga, **sin mover una coma de la norma**.
