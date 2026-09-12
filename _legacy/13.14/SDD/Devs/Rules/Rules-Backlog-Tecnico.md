@@ -3,13 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/06-Backlog-Tecnico/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Scrum Master / Agile Coach senior (AG-00060)
-**Versión de las reglas:** 5.3
-
-**Nota de alcance (reporte `29`).** El nivel de aplicación de arriba dice **dónde vive el documento**
-—un `Product-Backlog.md` y un `Backlog-Tecnico.md` por unidad de entrega, no uno por proyecto de
-código—. No dice de qué se cuenta el umbral de archivos individuales que decide si una US o una BT
-vive inline o en archivo propio: ese conteo es **por proyecto de código**, y lo fija §2.1 con §3.3.
-Son dos preguntas distintas y esta cabecera solo contesta la primera.
+**Versión de las reglas:** 5.2
 
 ---
 
@@ -109,40 +103,10 @@ Esta convención asegura coherencia visual entre product-backlog y backlog-tecni
 
 ### 3.3 Convención de archivos individuales para US y BT
 
-**El umbral se cuenta por proyecto de código, con las tres bandas de la tabla maestra de §2.1**
-(reporte `29`; esta sección decía «unidad de entrega» y dos bandas, contra lo que la propia tabla
-maestra que la origina ya declaraba):
-
-- Para un **proyecto de código** con más de 20 US, cada historia de ese proyecto vive en su archivo
-  individual bajo `historias-usuario/`; con 10 a 20 US es recomendado y no obligatorio; por debajo de
-  10, se omite. Esto permite versionar cada US, asignarla a un autor distinto y revisarla por separado.
-- Para un **proyecto de código** con más de 30 BT, cada tarea técnica de ese proyecto vive en su
-  archivo individual bajo `tareas-tecnicas/`; con 15 a 30 BT es recomendado y no obligatorio; por
-  debajo de 15, se omite. Esto permite trazar dependencias técnicas por archivo y bloquear
-  individualmente sin tocar el backlog completo.
-- Para un proyecto de código por debajo de sus umbrales, las US y las BT de ese proyecto pueden vivir
-  inline en el `Product-Backlog.md` y el `Backlog-Tecnico.md` de la unidad, respectivamente, sin perder
-  la estructura de secciones obligatoria.
-
-**Por qué por proyecto de código y no por unidad de entrega.** El volumen de una US o de una BT es
-propiedad del proyecto donde nace: cada una traza a un componente, una ADR o un contrato de un
-proyecto en particular (§3.4), y no de la unidad que lo agrupa. Es lo que la tabla maestra de §2.1 dijo
-desde la 1.0 de esta regla; lo que faltaba era que el resto del archivo lo dijera igual.
-
-**El documento consolidado con proyectos a los dos lados del umbral.** Cuando una unidad de entrega
-agrupa más de un proyecto de código, `Product-Backlog.md` y `Backlog-Tecnico.md` quedan organizados
-por proyecto (§4.2 y §4.3), y el umbral se evalúa proyecto por proyecto dentro del mismo documento. El
-resultado habitual es **mixto**, y es la forma correcta y no un estado transitorio: el proyecto que
-cruza el umbral extrae sus US o sus BT a archivo individual sin tocar las de los proyectos que no lo
-cruzan, que siguen inline en el mismo documento. Forzar que toda la unidad pase a archivo individual
-porque un solo proyecto cruzó reescribiría secciones de proyectos que no cambiaron; forzar que ninguno
-lo haga porque otro no cruzó dejaría sin trazar por archivo a un proyecto que ya lo necesita. La
-atribución de cada US o BT a su proyecto de código es la que el propio producto ya declara para sus
-identificadores —por bloque, por rango, o por la sección que la organiza—; esta regla no impone un
-esquema nuevo.
-
-**En ambos modos** (inline o por archivo), los criterios de aceptación, la trazabilidad y el DoR check
-deben estar presentes; no se admite "US sin criterios" ni "BT sin justificación" en ningún modo.
+- Para unidades de entrega con más de 20 US, cada historia vive en su archivo individual bajo `historias-usuario/`. Esto permite versionar cada US, asignarla a un autor distinto y revisarla por separado.
+- Para unidades de entrega con más de 30 BT, cada tarea técnica vive en su archivo individual bajo `tareas-tecnicas/`. Esto permite trazar dependencias técnicas por archivo y bloquear individualmente sin tocar el backlog completo.
+- Para unidades de entrega por debajo de esos umbrales, las US y BT pueden vivir inline en el `Product-Backlog.md` y el `Backlog-Tecnico.md` respectivamente, sin perder la estructura de secciones obligatoria.
+- En ambos modos (inline o por archivo), los criterios de aceptación, la trazabilidad y el DoR check deben estar presentes; no se admite "US sin criterios" ni "BT sin justificación" en ningún modo.
 
 ### 3.4 Vinculación cross-doc
 
@@ -326,7 +290,7 @@ Tabla de trazabilidad de la US:
 - ¿La distribución MoSCoW es realista o todo es Must?
 - ¿Hay US que en realidad son épicas (más de un sprint)? ¿Hay épicas que son una sola US?
 - ¿El MVP definido por las US Must cubre el propósito del sistema declarado en 00?
-- ¿El umbral de archivos individuales —20 US y 30 BT, contado **por proyecto de código** (§2.1, §3.3)— está aplicado correctamente en cada proyecto que compone la unidad, y no en el total de la unidad?
+- ¿El umbral de archivos individuales (20 US y 30 BT) está aplicado correctamente?
 
 ### 5.3 Trazabilidad
 
@@ -347,7 +311,7 @@ Tabla de trazabilidad de la US:
 - ¿Todos los identificadores usan el ancho uniforme de `Root-Rules.md` §9.2? ¿Hay rastros de anchos heredados del fuente?
 - ¿Los slugs están en Título-Con-Guiones estricto?
 - ¿Los nombres de archivo respetan `.md` y no `.md`?
-- ¿Las US y BT individuales del proyecto de código que cruza su umbral (§2.1, §3.3) viven en sus carpetas (`historias-usuario/` y `tareas-tecnicas/`), sin exigírselo a los proyectos que no lo cruzan?
+- ¿Las US y BT individuales viven en sus carpetas (`historias-usuario/` y `tareas-tecnicas/`) cuando aplica el umbral?
 
 ---
 
@@ -371,7 +335,7 @@ auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
 - [ ] [interpretativo] Cada BT tiene fuente upstream declarada (NB, CU, ADR o contrato) y al menos una US consumidora o justificación de infraestructura compartida.
 - [ ] [interpretativo] La distribución MoSCoW no es 100 % Must; hay reparto razonable entre Must, Should y Could.
 - [ ] [interpretativo] Cada US Must y Should tiene criterios de aceptación en Given/When/Then con al menos dos escenarios.
-- [ ] [enumerable] Por cada proyecto de código de la unidad (reporte `29`, antes `[interpretativo]` por no decir de qué se contaba): si sus US superan 20, existen archivos individuales bajo `historias-usuario/` para las US de ese proyecto; si sus BT superan 30, existen archivos individuales bajo `tareas-tecnicas/` para las BT de ese proyecto. Se decide contando las US y las BT atribuidas a cada proyecto (por el bloque, el rango o la sección que el producto ya usa para organizarlas, §3.3) y probando la existencia de la carpeta correspondiente — por ejemplo, sobre un `Backlog-Tecnico.md` que numera sus BT por bloques de mil por proyecto: `grep -o -E "BT-[0-9]{5}" Backlog-Tecnico.md | sort -u | awk '{n=substr($1,4)+0; c[int(n/1000)]++} END{for(b in c) print b, c[b]}'` seguido de `test -d tareas-tecnicas/` para cada bloque que supere 30.
+- [ ] [interpretativo] Si la unidad de entrega supera 20 US, existen archivos individuales bajo `historias-usuario/`; si supera 30 BT, existen archivos individuales bajo `tareas-tecnicas/`.
 - [ ] [enumerable] Ningún archivo de la carpeta de trabajo lleva sufijo de versión en el nombre; cada uno declara su versión en el campo `Versión` de su cabecera (D4).
 - [ ] [interpretativo] La DoR no se solapa con la Definition of Done de 08; la DoR habla de cuándo empezar, la DoD de cuándo terminar.
 - [ ] [interpretativo] No hay menciones a stacks concretos, productos comerciales ni protocolos específicos del dominio fuente.
@@ -500,8 +464,8 @@ Insumos:
 A generar (según tipo {{TIPO}} de D8):
 - Product-Backlog.md con las cinco secciones obligatorias y la tabla de épicas EP-XXXXX.
 - Backlog-Tecnico.md con épicas técnicas, BT por épica y matriz BT↔US↔CU.
-- historias-usuario/US-XXXXX-<Nombre>.md para las US de cada proyecto de código que supere 20 US; en caso contrario, esas US quedan inline en el product-backlog.
-- tareas-tecnicas/BT-XXXXX-<Nombre>.md para las BT de cada proyecto de código que supere 30 BT; en caso contrario, esas BT quedan inline en el backlog-tecnico.
+- historias-usuario/US-XXXXX-<Nombre>.md si la unidad de entrega supera 20 US; en caso contrario, US inline en el product-backlog.
+- tareas-tecnicas/BT-XXXXX-<Nombre>.md si la unidad de entrega supera 30 BT; en caso contrario, BT inline en el backlog-tecnico.
 - Definition-Of-Ready.md con criterios DoR para US (5-8) y BT (4-6), excepciones y aprobador.
 - README.md de la sección (recomendado).
 
@@ -540,4 +504,3 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/06-Backlog-Tecnico/<
 | 5.0 | 2026-08-20 | **§4.4 parte su punto 5 en dos**: la **prioridad** MoSCoW y la **estimación**. Venían en un solo ítem obligatorio y son **dos decisiones de dueños distintos** —la prioridad es del Product Owner, la estimación es del equipo y sale del refinamiento—, de modo que una podía estar bloqueada y arrastrar a la otra. Es el mismo defecto de forma que `Rules-Devops.md` §4.3 punto 3 tenía y que un destino real pagó con ocho etapas sin etiquetar. El ítem nuevo declara que, si una de las dos no se puede fijar hoy, se difiere **esa** con la forma de `Root-Rules.md` §12.2. Origen: la auditoría del criterio 4 de `Reportes/14` §7 sobre las quince reglas. Sube **major**: una `US-XXXXX` emitida antes declara las dos dentro del punto 5, y **deja de cumplir** la estructura de §4.4. |
 | 5.1 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
 | 5.2 | 2026-09-12 | **§3.6 suma el evento que dispara el paso a `v2.0` cuando el producto ya pasó el handoff** (framework 13.14), por el reporte `25`. La sección ya sabía versionar un cambio de alcance significativo y no decía **cuándo** correspondía: en el destino que originó el reporte, seis documentos de esta categoría quedaron dieciocho días sin tocar después de dos decisiones de producto reales. El evento es **la entrada de control de cambios del `PRODUCT-INTAKE` que registra una decisión de alcance posterior al handoff**, el mismo que reabre `Roadmap-Producto.md` (`Master-Prompt.md` §13.1) para que los dos no queden gobernados por disparadores distintos. Se adopta el criterio de clasificación medido en el reporte —modifica una fila de la matriz del roadmap, incluido su contenido, o el conjunto de proyectos de código del manifiesto— para distinguir el cambio estructural, que reabre, del de nomenclatura o enmarcamiento, que no. Exige además que la reapertura emita al menos una `BT-XXXXX` con criterio de aceptación o un ítem diferido de `Root-Rules.md` §12.2. Sube **minor**: agrega el disparador de una regla existente sin cambiar la mecánica de versionado que ya regía. | Intervención del disparador de alcance (reporte 25) |
-| 5.3 | 2026-09-12 | **El umbral de archivos individuales de §2.1 pasa a decir lo mismo en las seis menciones que lo tocaban** (framework 13.15, reporte `29`). §2.1 lo cuenta desde la 1.0 **por proyecto de código con tres bandas** —obligatorio, recomendado, omitir—; §3.3, el criterio de aceptación de §6 y el snippet de §8 lo contaban **por unidad de entrega con dos bandas**, una contradicción que un destino real (`Lab-Geometria`) resolvió sin saber que había dos lecturas, citando la tabla y atribuyéndole a §3.3 una lectura que §3.3 no decía. Se adopta **por proyecto de código**, la que la tabla maestra siempre dijo y la que ningún destino medido rompe: `Lab-Geometria` (BT y US, dos unidades) y `RPI.VideoControl` (US, cinco proyectos en una unidad) ya la aplican con coherencia; la lectura por unidad de entrega los habría dejado a los dos incumpliendo de golpe, en tres de sus cuatro documentos medidos, sin que ninguno lo hubiera podido detectar porque el criterio era `[interpretativo]`. **§3.3 suma el caso del documento consolidado**: cuando una unidad agrupa más de un proyecto de código, el umbral se evalúa proyecto por proyecto dentro del mismo `Product-Backlog.md` o `Backlog-Tecnico.md`, y el resultado mixto —un proyecto en archivos individuales, otros inline en el mismo documento— es la forma correcta y no un estado transitorio; forzar a toda la unidad por el cruce de un solo proyecto reescribiría secciones que no cambiaron. **§6 reclasifica el criterio de `[interpretativo]` a `[enumerable]`**, con el comando de conteo por bloque de identificador y `test -d`. **§5.2 y §5.5 nombran la unidad de conteo** que antes no decían. La cabecera suma una nota que distingue el nivel de aplicación —dónde vive el documento— del conteo del umbral —de qué proyecto es cada US o BT—, para que las dos preguntas no se vuelvan a fundir. Sube **minor**: la lectura adoptada es la que ya se aplicaba sin excepción; ningún documento generado deja de cumplir, y el que parecía incumplir bajo la lectura vieja pasa a cumplir bajo la corregida. | Intervención del umbral de archivos individuales (reporte 29) |
