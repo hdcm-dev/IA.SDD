@@ -3,6 +3,79 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.11] - 2026-09-12
+
+**La decisión de elevar algo al humano se tomaba preguntando si el árbol tiene la respuesta, y nunca preguntando quién produjo el estado por el que se pregunta.** Un estado que la propia corrida dejó a medias —un documento empezado y no cerrado, una decisión tomada y no asentada, una inconsistencia introducida en una unidad anterior— **no tiene respuesta en el árbol por construcción**, porque nadie la escribió. Con la pregunta previa de `Master-Prompt.md` §8.1 caía del lado de detener, y le llegaba al humano **con la forma de una consulta legítima**: contexto, opciones, propuesta, y un disparador de la lista cerrada. Es el reporte `26`, sobre un requisito que un Product Owner formuló sin vueltas: los agentes le descargan problemas que generaron ellos y que habrían resuelto mirando el conjunto.
+
+### La decisión que ordena el resto: el origen del hecho se calcula, no se declara
+
+**Declarado, el dato no sirve.** Un agente que no se dio cuenta de que generó el problema declara «ajeno» de buena fe, y la cuenta de detenciones propias da cero **igual con una corrección real que con una cosmética**. Y declarado por el agente sería, con otro nombre, el eje de estratos que la 9.19 rechazó: una clasificación por juicio de quién puede cerrar.
+
+**Calculado, contra qué, y ésa era la pregunta difícil.** El reporte proponía el snapshot que §8 archiva antes de despachar. **No sirve, y se verificó en lugar de suponerse**: se toma **al construir cada despacho**, de modo que ya contiene lo que dejaron las unidades anteriores de la misma corrida, y contra él un estado a medias de otra unidad **se lee como previo**. Es el valor equivocado que había que evitar, producido esta vez por el instrumento y no por el agente distraído. Además cubre sólo el entregable, no rige en las Fases I y J, y se archiva por fecha y por versión.
+
+**El ancla correcta ya existía y no se registraba: el commit sobre el que corre T0.** T0 corre antes de la primera escritura, T2 garantiza que todo esté commiteado, abarca el árbol entero, y un commit no se sobrescribe. **El formato de T0 no lo publicaba**, y el destino que originó el reporte lo escribió igual, por su cuenta, en su informe de estado. Es el mismo patrón que el reporte denunciaba —un dato que se toma y ninguna regla lee—, aplicado a la pieza correcta.
+
+### Cambiado — `Master-Prompt.md` 8.14 → 8.15
+
+**§8.1 suma el origen del hecho, antes de la pregunta previa.** Dos valores, **de la corrida** y **ajeno a la corrida**, que calcula el orquestador contra la **base de la corrida** y **nunca declara quien tropezó**. Si no se puede calcular —el hecho no vive en ningún repositorio, la base no se publicó— se trata como de la corrida, por la misma asimetría de costos con que se decide detener, y la detención dice por qué no se calculó. **Lo ajeno sigue yendo a la pregunta previa, sin cambios. Lo de la corrida no se evalúa contra el árbol** sino contra la autocorrección sobre el conjunto, y sólo sale si corregirlo cambia una decisión que el humano ya tomó, si es un arbitraje, o si exige intención de producto que ninguna fuente contiene — declarando **por qué la autocorrección no alcanzaba**.
+
+**La tabla de la autocorrección suma su tercera fila**: el estado a medias que produjo la corrida lo resuelve el agente **sobre el conjunto de lo que la corrida produjo** y no en el punto donde tropezó, y lo declara en el cierre con su alcance ampliado. El bloque de detención suma `ORIGEN DEL HECHO`, con el renglón `Cómo` que separa lo calculado de lo tratado por duda, y `SI NO RESPONDÉS`. **Y el cierre declara que una cuenta en cero no prueba que la regla funcione.**
+
+**§12.1 T0 publica la línea `Base`**, que es la base de la corrida: el commit sobre el que la primera T0 de la invocación devolvió EN ORDEN. No cambia durante la corrida; T5 la republica igual y la continuación de la reanudación la hereda.
+
+**§8 declara por qué el snapshot no es la base**, y que el orquestador calcula el origen del hecho antes de elevar el contenido que el subagente devuelve como no reflejado —que dentro de una corrida puede ser un despacho paralelo sobre un proyecto compartido—.
+
+**§7.0 suma el lote de la fase**, que generaliza al bucle de fases la forma que `Mesa-Rules.md` §7.1 ya tenía probada: lo que no bloquea espera; el lote sale al cerrar la fase o cuando ya no puede avanzar; antes de salir **se mira entero**, con el origen del hecho calculado sobre todas; y cada detención lleva `SI NO RESPONDÉS`. **Lo bloqueante son dos casos**: el arbitraje de §7.0 y la detención sin cuya respuesta ninguna otra unidad de la fase avanza. **El registro de decisiones pendientes no suma columna**: el lote es la forma de presentar, y lo no contestado entra con su default en «qué rige mientras tanto», que la fila ya tenía.
+
+**§9** suma el campo con la leyenda de que no lo completa el subagente, y presenta en el lote. **§15** suma tres términos: base de la corrida, origen del hecho y lote de la fase.
+
+### Cambiado — `Mesa-Rules.md` 1.1 → 1.2
+
+**§7 suma el origen del hecho antes de la lista cerrada**, que pregunta qué clase de decisión es y nunca de dónde salió el hecho. Importa en un caso que ya ocurrió: una corrida con varios ciclos de mesa el mismo día mira, en cada ciclo, lo que aplicaron los parches de los anteriores. §7.1 suma el campo a la forma y §8 suma el criterio enumerable. **No se agrega ningún punto de invocación**, y §0.0 queda como estaba.
+
+### Cambiado — `Master-Prompt-Reanudacion.md` 1.11 → 1.12
+
+El bloque `REPOSITORIO` de R1, que reproduce T0, publica la base de la corrida, y §6 suma el criterio enumerable del origen del hecho junto al de la lista cerrada.
+
+### Cambiado — `Master-Prompt-Migracion.md` 2.9 → 2.10
+
+**M4 tenía la segunda copia de la cláusula del snapshot**, y ahora calcula el origen del hecho antes de tratar una diferencia como corrección manual: un documento que la migración estructural ya movió en esta corrida lo refleja en su snapshot.
+
+### Cambiado — `Catalogo-De-Criterios.md` 1.15 → 1.16
+
+Dos situaciones nuevas —una detención que nace de un estado que dejó la propia corrida, y varias detenciones en una misma fase— y una reapuntada: «apareció un hallazgo y no se sabe si detener o resolverlo» pasa a nombrar primero el origen del hecho. **El total de §4 no cambia**: no entra ningún anti-patrón.
+
+### Corregido — lo que la intervención encontró al tocar
+
+- **«Qué no cambia» de §8.1 afirmaba que la sección no quita ninguna detención**, y **era falso desde la 9.19**: la pregunta previa quita las que tienen respuesta en el árbol. El cambio de esta versión lo agravaba, y la comprobación 9 lo levantó.
+- **Dos registros de control de cambios estaban desordenados**, contra la comprobación 10: en `Master-Prompt.md`, veintiuna filas vivían después de «Fin del master-prompt» y la 8.12 a la 8.14 estaban entre la 8.2 y la 8.3; en `Catalogo-De-Criterios.md`, la 1.13 estaba entre la 1.2 y la 1.3. **Se reordenan sin cambiar el texto de ninguna fila**, verificado sobre el conjunto de filas antes y después. Los huecos de numeración —la 7.5 del master-prompt— **no se rellenan**: una fila la escribe quien hizo el cambio.
+
+### Lo que este conjunto NO toca, y se declara
+
+**`Root-Rules.md` §13**: no hay conflicto entre reglas que resolver, porque la cláusula vive dentro de §8.1, que §13 declara que corre antes. **`Vocabulario-Rules.md` y `Migracion-Rules.md`**, que son alcance de otras dos intervenciones de la misma serie. **La condición de convocatoria de la mesa**: el lote lo arma el orquestador en el corte de fase que ya existía. **La pregunta previa, su cita literal y su «ante la duda, se detiene»**, que siguen rigiendo para todo hecho ajeno a la corrida.
+
+**El nombre del campo se midió antes de elegirse.** `procedencia` colisiona en tres secciones que esta versión toca —la procedencia declarada del destino en §7.0 y en la reanudación—, y `origen` a secas tiene otros referentes en §7.0 y §8.1. `origen del hecho` tiene cero ocurrencias previas, y se escribe siempre completo.
+
+### Lo que queda sin medir, y se dice
+
+**La causa que el reporte describe no está medida**, y esta versión no la mide: el mecanismo se verifica recién con una corrida real en la que un agente encuentre un estado que la corrida dejó a medias. **Un criterio de aceptación queda cumplido a medias** y dos requieren esa corrida para contestarse; la nota de coherencia los enumera.
+
+### Por qué es minor
+
+**Ningún documento ya emitido deja de cumplir.** El registro de decisiones pendientes no cambia de forma; un registro de mesa ya emitido es un registro fechado y sigue conforme, igual que declaró la 1.1 de esa regla al sumar el prefijo de familia; y `Master-Prompt.md` §16 clasifica como minor los cambios en la mecánica de §8 y el flujo de §7. No se toca ninguna invariante ni ninguna plantilla de intake.
+
+### Impacto sobre destinos existentes
+
+**Nada retroactivo, y no es «ninguno».** Desde esta versión, **las salidas de T0 publican la base** y **las detenciones y escaladas llevan su origen del hecho**. Una escalada abierta que se vuelva a presentar lo lleva calculado contra la base de la corrida que la levantó, si esa base quedó escrita; cuando el hecho es el estado de un despliegue y no vive en ningún repositorio, se trata como de la corrida y tiene que decir por qué la autocorrección no alcanzaba. **Lo verificado sobre un destino real** está en la nota de coherencia.
+
+### Snapshot
+
+`_legacy/13.10/` se tomó **antes** de editar, desde el commit de publicación de la 13.10, con las exclusiones de `SDD-Development-Guide.md` §VI.5. Verificado: `Master-Prompt.md` adentro está en **8.14**, `Mesa-Rules.md` en **1.1**, `Master-Prompt-Reanudacion.md` en **1.11**, `Master-Prompt-Migracion.md` en **2.9** y `Catalogo-De-Criterios.md` en **1.15**.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Origen-Del-Hecho.md`, conjunto resultante **13.11**.
+
 ## [13.10] - 2026-09-01
 
 **El framework venía produciendo maquetas con una forma constructiva estable, y esa forma no estaba escrita en ninguna parte.** Vivía repartida entre lo que las reglas exigen —`Maqueta-Rules.md` la autonomía, los cuatro estados y el sello; `Design-Rules-Web-Generico.md` los tokens y los diez patrones; `Deriva-Rules.md` los umbrales— y lo que cada corrida reconstruía de memoria: el layout de archivos, el contrato entre el HTML y el JavaScript, el conmutador de estados, la resolución de los cuatro tipos de diálogo. **Las reglas dicen qué tiene que cumplir la maqueta; ninguna dice cómo se construye.** Esta versión cataloga ese cómo, y el cómo de llevarlo a un proyecto Blazor, **sin mover una coma de la norma**.

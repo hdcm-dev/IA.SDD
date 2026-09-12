@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
 **Agente target:** los orquestadores de reanudación y de migración, y AG-00970 (Presidente de mesa) en tiempo de ejecución
-**Versión de las reglas:** 1.2
+**Versión de las reglas:** 1.1
 
 ---
 
@@ -559,14 +559,6 @@ casos en los que la respuesta es no**. Fuera de esta lista, la mesa resuelve y r
 aceptación ausentes, nombres, orden de tareas y elección técnica dentro de las restricciones ya dadas.
 Son exactamente las tres detenciones que §0.1 midió como no siendo del humano.
 
-**Antes de la lista, el origen del hecho.** La lista contesta **qué clase de decisión es**, y ninguno de
-los siete disparadores pregunta **de dónde salió el hecho**. El presidente calcula el **origen del
-hecho** de cada escalada candidata contra la base de la corrida, con la cláusula de `Master-Prompt.md`
-§8.1, **antes** de contrastarla con la lista. **Una escalada cuyo hecho es de la corrida no se evalúa
-contra la lista sino contra la autocorrección sobre el conjunto**, y sólo sale si esa cláusula la deja
-salir. El caso no es hipotético: una corrida con varios ciclos de mesa el mismo día mira, en cada ciclo,
-un corpus que ya incluye lo que aplicaron los parches de los anteriores.
-
 **Ante duda sobre si escalar, la mesa aplica el criterio por defecto y lo registra en la deuda
 declarada.** Es la única inversión deliberada respecto de `Master-Prompt.md` §8.1, que ante la duda
 detiene, y tiene fundamento: **la asimetría de costos se invierte cuando las consultas van en lote y
@@ -580,7 +572,7 @@ y revisable.
 **Las escaladas se entregan agrupadas al cierre del ciclo, no de a una.** Las de tipo 2 y 3 son la
 excepción: bloquean y salen en el momento.
 
-Cada una adopta el formato de `Master-Prompt.md` §8.1 —qué pasó, **el origen del hecho**, opciones con su impacto, propuesta con
+Cada una adopta el formato de `Master-Prompt.md` §8.1 —qué pasó, opciones con su impacto, propuesta con
 su alternativa razonable, y qué se necesita— **más un campo propio de la mesa**:
 
 ```text
@@ -591,10 +583,6 @@ su alternativa razonable, y qué se necesita— **más un campo propio de la mes
 **Ese campo es lo que hace que el lote sea contestable.** Sin él, veinte escaladas agrupadas obligan a
 responder las veinte para que algo avance; con él, el humano contesta las que le importan y sabe qué
 pasa con el resto.
-
-**Esta forma es la que `Master-Prompt.md` §7.0 generaliza al bucle de fases**, como el lote de la fase.
-La mesa la tuvo primero y la conserva; lo que cambia es que deja de ser la única pieza del método que
-agrupa antes de preguntar.
 
 ---
 
@@ -614,9 +602,6 @@ agrupa antes de preguntar.
 - [ ] [enumerable] La **deuda declarada** entró como ítem diferido de `Root-Rules.md` §12.2 con sus
       cuatro campos, y su evento de cierre está nombrado.
 - [ ] [enumerable] Las escaladas salieron **agrupadas** y cada una declara qué pasa si no se responde.
-- [ ] [enumerable] Toda escalada declara su **origen del hecho** y cómo se obtuvo —calculado contra la
-      base de la corrida, o no calculable con su motivo—, y **ninguna cuyo origen del hecho sea de la corrida
-      salió sin declarar por qué la autocorrección no alcanzaba**.
 - [ ] [interpretativo] Ninguna escalada de la lista de §7 quedó sin salir, y **ninguna consulta fuera
       de esa lista se elevó al humano**.
 - [ ] [interpretativo] Ningún parche corrige aguas abajo un defecto nacido aguas arriba.
@@ -681,4 +666,3 @@ Insumos: {{LISTA}}, `Vocabulario-Rules.md`, y el contrato de entrada de la mesa.
 | --- | --- | --- | --- |
 | 1.0 | 2026-08-27 | Emisión inicial. Regula **la mesa de evaluación**, el mecanismo de preplanificación que convierte un corpus existente en un plan de cambios antes de que ese plan se apruebe. Declara el hueco con su medición —de cinco detenciones reales **tres tenían respuesta en el árbol**, y de diez hallazgos heredados en cinco informes **tres no eran lo que declaraban ser**— y **la frontera con el audit** de `Master-Prompt.md` §10, que es lo que impide que se dupliquen: el audit mira lo que se acaba de producir y emite un veredicto; la mesa mira lo que ya existía y emite un plan. Fija el rol **AG-00970** que preside y no vota, la **separación de las cuatro funciones** —detectar, juzgar, diseñar y aprobar—, el **contrato de entrada** alimentado por el orquestador, la **composición por señal observable** con su registro de descartes, el ciclo P0 a P5 con su **jurado de cinco funciones objetivo**, y la **lista cerrada de siete disparadores de escalada**, que completa la pregunta previa de `Master-Prompt.md` §8.1 nombrando los casos en que la respuesta no está en el árbol. **Reusa y no redefine**: los niveles de hallazgo son P0-P3 de §10, la base mecánica es la compuerta de §10.0, el criterio de corte es §10.1, la deuda va a los ítems diferidos de `Root-Rules.md` §12.2, las escaladas a `Decisiones-Pendientes.md` de §7.0 y las capas a revalidar son los hallazgos aguas arriba de §10. Lo único que agrega como escala propia es **la clase del ancla E1-E4/C**, porque el framework exigía cita y no la graduaba. | Framework SDD (mesa de evaluación) |
 | 1.1 | 2026-08-29 | **La convocatoria pasa de una lista de puntos a una condición declarada, y §0.0 es nueva.** La 1.0 declaraba que «el orquestador que la invoca declara **cuándo**», y los puntos que los orquestadores enumeran **no agotaban** el momento que el mecanismo pide: los dos que existían y la condición producían la misma lista el día que se escribió, y la diferencia apareció con el primer caso que la cumplía desde otro lugar. Entran las **tres cláusulas** —corpus previo, estado leído, plan o decisión de alcance por tomar—, los puntos quedan como **casos y no como definición**, y se declara que un caso sin orquestador **se convoca igual**. **§0.3 corrige la otra cara**: «no corre sobre un destino vacío» **no es** «no corre en la generación», que es la derivación que la 1.0 dejó escrita — un destino deja de estar vacío apenas la primera fase produce algo, y desde ahí nadie mira el corpus como conjunto; con su límite escrito, para no duplicar el audit de fase. **§6.1 suma la obligación de contrastar la fuente** cuando un `P0` se ancla en una declaración —fila de plan, casilla, campo de estado— porque la mesa lo incumplió **dos veces en su primera corrida real**, en el anti-patrón que el método nombra primero. **§2.1** admite el sufijo de ciclo cuando hay más de uno por fecha; **§2.2** obliga a declarar el prefijo de familia del ciclo, que no reusa una familia ya presente en la carpeta; y **§6.7** declara que el contador del ciclo **es propio y no acumula** con el de las rondas de audit, con la advertencia de que el rendimiento por especialista no cayó entre las dos primeras corridas. **Sube minor**: agrega obligaciones y no deroga ninguna regla; un registro de mesa emitido bajo la 1.0 sigue cumpliendo. | Intervención de la condición de convocatoria |
-| 1.2 | 2026-09-12 | **§7 suma el origen del hecho antes de la lista cerrada.** Los siete disparadores preguntan qué clase de decisión es y ninguno de dónde salió el hecho, y una corrida con varios ciclos de mesa el mismo día mira en cada ciclo lo que aplicaron los parches de los anteriores. El presidente calcula el origen del hecho con la cláusula de `Master-Prompt.md` §8.1 contra la base de la corrida, y lo que es de la corrida pasa por la autocorrección sobre el conjunto antes de escalar. **§7.1** suma el campo a la forma y declara que `Master-Prompt.md` §7.0 la generaliza al bucle de fases. **§8** suma el criterio enumerable: ninguna escalada cuyo origen del hecho sea de la corrida sin declarar por qué la autocorrección no alcanzaba. **No se agrega ningún punto de invocación** y §0.0 no se toca. Sube **minor**: un registro de mesa ya emitido sigue cumpliendo. | Intervención del origen del hecho |
