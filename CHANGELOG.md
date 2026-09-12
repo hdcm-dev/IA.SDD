@@ -3,6 +3,36 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.15] - 2026-09-12
+
+**El umbral de archivos individuales de `Rules-Backlog-Tecnico.md` decía dos cosas incompatibles a la vez: por proyecto de código con tres bandas en su tabla maestra, y por unidad de entrega con dos bandas en su convención, su criterio de aceptación y su snippet.** Sobre un destino real (`Lab-Geometria`) las dos lecturas daban resultados opuestos, y el destino aplicaba la de la tabla sin saber que había otra —citándola tres veces y atribuyéndole a la otra sección una lectura que esa sección no decía—. Es el reporte `29`, nacido de la primera corrida que ejerció el evento de `Rules-Backlog-Tecnico.md` §3.6 que escribió la 13.14: al abrir por primera vez un backlog técnico, se contó, y la regla no dejó contestar si eso cruzaba el umbral.
+
+### La decisión: por proyecto de código, y no por conteo de menciones
+
+**El criterio no fue cuántas secciones decían cada cosa** (cuatro contra dos), sino el impacto medido sobre el árbol, con la misma disciplina que `Root-Rules.md` §13 exige para el conflicto entre dos reglas distintas, aplicada acá a una regla que se contradijo consigo misma (precedente de forma: reporte `28`):
+
+- **Bajo «por proyecto de código», ningún destino del workspace incumple.** `Lab-Geometria` (dos unidades, US y BT) y `RPI.VideoControl` (cinco proyectos en una unidad, US) ya la aplican con coherencia; el único cruce de umbral en curso —`GeometriaFactory-Api`, de 26 a 35 tareas técnicas— se está resolviendo en la misma corrida que lo produjo, con sus 35 archivos individuales ya escritos al momento de esta intervención.
+- **Bajo «por unidad de entrega», dos destinos reales habrían incumplido de golpe, en cuatro documentos**: los backlogs técnicos de las dos unidades de `Lab-Geometria` (98 y 41 tareas, cero archivos, desde el 2026-08-16 según el propio reporte) y las historias de `GeometriaFactory-Web` y de `RPI.VideoControl` (47 con 30 archivadas, 55 con 25). Nadie lo había detectado porque el criterio de §6 era `[interpretativo]`.
+
+### Cambiado — `Rules-Backlog-Tecnico.md` 5.2 → 5.3
+
+**§3.3 pasa a contar por proyecto de código, con las tres bandas de §2.1** (que ya lo decía así desde su versión 1.0): obligatorio sobre 20 US o 30 BT, recomendado —no obligatorio— entre 10 y 20 o entre 15 y 30, omitir por debajo. **Suma el caso del documento consolidado**: cuando una unidad de entrega agrupa más de un proyecto de código, el umbral se evalúa proyecto por proyecto dentro del mismo `Product-Backlog.md` o `Backlog-Tecnico.md`, y el resultado mixto —un proyecto en archivos individuales, otros inline en el mismo documento— es la **forma correcta y no un estado transitorio**: forzar a toda la unidad por el cruce de un solo proyecto reescribiría secciones que no cambiaron. **§6 reclasifica el criterio de `[interpretativo]` a `[enumerable]`**, con el comando de conteo por bloque de identificador y `test -d`. **§5.2 y §5.5 nombran la unidad de conteo** que antes no decían, y el **§8** snippet y la **cabecera** quedan alineados. La corrección alcanza **las dos familias, US y BT, en el mismo texto**: la contradicción era idéntica para las dos y el reporte solo la había medido para BT; la solicitud 6 de la intervención la reprodujo también para US antes de corregir.
+
+**Sube minor.** La lectura adoptada es la que los destinos reales ya aplicaban sin excepción; ningún documento generado deja de cumplir, y el que parecía incumplir bajo la lectura vieja de §6 —el backlog técnico de `GeometriaFactory-Api`, «incumpliendo desde el 2026-08-16» según el reporte— pasa a cumplir bajo la corregida.
+
+**Impacto medido por destino** (tres destinos con categoría 06 activa; `SelfHosted.Service.Core` no la generó aún):
+
+| Destino | Unidad | Bajo «por proyecto de código» (adoptada) | Bajo «por unidad de entrega» (descartada) |
+|---|---|---|---|
+| `Lab-Geometria` | `GeometriaFactory-Api` | Cumple: 35 BT del proyecto `Api` en archivo (en curso al cierre de esta intervención), 16/21/26 del resto en banda recomendada, inline | Incumpliría: 98 BT sin archivo |
+| `Lab-Geometria` | `GeometriaFactory-Web` | Cumple: 23 y 18 BT, ambos proyectos en banda recomendada; 30 US del bloque `10` archivadas, 17 del bloque `12` en banda recomendada, inline | Incumpliría: 41 BT sin archivo, 47 US con solo 30 archivadas |
+| `RPI.VideoControl` | única (5 proyectos) | Cumple: 25 US de `Web` archivadas (>20), el resto de los proyectos en banda recomendada u omitir; 20 BT en banda recomendada | Incumpliría: 55 US con solo 25 archivadas |
+| `SAI.Service.Core` | única (= 1 proyecto) | Cumple, trivialmente: no hay divergencia posible con un solo proyecto por unidad | Cumple igual |
+
+**Verificación contra los cinco criterios de §7 del reporte: los cinco cumplidos, ninguno a medias.** Es el primero de la serie donde el caso real que originó el reporte —la fase `k` de `Lab-Geometria`— seguía en curso durante la propia intervención, y confirmó la corrección dato por dato en vez de quedar pendiente de una corrida futura. Detalle, comandos y salidas en `IA.SDD.Documentacion/PROMPTs/Fixs/07-Fix-Reporte-29/OUTPUTs/`.
+
+**Qué le exige a `Lab-Geometria`, el destino que no se toca en esta intervención (solo lectura).** Alcanza con las 35 tareas técnicas del proyecto `GeometriaFactory-Api` en archivo individual bajo `tareas-tecnicas/`; nada más. Los otros tres proyectos de esa unidad y los dos de `GeometriaFactory-Web` siguen en banda recomendada y pueden seguir inline. `RPI.VideoControl` conserva sin resolver su propia decisión pendiente sobre si sus BT deben repartirse por proyecto de código (`DEC-00003`), ajena al umbral de esta regla.
+
 ## [13.14] - 2026-09-12
 
 **El método sabía re-expresar documentación bajo una normativa que avanzó y no sabía qué hacer cuando lo que avanzaba era el alcance comprometido del producto.** Un destino que cerró su alcance, se desplegó, y después recibió dos decisiones de producto del Product Owner —una topología de despliegue realizada, una reestructuración del árbol de código propuesta— quedó con su documentación de especificación completa y describiendo un producto que ya no era ése. Es el reporte `25`, cuarto y último de la corrida del 2026-09-12, sobre la sexta reanudación de `Lab-Geometria` y su mesa de dos ciclos.
