@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Catalogo-De-Criterios.md
-**Versión:** 1.16
+**Versión:** 1.17
 **Estado:** Vigente
 **Fecha:** 2026-09-12
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
@@ -59,7 +59,8 @@ aplica sin su fundamento — y el fundamento es lo que permite reconocer cuándo
 | Varios documentos con el mismo nombre esperan consolidación | Cuál de las cuatro salidas S1 a S4 | `Migracion-Rules.md` §4.3.2 |
 | Hay que comparar versiones de un mismo documento | Qué cuenta como diferencia y cómo se verifica | `Migracion-Rules.md` §4.3.2, C1 a C5 |
 | Un documento cambia de ubicación | Qué pasa con sus enlaces y con los que lo apuntan | `Migracion-Rules.md` §4.3.1, procedimiento de mover |
-| Un término tiene dos sentidos | Desambiguar o no | [`Vocabulario-Rules.md`](../Rules/Vocabulario-Rules.md) §9 |
+| Un término tiene dos sentidos | Desambiguar o no, **con el contexto de lectura de cada lector** | [`Vocabulario-Rules.md`](../Rules/Vocabulario-Rules.md) §9, y §9.2 para el contexto |
+| Se va a **afirmar que un término colisiona o no colisiona** —para elegir un nombre, calificar un sentido o descartar una polisemia— | Con qué contexto de lectura se mide, qué cuesta calificar y qué se adjunta a la afirmación | `Vocabulario-Rules.md` §9.2 y §9.4; `Mesa-Rules.md` §6.1 dentro de la mesa; `SDD-Development-Guide.md` §VI.3 comprobación 14 en una intervención |
 | Un identificador necesita forma, ancho o ámbito | Cómo se numera y hasta dónde es único | `Root-Rules.md` §9 |
 | Un recuento se escribe en la prosa | Cómo se ancla para que no envejezca | `Root-Rules.md` §10 |
 | Una fase declara una obligación hacia otra que no corrió | Declararla pendiente o resolverla | `Root-Rules.md` **§12.1** |
@@ -78,7 +79,7 @@ aplica sin su fundamento — y el fundamento es lo que permite reconocer cuándo
 | Una intervención nace de un origen con criterios de aceptación | Si se puede declarar resuelto, y qué se le devuelve al origen | `SDD-Development-Guide.md` §VI.3 comprobación 13 |
 | **Dos reglas alcanzan el mismo ítem y dicen cosas distintas** | Si **una de las dos viaja en todo despacho y la otra no** —la resuelve el agente— o no —la arbitra el humano— | `Root-Rules.md` **§13**, y `Master-Prompt.md` §7.0 para el resto |
 | Se escribe una regla nueva a partir de un caso observado | Si está enunciada sobre el caso o sobre la propiedad, y cuál es su simétrico | `SDD-Development-Guide.md` Parte IV, «sobre las reglas que escribas a partir de un caso observado» |
-| Hay que verificar una intervención antes de cerrarla | Las trece comprobaciones | `SDD-Development-Guide.md` §VI.3 |
+| Hay que verificar una intervención antes de cerrarla | Las catorce comprobaciones | `SDD-Development-Guide.md` §VI.3 |
 | Hay que decidir qué hacer con un destino ya existente y **nadie leyó su contenido** | Si se convoca la mesa de evaluación | [`Mesa-Rules.md`](../Rules/Mesa-Rules.md) **§0.0**, las tres cláusulas de la condición; §0.2 y `Master-Prompt-Reanudacion.md` §3.1.1 |
 | El caso pide una mesa y **ningún orquestador la convoca desde ahí** | Si se convoca igual, y qué se declara | `Mesa-Rules.md` §0.0 — los puntos son **casos** de la condición y no su definición; el registro declara desde dónde |
 | Un hallazgo `P0` se apoya en **una declaración y no en un observable** | Si procede como `P0` o hay que contrastar la fuente primero | `Mesa-Rules.md` §6.1, y `Master-Prompt-Reanudacion.md` §7, «confiar en la fuente declarativa sin contrastarla» |
@@ -207,3 +208,4 @@ regla—. Lo que no corresponde adoptar es la **infraestructura** de DMN, no su 
 | 1.14 | 2026-08-27 | Entra `Mesa-Rules.md` por la comprobación 12 de `SDD-Development-Guide.md` §VI.3 —**quien toca, registra**—. §3 suma **cinco criterios**: cuándo se convoca la mesa de evaluación sobre un corpus existente, cómo se arma un panel por señal observable y qué se registra de los descartes, qué hacer con un hallazgo heredado de un informe anterior, quién juzga si corregir un hallazgo probado vale la pena, y **la lista cerrada de siete disparadores de escalada** que dice cuándo una consulta es del humano. §4 suma la fila de la regla nueva con sus **12 situaciones**: el total pasa de **208 a 220**, `[enumerable]` de 100 a 107 e `[interpretativo]` de 108 a 113. El recuento de §1 pasa de diecinueve a **veinte** archivos de reglas. |
 | 1.15 | 2026-08-29 | **Dos criterios nuevos de `Mesa-Rules.md` 1.1**, por la comprobación 12. El primero: **el caso pide una mesa y ningún orquestador la convoca desde ahí** — la 1.0 declaraba los puntos de invocación y no la condición, y el criterio que faltaba es que los puntos son **casos** y no definición. El segundo: **un hallazgo `P0` apoyado en una declaración y no en un observable**, que exige contrastar la fuente antes de proceder. Se precisa además el criterio existente de convocatoria, que apuntaba a §0.2 y ahora apunta a **§0.0**, donde vive la condición. La fila de `Mesa-Rules.md` en §4 pasa de **12 a 14** situaciones; el total, de **220 a 222**, `[enumerable]` de 107 a 108 e `[interpretativo]` de 113 a 114. | Intervención de la condición de convocatoria |
 | 1.16 | 2026-09-12 | **Dos situaciones nuevas y una reapuntada**, por la comprobación 12: **una detención nace de un estado que la propia corrida dejó a medias** y **varias detenciones en una misma fase**, de `Master-Prompt.md` §8.1 y §7.0; y **«apareció un hallazgo y no se sabe si detener o resolverlo»** pasa a nombrar primero el origen del hecho. **El total de §4 no cambia**: no entra ningún anti-patrón. **La fila 1.13 de este registro estaba entre la 1.2 y la 1.3** y pasa a su lugar sin cambiar su texto, por la comprobación 10. Sube minor. |
+| 1.17 | 2026-09-12 | **Una situación nueva y dos reapuntadas**, por la comprobación 12: **se va a afirmar que un término colisiona o no colisiona**, de `Vocabulario-Rules.md` §9.2 y §9.4, `Mesa-Rules.md` §6.1 y la comprobación 14 de `SDD-Development-Guide.md` §VI.3; «un término tiene dos sentidos» nombra el contexto de lectura por lector; y «hay que verificar una intervención» pasa de trece a **catorce** comprobaciones. **El total de §4 no cambia**: no entra ningún anti-patrón. Sube minor. |
