@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-00990)
-**Versión de las reglas:** 8.7
+**Versión de las reglas:** 8.6
 
 ---
 
@@ -637,10 +637,6 @@ regla local que el método no contempla, y hay tres cosas que le pueden pasar co
 framework **absorba** lo que pedía, que **decida lo contrario**, o que **siga sin decir nada**. Sin
 estado, las tres se ven igual —un ADR viejo— y la tercera es indistinguible del olvido.
 
-7. Su **ciclo de origen**: la fase, la unidad de trabajo y la base de la corrida en que se declaró,
-   con la forma y el mecanismo que fija §12 más abajo. Como el resto de los seis campos, no lo escribe
-   el agente que redacta el ADR: lo calcula el orquestador.
-
 **El contador es el disparador que el método no tenía.** Un apartamiento que sobrevive **dos o más
 saltos** sin ser contemplado ya demostró que **no es de un producto**: si fuera circunstancial, alguna
 versión lo habría alcanzado. Es la mejor candidata a regla del framework, y lo dice un número en lugar
@@ -669,29 +665,6 @@ hoy, y su evento de cierre **suele estar afuera** —un punto de control del cic
 el método declara que no gobierna—. Ahí nadie lo ve pasar, y por eso §12.2 exige de él lo que §12.1
 no necesita.
 
-**Las dos figuras —y el apartamiento declarado de §11— comparten además un campo que apunta hacia
-atrás: el ciclo de origen.** Los tres instrumentos declaran hacia dónde apuntan y ninguno declaraba de
-dónde salían: dos huecos con identificadores contiguos pueden ser de fases separadas por meses, y nada
-en el artefacto lo dice. Reconstruirlo exige abrir historial de git, fechas de control de cambios y
-ADRs sueltos, y lo que no se reconstruye se eleva al humano con la forma de una consulta legítima que
-no lo es —es exactamente el patrón que `Master-Prompt.md` §8.1 corrige para el origen del hecho, aplicado
-acá al origen del hueco.
-
-**El ciclo de origen se calcula, no se declara.** Con el mismo fundamento con que el origen del hecho
-no lo completa quien tropieza (`Master-Prompt.md` §8.1): un campo que el agente llena a mano se llena
-de buena fe con lo que el agente cree, y el resultado se lee como verificación sin serlo. El
-orquestador lo escribe con tres datos, congelados en el momento de declarar el instrumento y no
-recalculados después: la **fase** y la **unidad de trabajo** en curso, y la **base de la corrida**
-(`Master-Prompt.md` §12.1). El mecanismo de cómputo vive en `Master-Prompt.md` §8.2, por el principio
-de delegación de la especialidad: esta regla declara que el campo existe y es obligatorio; el
-master-prompt declara cómo se calcula.
-
-**Por qué se congela y no se remite a la base de la corrida vigente.** La base de la corrida es de
-**una** corrida y deja de tener sentido cuando esa corrida termina; un hueco declarado hoy se sigue
-leyendo en corridas futuras, cada una con su propia base. El campo escribe el valor —el commit corto,
-la fase y la unidad de trabajo de ese momento— en lugar de una referencia a «la base de la corrida»
-que en una lectura posterior ya no significaría lo mismo.
-
 ### 12.1 Referencia pendiente
 
 Un artefacto puede referenciar algo que todavía no existe —típicamente porque la categoría que lo
@@ -700,7 +673,6 @@ emite corre en una fase posterior— si lo declara con esta forma:
 1. **Que no existe**, nombrando la categoría y la fase en que se emitirá.
 2. **Cuál es el origen provisorio** que rige mientras tanto, si lo hay.
 3. **Cuándo se cierra**: qué evento obliga a volver sobre este artefacto.
-4. Su **ciclo de origen**, con el mecanismo y la forma que declara §12 más arriba.
 
 Las dos salidas que esta forma reemplaza rompen otra regla del framework, y por eso ninguna de las
 dos es admisible: **copiar el contenido** crea una segunda fuente de algo que otra regla declara
@@ -725,7 +697,6 @@ no con una promesa en prosa.** Cuatro campos:
 3. **Quién lo cierra**: el rol que corresponda y, si ninguno corresponde, **la organización dueña del
    repositorio**. Un responsable genérico es peor que uno preciso y muchísimo mejor que ninguno.
 4. **En qué evento se cierra, nombrando un artefacto y su sección** — no un momento.
-5. Su **ciclo de origen**, con el mecanismo y la forma que declara §12 más arriba.
 
 **El punto 4 es el que distingue esta figura de la promesa que reemplaza, y el motivo es
 comprobable.** «El punto de control de la etapa `a`» **no deja rastro que alguien pueda abrir**: es un
@@ -752,18 +723,11 @@ futura; el prefijo no dependía de nada, y el destino pasó ocho etapas sin pode
 | Ítem diferido **cuyo evento de cierre ya ocurrió** y sigue abierto | **Hallazgo P1** |
 | Ítem diferido que sigue abierto **al cierre del producto** | **Hallazgo P0**, como la referencia pendiente |
 | Ítem obligatorio contestado **con una promesa sin esta forma** | **Hallazgo P1**: no es contable, de modo que las tres filas de arriba no se le pueden aplicar |
-| Referencia pendiente, ítem diferido o apartamiento **declarado desde SDD 8.7 sin su ciclo de origen** | **Hallazgo P1**: el mecanismo de §12 no corrió, y el hueco vuelve a ser irreconstruible salvo a mano |
 
 **Quién lo comprueba.** La compuerta mecánica de `Master-Prompt.md` §10.0, en cada fase, y el
 orquestador de reanudación en su reconocimiento. **Ninguno de los dos existía para esto**, y ésa era
 exactamente la falla: el método sabía atar una decisión a un evento futuro y no sabía cerrar el lazo
-cuando ese evento llegaba. **El ciclo de origen lo agrega la comprobación 8 de `Master-Prompt.md`
-§10.0**, sobre los tres instrumentos y no solo sobre el ítem diferido.
-
-**Los huecos declarados antes de SDD 8.7 no llevan este campo, y no es hallazgo por eso solo.** El
-mecanismo no existía cuando se escribieron. `Migracion-Rules.md` §4.8 y §4.9 declaran cómo se los
-trata al migrar: dónde se deriva y dónde se marca explícitamente no derivable, sin exigirlo
-retroactivo y sin tratarlo como si nunca hubiera existido.
+cuando ese evento llegaba.
 
 ---
 
@@ -856,8 +820,7 @@ correcta y no se podía sostener con una cita. Esta sección la funda hacia atr�
 | 8.0 | 2026-08-22 | **La familia `AG` entra al sistema de identificadores y se renumera al ancho de cinco dígitos.** Hasta acá §9.2 la excluía con motivo escrito —«no cataloga un elemento de una colección de un producto»—, y el motivo era correcto: dejaba al framework **sin forma de nombrarse a sí mismo**, que es lo que §10 **R5** declara que no es identidad. **§9.1 declara dos ámbitos** —el producto y el conjunto normativo vigente— y **cómo se relacionan**: no colisionan en numeración, **y sí se citan a través de la frontera**, que es el motivo del ámbito propio y no un argumento en contra. **`_legacy/` queda fuera del espacio de candidatos de los dos.** §9.2 **enumera `AG`** entre las familias alcanzadas —ya cumple el ancho cuando se la declara, no antes— y su tabla de exclusiones **suma `FA-NN`**, el flujo alternativo, que es una **posición dentro de un documento** como el ordinal de iteración. §10 R5 pasa de «único en el producto» a «único en su ámbito». Sube **major**: un `SDD/Docs/README.md` emitido antes **publica `AG-00` en su mapa de documentación** y deja de cumplir la comprobación 4 de `Master-Prompt.md` §10.0. |
 | 8.1 | 2026-08-23 | **§9.2 declara el marcador de plantilla `<PREFIJO>-XXXXX`**, que el corpus ya usaba en `US-XXXXX`, `NB-XXXXX` y `AG-XXXXX` **sin que ninguna regla lo escribiera**: no es un identificador y no se le exige la forma. Y la fila de `FA-NN` **deja de atribuirle un ámbito**: §9.1 declara **dos**, y los dos son de las familias **alcanzadas** — una familia excluida no toma ninguno. Las dos las levantó la cuarta ronda de auditoría, la segunda como daño que la reemisión anterior había introducido. Sube **minor**: declara una convención en uso y quita una atribución que contradecía a §9.1. |
 | 8.2 | 2026-08-23 | **Dos familias vivas quedaban sin clasificar**, y §9.5 exige que toda familia lo esté: `CA-NN` —el criterio de aceptación de `Rules-Especificacion-Funcional.md` §3.2— y `PASO-N`. `CA-NN` es **gemela de `FA-NN`**: misma regla, tablas contiguas, y el motivo escrito para `FA-NN` le aplica sin cambiar una palabra —es una **posición dentro de un documento** y no cataloga un elemento de una colección—. `PASO-N` es un **ordinal de secuencia**, del mismo orden que el ordinal de iteración. Las dos entran a la tabla de exclusiones. Y **§9.1 decía «los roles del framework»** mientras §9.2 sólo alcanza a los del catálogo de especialidades y a los subagentes de fase: **el orquestador y el auditor quedaban prometidos y no cubiertos**. El enunciado se acota a lo que §9.2 cubre. Lo levantó la sexta ronda. Sube **minor**: clasifica familias que ya existían y acota un enunciado que prometía de más. |
-| 8.3 | 2026-08-23 | **§9.2 fundaba su tabla de exclusiones en una exigencia que §9.5 no contenía.** Decía «§9.5 exige que toda familia viva quede clasificada» y §9.5 sólo exigía, a **toda categoría que acuñe un identificador**, declarar prefijo, forma y ámbito en §3.2 de su regla: nada sobre clasificar familias. La obligación **se escribe en §9.5**, que es donde §9.2 y el registro de la 8.2 la invocan, en lugar de corregir las citas — porque sin ella **ninguna regla obliga a clasificar la próxima familia viva que aparezca**, que es el hueco por el que `FA-NN`, `CA-NN` y `PASO-N` pasaron sin clasificar durante versiones. Lo levantaron cinco jueces por unanimidad en el primer ciclo de mejora continua. Sube **minor**: escribe una obligación que ya se citaba y no deroga nada. |
-| 8.4 | 2026-08-23 | **Alta de `AG-00980` en el bloque `009xx`** (framework 13.2), el bibliotecario de conocimiento. El bloque estaba reservado desde la 12.0 a los roles que no son de categoría y sólo nombraba a `AG-00990`; el identificador estaba libre y se verificó antes de acuñarlo. **No se acuña familia nueva**: `AG` ya existe y su ámbito es el conjunto normativo vigente. El contrato del rol —entra una necesidad en prosa, sale una lista de alias con fundamento, y tiene prohibido devolver texto o proponer fuera del índice— vive en `Rules-Base-Conocimiento.md` §9 y esta regla lo cita, no lo duplica. Sube **minor**: agrega una entrada a una tabla y **ningún documento generado deja de cumplir**. |
-| 8.5 | 2026-08-23 | **§9.2 escribe la regla de asignación interna del bloque `009xx`, y con eso cierra un ítem diferido cuyo evento de cierre ya había ocurrido.** El ítem 4 de `Coherencia-Renumeracion-AG.md` §8 declaraba que la regla no se escribía porque *«no hay un segundo rol de nivel producto que fuerce la decisión: fijarla ahora sería inventar el caso»*. **`AG-00980`, acuñado en la 13.2, es ese segundo rol**, y el ítem quedó abierto tres versiones después de que su condición se cumpliera — que es exactamente el **hallazgo P1** que §12.2 califica. La regla: los roles toman `009N0` **descendiendo desde `00990`**, y sus subagentes de fase `009N1` a `009N9`, con la misma gramática que las categorías usan en `00NN0`. Se asigna el mayor libre y no el menor, con lo que los roles quedan ordenados por alcance decreciente sin declararlo aparte. **Se declara además lo que la regla no resuelve**: el solapamiento del bloque con las categorías `90` a `99` sigue diferido y **se agrava**, porque ahora hay dos ocupantes. Sube **minor**: agrega una regla de acuñación y ningún identificador vivo cambia. |
 | 8.6 | 2026-08-27 | **Alta de `AG-00970` en el bloque `009xx`**, el presidente de la mesa de evaluación. Se aplicó la regla de acuñación que la 8.5 escribió —el **mayor libre descendiendo desde `00990`**— y se verificó que el identificador estuviera libre antes de acuñarlo. Se verificó además la condición que la 8.5 declara como instructiva: **a qué ítem diferido le cumple la condición esta acuñación**. A ninguno; el único abierto del bloque es el solapamiento con las categorías `90` a `99`, que **se agrava** —tres ocupantes en lugar de dos— y sigue diferido con su evento de cierre intacto. El contrato del rol vive en `Mesa-Rules.md` §1.1 y esta regla lo cita, no lo duplica. Sube **minor**: agrega una entrada a una tabla y ningún documento generado deja de cumplir. |
-| 8.7 | 2026-09-12 | **§11, §12.1 y §12.2 suman el ciclo de origen** (framework 13.13), por el reporte `27` de `IA.SDD.Documentacion`: los tres instrumentos para lo que falta declaran hacia dónde apuntan y ninguno de dónde salen, y una migración no podía distinguir un hueco que el propio ciclo no llegó a escribir de un hueco que la norma exige recién después. El campo se calcula —fase, unidad de trabajo y base de la corrida, congelados al declararse— y no lo completa el agente; el mecanismo vive en `Master-Prompt.md` §8.2, que reutiliza la base de la corrida de la intervención del reporte `26` en lugar de crear una paralela. La clasificación que la migración deriva de él vive en `Migracion-Rules.md` §4.8, y el tratamiento de los huecos anteriores al mecanismo en §4.9. Nueva fila de escalamiento en §12.2: un hueco declarado desde esta versión sin su ciclo de origen es **hallazgo P1**. Sube **minor**: agrega un campo obligatorio hacia adelante y no exige reescribir ningún hueco ya declarado. **Corregido de paso**: las filas 8.3 a 8.6 de este mismo control de cambios estaban en orden inverso, contra la comprobación 10 de `SDD-Development-Guide.md` §VI.3; se reordenan sin cambiar el texto de ninguna. |
+| 8.5 | 2026-08-23 | **§9.2 escribe la regla de asignación interna del bloque `009xx`, y con eso cierra un ítem diferido cuyo evento de cierre ya había ocurrido.** El ítem 4 de `Coherencia-Renumeracion-AG.md` §8 declaraba que la regla no se escribía porque *«no hay un segundo rol de nivel producto que fuerce la decisión: fijarla ahora sería inventar el caso»*. **`AG-00980`, acuñado en la 13.2, es ese segundo rol**, y el ítem quedó abierto tres versiones después de que su condición se cumpliera — que es exactamente el **hallazgo P1** que §12.2 califica. La regla: los roles toman `009N0` **descendiendo desde `00990`**, y sus subagentes de fase `009N1` a `009N9`, con la misma gramática que las categorías usan en `00NN0`. Se asigna el mayor libre y no el menor, con lo que los roles quedan ordenados por alcance decreciente sin declararlo aparte. **Se declara además lo que la regla no resuelve**: el solapamiento del bloque con las categorías `90` a `99` sigue diferido y **se agrava**, porque ahora hay dos ocupantes. Sube **minor**: agrega una regla de acuñación y ningún identificador vivo cambia. |
+| 8.4 | 2026-08-23 | **Alta de `AG-00980` en el bloque `009xx`** (framework 13.2), el bibliotecario de conocimiento. El bloque estaba reservado desde la 12.0 a los roles que no son de categoría y sólo nombraba a `AG-00990`; el identificador estaba libre y se verificó antes de acuñarlo. **No se acuña familia nueva**: `AG` ya existe y su ámbito es el conjunto normativo vigente. El contrato del rol —entra una necesidad en prosa, sale una lista de alias con fundamento, y tiene prohibido devolver texto o proponer fuera del índice— vive en `Rules-Base-Conocimiento.md` §9 y esta regla lo cita, no lo duplica. Sube **minor**: agrega una entrada a una tabla y **ningún documento generado deja de cumplir**. |
+| 8.3 | 2026-08-23 | **§9.2 fundaba su tabla de exclusiones en una exigencia que §9.5 no contenía.** Decía «§9.5 exige que toda familia viva quede clasificada» y §9.5 sólo exigía, a **toda categoría que acuñe un identificador**, declarar prefijo, forma y ámbito en §3.2 de su regla: nada sobre clasificar familias. La obligación **se escribe en §9.5**, que es donde §9.2 y el registro de la 8.2 la invocan, en lugar de corregir las citas — porque sin ella **ninguna regla obliga a clasificar la próxima familia viva que aparezca**, que es el hueco por el que `FA-NN`, `CA-NN` y `PASO-N` pasaron sin clasificar durante versiones. Lo levantaron cinco jueces por unanimidad en el primer ciclo de mejora continua. Sube **minor**: escribe una obligación que ya se citaba y no deroga nada. |
