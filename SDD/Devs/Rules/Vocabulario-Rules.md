@@ -2,7 +2,7 @@
 
 **Archivo target:** todo artefacto del framework y toda documentación que el framework genera
 **Lector:** el orquestador, todo subagente AG-XXXXX, el auditor de cada fase y quien interviene el framework
-**Versión de las reglas:** 3.2
+**Versión de las reglas:** 3.3
 
 ---
 
@@ -174,17 +174,32 @@ código, dos de los cuales se desplegaban; un proyecto de código de DTOs tenía
 developers y documento de entornos de despliegue, y ese documento tuvo que abrir declarando que el
 proyecto «no tiene ambientes ni canales propios».
 
-**Alcance de esta regla, declarado.** Esta regla gobierna **los términos del framework que colisionan
-con el vocabulario del dominio de un cliente**: los seis de §2, con su precedencia de §6 y su criterio
-de desambiguación de §9. No gobierna el resto del vocabulario propio del framework —`sonda`, `pasada
-de diseño`, `pasada de ejecución`, `arnés` y equivalentes—, que **vive en el glosario operativo de
-`Master-Prompt.md` §15** y se cita desde la documentación generada sin redefinirlo. Que un término
-del método no colisione con el negocio no significa que no haga falta definirlo: significa que su
-ausencia es silenciosa.
+**Alcance de esta regla, declarado.** Esta regla gobierna dos cosas, y no con el mismo alcance:
 
-La declaración importa porque esta regla se presenta como la regla de vocabulario del framework y
-gobierna seis palabras. Sin decir dónde vive el resto, cada categoría que necesita un término del
-método tiene que decidir por su cuenta dónde declararlo, y decide distinto.
+| Qué | Sobre qué términos | Dónde |
+| --- | --- | --- |
+| Qué designa un término, y qué pasa cuando el dominio de un cliente lo usa con otro sentido | **Los seis de §2**, con sus reglas de uso de §4 y su precedencia de §6 | §2 a §7 |
+| Cuándo un término con más de un referente colisiona, y cómo se desambigua | **Todo término** del framework y de la documentación que genera, **incluido el vocabulario propio del método** | §9 |
+
+**La definición del vocabulario propio del método no vive acá.** `sonda`, `pasada de diseño`, `pasada de
+ejecución`, `arnés` y equivalentes **se definen en el glosario operativo de `Master-Prompt.md` §15** y se
+citan desde la documentación generada sin redefinirlos. Que un término del método no colisione con el
+negocio no significa que no haga falta definirlo: significa que su ausencia es silenciosa. **Y si dos de
+sus sentidos chocan, lo decide §9**, como para cualquier otro término: §15 **define**, §9 **decide la
+colisión**. §15 define también «colisión de sentidos» y «contexto de lectura», y los remite a §9: no decide casos.
+
+**Hasta la 3.2 este párrafo acotaba también §9 a los seis términos**, y remitía el resto a §15. **Contradecía
+a la propia regla**: la cabecera la declara sobre todo artefacto; §9 se enuncia sobre «cualquier
+documentación que el framework genere» y sobre «un término con más de un referente»; R6 y §9.6 la aplican a
+«migración», que no es ninguno de los seis y cuya colisión es de framework contra framework; y
+`Master-Prompt.md` §10 audita la polisemia de «todo término». **No quedó desactualizado por una práctica
+posterior**: §9.6 es de la 2.1 y ese párrafo de la 2.2, de modo que se escribió contra una sección que ya
+estaba. Lo que la 2.2 venía a fijar era **dónde se define** el vocabulario del método, y eso no cambia.
+
+La declaración importa porque esta regla se presenta como la regla de vocabulario del framework. Sin decir
+qué gobierna, cada categoría que necesita un término del método decide por su cuenta dónde declararlo, y
+decide distinto; y **un término del método que choca con otro término del método queda sin ninguna pieza que
+lo gobierne**, que es lo que el párrafo anterior producía.
 
 Con eso queda resuelto también el segundo tramo del pendiente: el campo pasa a llamarse
 **`tipo_unidad_entrega`**, que es el nivel que le corresponde. El conjunto D8 no cambia —siguen siendo
@@ -218,11 +233,27 @@ Las secciones anteriores fijan el vocabulario **del framework**. Esta fija cómo
 
 Acá está la parte que el framework tiene que declarar explícitamente, porque es propia de cómo trabaja y no se deduce de la lingüística:
 
-> **El contexto de lectura de un subagente es la sección, no el documento.**
+> **El contexto de lectura de un lector es la unidad con la que su lista de insumos le entrega el texto: la sección cuando la nombra, el archivo cuando lo nombra sin sección.**
 
-`Master-Prompt.md` §8 construye cada despacho con una lista de insumos que nombra **secciones**, no archivos completos: «Parte A negocio; §13 composición; §17 bloque técnico de la unidad de entrega». Un lector humano abre el documento entero y el contexto le resuelve la referencia; un subagente que recibió tres secciones de setenta, no.
+Hasta la 3.2 esta sección declaraba la unidad para un solo lector —«el contexto de lectura de un subagente es la sección, no el documento»— **y ni para ése era entera**: el despacho de `Master-Prompt.md` §8 nombra secciones del intake («Parte A negocio; §13 composición; §17 bloque técnico de la unidad de entrega»), de esta regla y de `Root-Rules.md`, pero nombra **por ruta, sin sección**, la regla de la categoría, los documentos upstream y los de conocimiento. Los demás lectores del método tienen sus insumos declarados, y la unidad se lee de ahí:
 
-Consecuencia operativa: **un término cuyos sentidos se distinguen solo leyendo el documento completo sí colisiona.** «El registro queda en el estado previo», leído dentro de un caso de uso completo, se entiende; leído como sección suelta por un subagente que tiene que derivar una decisión de transaccionalidad, admite tres lecturas que producen tres arquitecturas distintas.
+| Lector | Qué recibe, y dónde está declarado | Contexto de lectura |
+| --- | --- | --- |
+| Subagente de generación | Secciones nombradas del intake, de esta regla y de `Root-Rules.md`; por ruta, la regla de su categoría, los documentos upstream y los de conocimiento (`Master-Prompt.md` §8, esqueleto del despacho) | La **sección** en lo primero; el **archivo** en lo segundo |
+| Orquestador de generación | El intake **íntegro** (`Master-Prompt.md` §2, paso 2) | El **archivo** |
+| Auditor de fase | Los entregables de la fase, los insumos upstream que citan y los archivos de reglas (`Master-Prompt.md` §10, perfil del auditor) | El **archivo** |
+| Orquestador de migración | `Migracion-Rules.md` y `Mesa-Rules.md` **íntegras**; `Master-Prompt.md` por los mecanismos que cita; la regla de cada categoría migrada, por ruta (`Master-Prompt-Migracion.md` §2) | El **archivo**, salvo en `Master-Prompt.md`, donde es la **sección** citada |
+| Especialista de mesa | La lista de su mandato, esta regla y el contrato de entrada (`Mesa-Rules.md` §10) | Lo que su lista nombre, con la misma regla |
+| El humano | El documento que abre | El **documento** |
+
+**Quien interviene el framework no es un lector más de esta tabla**: localiza sobre todo el árbol (`SDD-Development-Guide.md` §VI.3.1) y **decide con el contexto de lectura de los lectores de cada archivo que toca**.
+
+**Dos consecuencias, y van en direcciones opuestas.** Valen a la vez, porque un artefacto casi siempre tiene más de un lector:
+
+1. **La co-ocurrencia se mide sobre el contexto más grande de sus lectores.** Si alguien recibe un archivo entero, un segundo referente escrito en cualquier punto de ese archivo convive con el primero en su contexto, **aunque estén en secciones distintas**. Es lo que `Migracion-Rules.md` declara en su cabecera para justificar la forma desnuda de «migración»: el orquestador de migración la recibe íntegra, y **el archivo es su contexto de lectura**. **Y el costo de una familia calificada se mide igual**: calificar un sentido nuevo dentro de un archivo que alguien lee entero no cuesta la sección donde se escribe, cuesta las ocurrencias desnudas del archivo.
+2. **La desambiguación se mide sobre el contexto más chico.** Un término cuyos sentidos se distinguen solo leyendo el documento completo **sí colisiona** para quien recibe la sección suelta. «El registro queda en el estado previo», leído dentro de un caso de uso completo, se entiende; leído como sección suelta por un subagente que tiene que derivar una decisión de transaccionalidad, admite tres lecturas que producen tres arquitecturas distintas.
+
+**Lo que no es un contexto de lectura: la suma de lo que un lector recibe.** Dos archivos que llegan en la misma lista son **dos** contextos. El orquestador de migración recibe íntegras `Migracion-Rules.md` y la regla de cada categoría migrada, y §9.6 declaró **disjuntos** el sentido de «migración» de la primera y el de `Rules-Devops.md`. Lo que junta a dos archivos no es que viajen juntos: es que **el sentido nuevo se escriba en los dos**, y entonces se costea en cada uno.
 
 Corolario: el término desnudo de una familia calificada es el caso que hay que mirar. Si un documento usa «registro de auditoría», «registro del contenedor» e «imagen de registro», las tres formas calificadas están bien y **«el registro» a secas es el defecto**.
 
@@ -241,6 +272,12 @@ Se usa **la más barata que resuelva el caso**, y se declara por qué las anteri
 **No se declara una invariante de desambiguación sin haber verificado que los contextos colisionan.** Enumerar los sentidos de un término cuyos contextos son disjuntos, y prohibir su fusión, es tratar como defecto lo que no lo es. El patrón queda primado: una vez que un producto declara una invariante para un término, la forma del patrón —enumerar sentidos, prohibir la fusión— se aplica al siguiente término sin volver a verificar la premisa.
 
 La verificación es por ocurrencia y es afirmación sobre el estado del sistema: cae bajo D9.
+
+**La prohibición no se agota en la invariante, y la medición se adjunta.** La invariante es la forma más cara de §9.3, y el mismo defecto ocurre en las baratas: **un renombre hecho porque «colisionaría», una forma calificada adoptada por las dudas, un nombre descartado dentro de un documento**. Por eso rige para **toda afirmación de colisión o de no colisión**, cualquiera sea el remedio que funde y cualquiera sea el artefacto donde se escriba: **en el mismo punto donde se afirma, adjunta el comando reproducible que localiza las ocurrencias del término por el contexto de lectura de §9.2, y su salida**.
+
+**Comando, y no una prosa que diga «revisé tal sección».** El criterio de §10 verifica **la presencia de la medición, nunca el veredicto**, y por eso no promete que la medición sea correcta: promete que se pueda **releer ejecutándola**, que es la condición «reproducible» de D9. Un comando equivocado —sobre el archivo que no es, o contando líneas donde había que contar ocurrencias— cumple la letra y **queda a la vista de quien lo relee**; una prosa equivocada, no. Medido sobre un mismo trabajo: seis afirmaciones de recuento, de sección o de colisión escritas sin su medición se leían igual de firmes que las ciertas, y una de ellas —«16 y 19 ocurrencias» de `procedencia` en `Migracion-Rules.md` y `Master-Prompt-Migracion.md`— resultó ser un recuento de **líneas** (`grep -c procedencia`) donde el de ocurrencias (`grep -o procedencia | wc -l`) daba 23 y 22. Con el comando al lado, la diferencia se ve en la primera relectura.
+
+**Remitir a una resolución ya escrita no es afirmar de nuevo.** Citar con su sección una colisión ya resuelta —la de §9.6, por ejemplo— no pide otro comando: responde la resolución remitida. Lo que sí lo pide es **usar esa resolución para un término distinto**, que es el primado de arriba.
 
 ### §9.5 Sustituir un término en un corpus ya escrito
 
@@ -267,7 +304,7 @@ El framework incorporó la capacidad de llevar un destino generado con una versi
 
 | Frente | Forma adoptada | Por qué la anterior no alcanzaba |
 | --- | --- | --- |
-| R3 contra R1 | **Forma calificada obligatoria**: el término canónico es «migración normativa», hermano de «reconciliación normativa», que ya existía | La entrada de glosario sola no resuelve, porque los dos referentes coexisten **en la misma sección**: §9.5 de este archivo habla de la intervención 5.0 y es precisamente donde se explica cómo no hacer una sustitución léxica. Por §9.2 el criterio de colisión es la sección, no el documento |
+| R3 contra R1 | **Forma calificada obligatoria**: el término canónico es «migración normativa», hermano de «reconciliación normativa», que ya existía | La entrada de glosario sola no resuelve, porque los dos referentes coexisten **en la misma sección**: §9.5 de este archivo habla de la intervención 5.0 y es precisamente donde se explica cómo no hacer una sustitución léxica. Por §9.2, coexistir en una sección alcanza: es el contexto de lectura del subagente que recibe esta regla por secciones |
 | R1 en prosa normativa vigente | Se sustituye por **«intervención»**, término que el framework ya usa para eso en su `README.md` y en `SDD-Development-Guide.md` §VI | El sentido viejo tiene un término mejor y disponible: liberar la palabra sale más barato que calificarla en cada ocurrencia. Alcanzó a las dos ocurrencias de §9.5. **Las filas de control de cambios no se tocan**, por §VI.2 de la guía de desarrollo: una fila ya escrita no se reescribe, y por eso R1 sigue siendo un referente vivo y la calificación de R3 sigue siendo necesaria |
 | R3 contra R2 | **Nada** | Los contextos son disjuntos: R2 vive en la documentación técnica del producto —persistencia, devops, configuración— y R3 en la normativa del framework sobre sus propios destinos. Calificar R2 sería el falso positivo que §9.1 describe y que el criterio negativo de §10 declara defecto del informe. Se declara acá para que una ronda de auditoría posterior no lo levante como hallazgo |
 
@@ -301,6 +338,7 @@ Verificables por el auditor de cualquier fase sobre cualquier artefacto:
 
 Sobre desambiguación léxica (§9), en la documentación que el framework genera:
 
+- [ ] [enumerable] **Toda afirmación de colisión o de no colisión de un término** —en un glosario, en una decisión de nombre, en una resolución como la de §9.6, en un informe— **adjunta en el mismo punto el comando reproducible que localiza sus ocurrencias por el contexto de lectura de §9.2, y su salida** (§9.4). Las afirmaciones se localizan por las cadenas `colisi`, `disjunt` y `polisem`. **Decide la presencia de la medición; no decide si la colisión es real**, que sigue siendo lectura. Remitir con su sección a una resolución ya escrita no es una afirmación nueva. Su ausencia es hallazgo aunque la conclusión resulte correcta. Rige para lo escrito desde la 3.3.
 - [ ] [interpretativo] Todo término que la fase acuña y que aparece en más de un artefacto está declarado en el glosario de su categoría.
 - [ ] [interpretativo] Todo término con más de un referente dentro de la fase tiene entrada de glosario que los declara, o forma calificada en todas las ocurrencias que colisionan.
 - [ ] [interpretativo] Ninguna forma desnuda de un término de una familia calificada queda sin resolver en una sección que se despacha por separado (§9.2).
@@ -321,3 +359,4 @@ Sobre desambiguación léxica (§9), en la documentación que el framework gener
 | 3.0 | 2026-08-15 | La unidad de entrega pasa a ser un nivel del layout (framework 8.0). **§2** declara que es el nivel intermedio y el que lleva el valor D8, y que el proyecto de código no lleva D8 ni tiene árbol documental propio. **§4 R3** pasa de dos niveles a tres, con la tabla que declara qué documenta cada uno y dónde vive su salida, y con el motivo de que el tercero no sea un nivel de carpetas: un proyecto de código compartido tendría que documentarse una vez por cada unidad de entrega que compone. **§5** suma tres confusiones: que un proyecto de código publicable es también una unidad de entrega, que el grafo de entrega y el de construcción son distintos y no coinciden, y que la relación entre ejes es de composición de muchos a muchos. **§8** cierra el pendiente declarado desde la 5.0 y registra el que queda: el inventario de proyectos de código no agrupa por solución de código cuando hay más de una. Sube **major**: cambia el nivel de aplicación de once categorías. | Framework SDD |
 | 3.1 | 2026-08-16 | §9.4 cita literalmente la línea de insumos del despacho de `Master-Prompt.md` §8. La corrección del barrido de la 8.7 la alcanza: el bloque técnico §17 pasa a nombrarse **de la unidad de entrega**. Sube **patch**: la cita sigue al original y ninguna regla cambia. |
 | 3.2 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
+| 3.3 | 2026-09-12 | **§8 declara el alcance que la regla ejerce**: el significado y la precedencia, sobre los seis términos de §2; **el criterio de colisión de §9, sobre todo término, incluido el vocabulario propio del método**, que se sigue **definiendo** en `Master-Prompt.md` §15. Hasta la 3.2 el párrafo acotaba también §9 a los seis, contra la cabecera, contra la letra de §9, contra R6 y contra §9.6, **que es anterior a ese párrafo**. **§9.2 declara el contexto de lectura por lector**, leído de los insumos de cada uno —la sección cuando la lista la nombra, el archivo cuando no—, con sus dos consecuencias opuestas —co-ocurrencia en el contexto mayor, desambiguación en el menor— y con que la suma de lo que un lector recibe **no** es un contexto; la 3.2 lo declaraba para un solo lector, y ni para ése era entero. **§9.4** extiende la prohibición a **toda afirmación de colisión o de no colisión** y obliga a adjuntar el comando reproducible y su salida. **§9.6** ajusta en su tabla la cita de §9.2. **§10 suma su primer `[enumerable]`**, que decide la presencia de la medición y no la colisión, con alcance desde esta versión. Sube **minor**: el criterio nuevo no es retroactivo, y el de polisemia ya se auditaba sobre «todo término» (`Master-Prompt.md` §10). | Intervención de la colisión léxica |

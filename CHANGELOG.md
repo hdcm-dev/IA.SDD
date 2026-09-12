@@ -3,6 +3,72 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.12] - 2026-09-12
+
+**Una afirmación de colisión léxica sin su medición se leía igual de firme que una medida, y ninguna pieza del método lo notaba.** `Vocabulario-Rules.md` sabía decidir si un término colisiona y nombraba con exactitud el error de afirmarlo sin medir —§9.4, *«el patrón queda primado»*—, pero **era la única de las diecinueve reglas con criterios clasificados que no aportaba ni un `[enumerable]`**, recortaba la exigencia de medir a la invariante declarada, que es la forma más cara de desambiguar, declaraba el contexto de lectura para un solo lector, y **se contradecía sobre qué términos gobierna**. Es el reporte `28`, cuya evidencia central son seis afirmaciones de recuento, de sección o de colisión escritas sin medir en un mismo trabajo, todas detectadas por relectura ajena.
+
+### La decisión que ordena el resto: qué gobierna la regla
+
+**§8 acotaba la regla entera —su criterio de colisión incluido— a los seis términos de §2**, y contra eso estaban la cabecera, la letra de §9 —*«cualquier documentación que el framework genere»*, *«un término con más de un referente»*—, R6 y §9.6, que la aplican a «migración», y `Master-Prompt.md` §10, que audita la polisemia de «todo término». **Se resolvió con el árbol y sin detener**: el hecho es ajeno a esta corrida —el párrafo está en la base sin cambios— y tiene respuesta con cita literal, que es la pregunta previa de `Master-Prompt.md` §8.1. `Root-Rules.md` §13 no hacía falta: no hay dos reglas, hay un párrafo contra el resto de su archivo.
+
+**§15 define y §9 decide la colisión.** El vocabulario propio del método se sigue definiendo en el glosario operativo, y si dos de sus sentidos chocan lo decide §9, como para cualquier otro término. **No se reabre el reporte `11`**: lo que la 2.2 de la regla fijó por él fue **dónde se define** ese vocabulario, y eso no cambia.
+
+**Y el argumento con que se había resuelto no se sostenía entero.** Se decía que §8 había quedado desactualizado por la práctica posterior del archivo; medido en su control de cambios, **§9.6 es de la 2.1 y el párrafo de §8 de la 2.2**, de modo que se escribió contra una sección que ya estaba. La conclusión se sostiene por las otras citas; la cronología, no.
+
+### Cambiado — `Vocabulario-Rules.md` 3.2 → 3.3
+
+**§8** declara en una tabla lo que la regla gobierna y sobre qué términos: significado y precedencia, sobre los seis; criterio de colisión, sobre todos.
+
+**§9.2 declara el contexto de lectura de cada lector, leído de sus insumos**: la sección cuando su lista la nombra, el archivo cuando lo nombra sin sección. **Ni para el subagente la unidad era entera**: su despacho nombra por sección el intake, esta regla y `Root-Rules.md`, y por ruta la regla de su categoría, los documentos upstream y los de conocimiento. Se declaran **dos consecuencias opuestas** —la co-ocurrencia se mide sobre el contexto más grande de los lectores de un archivo, y con ella el costo de calificar; la desambiguación, sobre el más chico— y que **la suma de lo que un lector recibe no es un contexto**, con el precedente de §9.6, que declaró disjuntos dos sentidos de «migración» que el orquestador de migración recibe en dos archivos íntegros.
+
+**§9.4** extiende la prohibición de la invariante a **toda afirmación de colisión o de no colisión** —un renombre, una forma calificada, un nombre descartado— y obliga a adjuntarle **el comando reproducible y su salida**; remitir con su sección a una resolución ya escrita no es afirmar de nuevo. **§10 suma su primer `[enumerable]`**, que decide la presencia de la medición y no la colisión, con alcance desde la 3.3.
+
+### Cambiado — `Master-Prompt.md` 8.15 → 8.16
+
+**§10.0 suma la comprobación 7, que localiza y no decide**: por cada término que la fase acuña o renombra —calculado contra la base de la corrida desde los glosarios y los registros de sustitución, **no declarado en un registro aparte**— devuelve sus ocurrencias por sección y por archivo como insumo del auditor, con el comando publicado en el texto. Es la única de la lista que no emite hallazgo. **§10** pone el criterio de polisemia sobre el contexto de cada lector, y **§15** actualiza «Contexto de lectura», «Glosario operativo» y «Compuerta mecánica».
+
+### Cambiado — `Mesa-Rules.md` 1.2 → 1.3
+
+**§6.1: una afirmación de colisión o de no colisión se ancla sólo en E1.** Una cita literal muestra dónde está una palabra y no dónde no está; sin comando la afirmación es `C` y no funda parche, igual para el despacho, los especialistas y el refutador. **§8** suma el criterio enumerable.
+
+### Cambiado — `SDD-Development-Guide.md` 1.29 → 1.30
+
+**§VI.3 suma la comprobación 14**: toda afirmación de colisión o de no colisión que una intervención escribe **o de la que parte** —la de su origen, la de su verificación previa— está en la nota con su comando, y la recibida sin comando se reproduce antes de usarse. El punto 1 de §VI.3.1 rige al cerrar, y la afirmación ocurre antes. §II.7 pasa sus recuentos a catorce.
+
+### Cambiado — `SDD-User-Guide.md` 1.20 → 1.21 y `Catalogo-De-Criterios.md` 1.16 → 1.17
+
+El glosario de la guía de usuario pone al día «Contexto de lectura». El catálogo suma la situación **«se va a afirmar que un término colisiona o no colisiona»**, reapunta «un término tiene dos sentidos» y pasa a catorce comprobaciones. **El total de §4 no cambia.**
+
+### Corregido — lo que la intervención encontró al tocar
+
+- **Dos registros de control de cambios en orden inverso**, contra la comprobación 10: en `SDD-Development-Guide.md`, las filas 1.25 a 1.29; en `SDD-User-Guide.md`, la 1.17 a la 1.19. **Se reordenan sin cambiar el texto de ninguna fila**, verificado: las seis filas fechadas que el diff quita reaparecen idénticas.
+- **El «45» del reporte suma dos archivos como si fueran un contexto.** Con §9.2 vigente, calificar un sentido nuevo en `Migracion-Rules.md` cuesta las ocurrencias de ese archivo —23 con `grep -o procedencia | wc -l`—, y las de `Master-Prompt-Migracion.md` sólo si el sentido nuevo se escribe también ahí —22, o 24 sin distinguir mayúsculas—.
+- **La fila 3.1 de `Vocabulario-Rules.md` atribuye a §9.4 la cita de la línea de insumos del despacho**, que vive en §9.2. **No se reescribe**, por §VI.2: se declara.
+
+### Lo que este conjunto NO toca, y se declara
+
+**Ningún registro de términos acuñados**: se evaluó y se rechazó con evidencia, y la comprobación 7 calcula sus términos en vez de leerlos de una fuente declarativa. **Los otros doce criterios de §10** siguen interpretativos: se pide uno. **La compuerta no decide colisiones.** **`Root-Rules.md` §13**, que no aplica a un conflicto interno de un archivo. **`Migracion-Rules.md` y `Master-Prompt-Migracion.md`**: la cabecera de la primera ya era coherente con el contexto por lector. **Los nombres de los campos de los reportes `26` y `27`**, que decidieron o deciden sus intervenciones. **Las afirmaciones ya publicadas sin comando** —entre ellas la de la 13.11 que descartó `procedencia`—: la regla no es retroactiva, y una entrada publicada es clase estable.
+
+### Lo que queda sin medir, y se dice
+
+**El criterio 3 del reporte queda cumplido a medias**: la comprobación 14 marca por vía del método las dos afirmaciones sin comando de la 13.11, pero no se ejerció sobre una verificación previa en vivo. **La localización de afirmaciones es por cadena** —`colisi`, `disjunt`, `polisem`— y un sinónimo como «choca» se le escapa. **Escribir un reporte sigue sin estar bajo ningún `Archivo target`**: se lo alcanza cuando lo produce una mesa y cuando lo usa una intervención.
+
+### Por qué es minor
+
+**Ningún documento ya emitido deja de cumplir.** El criterio enumerable nuevo rige desde la 3.3; el de polisemia ya decía «todo término» y `Master-Prompt.md` §10 ya lo auditaba así; la comprobación 7 no emite hallazgo y entra al banco del destino con el alcance temporal de §10.0. `Master-Prompt.md` §16 clasifica como minor los cambios de mecánica; `Mesa-Rules.md` sube minor con un registro emitido que sigue conforme. No se toca ninguna invariante D1–D9 ni ninguna plantilla de intake.
+
+### Impacto sobre destinos existentes
+
+**Nada retroactivo, y no es «ninguno».** Desde su próxima corrida, un destino tiene que adjuntar comando a toda afirmación de colisión nueva, su compuerta suma la comprobación 7 cuando se la toque, y el costo de toda familia calificada nueva se mide con el contexto de lectura de cada lector. **Medido sobre los cuatro destinos del espacio de trabajo**, en `SDD/Docs/` fuera de carpetas archivadas: 73, 59, 1 y 89 líneas que mencionan una colisión junto a un término, un sentido o una polisemia, y **ninguna con un comando en la misma línea**. Es un proxy, y el comando está en la nota de coherencia. **Si la regla fuera retroactiva, ése sería el volumen de hallazgos**, y es el argumento con que D9 declaró no aplicarse hacia atrás.
+
+### Snapshot
+
+`_legacy/13.11/` se tomó **antes** de editar, desde el commit de publicación de la 13.11, con las exclusiones de `SDD-Development-Guide.md` §VI.5: **128 archivos**, los mismos del commit fuera de las exclusiones, ninguno distinto byte a byte. Adentro, `Vocabulario-Rules.md` está en **3.2**, `Master-Prompt.md` en **8.15**, `Mesa-Rules.md` en **1.2**, la guía de desarrollo en **1.29**, la de usuario en **1.20** y el catálogo en **1.16**.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Colision-Lexica.md`, conjunto resultante **13.12**.
+
 ## [13.11] - 2026-09-12
 
 **La decisión de elevar algo al humano se tomaba preguntando si el árbol tiene la respuesta, y nunca preguntando quién produjo el estado por el que se pregunta.** Un estado que la propia corrida dejó a medias —un documento empezado y no cerrado, una decisión tomada y no asentada, una inconsistencia introducida en una unidad anterior— **no tiene respuesta en el árbol por construcción**, porque nadie la escribió. Con la pregunta previa de `Master-Prompt.md` §8.1 caía del lado de detener, y le llegaba al humano **con la forma de una consulta legítima**: contexto, opciones, propuesta, y un disparador de la lista cerrada. Es el reporte `26`, sobre un requisito que un Product Owner formuló sin vueltas: los agentes le descargan problemas que generaron ellos y que habrían resuelto mirando el conjunto.

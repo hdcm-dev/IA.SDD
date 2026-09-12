@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
 **Agente target:** los orquestadores de reanudación y de migración, y AG-00970 (Presidente de mesa) en tiempo de ejecución
-**Versión de las reglas:** 1.2
+**Versión de las reglas:** 1.3
 
 ---
 
@@ -389,6 +389,12 @@ Un hallazgo con ancla se sostiene contra el árbol y lo cierra el agente; uno de
 sostiene opinando, y por eso no funda un parche. **Un `C` que sobrevive dos ciclos sin ascender de
 nivel se descarta y se registra como descartado.**
 
+**Una afirmación de colisión o de no colisión de un término se ancla sólo en E1.** Una cita literal muestra
+que una palabra está en una línea; **no muestra que no esté en las demás del mismo contexto de lectura**, que
+es lo que la afirmación sostiene. Lleva el comando que localiza sus ocurrencias por el contexto de lectura de
+`Vocabulario-Rules.md` §9.2, con su salida (§9.4 de esa regla), y **sin él es `C`**: funda una pregunta, no un
+parche. Vale igual para el despacho que convoca la mesa, para cada especialista y para el refutador.
+
 ### 6.2 P0 — Base mecánica y convocatoria
 
 1. **Correr la compuerta mecánica de `Master-Prompt.md` §10.0 sobre el corpus**, con su declaración de
@@ -607,6 +613,10 @@ agrupa antes de preguntar.
 - [ ] [enumerable] Todo agente ad hoc tiene **carta de mandato** con su no-competencia declarada.
 - [ ] [enumerable] Todo hallazgo declara su **nivel P0-P3** y su **clase de ancla E1-E4 o C**, y ningún
       hallazgo `C` fundó un parche.
+- [ ] [enumerable] Todo hallazgo, parche o escalada que **afirma que un término colisiona o no colisiona**
+      trae el comando que localiza sus ocurrencias por el contexto de lectura de `Vocabulario-Rules.md` §9.2,
+      con su salida, y **ninguno sin comando fundó un parche** (§6.1). Decide la presencia de la medición, no
+      la colisión.
 - [ ] [enumerable] Todo veredicto tiene **cinco votos con fundamento** y su reparto registrado.
 - [ ] [enumerable] Ningún miembro del cuerpo de parches votó la aprobación de un parche propio.
 - [ ] [enumerable] Todo parche declara texto exacto, capa, derivados a revalidar, criterio de
@@ -682,3 +692,4 @@ Insumos: {{LISTA}}, `Vocabulario-Rules.md`, y el contrato de entrada de la mesa.
 | 1.0 | 2026-08-27 | Emisión inicial. Regula **la mesa de evaluación**, el mecanismo de preplanificación que convierte un corpus existente en un plan de cambios antes de que ese plan se apruebe. Declara el hueco con su medición —de cinco detenciones reales **tres tenían respuesta en el árbol**, y de diez hallazgos heredados en cinco informes **tres no eran lo que declaraban ser**— y **la frontera con el audit** de `Master-Prompt.md` §10, que es lo que impide que se dupliquen: el audit mira lo que se acaba de producir y emite un veredicto; la mesa mira lo que ya existía y emite un plan. Fija el rol **AG-00970** que preside y no vota, la **separación de las cuatro funciones** —detectar, juzgar, diseñar y aprobar—, el **contrato de entrada** alimentado por el orquestador, la **composición por señal observable** con su registro de descartes, el ciclo P0 a P5 con su **jurado de cinco funciones objetivo**, y la **lista cerrada de siete disparadores de escalada**, que completa la pregunta previa de `Master-Prompt.md` §8.1 nombrando los casos en que la respuesta no está en el árbol. **Reusa y no redefine**: los niveles de hallazgo son P0-P3 de §10, la base mecánica es la compuerta de §10.0, el criterio de corte es §10.1, la deuda va a los ítems diferidos de `Root-Rules.md` §12.2, las escaladas a `Decisiones-Pendientes.md` de §7.0 y las capas a revalidar son los hallazgos aguas arriba de §10. Lo único que agrega como escala propia es **la clase del ancla E1-E4/C**, porque el framework exigía cita y no la graduaba. | Framework SDD (mesa de evaluación) |
 | 1.1 | 2026-08-29 | **La convocatoria pasa de una lista de puntos a una condición declarada, y §0.0 es nueva.** La 1.0 declaraba que «el orquestador que la invoca declara **cuándo**», y los puntos que los orquestadores enumeran **no agotaban** el momento que el mecanismo pide: los dos que existían y la condición producían la misma lista el día que se escribió, y la diferencia apareció con el primer caso que la cumplía desde otro lugar. Entran las **tres cláusulas** —corpus previo, estado leído, plan o decisión de alcance por tomar—, los puntos quedan como **casos y no como definición**, y se declara que un caso sin orquestador **se convoca igual**. **§0.3 corrige la otra cara**: «no corre sobre un destino vacío» **no es** «no corre en la generación», que es la derivación que la 1.0 dejó escrita — un destino deja de estar vacío apenas la primera fase produce algo, y desde ahí nadie mira el corpus como conjunto; con su límite escrito, para no duplicar el audit de fase. **§6.1 suma la obligación de contrastar la fuente** cuando un `P0` se ancla en una declaración —fila de plan, casilla, campo de estado— porque la mesa lo incumplió **dos veces en su primera corrida real**, en el anti-patrón que el método nombra primero. **§2.1** admite el sufijo de ciclo cuando hay más de uno por fecha; **§2.2** obliga a declarar el prefijo de familia del ciclo, que no reusa una familia ya presente en la carpeta; y **§6.7** declara que el contador del ciclo **es propio y no acumula** con el de las rondas de audit, con la advertencia de que el rendimiento por especialista no cayó entre las dos primeras corridas. **Sube minor**: agrega obligaciones y no deroga ninguna regla; un registro de mesa emitido bajo la 1.0 sigue cumpliendo. | Intervención de la condición de convocatoria |
 | 1.2 | 2026-09-12 | **§7 suma el origen del hecho antes de la lista cerrada.** Los siete disparadores preguntan qué clase de decisión es y ninguno de dónde salió el hecho, y una corrida con varios ciclos de mesa el mismo día mira en cada ciclo lo que aplicaron los parches de los anteriores. El presidente calcula el origen del hecho con la cláusula de `Master-Prompt.md` §8.1 contra la base de la corrida, y lo que es de la corrida pasa por la autocorrección sobre el conjunto antes de escalar. **§7.1** suma el campo a la forma y declara que `Master-Prompt.md` §7.0 la generaliza al bucle de fases. **§8** suma el criterio enumerable: ninguna escalada cuyo origen del hecho sea de la corrida sin declarar por qué la autocorrección no alcanzaba. **No se agrega ningún punto de invocación** y §0.0 no se toca. Sube **minor**: un registro de mesa ya emitido sigue cumpliendo. | Intervención del origen del hecho |
+| 1.3 | 2026-09-12 | **§6.1: una afirmación de colisión o de no colisión se ancla sólo en E1**, con el comando que localiza sus ocurrencias por el contexto de lectura de `Vocabulario-Rules.md` §9.2; sin él es `C` y no funda parche. Una cita literal muestra dónde está una palabra, y no dónde no está, que es lo que la afirmación sostiene. **§8** suma el criterio enumerable. Vale para el despacho, los especialistas y el refutador: medido sobre una mesa, el despacho llevaba cuatro datos y tres estaban mal, y el refutador contó líneas donde había que contar ocurrencias. **No se agrega ningún rol ni punto de invocación.** Sube **minor**: un registro de mesa ya emitido sigue cumpliendo. | Intervención de la colisión léxica |
