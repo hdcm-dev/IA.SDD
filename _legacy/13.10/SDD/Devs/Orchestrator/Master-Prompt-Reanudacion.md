@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de reanudación
 
 **Archivo:** `Master-Prompt-Reanudacion.md`
-**Versión:** 1.12
+**Versión:** 1.11
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** lectura, diagnóstico y **entrega de contexto**, con detención obligatoria. **No escribe nada del destino salvo su propio informe**, y no ejecuta el trabajo que despacha
 **Prerequisitos:** un repositorio destino con `SDD/` poblado. No exige memoria de ninguna sesión anterior
@@ -174,7 +174,6 @@ DOCUMENTACIÓN
 REPOSITORIO  (compuerta T0)
   Rama:                    {{nombre}}   {{al día | N detrás | N adelante}}
   Árbol de trabajo:        {{limpio | N cambios, de los cuales M borrados y K sin seguir}}
-  Base de la corrida:      {{commit sobre el que corrió T0}}
   Entregas vivas:          {{ninguna | rama {{nombre}}, esperando merge}}
   Veredicto de arranque:   {{EN ORDEN | SE DETUVO: {{motivo}}}}
 
@@ -501,9 +500,6 @@ entonces el contexto vuelve a vivir sólo en la sesión.
       no corrió con el motivo de §3.1.1.
 - [ ] [enumerable] **Toda consulta que R2 le hizo al humano es una escalada de `Mesa-Rules.md` §7**, y
       ninguna se elevó fuera de esa lista cerrada.
-- [ ] [enumerable] **Toda consulta que R2 le hizo al humano declara su origen del hecho**, calculado
-      contra la base de la corrida que R0 publicó con T0, y **ninguna cuyo origen del hecho sea de la corrida
-      salió sin declarar por qué la autocorrección no alcanzaba** (`Master-Prompt.md` §8.1).
 - [ ] [interpretativo] **El orquestador invocado no volvió a preguntar lo que este prompt ya
       resolvió.**
 - [ ] [interpretativo] **No se escribió nada del destino fuera del informe.**
@@ -547,4 +543,3 @@ entonces el contexto vuelve a vivir sólo en la sesión.
 | 1.9 | 2026-08-23 | La descripción del salto a la 7.0 decía «**el ámbito de unicidad en el producto**» a secas, y desde la 12.0 hay **dos ámbitos**. Queda acotado a las familias del producto. Lo levantó la cuarta ronda de auditoría: el patrón del barrido decía `ámbito de unicidad: producto` y **la preposición lo esquivaba**. Sube **minor**: precisa una descripción histórica. |
 | 1.10 | 2026-08-27 | **Entra R1.5, la mesa de evaluación**, entre la presentación del estado y las salidas: es la etapa preplanificadora del método, y su mecánica vive en `Mesa-Rules.md`. Va exactamente ahí por tres motivos: **antes no puede** —su contrato de entrada es la salida de R0, y convocarla antes sería el playbook que `Migracion-Rules.md` §3 rechaza—, **después es tarde** —R2 elige la salida, y elegir sin saber si el corpus se sostiene es elegir sobre la mitad de la información—, y **es el único punto donde una sola corrida sirve a las cinco salidas**. §4.0 suma cuatro renglones a la recomendación, que vuelven cuantificable lo que antes se adjetivaba; §5 suma el bloque de resultado de la mesa al informe; R4 declara que la salida **A aplica los parches que la mesa ya diseñó** y que la **B los lleva a M1**, que verifica en lugar de reconvocarla. Origen: el Product Owner, sobre la observación de que el método entra en rondas de consultas que el agente debería poder resolver solo, y las dos mediciones del propio framework que la sostienen —**tres de cinco detenciones con respuesta en el árbol** (`Master-Prompt.md` §8.1) y **tres de diez hallazgos heredados que no eran lo que declaraban** (`Memoria-De-Antecedentes-Casos-Resueltos.md` §2.2)—. Sube **minor**: agrega una fase sin detención propia y no cambia ninguna de las existentes. |
 | 1.11 | 2026-08-29 | **§3.1.1 deja de excluir a la generación por categoría y pasa a la condición.** Decía «la mesa no se convoca en la generación desde cero», que es una derivación de `Mesa-Rules.md` §0.3 —«no corre sobre un destino vacío»— y **no dice lo mismo**: un destino deja de estar vacío apenas la primera fase produce algo, y desde ahí hay corpus previo que ninguna auditoría de fase mira como conjunto. Lo que decide es la **condición de `Mesa-Rules.md` §0.0**, con el límite contra el audit escrito. Sube **minor**: precisa cuándo se convoca y no cambia ninguna fase. | Intervención de la condición de convocatoria |
-| 1.12 | 2026-09-12 | **R1 publica la base de la corrida** en su bloque `REPOSITORIO`, que reproduce el formato de T0 y ahora su línea nueva de `Master-Prompt.md` §12.1; y **§6 suma el criterio enumerable del origen del hecho**: toda consulta de R2 lo declara calculado contra esa base, y ninguna de la corrida sale sin decir por qué la autocorrección no alcanzaba. Sube **minor**: una línea en un bloque y un criterio. |
