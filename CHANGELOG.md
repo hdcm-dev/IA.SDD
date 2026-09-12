@@ -3,6 +3,68 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.14] - 2026-09-12
+
+**El método sabía re-expresar documentación bajo una normativa que avanzó y no sabía qué hacer cuando lo que avanzaba era el alcance comprometido del producto.** Un destino que cerró su alcance, se desplegó, y después recibió dos decisiones de producto del Product Owner —una topología de despliegue realizada, una reestructuración del árbol de código propuesta— quedó con su documentación de especificación completa y describiendo un producto que ya no era ése. Es el reporte `25`, cuarto y último de la corrida del 2026-09-12, sobre la sexta reanudación de `Lab-Geometria` y su mesa de dos ciclos.
+
+### Verificación previa: qué seguía vigente de la 13.10 y qué no
+
+**Todas las citas del reporte siguen siendo literales en la 13.13.** Verificado archivo por sección contra el árbol vigente: `Master-Prompt.md` §7, §12, §13 y el glosario de §15; `Master-Prompt-Reanudacion.md` §0, §1 y §4; `Rules-Backlog-Tecnico.md` §3.4 y §3.6; `Rules-Plan-Sprint.md` §3.6; `Rules-Documentacion.md` §0.6; `Migracion-Rules.md` §0 y §3; `Vocabulario-Rules.md` §2 y §3. Ninguna de las tres intervenciones anteriores de esta corrida (`26`, `28`, `27`) tocó estas secciones: la `26` y la `27` tocaron `Root-Rules.md` §11/§12 y `Master-Prompt.md` §8.1/§8.2/§10.0; la `28` tocó `Vocabulario-Rules.md` §8/§9/§10 y `Master-Prompt.md` §10/§10.0/§15 (el glosario de términos del método, no la tabla de §7/§12/§13 que este reporte cita). §13 sigue cerrando su lista de casos de escritura en **dos**, con las mismas palabras que el reporte transcribe.
+
+### La decisión que ordena el resto: no corresponde un tercer caso de escritura del intake (solicitud 5 del prompt de intervención)
+
+**Los dos casos de `Master-Prompt.md` §13 regla 2 son de la misma familia: los dos ocurren durante una corrida de este orquestador.** Una decisión de alcance del Product Owner posterior al handoff ocurre sin ninguna corrida en curso. La regla 1 de §13 dice «toda invocación al manifiesto o a un intake **durante la generación** es lectura» y no «siempre»: fuera de una corrida, el intake es documento humano (`Migracion-Rules.md` §4.4) y esta regla nunca tuvo que autorizar que su autor lo edite, porque nunca se lo prohibió. Las veinte decisiones de producto que el reporte midió sobre el intake de `Lab-Geometria`, diecisiete de ellas después de «Aprobado», no violaron ninguna regla de este archivo: ocurrieron fuera de su ámbito.
+
+**Escribir un tercer caso ahí habría sido corregir en el lugar equivocado.** Ponerle a un acto que ya es libre las tres condiciones acumulativas de la migración estructural —propuesta, diff, aprobación explícita— invierte la relación: el intake dejando de ser del Product Owner para pasar a necesitar el permiso de un orquestador ausente. Es precedente el reporte `12`, resuelto con una decisión negativa: acá también, **no** es un desenlace legítimo y con fundamento escrito, no una fórmula de cortesía.
+
+**El eje de extensión que ya existe (`SDD-Development-Guide.md` §III.4) se aplicó antes de proponer nada nuevo, y no alcanzaba, por un motivo que conviene declarar.** §III.4 resuelve cómo agregar una **fase** al orquestador de generación, y este hueco no es de una fase: es de un evento que ocurre fuera de toda corrida, con el sistema en producción y sin cardinalidad del método que lo cubra. Sus tres preguntas —¿corre una vez, por unidad o por incremento?; ¿qué precondición?; ¿qué se regenera y qué se preserva?— no tienen respuesta útil para un hecho que no es de fase. Lo que se ensambló en su lugar fueron los instrumentos que ya existen: `Rules-Backlog-Tecnico.md` §3.4, que ya sabía versionar un cambio de alcance y no decía cuándo, y `Root-Rules.md` §12.2 (ítem diferido), para la decisión que todavía no se puede resolver.
+
+### Cambiado — `Master-Prompt.md` 8.17 → 8.18
+
+**§13.1 es nueva** y responde la solicitud 5: no hace falta un tercer caso. Declara que el ámbito de §13 es «durante la generación», qué es el intake en el eje origen/vigencia —la declaración vigente del alcance y no una línea base de origen, porque su propio control de cambios ya lo trata como tal (§5.1.a del reporte)—, y remite el criterio de cuándo absorber una decisión y qué evento la dispara a `Rules-Backlog-Tecnico.md` §3.6. Declara además la consecuencia sobre la salida D de `Master-Prompt-Reanudacion.md` §4. **§15 suma dos términos**: `vigencia operativa abierta` (§5.4 del reporte, sin gobierno nuevo: reutiliza roadmap, backlog y operación) y `evento de cambio de alcance` (§5.2, subproducto del acto de asentar la decisión en el intake, verificado sin colisión: `grep -rn "vigencia operativa\|evento de cambio de alcance" SDD/Devs --include='*.md'`, cero ocurrencias antes de esta intervención). **Corregido de paso**: la entrada «Fase» del glosario enumeraba A a H y omitía I y J, que el propio glosario define dos filas más abajo — hallazgo con cita literal, cerrado en la misma unidad por autocorrección (`Master-Prompt.md` §8.1).
+
+### Cambiado — `Rules-Backlog-Tecnico.md` 5.1 → 5.2
+
+**§3.6 suma el evento y el criterio que le faltaban al paso de versión.** Ya sabía qué hacer con un cambio de alcance significativo (pasar a `v2.0`) y no decía cuándo: en el destino que originó el reporte, seis documentos de esta categoría quedaron dieciocho días sin tocar después de dos decisiones de producto reales, con cero altas en el medio. El evento: la entrada de control de cambios que el Product Owner asienta en el intake al registrar la decisión (§5.2 del reporte, y es el mismo que reabre el roadmap, para que los dos no queden gobernados por disparadores distintos). El criterio de clasificación, adoptado de la mesa que originó el reporte y verificado contra sus dos casos medidos: modifica una fila de la matriz del roadmap —incluido el contenido de una fila ya existente— o el conjunto de proyectos de código del manifiesto (§5.3 del reporte). Exige además emitir al menos una `BT-XXXXX` con criterio de aceptación o un ítem diferido de `Root-Rules.md` §12.2 (§5.5 del reporte): reusa los instrumentos existentes y no crea un control ejecutable, por la prohibición de §6 del reporte.
+
+**Es el cambio decisivo del paso 5 de §7 del reporte.** Antes de esta intervención, `Rules-Backlog-Tecnico.md` §3.4 sabía qué hacer y ninguna regla decía cuándo. Después, lo dice.
+
+### Cambiado — `Rules-Contexto.md` 4.5 → 4.6
+
+**§3.5 es nueva**: `Roadmap-Producto.md` se reabre con el mismo evento y el mismo criterio que `Rules-Backlog-Tecnico.md` §3.6, declarados una sola vez ahí y citados acá, para que el roadmap y el backlog no queden gobernados por disparadores distintos.
+
+### Cambiado — `Master-Prompt-Reanudacion.md` 1.12 → 1.13
+
+**Declara qué hace la salida D cuando su punto de continuación no está en el roadmap** (solicitud 7 del prompt de intervención, §3.2.e del reporte): lo trata como la divergencia que es, y la lleva a la mesa de §3.1, que convoca el evento nuevo de `Rules-Backlog-Tecnico.md` §3.6.
+
+### Las cinco preguntas de §5 del reporte, una por una
+
+- **§5.1 (qué es el intake, y con qué criterio se lo escribe después)**: es la declaración vigente del alcance, no una línea base de origen; el criterio de absorción es el de §5.3; el «tercer caso de facto» que el reporte observó no era un tercer caso de §13, porque §13 nunca gobernó ese momento.
+- **§5.2 (el evento que reabre backlog, plan y roadmap)**: la entrada de control de cambios del intake que registra la decisión, el mismo para los tres artefactos. `Master-Prompt.md` §13.1, `Rules-Backlog-Tecnico.md` §3.6, `Rules-Contexto.md` §3.5.
+- **§5.3 (el criterio de clasificación)**: sí, el de la mesa, verificado contra los dos casos medidos del reporte. `Rules-Backlog-Tecnico.md` §3.6.
+- **§5.4 (el estado de vida del producto)**: sí hace falta nombrarlo, y no en `Vocabulario-Rules.md` —que gobierna seis términos de identidad, no de estado—: `vigencia operativa abierta`, en el glosario operativo de `Master-Prompt.md` §15, sin gobierno nuevo.
+- **§5.5 (el salto de la decisión al control)**: sí, reusando el instrumento que el propio método ya tiene: una `BT-XXXXX` con criterio de aceptación, o un ítem diferido de `Root-Rules.md` §12.2 si todavía no se puede resolver.
+
+### Lo que este conjunto NO toca, y se declara
+
+**`Master-Prompt.md` §13 no gana un tercer caso.** Sus dos casos de escritura y sus tres condiciones acumulativas de migración estructural no cambian una palabra. **`Vocabulario-Rules.md` no se modifica**: sus seis términos siguen siendo seis, y el término nuevo de este conjunto vive donde ya vive el resto del vocabulario del método, con el criterio de colisión de la 13.12 verificado y sin colisión. **No se crea ningún control ejecutable**: los dos casos de §5.5 son documentales, y son instrumentos que el método ya tenía. **`Lab-Geometria` no se toca**: es el destino que originó el reporte y esta intervención no escribe en él.
+
+### Lo que queda sin medir, y se dice
+
+**El paso 6 de §7 del reporte —comparar la fecha de la decisión contra la última modificación de los documentos de planificación— no se volvió a correr sobre `Lab-Geometria`.** Es un destino de solo lectura para esta intervención; el mecanismo queda escrito y su próxima reanudación es quien lo ejerce. **El criterio nuevo de `Rules-Backlog-Tecnico.md` §3.6 no se ejecutó sobre un caso real que lo dispare**: se verificó por lectura contra los dos casos que el reporte ya midió, no corriendo una fase de backlog sobre un tercer caso nuevo.
+
+### Por qué es minor
+
+**Ningún documento ya emitido deja de cumplir.** Los cuatro archivos tocados suben minor: §13.1 acota el ámbito de una regla existente sin reescribir sus dos casos, el glosario suma dos términos y corrige una omisión, y las dos reglas de versionado suman un disparador a una mecánica que ya existía. No se toca ninguna invariante D1-D9, ningún caso de §13, ninguna plantilla de intake y ningún valor de D8.
+
+### Impacto sobre destinos existentes
+
+**No es «ninguno», y hay un destino que lo consume de inmediato.** `Lab-Geometria` tiene, sin recibir, la decisión del 2026-09-06 (topología de despliegue) y la del 2026-09-11 (reestructuración bajo el árbol de la solución, ya fusionada). Su próxima reanudación va a encontrar, para cada una: si modifica una fila de `Roadmap-Producto.md` §3 o el conjunto de proyectos de código de `PRODUCT-MANIFEST` §13 —y las dos lo hacen, según la medición del propio reporte—, tiene que asentar la entrada de control de cambios en el intake que dispara el evento nuevo, y desde ahí `Product-Backlog.md` y `Backlog-Tecnico.md` pasan a `v2.0` con al menos una `BT-XXXXX` por decisión, o un ítem diferido de `Root-Rules.md` §12.2 para la que no se pueda resolver todavía —el caso concreto es la decisión de mantener el canal de FTP como alternativa sin publicación automática, hoy sin ningún artefacto que la sostenga—. `Roadmap-Producto.md` fila `i` se corrige con el mismo evento. Ningún destino existente queda con un artefacto que deje de cumplir por retroactividad: el disparador rige hacia adelante, desde la próxima vez que alguien asiente una decisión de esta clase en un intake.
+
+### Snapshot
+
+`_legacy/13.13/` se tomó **antes** de editar, desde el estado publicado de la 13.13, con las exclusiones de `SDD-Development-Guide.md` §VI.5. Adentro, `Master-Prompt.md` está en **8.17**, `Rules-Backlog-Tecnico.md` en **5.1**, `Rules-Contexto.md` en **4.5** y `Master-Prompt-Reanudacion.md` en **1.12**.
+
 ## [13.13] - 2026-09-12
 
 **Los tres instrumentos del método para lo que falta —referencia pendiente, ítem diferido, apartamiento declarado— declaran hacia dónde apuntan y ninguno de dónde salen.** Dos huecos con identificadores contiguos pueden ser de fases separadas por meses y el artefacto no lo dice; una migración que tiene que decidir si un hueco se completa o se declara deuda no tenía con qué, y lo que no podía reconstruir a mano lo elevaba al humano. Es el reporte `27`, tercero de la corrida del 2026-09-12, sobre un requisito del Product Owner de `Lab-Geometria`: que los huecos queden correlacionables con el ciclo que los produjo.

@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/00-Contexto/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Subagente target del orquestador:** Product Manager Senior (AG-00000) en conjunción con Analista de Negocio Senior (AG-00010) si la unidad de entrega tiene stakeholders múltiples.
-**Versión de las reglas:** 4.6
+**Versión de las reglas:** 4.5
 
 ---
 
@@ -101,18 +101,6 @@ No se aplica en esta categoría. Los documentos de contexto no usan prefijos del
 Recomendado. La carpeta `SDD/Docs/00-Contexto/` lleva un `README.md` (sin versión) que enumera los 5 documentos con su propósito, su estado y el orden de lectura sugerido. Si algún documento fue omitido por aplicación de §2.2, el README declara el motivo. El README también lista los stakeholders de la unidad de entrega con nombre o rol.
 
 **Al archivarse sí recibe el sufijo de versión**: `_legacy/<YYYY-MM-DD>/README-v<X.Y>.md`, con la versión tomada del campo `Versión` de su cabecera. El nombre sin sufijo rige para el archivo vivo, porque es el punto de entrada de la carpeta y su nombre debe ser estable; en el snapshot, la versión es lo que lo identifica, y sin ella dos archivados del mismo día colisionan y el segundo sobrescribe al primero sin que ningún actor reciba error. La regla general y su tabla de exenciones viven en `Master-Prompt.md` §5.1.
-
-### 3.5 Reapertura de `Roadmap-Producto.md` posterior al handoff
-
-Esta categoría corre **una vez** (Fase A), y hasta acá ninguna regla declaraba qué pasa cuando el
-alcance comprometido cambia después de que el producto ya se entregó: `Roadmap-Producto.md` podía
-seguir afirmando una fila vieja sin que nada lo reabriera (reporte `25`). Se reabre con **el mismo
-evento y el mismo criterio** que `Rules-Backlog-Tecnico.md` §3.6 —la entrada de control de cambios que
-el Product Owner asienta en el `PRODUCT-INTAKE` al registrar una decisión de alcance posterior al
-handoff (`Master-Prompt.md` §13.1), cuando modifica una fila de la matriz §3, incluido el contenido
-declarado de una fila ya existente—, para que el roadmap y el backlog no se reabran por disparadores
-distintos. Se declara acá y no se duplica: la mecánica del evento y del criterio vive una sola vez, en
-`Rules-Backlog-Tecnico.md` §3.6.
 
 ---
 
@@ -470,4 +458,3 @@ Salida: SDD/Docs/00-Contexto/<archivos>.md.
 | 4.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 4.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
 | 4.5 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
-| 4.6 | 2026-09-12 | **§3.5 es nueva: `Roadmap-Producto.md` se reabre posterior al handoff** (framework 13.14), por el reporte `25`. Esta categoría corre una vez y no tenía declarado qué pasaba cuando el alcance comprometido cambiaba después de la entrega; en el destino que originó el reporte, la fila `i` del roadmap siguió afirmando una topología de despliegue retirada seis días antes. Se reabre con el mismo evento y el mismo criterio que `Rules-Backlog-Tecnico.md` §3.6, declarados una sola vez ahí y citados acá para que el roadmap y el backlog no queden gobernados por disparadores distintos. Sube **minor**: agrega el disparador de una reapertura que antes no existía, sin cambiar la estructura de ningún documento de la categoría. | Intervención del disparador de alcance (reporte 25) |

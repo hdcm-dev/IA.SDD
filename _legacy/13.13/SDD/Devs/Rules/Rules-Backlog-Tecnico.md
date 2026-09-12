@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/06-Backlog-Tecnico/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Scrum Master / Agile Coach senior (AG-00060)
-**Versión de las reglas:** 5.2
+**Versión de las reglas:** 5.1
 
 ---
 
@@ -122,32 +122,6 @@ Recomendado para todos los tipos. Debe listar el `Product-Backlog.md`, el `Backl
 ### 3.6 Política de versionado
 
 Una sola versión vigente por nombre lógico para todos los artefactos. Cuando el backlog evoluciona de manera significativa (por ejemplo, una nueva épica grande o un cambio de alcance del MVP), se pasa de `v1.0` a `v2.0` y la versión anterior se mueve a `_legacy/` con estado `Superado`. Para `US-XXXXX` y `BT-XXXXX` aplica una regla diferente: una vez que una US o BT entró a un sprint y se cerró con `Done`, no cambia de versión; si la funcionalidad evoluciona, se crea una nueva US o BT con el siguiente identificador disponible.
-
-**El evento que dispara el paso a `v2.0` cuando el producto ya pasó el handoff (reporte `25`).** Esta
-sección sabía **qué** hacer con un cambio de alcance significativo y no decía **cuándo** correspondía:
-el `Product-Backlog.md` y el `Backlog-Tecnico.md` podían quedar sin tocar dieciocho días después de dos
-decisiones de producto reales, porque nada los reabría. El evento es el mismo que reabre
-`Roadmap-Producto.md` y no otro: **la entrada de control de cambios que el Product Owner asienta en el
-`PRODUCT-INTAKE` al registrar una decisión de alcance posterior al handoff** (`Master-Prompt.md`
-§13.1). Es un evento subproducto del acto de decidir y no una tarea nueva que alguien tiene que
-acordarse de ejecutar, con el mismo criterio de `Master-Prompt-Reanudacion.md` §1.1 R3.
-
-**Cómo se decide si el evento exige el paso a `v2.0` o se resuelve en la categoría 11.** No toda entrada
-de control de cambios del intake reabre el backlog: una que corrige nomenclatura o reencuadra cómo se
-documenta algo no cambia el compromiso. El criterio, evaluado y medido sobre el caso que originó el
-reporte: **el hecho nuevo modifica una fila de la matriz fase-épica-sprint-release de
-`Roadmap-Producto.md` §3 —incluido el contenido declarado de una fila ya existente, no solo el alta o la
-baja de una fila— o el conjunto de proyectos de código de `PRODUCT-MANIFEST` §13.** Si sí, es estructural
-y dispara el paso a `v2.0` descripto arriba, con al menos una `BT-XXXXX` nueva con su criterio de
-aceptación declarado, o —si la decisión todavía no se puede resolver en el sprint en curso— un ítem
-diferido de `Root-Rules.md` §12.2 con su evento de cierre. Si no, es nomenclatura o enmarcamiento de la
-documentación y no reabre este documento.
-
-**Por qué no hacía falta un tercer caso de escritura del intake para llegar hasta acá.** `Master-Prompt.md`
-§13.1 declara que el Product Owner ya puede editar el `PRODUCT-INTAKE` fuera de una corrida del
-orquestador, porque es su documento humano y ninguna corrida está gobernando ese momento. Lo que faltaba
-no era el permiso de escribir: era que esta sección, que ya sabía versionar un cambio de alcance,
-supiera **de qué evento partir**.
 
 ---
 
@@ -503,4 +477,3 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/06-Backlog-Tecnico/<
 | 4.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
 | 5.0 | 2026-08-20 | **§4.4 parte su punto 5 en dos**: la **prioridad** MoSCoW y la **estimación**. Venían en un solo ítem obligatorio y son **dos decisiones de dueños distintos** —la prioridad es del Product Owner, la estimación es del equipo y sale del refinamiento—, de modo que una podía estar bloqueada y arrastrar a la otra. Es el mismo defecto de forma que `Rules-Devops.md` §4.3 punto 3 tenía y que un destino real pagó con ocho etapas sin etiquetar. El ítem nuevo declara que, si una de las dos no se puede fijar hoy, se difiere **esa** con la forma de `Root-Rules.md` §12.2. Origen: la auditoría del criterio 4 de `Reportes/14` §7 sobre las quince reglas. Sube **major**: una `US-XXXXX` emitida antes declara las dos dentro del punto 5, y **deja de cumplir** la estructura de §4.4. |
 | 5.1 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
-| 5.2 | 2026-09-12 | **§3.6 suma el evento que dispara el paso a `v2.0` cuando el producto ya pasó el handoff** (framework 13.14), por el reporte `25`. La sección ya sabía versionar un cambio de alcance significativo y no decía **cuándo** correspondía: en el destino que originó el reporte, seis documentos de esta categoría quedaron dieciocho días sin tocar después de dos decisiones de producto reales. El evento es **la entrada de control de cambios del `PRODUCT-INTAKE` que registra una decisión de alcance posterior al handoff**, el mismo que reabre `Roadmap-Producto.md` (`Master-Prompt.md` §13.1) para que los dos no queden gobernados por disparadores distintos. Se adopta el criterio de clasificación medido en el reporte —modifica una fila de la matriz del roadmap, incluido su contenido, o el conjunto de proyectos de código del manifiesto— para distinguir el cambio estructural, que reabre, del de nomenclatura o enmarcamiento, que no. Exige además que la reapertura emita al menos una `BT-XXXXX` con criterio de aceptación o un ítem diferido de `Root-Rules.md` §12.2. Sube **minor**: agrega el disparador de una regla existente sin cambiar la mecánica de versionado que ya regía. | Intervención del disparador de alcance (reporte 25) |

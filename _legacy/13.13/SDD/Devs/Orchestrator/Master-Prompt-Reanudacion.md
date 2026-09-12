@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de reanudación
 
 **Archivo:** `Master-Prompt-Reanudacion.md`
-**Versión:** 1.13
+**Versión:** 1.12
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** lectura, diagnóstico y **entrega de contexto**, con detención obligatoria. **No escribe nada del destino salvo su propio informe**, y no ejecuta el trabajo que despacha
 **Prerequisitos:** un repositorio destino con `SDD/` poblado. No exige memoria de ninguna sesión anterior
@@ -400,13 +400,6 @@ vuelve más visibles, no más correctas.
   se puede es actualizarla sin migrar, porque eso sí sería falso.
 - **D** se apoya en que **el avance del código no depende de la versión del framework**. Es la salida
   más frecuente y la que más se pasa por alto, porque las otras son las que tienen prompt.
-  **Y su punto de continuación puede no estar en el roadmap** (reporte `25`): cuando el Product Owner
-  decidió un cambio de alcance posterior al handoff y todavía no lo asentó, «lo que sigue» no es una
-  etapa que el roadmap declare. R4 no lo infiere ni continúa igual: lo trata como la divergencia que es
-  y lo lleva a la mesa de §3.1, que convoca el evento de `Rules-Backlog-Tecnico.md` §3.6
-  (`Master-Prompt.md` §13.1). Elegir D con esa divergencia sin declarar es el mismo error que elegir
-  cualquier otra salida con una divergencia abierta: se construye sobre un estado que el árbol no
-  sostiene.
 - **E** exige que R0 haya declarado la fase en la que quedó la migración. Sin eso no se retoma: se
   vuelve a R0.
 
@@ -555,4 +548,3 @@ entonces el contexto vuelve a vivir sólo en la sesión.
 | 1.10 | 2026-08-27 | **Entra R1.5, la mesa de evaluación**, entre la presentación del estado y las salidas: es la etapa preplanificadora del método, y su mecánica vive en `Mesa-Rules.md`. Va exactamente ahí por tres motivos: **antes no puede** —su contrato de entrada es la salida de R0, y convocarla antes sería el playbook que `Migracion-Rules.md` §3 rechaza—, **después es tarde** —R2 elige la salida, y elegir sin saber si el corpus se sostiene es elegir sobre la mitad de la información—, y **es el único punto donde una sola corrida sirve a las cinco salidas**. §4.0 suma cuatro renglones a la recomendación, que vuelven cuantificable lo que antes se adjetivaba; §5 suma el bloque de resultado de la mesa al informe; R4 declara que la salida **A aplica los parches que la mesa ya diseñó** y que la **B los lleva a M1**, que verifica en lugar de reconvocarla. Origen: el Product Owner, sobre la observación de que el método entra en rondas de consultas que el agente debería poder resolver solo, y las dos mediciones del propio framework que la sostienen —**tres de cinco detenciones con respuesta en el árbol** (`Master-Prompt.md` §8.1) y **tres de diez hallazgos heredados que no eran lo que declaraban** (`Memoria-De-Antecedentes-Casos-Resueltos.md` §2.2)—. Sube **minor**: agrega una fase sin detención propia y no cambia ninguna de las existentes. |
 | 1.11 | 2026-08-29 | **§3.1.1 deja de excluir a la generación por categoría y pasa a la condición.** Decía «la mesa no se convoca en la generación desde cero», que es una derivación de `Mesa-Rules.md` §0.3 —«no corre sobre un destino vacío»— y **no dice lo mismo**: un destino deja de estar vacío apenas la primera fase produce algo, y desde ahí hay corpus previo que ninguna auditoría de fase mira como conjunto. Lo que decide es la **condición de `Mesa-Rules.md` §0.0**, con el límite contra el audit escrito. Sube **minor**: precisa cuándo se convoca y no cambia ninguna fase. | Intervención de la condición de convocatoria |
 | 1.12 | 2026-09-12 | **R1 publica la base de la corrida** en su bloque `REPOSITORIO`, que reproduce el formato de T0 y ahora su línea nueva de `Master-Prompt.md` §12.1; y **§6 suma el criterio enumerable del origen del hecho**: toda consulta de R2 lo declara calculado contra esa base, y ninguna de la corrida sale sin decir por qué la autocorrección no alcanzaba. Sube **minor**: una línea en un bloque y un criterio. |
-| 1.13 | 2026-09-12 | **La salida D declara qué hace cuando su punto de continuación no está en el roadmap** (framework 13.14), por el reporte `25`. §4 no contemplaba el caso: si el Product Owner decidió un cambio de alcance posterior al handoff y no lo asentó, «lo que sigue» no es una etapa que el roadmap nombre, y D no puede inferirla ni continuar como si lo fuera. Pasa a tratarse como la divergencia que es, llevada a la mesa de §3.1, que convoca el evento de `Rules-Backlog-Tecnico.md` §3.6 (`Master-Prompt.md` §13.1). Sube **minor**: precisa qué hace una salida existente ante un caso que antes no declaraba, sin agregar ninguna salida nueva. | Intervención del disparador de alcance (reporte 25) |

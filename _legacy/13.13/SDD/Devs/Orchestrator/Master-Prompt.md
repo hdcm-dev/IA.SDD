@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 8.18
+**Versión:** 8.17
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -1798,55 +1798,6 @@ Cualquier intento de un subagente de modificar el `PRODUCT-INTAKE` o el manifies
 
 ---
 
-## §13.1 El intake después del handoff: por qué no hace falta un tercer caso
-
-**Esta sección responde el reporte `25`: no corresponde agregar un tercer caso a la regla 2 de §13.**
-La regla 2 cierra la lista en dos porque los dos casos que declara son de la **misma naturaleza**: los
-dos ocurren **durante una corrida de este orquestador**, y por eso los dos necesitan mecanismo propio
-—propuesta, diff, aprobación explícita—. Un cambio de alcance que el Product Owner decide **después del
-handoff**, con el sistema en producción y sin ningún orquestador corriendo, no es un tercer caso de la
-misma familia: **está fuera del ámbito que esta regla gobierna**.
-
-**Por qué está fuera, y no es una laguna que la regla 1 deje pasar por descuido.** La regla 1 dice
-«toda invocación al manifiesto o a un intake **durante la generación** es lectura». No dice «siempre».
-El intake es, por `Migracion-Rules.md` §4.4, **documento humano**: su autoría no se delega, y por eso
-esta regla nunca tuvo que autorizar que el Product Owner lo edite fuera de una corrida — nunca se lo
-prohibió. Las veinte decisiones de producto que el reporte `25` midió sobre el `PRODUCT-INTAKE` de
-`Lab-Geometria`, diecisiete de ellas después de «Aprobado», no violan ninguna regla de este archivo:
-ocurrieron fuera de su ámbito, que es exactamente donde el Product Owner puede escribir sin pedirle
-permiso a un orquestador que no está corriendo.
-
-**Qué es el intake en el eje origen/vigencia (reporte `25`, §5.1.a).** No hace falta un término nuevo
-para responderlo: el intake **es** la declaración vigente del alcance, no una línea base de origen que
-se congela al aprobarse. Su propio control de cambios ya lo trata así —§13 regla 3 obliga a asentar
-cada escritura ahí, y no en un documento aparte— y es lo que le permite absorber, de hecho, las veinte
-decisiones de producto que el reporte midió. Una línea base de origen no se reescribiría nunca; un
-documento vigente sí, y eso es lo que el intake hace desde antes de este reporte.
-
-**Inventar un tercer caso acá sería corregir en el lugar equivocado.** Escribir «(c) decisión de
-producto posterior al handoff» junto a (a) y (b) le pondría a un acto que ya es libre las mismas tres
-condiciones acumulativas de la migración estructural —propuesta, diff, aprobación—, que existen para
-un caso distinto: un agente que reescribe una sección ya aprobada **sin haberla decidido él**. Acá quien
-decide y quien escribe son la misma persona. Regularlo como si fuera una escritura del orquestador
-invierte la relación: el intake deja de ser el documento del Product Owner y pasa a necesitar su
-autorización para editar lo suyo.
-
-**Lo que sí falta no es permiso: es criterio y disparo, y viven aguas abajo.** Que el Product Owner
-pueda editar el intake sin pedir permiso no dice **cuándo conviene que lo haga**, ni **qué pasa con el
-backlog, el plan de sprint y el roadmap** cuando lo hace. Esas dos preguntas —§5.2 y §5.3 del reporte
-`25`— se responden en `Rules-Backlog-Tecnico.md` §3.4, que ya declaraba qué hacer cuando el alcance
-cambia y no declaraba cuándo. No se responden acá, porque acá no hay ninguna versión que subir: el
-intake, editado por su autor, no dispara ni major ni minor de esta sección.
-
-**Y una consecuencia sobre `Master-Prompt-Reanudacion.md` §4, que conviene declarar.** La salida **D**
-de la reanudación —«continuar la construcción»— supone que la etapa siguiente ya está en el roadmap.
-Cuando no lo está porque el Product Owner tomó una decisión de esta clase y todavía no la asentó, lo
-que corresponde no es que D la infiera ni que la ignore: es el evento de `Rules-Backlog-Tecnico.md`
-§3.4, convocado por la mesa de `Master-Prompt-Reanudacion.md` §3.1 igual que cualquier otra
-divergencia. `Master-Prompt-Reanudacion.md` §4 lo declara con esa forma.
-
----
-
 ## §14 Reglas de adaptabilidad por tipo de proyecto de código
 
 La salida `SDD/Docs/` cambia según el `tipo_unidad_entrega` de cada unidad de entrega. Esta tabla no cambia de contenido respecto del template de tipo único: cambia su ámbito de aplicación. Se aplica una vez por cada proyecto de código del manifiesto, contra su D8.
@@ -1902,7 +1853,7 @@ Términos canónicos del orquestador. Cualquier divergencia con estos términos 
 | Vista de producto | Artefacto de nivel producto (en `Producto/`) con el mapa de proyectos de código, los contratos inter-proyecto y el grafo de dependencias, por encima de la arquitectura de cada proyecto de código. |
 | Trazabilidad upstream/downstream | Cadena de referencias declaradas en la cabecera de cada documento. Materializa D6. |
 | Gating | Mecanismo de inclusión/exclusión condicional de una categoría o documento, basado en el `tipo_unidad_entrega` o en flags de §4. La categoría 04 es el ejemplo canónico. |
-| Fase | Bloque de generación que produce una o varias categorías relacionadas y termina con audit. Fases A (producto), B a G (por unidad de entrega), H (consolidación de producto) y, posteriores al handoff, I (ciclo incremental) y J (consolidación de entrega). |
+| Fase | Bloque de generación que produce una o varias categorías relacionadas y termina con audit. Fases A (producto), B a G (por unidad de entrega) y H (consolidación de producto). |
 | Handoff a codificación | Punto en el que el orquestador entrega la documentación auditada y espera confirmación explícita antes de despachar la primera tarea de codificación. |
 | Ambigüedad legítima | Falta concreta de un dato bloqueante en el manifiesto o el intake, detectable por el subagente, que dispara el pattern de §9. |
 | Fase B2 | Fase opcional de validación visual de maqueta, por proyecto de código, entre la Fase B y la Fase C. Se activa con el flag `requiere_maqueta`. Materializa la especificación de 03 en una maqueta navegable, la valida con el humano, retroalimenta la documentación y emite la línea de base del sensado de deriva. Su regla es `Maqueta-Rules.md`. |
@@ -1941,8 +1892,6 @@ Términos canónicos del orquestador. Cualquier divergencia con estos términos 
 | Origen del hecho | Dato de toda detención que dice si el hecho que la motiva lo produjo **esta corrida** o le es **ajeno**. **Se calcula** contra la base de la corrida y no lo declara quien tropezó; si no se puede calcular, se trata como de la corrida y se dice por qué. Decide si la detención se evalúa contra la pregunta previa o contra la autocorrección sobre el conjunto (§8.1). **Se escribe siempre completo**: «origen» a secas tiene otros referentes en este prompt. |
 | Ciclo de origen | Campo de toda referencia pendiente, todo ítem diferido y todo apartamiento declarado (`Root-Rules.md` §11, §12.1, §12.2), con la fase, la unidad de trabajo y la base de la corrida en que se declaró el hueco. **Se calcula y se congela** al momento de escribirse (§8.2): a diferencia del origen del hecho, no se recalcula, porque el hueco se lee en corridas futuras y cada una tiene su propia base. No dice contra qué versión del producto se evaluó: eso se deriva del commit, no se declara aparte. |
 | Lote de la fase | Presentación conjunta de las detenciones no bloqueantes de una fase, al cerrarla o cuando ya no puede avanzar, con el origen del hecho calculado sobre todas antes de salir y `SI NO RESPONDÉS` en cada una (§7.0). Generaliza al bucle de fases la forma de `Mesa-Rules.md` §7.1. |
-| Vigencia operativa abierta | Estado de un producto que ya pasó el handoff y opera en producción, y cuya fase de construcción (I o J) sigue abierta. No es un valor de D8 ni una fase nueva: nombra la condición bajo la cual una decisión del Product Owner puede cambiar el alcance comprometido sin que ninguna corrida del orquestador esté en curso. Lo gobierna el roadmap para qué sigue, el backlog y el plan de sprint para el trabajo del incremento, y la operación para los incidentes — cada uno con su instrumento ya existente; el estado no crea gobierno nuevo, nombra el momento en que el ya existente no puede darse por descontado (reporte `25`, §5.4). |
-| Evento de cambio de alcance | El hecho, subproducto de un acto ya obligatorio y no uno nuevo a recordar, que dispara la reapertura de `Rules-Backlog-Tecnico.md` §3.4: la entrada de control de cambios que el Product Owner asienta en el `PRODUCT-INTAKE` al registrar una decisión de alcance posterior al handoff. Es el mismo evento para el backlog, el plan de sprint y el roadmap, para que ninguno de los tres quede reabierto por un disparador distinto (reporte `25`, §5.2). |
 
 ---
 
@@ -1999,7 +1948,6 @@ Este master-prompt se versiona como cualquier otro artefacto del template. Cualq
 | 8.15 | 2026-09-12 | **El origen del hecho entra antes de la pregunta previa, y se calcula** (framework 13.11). La decisión de elevar se tomaba con un solo eje —si el árbol tiene la respuesta— y **un estado que la propia corrida dejó a medias no la tiene por construcción**: llegaba al humano con forma de consulta legítima. **§8.1** suma la cláusula del **origen del hecho** —de la corrida o ajeno a ella—, que **no declara el agente**: la calcula el orquestador contra la **base de la corrida**, y ante la duda se trata como de la corrida. Lo de la corrida no se evalúa contra el árbol sino contra la autocorrección **sobre el conjunto**, que es la **tercera fila** de su tabla; el bloque de detención suma `ORIGEN DEL HECHO` y `SI NO RESPONDÉS`, y «Qué no cambia» deja de afirmar que la sección no quita detenciones, **que era falso desde la pregunta previa**. **§12.1 T0** publica la línea `Base`, que el método garantizaba y no registraba, y T5 la conserva. **§8** declara por qué el snapshot por despacho no sirve de base —ya contiene lo que dejaron las unidades anteriores— y que el orquestador calcula el origen del hecho antes de elevar lo que el subagente devuelve. **§7.0** suma **el lote de la fase**: lo que no bloquea espera, el lote se mira entero antes de salir, y lo bloqueante es el arbitraje de §7.0 o lo que frena toda la fase; el registro no suma columna. **§9** suma el campo, que el subagente no completa, y presenta en el lote. **§15** suma tres términos. **Y esta tabla se reordena por versión**: veintiuna filas estaban después de «Fin del master-prompt» y la 8.12 a la 8.14 entre la 8.2 y la 8.3; ninguna cambió de texto, y el hueco de la 7.5 no se rellena. Sube **minor**: mecánica de §8 y flujo de §7, y ningún documento ya emitido deja de cumplir. | Intervención del origen del hecho |
 | 8.16 | 2026-09-12 | **La compuerta localiza los términos declarados y no decide colisiones** (framework 13.12). **§10.0 suma la comprobación 7**: por cada término que la fase acuña o renombra —calculado contra la base de la corrida desde los glosarios y los registros de sustitución, no declarado aparte— devuelve sus ocurrencias por sección y por archivo, **como insumo del auditor y nunca como veredicto**, con el comando publicado en el texto y su volumen medido sobre el propio framework. Es la única comprobación que no emite hallazgo. **§10**, criterio de polisemia: el contexto de lectura pasa a ser el de cada lector y la lista de la comprobación 7 es su insumo. **§15**: «Contexto de lectura» deja de declarar la unidad para un solo lector; «Glosario operativo» declara que define y no decide colisiones; «Compuerta mecánica» suma la localización. Sube **minor**: cambia la mecánica de §10 sin tocar insumos obligatorios, D8 ni el flujo. | Intervención de la colisión léxica |
 | 8.17 | 2026-09-12 | **El ciclo de origen de un hueco se calcula, como el origen del hecho** (framework 13.13), por el reporte `27`. **§8.2 es nueva**: toda referencia pendiente, ítem diferido y apartamiento declarado lleva fase, unidad de trabajo y base de la corrida, congeladas al declararse y no recalculadas —a diferencia del origen del hecho, que se recalcula porque solo importa dentro de su corrida—. Reutiliza la base de la corrida de la 8.15 en lugar de una pieza paralela. **§10.0 suma la comprobación 8**: verifica presencia del campo en los huecos que la fase escribe, sin decidir clasificación, que es de `Migracion-Rules.md` §4.8. **§15** suma el término. Sube **minor**: agrega un campo obligatorio hacia adelante; ningún hueco ya declarado deja de cumplir. | Intervención del ciclo de origen |
-| 8.18 | 2026-09-12 | **§13.1 es nueva** (framework 13.14), por el reporte `25`, y responde su pregunta de fondo: **no hace falta un tercer caso de escritura del intake**. Los dos casos de la regla 2 son de la misma familia —ocurren durante una corrida de este orquestador—; una decisión de alcance del Product Owner posterior al handoff ocurre sin ninguna corrida en curso, y el intake, que `Migracion-Rules.md` §4.4 ya declara documento humano, no necesita que esta regla autorice lo que nunca prohibió. Ponerle las tres condiciones de la migración estructural a un acto que ya es libre habría invertido la relación: el intake dejando de ser del Product Owner para pasar a necesitar permiso de un orquestador ausente. Lo que faltaba no era permiso, era criterio y disparo, y **§13.1 los remite a `Rules-Backlog-Tecnico.md` §3.4**, que ya sabía qué hacer con un cambio de alcance y no decía cuándo. Declara además la consecuencia sobre la salida D de `Master-Prompt-Reanudacion.md` §4 cuando la etapa siguiente no está en el roadmap. **§15 suma dos términos**: `vigencia operativa abierta` y `evento de cambio de alcance`, verificados sin colisión (`grep -rn "vigencia operativa\|evento de cambio de alcance" SDD/Devs --include='*.md'`, cero ocurrencias antes de esta intervención). **Corregido de paso**: la entrada «Fase» del glosario enumeraba A a H y omitía I y J, que el propio glosario define dos filas más abajo — hallazgo con cita literal, se corrige en la misma unidad (`Master-Prompt.md` §8.1, autocorrección). Sube **minor**: una sección que acota el alcance de una regla existente sin reescribir ninguno de sus dos casos, y dos términos de glosario. | Intervención del disparador de alcance (reporte 25) |
 
 Reglas de versionado:
 
