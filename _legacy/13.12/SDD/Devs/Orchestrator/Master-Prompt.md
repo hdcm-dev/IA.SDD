@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 8.17
+**Versión:** 8.16
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -1093,53 +1093,6 @@ escribir sin confirmación siguen intactas.
 
 ---
 
-## §8.2 Ciclo de origen de los huecos
-
-**Los tres instrumentos de `Root-Rules.md` para lo que falta —referencia pendiente (§12.1), ítem
-diferido (§12.2) y apartamiento declarado (§11)— declaran hacia dónde apuntan y no de dónde salen.**
-Dos huecos con identificadores contiguos pueden ser de fases separadas por meses, y nada en el
-artefacto lo dice: hay que reconstruirlo leyendo historial de git, fechas de control de cambios y ADRs
-sueltos, y una migración que no puede reconstruirlo eleva el hueco al humano con la forma de una
-consulta legítima que no lo es. Es el mismo patrón que el **origen del hecho** de §8.1 corrige para una
-detención, aplicado acá al origen de un hueco que —a diferencia de una detención— **persiste entre
-corridas**.
-
-**Cuándo corre.** Cada vez que el orquestador escribe una referencia pendiente, un ítem diferido o un
-apartamiento declarado, sea en generación, en migración o en mesa de evaluación. No corre por decisión
-del subagente: el subagente redacta el contenido del hueco y el orquestador le agrega el campo antes de
-confirmar la escritura, con el mismo reparto de tareas que el origen del hecho.
-
-**Con qué se calcula, y por qué es distinto de recalcularse.** Tres datos, tomados en el momento de
-declarar:
-
-1. **La fase** en curso (§7), o «mesa» y su fecha si el hueco lo declara una mesa de evaluación
-   (`Mesa-Rules.md`).
-2. **La unidad de trabajo** en curso: la unidad de entrega o el proyecto de código que se está
-   generando, migrando o auditando; «producto» en las fases de nivel producto.
-3. **La base de la corrida** (§12.1), en su forma corta.
-
-El origen del hecho de §8.1 se **recalcula** cada vez que hace falta, porque solo importa dentro de la
-corrida que lo generó. El ciclo de origen de un hueco se **escribe una sola vez y queda fijo**, porque el
-hueco se sigue leyendo en corridas futuras y cada una tiene su propia base de la corrida: remitir a «la
-base de la corrida» en un hueco ya declarado apuntaría, en una lectura posterior, a un commit
-equivocado. Por eso el campo lleva el valor congelado —`{{fase}} · {{unidad de trabajo}} · {{base corta}}`—
-y no una referencia al mecanismo que lo calculó.
-
-**Qué no resuelve, y se declara en lugar de inventarlo.** Este campo no dice **contra qué versión del
-producto** se evaluó el hueco (§5.2 del reporte `27`). No hace falta un segundo campo declarado para
-eso: la base de la corrida es un commit, y el bloque de procedencia del destino en ese commit —leído con
-`git show {{base}}:{{manifiesto}}`— dice qué versión del framework regía en ese momento. Declarar un
-segundo dato en paralelo sería mantener dos declaraciones del mismo hecho, que es lo que
-`Root-Rules.md` §10 previene para los recuentos y que acá se evita de la misma forma: **lo que se puede
-derivar del commit no se declara aparte.** `Migracion-Rules.md` §4.8 es quien lo deriva y lo usa.
-
-**Reutiliza la base de la corrida en lugar de crear una paralela** (reporte `26`, `Master-Prompt.md`
-§8.1 y §12.1). La única pieza que se agrega es la fase y la unidad de trabajo, que §8.1 no necesitaba
-—una detención se resuelve dentro de la misma corrida que la generó, y no le hace falta saber en qué
-fase estaba— y un hueco sí, porque es lo que permite ubicarlo sin abrir el commit.
-
----
-
 ## §9 Manejo de ambigüedad
 
 Cuando un subagente no puede completar un documento porque le falta información que debería estar en el manifiesto o en los intake, no inventa. Se detiene y devuelve una pregunta estructurada al orquestador.
@@ -1362,14 +1315,6 @@ Comprobaciones mínimas de la compuerta, cada una de naturaleza enumerable:
    §9.2), y **el descarte lo escribe con su motivo**: uno no escrito no se distingue de una ocurrencia que
    nadie miró. La comprobación entra al banco del destino como las demás, con su caso inverso: un término que
    la fase **no** declaró no aparece en la lista, y la compuerta lo enumera entre sus recortes.
-
-8. **Ciclo de origen de los huecos** (`Root-Rules.md` §11, §12.1 y §12.2 · §8.2 de este prompt): toda
-   referencia pendiente, todo ítem diferido y todo apartamiento declarado que la fase escribe lleva su
-   campo **ciclo de origen** completo. Es hallazgo el que no lo lleva. **No decide clasificación** —si
-   el hueco se completa o se declara deuda de migración es `Migracion-Rules.md` §4.8, y corre en
-   migración y no en generación—: verifica sólo presencia, la misma reserva que la comprobación 7 aplica
-   a la colisión léxica. **No alcanza a los huecos declarados antes de SDD 8.7**: no llevan el campo
-   porque el mecanismo no existía, y `Migracion-Rules.md` §4.9 declara su tratamiento.
 
 **La compuerta declara qué no mira, y lo declara como lista.** Su salida, incluso en verde, enuncia el
 alcance de lo que verificó y **enumera uno por uno los recortes**: qué comprobación no corrió, o corrió
@@ -1890,7 +1835,6 @@ Términos canónicos del orquestador. Cualquier divergencia con estos términos 
 | Glosario de categoría | Artefacto propio de una categoría que declara los términos que esa categoría acuña y que aparecen en más de uno de sus artefactos, con sus referentes cuando tiene más de uno. No es un glosario por documento: la regla de no duplicación manda referenciar el término ya declarado por otra categoría en lugar de redefinirlo. |
 | Base de la corrida | El commit sobre el que la primera compuerta T0 de una invocación devolvió EN ORDEN, publicado en su línea `Base` (§12.1). Con el árbol limpio que T2 exige, es el estado del repositorio antes de que la corrida escribiera nada. No cambia durante la corrida y es el insumo con que se calcula el origen del hecho. **No confundir con el snapshot de §8**, que se toma por despacho y ya contiene lo que dejaron las unidades anteriores. |
 | Origen del hecho | Dato de toda detención que dice si el hecho que la motiva lo produjo **esta corrida** o le es **ajeno**. **Se calcula** contra la base de la corrida y no lo declara quien tropezó; si no se puede calcular, se trata como de la corrida y se dice por qué. Decide si la detención se evalúa contra la pregunta previa o contra la autocorrección sobre el conjunto (§8.1). **Se escribe siempre completo**: «origen» a secas tiene otros referentes en este prompt. |
-| Ciclo de origen | Campo de toda referencia pendiente, todo ítem diferido y todo apartamiento declarado (`Root-Rules.md` §11, §12.1, §12.2), con la fase, la unidad de trabajo y la base de la corrida en que se declaró el hueco. **Se calcula y se congela** al momento de escribirse (§8.2): a diferencia del origen del hecho, no se recalcula, porque el hueco se lee en corridas futuras y cada una tiene su propia base. No dice contra qué versión del producto se evaluó: eso se deriva del commit, no se declara aparte. |
 | Lote de la fase | Presentación conjunta de las detenciones no bloqueantes de una fase, al cerrarla o cuando ya no puede avanzar, con el origen del hecho calculado sobre todas antes de salir y `SI NO RESPONDÉS` en cada una (§7.0). Generaliza al bucle de fases la forma de `Mesa-Rules.md` §7.1. |
 
 ---
@@ -1947,7 +1891,6 @@ Este master-prompt se versiona como cualquier otro artefacto del template. Cualq
 | 8.14 | 2026-08-23 | **§10.0 deja de conceder la exclusión de alcance contra una declaración** (framework 13.6, reporte `16`). La compuerta le dice al auditor qué no mire, y **nada comprobaba que lo declarado fuera lo medido**: una comprobación que sobredeclara produce **la misma salida verde** que una correcta, y el único que podría notarlo es el auditor, a quien la exclusión se lo prohíbe. Entran **tres obligaciones, todas del destino que escribe su compuerta**: toda comprobación entra **con un caso que la ejerce**; todo **recorte declarado** entra con su caso de la clase inversa —el defecto no se reporta **y** la salida declara que ahí no mira—; y **un hallazgo sobre la propia compuerta no pasa a «cerrado» sin su caso**, que tiene que fallar antes y pasar después. **El banco es del destino y el framework no lo distribuye**, por `SDD-Development-Guide.md` §II.7. **No se pide cobertura completa**: un recorte declarado y probado es conforme, el callado no. La declaración de alcance pasa de prosa a **lista enumerada de recortes**, para que el despacho del audit pueda distinguir «esto salió de tu alcance» de «esto la compuerta no lo miró y es tuyo», que era la mitad que se perdía. **Alcance temporal declarado**: rige hacia adelante y una compuerta ya escrita trae su banco en la próxima intervención que la toque, con el precedente de la conformidad D9 de esta misma sección. Y **el recuento de anti-patrones `[enumerable]` sale de la prosa**: decía «97 de las 202» y la medición sobre las tablas vivas da **100 de 208**; el número deja de transcribirse y se cita `Catalogo-De-Criterios.md` §4 como única fuente, que es lo que `Root-Rules.md` §10 exige de un dato derivado. Sube **minor**. | Framework SDD (reporte 16) |
 | 8.15 | 2026-09-12 | **El origen del hecho entra antes de la pregunta previa, y se calcula** (framework 13.11). La decisión de elevar se tomaba con un solo eje —si el árbol tiene la respuesta— y **un estado que la propia corrida dejó a medias no la tiene por construcción**: llegaba al humano con forma de consulta legítima. **§8.1** suma la cláusula del **origen del hecho** —de la corrida o ajeno a ella—, que **no declara el agente**: la calcula el orquestador contra la **base de la corrida**, y ante la duda se trata como de la corrida. Lo de la corrida no se evalúa contra el árbol sino contra la autocorrección **sobre el conjunto**, que es la **tercera fila** de su tabla; el bloque de detención suma `ORIGEN DEL HECHO` y `SI NO RESPONDÉS`, y «Qué no cambia» deja de afirmar que la sección no quita detenciones, **que era falso desde la pregunta previa**. **§12.1 T0** publica la línea `Base`, que el método garantizaba y no registraba, y T5 la conserva. **§8** declara por qué el snapshot por despacho no sirve de base —ya contiene lo que dejaron las unidades anteriores— y que el orquestador calcula el origen del hecho antes de elevar lo que el subagente devuelve. **§7.0** suma **el lote de la fase**: lo que no bloquea espera, el lote se mira entero antes de salir, y lo bloqueante es el arbitraje de §7.0 o lo que frena toda la fase; el registro no suma columna. **§9** suma el campo, que el subagente no completa, y presenta en el lote. **§15** suma tres términos. **Y esta tabla se reordena por versión**: veintiuna filas estaban después de «Fin del master-prompt» y la 8.12 a la 8.14 entre la 8.2 y la 8.3; ninguna cambió de texto, y el hueco de la 7.5 no se rellena. Sube **minor**: mecánica de §8 y flujo de §7, y ningún documento ya emitido deja de cumplir. | Intervención del origen del hecho |
 | 8.16 | 2026-09-12 | **La compuerta localiza los términos declarados y no decide colisiones** (framework 13.12). **§10.0 suma la comprobación 7**: por cada término que la fase acuña o renombra —calculado contra la base de la corrida desde los glosarios y los registros de sustitución, no declarado aparte— devuelve sus ocurrencias por sección y por archivo, **como insumo del auditor y nunca como veredicto**, con el comando publicado en el texto y su volumen medido sobre el propio framework. Es la única comprobación que no emite hallazgo. **§10**, criterio de polisemia: el contexto de lectura pasa a ser el de cada lector y la lista de la comprobación 7 es su insumo. **§15**: «Contexto de lectura» deja de declarar la unidad para un solo lector; «Glosario operativo» declara que define y no decide colisiones; «Compuerta mecánica» suma la localización. Sube **minor**: cambia la mecánica de §10 sin tocar insumos obligatorios, D8 ni el flujo. | Intervención de la colisión léxica |
-| 8.17 | 2026-09-12 | **El ciclo de origen de un hueco se calcula, como el origen del hecho** (framework 13.13), por el reporte `27`. **§8.2 es nueva**: toda referencia pendiente, ítem diferido y apartamiento declarado lleva fase, unidad de trabajo y base de la corrida, congeladas al declararse y no recalculadas —a diferencia del origen del hecho, que se recalcula porque solo importa dentro de su corrida—. Reutiliza la base de la corrida de la 8.15 en lugar de una pieza paralela. **§10.0 suma la comprobación 8**: verifica presencia del campo en los huecos que la fase escribe, sin decidir clasificación, que es de `Migracion-Rules.md` §4.8. **§15** suma el término. Sube **minor**: agrega un campo obligatorio hacia adelante; ningún hueco ya declarado deja de cumplir. | Intervención del ciclo de origen |
 
 Reglas de versionado:
 

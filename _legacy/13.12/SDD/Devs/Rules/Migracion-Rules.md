@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino para los dos artefactos propios. El alcance sobre el que la migración opera es `SDD/Intake/` y `SDD/Docs/` del mismo repositorio
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto, unidad de entrega y proyecto de código
 **Subagente target del orquestador:** el orquestador de migración para el plan y el cierre; el auditor independiente para el informe; el subagente titular de cada categoría para re-expresar los documentos de esa categoría
-**Versión de las reglas:** 3.20
+**Versión de las reglas:** 3.19
 
 Dentro de este archivo «migración» se usa en forma desnuda, según la excepción que `Vocabulario-Rules.md` §9.6 declara: en este contexto de lectura no hay otro referente con el que colisione. En cualquier otro archivo del framework el término va calificado como «migración normativa».
 
@@ -623,84 +623,6 @@ Las dos condiciones que la hacen legítima, y las dos son bloqueantes:
 
 El destino queda entonces declarando su procedencia de origen, que es lo que sigue siendo cierto, con un informe que dice exactamente cuánto se avanzó. Una migración posterior retoma desde ahí.
 
-### 4.8 Clasificación de huecos por ciclo de origen
-
-**El principio de estado objetivo de §3 no alcanza para decidir, hueco por hueco, si una referencia
-pendiente o un ítem diferido se completan o se declaran deuda de migración.** El principio dice a
-dónde hay que llegar; no dice si el contenido que falta **falta porque el ciclo que lo declaró no llegó
-a escribirlo** —y entonces se completa, porque ya era exigible cuando se declaró— o **porque la norma
-que lo exige es posterior a esa declaración** —y entonces completarlo sería escribir, con fecha de hoy,
-una decisión que nadie tomó en su momento, exactamente el modo de falla que §4.1 prohíbe.
-
-**El ciclo de origen (`Root-Rules.md` §12, `Master-Prompt.md` §8.2) es el dato que faltaba para
-decidirlo, y la clasificación se deriva de él en vez de preguntarse aparte:**
-
-1. **Leer qué exige el contenido faltante**, del propio hueco: la sección y la regla que §12.1 punto 1
-   o §12.2 punto 1 ya obligan a nombrar.
-2. **Ubicar en qué versión del framework esa exigencia entró**, en el control de cambios de la regla
-   citada o en `CHANGELOG.md`.
-3. **Leer qué versión del framework regía en el destino al momento del ciclo de origen**, con
-   `git show {{ciclo_de_origen.base}}:{{manifiesto}}` sobre su bloque de procedencia. **No se declara un
-   campo aparte para esto** (§8.2): es un dato derivable del commit, y `Root-Rules.md` §10 prohíbe
-   declarar lo que se puede derivar.
-4. **Comparar las dos versiones:**
-
-| Comparación | Clasificación | Tratamiento |
-| --- | --- | --- |
-| La exigencia es **anterior o igual** a la versión vigente en el ciclo de origen | **Hueco del ciclo** | Se completa: entra al plan de re-expresión de §3 como cualquier otro contenido gobernado por la normativa vigente |
-| La exigencia es **posterior** al ciclo de origen | **Hueco de norma posterior** | **No se completa retroactivamente.** Se preserva con su forma y su ciclo de origen intactos, y se declara en el informe como deuda de migración, con la versión que introdujo la exigencia |
-
-**Sólo eleva al humano el hueco que ninguna de las dos reglas alcanza**: aquel cuya sección exigida no
-resuelve contra ninguna regla vigente ni histórica, o cuyo ciclo de origen no se puede leer (§4.9). Es
-la conexión con el reporte `26`: la clasificación derivada es lo que evita la tanda de preguntas que
-una migración sin este dato le habría trasladado al humano.
-
-**Por qué no hace falta un tercer valor «ambiguo».** Un hueco cuya exigencia no se ubica en ningún
-control de cambios de la regla que cita **no es un caso nuevo**: es la misma situación que §4.1
-prohíbe rellenar sin fuente, aplicada a la clasificación en lugar de al contenido. Se declara y se
-eleva, con la misma disciplina.
-
-### 4.9 Huecos anteriores a SDD 8.7, sin ciclo de origen
-
-**El mecanismo de §4.8 no funciona sin ciclo de origen, y todo hueco declarado antes de SDD 8.7 no lo
-tiene**: el campo no existía. Exigirlo retroactivo elevaría al humano, en la primera migración que
-corra sobre cualquier destino con huecos declarados, exactamente el volumen que el mecanismo vino a
-evitar —es la pregunta de aplicación que el reporte `27` §5.4 obliga a decidir antes que las de diseño,
-y que se mide sobre el caso real en el expediente de la intervención que escribió esta sección, no se
-estima—.
-
-**La salida es derivar donde se pueda y marcar no derivable donde no, no exigirlo ni dejarlo vacío sin
-más.** El texto literal de un hueco —el enunciado en negrita de «qué falta»— es, salvo reescritura
-posterior por consolidación o fusión, estable desde que se escribió. Eso lo hace buscable en el
-historial de git sin abrir el hueco a mano:
-
-```bash
-git log {{rama_del_destino}} --oneline -S"{{fragmento literal y estable del enunciado}}"
-```
-
-**El resultado más antiguo de la lista es el commit que introdujo la fila**, y con él se deriva el
-ciclo de origen: la fecha y el mensaje del commit dan la fase y la unidad de trabajo, y el propio
-commit es la base. Se escribe entonces con la forma habitual, y el informe de migración declara que
-fue **derivado**, no observado en el artefacto.
-
-**Cuándo no es derivable, y se marca así en lugar de forzarlo.** El comando no resuelve —ninguna
-ocurrencia, o más de una sin que la lista permita elegir— cuando una consolidación o una fusión
-reescribió el texto sin cambiar su contenido sustantivo (§4.3.2), o cuando el hueco viene de un destino
-sin ese historial. Ahí el campo se escribe **`ciclo de origen: no derivable — anterior al mecanismo`**,
-que es un valor terminal y no una escalada: el hueco sigue su tratamiento normal por el estado que ya
-declaraba, y **no se eleva al humano por esto solo**. Es el mismo tipo de valor explícito que
-`sin-procedencia` (§4.5) para el destino que no declara su origen: la ausencia del dato se declara, no
-se disimula ni se inventa.
-
-**Medido sobre el caso real.** Sobre los ocho documentos y las **118** filas de ítems diferidos de
-`Lab-Geometria` —medidos de nuevo por esta intervención y no citados del reporte, con el detalle en su
-`OUTPUTs`—, el comando de arriba resolvió sobre una fila de muestra tomada de `Pipeline-CI-CD.md` de
-`GeometriaFactory-Api` en **menos de un segundo** de ejecución. El costo real no está en el comando:
-está en elegir, por fila, un fragmento de texto suficientemente literal y suficientemente estable, que
-es trabajo de una migración concreta sobre un destino concreto y no de esta regla. Esta regla declara
-el mecanismo y su valor terminal; no ejecuta la derivación de los 118, porque `Lab-Geometria` es un
-destino y esta intervención no lo toca.
-
 ---
 
 ## 5. Preguntas guía
@@ -742,8 +664,6 @@ Antes de cerrar la migración:
 - [ ] [enumerable] **La verificación de preservación de cada grupo consolidado cerró en cero líneas de contenido**, con las cuatro clases que no transponen declaradas y las marcas por enlace discriminadas (§4.3.2).
 - [ ] [enumerable] **Todo apartamiento vigente del destino fue revisado** (§4.7) y quedó con uno de los tres resultados declarado en el informe; ninguno quedó sin resolver.
 - [ ] [enumerable] **Ningún apartamiento preservado fue re-fundamentado**: los que siguen `vigente` conservan su texto literal y sólo cambió su contador.
-- [ ] [enumerable] **Todo hueco con ciclo de origen quedó clasificado** como hueco del ciclo o hueco de norma posterior (§4.8), y el número de huecos elevados al humano por esta clasificación es **menor** que el total de huecos con las dos clases mezcladas. Si es igual, la clasificación no está funcionando.
-- [ ] [enumerable] **Todo hueco sin ciclo de origen quedó con uno de los dos resultados de §4.9**: derivado, con su comando, o `no derivable — anterior al mecanismo`. Ninguno se dejó sin este campo por descuido, y ninguno se elevó al humano solo por carecer de él.
 - [ ] [enumerable] **Por cada documento movido corrió el procedimiento de §4.3.1**, y su verificación cierra: los enlaces que resolvían antes resuelven después, y el conjunto de rotos previos es **el mismo conjunto**, no la misma cantidad.
 - [ ] [enumerable] El árbol declara las **familias acuñadas por el destino** que no pertenecen al catálogo del framework, con su resolución confirmada por el humano.
 - [ ] [enumerable] Si el salto alcanza la forma de los identificadores, existe el **árbol de migración** de §4.3.1 con una fila por identificador alcanzado, y está confirmado por el humano antes de la pasada de aplicación.
@@ -860,4 +780,3 @@ Para el despacho del auditor, los criterios de §6 de este archivo se suman a lo
 | 3.17 | 2026-08-22 | **§4.3.1 declaraba `AG` entre las familias excluidas del ancho, y desde la 12.0 no lo está.** El reemplazo de la renumeración convirtió la forma vieja en la nueva **adentro de la frase que decía que la familia estaba excluida**, de modo que la contradicción quedó escrita con la forma vigente y no se veía. Pasa a nombrar las dos exclusiones reales —`FA-NN` y el ordinal— y **declara qué hace una migración de destino con `AG`**: no la renumera, porque su ámbito es el conjunto normativo; el destino sólo reemplaza la cita si su `README.md` declara responsable. Sube **minor**: precisa una regla existente. |
 | 3.18 | 2026-08-23 | §4.3.1 describía el salto a la 7.0 como el que fija «**ámbito de unicidad producto**» a secas, y desde la 12.0 hay **dos ámbitos**. Queda acotado a **las familias del producto**. Lo levantó la tercera ronda de auditoría: el patrón que la intervención había declarado barrer **no tenía comando que lo corriera**. Sube **minor**: precisa una descripción histórica sin cambiar la regla. |
 | 3.19 | 2026-08-23 | Un segundo enunciado de ámbito sin calificar, en §4.3.1: «cuando el **ámbito de unicidad pasa de** proyecto de código **a** producto». Lo destapó **el patrón ampliado** de la quinta emisión, no una ocurrencia buscada a mano — que es la diferencia entre corregir el instrumento y corregir el síntoma. Sube **minor**. |
-| 3.20 | 2026-09-12 | **§4.8 es nueva: la migración clasifica un hueco entre del ciclo y de norma posterior** (framework 13.13), por el reporte `27`. Deriva la clasificación del ciclo de origen (`Root-Rules.md` §12) contra el control de cambios de la regla que el hueco cita, sin declarar un segundo campo de versión: la versión del framework vigente en el destino al momento del ciclo de origen se lee del commit con `git show`, porque lo derivable no se declara aparte (`Root-Rules.md` §10). Sólo eleva el hueco que ninguna de las dos reglas alcanza. **§4.9 es nueva**: el tratamiento de los huecos anteriores a SDD 8.7, sin ciclo de origen —se derivan con `git log -S` sobre el texto literal de la fila, y donde no resuelve se marcan `no derivable — anterior al mecanismo`, un valor terminal que no eleva por sí solo—, medido sobre una fila real de `Lab-Geometria` sin tocar ese destino. **§6 suma dos criterios enumerables**, uno de ellos con la forma decisiva del reporte: el número de huecos elevados por la clasificación tiene que ser menor que el total, no igual. Sube **minor**: agrega una clasificación y un valor terminal sin exigir reescribir ningún hueco ya declarado. | Intervención del ciclo de origen |

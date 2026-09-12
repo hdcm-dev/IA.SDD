@@ -3,6 +3,98 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.13] - 2026-09-12
+
+**Los tres instrumentos del método para lo que falta —referencia pendiente, ítem diferido, apartamiento declarado— declaran hacia dónde apuntan y ninguno de dónde salen.** Dos huecos con identificadores contiguos pueden ser de fases separadas por meses y el artefacto no lo dice; una migración que tiene que decidir si un hueco se completa o se declara deuda no tenía con qué, y lo que no podía reconstruir a mano lo elevaba al humano. Es el reporte `27`, tercero de la corrida del 2026-09-12, sobre un requisito del Product Owner de `Lab-Geometria`: que los huecos queden correlacionables con el ciclo que los produjo.
+
+### Verificación previa: qué seguía vigente de la 13.10 y qué no
+
+**Todas las citas del reporte siguen siendo literales en la 13.12.** `Root-Rules.md` §9, §10, §11, §12.1 y §12.2, `Migracion-Rules.md` §3 y §4, y el tipo de evidencia `ejecucion` de `Deriva-Rules.md` no cambiaron entre la 13.10 y la 13.12: ninguna de las dos intervenciones anteriores de esta corrida tocó estos archivos. `Rules-Documentacion.md` §0.6 —citada en el encabezado del reporte como alcance evaluado y nunca usada en su cuerpo— tampoco cambió, y se declara acá que **el reporte la nombra y no la ejerce**: no es evidencia falsa, es una cita que no llega a afirmación.
+
+**El caso de los 118 se remidió, no se citó.** Reconstruido desde `Lab-Geometria` (solo lectura, ramas `main` y `archivo/reanudacion-6-2026-09-12`):
+
+```bash
+git show archivo/reanudacion-6-2026-09-12:SDD/Docs/Audit/Estado-Del-Destino-2026-09-12.md   # §4: 87 cerrados + 25 vigentes + 6 NO APLICA = 118
+git show archivo/reanudacion-6-2026-09-12:SDD/Docs/Audit/Estado-Del-Destino-2026-08-27.md   # §4: 86 cerrados + 9 vencidos + 12 vigentes + 11 sin evento = 118
+```
+
+Los dos totales cierran en **118** y la aritmética de la transición entre uno y otro es exacta: de los 20 ítems que el 08-27 tenía como `vencido` o `sin evento`, 6 pasan a `NO APLICA`, 13 a `Vigente` y 1 a `Cerrado` (86+1=87, 12+13=25, 0+6=6). Un recuento mecánico propio sobre las tablas `Id | Punto abierto | Quién lo cierra | En qué evento se cierra | Estado` de los ocho documentos que el 08-27 nombra reprodujo **116** filas con identificador desnudo más **2** con identificador entre backticks (`` `PD-10` `` de los dos `Supply-Chain-Seguridad.md`) que el patrón desnudo no capturaba — **118**, coincidente con las dos fuentes.
+
+**El reporte queda corregido en un punto, y se dice antes de usarlo como fundamento (§2 de la solicitud de esta intervención).** Su §2.4 describe los tres números como «tomados en momentos distintos por instrumentos distintos» y «que no se pueden cruzar sin abrir los 118 uno por uno». Verificado: los tres números —87, 25 y 6— salen de **una** tabla, en **un** documento, de **una** fecha (`Estado-Del-Destino-2026-09-12.md` §4), y ese mismo documento cruza su propio recuento contra el del 08-27 con aritmética exacta, sin abrir los 118 ítems uno por uno. **El reporte está sobredimensionado en ese detalle**, aunque no en su diagnóstico: la reconciliación fue posible porque un orquestador de reanudación la escribió a mano, leyendo decisiones del Product Owner del 08-26 y del 08-30 y `ADR-14004` — es la reconstrucción manual que el reporte describe como costo, no la ausencia de ella. Y la afirmación fuerte del reporte sigue de pie: **ningún ítem de los 118 declara contra qué versión del framework se lo declaró**; el campo `En qué evento se cierra` que ya exige §12.2 apunta hacia adelante, no hacia atrás.
+
+### La decisión que ordena el resto: qué pasa con los 118 ya declarados (§5.4 del reporte)
+
+**Se decide antes que las cinco preguntas de diseño, con el costo medido sobre el caso real y no estimado.** Exigir el campo retroactivo elevaría, en la primera migración que corra sobre cualquier destino con huecos declarados —que son todos—, el volumen completo a preguntas para el humano: exactamente el defecto que el mecanismo viene a evitar. Dejarlo vacío sin más pierde información que sí está: el texto literal de un hueco es, salvo reescritura por consolidación, estable desde que se escribió, y por lo tanto **buscable**.
+
+**Se deriva donde se pueda y se marca `no derivable — anterior al mecanismo` donde no**, con `Migracion-Rules.md` §4.9. Probado sobre una fila real de `Lab-Geometria` (`Pipeline-CI-CD.md` de `GeometriaFactory-Api`, PD-04, «la vigencia exacta del acceso firmado»): `git log archivo/reanudacion-6-2026-09-12 --oneline -S"La vigencia exacta del acceso firmado"` devuelve ocho commits, el más antiguo `8520aa7 Fase B de GeometriaFactory-Api` — el ciclo de origen de esa fila se deriva sin abrirla a mano, en menos de un segundo de cómputo. El costo real no está en el comando: está en elegir, fila por fila, un fragmento de texto suficientemente literal y estable, que es trabajo de una migración concreta sobre un destino concreto. Esta intervención no ejecuta la derivación de las 118 filas: `Lab-Geometria` es un destino y esta intervención no lo toca; deja el mecanismo escrito y medido para cuando corra.
+
+### Cambiado — `Root-Rules.md` 8.6 → 8.7
+
+**§11, §12.1 y §12.2 suman el campo ciclo de origen**, calculado y no escrito a mano, con el mismo fundamento con que el reporte `26` decidió lo mismo para el origen del hecho: un campo que completa el agente se completa de buena fe y se lee como verificación sin serlo. El mecanismo de cómputo vive en `Master-Prompt.md` §8.2. **Nueva fila de escalamiento en §12.2**: un hueco declarado desde esta versión sin su ciclo de origen es hallazgo P1. Los huecos anteriores a esta versión no lo llevan porque el campo no existía, y no es hallazgo por eso solo. **Corregido de paso**: las filas 8.3 a 8.6 del propio control de cambios estaban en orden inverso; se reordenan sin cambiar el texto de ninguna.
+
+### Cambiado — `Master-Prompt.md` 8.16 → 8.17
+
+**§8.2 es nueva.** El ciclo de origen se calcula con tres datos congelados al declararse —fase, unidad de trabajo y base de la corrida— y **no se recalcula**, a diferencia del origen del hecho de §8.1: la base de la corrida es de una corrida, y un hueco declarado hoy se sigue leyendo en corridas futuras, cada una con su propia base; remitir a «la base de la corrida» en un hueco ya escrito apuntaría, leído después, a un commit equivocado. **Reutiliza la base de la corrida de la 8.15** (reporte `26`) en lugar de crear una pieza paralela; lo único que agrega es la fase y la unidad de trabajo, que el origen del hecho no necesitaba. **§10.0 suma la comprobación 8**: verifica presencia del campo en los huecos que la fase escribe y no decide clasificación, la misma reserva con que la comprobación 7 trata la colisión léxica. **§15** suma el término.
+
+### Cambiado — `Migracion-Rules.md` 3.19 → 3.20
+
+**§4.8 es nueva: deriva la clasificación de un hueco entre «del ciclo» (se completa) y «de norma posterior» (se declara deuda) a partir del ciclo de origen**, comparando la versión del framework que exige el contenido faltante contra la que regía en el destino en ese ciclo — leída con `git show {{base}}:{{manifiesto}}` y **no declarada como campo aparte**, porque lo que se puede derivar de un commit no se declara dos veces (`Root-Rules.md` §10). Sólo eleva al humano el hueco que ninguna de las dos reglas alcanza. **§4.9 es nueva**: el tratamiento retroactivo decidido arriba, con `git log -S` sobre el texto literal de la fila y el valor terminal `no derivable — anterior al mecanismo` para cuando no resuelve. **§6 suma dos criterios enumerables**, uno con la forma decisiva del propio reporte: el número de huecos que la clasificación eleva tiene que ser **menor** que el total con las dos clases mezcladas, no igual.
+
+### Decisión de nombre: `ciclo de origen`, verificada y no heredada
+
+El reporte `27` v1.1 había renombrado `procedencia` a `ciclo de origen` **sin verificar sus secciones destino**, y su v1.2 reabrió la decisión. Se reproduce la verificación en lugar de heredar el número de la mesa que originó el reporte `28` —que medía un caso distinto, el de calificar `procedencia` para un sentido nuevo— con la unidad de contexto que la 13.12 fija en `Vocabulario-Rules.md` §9.2 (el contexto de lectura es del lector, y la suma de lo que un lector recibe no es un contexto):
+
+```bash
+grep -rn "ciclo de origen" SDD/Devs --include='*.md'   # 0 ocurrencias, antes de esta intervención
+```
+
+**Cero colisiones en los tres archivos que este campo toca** —`Root-Rules.md`, `Master-Prompt.md`, `Migracion-Rules.md`— y en el resto de `SDD/Devs`. No hace falta forma calificada ni entrada de glosario: el nombre se adopta desnudo, con costo de calificación cero, verificado antes de escribirse y no supuesto. Se confirma la elección de la v1.1 del reporte, con la verificación que le faltó.
+
+### Las seis preguntas de §5 del reporte, una por una
+
+- **§5.1 (el campo)**: sí. `ciclo de origen`, derivado del contexto de la corrida —fase, unidad de trabajo, base de la corrida— y no escrito a mano. `Root-Rules.md` §11/§12.1/§12.2, mecanismo en `Master-Prompt.md` §8.2.
+- **§5.2 (versión del producto)**: no como campo declarado. Se deriva del commit del ciclo de origen con `git show`, por la misma razón con que `Root-Rules.md` §10 prohíbe declarar un dato derivable: un segundo campo sería una segunda declaración del mismo hecho, que se desincroniza. `Migracion-Rules.md` §4.8 es quien lo deriva.
+- **§5.3 (clasificación)**: sí, `Migracion-Rules.md` §4.8, hueco del ciclo contra hueco de norma posterior, y sólo eleva lo que ninguna de las dos alcanza.
+- **§5.4 (tratamiento retroactivo)**: derivar donde se pueda y marcar no derivable donde no (arriba, y `Migracion-Rules.md` §4.9). Ni exigir ni vaciar sin más.
+- **§5.5 (criterio enumerable)**: sí, en `Migracion-Rules.md` §6 y en la fila de escalamiento de `Root-Rules.md` §12.2, más la comprobación 8 de `Master-Prompt.md` §10.0 que verifica presencia en generación.
+- **§5.6 (rol)**: no hace falta uno nuevo. El orquestador —de generación, de migración o de mesa— ya calcula el origen del hecho por el mismo mecanismo; calcular el ciclo de origen es la misma operación con dos datos más. Un rol nuevo sin el dato seguiría reconstruyendo a mano, que es la posición que el propio reporte toma en su §5.6.
+
+### Reutilización evaluada antes de escribir (solicitud 6)
+
+**`Deriva-Rules.md`, tipo de evidencia `ejecucion`**: ancla una afirmación a un momento verificable, y es la prueba de que el framework sabe fechar cuando decide hacerlo. No alcanza directo: es un valor del campo `evidencia` de un contrato de verificación de la categoría 10, no un campo de los tres instrumentos de huecos, y no lleva fase ni unidad de trabajo. Se reutiliza el **patrón** —anclar a un momento reproducible— no el artefacto.
+
+**`SDD-Development-Guide.md` §III.4**, las tres preguntas para agregar un instrumento: ¿corre una vez, una vez por unidad, o una vez por incremento? Corre **una vez por hueco declarado**, cada vez que se escribe uno de los tres instrumentos, en cualquier fase. ¿Qué precondición? Que la base de la corrida esté publicada (`Master-Prompt.md` §12.1 T0), la misma que el origen del hecho ya exige. ¿Qué se regenera y qué se preserva? Nada se regenera: el campo se escribe una sola vez y no se recalcula, por la razón de la base de una corrida contra huecos de lectura futura ya declarada arriba. §III.4 es de agregar una **fase**, y esto no es una fase: se responden sus preguntas porque transfieren bien, y se declara que no alcanzaba una figura ya escrita completa, sin inventar una tercera pieza — se ensambla con lo que el origen del hecho ya resolvió.
+
+### Relación con el reporte `25` y con el `26` (solicitud 7)
+
+**Con el `25`**: siguen siendo separables. El `25` trata el disparador del ciclo —qué evento hace que el método reciba un cambio de alcance del producto—; el `27` trata el formato del hueco dentro de un ciclo ya disparado. Nada de lo que esta intervención tocó sugiere que sean la misma figura.
+
+**Con el `26`**: los dos piden un dato que se calcula. **Se reutiliza la base de la corrida entera**, sin crear una pieza paralela. La diferencia que había que cuidar, y se cuidó: el origen del hecho vive y muere dentro de una corrida, y por eso se recalcula; el ciclo de origen de un hueco sobrevive a la corrida que lo escribió, y por eso se congela. Tratarlo como el origen del hecho —recalculable— habría sido correcto dentro de la corrida y falso en la siguiente.
+
+### Lo que este conjunto NO toca, y se declara
+
+**Los tres instrumentos no se fusionan.** `referencia pendiente`, `ítem diferido` y `apartamiento declarado` siguen siendo tres figuras. **El identificador no lleva el ciclo adentro**: el dato es un campo, no una forma de numerar. **No se crea ningún rol nuevo.** **`Lab-Geometria` no se toca**: el mecanismo de derivación retroactiva se escribe y se mide sobre una fila de muestra; correrlo sobre las 118 es trabajo de una migración real sobre ese destino. **`Vocabulario-Rules.md` no se modifica**: se usa su criterio de colisión de la 13.12 con el comando de verificación adjunto, que es lo que esa versión exige.
+
+### Lo que queda sin medir, y se dice
+
+**El criterio 3 del reporte —correr una migración sobre un árbol con huecos de las dos clases y contar cuántos se elevan— queda cumplido a medias**, con el precedente del reporte `18`: `Migracion-Rules.md` §4.8 declara el mecanismo y su criterio enumerable exige que el número elevado sea menor que el total, pero no se ejecutó una migración real sobre un destino para contarlo, porque los destinos son de solo lectura para esta intervención. El **criterio 4** —el caso retroactivo sobre los 118— queda igual de a medias: se probó el mecanismo de derivación sobre una fila real y no sobre las 118, por el mismo límite de alcance.
+
+### Por qué es minor
+
+**Ningún documento ya emitido deja de cumplir.** El campo rige hacia adelante desde SDD 8.7 de `Root-Rules.md`; un hueco declarado antes no es hallazgo por carecer de él, y su tratamiento en migración es el de `Migracion-Rules.md` §4.9, que es aditivo. `Master-Prompt.md` §16 clasifica como minor los cambios de mecánica de §8 y §10.0. No se toca ninguna invariante D1-D9 ni ninguna plantilla de intake.
+
+### Impacto sobre destinos existentes
+
+**Nada retroactivo, y no es «ninguno».** Todo destino con huecos declarados —que son todos— entra, en su próxima migración normativa, a la clasificación de `Migracion-Rules.md` §4.8, y como ninguno de sus huecos declarados hasta hoy tiene ciclo de origen, esa migración corre primero §4.9 sobre cada uno: lo deriva con `git log -S` donde el texto lo permite, o lo marca `no derivable — anterior al mecanismo`. Ninguna de las dos salidas eleva al humano por sí sola. Desde su próxima corrida de generación, **todo hueco nuevo lleva el campo**, verificado por la comprobación 8 de la compuerta mecánica. Medido sobre `Lab-Geometria`, sin tocarlo: sus **118** ítems diferidos son el volumen que su próxima migración va a clasificar.
+
+### Snapshot
+
+`_legacy/13.12/` se tomó **antes** de editar, desde el estado publicado de la 13.12, con las exclusiones de `SDD-Development-Guide.md` §VI.5: **129 archivos**. Verificado con `diff -rq` contra el árbol de trabajo: coincide byte a byte salvo los tres archivos que esta intervención tocó (la nota de coherencia es posterior al snapshot y no está adentro, correctamente). Adentro, `Root-Rules.md` está en **8.6**, `Master-Prompt.md` en **8.16** y `Migracion-Rules.md` en **3.19**.
+
+### Nota de coherencia
+
+`SDD/Devs/Guides/Coherencia-Ciclo-De-Origen.md`, conjunto resultante **13.13**.
+
 ## [13.12] - 2026-09-12
 
 **Una afirmación de colisión léxica sin su medición se leía igual de firme que una medida, y ninguna pieza del método lo notaba.** `Vocabulario-Rules.md` sabía decidir si un término colisiona y nombraba con exactitud el error de afirmarlo sin medir —§9.4, *«el patrón queda primado»*—, pero **era la única de las diecinueve reglas con criterios clasificados que no aportaba ni un `[enumerable]`**, recortaba la exigencia de medir a la invariante declarada, que es la forma más cara de desambiguar, declaraba el contexto de lectura para un solo lector, y **se contradecía sobre qué términos gobierna**. Es el reporte `28`, cuya evidencia central son seis afirmaciones de recuento, de sección o de colisión escritas sin medir en un mismo trabajo, todas detectadas por relectura ajena.
