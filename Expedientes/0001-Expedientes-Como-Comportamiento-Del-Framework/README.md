@@ -11,7 +11,7 @@
 |---|---|
 | Número | `0001` |
 | Título | Expedientes como comportamiento del framework |
-| Estado | **En trámite**: refutación asentada (014); veredictos pendientes |
+| Estado | **Dictaminado, sin resolución**: el dictamen (016) entrega el plan a la intervención `09`, que es quien resuelve. Hay tres escaladas en lote al Product Owner (015 §5) |
 | Apertura | 2026-09-13 |
 | Partes | **Presenta**: Product Owner del `Framework SDD`. **Tramita**: orquestador de la corrida (Claude Opus 5), como presidente de mesa sin voto. **Panel**: ocho comisiones (actuación 002 §3), con una réplica a ciegas en `ev-06` (actuación 003) |
 | Objeto | Diseñar cómo el `Framework SDD` adopta los expedientes de caso como comportamiento propio: dónde viven, cuándo se abren y cuándo no, su forma mínima, su identificador, su ciclo de vida, su evidencia y cómo esa evidencia pasa a formar parte de la especificación; su relación con `SDD/Docs/Audit/`, con la serie de reportes y con lo ya escrito; y el reemplazo de la detención por la mesa |
@@ -40,41 +40,38 @@
 | 012 | `constancia` | 2026-09-13 | Presidente de mesa | [La presentación del folio 001 no es literal: el original queda como `ev-07`](actuaciones/012-constancia-la-presentacion-001-no-es-literal.md) |
 | 013 | `providencia` | 2026-09-13 | Presidente de mesa | [Consolidación del panel y plan compuesto](actuaciones/013-consolidacion-y-plan-compuesto.md) |
 | 014 | `refutacion` | 2026-09-13 | Refutador | [Refutación del plan compuesto: 14 ataques, forma mínima alternativa](actuaciones/014-refutacion-del-plan-compuesto.md) |
+| 015 | `veredicto` | 2026-09-13 | Jurado de cinco funciones | [Veredicto: 14/14 ataques proceden, J-01 a J-07, forma por pregunta, 3 escaladas, 6 deudas](actuaciones/015-veredicto-del-jurado.md) |
+| 016 | `dictamen` | 2026-09-13 | Presidente de mesa | [Dictamen: Q1 a Q12, criterios A1–A10, deuda D-1 a D-7, cierre de mesa](actuaciones/016-dictamen.md) |
+| 017 | `constancia` | 2026-09-13 | Presidente de mesa | [Huellas mal transcriptas en el índice, y cartas asentadas tarde](actuaciones/017-constancia-huellas-del-indice-y-cartas-tardias.md) |
 
 ## Índice de evidencia
 
-Integridad: `sha256sum -c evidencia/SHA256SUMS`, desde `evidencia/`. **Cada salida se obtuvo corriendo
+Integridad: `sha256sum -c SHA256SUMS` corrido **desde `evidencia/`**, y cada subcarpeta con su propio manifiesto. **Este índice no transcribe huellas: remite a los manifiestos** (folio 017). **Cada salida se obtuvo corriendo
 su guion el 2026-09-13 contra la base de la actuación 002.**
 
 | Id | Qué muestra | Procedencia | SHA-256 de la salida |
 |---|---|---|---|
-| `ev-01` | Base de la corrida: commits de los cuatro repositorios, worktrees, y las carpetas `Expedientes` del workspace con su cantidad de entradas | [`ev-01-base.sh`](evidencia/ev-01-base.sh) → [`.out`](evidencia/ev-01-base.out) | `61bb3917…f86a` |
-| `ev-02` | Qué copia el snapshot `_legacy/<N>/`: raíz del repositorio contra `_legacy/9.6`, `13.0` y `13.15`, y la línea de exclusiones de la guía §VI.5 | [`ev-02-snapshot.sh`](evidencia/ev-02-snapshot.sh) → [`.out`](evidencia/ev-02-snapshot.out) | `dcf82b62…2fdd3` |
-| `ev-03` | Colisión del prefijo `EXP-` en cuatro repositorios y del término «expediente» | [`ev-03-colision.sh`](evidencia/ev-03-colision.sh) → [`.out`](evidencia/ev-03-colision.out) | `239f1971…5fdd3` |
-| `ev-04` | Inventario de lo ya escrito: `Audit/` de dos destinos por prefijo, carpetas `_legacy/` de destino y `OUTPUTs/` de las intervenciones | [`ev-04-inventario.sh`](evidencia/ev-04-inventario.sh) → [`.out`](evidencia/ev-04-inventario.out) | `233c0563…c81` |
-| `ev-05` | Las líneas de la norma 13.16 que el caso cita | [`ev-05-citas.sh`](evidencia/ev-05-citas.sh) → [`.out`](evidencia/ev-05-citas.out) | `29417eca…4d34042` |
+| `ev-01` | Base de la corrida: commits de los cuatro repositorios, worktrees, y las carpetas `Expedientes` del workspace con su cantidad de entradas | [`ev-01-base.sh`](evidencia/ev-01-base.sh) → [`.out`](evidencia/ev-01-base.out) | en `SHA256SUMS` (folio 017) |
+| `ev-02` | Qué copia el snapshot `_legacy/<N>/`: raíz del repositorio contra `_legacy/9.6`, `13.0` y `13.15`, y la línea de exclusiones de la guía §VI.5 | [`ev-02-snapshot.sh`](evidencia/ev-02-snapshot.sh) → [`.out`](evidencia/ev-02-snapshot.out) | en `SHA256SUMS` (folio 017) |
+| `ev-03` | Colisión del prefijo `EXP-` en cuatro repositorios y del término «expediente» | [`ev-03-colision.sh`](evidencia/ev-03-colision.sh) → [`.out`](evidencia/ev-03-colision.out) | en `SHA256SUMS` (folio 017) |
+| `ev-04` | Inventario de lo ya escrito: `Audit/` de dos destinos por prefijo, carpetas `_legacy/` de destino y `OUTPUTs/` de las intervenciones | [`ev-04-inventario.sh`](evidencia/ev-04-inventario.sh) → [`.out`](evidencia/ev-04-inventario.out) | en `SHA256SUMS` (folio 017) |
+| `ev-05` | Las líneas de la norma 13.16 que el caso cita | [`ev-05-citas.sh`](evidencia/ev-05-citas.sh) → [`.out`](evidencia/ev-05-citas.out) | en `SHA256SUMS` (folio 017) |
 | `ev-06` | Réplica a ciegas del panel: los ocho informes de la segunda convocatoria, verbatim, con despacho y entrega | [`ev-06-segunda-convocatoria/`](evidencia/ev-06-segunda-convocatoria/README.md), manifiesto propio | ver `ev-06-segunda-convocatoria/SHA256SUMS` |
 | `ev-07` | **Presentación original del Product Owner, byte a byte** (2026-09-13T12:03:02-03:00, 1486 bytes). Rige sobre el folio 001 (folio 012) | Extracción mecánica de la transcripción de la sesión: [`ev-07-presentacion-original.txt`](evidencia/ev-07-presentacion-original.txt) y [`.meta.txt`](evidencia/ev-07-presentacion-original.meta.txt) | `cb39bbd64dd919e3bb7ad484779c4215af473892cf02de5b797c76046f63dd1c` (`SHA256SUMS-ev-07`) |
 | `ev-08` | Encargo a la corrida y cartas despachadas: 16 de comisión y la del refutador, verbatim y en orden de despacho | Extracción mecánica de las llamadas de despacho: [`ev-08-cartas-despachadas/`](evidencia/ev-08-cartas-despachadas/README.md) | ver `ev-08-cartas-despachadas/SHA256SUMS` |
 
 ## Punto de continuación
 
-**Dónde está el caso.**
-- Último folio: **014**. La refutación cambia 15 de los 19 ítems del plan, resiste en 4, y propone una forma mínima de 18 campos contra los 47 del plan.
-- Las cartas despachadas quedaron asentadas en `ev-08`.
+**Dónde está el caso**
+- Último folio: **017**.
+- La mesa cerró **por decisión**, en una ronda (016 §7).
+- El dictamen responde las doce preguntas y entrega el plan a la intervención `09`.
 
-**Qué sigue, y quién.**
+**Sigue:** reporte `31` y prompt `09` en `IA.SDD.Documentacion`, rama `reportes/31-expedientes`, a cargo del presidente de mesa. Después, la intervención `09`, que es quien resuelve.
 
-| Paso | Folio | Quién |
-|---|---|---|
-| Veredictos sobre J-01 a J-07, Q1 a Q12 y los ataques R-01 a R-14 | 015 | Jurado de cinco funciones, despachado el 2026-09-13 |
-| Dictamen | 016 | Presidente, a partir de los veredictos |
-| Corrección de las huellas truncadas de `ev-02` y `ev-05`, y constancia de las cartas asentadas tarde | 017 | Presidente |
-
-Después vienen el reporte `31` y el prompt `09`. La intervención se numera como la siguiente a la vigente, probablemente la 13.18.
+**Queda abierto**
+- **E-1, E-2 y E-3** en lote al Product Owner (015 §5), cada una con su `SI NO RESPONDÉS`.
+- **D-1 a D-7** (015 §6 y 016 §4).
+- **Antes de cualquier push de esta rama, corre S2**, porque hay datos personales y rutas de host (E-2).
 
 **Base.** Rama `expedientes/0001-caso`. Norma 13.16 (`8c55a1e`).
-
-**Si la corrida se corta.**
-- Lo que no esté commiteado no existe.
-- Antes de volver a despachar el jurado, comprobar si el despacho anterior terminó (folio 003).
