@@ -1,0 +1,39 @@
+== SDD/Devs/Rules/Mesa-Rules.md :: **Carpeta target:**
+3:**Carpeta target:** `SDD/Docs/Audit/` del repositorio destino
+== SDD/Devs/Rules/Mesa-Rules.md :: | Registro de mesa |
+156:| Registro de mesa | `SDD/Docs/Audit/Mesa-<AAAA-MM-DD>[-ciclo-<N>].md` | Siempre que la mesa se convoca, aunque no encuentre nada | AG-00970 |
+== SDD/Devs/Rules/Mesa-Rules.md :: La mesa se convoca cuando se cumplen las tres
+23:**La mesa se convoca cuando se cumplen las tres:**
+== SDD/Devs/Rules/Mesa-Rules.md :: SI NO RESPONDÉS
+593:  SI NO RESPONDÉS
+== SDD/Devs/Orchestrator/Master-Prompt-Migracion.md :: Informe-Migracion-<origen>-a-<vigente>.md`, con la estructura
+330:**Salida.** `SDD/Docs/Audit/Informe-Migracion-<origen>-a-<vigente>.md`, con la estructura de informe de `Master-Prompt.md` §10 más tres secciones propias: el estado final de cada fila del plan, el contenido sin destino enumerado con su texto localizable, y la declaración de migración completa o parcial.
+== SDD/Devs/Orchestrator/Master-Prompt-Reanudacion.md :: SDD/Docs/Audit/Estado-Del-Destino-<AAAA-MM-DD>.md
+8:**Salida:** `SDD/Docs/Audit/Estado-Del-Destino-<AAAA-MM-DD>.md`, el registro de la mesa de evaluación en `SDD/Docs/Audit/Mesa-<AAAA-MM-DD>.md`, la decisión del humano, y **la continuación efectiva en la misma sesión** con el contexto ya reconstruido
+437:`SDD/Docs/Audit/Estado-Del-Destino-<AAAA-MM-DD>.md`. Es la única escritura de este prompt sobre el
+== SDD/Devs/Orchestrator/Master-Prompt-Reanudacion.md :: | **Punto de continuación** |
+452:| **Punto de continuación** | La etapa o fase concreta que sigue, su puerta de entrada y los documentos que la gobiernan | **La salida D, que no tiene prompt y sólo tiene esto** |
+== SDD/Devs/Rules/Deriva-Rules.md :: Tipos de evidencia admitidos
+53:Tipos de evidencia admitidos: `artefacto` (un archivo del repositorio), `ejecucion` (la salida de un comando reproducible), `linea-base` (un identificador de la línea de base visual o del contrato de datos), `audit` (un hallazgo de un informe de audit), `humano` (una aprobación explícita registrada con fecha).
+== SDD/Devs/Rules/Deriva-Rules.md :: una captura de una conversación
+55:Qué no es evidencia: la afirmación de un agente sin respaldo, una cita a un documento que no existe todavía, una referencia genérica a "la documentación", un porcentaje sin método de medición, una captura de una conversación.
+== SDD/Devs/Rules/Root-Rules.md :: Familias alcanzadas.
+443:**Familias alcanzadas.** Toda familia que catalogue elementos de una colección **de un producto o del conjunto normativo** (§9.1). **Del conjunto normativo: `AG`**, los roles del catálogo de especialidades y los subagentes de fase. Del producto: `NB`,
+== SDD/Devs/Rules/Root-Rules.md :: ### 12.2 Ítem diferido
+718:### 12.2 Ítem diferido
+== SDD/Devs/Orchestrator/Master-Prompt.md :: ## §8.2 Ciclo de origen de los huecos
+1096:## §8.2 Ciclo de origen de los huecos
+== SDD/Devs/Orchestrator/Master-Prompt.md :: > **Origen del hecho.**
+977:> **Origen del hecho.** Se contrasta el hecho —las líneas que lo sostienen, o el documento donde falta—
+== SDD/Devs/Orchestrator/Master-Prompt.md :: SDD/Docs/Producto/Decisiones-Pendientes.md
+617:- Path: `SDD/Docs/Producto/Decisiones-Pendientes.md`, o `SDD/Docs/Decisiones-Pendientes.md` en el
+== SDD/Devs/Rules/Root-Rules.md :: un procedimiento que crece deja de leerse
+809:que declara que un procedimiento que crece deja de leerse, sólo se justifica si hace falta»*. **Acá
+== SDD/Guides/SDD-Development-Guide.md :: **Intocabilidad.**
+1016:**Intocabilidad.** Una subcarpeta de versión, una vez creada, no se modifica nunca. Es la misma razón por la que las filas de control de cambios no se reescriben: un registro que se corrige después deja de ser un registro.
+== SDD/Guides/SDD-Development-Guide.md :: ### II.7 El framework no distribuye código ejecutable
+273:### II.7 El framework no distribuye código ejecutable
+== SDD/Devs/Rules/Migracion-Rules.md :: expediente de la intervención
+669:y que se mide sobre el caso real en el expediente de la intervención que escribió esta sección, no se
+== README.md :: ## Reglas de intervención sobre el framework
+137:## Reglas de intervención sobre el framework
