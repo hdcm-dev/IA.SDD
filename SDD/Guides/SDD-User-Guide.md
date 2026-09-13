@@ -2,7 +2,7 @@
 
 ```yaml
 Documento: Guia-Usuario-SDD.md
-Versión: 1.21
+Versión: 1.22
 Fecha: 2026-09-12
 Audiencia: profesionales y estudiantes que usan el template para un producto real
 Idioma: español rioplatense neutro técnico
@@ -373,7 +373,7 @@ ls ../IA.SDD/SDD/Devs/Orchestrator/   # Master-Prompt.md, Master-Prompt-Migracio
 ls ../IA.SDD/SDD/Devs/Rules/          # reglas de la fuente
 ```
 
-Debería listar los **tres** master-prompts en `Orchestrator/` de la fuente —`Master-Prompt.md`, que genera; `Master-Prompt-Migracion.md`, que lleva un destino ya especificado a la versión vigente; y `Master-Prompt-Reanudacion.md`, que determina en qué estado quedó un destino y con qué salida continuar—, los doce archivos de reglas por categoría `Rules-*.md` (de `Rules-Contexto.md` a `Rules-Examples.md`), más las ocho reglas transversales `Root-Rules.md`, `Intake-Rules.md`, `Maqueta-Rules.md`, `Deriva-Rules.md`, `Vocabulario-Rules.md`, `Migracion-Rules.md`, `Rules-Base-Conocimiento.md` y `Mesa-Rules.md` en `Rules/` de la fuente —veinte archivos en total—, y tu intake personalizado en `SDD/Intake/` del destino (el único `PRODUCT-INTAKE` del producto). El `PRODUCT-MANIFEST` no lo creás vos: lo deriva el orquestador y lo escribe también en `SDD/Intake/` del destino.
+Debería listar los **tres** master-prompts en `Orchestrator/` de la fuente —`Master-Prompt.md`, que genera; `Master-Prompt-Migracion.md`, que lleva un destino ya especificado a la versión vigente; y `Master-Prompt-Reanudacion.md`, que determina en qué estado quedó un destino y con qué salida continuar—, los doce archivos de reglas por categoría `Rules-*.md` (de `Rules-Contexto.md` a `Rules-Examples.md`), más las ocho reglas transversales `Root-Rules.md`, `Intake-Rules.md`, `Maqueta-Rules.md`, `Deriva-Rules.md`, `Vocabulario-Rules.md`, `Migracion-Rules.md`, `Rules-Base-Conocimiento.md` , `Mesa-Rules.md` y `Expediente-Rules.md` en `Rules/` de la fuente —veintiún archivos en total—, y tu intake personalizado en `SDD/Intake/` del destino (el único `PRODUCT-INTAKE` del producto). El `PRODUCT-MANIFEST` no lo creás vos: lo deriva el orquestador y lo escribe también en `SDD/Intake/` del destino.
 
 ### 4.5 Paso 5 — Ejecutar el master-prompt en Claude Code
 
@@ -1750,6 +1750,7 @@ Esta guía de usuario está distribuida en 10 capítulos completos según la est
 | 1.19 | 2026-08-23 | **La cita de conocimiento pasa de anunciada a operativa** (conjunto 13.2). **F-23.1 corrige una afirmación que la 1.18 dejó y que la 13.2 volvió falsa**: decía que citar el catálogo desde el intake «todavía no está cableado», y ya lo está. En su lugar entra el procedimiento real, en cuatro pasos: se cita el alias en `§17.P.13`, el orquestador lo resuelve al validar el intake —**y un alias que no existe es bloqueante**—, lo suma **sólo** al despacho del consumidor que el índice declara, y el subagente lo lee como un insumo más. Se declara además lo que evita citar de más: **cada documento tiene condición de carga y lo que dispara se carga solo**; y que el conocimiento es **insumo consultivo**, de modo que ante conflicto manda la regla de categoría. **Siete ocurrencias de «P.1 a P.12» pasan a «P.1 a P.13»** por la subsección nueva de la plantilla 3.5. El glosario amplía la entrada *Alias citable*. Sube **minor**: describe una capacidad nueva y corrige una afirmación falsa, sin cambiar ningún procedimiento existente. |
 | 1.20 | 2026-08-27 | §4.4 pone al día su recuento por la entrada de `Mesa-Rules.md` (framework 13.7): las reglas transversales pasan de siete a **ocho** y el total de diecinueve a **veinte**. Sube **minor**: corrige un conteo sin cambiar ningún procedimiento. |
 | 1.21 | 2026-09-12 | El glosario pone al día **«Contexto de lectura»** contra `Vocabulario-Rules.md` 3.3: la unidad la decide la lista de insumos de cada lector, y no es la sección para todo subagente. **Las filas 1.17 a 1.19 estaban en orden inverso** y pasan a su lugar sin cambiar su texto, por la comprobación 10 de `SDD-Development-Guide.md` §VI.3. Sube minor (framework 13.12). |
+| 1.22 | 2026-09-13 | **El recuento de reglas de la fuente pasa de veinte a veintiuno** con `Expediente-Rules.md` (framework 13.18, reporte `31`). La pregunta frecuente sobre expedientes queda diferida (deuda D9-3 de la mesa de la intervención `09`). |
 
 ---
 

@@ -3,6 +3,83 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.18] - 2026-09-13
+
+**El método tenía un contenedor por artefacto y ninguno para el caso que los atraviesa.** Un ADR guarda una decisión, un informe de audit una ronda, un registro de mesa un ciclo; un pedido, un incidente o una contradicción que cruza corridas y repositorios no tenía dónde quedar entero, y la evidencia que funda una decisión —la palabra del Product Owner incluida— quedaba sin lugar, sin custodia y sin vínculo con lo que cambió. El mismo día en que el Product Owner pidió la figura, **dos corridas la inventaron con dos formas distintas**. Es el reporte `31`, cuya evidencia primaria es el expediente `Expedientes/0001-Expedientes-Como-Comportamiento-Del-Framework/`.
+
+**La trampa del caso, y cómo se evitó: convertir un buen hábito en una ceremonia que nadie completa.** El primer plan pedía cuarenta y siete campos y doce pasos, y el ejemplar que lo proponía no cumplía dos de sus reglas. La forma que entra **se llena en minutos y se verifica enumerando**: diecinueve campos en un caso de dos folios, ninguno derivable del árbol o de git, y doce criterios cuyo comando vive en el texto de la regla. **Cada criterio se probó fallando** sobre un caso construido, y al re-medirlos sobre los dos expedientes reales apareció un defecto de la propia regla —git escapaba las rutas con tildes— que se corrigió antes de publicar.
+
+### La decisión de fondo: sí
+
+**El `Framework SDD` adopta el caso como figura normada.** No por el pedido solo: ninguno de los contenedores del método tiene la unidad «caso», y reconstruir una fase de un destino real exigió abrir nueve archivos de tres directorios y una rama.
+
+**No se aplicó el dictamen del expediente al pie de la letra.** La intervención lo sometió a una mesa con Seguridad, Formal y Trazabilidad documental —las tres que el expediente postergó—, Requisitos, Verificación, Lector sin contexto y un refutador, y a un **jurado de cinco agentes distintos**, uno por función, que votó diecisiete ítems 5-0 sin veto. La homogeneidad del 100 % se declara; lo que el jurado agregó está en sus variantes, y ahí sí hubo desacuerdo. El registro está en el repositorio de documentación, `PROMPTs/Fixs/09-Fix-Reporte-31/OUTPUTs/`.
+
+### Agregado — `SDD/Devs/Rules/Expediente-Rules.md` 1.0
+
+Regla transversal del **expediente de caso**:
+
+- **§1 · Cuándo se abre**: si el caso atraviesa corridas o repositorios, o entra material externo que funda una decisión, **y ninguna exclusión lo describe entero** (la mesa con registro en `Audit/`, la detención del lote, la autocorrección, el audit, el ítem diferido, lo que se contesta con un comando). Se radica donde corre la corrida que trata el caso.
+- **§2 · Dónde vive**: `SDD/Expedientes/<NNNN>-<Titulo>/` en un destino, `Expedientes/` en la raíz del framework; fuera del snapshot, de la migración y de la compuerta; se conserva siempre.
+- **§3 · Forma mínima**: carátula de **seis** campos (número, título, objeto, apertura, origen, base), cabecera de cuatro, pase en la última línea, testimonio con tres; índice, estado y punto de continuación **se derivan**. Número de **cuatro dígitos**, sin prefijo. Seis tipos, con el estado derivado de la secuencia: una errata no reabre.
+- **§3.3 · El testimonio**: literal byte a byte con canal, fecha-hora y huella, **clasificado por contenido**. **La aprobación asentada así es la «aprobación explícita registrada con fecha» del tipo `humano` de D9, y D9 no se modifica** (opción C de la escalada E-3, con respaldo del jurado).
+- **§4 · Tres momentos de uso** —abrir, despachar, publicar o cerrar— con pasos cortos; **S1**: nada cambia después del primer push, con la redacción S2 como única excepción declarada; **S2**: compuerta por clase de dato —el secreto se revoca, lo de un repositorio privado es concepto y no infraestructura, la ruta del host se redacta— con la **visibilidad verificada** o declarada por el dueño, antes de **cada** push; **S3**: la fusión no aplasta la historia.
+- **§5 · Vínculo**: la fila de control de cambios del artefacto que cambia cita el expediente, directo o a través del registro de `Audit/`; la inversa se deriva; `ruta@commit` a un commit ancestro de la rama principal.
+- **§6 · A1 a A12** `[enumerable]` con su comando, **I1 a I5** `[interpretativo]`.
+
+### Cambiado
+
+- **`Master-Prompt.md` 8.19 → 8.20**: §3.5 `SDD/Expedientes/`; §7.0 la respuesta al lote se asienta con su literal; **§8.1 «La mesa antes de la detención»**, para la ambigüedad y el arbitraje —no para la confirmación de plan ni T4—: lo bloqueante sale en el momento, lo que no bloquea va a una mesa por fase o por corte, y sus escaladas no reingresan; §12.1 T1 la fusión de una rama con expediente; §15 el término.
+- **`Master-Prompt-Migracion.md` 2.10 → 2.11**: **modificación declarada** de «no la reconvoca dos veces» (§1): la mesa se vuelve a convocar una vez por corte de M4 por §8.1; M4 cablea la diferencia ajena al lote del corte.
+- **`Master-Prompt-Reanudacion.md` 1.13 → 1.14**: R0 paso 4 lee los expedientes abiertos **de forma vigente**; los históricos se nombran y no cuentan; §0 cablea §8.1; §5 remite al pase.
+- **`Mesa-Rules.md` 1.3 → 1.4**: §2.2 punto 1 nombra la carpeta del expediente; §7.1 asienta la respuesta con su literal; §8 criterio 1: en el framework el registro es el expediente.
+- **`Migracion-Rules.md` 3.20 → 3.21**: §2.2 excluye `SDD/Expedientes/`.
+- **`Root-Rules.md` 8.7 → 8.8**: §9.2 suma dos familias excluidas, el número de expediente y el folio; **no se agrega un ámbito ni se toca D3**.
+- **`Catalogo-De-Criterios.md` 1.18 → 1.19**: cuatro situaciones; §4 pasa de **226 a 238** anti-patrones (**115** enumerables, **123** interpretativos).
+- **`SDD-Development-Guide.md` 1.30 → 1.31**: §I.2 veintiún reglas y la fila `Expedientes/`, excepción a la eliminación de registros; §II.7; §VI.3 comprobación 2 acotada al conjunto normativo; §VI.3.2 clase estable `Expedientes/`; **§VI.5 suma `Expedientes/` a la lista cerrada de exclusiones del snapshot**.
+- **`SDD-User-Guide.md` 1.21 → 1.22**: el recuento de reglas.
+- **`README.md`** (in situ): anatomía, recuentos, regla de intervención, y **la autosuficiencia reformulada y declarada**: rige sobre el conjunto normativo; `Expedientes/` nombra repositorios públicos como texto y ofusca los privados.
+- **`_legacy/README.md`** (in situ): `Expedientes/` entre lo que no se copia.
+- **`Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` 1.0 → 1.1**, **por remisión**: §2.3 y §5.3 remiten a la regla, §3.2 corrige «el testimonio es evidencia E4», §5.2 y §6 se alinean, y la deuda de §8 se cierra. `Index-Knowledge.md` no cambia: la fila no lleva la versión del documento.
+
+### Corregido — ofuscación de `Examples/`
+
+`Examples/New-Solution/Repo.Documentos/PROMPTs/02-Crear-Analisis-Relevamiento/Crear-Analisis-Relevamiento.md` y `.../03-Ejecutar-Prompt-Integrador-Documento-Intake/INPUTs/Requerimientos-Tecnicos.md` publicaban **la dirección de un host de red privada, su puerto de acceso remoto y un usuario con su contraseña**, y rutas a repositorios privados. La dirección pasa a `<IP-del-host>`, el puerto y la credencial a marcadores, y las rutas a descripciones del concepto («el relevamiento de la cámara IP, en la documentación de infraestructura privada», «la versión anterior del servicio (Node.js, con control de servos)»). **El ejemplo sigue sirviendo como ejemplo.**
+
+```bash
+grep -rnE '192\.168\.|Host\.Infra|explorador[0-9]|Legacy-Service' Examples | wc -l    # → 0
+```
+
+**Los `_legacy/` anteriores no se tocan**: son registro intocable (`SDD-Development-Guide.md` §VI.5). La misma dirección y la misma credencial siguen en `Examples/` de 22 snapshots, 44 archivos, desde `_legacy/12.0/` hasta `_legacy/13.17/`. La dirección es de red privada y no se alcanza desde Internet; **la credencial es un secreto, y la respuesta de S2 a un secreto publicado es revocarla**, que no hace esta intervención.
+
+### El expediente `0001`
+
+Recibe **dos folios después de su fusión**, sin editar su `README.md`: el **019**, constancia de **redacción S2** de dos piezas que nombraban un repositorio privado y de cuatro que conservaban el usuario del host, con huellas antes y después y manifiestos regenerados; y el **020**, resolución que cita esta versión y lo declara **forma histórica**. La constancia declara que lo empujado no se retira.
+
+### Verificación
+
+`SDD/Devs/Guides/Coherencia-Expediente-De-Caso.md` 1.0, con el barrido por concepto, las catorce comprobaciones de §VI.3, D1 a D9, los cinco criterios del reporte `31` y **A1 a A12 re-medidos sobre los dos expedientes reales**, cada uno con su comando y su salida. `_legacy/13.17/` con el conjunto entero, **133 archivos** contados contra `git ls-tree`, tomado de `main` antes de editar y **sin `Expedientes/`**. Conjunto resultante **13.18**.
+
+### Por qué es minor
+
+**Ninguna regla sube major y ninguna invariante se modifica.** D9 no se toca (opción C); D3 no se toca (familia excluida, sin ámbito nuevo); la excepción S2 a S1 es de la regla nueva. Las obligaciones son hacia adelante: **un documento generado con la 13.17 no deja de cumplir**.
+
+### Impacto sobre destinos existentes
+
+**Nada retroactivo, y no es «ninguno».**
+
+| Destino | Qué le alcanza |
+|---|---|
+| `Lab-Geometria` | **Su expediente `SDD/Expedientes/0001-Migracion-Normativa-A-13.16/` queda como forma histórica**: no se renombra ni se reescribe, y la reanudación no lo cuenta como pendiente. Re-medido con A1 a A12: **A1, A8, A10 y A11 dan cero**; los demás marcan lo que la forma histórica no tiene y §5.1 no exige. **D-1** —contrastar sus folios 001 y 002 contra el original del pedido— **es de la corrida de migración**, no de esta intervención. Su evidencia es pública de consulta por declaración de su dueño y no se redacta. Al abrir un expediente nuevo, numera `0002` |
+| `RPI.VideoControl` | Su `SDD/Docs/Audit/evidencia/` **convive** con la figura: es evidencia de audit y no un expediente. Un caso nuevo que cumpla §1 abre `SDD/Expedientes/0001-…`. Es un repositorio privado: lo que un expediente del framework tome de él es concepto, nunca infraestructura |
+| Cualquier destino | La respuesta del Product Owner a un lote o a una escalada se asienta con su literal **desde esta versión**; las citas anteriores no se reescriben |
+
+### Deuda declarada
+
+- **D9-1**: la custodia durable de los originales anteriores a las redacciones S2 del expediente `0001` y de la mesa; hoy es de sesión. Cierra el Product Owner, con una constancia en ese expediente.
+- **D9-2**: la dirección y la credencial en `Examples/` de los `_legacy/` 12.0 a 13.17. Cierra la organización dueña del repositorio, con una decisión registrada en una versión posterior.
+- **D9-3**: la pregunta frecuente de la guía de usuario sobre expedientes, y las remisiones de `Mesa-Rules.md` §0.0 y §2.1. Cierra la próxima intervención que toque esos archivos.
+
 ## [13.17] - 2026-09-13
 
 **La mesa que el framework regula la convoca un orquestador por condición, y casi todas las mesas corridas las pidió una persona.** `Mesa-Rules.md` §0.0 supone corpus previo y estado leído; los pedidos reales llegaron sobre una interfaz en ejecución, sobre una norma que todavía no existía y sobre una contradicción entre observadores, y cada uno reconstruyó a mano la misma forma a partir de un marco de orquestación que vive fuera de este repositorio. Esta versión cataloga esa forma **sin mover una coma de la norma**, y sin citar la ruta del marco de origen: el Product Owner lo pidió así para que el catálogo siga resolviendo si el framework se mueve.

@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-00990)
-**Versión de las reglas:** 8.7
+**Versión de las reglas:** 8.8
 
 ---
 
@@ -501,7 +501,7 @@ techo: era que cada agente eligiera una salida distinta sin ningún criterio del
 una, y que dos corridas del mismo framework produjeran líneas de base incomparables.
 
 **Las exclusiones, con su motivo.** §9.5 exige que toda familia viva quede clasificada: alcanzada o
-excluida. Las cuatro que siguen son las excluidas.
+excluida. Las seis que siguen son las excluidas.
 
 | Excluida | Por qué |
 | --- | --- |
@@ -509,6 +509,8 @@ excluida. Las cuatro que siguen son las excluidas.
 | `CA-NN` | Designa un **criterio de aceptación dentro del caso de uso o la historia que lo contiene** (`Rules-Especificacion-Funcional.md` §3.2). Le aplica **sin cambiar una palabra** el motivo de `FA-NN`, con el que comparte regla y tablas contiguas: es una **posición dentro de un documento** y **no cataloga un elemento de una colección** |
 | `PASO-N` | Designa un **paso dentro del procedimiento que lo contiene** (`SDD-Getting-Started-Guide.md`). Es un **ordinal de secuencia**, del mismo orden que el ordinal de iteración: su referente es la posición en un recorrido, no un elemento catalogado |
 | El ordinal de iteración (`Sprint-XX`, `S0` a `S9`) | Es una posición de calendario que el roadmap de la categoría 00 numera, no un identificador de catálogo. Su referente es una ventana de tiempo del producto |
+| El número de expediente de caso (`NNNN-<Titulo>`) | **Nunca se cita desnudo**: su identidad es la carpeta, que no se renombra (`Expediente-Rules.md` §4, S1) y cuyo número no se repite en el repositorio (A1). Por eso no toma ámbito de §9.1 y lleva **ancho propio de cuatro dígitos**, con el marcador de su forma. Medido al decidirlo: los dos expedientes que existían ya usaban cuatro dígitos, y un prefijo `EXP-` ya vivía en un destino |
+| El folio de una actuación (`NNN`) | Es una **posición dentro del expediente**, por orden de incorporación, como `FA-NN` dentro de un caso de uso |
 
 ### 9.3 Estabilidad y capacidad, enunciadas juntas
 
@@ -861,3 +863,4 @@ correcta y no se podía sostener con una cita. Esta sección la funda hacia atr�
 | 8.5 | 2026-08-23 | **§9.2 escribe la regla de asignación interna del bloque `009xx`, y con eso cierra un ítem diferido cuyo evento de cierre ya había ocurrido.** El ítem 4 de `Coherencia-Renumeracion-AG.md` §8 declaraba que la regla no se escribía porque *«no hay un segundo rol de nivel producto que fuerce la decisión: fijarla ahora sería inventar el caso»*. **`AG-00980`, acuñado en la 13.2, es ese segundo rol**, y el ítem quedó abierto tres versiones después de que su condición se cumpliera — que es exactamente el **hallazgo P1** que §12.2 califica. La regla: los roles toman `009N0` **descendiendo desde `00990`**, y sus subagentes de fase `009N1` a `009N9`, con la misma gramática que las categorías usan en `00NN0`. Se asigna el mayor libre y no el menor, con lo que los roles quedan ordenados por alcance decreciente sin declararlo aparte. **Se declara además lo que la regla no resuelve**: el solapamiento del bloque con las categorías `90` a `99` sigue diferido y **se agrava**, porque ahora hay dos ocupantes. Sube **minor**: agrega una regla de acuñación y ningún identificador vivo cambia. |
 | 8.6 | 2026-08-27 | **Alta de `AG-00970` en el bloque `009xx`**, el presidente de la mesa de evaluación. Se aplicó la regla de acuñación que la 8.5 escribió —el **mayor libre descendiendo desde `00990`**— y se verificó que el identificador estuviera libre antes de acuñarlo. Se verificó además la condición que la 8.5 declara como instructiva: **a qué ítem diferido le cumple la condición esta acuñación**. A ninguno; el único abierto del bloque es el solapamiento con las categorías `90` a `99`, que **se agrava** —tres ocupantes en lugar de dos— y sigue diferido con su evento de cierre intacto. El contrato del rol vive en `Mesa-Rules.md` §1.1 y esta regla lo cita, no lo duplica. Sube **minor**: agrega una entrada a una tabla y ningún documento generado deja de cumplir. |
 | 8.7 | 2026-09-12 | **§11, §12.1 y §12.2 suman el ciclo de origen** (framework 13.13), por el reporte `27` de `IA.SDD.Documentacion`: los tres instrumentos para lo que falta declaran hacia dónde apuntan y ninguno de dónde salen, y una migración no podía distinguir un hueco que el propio ciclo no llegó a escribir de un hueco que la norma exige recién después. El campo se calcula —fase, unidad de trabajo y base de la corrida, congelados al declararse— y no lo completa el agente; el mecanismo vive en `Master-Prompt.md` §8.2, que reutiliza la base de la corrida de la intervención del reporte `26` en lugar de crear una paralela. La clasificación que la migración deriva de él vive en `Migracion-Rules.md` §4.8, y el tratamiento de los huecos anteriores al mecanismo en §4.9. Nueva fila de escalamiento en §12.2: un hueco declarado desde esta versión sin su ciclo de origen es **hallazgo P1**. Sube **minor**: agrega un campo obligatorio hacia adelante y no exige reescribir ningún hueco ya declarado. **Corregido de paso**: las filas 8.3 a 8.6 de este mismo control de cambios estaban en orden inverso, contra la comprobación 10 de `SDD-Development-Guide.md` §VI.3; se reordenan sin cambiar el texto de ninguna. |
+| 8.8 | 2026-09-13 | **§9.2 suma dos familias excluidas**, el número de expediente de caso y el folio (framework 13.18, reporte `31`), con su motivo: el número nunca se cita desnudo porque su identidad es la carpeta, que no se renombra, y lleva ancho propio de cuatro dígitos; el folio es posición. **No se agrega un tercer ámbito a §9.1 ni se toca D3**. El recuento de exclusiones pasa de cuatro a seis. Sube **minor**. | Intervención del reporte `31` |

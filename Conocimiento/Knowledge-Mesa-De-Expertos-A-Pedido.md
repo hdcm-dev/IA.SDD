@@ -8,7 +8,7 @@
 **Hereda-de:** —
 **Sustituye:** —
 **Compatible-con:** Rules-Base-Conocimiento.md 2.2
-**Versión:** 1.0
+**Versión:** 1.1
 **Estado:** Vigente
 **Fecha:** 2026-09-13
 
@@ -42,7 +42,7 @@ sigue resolviendo.
 | Los niveles de hallazgo P0–P3, la compuerta mecánica y el criterio de corte por rondas | `Master-Prompt.md` §10, §10.0 y §10.1 |
 | La forma de una detención, el origen del hecho y el lote con default | `Master-Prompt.md` §8.1 y §7.0 |
 | La auditoría de lo que una fase acaba de producir | `Master-Prompt.md` §10: la mesa mira lo que ya existe o lo que se va a decidir |
-| La forma normativa de un expediente de caso | **Ninguna regla la fija todavía.** §2.3 describe la práctica; si el framework adopta una norma de expedientes, esa norma gobierna y este documento se alinea |
+| La forma normativa de un expediente de caso | `SDD/Devs/Rules/Expediente-Rules.md`, desde la 13.18. **Se cita, no se repite**: §2.3 y §5.3 remiten a ella |
 | Herramientas concretas de orquestación de agentes | No se nombran: la convención vale con cualquiera que despache agentes sin contexto compartido |
 
 ## 1. Identidad del artefacto
@@ -109,21 +109,23 @@ parche que toca una sola es una regresión programada.
 
 ### 2.3 El expediente de la mesa
 
-Toda mesa a pedido deja una carpeta, aunque no encuentre nada. La forma que sostuvo el uso:
+**Toda mesa a pedido deja registro, aunque no encuentre nada.** Cuándo ese registro es un expediente,
+dónde vive, qué forma tiene y cómo se sella lo fija `SDD/Devs/Rules/Expediente-Rules.md`, y **este
+documento no la repite**. Lo que agrega para una mesa a pedido es la correspondencia de sus piezas con los
+tipos de actuación de esa regla:
 
-| Pieza | Quién la escribe | Regla |
-| --- | --- | --- |
-| `README.md` | Presidente | **Por dónde entrar**: qué leer si se quiere el resultado en una página, el hallazgo más grave, el plan, la evidencia. Y el **punto de continuación**: dónde está parada la mesa y qué sigue |
-| `00-Contrato-De-Entrada.md` | Presidente | La presentación literal del pedido, el contrato de §5.1 y la verificación del despacho del paso 2 |
-| `NN-Informe-<Comision>.md` | Cada comisión | **Verbatim**. El presidente no lo resume ni lo corrige: lo que tenga que agregar va en su propio documento |
-| `NN-Informe-Refutador.md` | Refutador | Verbatim |
-| `NN-Plan-Y-Cierre.md` | Presidente | Todo lo que agrega a los informes está **marcado como propio**, y toda medición que afirma lleva su comando |
-| `evidencia/` | Quien la produce | Salidas de comandos, capturas y guiones, con la fecha y el origen de cada uno |
+| Pieza de la mesa | Cómo entra al expediente |
+| --- | --- |
+| El pedido literal | Folio `presentacion` con su bloque de testimonio |
+| El contrato de entrada de §5.1 y la verificación del despacho | Folio `providencia` |
+| La carta de cada comisión | Pieza de `evidencia/`, antes de despachar |
+| Los informes de las comisiones y del refutador, y el voto del jurado | Folios `informe` verbatim en el repositorio del framework; en un destino, el registro de `Audit/` foliado por `ruta@commit` |
+| El plan y el cierre, con lo que el presidente agrega marcado como propio | Folio `resolucion` |
 
-**Ubicación.** La que declare el pedido. Si el objeto es un destino del framework y la mesa cumple
-`Mesa-Rules.md` §0.0, el registro normativo va donde esa regla lo manda y la carpeta lo enlaza, no lo
-duplica. **Los documentos de un expediente no se reescriben**: una corrección es un documento nuevo que
-cita al anterior.
+**Si el objeto es un destino y la mesa cumple `Mesa-Rules.md` §0.0**, el registro normativo va donde esa
+regla lo manda y el expediente lo folia, no lo duplica. **Si la mesa no cumple la condición de
+`Expediente-Rules.md` §1**, deja su carpeta con los informes verbatim y su punto de continuación, sin forma
+de expediente.
 
 ## 3. Contrato de uso
 
@@ -137,7 +139,7 @@ nunca se le eleva (`Mesa-Rules.md` §6.2).
 | «Hacé una mesa de expertos en `<dominio>`» | Núcleo permanente siempre; comisiones de ese dominio como catálogo variable, cada una con su señal. Si el dominio no está en el catálogo, **ad hoc con carta de mandato** |
 | «Presentales como caso `<X>`» | `<X>` es el objeto y **la presentación literal del pedido es la primera pieza del expediente**. Las comisiones la reciben textual, no parafraseada |
 | «Que busquen `<Z>`» / «en base a los estándares de la industria y la academia» | Mandato de investigación: fuentes externas citables por comisión (§2.2, diseño de una norma) |
-| «Que vuelquen sus informes en `<ruta>`» | El expediente va en `<ruta>`, con los informes verbatim |
+| «Que vuelquen sus informes en `<ruta>`» | Los informes van verbatim a esa ruta. Si el caso cumple la condición de `Expediente-Rules.md` §1, la ruta es la del expediente y la forma, la de esa regla |
 | «Que lleguen a una conclusión cerrada» | Dictamen pregunta por pregunta. Lo que no se pueda cerrar se declara con su motivo y su default |
 | «Que evalúe si me necesita» | La lista cerrada de `Mesa-Rules.md` §7, con el origen del hecho calculado antes |
 | El pedido llega **en medio de otro trabajo**, ante un problema | La mesa reemplaza la detención: se convoca, se resuelve, se registra, y **sólo sale al humano lo que después de la mesa sigue sin respuesta en el árbol** |
@@ -156,7 +158,7 @@ deliberativo con acta.
 | **Una afirmación de colisión o no colisión de un término, sólo con E1** | Una cita muestra dónde está una palabra, no dónde no está (`Mesa-Rules.md` §6.1). Medido: un refutador contó líneas donde había que contar ocurrencias |
 | **La fuente declarativa se contrasta antes de fundar un `P0`** | Una fila de plan, una casilla o un recuento en prosa son afirmaciones sobre el trabajo y no el trabajo (`Mesa-Rules.md` §6.1) |
 | **Un hallazgo heredado de un informe anterior entra como `C`** | Conocimiento reenviado que nunca se verifica |
-| **El testimonio de quien pidió es evidencia E4**, con su fecha y su texto literal | Una decisión humana parafraseada deja de ser citable |
+| **El testimonio de quien pidió se asienta con su literal, canal, fecha-hora y huella**, y se clasifica por contenido (`Expediente-Rules.md` §3.3): el pedido es fuente de intención y pasa a E4 cuando queda como restricción del contrato; la aprobación es evidencia `humano` de D9 | Una decisión humana parafraseada deja de ser citable, y un testimonio no es E4 por sí mismo: E4 es regla declarada (`Mesa-Rules.md` §6.1) |
 | **Los informes van verbatim** | El expediente deja de ser auditable: nadie puede distinguir lo que dijo la comisión de lo que entendió el presidente |
 | **Niveles P0–P3**, nunca una segunda escala | Dos conjuntos cerrados para la misma pregunta (`Coherencia-Mesa-De-Evaluacion.md` §6) |
 | **Quien diseña un parche no lo vota; quien lo aplica lo verifica** | Se elimina el único control que no es de quien escribió |
@@ -221,21 +223,13 @@ impacto si no se corrige y dirección de la corrección, no su redacción.
 sin cláusulas inventadas.}}
 
 Tope: {{N}} hallazgos. Declarás hasta tres ítems de «lo que revisé y está bien».
-Escribís tu informe verbatim en {{RUTA DEL EXPEDIENTE}}/{{NN}}-Informe-{{COMISIÓN}}.md.
+Tu informe es tu último mensaje, verbatim: quien preside lo asienta como folio o en el registro.
 ```
 
 ### 5.3 Carpeta del expediente
 
-```text
-<expediente>/
-├── README.md                      por dónde entrar · punto de continuación
-├── 00-Contrato-De-Entrada.md
-├── 01-Informe-<Comision>.md       verbatim
-├── …
-├── NN-Informe-Refutador.md        verbatim
-├── NN-Plan-Y-Cierre.md            lo propio del presidente, marcado
-└── evidencia/
-```
+La del árbol de `Expediente-Rules.md` §3, con la correspondencia de §2.3. No se repite acá para no
+mantener dos copias del mismo árbol.
 
 ### 5.4 Campos de cierre que suma la clase «interfaz en ejecución»
 
@@ -249,7 +243,7 @@ Al bloque de `Mesa-Rules.md` §6.7:
 
 ## 6. Criterios de aceptación
 
-- [ ] `[enumerable]` El expediente existe y tiene `README.md`, `00-Contrato-De-Entrada.md`, un informe por comisión convocada, el del refutador y `NN-Plan-Y-Cierre.md`.
+- [ ] `[enumerable]` Si la mesa abrió expediente, cumple A1 a A12 de `Expediente-Rules.md` §6; si no, su carpeta tiene un informe por comisión convocada, el del refutador y el plan con su cierre.
 - [ ] `[enumerable]` El contrato de entrada transcribe el pedido literal con su fecha.
 - [ ] `[enumerable]` Todo dato numérico o de sección que el despacho pasó al panel tiene su comando y su salida en el contrato.
 - [ ] `[enumerable]` El registro de convocatoria enumera convocados con su señal y **descartados con su motivo**.
@@ -292,8 +286,8 @@ este documento y `Mesa-Rules.md`, **manda la regla** (`Rules-Base-Conocimiento.m
 **No define criterios de aceptación de ningún artefacto que el framework genere.** Los de §6 se
 verifican sobre el expediente de la mesa, que no es un entregable de categoría.
 
-**Deuda del artefacto, declarada.** La práctica de expedientes de §2.3 precede a cualquier norma: si
-el framework adopta una, §2.3 se reescribe contra ella.
+**La práctica de expedientes de §2.3 precedió a la norma**, y desde la 13.18 la norma es
+`Expediente-Rules.md`: §2.3 y §5.3 remiten a ella y la deuda que este párrafo declaraba queda cerrada.
 
 ## 9. Trazabilidad
 
@@ -310,3 +304,4 @@ el framework adopta una, §2.3 se reescribe contra ella.
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
 | 1.0 | 2026-09-13 | Emisión inicial. Cataloga la mesa de expertos convocada por pedido explícito: la lectura del pedido, las cuatro clases de objeto con su variante, el despacho verificado, el expediente de la mesa y los filtros de juicio que dejaron las mesas corridas, sin redefinir ninguna pieza de `Mesa-Rules.md`. |
+| 1.1 | 2026-09-13 | **Se alinea con `Expediente-Rules.md` por remisión** (framework 13.18, reporte `31`), y cierra la deuda que declaraba §8. **§0** nombra la regla; **§2.3** y **§5.3** remiten a su forma y dejan sólo la correspondencia de las piezas de una mesa con los tipos de actuación, para no mantener dos copias del árbol; **§3.1** remite la ruta al expediente; **§3.2** corrige «el testimonio es evidencia E4», que confundía un testimonio con una regla declarada; **§5.2** deja de fijar el nombre del archivo del informe; **§6** remite su primer criterio a A1–A12. |
