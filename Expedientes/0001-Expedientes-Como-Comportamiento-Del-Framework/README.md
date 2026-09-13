@@ -11,7 +11,7 @@
 |---|---|
 | Número | `0001` |
 | Título | Expedientes como comportamiento del framework |
-| Estado | **En trámite**: consolidación y plan compuesto asentados (013); refutación pendiente |
+| Estado | **En trámite**: refutación asentada (014); veredictos pendientes |
 | Apertura | 2026-09-13 |
 | Partes | **Presenta**: Product Owner del `Framework SDD`. **Tramita**: orquestador de la corrida (Claude Opus 5), como presidente de mesa sin voto. **Panel**: ocho comisiones (actuación 002 §3), con una réplica a ciegas en `ev-06` (actuación 003) |
 | Objeto | Diseñar cómo el `Framework SDD` adopta los expedientes de caso como comportamiento propio: dónde viven, cuándo se abren y cuándo no, su forma mínima, su identificador, su ciclo de vida, su evidencia y cómo esa evidencia pasa a formar parte de la especificación; su relación con `SDD/Docs/Audit/`, con la serie de reportes y con lo ya escrito; y el reemplazo de la detención por la mesa |
@@ -39,6 +39,7 @@
 | 011 | `informe` | 2026-09-13 | Comisión N1, requisitos | [Informe N1](actuaciones/011-informe-requisitos.md) |
 | 012 | `constancia` | 2026-09-13 | Presidente de mesa | [La presentación del folio 001 no es literal: el original queda como `ev-07`](actuaciones/012-constancia-la-presentacion-001-no-es-literal.md) |
 | 013 | `providencia` | 2026-09-13 | Presidente de mesa | [Consolidación del panel y plan compuesto](actuaciones/013-consolidacion-y-plan-compuesto.md) |
+| 014 | `refutacion` | 2026-09-13 | Refutador | [Refutación del plan compuesto: 14 ataques, forma mínima alternativa](actuaciones/014-refutacion-del-plan-compuesto.md) |
 
 ## Índice de evidencia
 
@@ -54,24 +55,26 @@ su guion el 2026-09-13 contra la base de la actuación 002.**
 | `ev-05` | Las líneas de la norma 13.16 que el caso cita | [`ev-05-citas.sh`](evidencia/ev-05-citas.sh) → [`.out`](evidencia/ev-05-citas.out) | `29417eca…4d34042` |
 | `ev-06` | Réplica a ciegas del panel: los ocho informes de la segunda convocatoria, verbatim, con despacho y entrega | [`ev-06-segunda-convocatoria/`](evidencia/ev-06-segunda-convocatoria/README.md), manifiesto propio | ver `ev-06-segunda-convocatoria/SHA256SUMS` |
 | `ev-07` | **Presentación original del Product Owner, byte a byte** (2026-09-13T12:03:02-03:00, 1486 bytes). Rige sobre el folio 001 (folio 012) | Extracción mecánica de la transcripción de la sesión: [`ev-07-presentacion-original.txt`](evidencia/ev-07-presentacion-original.txt) y [`.meta.txt`](evidencia/ev-07-presentacion-original.meta.txt) | `cb39bbd64dd919e3bb7ad484779c4215af473892cf02de5b797c76046f63dd1c` (`SHA256SUMS-ev-07`) |
+| `ev-08` | Encargo a la corrida y cartas despachadas: 16 de comisión y la del refutador, verbatim y en orden de despacho | Extracción mecánica de las llamadas de despacho: [`ev-08-cartas-despachadas/`](evidencia/ev-08-cartas-despachadas/README.md) | ver `ev-08-cartas-despachadas/SHA256SUMS` |
 
 ## Punto de continuación
 
-**Dónde está el caso.** Último folio: **013**, consolidación con 18 raíces, 7 ítems del jurado (`J-01` a `J-07`) y el plan compuesto Q1 a Q12. El folio 012 corrigió el 001: **la presentación que rige es `ev-07`**.
+**Dónde está el caso.**
+- Último folio: **014**. La refutación cambia 15 de los 19 ítems del plan, resiste en 4, y propone una forma mínima de 18 campos contra los 47 del plan.
+- Las cartas despachadas quedaron asentadas en `ev-08`.
 
 **Qué sigue, y quién.**
 
 | Paso | Folio | Quién |
 |---|---|---|
-| Refutación del plan de 013 | 014 | Refutador. Entra último y lee 001 a 013, `ev-06` y `ev-07` |
-| Veredictos sobre `J-01` a `J-07` y sobre las propuestas Q1 a Q12 | 015 | Jurado de cinco funciones |
+| Veredictos sobre J-01 a J-07, Q1 a Q12 y los ataques R-01 a R-14 | 015 | Jurado de cinco funciones, despachado el 2026-09-13 |
 | Dictamen | 016 | Presidente, a partir de los veredictos |
-| Corrección de las huellas truncadas de `ev-02` y `ev-05` en este índice | 017 | Presidente |
+| Corrección de las huellas truncadas de `ev-02` y `ev-05`, y constancia de las cartas asentadas tarde | 017 | Presidente |
 
-Después: reporte `31` y prompt `09` en `IA.SDD.Documentacion`, rama `reportes/31-expedientes`. La intervención se numera **como la siguiente a la vigente cuando se aplique**: probablemente 13.18, sobre la 13.17 de la rama `conocimiento/mesa-de-expertos-a-pedido`.
+Después vienen el reporte `31` y el prompt `09`. La intervención se numera como la siguiente a la vigente, probablemente la 13.18.
 
-**Base.** Rama `expedientes/0001-caso`. Norma evaluada: 13.16 (`8c55a1e`).
+**Base.** Rama `expedientes/0001-caso`. Norma 13.16 (`8c55a1e`).
 
 **Si la corrida se corta.**
-- Lo que no esté commiteado no existe para el expediente.
-- **Antes de re-despachar, se comprueba si el despacho anterior terminó.** No se infiere de que falten archivos (folio 003).
+- Lo que no esté commiteado no existe.
+- Antes de volver a despachar el jurado, comprobar si el despacho anterior terminó (folio 003).
