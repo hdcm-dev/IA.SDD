@@ -343,7 +343,8 @@ con antecedentes anteriores abre su expediente con una constancia de **incorpora
 Cada comando corre desde la raíz del repositorio, con `P` la carpeta padre (`SDD/Expedientes` o
 `Expedientes`), `X` la carpeta de un expediente y `B` la rama principal:
 `B=$(git rev-parse --abbrev-ref origin/HEAD | sed 's#^origin/##')`. Un comando que termina con error no es
-«vacío»: es **no evaluable**, y se declara.
+«vacío»: es **no evaluable**, y se declara. Los comandos que listan rutas llevan `-c core.quotepath=off`: sin eso, git
+escapa las rutas con tildes y una pieza bien nombrada en su constancia no se reconoce.
 
 ```bash
 B=$(git rev-parse --abbrev-ref origin/HEAD | sed 's#^origin/##')     # rama principal; P y X los fija quien corre
@@ -379,7 +380,7 @@ else case "$u" in Sigue:*) ;; *) echo "SIN PASE $f";; esac; fi
 # A7 · S1: nada cambió después de publicarse, salvo lo nombrado en una constancia S2 → vacío
 p=$(git log --format=%H --diff-filter=A "$B" -- "$X/README.md" | tail -1)
 if [ -z "$p" ]; then echo "NO EVALUABLE: $X no está en $B"; else
-  git log -M --format= --name-status "$p..$B" -- "$P" | grep -E '^(M|D|R)' | grep -F "$(basename "$X")/" | awk '{print $NF}' | sort -u |
+  git -c core.quotepath=off log -M --format= --name-status "$p..$B" -- "$P" | grep -E '^(M|D|R)' | grep -F "$(basename "$X")/" | awk '{print $NF}' | sort -u |
   while read r; do c=$(grep -lE '^Redacción S2:' "$X"/actuaciones/*.md 2>/dev/null); { [ -n "$c" ] && grep -qF "${r#"$X"/}" $c; } || echo "$r"; done
 fi
 
@@ -396,7 +397,7 @@ find "$X/evidencia" -type f 2>/dev/null | while read f; do
   case "$f" in *.txt|*.md|*.out|*.sh|*.py|*.json|*.diff|*.log) m="$f";; *) m="${f%.*}.txt";; esac
   { [ -f "$m" ] && [ "$(head -3 "$m" | grep -ciE '^(# |// )?(Método|Comando|Medio|Base|Fecha-hora|Quién):')" = 3 ]; } || echo "$f"
 done
-git ls-tree -r "$B" -- "$X" | grep -v '^100644 blob'
+git -c core.quotepath=off ls-tree -r "$B" -- "$X" | grep -v '^100644 blob'
 
 # A10 · toda cita local a un expediente resuelve (las calificadas y las históricas se excluyen)   → vacío
 git grep -ohE '(^|[^/A-Za-z0-9._-])(SDD/)?Expedientes/[0-9]{4}-[A-Za-z0-9][A-Za-z0-9.-]*[A-Za-z0-9]' -- . ':!*_legacy*' ':!Expedientes/0001-*' ':!SDD/Expedientes/0001-*' |
@@ -406,7 +407,7 @@ git grep -ohE '(^|[^/A-Za-z0-9._-])(SDD/)?Expedientes/[0-9]{4}-[A-Za-z0-9][A-Za-
 git log -p --format= "origin/$B..HEAD" -- "$P" | grep -E '^\+' | grep -iE "(/|-)home[/-][a-z0-9_]+|/Users/[A-Za-z]|C:\\\\Users|$(id -un)${PRIV:+|$PRIV}"
 
 # A12 · todo registro de Audit/ que cita el expediente está foliado por ruta@commit (sólo en destino)   → vacío
-git grep -l "Expedientes/$(basename "$X")" -- SDD/Docs/Audit 2>/dev/null | while read a; do grep -rqF "$a@" "$X/actuaciones" || echo "$a"; done
+git -c core.quotepath=off grep -l "Expedientes/$(basename "$X")" -- SDD/Docs/Audit 2>/dev/null | while read a; do grep -rqF "$a@" "$X/actuaciones" || echo "$a"; done
 ```
 
 **A11 localiza sin decidir.** `PRIV` es la alternancia de los nombres de repositorios privados y sus
