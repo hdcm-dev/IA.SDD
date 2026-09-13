@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/10-Examples/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Developer Advocate / Sample Engineer Senior (AG-00100)
-**Versión de las reglas:** 6.5
+**Versión de las reglas:** 6.6
 
 ---
 
@@ -186,6 +186,42 @@ El código en `/samples/` se versiona junto con el repositorio principal: no lle
 
 El `README.md` de `/Docs/10-Examples/` lista los samples vigentes en una tabla maestra con columnas: número, slug, nivel, tiempo de setup estimado, CU ilustrados, ubicación en `/samples`. El README se actualiza cada vez que se agrega, renombra o jubila un sample.
 
+### 3.6 El sample en la solución de código
+
+**Todo sample de `/samples` está en el agrupador de la solución de código del producto**, y entra de
+una de dos formas, que se eligen por lo que el sample es y no por preferencia:
+
+| El sample | Cómo entra al agrupador | Cómo se verifica |
+| --- | --- | --- |
+| **Se construye con la solución**: es un proyecto de código del ecosistema de la solución | Como proyecto, y se construye con ella. Es la forma de cumplir §3.4: compila contra la versión actual del producto porque se construye en el mismo comando | Con el `comando` de su contrato (§4.6) |
+| **No se construye con la solución**: no se compila —un cliente de línea de comandos, una colección de peticiones, una página anfitriona— o es de otro ecosistema | Como elemento visible del agrupador, **sin construcción**. La forma concreta la da el ecosistema de la solución y la declara el destino | Con el `comando` de su contrato, **nunca desde la construcción de la solución** |
+
+**La verificación de un sample nunca se engancha a la construcción de la solución.** Enganchada, la
+construcción de todo el producto pasa a depender de las precondiciones de un sample —un servicio
+levantado, un navegador, la cadena de herramientas de otro ecosistema— y falla por algo que no es
+código del producto, y un sample roto deja de distinguirse de un producto que no compila. Construir un
+sample con la solución no es verificarlo: la arista B se ejecuta con el `comando` de §4.6.
+
+**Que ningún sample quede fuera del agrupador se comprueba por enumeración**: las carpetas de
+`/samples` con markdown explicativo, contra las entradas del agrupador. El instrumento que la corre es
+del destino y vive en su pipeline, no en el framework (`SDD-Development-Guide.md` §II.7): esta regla
+fija la propiedad y su criterio de §6, no el mecanismo.
+
+**El sample de un artefacto que otro proyecto carga.** Cuando la unidad de entrega contiene un proyecto
+de código cuyo artefacto otro proyecto toma como insumo de construcción para cargarlo en un anfitrión
+(`Intake-Rules.md` §4), el sample de ese artefacto es un **anfitrión mínimo**:
+
+- Carga el artefacto **construido**, desde la salida del proyecto que lo produce, y nunca una copia: una
+  copia deja de probar el contrato real en cuanto el productor cambia.
+- Invoca la superficie pública del artefacto **y nada más**: no reproduce la lógica del consumidor real.
+- Lleva sus datos por escenario, su salida esperada y la prueba que ejecuta el `comando` de su contrato.
+- Declara cómo se abre, de una de dos maneras: **sin servidor**, sin red y sin credenciales; o
+  **servido**, con las dependencias de un proveedor externo tomadas de configuración y nunca literales.
+  Si el artefacto invoca de vuelta al proyecto que lo carga, el sample lleva un **doble del consumidor**
+  con la lista de invocaciones que ese proyecto expone, derivada de una sola fuente.
+- **La superficie pública completa la cubre el conjunto de samples de ese artefacto**, no cada uno: la
+  progresión de §3.2 reparte las funciones y sus retornos, y el conjunto no deja ninguno sin ejercitar.
+
 ---
 
 ## 4. Estructura de redacción
@@ -288,6 +324,8 @@ El estado `Falla` no se oculta ni se resuelve borrando la fila: se escala como h
 | `evidencia` sin fecha | No se sabe contra qué versión del código se verificó, y la evidencia envejece en silencio | Fecha obligatoria en el campo `evidencia` | [enumerable] |
 | Contrato de verificación duplicado como test separado del sample | Divergen: el test se actualiza y el sample queda viejo, o al revés | El contrato apunta al comando que corre el sample; el test vive dentro de `/samples/XX-<Progresion>/tests/` | [enumerable] |
 | Sample verificado que se declara Done con el contrato en `Falla` | Convierte un hallazgo real en deuda invisible | Un `criterio_aceptacion` que falla se escala como hallazgo del incremento, no se posterga | [interpretativo] |
+| Sample fuera del agrupador de la solución de código | Ninguna construcción ni revisión del agrupador lo alcanza, y uno nuevo entra afuera sin que nadie lo note | §3.6: toda carpeta de `/samples` con markdown explicativo entra al agrupador, y la cobertura se comprueba por enumeración en el pipeline del destino | [enumerable] |
+| Verificación del sample enganchada a la construcción de la solución | La construcción del producto falla por las precondiciones de un sample, y un sample roto se confunde con un producto que no compila | §3.6: el contrato se corre con su propio `comando`, fuera de la construcción | [interpretativo] |
 
 
 ### 4.6 Contrato de verificación
@@ -463,6 +501,8 @@ auditor, y marcar de menos un enumerable dejaría un hueco que nadie mira.
 - [ ] [interpretativo] Cada sample documenta prerequisites con versiones mínimas en §3.
 - [ ] [interpretativo] La estructura de `/samples/` del repositorio coincide con la matriz declarada en §2.3 para el tipo D8 de la unidad de entrega.
 - [ ] [enumerable] Existe pipeline CI que valida que los samples compilan y ejecutan (recomendado fuerte; obligatorio para `library`, `rest-api` y `cli-tool`).
+- [ ] [enumerable] Toda carpeta de `/samples` con markdown explicativo en esta categoría está en el agrupador de la solución de código, con una de las dos formas de §3.6.
+- [ ] [interpretativo] Ningún contrato de verificación se ejecuta como parte de la construcción de la solución de código (§3.6).
 
 Criterios propios de la arista B:
 
@@ -743,3 +783,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/10-Examples/<estruct
 | 6.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 6.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
 | 6.5 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
+| 6.6 | 2026-09-13 | **§3.6 es nueva: el sample en la solución de código.** §1.2 ya preveía samples que no son proyectos compilables y ninguna sección decía si entran al agrupador ni cómo, de modo que un destino los dejó afuera sin que ninguna comprobación lo viera. Declara las **dos formas de entrada** —con construcción, el sample del ecosistema de la solución; sin construcción, el que no se compila o es de otro ecosistema—, que **la verificación nunca se engancha a la construcción de la solución**, que la cobertura del agrupador se comprueba por enumeración con un instrumento del destino (`SDD-Development-Guide.md` §II.7), y **la forma del sample de un artefacto que otro proyecto carga**: un anfitrión mínimo sobre el artefacto construido, sin servidor o servido, con doble del consumidor cuando hay retorno, y la superficie pública cubierta por el conjunto. §4.5 suma dos anti-patrones —uno `[enumerable]`, uno `[interpretativo]`— y §6, dos criterios. Agnóstico de stack. Sube minor: agrega criterios sin cambiar el gating ni la estructura obligatoria; un destino con samples fuera del agrupador pasa a tener un criterio que no cumple, y ése es el efecto buscado. |

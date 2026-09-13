@@ -1,6 +1,6 @@
 # PRODUCT-MANIFEST-template
 
-**Versión de la plantilla:** 6.0
+**Versión de la plantilla:** 6.1
 
 Este campo versiona la **referencia de formato**. El campo `| Versión |` del bloque de producto de §1 pertenece al manifiesto que el orquestador deriva, y arranca en 1.0 en cada producto nuevo.
 
@@ -75,7 +75,7 @@ Las salidas **A** y **B** no dejan fila acá: la A emite su propio informe en `S
 
 ### §1.2 Perfil de convención de nombres
 
-Configuración que el orquestador aplica de forma reproducible para derivar los nombres de código de cada proyecto de código. Declarar una vez por producto:
+Configuración que el orquestador aplica de forma reproducible para derivar los nombres de código de cada proyecto de código. Declarar una vez por producto, y una vez por ecosistema cuando el producto tiene proyectos de más de uno (abajo):
 
 | Parámetro | Valor por defecto | Notas |
 |---|---|---|
@@ -83,6 +83,25 @@ Configuración que el orquestador aplica de forma reproducible para derivar los 
 | Separador de segmentos | `.` | Separa la raíz de código del sufijo de rol, y los segmentos internos de la raíz |
 | Prefijo de paquetes redistribuibles | `Aplicada` | Reemplaza la raíz de código cuando `redistribuible: true` |
 | Extensión del agrupador | la del ecosistema | Con `Raiz-Codigo` compone `Artefacto-Agrupacion` |
+| Capitalización | PascalCase | La que el ecosistema exige a sus nombres de proyecto o de paquete |
+
+**Un perfil por ecosistema.** Cuando el producto tiene proyectos de código de más de un ecosistema
+(`Intake-Rules.md` §4), el perfil se declara **una vez por ecosistema**, y la `Identidad-Codigo` de
+cada proyecto se compone con el de su ecosistema. La regla de §2.1 no cambia —raíz, separador,
+sufijo—: cambian los parámetros. Ejemplo, un producto con proyectos .NET y un paquete npm cuyo
+artefacto un proyecto .NET toma como insumo de construcción:
+
+| Parámetro | Perfil del ecosistema .NET | Perfil del ecosistema npm |
+|---|---|---|
+| `Raiz-Codigo` | `Contoso.Turnos` | `contoso-turnos`: la misma raíz, con la forma que el ecosistema exige |
+| Separador de segmentos | `.` | `-` |
+| Capitalización | PascalCase | minúscula |
+| Prefijo de paquetes redistribuibles | `Aplicada` | `aplicada` |
+| Extensión del agrupador | `.sln`, que compone `Contoso.Turnos.sln` | Ninguna: el paquete pertenece a la solución de código de su consumidor, por el insumo de construcción |
+| `Identidad-Codigo` del rol `Visor` | — | `contoso-turnos-visor` |
+
+**Este perfil es el único lugar de las plantillas donde se nombra un ecosistema, y es a propósito**:
+la regla es agnóstica de stack (§2.1) y el perfil es donde un producto la materializa.
 
 ---
 
@@ -120,6 +139,14 @@ encabezado la nombra igual, para que el lector sepa cuál es.
 | `Nombre-Proyecto-Codigo` | `Identidad-Codigo` | Solución de código | Stack | Rol en la arquitectura | Dependencias de compilación | Path `/src` |
 |---|---|---|---|---|---|---|
 | [Nombre-Proyecto-Codigo] | [`<Raiz-Codigo>.<Sufijo>`] | [nombre] | [lenguaje y framework] | [una frase] | [lista o vacío] | [`src/<Identidad-Codigo>/`] |
+
+**Un proyecto de código de otro ecosistema** va en la tabla de la solución de código a la que
+pertenece —la de su consumidor, si alguno toma su artefacto como insumo de construcción; la suya
+propia, si ninguno lo toma (`Intake-Rules.md` §4)—, con su stack, su `Identidad-Codigo` según el perfil
+de su ecosistema (§1.2) y su path. **La columna «Dependencias de compilación» dice la clase de cada
+arista**: sin marca es referencia de proyecto; `<Nombre-Proyecto-Codigo> (insumo de construcción)` en
+el único generador, y `<Nombre-Proyecto-Codigo> (insumo de construcción, generado por
+<Nombre-Proyecto-Codigo>)` en cualquier otro consumidor.
 
 ### §2.C Matriz de composición
 
@@ -181,6 +208,26 @@ arista de este grafo: es un consumo de artefacto publicado, y se declara como ta
 consumidora referencia el paquete que la productora publica—. Confundirlas produce un orden de build
 que ningún comando puede ejecutar.
 
+**Dentro de una solución, el grafo tiene dos clases de arista**, y cada arista declara la suya
+(`Intake-Rules.md` §4): la **referencia de proyecto**, que materializa el mecanismo del ecosistema de
+la solución, y el **insumo de construcción**, en la que el consumidor toma como entrada de su
+construcción el artefacto que el productor genera, sin referencia entre los dos —la única posible entre
+proyectos de ecosistemas distintos—. Las dos ordenan el build y cuentan igual para la aciclicidad, y un
+recuento de aristas dice cuántas hay de cada clase. **Cada insumo de construcción tiene un único
+generador**: el consumidor cuya construcción ejecuta la del productor.
+
+```text
+referencias de proyecto
+    [Proyecto-Dominio]  ->  [Proyecto-Front]
+insumo de construcción (generador: Proyecto-Front)
+    [Proyecto-Visor]    ->  [Proyecto-Front]
+```
+
+**Un proyecto de otro ecosistema que pertenece a la solución no se construye por referencia**: la
+solución lo contiene porque su construcción genera el artefacto a través del consumidor. Si ese proyecto
+tiene dependencias internas de su propio ecosistema, forman su propio grafo y no se suman a éste. Qué
+pasa donde falta la cadena de herramientas de su ecosistema lo gobierna `Rules-Devops.md` §4.9.
+
 Un front que le habla a una API por HTTP tiene una arista en el primero y ninguna en el segundo. Si
 las dos coinciden es una propiedad de ese producto, no del método.
 
@@ -201,6 +248,8 @@ El orquestador detiene la cadena y reporta si alguna de estas condiciones no se 
 - Dos proyectos de código colisionan en `Nombre-Proyecto-Codigo` o en `Identidad-Codigo`.
 - Una dependencia apunta a un proyecto de código que no existe en la tabla.
 - El grafo de dependencias contiene un ciclo.
+- Un proyecto de código que es insumo de construcción no tiene exactamente un generador, o un `generado por` nombra a otro consumidor.
+- Una referencia de proyecto une dos proyectos de código de ecosistemas distintos.
 - El `PRODUCT-INTAKE` §13 (origen del manifiesto) no puede recorrerse para derivar la tabla: filas de ejemplo sin reemplazar, perfil de convención ausente o campos bloqueantes vacíos.
 
 ---
@@ -286,6 +335,8 @@ El orquestador verifica estos ítems al derivar el manifiesto desde `PRODUCT-INT
 - [ ] No hay colisiones de `Nombre-Proyecto-Codigo` ni de `Identidad-Codigo`.
 - [ ] Cada dependencia referencia un proyecto de código existente en la tabla.
 - [ ] El grafo de dependencias es acíclico.
+- [ ] Cada arista de compilación declara su clase, y cada insumo de construcción tiene exactamente un generador.
+- [ ] Con proyectos de más de un ecosistema, el perfil de §1.2 está declarado una vez por ecosistema y cada `Identidad-Codigo` sigue el suyo.
 - [ ] Cada proyecto de código marcado `redistribuible: true` arranca su nombre de código con el prefijo de organización del perfil.
 - [ ] El control de cambios refleja la versión y fecha del documento.
 
@@ -304,3 +355,4 @@ El orquestador verifica estos ítems al derivar el manifiesto desde `PRODUCT-INT
 | 4.1 | 2026-07-29 | Completitud de la fila de reglas transversales de §1.1, que enumeraba `Intake-Rules`, `Maqueta-Rules` y `Deriva-Rules` y omitía a `Vocabulario-Rules`, pese a que `Master-Prompt.md` §8 la inyecta en **todo** despacho sin excepción de categoría. Era la misma clase de defecto que la 4.0 corrigió para las plantillas: una pieza que gobierna la generación sin poder declarar su versión en la procedencia, y por lo tanto con su salto de versión invisible para la comparación normativa. La fila pasa a distinguir las transversales que se aplican siempre de las condicionales, suma `Migracion-Rules` para los árboles que atravesaron una migración normativa, y remite a la fila propia de `Root-Rules` para no duplicarla. Sube minor: completa una enumeración sin cambiar la estructura del bloque. | Framework SDD (migración normativa) |
 | 5.0 | 2026-08-15 | **El manifiesto deriva los dos ejes** La tabla de proyectos de código se agrupa **por solución de código** cuando el producto tiene más de una, y §3 declara que hay un grafo de compilación por solución: una dependencia entre soluciones distintas no es una arista del grafo sino un consumo de artefacto publicado. (framework 8.0). §2 pasa de una tabla de proyectos de código a §2.A unidades de entrega —la que lleva el valor D8, renombrado a `tipo_unidad_entrega`, con `redistribuible` y estado vigente o diferida—, §2.B proyectos de código —con su solución de código, su stack y sus dependencias de compilación, y **sin** valor D8— y §2.C la matriz de composición, derivada y no completada a mano, que hace visible el proyecto compartido. §3 declara los **dos grafos** por separado: el de integración, que ordena la generación de la documentación, y el de compilación, que ordena el build, con la aclaración de que no coinciden y no tienen por qué. Sube **major**: cambia la estructura del manifiesto y el nombre de un campo bloqueante; un manifiesto ya emitido deja de cumplir. |
 | 6.0 | 2026-08-16 | **El bloque de producto de §1, sus validaciones bloqueantes de §4 y el checklist de §7 pedían un «proyecto de código principal», mientras el intake del que este manifiesto se deriva señala y valida una **unidad de entrega principal**.** El manifiesto —fuente única de verdad del producto— validaba un eje distinto del que su origen declara. Pasa a **`Unidad de entrega principal`**, con el valor tomado de la fila señalada `(principal)` en §13.1 del intake. Sube **major**: un manifiesto ya derivado declara el campo con el nombre anterior y no pasa el checklist de §7. |
+| 6.1 | 2026-09-13 | **El manifiesto declara el proyecto de código de otro ecosistema.** Tenía la columna `Stack` por proyecto y un grafo de compilación por solución, y no tenía cómo decir que un proyecto de un ecosistema es insumo de construcción de uno de otro dentro de la misma solución, ni cómo se forma la identidad de código de un proyecto cuyo ecosistema no usa la forma de dos segmentos con punto. **§1.2** suma la capitalización y **el perfil por ecosistema**, con un ejemplo de identidad de paquete en minúscula con guion —el único lugar de las plantillas donde un ecosistema se nombra—; **§2.B** dice en qué tabla va el proyecto y cómo se marca la clase de la arista en la columna de dependencias; **§3** declara **las dos clases de arista** —referencia de proyecto e insumo de construcción— y el **único generador**; **§4** suma dos validaciones bloqueantes y **§7** dos ítems de checklist, con la regla en `Intake-Rules.md` §4. Sube minor: un manifiesto sin insumos de construcción ni proyectos de otro ecosistema cumple igual. | Framework SDD (proyecto de otro ecosistema) |

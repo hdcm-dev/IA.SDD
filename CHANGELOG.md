@@ -3,6 +3,87 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.16] - 2026-09-13
+
+**El método modelaba unidades de entrega, proyectos de código y soluciones de código sin atarse a un stack, y no tenía cómo decir que un proyecto de un ecosistema es insumo de construcción de uno de otro dentro de la misma solución.** Tampoco decía cómo entra al agrupador un sample que no se compila, ni qué pasa cuando la solución se construye donde falta la cadena de herramientas de un ecosistema. Un destino real, `Lab-Geometria`, tiene un paquete de JavaScript cuyo artefacto consume su front .NET; lo resolvió a mano con una especificación y una mesa de dos ciclos, e **inventó** lo que el método no le daba: una clase de arista, un modo de construcción sin la segunda cadena y once samples fuera del agrupador. Además, `PRODUCT-INTAKE-template.md` §16.1 pedía los samples «según el tipo D8 de cada proyecto de código», con el modelo anterior a la 8.0. Es el reporte `30`.
+
+**La trampa del caso, y cómo se evitó.** El caso nació en un ecosistema y se resolvió con piezas de ese ecosistema. **Ninguna entró a una regla**: `grep -rn -i "NoTargets\|csproj\|webpack" SDD/Devs/Rules` sigue vacío, y las líneas agregadas a `SDD/Devs/Rules` y `SDD/Devs/Orchestrator` no nombran ninguna herramienta ni ecosistema. El único lugar donde se nombra un ecosistema es **el ejemplo del perfil de convención** de `PRODUCT-MANIFEST-template.md` §1.2, que es el lugar declarado para materializar la regla.
+
+### Verificación previa
+
+**Todas las citas del reporte al framework siguen literales en la 13.15**, y ninguna se había resuelto. **Tres afirmaciones de la especificación del destino que lo originó no lo son**, y se declararon antes de usarla como fuente: §18 del intake no atribuye D8 al proyecto (`grep -c D8` = 0, contra lo que decía); ni `Migracion-Rules.md` §4.7 ni `Root-Rules.md` §11 dicen que un ADR de apartamiento con dos saltos sea **el único** canal hacia una regla; y la foto del destino que describe es anterior a la reestructuración.
+
+### La decisión de fondo: sí, con frontera
+
+**Un proyecto de código de otro ecosistema pertenece a la solución de código de un proyecto que toma su artefacto como insumo de construcción. Si ninguno lo toma, es su propia solución de código.** Que el agrupador lo muestre es forma del repositorio, no pertenencia.
+
+**El fundamento no es de preferencia.** `Vocabulario-Rules.md` §2 delimita la solución de código por **el comando de construcción** que la toma como entrada, no por el ecosistema, y en el caso medido ese comando genera el artefacto del paquete a través del front. **El «no» obligaba a declarar como consumo de artefacto publicado** —la regla entre soluciones de `PRODUCT-MANIFEST-template.md` §3— **un artefacto que no se publica.** Por eso `Vocabulario-Rules.md` **no se modifica**: su definición sigue siendo exacta, y lo que faltaba era la regla que la aplica.
+
+### Cambiado — `Intake-Rules.md` 4.2 → 4.3
+
+**§4 suma el proyecto de código de otro ecosistema**: a qué solución pertenece; **las dos clases de arista** del grafo de compilación, `referencia de proyecto` e `insumo de construcción`, con su marca en la columna «Dependencias de compilación»; **el único generador** de cada insumo —un segundo consumidor declara `generado por` y no lo vuelve a generar—; y **cuatro validaciones bloqueantes**. Corregido de paso el orden de su control de cambios.
+
+### Cambiado — `Rules-Devops.md` 6.1 → 6.2
+
+**§4.9, punto 4**, que ya coordinaba cada arista «por referencia al paquete publicado o por build conjunto en el repositorio», suma el único generador y **la cadena de herramientas ausente**: cuando la construcción necesita la cadena de más de un ecosistema —por un insumo **o dentro de un mismo proyecto de código**—, se declaran los ambientes sin ella y **un modo de construcción explícito y nombrado**; sin ese modo, la construcción **falla y nombra la cadena**. **§4.8** suma dos anti-patrones `[interpretativo]`.
+
+### Cambiado — `Rules-Examples.md` 6.5 → 6.6
+
+**§3.6 es nueva, el sample en la solución de código**: dos formas de entrada al agrupador —con construcción y sin construcción—; **la verificación nunca se engancha a la construcción de la solución**; la cobertura del agrupador se comprueba por enumeración **con un instrumento del destino**, sin reabrir el reporte `12` (`SDD-Development-Guide.md` §II.7); y la forma del **anfitrión mínimo** de un artefacto que otro proyecto carga. **§4.5** suma dos anti-patrones y **§6**, dos criterios.
+
+### Cambiado — `Rules-Arquitectura-Tecnica.md` 4.5 → 4.6
+
+**§4.8 pide la clase de cada arista** en el grafo de la vista de producto y el único generador de cada insumo. **Barrido del interior de la sección**: el punto 2 pedía D8 y `redistribuible` por proyecto de código y pasa a pedir stack, solución y unidades que compone; la aplicabilidad y la omisión se alinean con la tabla de §2.1 del mismo archivo.
+
+### Cambiado — `Master-Prompt.md` 8.18 → 8.19
+
+**§15 suma `referencia de proyecto` e `insumo de construcción`**, y la entrada «Grafo de compilación» las nombra. §11 pide la clase de cada arista, y **corrige de paso** la descripción del README raíz, que decía «tabla de proyectos de código con su D8» contra `Root-Rules.md` §4.
+
+### Cambiado — `PRODUCT-MANIFEST-template.md` 6.0 → 6.1
+
+**§1.2** suma la capitalización y **el perfil por ecosistema**, con el ejemplo de una identidad de paquete en minúscula con guion. **§2.B** dice en qué tabla va el proyecto de otro ecosistema y cómo se marca la arista; **§3** declara las dos clases y el único generador; **§4** y **§7** suman dos validaciones y dos ítems de checklist.
+
+### Cambiado — `PRODUCT-INTAKE-template.md` 3.5 → 3.6
+
+**§16.1 pide los samples según el tipo D8 de la unidad de entrega**, nombra el proyecto de código sólo cuando el sample ejercita uno y declara su entrada al agrupador. **§13.2** suma la pregunta por el proyecto de otro ecosistema y la marca del insumo; el perfil suma capitalización y declaración por ecosistema. Corregido de paso el orden de su control de cambios.
+
+### Cambiado — `Catalogo-De-Criterios.md` 1.17 → 1.18
+
+Tres situaciones nuevas en §3; §4 pasa de **222 a 226** anti-patrones (**109** enumerables, **117** interpretativos), contrastados con las tablas.
+
+### Las cinco preguntas de §5, una por una
+
+- **§5.2, la arista**: una segunda clase, `insumo de construcción`, con único generador. **No se adoptó el nombre del destino, «activo de construcción»**, aunque el compuesto da cero ocurrencias: su forma desnuda ya es adjetivo y verbo en `Master-Prompt.md` y `Rules-Examples.md`, y «insumo» ya tiene en esos lectores el sentido que el término necesita. Comandos y salidas en `SDD/Devs/Guides/Coherencia-Proyecto-De-Otro-Ecosistema.md` §7.
+- **§5.3, la cadena ausente**: sí, agnóstica, en `Rules-Devops.md` §4.9. La propiedad la cumplían ya dos destinos independientes, por su cuenta.
+- **§5.4, el sample que no se compila**: sí, `Rules-Examples.md` §3.6.
+- **§5.5, §16.1**: corregida; el barrido corrigió dos residuos más en los archivos tocados y declaró cinco, del mecanismo de carga de conocimiento y de la guía teórica, que no son de este origen.
+- **§5.6, el canal**: **la guía no se toca**. La comprobación 13 de §VI.3 ya reconoce un reporte como origen de una intervención, y escribir en la guía sobre las especificaciones de un destino rompería la autosuficiencia.
+
+### Por qué es minor, y el impacto medido
+
+**Ningún documento generado siguiendo el texto de la 13.15 deja de cumplir por las piezas nuevas**: la arista sin marca es referencia de proyecto, el perfil único sigue valiendo con un solo ecosistema, y §3.6 sólo agrega criterios. **Las dos correcciones de residuo** —el D8 por proyecto de §16.1 y de §4.8 punto 2— alcanzan documentos que ya contradecían el modelo de dos ejes desde la 8.0 (`Vocabulario-Rules.md` §2, `Master-Prompt.md` §11), con el precedente de `PRODUCT-INTAKE-template.md` 3.1, que corrigió la misma clase de residuo como minor.
+
+Cuatro repositorios con `SDD/Docs/` en el workspace (cinco rutas; una es un worktree):
+
+| Destino | Qué le alcanza |
+|---|---|
+| `Lab-Geometria` | **Todo.** Un proyecto de otro ecosistema con una arista de insumo, once samples que no se compilan —ya en el agrupador desde una fusión posterior a la base de esta intervención—, la clase con otro nombre, la identidad como «excepción declarada», §16.1 del intake y el mapa de su vista de producto con D8 por proyecto |
+| `RPI.VideoControl` | **`Rules-Devops.md` §4.9 punto 4**, porque un proyecto de su solución corre la cadena de otro ecosistema dentro de su construcción, y **§4.8 punto 2**, porque el mapa de su vista de producto lleva D8 por proyecto. Ningún proyecto de otro ecosistema ni samples |
+| `SAI.Service.Core` | Nada: un ecosistema, sin samples |
+| `SelfHosted.Service.Core` | Nada: sin código |
+
+### Qué le exige a `Lab-Geometria`, que esta intervención no toca
+
+En su próxima migración, **absorber lo que inventó**: re-expresar «activo de construcción» como `insumo de construcción`; marcar `GeometriaFactory-Visor (insumo de construcción)` en la fila del front de §13.2 del intake y re-derivar el manifiesto; reemplazar la «excepción declarada» de identidad por el perfil del ecosistema del paquete en §1.2; y re-expresar §16.1 del intake y el mapa de §2 de su vista de producto sin D8 por proyecto. **Los once samples ya cumplen `Rules-Examples.md` §3.6** en el `main` del destino, por una fusión posterior a la base de esta intervención y hecha por su cuenta: entraron al agrupador como nodos sin construcción —ninguno declara un target ni ejecuta nada— y una puerta de su pipeline falla si una carpeta de samples queda afuera. **Lo que ya cumple**: el único generador del bundle y la construcción que falla sin la cadena salvo un modo explícito.
+
+### Lo que queda sin medir
+
+Ninguna corrida del orquestador ejerció las validaciones nuevas de `Intake-Rules.md` §4 sobre un intake real, y no se construyó nada en ningún destino.
+
+### Snapshot
+
+`_legacy/13.15/` se tomó **antes** de editar, desde `main`, con **el conjunto entero**: 130 archivos, las mismas exclusiones que `_legacy/13.14/` (`.gitignore`, `CHANGELOG.md`, `vs.bat`), verificados blob por blob contra la base, cero no conformes. Adentro, los ocho archivos tocados están en su versión anterior.
+
 ## [13.15] - 2026-09-12
 
 **El umbral de archivos individuales de `Rules-Backlog-Tecnico.md` decía dos cosas incompatibles a la vez: por proyecto de código con tres bandas en su tabla maestra, y por unidad de entrega con dos bandas en su convención, su criterio de aceptación y su snippet.** Sobre un destino real (`Lab-Geometria`) las dos lecturas daban resultados opuestos, y el destino aplicaba la de la tabla sin saber que había otra —citándola tres veces y atribuyéndole a la otra sección una lectura que esa sección no decía—. Es el reporte `29`, nacido de la primera corrida que ejerció el evento de `Rules-Backlog-Tecnico.md` §3.6 que escribió la 13.14: al abrir por primera vez un backlog técnico, se contó, y la regla no dejó contestar si eso cruzaba el umbral.
