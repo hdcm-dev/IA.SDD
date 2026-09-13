@@ -209,7 +209,7 @@ $ grep -n '`EV`' IA.SDD/SDD/Devs/Rules/Root-Rules.md
 
 ```
 $ curl -s -o /dev/null -w '%{http_code}' https://api.github.com/repos/<repo>
-hdcm-dev/IA.SDD 200 · hdcm-dev/IA.SDD.Documentacion 200 · hdcm-dev/Lab-Geometria 200 · HDCM-Infra/RPI.VideoControl 404
+hdcm-dev/IA.SDD 200 · hdcm-dev/IA.SDD.Documentacion 200 · hdcm-dev/Lab-Geometria 200 · un destino privado 404
 $ grep -rl "/…" IA.SDD.Documentacion-exp1/PROMPTs/Fixs/0[4678]-*/OUTPUTs/evidencia | wc -l
 21
 $ git -C Lab-Geometria grep -n "[nombre de cuenta redactado]" main
