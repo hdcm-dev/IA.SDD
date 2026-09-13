@@ -329,8 +329,8 @@ expediente con su cita calificada, y el expediente folia el reporte por nombre.
 Queda donde está y como está lo escrito antes de esta regla: los informes de `Audit/` de los destinos, las
 carpetas `OUTPUTs/` de las intervenciones, las citas de palabras del Product Owner en cualquier artefacto,
 y los **expedientes de forma histórica**, los que se abrieron antes de esta regla:
-`Expedientes/0001-Expedientes-Como-Comportamiento-Del-Framework/` en el framework y
-`Lab-Geometria/SDD/Expedientes/0001-Migracion-Normativa-A-13.16/` en un destino. Su nombre ya es conforme;
+`Expedientes/0001-Expedientes-Como-Comportamiento-Del-Framework/` en el framework, y el expediente de
+migración normativa que un destino abrió el mismo día en `SDD/Expedientes/0001-<Titulo>/`, con el prefijo `EXP-`. Su nombre ya es conforme;
 su contenido no se alinea, no se les exigen A2 a A12 —A10 los excluye de su búsqueda— y la reanudación no
 los cuenta como pendientes. **Se les puede agregar folios**, que es alta y no modificación. Un caso **vivo**
 con antecedentes anteriores abre su expediente con una constancia de **incorporación de antecedentes** por
