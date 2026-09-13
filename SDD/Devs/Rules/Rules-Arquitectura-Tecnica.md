@@ -4,7 +4,7 @@
 **Carpeta target (nivel producto):** `SDD/Docs/Producto/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega + Producto
 **Subagente target del orquestador:** Arquitecto de Software Senior (AG-00050)
-**Versión de las reglas:** 4.5
+**Versión de las reglas:** 4.6
 
 ---
 
@@ -280,18 +280,18 @@ Tabla de trazabilidad del componente:
 
 ### 4.8 Secciones obligatorias de `Vista-Producto.md`
 
-Aplica solo a productos con más de una unidad de entrega. La vista de producto se sitúa por encima de la arquitectura de cada unidad de entrega y no la duplica: referencia, no reescribe..
+Aplica a productos con más de una unidad de entrega **o** con más de un proyecto de código, como declara la tabla de §2.1. La vista de producto se sitúa por encima de la arquitectura de cada unidad de entrega y no la duplica: referencia, no reescribe..
 
 1. Objetivo y alcance. Qué documenta la vista de producto y para quién. Aclara que el detalle interno de cada unidad de entrega vive en su propia `arquitectura-producto`.
-2. Mapa de proyectos de código. Tabla con `Nombre-Proyecto-Codigo`, `tipo_unidad_entrega` D8, rol en el producto, `Identidad-Codigo` y bandera `redistribuible`. Refleja el manifiesto.
-3. Grafo de dependencias. El DAG del manifiesto representado como vista navegable, con el orden topológico de construcción. Debe ser acíclico; cualquier ciclo es un defecto del manifiesto y detiene la generación.
+2. Mapa de proyectos de código. Tabla con `Nombre-Proyecto-Codigo`, `Identidad-Codigo`, stack, solución de código, rol en la arquitectura y las unidades de entrega que compone. **Sin valor D8 y sin `redistribuible`**: los dos son atributos de la unidad de entrega (`Vocabulario-Rules.md` §2). Refleja el manifiesto.
+3. Grafo de dependencias. El DAG del manifiesto representado como vista navegable, con el orden topológico de construcción. Debe ser acíclico; cualquier ciclo es un defecto del manifiesto y detiene la generación. **Cada arista declara su clase** —referencia de proyecto o insumo de construcción, `Intake-Rules.md` §4— y cada insumo de construcción, su único generador; un recuento de aristas dice cuántas hay de cada clase.
 4. Contratos inter-proyecto. Por cada arista de dependencia con contrato formal, qué expone la unidad de entrega productor al consumidor, con referencia al `contratos-<area>` del productor. Si los contratos son numerosos, se detallan en `Contratos-Inter-Proyecto.md` y esta sección los indexa.
 5. Decisiones de nivel producto. Índice de los ADRs de `Producto/Adrs/` que afectan a más de una unidad de entrega (estilo de composición, política de versionado inter-proyecto, estrategia de comunicación entre unidades de entrega). Si no hay decisiones de nivel producto, declararlo explícitamente.
 6. Cross-cutting compartido. Convenciones transversales que el producto impone a todos sus proyectos de código: correlación de logging y tracing entre proyectos de código, formato de errores común, gestión de versiones de los paquetes compartidos y redistribuibles.
 7. Riesgos de integración inter-proyecto. Cada riesgo con impacto, probabilidad y mitigación, enfocado en las fronteras entre unidades de entrega (incompatibilidad de contratos, acoplamiento de versiones, orden de despliegue).
 8. Trazabilidad. Tabla que liga cada contrato inter-proyecto a la dependencia del manifiesto que materializa y a los CU que cruzan la frontera entre unidades de entrega.
 
-Para un producto de un único unidad de entrega, la vista de producto se omite por completo: el mapa tendría un solo nodo y el grafo ninguna arista, de modo que su contenido se reduce a la arquitectura del único unidad de entrega y al README raíz.
+Para un producto de una sola unidad de entrega y un solo proyecto de código, la vista de producto se omite por completo: el mapa tendría un solo nodo y el grafo ninguna arista, de modo que su contenido se reduce a la arquitectura del único unidad de entrega y al README raíz.
 
 ---
 
@@ -535,3 +535,4 @@ Salida: SDD/Docs/Producto/<estructura>.
 | 4.3 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 4.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
 | 4.5 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
+| 4.6 | 2026-09-13 | **§4.8 declara la clase de cada arista del grafo de dependencias** —referencia de proyecto o insumo de construcción, `Intake-Rules.md` §4— y el único generador de cada insumo, con un recuento por clase: una vista de producto que tenía un proyecto de otro ecosistema **tuvo que inventar la clase** para que su recuento cerrara. **Barrido del interior de la sección tocada**: el punto 2 pedía `tipo_unidad_entrega` D8 y `redistribuible` por proyecto de código, contra `Vocabulario-Rules.md` §2 y contra el inventario sin D8 de `Master-Prompt.md` §11, y pasa a pedir stack, solución de código y unidades que compone; y la aplicabilidad de §4.8 decía «más de una unidad de entrega» contra la tabla de §2.1 del mismo archivo, que dice «o más de un proyecto de código». Sube minor: la clase sin marca es la referencia de proyecto, de modo que una vista sin insumos cumple igual; el D8 por proyecto contradecía el modelo de dos ejes desde la 8.0. |

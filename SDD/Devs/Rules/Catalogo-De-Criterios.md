@@ -2,9 +2,9 @@
 
 **Framework:** SDD
 **Documento:** Catalogo-De-Criterios.md
-**Versión:** 1.17
+**Versión:** 1.18
 **Estado:** Vigente
-**Fecha:** 2026-09-12
+**Fecha:** 2026-09-13
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
 **Lector:** todo agente que enfrenta una situación y necesita saber qué criterio del método la resuelve
 
@@ -15,7 +15,7 @@
 **Es un índice, no una regla.** No define ningún criterio: dice **dónde vive cada uno** y **qué
 decide**. Todo criterio sigue viviendo en su archivo, con su fundamento y su historia.
 
-**Existe porque los criterios estaban y no se podían encontrar.** El método tiene 222 situaciones
+**Existe porque los criterios estaban y no se podían encontrar.** El método tiene 226 situaciones —el total de §4—
 catalogadas en tablas de anti-patrones, umbrales numéricos, salidas con condición de elección y reglas
 de resolución, repartidas en veinte archivos de reglas y tres orquestadores, **sin ningún punto de
 entrada**. Un agente que enfrenta una situación tenía que haberlos leído todos para saber que existían.
@@ -69,6 +69,9 @@ aplica sin su fundamento — y el fundamento es lo que permite reconocer cuándo
 | Se escribe un ítem obligatorio de una §4.x con dos cosas adentro | Si son **dos decisiones que se parten** o una sola con dos caras: se parte cuando la segunda **se decide por separado**, no cuando **se deriva** de la primera | `Rules-Devops.md` §4.3, §4.4 y §4.6, y `Rules-Backlog-Tecnico.md` §4.4, los cinco casos ya partidos |
 | El evento que cierra un diferimiento **ya ocurrió** | Si sigue abierto, es hallazgo y de qué nivel | `Root-Rules.md` §12.2, tabla de escalamiento |
 | El intake no permite derivar el manifiesto | Qué detiene la cadena | [`Intake-Rules.md`](../Rules/Intake-Rules.md) §4 |
+| Un proyecto de código es de **otro ecosistema** que el de la solución de código, o toma como entrada de su construcción el artefacto de otro proyecto sin referenciarlo | A qué solución de código pertenece, de qué clase es la arista y quién es su único generador | `Intake-Rules.md` §4, el proyecto de código de otro ecosistema |
+| La solución se construye en un ambiente donde **falta la cadena de herramientas** de un ecosistema que su construcción necesita | Cómo se construye ahí sin entregar el consumidor sin su insumo | `Rules-Devops.md` §4.9, punto 4 |
+| Un sample **no se compila**, o es de otro ecosistema, y hay que ponerlo en el agrupador de la solución | Con qué forma entra, dónde se corre su verificación y cómo se comprueba que ninguno quedó afuera | `Rules-Examples.md` §3.6 |
 | Se intervino el framework y hay que versionarlo | Qué bump corresponde | [`SDD-Development-Guide.md`](../../Guides/SDD-Development-Guide.md) §VI.1 y §VI.5 |
 | Hay conocimiento sobre **un artefacto que el framework no gobierna** y se lo quiere reutilizar | Si va a la base de conocimiento o es una regla mal ubicada | [`Rules-Base-Conocimiento.md`](../Rules/Rules-Base-Conocimiento.md) §0.1 |
 | Un documento de conocimiento **contradice** algo que el framework fija | Si es **sustitución** —el ítem está rotulado como decisión de stack— o **desviación justificada**, en cuyo caso manda la regla | `Rules-Base-Conocimiento.md` §0.3 y §0.4 |
@@ -106,17 +109,17 @@ esta versión cada uno lleva su **marca de detección**: `[enumerable]` si un gu
 | [`Rules-Backlog-Tecnico.md`](../Rules/Rules-Backlog-Tecnico.md) | 11 | 5 | 6 |
 | [`Rules-Calidad-Y-Pruebas.md`](../Rules/Rules-Calidad-Y-Pruebas.md) | 10 | 8 | 2 |
 | [`Rules-Contexto.md`](../Rules/Rules-Contexto.md) | 8 | 4 | 4 |
-| [`Rules-Devops.md`](../Rules/Rules-Devops.md) | 13 | 8 | 5 |
+| [`Rules-Devops.md`](../Rules/Rules-Devops.md) | 15 | 8 | 7 |
 | [`Rules-Documentacion.md`](../Rules/Rules-Documentacion.md) | 19 | 5 | 14 |
 | [`Rules-Especificacion-Funcional.md`](../Rules/Rules-Especificacion-Funcional.md) | 15 | 8 | 7 |
-| [`Rules-Examples.md`](../Rules/Rules-Examples.md) | 17 | 9 | 8 |
+| [`Rules-Examples.md`](../Rules/Rules-Examples.md) | 19 | 10 | 9 |
 | [`Rules-Necesidades-Negocio.md`](../Rules/Rules-Necesidades-Negocio.md) | 8 | 4 | 4 |
 | [`Rules-Plan-Sprint.md`](../Rules/Rules-Plan-Sprint.md) | 11 | 7 | 4 |
 | [`Rules-Prompts-AI.md`](../Rules/Rules-Prompts-AI.md) | 10 | 7 | 3 |
 | [`Rules-Base-Conocimiento.md`](../Rules/Rules-Base-Conocimiento.md) | 6 | 3 | 3 |
 | [`Mesa-Rules.md`](../Rules/Mesa-Rules.md) | 14 | 8 | 6 |
 | [`Rules-UX-UI-DX.md`](../Rules/Rules-UX-UI-DX.md) | 25 | 12 | 13 |
-| **Total** | **222** | **108** | **114** |
+| **Total** | **226** | **109** | **117** |
 
 **La marca no es decorativa: la consume la compuerta.** Desde la 9.13, `Master-Prompt.md` §10.0 toma como parte de su conjunto de reglas **los anti-patrones `[enumerable]` de la regla de la categoría en curso**, y los evalúa antes de que el audit interprete nada. Los `[interpretativo]` quedan para el audit y para el humano.
 
@@ -209,3 +212,4 @@ regla—. Lo que no corresponde adoptar es la **infraestructura** de DMN, no su 
 | 1.15 | 2026-08-29 | **Dos criterios nuevos de `Mesa-Rules.md` 1.1**, por la comprobación 12. El primero: **el caso pide una mesa y ningún orquestador la convoca desde ahí** — la 1.0 declaraba los puntos de invocación y no la condición, y el criterio que faltaba es que los puntos son **casos** y no definición. El segundo: **un hallazgo `P0` apoyado en una declaración y no en un observable**, que exige contrastar la fuente antes de proceder. Se precisa además el criterio existente de convocatoria, que apuntaba a §0.2 y ahora apunta a **§0.0**, donde vive la condición. La fila de `Mesa-Rules.md` en §4 pasa de **12 a 14** situaciones; el total, de **220 a 222**, `[enumerable]` de 107 a 108 e `[interpretativo]` de 113 a 114. | Intervención de la condición de convocatoria |
 | 1.16 | 2026-09-12 | **Dos situaciones nuevas y una reapuntada**, por la comprobación 12: **una detención nace de un estado que la propia corrida dejó a medias** y **varias detenciones en una misma fase**, de `Master-Prompt.md` §8.1 y §7.0; y **«apareció un hallazgo y no se sabe si detener o resolverlo»** pasa a nombrar primero el origen del hecho. **El total de §4 no cambia**: no entra ningún anti-patrón. **La fila 1.13 de este registro estaba entre la 1.2 y la 1.3** y pasa a su lugar sin cambiar su texto, por la comprobación 10. Sube minor. |
 | 1.17 | 2026-09-12 | **Una situación nueva y dos reapuntadas**, por la comprobación 12: **se va a afirmar que un término colisiona o no colisiona**, de `Vocabulario-Rules.md` §9.2 y §9.4, `Mesa-Rules.md` §6.1 y la comprobación 14 de `SDD-Development-Guide.md` §VI.3; «un término tiene dos sentidos» nombra el contexto de lectura por lector; y «hay que verificar una intervención» pasa de trece a **catorce** comprobaciones. **El total de §4 no cambia**: no entra ningún anti-patrón. Sube minor. |
+| 1.18 | 2026-09-13 | **Tres situaciones nuevas**, por la comprobación 12: **un proyecto de código de otro ecosistema** o una dependencia que toma un artefacto sin referenciarlo (`Intake-Rules.md` §4), **la cadena de herramientas ausente** donde se construye la solución (`Rules-Devops.md` §4.9) y **el sample que no se compila** y hay que poner en el agrupador (`Rules-Examples.md` §3.6). §4 suma **cuatro anti-patrones**: dos `[interpretativo]` de `Rules-Devops.md` (13 → 15) y uno de cada marca de `Rules-Examples.md` (17 → 19); el total pasa de **222 a 226**, con **109** enumerables y **117** interpretativos, y el recuento en prosa de §1 se actualiza con su fuente. Sube minor. |

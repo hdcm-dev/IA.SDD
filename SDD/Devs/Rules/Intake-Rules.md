@@ -3,7 +3,7 @@
 **Archivo target:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Lector:** la Fase de validación de intake del `Master-Prompt.md` (previa a la Fase A).
-**Versión de las reglas:** 4.2
+**Versión de las reglas:** 4.3
 
 ---
 
@@ -120,6 +120,50 @@ Validaciones bloqueantes de la derivación (si alguna falla, no se deriva el man
 - El grafo de compilación es acíclico (DAG).
 - **Ningún proyecto de código declara un valor D8.** Si lo declara, el intake está confundiendo los dos ejes: el tipo es atributo de la entrega.
 
+**Del proyecto de código de otro ecosistema (§13.2).** Un producto puede tener proyectos de código de
+más de un ecosistema, y la columna Stack de §13.2 es donde se lee. **Lo que no se lee de ahí es a qué
+solución de código pertenece cada uno**, y se decide así:
+
+- **Pertenece a la solución de código de un proyecto que toma su artefacto como insumo de
+  construcción.** La solución lo contiene aunque no lo construya por referencia: la construcción de la
+  solución genera ese artefacto a través del consumidor, en el mismo comando.
+- **Si ningún proyecto de la solución toma su artefacto, es su propia solución de código**, y rige lo
+  que el manifiesto declara para dos soluciones: la dependencia entre ellas es consumo de artefacto
+  publicado y no arista del grafo.
+- **Que el agrupador lo muestre, o no, es forma del repositorio y no cambia la pertenencia.** Mostrar
+  un proyecto sin construirlo desde el agrupador es una decisión del destino; la pertenencia la da la
+  arista.
+
+**El grafo de compilación tiene dos clases de arista**, y la columna «Dependencias de compilación» de
+§13.2 dice de qué clase es cada una:
+
+| Clase | Qué es | Cómo se declara en la columna |
+|---|---|---|
+| **Referencia de proyecto** | El consumidor referencia al productor con el mecanismo del ecosistema de la solución, y el productor se construye como proyecto de esa solución | `<Nombre-Proyecto-Codigo>`, sin marca |
+| **Insumo de construcción** | El consumidor toma como entrada de su propia construcción el artefacto que el productor genera, sin referencia de proyecto entre los dos. **Es la única clase posible entre proyectos de ecosistemas distintos** | `<Nombre-Proyecto-Codigo> (insumo de construcción)` en el único generador; `<Nombre-Proyecto-Codigo> (insumo de construcción, generado por <Nombre-Proyecto-Codigo>)` en cualquier otro consumidor |
+
+**Un insumo de construcción tiene un único generador**: el consumidor cuya construcción ejecuta la del
+productor. Un segundo consumidor toma la salida del generador y no la vuelve a generar. Dos
+generadores del mismo artefacto producen dos artefactos que nadie garantiza iguales, y un cambio del
+productor llega a uno solo.
+
+Validaciones bloqueantes que suma:
+
+- Todo proyecto de código que aparece como insumo de construcción tiene **exactamente un** consumidor
+  que lo declara sin `generado por`, y todo `generado por` nombra a ese consumidor.
+- Ninguna referencia de proyecto une dos proyectos de código cuyo stack declara ecosistemas
+  distintos: entre ellos, la única clase es insumo de construcción.
+- Las dos clases cuentan igual para la aciclicidad del grafo.
+- La `Identidad-Codigo` de cada proyecto sigue el perfil de convención de su ecosistema
+  (`PRODUCT-MANIFEST-template.md` §1.2): con proyectos de más de un ecosistema hay un perfil por
+  ecosistema.
+
+**Qué pasa donde falta la cadena de herramientas de un ecosistema** lo gobierna `Rules-Devops.md`
+§4.9, punto 4, y **cómo entra al agrupador un sample que no se compila**, `Rules-Examples.md` §3.6.
+Las tres piezas se enuncian sin nombrar herramientas: la forma concreta con que un ecosistema muestra
+un proyecto sin construirlo, o genera un artefacto desde otro proyecto, es del destino y se declara en
+sus decisiones de arquitectura.
+
 **Del puente entre ejes (§13.3):**
 
 - **Todo proyecto de código compone al menos una unidad de entrega.** Un proyecto que no compone ninguna no se construye para nada, o falta declarar la entrega que lo usa.
@@ -227,5 +271,6 @@ Reglas de la batería:
 | 3.2 | 2026-07-29 | Instrumentación de la enumeración de los documentos de entrada (prerrequisito F2 de la migración normativa). **§2.1 es nueva**: tabla maestra de los dos artefactos que esta regla gobierna, `PRODUCT-INTAKE-<Slug-Producto>.md` y `PRODUCT-MANIFEST-<Slug-Producto>.md`, con columnas homólogas a las de las reglas de categoría y con la declaración explícita de que no hay gating por tipo D8 porque todo producto tiene exactamente uno de cada uno. La regla no la tenía, y el paso 4 del diff normativo de `Master-Prompt.md` §2.1 enumera los documentos gobernados leyendo precisamente esa dirección: sin tabla maestra, el intake y el manifiesto nunca podían aparecer entre los documentos potencialmente invalidados, ni siquiera ante el salto major de 2.1 a 3.0 de esta misma regla. §2 pasa a titularse «Artefactos gobernados y campos bloqueantes» para alojar las dos subsecciones, y los campos bloqueantes se numeran como **§2.2** sin cambiar de contenido; la referencia externa vigente apunta a §2, que sigue conteniéndolos. Sube **minor**: incorpora una declaración que no invalida nada de lo vigente. | Framework SDD (migración normativa) |
 | 3.3 | 2026-08-15 | **Regla de coherencia intra-escenario** en §5, con su nivel de bloqueo en §7. Toda magnitud que la prosa de un escenario de la Parte D enuncia coincide con lo que su payload contiene, o el escenario declara por qué difieren; la discrepancia no declarada es bloqueante y la declarada es un dato del escenario. La validación verificaba que los cuatro bloques existieran y no que dijeran lo mismo, de modo que un escenario con «nueve» en un bloque y once entradas en el siguiente cumplía los cuatro requisitos y llegaba a los tres consumidores aguas abajo, cada uno creyendo una cosa distinta. Se declara además el alcance acotado —conteos y enumeraciones del propio payload, no cualquier número del texto—, sin el cual la validación produce ruido y se desactiva sola. Sube **minor**: agrega una validación sin cambiar la estructura de los artefactos que gobierna; un intake ya emitido no deja de cumplir por su forma, aunque pueda fallar la validación nueva, que es el efecto buscado. Origen: reporte `00`, huecos A y B. | Framework SDD (intervención reportes 00-11) |
 | 4.0 | 2026-08-15 | **Validación de los dos ejes** (framework 8.0). §2.2 parte los campos bloqueantes de §13 en los de unidades de entrega y los de proyectos de código, y condiciona el bloque §17 a las unidades de entrega vigentes. §4 reorganiza las validaciones de la derivación en tres grupos —eje de entrega, eje de construcción y puente entre ejes— y suma siete validaciones nuevas, de las cuales dos son las que impiden que el intake confunda los ejes: que ningún proyecto de código declare un valor D8, y que todo proyecto componga al menos una unidad de entrega y toda unidad se componga de al menos un proyecto. §5 verifica que los contratos de integración y los de compilación no se mezclen. Sube **major**: cambia la estructura de lo que valida y el nombre de un campo bloqueante. | Framework SDD (nivel de unidad de entrega) |
-| 4.2 | 2026-08-23 | **La validación de la cita de conocimiento** (framework 13.2). §5 suma que **todo alias de `§17.P.13` resuelve** contra `Conocimiento/Index-Knowledge.md` y contra una fila `Vigente`, y §7 lo declara **bloqueante** junto a los campos de §2 y las fallas de derivación del manifiesto. Corre **en la validación previa a la Fase A y no en runtime**, por el mismo criterio de costo con que corren las demás: un alias inexistente detectado acá cuesta una corrección del intake, detectado en la Fase B cuesta la Fase A entera. Se declara además que **§17.P.13 es opcional** y que si `Conocimiento/` está vacía la única cita válida es `Ninguno`. Sube **minor**: ningún intake que cumpliera antes deja de cumplir, porque la subsección es nueva y opcional. |
 | 4.1 | 2026-08-16 | **Barrido por concepto de la 8.7** (`SDD-Development-Guide.md` §VI.3.1). §4 cometía dentro de sí mismo la confusión de ejes que sus propias validaciones prohíben treinta líneas más abajo: el paso 2 leía `redistribuible` —atributo de la **entrega**— de la fila del proyecto de código, y el mapeo era **una sola tabla** que pedía a la misma fila el `Nombre-Proyecto-Codigo` y el `tipo_unidad_entrega`, que es exactamente lo que la validación «ningún proyecto de código declara un valor D8» declara imposible. El mapeo pasa a **tres tablas** —entrega, construcción y producto— y el prefijo de organización se resuelve por el puente §13.3 y no por la fila. §5 corrige la Parte C, que decía «por cada proyecto de código» contra §2.2 y contra la coherencia cross-parte de la misma sección. §1 y §3 nombran la subsección. Sube **minor**: ningún intake que cumpliera §2.2 deja de cumplir. | Framework SDD (barrido 8.7) |
+| 4.2 | 2026-08-23 | **La validación de la cita de conocimiento** (framework 13.2). §5 suma que **todo alias de `§17.P.13` resuelve** contra `Conocimiento/Index-Knowledge.md` y contra una fila `Vigente`, y §7 lo declara **bloqueante** junto a los campos de §2 y las fallas de derivación del manifiesto. Corre **en la validación previa a la Fase A y no en runtime**, por el mismo criterio de costo con que corren las demás: un alias inexistente detectado acá cuesta una corrección del intake, detectado en la Fase B cuesta la Fase A entera. Se declara además que **§17.P.13 es opcional** y que si `Conocimiento/` está vacía la única cita válida es `Ninguno`. Sube **minor**: ningún intake que cumpliera antes deja de cumplir, porque la subsección es nueva y opcional. |
+| 4.3 | 2026-09-13 | **§4 suma el proyecto de código de otro ecosistema.** El modelo de dos ejes ya tenía el stack por proyecto y la solución de código como agrupador de la construcción, y no tenía cómo decir que un proyecto de un ecosistema es insumo de construcción de uno de otro dentro de la misma solución: un destino que lo necesitó inventó la clase de arista. Se declara **a qué solución pertenece** —la de su consumidor, si alguno toma su artefacto; la suya, si ninguno—, **las dos clases de arista** del grafo de compilación —referencia de proyecto e insumo de construcción— con su marca en la columna de dependencias, **el único generador** de cada insumo y **cuatro validaciones bloqueantes**. Sin nombrar ninguna herramienta: la materialización por ecosistema va en el perfil de convención del manifiesto. **Corregido de paso**: la fila 4.2 de este control de cambios estaba antes de la 4.1; se reordena sin cambiar su texto. Sube minor: un intake sin insumos de construcción cumple igual, y la marca nueva sólo alcanza a los productos que ya tenían el caso sin poder declararlo. | Framework SDD (proyecto de otro ecosistema) |
