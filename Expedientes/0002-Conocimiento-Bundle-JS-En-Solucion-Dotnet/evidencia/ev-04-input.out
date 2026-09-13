@@ -1,0 +1,24 @@
+1e21543099479dc9dd556d2736ac7f3769cf9f5a513f8b8341fbb6d85641cc41  <workspace>/IA/SDD/IA.SDD.Documentacion/PROMPTs/SDD/Catalogado/02-Extraccion-Concepto-Espcificacion-Integracion-Proyecto-Bundle-JS/Extraccion-Concepto-Espcificacion-Integracion-Proyecto-Bundle-JS.md
+5b335e2af7a984b43c11000551f37f7e18513f1ff0ccb401ae3ba0fa64f82c76  <workspace>/IA/SDD/IA.SDD.Documentacion/PROMPTs/SDD/Catalogado/02-Extraccion-Concepto-Espcificacion-Integracion-Proyecto-Bundle-JS/INPUTs/Bundle-JS-En-Solucion-Blazor.md
+   52 <workspace>/IA/SDD/IA.SDD.Documentacion/PROMPTs/SDD/Catalogado/02-Extraccion-Concepto-Espcificacion-Integracion-Proyecto-Bundle-JS/Extraccion-Concepto-Espcificacion-Integracion-Proyecto-Bundle-JS.md
+  299 <workspace>/IA/SDD/IA.SDD.Documentacion/PROMPTs/SDD/Catalogado/02-Extraccion-Concepto-Espcificacion-Integracion-Proyecto-Bundle-JS/INPUTs/Bundle-JS-En-Solucion-Blazor.md
+  351 total
+11:## 1. Hipótesis de trabajo
+19:## 2. Conceptos del framework que deciden la respuesta
+21:### 2.1 Dos ejes: unidad de entrega y proyecto de código
+33:### 2.2 El tipo D8 es de la entrega, no del proyecto de código
+42:### 2.3 Solución de código y grafos
+53:### 2.4 Layout de salida y casos de aplanado
+67:### 2.5 Nombres de código
+74:### 2.6 Maqueta frente a producto
+82:## 3. Clasificación del bundle
+90:## 4. Caso A — el bundle viaja solo dentro de la app Blazor
+155:## 5. Caso B — el bundle se publica aparte (paquete npm)
+171:## 6. Juicio del analista (no es evidencia del framework)
+181:## 7. Preguntas abiertas
+192:## 8. Desarrollo del bundle: las dos PoC
+194:### 8.1 Planteo del PO
+206:### 8.2 Qué dice el framework (evidencia)
+233:### 8.3 Encaje propuesto (juicio del analista, apoyado en §8.2)
+261:### 8.4 Árbol del código resultante
+294:## Control de cambios

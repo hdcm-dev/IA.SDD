@@ -1,0 +1,22 @@
+d531a604071cde59d92d7e0656ff7c106116bba8e5f9279b0a2769d747d98ffe  <workspace>/IA/SDD/IA.SDD.Documentacion/PROMPTs/SDD/Catalogado/02-Extraccion-Concepto-Espcificacion-Integracion-Proyecto-Bundle-JS/OUTPUTs/Knowledge-Bundle-JS.md
+== 1 cabecera (11 esperados):
+11
+== 2 secciones §0-§10:
+## 0. ## 1. ## 2. ## 3. ## 4. ## 5. ## 6. ## 7. ## 8. ## 9. ## 10. 
+== 3 numeración contigua (vacío = ok):
+== 4 techo:
+total=737 §5=369 resto=368 (resto <= 600 con excepción declarada en §0)
+1
+== 5 ofuscación (vacío = ok):
+== 6 criterios de sample, anti-patrón (vacío = ok):
+== 7 rutas de solución (sólo en §0, como ilustrativas):
+29:| Layout interno del proyecto del bundle, de la RCL y de cada anfitrión | Carpetas de la solución (`/src`, `/samples`, `/demos`, `/tests`) |
+34:**Toda ruta de este documento es ilustrativa, salvo las internas de cada pieza.** Las piezas se nombran por rol y por arista, nunca por ubicación. Un framework que pone sus pruebas de concepto en `/demos` las pone en `/demos`.
+== 8 foco/teclado:
+669:- [ ] El documento no fija foco ni teclado del DOM que genera el bundle: eso es del método de accesibilidad del destino (§8).
+== 9 fila de índice contra cabecera:
+ok Alias
+ok Naturaleza
+ok Tema
+ok Consumidor
+ok Condicion-de-carga

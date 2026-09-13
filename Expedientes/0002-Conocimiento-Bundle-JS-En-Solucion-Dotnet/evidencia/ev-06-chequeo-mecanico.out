@@ -1,0 +1,40 @@
+--- archivos del framework citados por el documento de entrada, y si resuelven
+CHANGELOG.md  encontrados=0
+Conocimiento/Index-Knowledge.md  encontrados=1
+Conocimiento/Knowledge-Template-Blazor-Interactive-Server-SDD-Default.md  encontrados=1
+Examples/New-Solution/.../INPUTs/Requerimientos-Tecnicos.md  encontrados=0
+Extraccion-Concepto-Espcificacion-Integracion-Proyecto-Bundle-JS.md  encontrados=0
+guia-publicacion-paquete-npm.md  encontrados=0
+Index-Knowledge.md  encontrados=1
+Maqueta-Rules.md  encontrados=1
+Marco-Teorico-SDD.md  encontrados=1
+Master-Prompt.md  encontrados=1
+Pipeline-Producto.md  encontrados=0
+PRODUCT-INTAKE-template.md  encontrados=1
+PRODUCT-MANIFEST-template.md  encontrados=1
+Producto/Pipeline-Producto.md  encontrados=0
+Producto/Vista-Producto.md  encontrados=0
+README.md  encontrados=2
+Rules-Backlog-Tecnico.md  encontrados=1
+Rules-Devops.md  encontrados=1
+Rules-Examples.md  encontrados=1
+SDD/Devs/Intake/PRODUCT-INTAKE-template.md  encontrados=1
+SDD/Devs/Orchestrator/Master-Prompt.md  encontrados=1
+SDD/Devs/Rules/Maqueta-Rules.md  encontrados=1
+SDD/Devs/Rules/Vocabulario-Rules.md  encontrados=1
+
+--- secciones citadas como "Archivo §N": comprobacion de que el archivo tiene un encabezado con ese numero
+Maqueta-Rules.md §1.2  encabezados=1
+Maqueta-Rules.md §7  encabezados=3
+Marco-Teorico-SDD.md §6.6  encabezados=1
+Master-Prompt.md §3.5  encabezados=1
+PRODUCT-INTAKE-template.md §13.2  encabezados=1
+PRODUCT-INTAKE-template.md §13.3  encabezados=1
+PRODUCT-INTAKE-template.md §14  encabezados=1
+PRODUCT-MANIFEST-template.md §2  encabezados=6
+PRODUCT-MANIFEST-template.md §2.1  encabezados=1
+PRODUCT-MANIFEST-template.md §3  encabezados=1
+Rules-Devops.md §2.2  encabezados=1
+Rules-Examples.md §0  encabezados=3
+Rules-Examples.md §0.1  encabezados=1
+Rules-Examples.md §1.2  encabezados=1

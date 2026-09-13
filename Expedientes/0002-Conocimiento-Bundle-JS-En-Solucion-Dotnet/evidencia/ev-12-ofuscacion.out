@@ -1,0 +1,10 @@
+# Método: salida de ev-12-ofuscacion.sh tal cual la imprime.
+# Base: la de ev-12-ofuscacion.sh.
+# Quién: presidente de mesa, 2026-09-13.
+barrido 1 (host): 0 ocurrencias
+barrido 2 (marcador <F1>): 291 ocurrencias
+barrido 2 (marcador <repo-privado-F1>): 14 ocurrencias
+barrido 2 (marcador <Componente>): 220 ocurrencias
+barrido 2 (marcador <componente>): 241 ocurrencias
+barrido 2 (marcador <workspace>): 44 ocurrencias
+barrido 2 (marcador <scratchpad>): 3 ocurrencias

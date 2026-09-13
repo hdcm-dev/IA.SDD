@@ -1,0 +1,173 @@
+--- arbol del proyecto de codigo del bundle
+src/<F1>.<Componente>/.gitignore
+src/<F1>.<Componente>/Contrato.cs
+src/<F1>.<Componente>/DiagramaDeCabecera.razor
+src/<F1>.<Componente>/<F1>.<Componente>.csproj
+src/<F1>.<Componente>/css/<componente>.css
+src/<F1>.<Componente>/package-lock.json
+src/<F1>.<Componente>/package.json
+src/<F1>.<Componente>/ts/componente.test.ts
+src/<F1>.<Componente>/ts/contrato.ts
+src/<F1>.<Componente>/ts/dibujo.test.ts
+src/<F1>.<Componente>/ts/dibujo.ts
+src/<F1>.<Componente>/ts/estilo.test.ts
+src/<F1>.<Componente>/ts/ficha.test.ts
+src/<F1>.<Componente>/ts/ficha.ts
+src/<F1>.<Componente>/ts/frontera.test.ts
+src/<F1>.<Componente>/ts/geometria.test.ts
+src/<F1>.<Componente>/ts/geometria.ts
+src/<F1>.<Componente>/ts/normalizador.test.ts
+src/<F1>.<Componente>/ts/normalizador.ts
+src/<F1>.<Componente>/ts/<componente>.ts
+src/<F1>.<Componente>/ts/recorrido.test.ts
+src/<F1>.<Componente>/ts/recorrido.ts
+src/<F1>.<Componente>/ts/retencion.test.ts
+src/<F1>.<Componente>/ts/seleccion.test.ts
+src/<F1>.<Componente>/tsconfig.json
+src/<F1>.<Componente>/tsconfig.pruebas.json
+
+--- package.json
+{
+  "name": "<f1>-<componente>",
+  "version": "0.0.0",
+  "private": true,
+  "description": "TypeScript del componente que dibuja la cabecera de pines. Se construye dentro del dotnet build (ADR-00042).",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit && esbuild ts/<componente>.ts --bundle --format=esm --minify --outfile=wwwroot/<componente>.js",
+    "test": "tsc -p tsconfig.pruebas.json && node --test build/*.test.js",
+    "test:cobertura": "tsc -p tsconfig.pruebas.json && node --test --experimental-test-coverage --test-coverage-exclude=\"build/*.test.js\" build/*.test.js"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1",
+    "esbuild": "0.25.12",
+    "typescript": "5.9.3"
+  }
+}
+
+--- targets del csproj (nombres y BeforeTargets/AfterTargets)
+34:  <Target Name="VerificarNode" BeforeTargets="ConstruirBundle">
+35:    <Exec Command="node --version" ConsoleToMsBuild="true" StandardOutputImportance="low"
+48:  <Target Name="RestaurarDependenciasDeJavascript"
+50:    <Exec Command="npm ci --no-audit --no-fund" WorkingDirectory="$(MSBuildProjectDirectory)" />
+60:  <Target Name="ConstruirBundle"
+61:          DependsOnTargets="RestaurarDependenciasDeJavascript"
+62:          BeforeTargets="ResolveStaticWebAssetsInputs;BeforeBuild"
+65:    <Exec Command="npm run build" WorkingDirectory="$(MSBuildProjectDirectory)" />
+74:  <Target Name="CopiarHojaDeEstilos"
+75:          BeforeTargets="ResolveStaticWebAssetsInputs;BeforeBuild"
+94:  <Target Name="PruebasDeTypeScript"
+95:          DependsOnTargets="RestaurarDependenciasDeJavascript"
+96:          AfterTargets="Build"
+98:    <Exec Command="npm test" WorkingDirectory="$(MSBuildProjectDirectory)" />
+115:    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.0" />
+
+--- contrato del lado .NET: tipos declarados
+13:public static class ClaseDePunto
+15:    public const string Linea = "linea";
+16:    public const string Alimentacion = "alimentacion";
+17:    public const string Masa = "masa";
+25:public static class EstadoDePunto
+27:    public const string Libre = "libre";
+28:    public const string ReservadaPorCapacidad = "reservada-por-capacidad";
+29:    public const string OcupadaPorOtroConsumidor = "ocupada-por-otro-consumidor";
+30:    public const string OcupadaPorElProducto = "ocupada-por-el-producto";
+31:    public const string FueraDelMapa = "fuera-del-mapa";
+32:    public const string NoAccionable = "no-accionable";
+36:public static class ModoDeVista
+38:    public const string Sellado = "sellado";
+39:    public const string Clasificacion = "clasificacion";
+40:    public const string Estado = "estado";
+44:public sealed record EspacioDeNumeracion(string Espacio, int Numero);
+48:public sealed record PuntoDeCabeceraDto(
+57:public sealed record CabeceraDto(
+64:public sealed record PuntoClasificadoDto(
+82:public sealed record CoberturaDelMapa(IReadOnlyList<int> PosicionesAlcanzadas);
+91:public sealed record ClasificacionDto(
+108:public sealed record VistaDto(
+118:public static class PanelSugerido
+120:    public const string FichaDeAlta = "ficha-de-alta";
+121:    public const string FichaDeRecurso = "ficha-de-recurso";
+122:    public const string FichaDeLineaReservada = "ficha-de-linea-reservada";
+123:    public const string FichaSellada = "ficha-sellada";
+124:    public const string FichaFueraDeMapa = "ficha-fuera-de-mapa";
+125:    public const string FichaNoAccionable = "ficha-no-accionable";
+141:public sealed record AcuseDeActivacion(
+
+--- contrato del lado TypeScript: tipos exportados
+15:export type ClaseDePunto = "linea" | "alimentacion" | "masa";
+17:export interface EspacioDeNumeracion {
+23:export interface PuntoDeCabeceraDto {
+35:export interface CabeceraDto {
+46:export type EstadoDePunto =
+58:export interface PuntoClasificadoDto {
+74:export interface ClasificacionDto {
+97:export interface CoberturaDelMapa {
+111:export type ModoDeVista = "sellado" | "clasificacion" | "estado";
+113:export interface VistaDto {
+125:export type PanelSugerido =
+133:export interface AcuseDeActivacion {
+160:export interface OpcionesDeMontaje {
+166:export interface Instancia<Componente> {
+
+--- API publica del modulo (funciones exportadas del punto de entrada)
+281:export function montar(
+296:export function montarConInterop(
+308:export function render(contenedor: HTMLElement, vista: VistaDto): void {
+312:export function seleccionar(contenedor: HTMLElement, posicion: number | null): void {
+316:export function destruir(contenedor: HTMLElement): void {
+
+--- envoltorio Blazor: lineas de interoperabilidad
+9:@implements IAsyncDisposable
+17:    El estatico se sirve solo bajo `_content/<F1>.<Componente>/`, sin configuracion y
+25:    private IJSObjectReference? _modulo;
+26:    private DotNetObjectReference<DiagramaDeCabecera>? _referencia;
+56:            _modulo = await Js.InvokeAsync<IJSObjectReference>(
+57:                "import", "./_content/<F1>.<Componente>/<componente>.js");
+58:            _referencia = DotNetObjectReference.Create(this);
+59:            await _modulo.InvokeVoidAsync("montarConInterop", _contenedor, _referencia);
+63:                await AlMontar.InvokeAsync(_contenedor);
+69:            await _modulo.InvokeVoidAsync("render", _contenedor, Vista);
+76:    [JSInvokable("AlActivarPunto")]
+77:    public Task RecibirAcuse(AcuseDeActivacion acuse) => AlActivarPunto.InvokeAsync(acuse);
+88:                await _modulo.InvokeVoidAsync("destruir", _contenedor);
+91:            catch (JSDisconnectedException)
+
+--- ADR-00042 y ADR-00043: titulo y decision
+# ADR-00042 — El TypeScript se compila dentro del `dotnet build` del proyecto
+## 2. Decisión
+
+El proyecto **es** una biblioteca de clases Razor `net10.0`, y su TypeScript se compila y se empaqueta **durante el propio `dotnet build` del proyecto**.
+
+Cuatro consecuencias, y las cuatro son la decisión:
+
+1. Desde la solución hay cinco proyectos .NET y ninguna rareza: `dotnet build` en la raíz construye todo, incluido el bundle. **Nadie tiene que acordarse de correr el empaquetador antes**, que es exactamente el paso manual que se olvida una vez y rompe una publicación.
+2. Los estáticos de una biblioteca de clases Razor se sirven solos bajo `_content/<F1>.<Componente>/`. Sin configuración de estáticos y **sin ningún recurso remoto**.
+3. El contrato y su consumidor quedan juntos: el envoltorio Blazor y el TypeScript que consume viven en el mismo proyecto, con los tipos declarados una vez de cada lado en carpetas hermanas.
+4. **El bundle no se versiona**: se construye en cada compilación. No hay artefacto generado en el árbol que pueda quedar desincronizado de su fuente.
+
+Se elige un **empaquetador minimalista** y no uno de propósito general.
+
+## 3. Estado
+# ADR-00043 — Dos superficies de consumo desde un mismo código
+## 2. Decisión
+
+El mismo código se emite en **dos superficies de consumo**, generadas en la misma compilación:
+
+1. **Módulo ES**, para el envoltorio Blazor.
+2. **Global clásico**, para la maqueta, que se carga con una etiqueta de script y funciona desde el sistema de archivos.
+
+Hacia adentro el componente no se comunica con nada: no hace peticiones, no accede a almacenamiento y no conoce la red.
+
+## 3. Estado
+
+--- la maqueta consume el bundle empaquetado (README de la maqueta)
+52:| `assets/vendor/<componente>.js`, `<componente>.css`, `<componente>.d.ts` | **Copia del componente empaquetado `<F1>.<Componente>`**, no fuente de esta maqueta. Ver 9 |
+84:4. **El modo simulado se declara visiblemente.** En `Panel-De-Operacion`, `Lista-De-Sets`, `Composicion-De-Set` y las tres de configuración, estado «Modo simulado declarado». El distintivo es por recurso y nunca uno global cuando el mapa es mixto, y en el registro de una verificación lleva el texto completo, porque ahí la consecuencia importa: una verificación hecha contra un proveedor simulado no vale como verificación del montaje real.
+139:| Cómo se ve el diagrama de cabecera | `assets/css/Estilos-Maqueta.css`, bloque de remapeo de `--<prefijo-css>-*`. **Nunca `assets/vendor/<componente>.css`**: es una copia generada y editarla la desincroniza del componente que corre en producción |
+159:**Lo copiado no se edita.** `assets/vendor/<componente>.js`, `<componente>.css` y `<componente>.d.ts` son copia generada del proyecto del componente. La corrección se hace en la fuente del componente y se vuelve a copiar; a mano no, porque se desincroniza y nadie se entera hasta que la maqueta valida un componente que ya no es el que corre.
+163:| `assets/vendor/<componente>.js` | prototipo que acompaña la nota de diseño, forma equivalente a la salida `<componente>.global.js` (IIFE, global `<F1><Componente>`) | 2026-08-10 |
+164:| `assets/vendor/<componente>.css` | idem, hoja con las 87 variables `--<prefijo-css>-*` | 2026-08-10 |
+
+--- pruebas del bundle sin anfitrion (csproj)
+81:    La bateria del componente (BT-00014). Corre **sin anfitrion**: sin DOM, sin Blazor y sin

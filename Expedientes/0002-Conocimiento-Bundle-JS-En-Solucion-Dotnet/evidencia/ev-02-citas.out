@@ -1,0 +1,36 @@
+--- SDD/Devs/Intake/PRODUCT-INTAKE-template.md :: ¿Produce un artefacto de compilación propio y declara sus propias dependencias?
+318:| ¿Produce un artefacto de compilación propio y declara sus propias dependencias? | Es un **proyecto de código** |
+--- SDD/Devs/Intake/PRODUCT-INTAKE-template.md :: Los proyectos de código no llevan valor D8
+359:**Los proyectos de código no llevan valor D8.** El tipo describe una forma de entrega, y un proyecto
+--- SDD/Devs/Intake/PRODUCT-MANIFEST-template.md :: Agrupada por solución de código
+132:**Agrupada por solución de código.** Un producto puede tener más de una solución de código
+--- SDD/Devs/Rules/Vocabulario-Rules.md :: el *workspace* en Cargo o npm
+33:| **Solución de código** | El artefacto del ecosistema que agrupa la construcción: el archivo de solución en .NET, el POM agregador en Maven, el *workspace* en Cargo o npm | El comando de construcción que la toma como entrada única | código |
+--- SDD/Devs/Intake/PRODUCT-INTAKE-template.md :: | **De compilación** |
+406:| **De compilación** | Entre proyectos de código | Lo que un proyecto expone a los que lo referencian **al construir** | Una librería de dominio que expone tipos y puertos |
+--- SDD/Devs/Rules/Rules-Examples.md :: Las dos aristas del sample
+36:### 0.1 Las dos aristas del sample
+--- SDD/Devs/Rules/Rules-Examples.md :: Está prohibido partir el sample
+47:Ambas aristas viven en el mismo artefacto. Está prohibido partir el sample en una versión ilustrativa y otra verificable: divergirían, y la ilustrativa quedaría desactualizada primero.
+--- SDD/Devs/Rules/Rules-Examples.md :: Momento de generación: dos pasadas
+49:### 0.2 Momento de generación: dos pasadas
+--- SDD/Devs/Rules/Rules-Examples.md :: `redistribuible` == false y sin portal de developers
+24:| `redistribuible` == false y sin portal de developers | **Recomendada**. Su omisión no requiere ADR de apartamiento: la obligación está condicionada, no dispensada |
+--- SDD/Devs/Rules/Maqueta-Rules.md :: La maqueta es siempre HTML, CSS y JavaScript
+48:La maqueta es siempre HTML, CSS y JavaScript ejecutados en un navegador, cualquiera sea el `tipo_unidad_entrega`. Para `desktop-app` y `mobile-app-maui` la maqueta emula la superficie de destino en el navegador; no se maqueta con el toolkit nativo. La razón es la del §7: la maqueta tiene que poder editarse a mano y abrirse sin toolchain.
+--- SDD/Devs/Rules/Maqueta-Rules.md :: Si una unidad de entrega futura necesitara compilar para maquetar
+493:Si una unidad de entrega futura necesitara compilar para maquetar (por ejemplo, una librería de componentes que solo se puede demostrar compilada), se registra como ADR en 05 del proyecto de código y la maqueta documenta su propio comando de build en su `README.md`. Es la excepción, no el camino.
+--- SDD/Devs/Rules/Rules-Base-Conocimiento.md :: Describe el artefacto, no el método
+47:**Describe el artefacto, no el método.** Qué documentos produce una categoría, con qué criterios se
+--- SDD/Devs/Rules/Rules-Base-Conocimiento.md :: | `propio` | **600 líneas**
+372:| `propio` | **600 líneas** | El agente no sabe nada del artefacto y hay que darle identidad, estructura, contrato y esqueletos |
+--- SDD/Devs/Rules/Rules-Base-Conocimiento.md :: Once campos, ninguno vacío
+236:**Once campos, ninguno vacío**: los que no aplican llevan `—`. Los nombres de los siete primeros son
+--- SDD/Devs/Rules/Rules-Base-Conocimiento.md :: Conocimiento disfrazado de regla
+289:| **Conocimiento disfrazado de regla** `[enumerable]` | El documento define criterios de aceptación de un entregable del framework, nomenclatura de artefactos generados o gating por tipo D8 | Es una regla escrita en el lugar equivocado, sin el gobierno de una regla. §8 del documento existe para hacerlo visible |
+--- SDD/Devs/Rules/Rules-Backlog-Tecnico.md :: Spike implica caja temporal explícita
+247:5. Tipo. Feature, spike, refactor, devops o docs. Spike implica caja temporal explícita.
+--- README.md :: los estándares de industria se nombran, no se enlazan
+152:**Autosuficiencia.** Ningún archivo de este repositorio referencia otro repositorio. Es lo que permite clonarlo solo, moverlo o distribuirlo sin arrastrar dependencias. Al intervenirlo, esa propiedad se preserva: los estándares de industria se nombran, no se enlazan.
+--- ocurrencias de PoC / prueba de concepto en el conjunto normativo (sin _legacy, sin Examples):
+0

@@ -1,0 +1,12 @@
+tsc: ok
+
+  dist/mapa.js  592b 
+
+⚡ Done in 3ms
+
+  dist/main.js  308b 
+
+⚡ Done in 3ms
+1:import { montar as montarBundle, render, destruir, activar } from "./mapa.js";
+0
+[["AlActivar",{"tipo":"celda-activada","id":3,"estado":"ocupado"}],["AlActivar",{"tipo":"celda-activada","id":9,"estado":null}]]
