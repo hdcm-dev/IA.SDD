@@ -3,6 +3,45 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.17] - 2026-09-13
+
+**La mesa que el framework regula la convoca un orquestador por condición, y casi todas las mesas corridas las pidió una persona.** `Mesa-Rules.md` §0.0 supone corpus previo y estado leído; los pedidos reales llegaron sobre una interfaz en ejecución, sobre una norma que todavía no existía y sobre una contradicción entre observadores, y cada uno reconstruyó a mano la misma forma a partir de un marco de orquestación que vive fuera de este repositorio. Esta versión cataloga esa forma **sin mover una coma de la norma**, y sin citar la ruta del marco de origen: el Product Owner lo pidió así para que el catálogo siga resolviendo si el framework se mueve.
+
+### Agregado — `Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` 1.0
+
+Alias `Mesa-De-Expertos-A-Pedido`, `propio`, consumidor `transversal`, sin condición de carga, 312 líneas. Caracteriza **cómo se lee un pedido** («hacé una mesa de expertos en…», «presentales como caso…», «que busquen…») sin preguntar lo que el pedido y el árbol contestan; **cuatro clases de objeto** —corpus documental, interfaz en ejecución, diseño de una norma, investigación de un defecto— con qué es E1 en cada una y qué roles suma; el **despacho verificado**, porque en una mesa medida el despacho llevaba cuatro datos y tres estaban mal; el **expediente de la mesa**, con informes verbatim y punto de continuación; y los **filtros de juicio** que dejó el uso: descripción o control, la unidad de aplicación es el documento, qué dice el sistema cuando no pudo, el peritaje que cambia una sola variable.
+
+**Es catálogo y no norma, y el documento lo hace verificable.** Su §8 declara que la condición, el registro, el ciclo, el jurado, la escala de ancla y la escalada viven en `Mesa-Rules.md` y se citan; que cuando una mesa a pedido cumple §0.0 esa regla manda entera; y que ante contradicción manda la regla (`Rules-Base-Conocimiento.md` §0.4). Mantiene los cuatro rechazos de `Coherencia-Mesa-De-Evaluacion.md` §6: sin S1–S4, sin esquemas JSON, sin chequeos propios, y sin adoptar un umbral de rendimientos decrecientes que las dos primeras corridas no sostienen.
+
+### Cambiado — `Index-Knowledge.md` 1.2 → 1.3
+
+La fila del alta, con las diez columnas de §7.1. El catálogo pasa de cuatro a **cinco** documentos.
+
+### Verificación contra `Rules-Base-Conocimiento.md` §6.1
+
+| # | Ítem | Resultado |
+| --- | --- | --- |
+| 1 | `[enumerable]` Once campos de cabecera, ninguno vacío | **Cumple** — `sed -n 3,13p` da once líneas `**Campo:** valor` |
+| 2 | `[enumerable]` Nombre `Knowledge-<Tema>.md`, ASCII, sin prefijo numérico | **Cumple** |
+| 3 | `[enumerable]` Alias único en el índice | **Cumple** — `grep -c "Mesa-De-Expertos-A-Pedido" Index-Knowledge.md` = 2 (la fila y el control de cambios) |
+| 4 | `[enumerable]` Secciones §0 a §10 | **Cumple** — `grep -c "^## [0-9]*\." Knowledge-Mesa-De-Expertos-A-Pedido.md` = 11 |
+| 5 | `[enumerable]` Bajo el techo de §6.2 | **Cumple** — 312 líneas contra 600 de `propio` |
+| 6 | `[enumerable]` Los ocho campos comunes coinciden con la fila | **Cumple** |
+| 7 | `[enumerable]` Verificación de ofuscación declarada | **Cumple** — se buscaron los nombres de los tres destinos de origen, de sus proyectos, de su dominio y de su stack: cero ocurrencias. Falsos positivos léxicos: ninguno |
+| 8 | `[enumerable]` Numeración interna contigua | **Cumple** — §2.1–§2.3 con §2.2.1, §3.1–§3.3, §5.1–§5.4 |
+| 9 | `[enumerable]` Contradicción con el piso declarada | **No aplica** — no contradice: extiende una forma a objetos que la regla no alcanza, y §8 lo declara |
+| 10 | `[interpretativo]` §0 declara qué queda afuera | **Cumple** — seis filas con dónde vive cada cosa |
+| 11 | `[interpretativo]` Un `canonico` escribe el delta | **No aplica** — es `propio` |
+| 12 | `[interpretativo]` No define criterios, nomenclatura ni gating de artefactos generados | **Cumple** — §6 se verifica sobre el expediente de la mesa |
+| 13 | `[interpretativo]` Las siete propiedades de §4.4 | **Cumple** |
+| 14 | `[interpretativo]` Usable sin contexto previo | **Cumple**, con el límite declarado en §0: supone saber despachar agentes sin contexto compartido |
+
+### Por qué es minor
+
+Por el precedente de la 13.9: **no cambia ninguna regla, orquestador ni plantilla**, pero el catálogo condiciona lo que el orquestador genera y un destino que declare 13.17 declara un catálogo que 13.16 no tenía. **Ningún destino tiene que migrar nada por esta versión.**
+
+`SDD/Devs/Guides/Coherencia-Mesa-De-Expertos-A-Pedido.md` 1.0, con la fuente de cada afirmación del documento. `_legacy/13.16/` con el conjunto entero, 131 archivos. Conjunto resultante **13.17**.
+
 ## [13.16] - 2026-09-13
 
 **El método modelaba unidades de entrega, proyectos de código y soluciones de código sin atarse a un stack, y no tenía cómo decir que un proyecto de un ecosistema es insumo de construcción de uno de otro dentro de la misma solución.** Tampoco decía cómo entra al agrupador un sample que no se compila, ni qué pasa cuando la solución se construye donde falta la cadena de herramientas de un ecosistema. Un destino real, `Lab-Geometria`, tiene un paquete de JavaScript cuyo artefacto consume su front .NET; lo resolvió a mano con una especificación y una mesa de dos ciclos, e **inventó** lo que el método no le daba: una clase de arista, un modo de construcción sin la segunda cadena y once samples fuera del agrupador. Además, `PRODUCT-INTAKE-template.md` §16.1 pedía los samples «según el tipo D8 de cada proyecto de código», con el modelo anterior a la 8.0. Es el reporte `30`.
