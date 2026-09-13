@@ -1,0 +1,8 @@
+ev-07 — Presentación original del Product Owner, byte a byte
+Canal: mensaje de usuario en la sesión del orquestador de la corrida (Claude Code), transcripción local de la sesión, fuera de todo repositorio.
+Marca de tiempo de la fuente: 2026-09-13T15:03:02.117Z (UTC) = 2026-09-13T12:03:02-03:00
+Tamaño: 1486 bytes · SHA-256 del texto: cb39bbd64dd919e3bb7ad484779c4215af473892cf02de5b797c76046f63dd1c
+Adquirió: presidente de mesa, 2026-09-13, por extracción mecánica (python3: primer mensaje de tipo user que contiene «Vamos a adoptar como parte» y «tenes el ok de la fase K»).
+Clase: observación preservada (el original no vive en ningún repositorio; no se reproduce, se preserva).
+Contenido sensible revisado: sin credenciales ni datos personales; nombra repositorios y rutas del workspace.
+Detectó la divergencia con el folio 001: réplica V2-01 (ev-06/V2.md).

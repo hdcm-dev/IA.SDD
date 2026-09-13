@@ -1,0 +1,55 @@
+== Lab-Geometria main: SDD/Docs/Audit
+113
+-- por prefijo (hasta el primer guion o dígito)
+     21 Migracion
+     17 B
+      9 Plan
+      8 Mesa
+      7 Informe
+      6 Observacion
+      6 Estado
+      4 A
+      3 Reporte
+      3 Medicion
+      3 Inventario
+      3 F
+      2 I
+      2 G
+      2 E
+      2 D
+      2 Coherencia
+      2 Cierre
+      2 C
+      1 H
+      1 Fase
+      1 Evaluacion
+      1 DoR
+      1 Decisiones
+      1 Clasificacion
+      1 BT
+      1 Apertura
+      1 Analisis
+-- registros de mesa
+8
+-- carpetas _legacy bajo SDD/Docs (política de archivado del destino)
+28
+== RPI.VideoControl HEAD: SDD/Docs/Audit
+51
+== Documentacion: carpetas OUTPUTs de intervenciones
+PROMPTs/Fixs/00-Fix-Reportes-00-11/OUTPUTs  archivos=13
+PROMPTs/Fixs/01-Fix-Reportes-12-14/OUTPUTs  archivos=4
+PROMPTs/Fixs/02-Fix-Reporte-16/OUTPUTs  archivos=1
+PROMPTs/Fixs/03-Fix-Reporte-25/OUTPUTs  archivos=3
+PROMPTs/Fixs/04-Fix-Reporte-26/OUTPUTs  archivos=16
+PROMPTs/Fixs/05-Fix-Reporte-27/OUTPUTs  archivos=10
+PROMPTs/Fixs/06-Fix-Reporte-28/OUTPUTs  archivos=13
+PROMPTs/Fixs/07-Fix-Reporte-29/OUTPUTs  archivos=12
+PROMPTs/Fixs/08-Fix-Reporte-30/OUTPUTs  archivos=12
+-- expediente de mesa con forma de carpeta
+00-Contrato-De-Entrada.md
+01-Informe-Requisitos.md
+02-Informe-Verificacion.md
+03-Informe-Terminologia.md
+04-Informe-Lector-Sin-Contexto.md
+05-Informe-Refutador.md
+06-Plan-Y-Cierre.md
