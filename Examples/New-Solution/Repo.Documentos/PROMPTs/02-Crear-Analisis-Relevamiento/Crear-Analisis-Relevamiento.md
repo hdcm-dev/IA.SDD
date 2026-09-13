@@ -10,14 +10,14 @@
 # Contexto
 
   Tengo un pequeño software que hace tres cosas
-  - Se conecta a una cámara con software obsoleta y hace de proxy tanto para ver el video como para activar las I/O de la cámara. Referencia: `/Repos-Hosts/Host.Infra.Documentacion/Analisis/HomeHub/Analisis-Relevamiento-Camara-IP-2.md`
+  - Se conecta a una cámara con software obsoleta y hace de proxy tanto para ver el video como para activar las I/O de la cámara. Referencia: el relevamiento de la cámara IP, en la documentación de infraestructura privada
   - Se conecta a una o mas camaras usb (webcam, actualmente a una sola cámara) .
   - Se debería conectar a las gpio para mover unos servos.
 
   - El software en realidad son tres versiones:
-    a. La versión `explorador2-v1.1` es: `/Repos-RPIs/RPI.VidelControl/Legacy-Service/explorador2-v1.1`, es una versión anterior realizada en nodejs, tiene implementado control de servos.
-    b. La versión `explorador3-v1.1` es: `/Repos-RPIs/RPI.VidelControl/Legacy-Service/explorador3`, es una versión mas reciente de  `explorador2-v1.1` .
-    c. La `explorador4` es una versión reducida de las anteriores y esta en: `/Repos-RPIs/RPI.VidelControl/Legacy-Service/explorador4_srv/explorador4/explorador4`
+    a. La primera versión es la versión anterior del servicio (Node.js, con control de servos).
+    b. La segunda versión es una versión más reciente de la primera.
+    c. La tercera versión es una versión reducida de las anteriores.
 
 ---
 
@@ -33,9 +33,9 @@
 
 | # | Parametro | Valor | Descripción |
 | --- | --- | --- | --- |
-| Host | IP | 192.168.1.102 | |
-| Servicio SSH | Puerto | 2222 | |
-| Usuario/Contraseña | videoctrl   | Sd.vgWsn93kz-d  |  |
+| Host | IP | <IP-del-host> | |
+| Servicio SSH | Puerto | <puerto-ssh> | |
+| Usuario/Contraseña | <usuario> | <contraseña> |  |
 
   - Crear la documentación de salida en: `/Repos-RPIs/RPI.VidelControl.Documentos/Analisis/00-Analisis-Legacy-Versions`
 

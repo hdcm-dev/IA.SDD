@@ -47,9 +47,9 @@ cambiar de cliente sin tocar el resto de la solución.
 
      | # | Parametro | Valor | Descripción |
 | --- | --- | --- | --- |
-| Host | IP | 192.168.1.102 | |
-| Servicio SSH | Puerto | 2222 | |
-| Usuario/Contraseña | videoctrl   | Sd.vgWsn93kz-d  |  |
+| Host | IP | <IP-del-host> | |
+| Servicio SSH | Puerto | <puerto-ssh> | |
+| Usuario/Contraseña | <usuario> | <contraseña> |  |
 
 
 
