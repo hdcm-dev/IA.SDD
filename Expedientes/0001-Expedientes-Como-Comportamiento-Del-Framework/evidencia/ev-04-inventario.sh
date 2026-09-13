@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ev-04 — Inventario de lo ya escrito que un tratamiento retroactivo alcanzaría
-W=/home/fernando/workspaces/workspace-dev
+W=/
 echo "== Lab-Geometria main: SDD/Docs/Audit"; git -C $W/PROG2/Geometria/Lab-Geometria ls-tree -r --name-only main SDD/Docs/Audit | wc -l
 echo "-- por prefijo (hasta el primer guion o dígito)"
 git -C $W/PROG2/Geometria/Lab-Geometria ls-tree -r --name-only main SDD/Docs/Audit | sed 's#SDD/Docs/Audit/##' | sed -E 's/^([A-Za-z]+).*/\1/' | sort | uniq -c | sort -rn

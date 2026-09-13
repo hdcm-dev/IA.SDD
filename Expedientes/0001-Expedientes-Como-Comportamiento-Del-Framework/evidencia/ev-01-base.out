@@ -1,18 +1,18 @@
 2026-09-13T12:11:29-03:00
 == IA/SDD/IA.SDD
 8c55a1e4c21138462d30abb32e64c79323bbb3e5
-/home/fernando/workspaces/workspace-dev/IA/SDD/IA.SDD       8c55a1e [main]
-/home/fernando/workspaces/workspace-dev/IA/SDD/IA.SDD-exp1  8c55a1e [expedientes/0001-caso]
+/IA/SDD/IA.SDD       8c55a1e [main]
+/IA/SDD/IA.SDD-exp1  8c55a1e [expedientes/0001-caso]
 == IA/SDD/IA.SDD.Documentacion
 9427b6b38c11de81ecf2283802952f1ac844b972
-/home/fernando/workspaces/workspace-dev/IA/SDD/IA.SDD.Documentacion       9427b6b [main]
-/home/fernando/workspaces/workspace-dev/IA/SDD/IA.SDD.Documentacion-exp1  9427b6b [reportes/31-expedientes]
+/IA/SDD/IA.SDD.Documentacion       9427b6b [main]
+/IA/SDD/IA.SDD.Documentacion-exp1  9427b6b [reportes/31-expedientes]
 == Lab-Geometria main (sólo lectura)
 b9675d870aa6e3b2af19f4d9d684fd2e1393ff18
 == RPI.VideoControl HEAD (sólo lectura)
 9aabe5c746c51824781e67af3d4c2720d7f38417
 == carpetas Expedientes en el workspace (profundidad 6)
-/home/fernando/workspaces/workspace-dev/IA/SDD/IA.SDD.Documentacion/Expedientes  entradas=0
-/home/fernando/workspaces/workspace-dev/IA/SDD/IA.SDD-exp1/Expedientes  entradas=1
-/home/fernando/workspaces/workspace-dev/IA/SDD/IA.SDD/Expedientes  entradas=0
-/home/fernando/workspaces/workspace-dev/PROG2/Geometria/Lab-Geometria/SDD/Expedientes  entradas=0
+/IA/SDD/IA.SDD.Documentacion/Expedientes  entradas=0
+/IA/SDD/IA.SDD-exp1/Expedientes  entradas=1
+/IA/SDD/IA.SDD/Expedientes  entradas=0
+/PROG2/Geometria/Lab-Geometria/SDD/Expedientes  entradas=0

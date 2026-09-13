@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ev-05 — Líneas de la norma 13.16 que el caso cita (IA.SDD main 8c55a1e)
 # Nota: la primera corrida usó grep sin -F y dos patrones con ** no encontraron nada; se corrigió antes de citar (ver actuación 002, §6).
-cd /home/fernando/workspaces/workspace-dev/IA/SDD/IA.SDD
+cd /IA/SDD/IA.SDD
 g(){ echo "== $1 :: $2"; grep -nF -- "$2" "$1" | head -3; }
 g SDD/Devs/Rules/Mesa-Rules.md '**Carpeta target:**'
 g SDD/Devs/Rules/Mesa-Rules.md '| Registro de mesa |'

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ev-02 — ¿Qué copia el snapshot _legacy/<N>/? Raíz del repositorio contra snapshots
-cd /home/fernando/workspaces/workspace-dev/IA/SDD/IA.SDD
+cd /IA/SDD/IA.SDD
 echo "== raíz en main"; git ls-tree --name-only 8c55a1e | tr '\n' ' '; echo
 for v in 9.6 13.0 13.15; do echo "== _legacy/$v"; git ls-tree --name-only 8c55a1e _legacy/$v/ | sed "s#_legacy/$v/##" | tr '\n' ' '; echo; done
 echo "== exclusiones declaradas (SDD-Development-Guide.md §VI.5)"

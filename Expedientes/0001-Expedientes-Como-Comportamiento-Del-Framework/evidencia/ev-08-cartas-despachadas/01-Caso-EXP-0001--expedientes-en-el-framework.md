@@ -2,10 +2,10 @@ Abrís y tramitás el **primer expediente del repositorio del `Framework SDD`**:
 
 ## Worktrees, obligatorio
 ```
-git -C /home/fernando/workspaces/workspace-dev/IA/SDD/IA.SDD worktree add /home/fernando/workspaces/workspace-dev/IA/SDD/IA.SDD-exp1 -b expedientes/0001-caso main
-git -C /home/fernando/workspaces/workspace-dev/IA/SDD/IA.SDD.Documentacion worktree add /home/fernando/workspaces/workspace-dev/IA/SDD/IA.SDD.Documentacion-exp1 -b reportes/31-expedientes main
+git -C /IA/SDD/IA.SDD worktree add /IA/SDD/IA.SDD-exp1 -b expedientes/0001-caso main
+git -C /IA/SDD/IA.SDD.Documentacion worktree add /IA/SDD/IA.SDD.Documentacion-exp1 -b reportes/31-expedientes main
 ```
-Trabajá SÓLO ahí. **NO push, NO PR, NO merge.** Commits por lote coherente, terminados en `Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>`; stageá archivo por archivo. Framework **13.16**. No toques ningún destino (sólo lectura: `/home/fernando/workspaces/workspace-dev/PROG2/Geometria/Lab-Geometria`, `/home/fernando/workspaces/workspace-dev/Repos-RPIs/RPI.VideoControl`; en Lab-Geometria otra corrida escribe en un worktree: leelo por `git show main:<ruta>`).
+Trabajá SÓLO ahí. **NO push, NO PR, NO merge.** Commits por lote coherente, terminados en `Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>`; stageá archivo por archivo. Framework **13.16**. No toques ningún destino (sólo lectura: `/PROG2/Geometria/Lab-Geometria`, `/Repos-RPIs/RPI.VideoControl`; en Lab-Geometria otra corrida escribe en un worktree: leelo por `git show main:<ruta>`).
 
 ## El caso: presentación literal del Product Owner (2026-09-13)
 

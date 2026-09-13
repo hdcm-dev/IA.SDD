@@ -87,9 +87,9 @@ ev-01-base: DIFIERE
 > 2026-09-13T12:17:33-03:00
 4,5c4,6
 …
-> /home/fernando/workspaces/workspace-dev/IA/SDD/IA.SDD-kmesa  8c55a1e [conocimiento/mesa-de-expertos-a-pedido]
+> /IA/SDD/IA.SDD-kmesa  8c55a1e [conocimiento/mesa-de-expertos-a-pedido]
 17a19
-> /home/fernando/workspaces/workspace-dev/PROG2/Geometria/Lab-Geometria-mig1316/SDD/Expedientes  entradas=1
+> /PROG2/Geometria/Lab-Geometria-mig1316/SDD/Expedientes  entradas=1
 ```
 
 **Qué no está fijado a la base:**

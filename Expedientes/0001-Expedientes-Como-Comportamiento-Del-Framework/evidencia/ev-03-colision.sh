@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ev-03 — Colisión del prefijo EXP- y del término «expediente» (Vocabulario-Rules.md §9.2 y §9.4; Mesa-Rules.md §6.1)
-W=/home/fernando/workspaces/workspace-dev
+W=/
 echo "== EXP- como token, framework sin _legacy"; grep -rnoE '\bEXP-[A-Za-z0-9]+' $W/IA/SDD/IA.SDD --include=*.md --exclude-dir=_legacy | wc -l
 echo "== EXP- en _legacy"; grep -rnoE '\bEXP-[A-Za-z0-9]+' $W/IA/SDD/IA.SDD/_legacy --include=*.md | wc -l
 echo "== EXP- Documentacion"; grep -rnoE '\bEXP-[A-Za-z0-9]+' $W/IA/SDD/IA.SDD.Documentacion --include=*.md | wc -l

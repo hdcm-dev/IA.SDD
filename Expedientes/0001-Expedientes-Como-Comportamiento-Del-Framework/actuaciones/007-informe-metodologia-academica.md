@@ -91,7 +91,7 @@
   | `ev-05-citas.out` | `== SDD/Devs/Rules/Mesa-Rules.md :: **Carpeta target:**` | **0** |
 
 - Qué leen los guiones:
-  - `ev-05-citas.sh` l.4: `cd /home/fernando/workspaces/workspace-dev/IA/SDD/IA.SDD`, y después `grep` sobre el **árbol de trabajo**. No usa `git show 8c55a1e:`.
+  - `ev-05-citas.sh` l.4: `cd /IA/SDD/IA.SDD`, y después `grep` sobre el **árbol de trabajo**. No usa `git show 8c55a1e:`.
   - `ev-03-colision.sh` l.4-6, 12-13: `grep -r` sobre los árboles de trabajo de `IA.SDD` e `IA.SDD.Documentacion`. Sólo `ev-02` fija `8c55a1e`, y sólo para `ls-tree`.
   - `ev-04` fija `main` de `Lab-Geometria`, pero cuenta `IA.SDD.Documentacion/PROMPTs/Fixs/*/OUTPUTs` con `find` sobre disco.
 - `sha256sum -c SHA256SUMS`: los diez archivos dan «La suma coincide».

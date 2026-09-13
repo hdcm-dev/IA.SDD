@@ -11,7 +11,7 @@
 |---|---|
 | Número | `0001` |
 | Título | Expedientes como comportamiento del framework |
-| Estado | **Dictaminado, sin resolución**: el dictamen (016) entrega el plan a la intervención `09`, que es quien resuelve. Hay tres escaladas en lote al Product Owner (015 §5) |
+| Estado | **Dictaminado, lote resuelto** (018): E-1 → A, E-2 → A con redacción S2 aplicada, E-3 → insumo de la intervención `09`. Resuelve la intervención `09` |
 | Apertura | 2026-09-13 |
 | Partes | **Presenta**: Product Owner del `Framework SDD`. **Tramita**: orquestador de la corrida (Claude Opus 5), como presidente de mesa sin voto. **Panel**: ocho comisiones (actuación 002 §3), con una réplica a ciegas en `ev-06` (actuación 003) |
 | Objeto | Diseñar cómo el `Framework SDD` adopta los expedientes de caso como comportamiento propio: dónde viven, cuándo se abren y cuándo no, su forma mínima, su identificador, su ciclo de vida, su evidencia y cómo esa evidencia pasa a formar parte de la especificación; su relación con `SDD/Docs/Audit/`, con la serie de reportes y con lo ya escrito; y el reemplazo de la detención por la mesa |
@@ -43,6 +43,7 @@
 | 015 | `veredicto` | 2026-09-13 | Jurado de cinco funciones | [Veredicto: 14/14 ataques proceden, J-01 a J-07, forma por pregunta, 3 escaladas, 6 deudas](actuaciones/015-veredicto-del-jurado.md) |
 | 016 | `dictamen` | 2026-09-13 | Presidente de mesa | [Dictamen: Q1 a Q12, criterios A1–A10, deuda D-1 a D-7, cierre de mesa](actuaciones/016-dictamen.md) |
 | 017 | `constancia` | 2026-09-13 | Presidente de mesa | [Huellas mal transcriptas en el índice, y cartas asentadas tarde](actuaciones/017-constancia-huellas-del-indice-y-cartas-tardias.md) |
+| 018 | `providencia` | 2026-09-13 | Presidente de mesa | [Resolución del lote E-1, E-2 y E-3, y redacción S2](actuaciones/018-providencia-resolucion-del-lote-y-redaccion-s2.md) |
 
 ## Índice de evidencia
 
@@ -62,16 +63,8 @@ su guion el 2026-09-13 contra la base de la actuación 002.**
 
 ## Punto de continuación
 
-**Dónde está el caso**
-- Último folio: **017**.
-- La mesa cerró **por decisión**, en una ronda (016 §7).
-- El dictamen responde las doce preguntas y entrega el plan a la intervención `09`.
+**Dónde está el caso.** Último folio: **018**. El lote quedó resuelto con el conjunto y la redacción S2 está aplicada; los originales están en custodia local del orquestador, fuera del repositorio.
 
-**Sigue:** reporte `31` y prompt `09` en `IA.SDD.Documentacion`, rama `reportes/31-expedientes`, a cargo del presidente de mesa. Después, la intervención `09`, que es quien resuelve.
+**Sigue:** la intervención `09` (`/IA/SDD/IA.SDD.Documentacion/PROMPTs/Fixs/09-Fix-Reporte-31/`), a cargo de quien la ejecute. Queda abierta la deuda D-1 a D-7 (015 §6, 016 §4).
 
-**Queda abierto**
-- **E-1, E-2 y E-3** en lote al Product Owner (015 §5), cada una con su `SI NO RESPONDÉS`.
-- **D-1 a D-7** (015 §6 y 016 §4).
-- **Antes de cualquier push de esta rama, corre S2**, porque hay datos personales y rutas de host (E-2).
-
-**Base.** Rama `expedientes/0001-caso`. Norma 13.16 (`8c55a1e`).
+**Base.** Rama `expedientes/0001-caso`, sin push. Norma 13.16 (`8c55a1e`).

@@ -28,7 +28,7 @@
 | Base leída, expediente | README; folios 002, 012, 013 y 014 enteros; 006 V4-08; `ev-07`; `ev-08/01` |
 | Base leída, norma 13.16 | `Mesa-Rules.md` §2.2, §6.4 a §6.7, §7, §7.1 y §8. `Master-Prompt.md` §8.1 (l.878-1092). `Root-Rules.md` §9.1, §9.2, §10, §11 y §12.2. `Deriva-Rules.md` §1. `README.md`: invariantes D1 a D9, reglas de intervención y l.152. Guía §II.7, §III.8, Parte IV (l.610-670) y §VI.5 |
 | Base leída, otras | 13.17: `IA.SDD-kmesa` `cab03ed`, `Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` l.117, l.159, l.224, l.229, l.252 y l.296. `Lab-Geometria-mig1316` en `f73588f` más su árbol de trabajo |
-| Anclas del refutador que contrasté | `stat` de las tres carpetas `Expedientes`: 11:56:02, 11:58:27 y 11:59:10, anteriores a `ev-07` (12:03:02). `README.md` l.152 literal. `ADOLFO VERA` en 005 l.215-216. `/home/` en 94 líneas de 33 archivos a `b92c64b` (el refutador midió 25 en 14 a `3c2f401`). `curl` a `hdcm-dev/IA.SDD` y a `hdcm-dev/Lab-Geometria`: 200. Cero trailers `Expediente:` en los cuatro commits. `7301a8f` asienta los folios 003 a 011. `Master-Prompt.md` l.880-886 (cuatro familias) y T1 (l.1689-1691). `Rules-Devops.md` l.452 («merge por squash»). `Coherencia-Conformacion-Pull-Request-Manual.md` l.26-28. `Root-Rules.md` l.389 («Hay dos») y l.680 («se calcula, no se declara»). `EXP-` aparece en 4 archivos de `mig1316`. Los fragmentos «tenes el ok», «podes seguir migrando», «me centraria primero» y «arma una mesa» dan 0 en los folios 001 y 002 de `mig1316`. Su índice omite `E-006e` a `E-006h` y `E-009` a `E-014b`: la omisión creció desde la refutación |
+| Anclas del refutador que contrasté | `stat` de las tres carpetas `Expedientes`: 11:56:02, 11:58:27 y 11:59:10, anteriores a `ev-07` (12:03:02). `README.md` l.152 literal. `[nombre de cuenta redactado]` en 005 l.215-216. `/home/` en 94 líneas de 33 archivos a `b92c64b` (el refutador midió 25 en 14 a `3c2f401`). `curl` a `hdcm-dev/IA.SDD` y a `hdcm-dev/Lab-Geometria`: 200. Cero trailers `Expediente:` en los cuatro commits. `7301a8f` asienta los folios 003 a 011. `Master-Prompt.md` l.880-886 (cuatro familias) y T1 (l.1689-1691). `Rules-Devops.md` l.452 («merge por squash»). `Coherencia-Conformacion-Pull-Request-Manual.md` l.26-28. `Root-Rules.md` l.389 («Hay dos») y l.680 («se calcula, no se declara»). `EXP-` aparece en 4 archivos de `mig1316`. Los fragmentos «tenes el ok», «podes seguir migrando», «me centraria primero» y «arma una mesa» dan 0 en los folios 001 y 002 de `mig1316`. Su índice omite `E-006e` a `E-006h` y `E-009` a `E-014b`: la omisión creció desde la refutación |
 | No re-corrido | Las pruebas en clon descartable de R-04 (MDR y R100). Las voto por su lógica, que se puede comprobar leyendo el criterio de Q6 |
 | Notación | `R-NN` son los ataques de 014. Las raíces de 013 se citan como `013·R<n>` y las restricciones de 002 como `002·R<n>`. Así se evita la colisión que señala R-13 punto 3 |
 
@@ -134,7 +134,7 @@ DETENCIÓN — Ambigüedad (§9), por Mesa-Rules §7 disparador 1 · ¿los exped
 ### E-2 · Disparador 5 · Dato personal en evidencia de repositorios públicos
 
 ```text
-DETENCIÓN — Detención con propuesta, por Mesa-Rules §7 disparador 5 · ¿«ADOLFO VERA» es un dato personal real, y qué se hace con su fuente pública en Lab-Geometria?
+DETENCIÓN — Detención con propuesta, por Mesa-Rules §7 disparador 5 · ¿«[nombre de cuenta redactado]» es un dato personal real, y qué se hace con su fuente pública en Lab-Geometria?
 
   QUÉ PASÓ
     El folio 005 (l.215-216) copia verbatim un nombre propio que sale de

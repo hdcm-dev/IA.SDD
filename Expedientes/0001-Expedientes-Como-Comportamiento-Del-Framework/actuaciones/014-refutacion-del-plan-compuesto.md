@@ -141,7 +141,7 @@ $ curl -s -o /dev/null -w '%{http_code}' https://github.com/hdcm-dev/IA.SDD   �
 $ git -C IA.SDD-exp1 branch -vv   → * expedientes/0001-caso 3c2f401 …   (sin upstream; origin = github.com/hdcm-dev/IA.SDD)
 $ grep -rcF '/home/' <expediente> | suma                 → 25 líneas en 14 archivos
 $ git -C IA.SDD-exp1 grep -cF '/home/' HEAD -- Expedientes → 25 líneas en HEAD
-$ grep -rnF 'ADOLFO VERA' <expediente>
+$ grep -rnF '[nombre de cuenta redactado]' <expediente>
   actuaciones/005-informe-evidencia-digital.md:215-216   (y está en HEAD)
 ```
 

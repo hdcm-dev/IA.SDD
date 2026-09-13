@@ -69,8 +69,8 @@ dcf82b62238a8dfd6f6e583e3b9fe01f155f0d3a018ad642f8f6f05d904a2b7a  ev-02-snapshot
 
 ```
 == ev-01-base: bf7ef89aa0ee vs 61bb39175577
-> /home/fernando/.../IA.SDD-kmesa  8c55a1e [conocimiento/mesa-de-expertos-a-pedido]
-> /home/fernando/.../Lab-Geometria-mig1316/SDD/Expedientes  entradas=1
+> /…/IA.SDD-kmesa  8c55a1e [conocimiento/mesa-de-expertos-a-pedido]
+> /…/Lab-Geometria-mig1316/SDD/Expedientes  entradas=1
 == ev-02-snapshot: dcf82b62238a vs dcf82b62238a
 == ev-03-colision: 239f1971ebe9 vs 239f1971ebe9   (idem ev-04, ev-05)
 ```
@@ -210,10 +210,10 @@ $ grep -n '`EV`' IA.SDD/SDD/Devs/Rules/Root-Rules.md
 ```
 $ curl -s -o /dev/null -w '%{http_code}' https://api.github.com/repos/<repo>
 hdcm-dev/IA.SDD 200 · hdcm-dev/IA.SDD.Documentacion 200 · hdcm-dev/Lab-Geometria 200 · HDCM-Infra/RPI.VideoControl 404
-$ grep -rl "/home/fernando" IA.SDD.Documentacion-exp1/PROMPTs/Fixs/0[4678]-*/OUTPUTs/evidencia | wc -l
+$ grep -rl "/…" IA.SDD.Documentacion-exp1/PROMPTs/Fixs/0[4678]-*/OUTPUTs/evidencia | wc -l
 21
-$ git -C Lab-Geometria grep -n "ADOLFO VERA" main
-main:evidencia/2026-09-02-mesa-ux/README.md:14:| `adm-cuentas-1440.png` | «ADOLFO VERA» en versalitas grises; ...
+$ git -C Lab-Geometria grep -n "[nombre de cuenta redactado]" main
+main:evidencia/2026-09-02-mesa-ux/README.md:14:| `adm-cuentas-1440.png` | «[nombre de cuenta redactado]» en versalitas grises; ...
 ```
 
 - Un 200 anónimo indica repositorio público. El 404 puede ser privado o inexistente.

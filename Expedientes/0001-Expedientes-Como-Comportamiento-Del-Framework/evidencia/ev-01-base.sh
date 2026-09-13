@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ev-01 — Base de la corrida: repositorios, ramas, commits y carpetas Expedientes existentes
-W=/home/fernando/workspaces/workspace-dev
+W=/
 date -Iseconds
 for r in IA/SDD/IA.SDD IA/SDD/IA.SDD.Documentacion; do
   echo "== $r"; git -C $W/$r rev-parse main; git -C $W/$r worktree list

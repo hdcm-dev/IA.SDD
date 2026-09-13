@@ -246,5 +246,5 @@ Lo que P7 **no** puede desplazar son los disparadores bloqueantes 2 y 3 y el arb
    - *Señal*: la tipología de actuaciones (`presentacion`, `providencia`, `informe`) y la foliatura (001 y 002).
    - *Lo que no puedo afirmar*: si esos tipos y la foliatura bastan o sobran para la forma procesal que el PO pide.
 3. **Seguridad (postergada por cupo en 002 §3.3).**
-   - *Señal*: evidencia del PO en un repositorio público (`Rules-Base-Conocimiento.md`, fila 2.0), y guiones de evidencia con rutas absolutas del workspace (`ev-03-colision.sh`, `W=/home/fernando/...`).
+   - *Señal*: evidencia del PO en un repositorio público (`Rules-Base-Conocimiento.md`, fila 2.0), y guiones de evidencia con rutas absolutas del workspace (`ev-03-colision.sh`, `W=/…/...`).
    - *Lo que no puedo afirmar*: si la evidencia versionada expone datos o credenciales.
