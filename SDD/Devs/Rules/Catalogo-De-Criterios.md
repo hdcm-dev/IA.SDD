@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Catalogo-De-Criterios.md
-**Versión:** 1.18
+**Versión:** 1.19
 **Estado:** Vigente
 **Fecha:** 2026-09-13
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
@@ -15,9 +15,9 @@
 **Es un índice, no una regla.** No define ningún criterio: dice **dónde vive cada uno** y **qué
 decide**. Todo criterio sigue viviendo en su archivo, con su fundamento y su historia.
 
-**Existe porque los criterios estaban y no se podían encontrar.** El método tiene 226 situaciones —el total de §4—
+**Existe porque los criterios estaban y no se podían encontrar.** El método tiene 238 situaciones —el total de §4—
 catalogadas en tablas de anti-patrones, umbrales numéricos, salidas con condición de elección y reglas
-de resolución, repartidas en veinte archivos de reglas y tres orquestadores, **sin ningún punto de
+de resolución, repartidas en veintiún archivos de reglas y tres orquestadores, **sin ningún punto de
 entrada**. Un agente que enfrenta una situación tenía que haberlos leído todos para saber que existían.
 
 **No reemplaza la lectura de la regla.** Un criterio aplicado desde el índice, sin abrir su sección, se
@@ -90,6 +90,10 @@ aplica sin su fundamento — y el fundamento es lo que permite reconocer cuándo
 | Un hallazgo llega **heredado de un informe anterior** | Si funda trabajo o hay que abrirlo primero | `Mesa-Rules.md` §4 y §6.1, ancla `C` |
 | Un hallazgo está probado y **corregirlo puede no valer la pena** | Quién lo juzga, con qué funciones objetivo y qué pasa con el defecto que no se corrige | `Mesa-Rules.md` §6.4 y §6.6, deuda declarada |
 | Hay una consulta para el humano y **no se sabe si le corresponde** | La lista cerrada de siete disparadores; fuera de ella, resuelve el agente y registra | `Mesa-Rules.md` §7, y `Master-Prompt.md` §8.1 para el criterio general |
+| Un caso **atraviesa corridas o repositorios**, o entra material externo que funda una decisión | Si se abre un expediente, dónde se radica y qué forma lleva | [`Expediente-Rules.md`](../Rules/Expediente-Rules.md) §1 y §3 |
+| Una **aprobación o una decisión llega por la conversación** | Cómo se asienta para que sea evidencia `humano` de D9 sin modificar D9 | `Expediente-Rules.md` §3.3; `Master-Prompt.md` §7.0 y `Mesa-Rules.md` §7.1 donde se produce |
+| Algo que se va a asentar o empujar trae **un secreto, un dato de un repositorio privado o una ruta del host** | Qué se redacta, qué se revoca y cómo se sabe si un repositorio es público | `Expediente-Rules.md` §4, S2 |
+| Un orquestador **tropieza a mitad de fase** con algo que el árbol no contesta | Si se detiene o convoca una mesa antes | `Master-Prompt.md` §8.1, «La mesa antes de la detención» |
 
 ---
 
@@ -119,7 +123,8 @@ esta versión cada uno lleva su **marca de detección**: `[enumerable]` si un gu
 | [`Rules-Base-Conocimiento.md`](../Rules/Rules-Base-Conocimiento.md) | 6 | 3 | 3 |
 | [`Mesa-Rules.md`](../Rules/Mesa-Rules.md) | 14 | 8 | 6 |
 | [`Rules-UX-UI-DX.md`](../Rules/Rules-UX-UI-DX.md) | 25 | 12 | 13 |
-| **Total** | **226** | **109** | **117** |
+| [`Expediente-Rules.md`](../Rules/Expediente-Rules.md) | 12 | 6 | 6 |
+| **Total** | **238** | **115** | **123** |
 
 **La marca no es decorativa: la consume la compuerta.** Desde la 9.13, `Master-Prompt.md` §10.0 toma como parte de su conjunto de reglas **los anti-patrones `[enumerable]` de la regla de la categoría en curso**, y los evalúa antes de que el audit interprete nada. Los `[interpretativo]` quedan para el audit y para el humano.
 
@@ -213,3 +218,4 @@ regla—. Lo que no corresponde adoptar es la **infraestructura** de DMN, no su 
 | 1.16 | 2026-09-12 | **Dos situaciones nuevas y una reapuntada**, por la comprobación 12: **una detención nace de un estado que la propia corrida dejó a medias** y **varias detenciones en una misma fase**, de `Master-Prompt.md` §8.1 y §7.0; y **«apareció un hallazgo y no se sabe si detener o resolverlo»** pasa a nombrar primero el origen del hecho. **El total de §4 no cambia**: no entra ningún anti-patrón. **La fila 1.13 de este registro estaba entre la 1.2 y la 1.3** y pasa a su lugar sin cambiar su texto, por la comprobación 10. Sube minor. |
 | 1.17 | 2026-09-12 | **Una situación nueva y dos reapuntadas**, por la comprobación 12: **se va a afirmar que un término colisiona o no colisiona**, de `Vocabulario-Rules.md` §9.2 y §9.4, `Mesa-Rules.md` §6.1 y la comprobación 14 de `SDD-Development-Guide.md` §VI.3; «un término tiene dos sentidos» nombra el contexto de lectura por lector; y «hay que verificar una intervención» pasa de trece a **catorce** comprobaciones. **El total de §4 no cambia**: no entra ningún anti-patrón. Sube minor. |
 | 1.18 | 2026-09-13 | **Tres situaciones nuevas**, por la comprobación 12: **un proyecto de código de otro ecosistema** o una dependencia que toma un artefacto sin referenciarlo (`Intake-Rules.md` §4), **la cadena de herramientas ausente** donde se construye la solución (`Rules-Devops.md` §4.9) y **el sample que no se compila** y hay que poner en el agrupador (`Rules-Examples.md` §3.6). §4 suma **cuatro anti-patrones**: dos `[interpretativo]` de `Rules-Devops.md` (13 → 15) y uno de cada marca de `Rules-Examples.md` (17 → 19); el total pasa de **222 a 226**, con **109** enumerables y **117** interpretativos, y el recuento en prosa de §1 se actualiza con su fuente. Sube minor. |
+| 1.19 | 2026-09-13 | **Cuatro situaciones nuevas**, por la comprobación 12 (framework 13.18, reporte `31`): **abrir un expediente de caso**, **asentar una aprobación dada por conversación**, **la compuerta S2** y **la mesa antes de la detención**. **§4 suma `Expediente-Rules.md`**: doce anti-patrones, seis `[enumerable]` y seis `[interpretativo]`, contados sobre su §7; el total pasa de **226 a 238** (**115** enumerables, **123** interpretativos). | Intervención del reporte `31` |

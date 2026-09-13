@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de reanudación
 
 **Archivo:** `Master-Prompt-Reanudacion.md`
-**Versión:** 1.13
+**Versión:** 1.14
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** lectura, diagnóstico y **entrega de contexto**, con detención obligatoria. **No escribe nada del destino salvo su propio informe**, y no ejecuta el trabajo que despacha
 **Prerequisitos:** un repositorio destino con `SDD/` poblado. No exige memoria de ninguna sesión anterior
@@ -37,7 +37,9 @@ vez por salto de versión, y éste una vez por reanudación.
   otro» deja al siguiente volviendo a deducir lo que éste ya dedujo, que es exactamente el trabajo
   que vino a evitar.
 - **No repara lo que encuentra.** Si el árbol se contradice, **lo declara y se detiene**. Reparar es
-  trabajo del orquestador que corresponda, con su propia confirmación.
+  trabajo del orquestador que corresponda, con su propia confirmación. **Antes de detenerse por una
+  contradicción que no se cierra con el árbol, aplica la mesa antes de la detención de
+  `Master-Prompt.md` §8.1**: lo que no bloquea la presentación del estado va a R1.5 y no se pregunta de a una.
 - **No reemplaza a los otros dos.** Los invoca. Es un despachador, no un ejecutor.
 - **No escribe en el repositorio fuente**, ni en ninguna categoría del destino. Su única escritura es
   el informe de estado en `SDD/Docs/Audit/`.
@@ -139,7 +141,11 @@ paso 0, que **no produce contenido** —pone a salvo lo que ya estaba— y que a
 4. **Leer los pendientes declarados**: los hallazgos abiertos del último informe de auditoría, las
    filas sin resolver de un plan de migración, las carpetas `_fusion/` que existan con su inventario,
    y **los ítems diferidos de `Root-Rules.md` §12.2, con su evento de cierre contrastado**: el que
-   nombre un evento **ya ocurrido** se declara vencido.
+   nombre un evento **ya ocurrido** se declara vencido. **Y los expedientes de caso abiertos**
+   (`Expediente-Rules.md`): los de `SDD/Expedientes/` de forma vigente cuyo último folio no es
+   `resolucion` ni `archivo`, o cuyo pase nombra un `Cierra con:` que todavía no ocurrió, con el pase
+   del último folio y su `Suspende hasta:` contrastado. **Los expedientes de forma histórica**
+   (`Expediente-Rules.md` §5.1) se nombran en R1 y no cuentan como pendientes.
 
    **Es la comprobación más barata de todo el método y por eso vive acá.** La reanudación ya lee el
    árbol entero sin memoria; preguntarle además «¿qué se difirió y ya venció?» no cuesta una pasada
@@ -449,7 +455,7 @@ para seguir sin volver a deducirlo**:
 | **Diff normativo** | Qué cambió del framework entre la procedencia y la vigente, **artefacto por artefacto y con su severidad** | La salida B lo consume en M1; la C lo usa para justificar por qué no migra |
 | **Decisión** | La salida elegida, quién la eligió y la fecha | El orquestador que continúa, **para no volver a preguntar** |
 | **Recomendación y su fundamento** | La salida recomendada, sus seis factores, la alternativa razonable y —si el salto atraviesa dos o más major con impacto— **por qué C no se ofrece como equivalente** | Es lo que permite auditar la decisión después: sin el fundamento escrito, una decisión correcta y una arbitraria se ven igual |
-| **Punto de continuación** | La etapa o fase concreta que sigue, su puerta de entrada y los documentos que la gobiernan | **La salida D, que no tiene prompt y sólo tiene esto** |
+| **Punto de continuación** | La etapa o fase concreta que sigue, su puerta de entrada y los documentos que la gobiernan. Si lo que sigue es un caso con expediente, **el pase de su último folio**, sin copiarlo | **La salida D, que no tiene prompt y sólo tiene esto** |
 | **Resultado de la mesa** | El bloque de cierre de `Mesa-Rules.md` §6.7, y **el enlace al registro** `Mesa-<AAAA-MM-DD>.md`. Si la mesa no corrió, por qué | Todas. La salida A lo toma como lista de trabajo y la B lo lleva a M1, que **verifica en lugar de reconvocarla** |
 
 **El bloque de continuación es el que hace que la reanudación sirva.** Sin él, este prompt le dice al
@@ -556,3 +562,4 @@ entonces el contexto vuelve a vivir sólo en la sesión.
 | 1.11 | 2026-08-29 | **§3.1.1 deja de excluir a la generación por categoría y pasa a la condición.** Decía «la mesa no se convoca en la generación desde cero», que es una derivación de `Mesa-Rules.md` §0.3 —«no corre sobre un destino vacío»— y **no dice lo mismo**: un destino deja de estar vacío apenas la primera fase produce algo, y desde ahí hay corpus previo que ninguna auditoría de fase mira como conjunto. Lo que decide es la **condición de `Mesa-Rules.md` §0.0**, con el límite contra el audit escrito. Sube **minor**: precisa cuándo se convoca y no cambia ninguna fase. | Intervención de la condición de convocatoria |
 | 1.12 | 2026-09-12 | **R1 publica la base de la corrida** en su bloque `REPOSITORIO`, que reproduce el formato de T0 y ahora su línea nueva de `Master-Prompt.md` §12.1; y **§6 suma el criterio enumerable del origen del hecho**: toda consulta de R2 lo declara calculado contra esa base, y ninguna de la corrida sale sin decir por qué la autocorrección no alcanzaba. Sube **minor**: una línea en un bloque y un criterio. |
 | 1.13 | 2026-09-12 | **La salida D declara qué hace cuando su punto de continuación no está en el roadmap** (framework 13.14), por el reporte `25`. §4 no contemplaba el caso: si el Product Owner decidió un cambio de alcance posterior al handoff y no lo asentó, «lo que sigue» no es una etapa que el roadmap nombre, y D no puede inferirla ni continuar como si lo fuera. Pasa a tratarse como la divergencia que es, llevada a la mesa de §3.1, que convoca el evento de `Rules-Backlog-Tecnico.md` §3.6 (`Master-Prompt.md` §13.1). Sube **minor**: precisa qué hace una salida existente ante un caso que antes no declaraba, sin agregar ninguna salida nueva. | Intervención del disparador de alcance (reporte 25) |
+| 1.14 | 2026-09-13 | **R0 paso 4 lee los expedientes de caso abiertos** (framework 13.18, reporte `31`): los de forma vigente cuyo último folio no es `resolucion` ni `archivo`, o cuyo pase tiene un evento de cierre no cumplido, con su suspensión contrastada. **Los de forma histórica se nombran y no cuentan**: el único ejemplar de destino termina en `resolucion` sin pase legible, y contarlo lo habría listado abierto para siempre. **§0** cablea la mesa antes de la detención de `Master-Prompt.md` §8.1 para las contradicciones que no bloquean. **§5** remite el punto de continuación al pase del último folio. Sube **minor**. | Intervención del reporte `31` |

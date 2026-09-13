@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
 **Agente target:** los orquestadores de reanudación y de migración, y AG-00970 (Presidente de mesa) en tiempo de ejecución
-**Versión de las reglas:** 1.3
+**Versión de las reglas:** 1.4
 
 ---
 
@@ -176,7 +176,8 @@ al bloque de decisiones pendientes cuando no.
    `M`, que ya nombraba los hallazgos de dos informes de migración, y el identificador `M-01` quedó con
    **cuatro significados distintos** en la misma carpeta. La comprobación mecánica no puede verlo —las
    familias de hallazgo están exentas del ancho y `Audit/` suele quedar fuera del anclaje—, de modo que
-   la única defensa es declararlo al abrir.
+   la única defensa es declararlo al abrir. **Si el caso tiene expediente** (`Expediente-Rules.md`), la
+   cabecera nombra su carpeta; el expediente folia este registro por `ruta@commit` y no lo copia.
 2. **Registro de convocatoria**: convocados con su señal y su ubicación, **descartados con su motivo**,
    postergados por cupo, y agentes ad hoc con su carta de mandato.
 3. Resultado de la compuerta mecánica (§6.2), con el alcance que ella misma declaró no haber mirado.
@@ -598,6 +599,10 @@ su alternativa razonable, y qué se necesita— **más un campo propio de la mes
 responder las veinte para que algo avance; con él, el humano contesta las que le importan y sabe qué
 pasa con el resto.
 
+**La respuesta del humano se asienta con su literal**, con la forma de testimonio de
+`Expediente-Rules.md` §3.3 —texto byte a byte, canal, fecha y hora con zona, y huella—, a continuación de
+la escalada y sin editarla. Una aprobación asentada así es el tipo `humano` de D9.
+
 **Esta forma es la que `Master-Prompt.md` §7.0 generaliza al bucle de fases**, como el lote de la fase.
 La mesa la tuvo primero y la conserva; lo que cambia es que deja de ser la única pieza del método que
 agrupa antes de preguntar.
@@ -607,7 +612,8 @@ agrupa antes de preguntar.
 ## 8. Criterios de aceptación
 
 - [ ] [enumerable] El registro de mesa existe en `SDD/Docs/Audit/Mesa-<AAAA-MM-DD>.md` y tiene las
-      nueve secciones de §2.2.
+      nueve secciones de §2.2. **En el repositorio del framework, que no tiene `SDD/Docs/`, el registro es
+      el expediente de caso** (`Expediente-Rules.md` §3), con las nueve secciones repartidas en folios.
 - [ ] [enumerable] El **registro de convocatoria** enumera convocados, **descartados con su motivo** y
       postergados. Un panel sin descartes registrados no cumple.
 - [ ] [enumerable] Todo agente ad hoc tiene **carta de mandato** con su no-competencia declarada.
@@ -693,3 +699,4 @@ Insumos: {{LISTA}}, `Vocabulario-Rules.md`, y el contrato de entrada de la mesa.
 | 1.1 | 2026-08-29 | **La convocatoria pasa de una lista de puntos a una condición declarada, y §0.0 es nueva.** La 1.0 declaraba que «el orquestador que la invoca declara **cuándo**», y los puntos que los orquestadores enumeran **no agotaban** el momento que el mecanismo pide: los dos que existían y la condición producían la misma lista el día que se escribió, y la diferencia apareció con el primer caso que la cumplía desde otro lugar. Entran las **tres cláusulas** —corpus previo, estado leído, plan o decisión de alcance por tomar—, los puntos quedan como **casos y no como definición**, y se declara que un caso sin orquestador **se convoca igual**. **§0.3 corrige la otra cara**: «no corre sobre un destino vacío» **no es** «no corre en la generación», que es la derivación que la 1.0 dejó escrita — un destino deja de estar vacío apenas la primera fase produce algo, y desde ahí nadie mira el corpus como conjunto; con su límite escrito, para no duplicar el audit de fase. **§6.1 suma la obligación de contrastar la fuente** cuando un `P0` se ancla en una declaración —fila de plan, casilla, campo de estado— porque la mesa lo incumplió **dos veces en su primera corrida real**, en el anti-patrón que el método nombra primero. **§2.1** admite el sufijo de ciclo cuando hay más de uno por fecha; **§2.2** obliga a declarar el prefijo de familia del ciclo, que no reusa una familia ya presente en la carpeta; y **§6.7** declara que el contador del ciclo **es propio y no acumula** con el de las rondas de audit, con la advertencia de que el rendimiento por especialista no cayó entre las dos primeras corridas. **Sube minor**: agrega obligaciones y no deroga ninguna regla; un registro de mesa emitido bajo la 1.0 sigue cumpliendo. | Intervención de la condición de convocatoria |
 | 1.2 | 2026-09-12 | **§7 suma el origen del hecho antes de la lista cerrada.** Los siete disparadores preguntan qué clase de decisión es y ninguno de dónde salió el hecho, y una corrida con varios ciclos de mesa el mismo día mira en cada ciclo lo que aplicaron los parches de los anteriores. El presidente calcula el origen del hecho con la cláusula de `Master-Prompt.md` §8.1 contra la base de la corrida, y lo que es de la corrida pasa por la autocorrección sobre el conjunto antes de escalar. **§7.1** suma el campo a la forma y declara que `Master-Prompt.md` §7.0 la generaliza al bucle de fases. **§8** suma el criterio enumerable: ninguna escalada cuyo origen del hecho sea de la corrida sin declarar por qué la autocorrección no alcanzaba. **No se agrega ningún punto de invocación** y §0.0 no se toca. Sube **minor**: un registro de mesa ya emitido sigue cumpliendo. | Intervención del origen del hecho |
 | 1.3 | 2026-09-12 | **§6.1: una afirmación de colisión o de no colisión se ancla sólo en E1**, con el comando que localiza sus ocurrencias por el contexto de lectura de `Vocabulario-Rules.md` §9.2; sin él es `C` y no funda parche. Una cita literal muestra dónde está una palabra, y no dónde no está, que es lo que la afirmación sostiene. **§8** suma el criterio enumerable. Vale para el despacho, los especialistas y el refutador: medido sobre una mesa, el despacho llevaba cuatro datos y tres estaban mal, y el refutador contó líneas donde había que contar ocurrencias. **No se agrega ningún rol ni punto de invocación.** Sube **minor**: un registro de mesa ya emitido sigue cumpliendo. | Intervención de la colisión léxica |
+| 1.4 | 2026-09-13 | **La mesa convive con el expediente de caso** (framework 13.18, reporte `31`). **§2.2 punto 1**: si el caso tiene expediente, la cabecera nombra su carpeta, y el expediente folia el registro por `ruta@commit` sin copiarlo. **§7.1**: la respuesta del humano a una escalada se asienta con su literal, con la forma de testimonio de `Expediente-Rules.md` §3.3, que la vuelve aprobación registrada de D9. **§8, criterio 1**: en el framework, que no tiene `SDD/Docs/`, el registro es el expediente; sin eso el criterio daba falso en el único repositorio donde se corrió una mesa sin destino. Sube **minor**: un registro ya emitido sigue cumpliendo. | Intervención del reporte `31` |

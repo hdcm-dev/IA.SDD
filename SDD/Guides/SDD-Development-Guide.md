@@ -15,7 +15,7 @@ traces:
 # Guía de desarrollo y extensibilidad del framework SDD
 
 **Documento:** SDD-Development-Guide.md
-**Versión:** 1.30
+**Versión:** 1.31
 **Estado:** Vigente
 **Fecha:** 2026-07-29
 **Rol de intervención:** Mantenedor del framework
@@ -127,7 +127,7 @@ Las líneas punteadas señalan una relación distinta de las demás. El marco te
 
 | Ruta | Responsabilidad | Cuándo se toca |
 | --- | --- | --- |
-| `SDD/Devs/Rules/` | Los veinte archivos normativos: doce de categoría más ocho transversales, `Root-Rules`, `Intake-Rules`, `Maqueta-Rules`, `Deriva-Rules`, `Vocabulario-Rules`, `Migracion-Rules`, `Rules-Base-Conocimiento` y `Mesa-Rules`. Cada uno define qué produce su categoría, con qué estructura y bajo qué criterios | En casi toda extensión |
+| `SDD/Devs/Rules/` | Los veintiún archivos normativos: doce de categoría más nueve transversales, `Root-Rules`, `Intake-Rules`, `Maqueta-Rules`, `Deriva-Rules`, `Vocabulario-Rules`, `Migracion-Rules`, `Rules-Base-Conocimiento`, `Mesa-Rules` y `Expediente-Rules`. Cada uno define qué produce su categoría, con qué estructura y bajo qué criterios | En casi toda extensión |
 | `SDD/Devs/Orchestrator/` | Los **tres** master-prompts. `Master-Prompt.md` genera: despacha subagentes por fase, aplica el gating, ordena topológicamente y corta para confirmación humana. `Master-Prompt-Migracion.md` migra: lleva un destino ya especificado a la versión vigente en sus fases M0 a M6, y **cita** el despacho de §8 y la auditoría de §10 del primero en lugar de redefinirlos. `Master-Prompt-Reanudacion.md` retoma: determina en qué estado quedó un destino y con qué salida continuar | Al agregar fases, categorías o flags; el de migración, al cambiar sus fases |
 | `SDD/Devs/Intake/` | `PRODUCT-INTAKE-template.md`, que completa el usuario, y `PRODUCT-MANIFEST-template.md`, que deriva el orquestador | Al agregar una sección de intake o un flag derivable |
 | `SDD/Devs/Guides/` | Marco teórico y notas de coherencia de auditoría | Al cambiar fundamentos, o al cerrar una intervención |
@@ -135,6 +135,7 @@ Las líneas punteadas señalan una relación distinta de las demás. El marco te
 | `Conocimiento/` | **Carpeta anexa, no parte del conjunto normativo.** El catálogo de oficio: caracterizaciones de arquitecturas, templates y convenciones que el método no gobierna, con su índice. **El framework corre con la carpeta vacía**, y agregar un documento no toca ninguna regla | Al capitalizar una forma de construir que conviene reusar |
 | `SDD/Devs/Modelos-UX-UI/` | Modelos UX-UI capturados de maquetas aprobadas, con su índice y su plantilla de registro | Al capturar un modelo nuevo desde una Fase B2 |
 | `SDD/Devs/Bootstrap/` | Auditoría del fuente que originó el framework. **Fuente citada, no archivo muerto**: siete archivos de reglas la referencian como origen del rationale de sus correcciones | Nunca se edita; se cita |
+| `Expedientes/` | **Registro, no conjunto normativo.** Un expediente de caso por carpeta, cuando el caso es del propio framework (`Expediente-Rules.md`). Nombra otros repositorios públicos como texto, queda fuera del snapshot y no se reescribe | Al abrir un caso sobre el framework; lo ya publicado no se edita |
 | `_legacy/` | Una subcarpeta por versión publicada, con el conjunto normativo completo tal como estaba al publicarse. Permite reconstruir con qué reglas exactas se generó un destino sin recurrir al control de versiones | Al publicar una versión nueva. Lo ya archivado no se toca nunca |
 | `SDD/Guides/` | Las tres guías de cara al usuario | Al cambiar algo que el usuario percibe |
 | `PROMPTS/` | El prompt de entrada del agente de bootstrap | Al cambiar el modelo de repositorios o el arranque |
@@ -142,7 +143,7 @@ Las líneas punteadas señalan una relación distinta de las demás. El marco te
 
 **Sobre `Bootstrap/`.** Describe el estado del fuente que originó el framework y es la evidencia de por qué varias reglas son como son: siete archivos de reglas la citan explícitamente al declarar qué déficit corrigen. No se edita. Corregirla para que coincida con el estado actual falsearía el registro, así que cuando una intervención renombra categorías o reasigna subagentes esa carpeta queda deliberadamente desactualizada, y la intervención lo declara en su nota de coherencia.
 
-**Criterio para el material histórico en general.** Un registro histórico se conserva mientras alguien lo cite o mientras explique algo que las reglas vigentes no expliquen por sí solas. Cuando su contenido queda íntegramente absorbido —la propuesta está implementada, el audit cerró aprobado, la plantilla fue reemplazada— y ningún archivo vivo lo referencia, se elimina y su existencia queda registrada en el `CHANGELOG.md`. El historial de git lo preserva. Es lo que se hizo con las carpetas de reformulación y de plantillas de intake superadas.
+**Criterio para el material histórico en general.** Un registro histórico se conserva mientras alguien lo cite o mientras explique algo que las reglas vigentes no expliquen por sí solas. Cuando su contenido queda íntegramente absorbido —la propuesta está implementada, el audit cerró aprobado, la plantilla fue reemplazada— y ningún archivo vivo lo referencia, se elimina y su existencia queda registrada en el `CHANGELOG.md`. El historial de git lo preserva. Es lo que se hizo con las carpetas de reformulación y de plantillas de intake superadas. **Los expedientes de caso son la excepción**: se conservan siempre, aunque su propuesta quede aplicada, porque su valor es ser el fundamento consultable de lo que cambió (`Expediente-Rules.md` §2).
 
 ### I.3 Quién lee y quién escribe cada pieza
 
@@ -299,7 +300,9 @@ declarara completa sin aplicar nada—.
 texto** —el barrido de §VI.3.2 es el caso—, los corre un agente y los lee una persona. **Eso no es código
 distribuido**: no se versiona aparte, no se instala, y **no puede desincronizarse de la regla porque vive
 en el mismo documento que la regla**. La frontera es esa: un comando citado en la prosa que lo funda, sí;
-un artefacto ejecutable con versión propia, no.
+un artefacto ejecutable con versión propia, no. **`Expedientes/` no es conjunto normativo**: su evidencia puede
+guardar un guion como registro de lo que se corrió, **sin permiso de ejecución**, y lo comprueba
+`Expediente-Rules.md` §6, A9.
 
 **Qué reabriría esta sección.** No una preferencia, sino **mediciones**, y están enumeradas en el reporte
 `12` de `IA.SDD.Documentacion`: cuántos anti-patrones `[enumerable]` son evaluables sin leer prosa, si un
@@ -414,7 +417,7 @@ Cada eje sigue la misma estructura: qué estás agregando, qué archivos tocar y
 
 **Qué estás cambiando.** Una de las reglas D1 a D9 que gobiernan todo el framework.
 
-**Es el cambio de mayor impacto que existe**, y conviene entender por qué antes de intentarlo. Una invariante no vive en un archivo: vive en los veinte archivos de reglas que la citan, en los tres master-prompts que la inyectan a cada subagente, en los criterios de todos los auditores, y en **toda la documentación ya emitida en todos los repositorios destino**. Cambiar D3, por ejemplo, invalida el nombre de cada archivo que el framework generó alguna vez.
+**Es el cambio de mayor impacto que existe**, y conviene entender por qué antes de intentarlo. Una invariante no vive en un archivo: vive en los veintiún archivos de reglas que la citan, en los tres master-prompts que la inyectan a cada subagente, en los criterios de todos los auditores, y en **toda la documentación ya emitida en todos los repositorios destino**. Cambiar D3, por ejemplo, invalida el nombre de cada archivo que el framework generó alguna vez.
 
 **Archivos a tocar:** todos los que la citen, sin excepción, más el marco teórico donde la fundamenta.
 
@@ -729,7 +732,7 @@ Lista de comprobación mínima:
 | # | Comprobación | Resultado esperado |
 | --- | --- | --- |
 | 1 | Invariantes D1–D9 intactas en todo archivo tocado | Sin violaciones |
-| 2 | Autosuficiencia: cero referencias fuera del árbol de este repositorio | Cero ocurrencias |
+| 2 | Autosuficiencia: cero referencias fuera del árbol de este repositorio **en el conjunto normativo**. `Expedientes/` nombra repositorios públicos como texto y queda fuera de esta comprobación (§VI.5, `Expediente-Rules.md` §2) | Cero ocurrencias fuera de `Expedientes/` |
 | 3 | Referencias internas: todo archivo, carpeta y sección citada existe. **Se excluyen las rutas ilustrativas dentro de los ejemplos de las reglas**, que describen el árbol de un destino y no resuelven desde el framework | Cero enlaces rotos fuera de esa exclusión |
 | 4 | Sin contradicción entre lo escrito y lo que ya estaba | Sin contradicciones, o reportadas |
 | 5 | Control de cambios actualizado en cada archivo modificado | Una fila por archivo |
@@ -871,6 +874,7 @@ que no se redescubran cada vez:
 | `_legacy/` | Es el conjunto archivado, y §VI.5 lo declara intocable |
 | `SDD/Devs/Bootstrap/` | §I.2 la declara no editable: es la evidencia del origen |
 | Notas de coherencia anteriores | Relatan un hallazgo de su fecha |
+| `Expedientes/` y `SDD/Expedientes/` de un destino | Son registro sellado: `Expediente-Rules.md` §4 S1 prohíbe editar lo publicado, y una forma anterior citada en un folio es parte de su historia |
 | Rutas ilustrativas de los ejemplos | Describen el árbol de un destino, no la navegación del framework (§VI.3, comprobación 3) |
 | Renombres declarados | «Reemplaza a las antiguas X» es lo que permite reconocer un destino generado con la versión vieja |
 | **Entradas publicadas del `CHANGELOG.md`** | Narran el estado del árbol **en su fecha**, igual que una fila de control de cambios. La lista nombraba las filas y no las entradas, y una renumeración masiva alcanza las dos. Lo destapó el barrido de la 12.0 |
@@ -987,7 +991,7 @@ Los archivos se versionan uno por uno según VI.1. El framework además se versi
 
 **Qué obliga.** Publicar una versión nueva incluye, en la misma intervención, copiar el conjunto normativo que queda superado a `_legacy/<version>/`. Se copia el conjunto entero y no solo los archivos que cambiaron, porque las reglas son interdependientes: un `Rules-Contexto` de una versión junto a un `Master-Prompt` de otra puede producir una combinación que nunca existió y nunca se auditó. Lo que hay que poder reconstruir es el estado coherente.
 
-Quedan fuera del snapshot el propio `CHANGELOG.md`, que es acumulativo y cuya historia es su contenido, la carpeta `_legacy/` misma, y los archivos de configuración del repositorio, que no condicionan lo que el orquestador genera.
+Quedan fuera del snapshot el propio `CHANGELOG.md`, que es acumulativo y cuya historia es su contenido, la carpeta `_legacy/` misma, **la carpeta `Expedientes/`**, que es registro de casos con el mismo motivo que el `CHANGELOG.md` y que no condiciona lo que el orquestador genera, y los archivos de configuración del repositorio, que no condicionan lo que el orquestador genera. Estar en la raíz no alcanza para quedar afuera: `Conocimiento/` y `Examples/` están en la raíz y entran.
 
 **Cuándo se toma el snapshot, que es donde se rompe.** `_legacy/<N>/` contiene el conjunto **tal como
 estaba antes de aplicar la intervención que publica `N+1`**. Copiarlo después de editar produce una
@@ -1052,3 +1056,4 @@ que diga otra cosa.
 | 1.28 | 2026-08-23 | **§III.11 corrige una afirmación que la 13.5 volvió falsa**: decía que `AG-00980` «existe pero todavía no se convoca», y desde esa versión se convoca. En su lugar entra el ciclo de `Master-Prompt.md` §9.1 —el subagente pide describiendo **la necesidad y no el alias**, el orquestador resuelve y **entrega él, nunca el bibliotecario**— y la propiedad que conviene aprovechar: **todo pedido es evidencia de una condición mal calibrada**. Sube **minor**. |
 | 1.29 | 2026-08-27 | Dos recuentos por la entrada de `Mesa-Rules.md` (framework 13.7): `SDD/Devs/Rules/` pasa de **diecinueve a veinte** archivos normativos y de siete a **ocho** transversales, y la invariante que «vive en los diecinueve archivos de reglas y en los dos master-prompts» pasa a **veinte** y **tres** — el segundo era además un dato viejo, porque el tercer orquestador existe desde el conjunto 8.10. Sube **minor**: pone al día conteos sin derogar nada. |
 | 1.30 | 2026-09-12 | **§VI.3 suma la comprobación 14, afirmaciones de colisión con su medición**: toda afirmación de colisión o de no colisión que una intervención escribe o de la que parte —la de su origen, la de su verificación previa— está en la nota con su comando y su salida, y la recibida sin comando se reproduce antes de usarse. El punto 1 de §VI.3.1 rige al cerrar, y la afirmación ocurre antes. **§II.7** pasa sus dos recuentos de trece a **catorce** comprobaciones. **Las filas 1.25 a 1.29 de este registro estaban en orden inverso** y pasan a su lugar sin cambiar su texto, por la comprobación 10. Sube **minor** (framework 13.12). | Intervención de la colisión léxica |
+| 1.31 | 2026-09-13 | **El expediente de caso** (framework 13.18, reporte `31`). **§I.2**: el recuento de reglas pasa de veinte a **veintiuno** (nueve transversales), suma la fila `Expedientes/` y declara que los expedientes son la excepción a la eliminación de registros absorbidos. **§II.7**: `Expedientes/` no es conjunto normativo y su evidencia no es ejecutable. **§VI.3** acota la comprobación 2 al conjunto normativo, y **§VI.3.2** suma la clase estable `Expedientes/`. **§VI.5** suma `Expedientes/` a la lista cerrada de exclusiones del snapshot, con el motivo del `CHANGELOG.md`, y declara que estar en la raíz no alcanza. Sube **minor**. | Intervención del reporte `31` |

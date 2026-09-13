@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 8.19
+**Versión:** 8.20
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -365,6 +365,8 @@ Fuera de `SDD/Docs/`, en la **raíz del repositorio destino**, la categoría 11 
 
 Además de `SDD/Docs/`, las unidades de entrega que ejecutan la Fase B2 producen su maqueta de validación en `SDD/Maquetas/<Nombre-Unidad-Entrega>/`, hermana de `SDD/Docs/` y no dentro de ella. La separación es deliberada: `SDD/Docs/` es exclusivamente prosa generada por el orquestador, y la maqueta es material ejecutable que el humano edita a mano durante la validación.
 
+`SDD/Expedientes/<NNNN>-<Titulo>/` es la tercera hermana de `SDD/Docs/`, y tampoco se crea al inicio: aparece con el primer **expediente de caso**, el registro de un caso que atraviesa corridas o repositorios, con su evidencia y la palabra de las partes. Lo gobierna `Expediente-Rules.md`, que declara cuándo se abre, su forma y su sellado. **No es salida de ninguna categoría**, no entra a la compuerta de §10.0 ni a la migración normativa, y los artefactos de `SDD/Docs/` que un caso cambia lo citan en su fila de control de cambios.
+
 Categorías de nivel producto (se generan una vez): 00-Contexto y 01-Necesidades-Negocio, más los artefactos de nivel producto de las categorías 05, 07, 09 y 11 que viven en `Producto/`. Categorías por unidad de entrega (se generan una vez por unidad de entrega, según su `tipo_unidad_entrega` y sus flags): 02 a 11. Cierre de nivel producto: la vista de producto y el README raíz.
 
 **Los dos casos degenerados, en cascada.** Cada uno aplana un nivel, y los dos juntos reproducen exactamente la estructura del template de tipo único. Es la garantía de no ruptura y es el caso que menos se prueba, así que se declara explícito:
@@ -650,6 +652,8 @@ cierre, con excepción para lo bloqueante y con el campo `SI NO RESPONDÉS`— y
 - **Cada detención del lote lleva `SI NO RESPONDÉS`**, con qué rige por defecto y qué queda bloqueado.
   Es lo que vuelve contestable al lote: el humano contesta las que le importan y sabe qué pasa con el
   resto.
+
+**La respuesta del humano al lote se asienta con su literal.** Cuando lo que contesta es una aprobación o una decisión, el registro que la recibe —la fila de este registro, el folio de un expediente, el documento que cambia— la lleva con la forma de testimonio de `Expediente-Rules.md` §3.3: el texto byte a byte, el canal, la fecha y hora con zona, y su huella. **Es lo que convierte una aprobación dada en la conversación en la «aprobación explícita registrada con fecha» del tipo `humano` de D9**, sin tocar D9. Rige hacia adelante.
 
 **El lote es la forma de presentar, no un contenido nuevo del registro.** Lo que el humano contesta en
 el lote no entra al registro; lo que no contesta entra con su `SI NO RESPONDÉS` como «qué rige mientras
@@ -1083,6 +1087,10 @@ antes, cuando había que suponerla.
 
 Es la misma lógica con la que `Migracion-Rules.md` §3 rechazó los playbooks por salto de versión: un
 plan escrito antes de tener el estado a la vista **planifica sobre lo que se supone**.
+
+### La mesa antes de la detención, para las familias que preguntan
+
+**Ante un problema que no se resuelve con el árbol, primero la mesa y después la pregunta.** Vale para las dos familias que preguntan —la ambigüedad de §9 y el arbitraje de §7.0— y **no** para la confirmación de un plan ni para el traspaso de §12.1 T4, que se detienen como siempre porque su respuesta es una aprobación y no un análisis. **Lo bloqueante sale en el momento y sin mesa**: el arbitraje de §7.0 y la detención sin cuya respuesta ninguna otra unidad avanza. **Lo que no bloquea** y sobrevive al origen del hecho y a la pregunta previa **va a una mesa de evaluación**, una por fase —en la migración normativa, una por corte de M4—, que junta los tropiezos de ese tramo en lugar de convocar una por problema. Su contrato de entrada (`Mesa-Rules.md` §4) sale de lo que ya hay: la base de la corrida como estado, el último registro de mesa como corpus previo y el lote de tropiezos como decisión por tomar. **Lo que la mesa escala va al lote de §7.0 con su `SI NO RESPONDÉS` y no vuelve a entrar a una mesa**: la mesa no se reconvoca sobre sus propias escaladas. **Por qué:** el humano que pidió esta forma lo dijo así —«cuando te encuentres con un problema, en vez de pararte, arma una mesa adecuada para llegar a una conclusión, evalua realmente si necesitas preguntarme algo»—, y lo medido le da la razón: de cinco detenciones reales, tres tenían respuesta en el árbol, y la pregunta previa sola no las filtró porque se evalúa de a una. Si el caso atraviesa corridas o repositorios, cada paso queda foliado en su expediente (`Expediente-Rules.md`).
 
 ### Qué no cambia
 
@@ -1693,6 +1701,8 @@ del humano**, en la plataforma. No hay excepción, y no es una cortesía: el mer
 alguien que no escribió el cambio lo mira. Un agente que fusiona su propio trabajo elimina el único
 control que no es suyo.
 
+**Si la rama lleva un expediente de caso, no se fusiona aplastando la historia**, o quien fusiona declara que el orden de incorporación de sus folios deja de ser observable (`Expediente-Rules.md` §4, S3).
+
 ### T2 · Nada se escribe sobre un árbol sucio
 
 **Antes de la primera escritura**, el árbol de trabajo tiene que estar limpio. Si hay cambios sin
@@ -1887,6 +1897,7 @@ Términos canónicos del orquestador. Cualquier divergencia con estos términos 
 | Grafo de compilación | Aristas de **dependencia de compilación** entre proyectos de código. Ordena el build del pipeline de producto. No coincide con el de integración, y no tiene por qué. Tiene **dos clases de arista**, referencia de proyecto e insumo de construcción, que cuentan igual para la aciclicidad (`Intake-Rules.md` §4). |
 | Referencia de proyecto | Arista del grafo de compilación en la que el consumidor referencia al productor con el mecanismo del ecosistema de la solución de código, y el productor se construye como proyecto de esa solución. En la columna de dependencias se escribe sin marca. Regla: `Intake-Rules.md` §4. |
 | Insumo de construcción | Arista del grafo de compilación en la que el consumidor toma como entrada de su construcción el artefacto que genera el productor, **sin referencia de proyecto entre los dos**: la única clase posible entre proyectos de ecosistemas distintos. Tiene **un único generador**, y hace que el productor pertenezca a la solución de código del consumidor aunque la solución no lo construya por referencia. Regla: `Intake-Rules.md` §4; la construcción donde falta la cadena de herramientas, `Rules-Devops.md` §4.9. |
+| Expediente de caso | Carpeta `SDD/Expedientes/<NNNN>-<Titulo>/` que registra un caso que atraviesa corridas o repositorios: carátula, actuaciones foliadas que no se reescriben, evidencia con procedencia y el pase del último folio como punto de continuación. La gobierna `Expediente-Rules.md`. No es una categoría y no la audita §10 |
 | Manifiesto de producto | Artefacto de intake que enumera los proyectos de código, su D8, rol, dependencias y nombres de código. Primer insumo del orquestador y fuente única de verdad de la enumeración. |
 | Unidad de entrega principal | Unidad de entrega cabeza del producto, equivalente al antiguo tipo dominante del intake de tipo único. |
 | Orden topológico | Secuencia de generación que respeta las dependencias del manifiesto: primero las dependencias, después los dependientes. |
@@ -2003,6 +2014,7 @@ Este master-prompt se versiona como cualquier otro artefacto del template. Cualq
 | 8.17 | 2026-09-12 | **El ciclo de origen de un hueco se calcula, como el origen del hecho** (framework 13.13), por el reporte `27`. **§8.2 es nueva**: toda referencia pendiente, ítem diferido y apartamiento declarado lleva fase, unidad de trabajo y base de la corrida, congeladas al declararse y no recalculadas —a diferencia del origen del hecho, que se recalcula porque solo importa dentro de su corrida—. Reutiliza la base de la corrida de la 8.15 en lugar de una pieza paralela. **§10.0 suma la comprobación 8**: verifica presencia del campo en los huecos que la fase escribe, sin decidir clasificación, que es de `Migracion-Rules.md` §4.8. **§15** suma el término. Sube **minor**: agrega un campo obligatorio hacia adelante; ningún hueco ya declarado deja de cumplir. | Intervención del ciclo de origen |
 | 8.18 | 2026-09-12 | **§13.1 es nueva** (framework 13.14), por el reporte `25`, y responde su pregunta de fondo: **no hace falta un tercer caso de escritura del intake**. Los dos casos de la regla 2 son de la misma familia —ocurren durante una corrida de este orquestador—; una decisión de alcance del Product Owner posterior al handoff ocurre sin ninguna corrida en curso, y el intake, que `Migracion-Rules.md` §4.4 ya declara documento humano, no necesita que esta regla autorice lo que nunca prohibió. Ponerle las tres condiciones de la migración estructural a un acto que ya es libre habría invertido la relación: el intake dejando de ser del Product Owner para pasar a necesitar permiso de un orquestador ausente. Lo que faltaba no era permiso, era criterio y disparo, y **§13.1 los remite a `Rules-Backlog-Tecnico.md` §3.4**, que ya sabía qué hacer con un cambio de alcance y no decía cuándo. Declara además la consecuencia sobre la salida D de `Master-Prompt-Reanudacion.md` §4 cuando la etapa siguiente no está en el roadmap. **§15 suma dos términos**: `vigencia operativa abierta` y `evento de cambio de alcance`, verificados sin colisión (`grep -rn "vigencia operativa\|evento de cambio de alcance" SDD/Devs --include='*.md'`, cero ocurrencias antes de esta intervención). **Corregido de paso**: la entrada «Fase» del glosario enumeraba A a H y omitía I y J, que el propio glosario define dos filas más abajo — hallazgo con cita literal, se corrige en la misma unidad (`Master-Prompt.md` §8.1, autocorrección). Sube **minor**: una sección que acota el alcance de una regla existente sin reescribir ninguno de sus dos casos, y dos términos de glosario. | Intervención del disparador de alcance (reporte 25) |
 | 8.19 | 2026-09-13 | **§15 suma dos términos, `referencia de proyecto` e `insumo de construcción`**, las dos clases de arista del grafo de compilación que `Intake-Rules.md` §4 declara desde esta versión, y la entrada «Grafo de compilación» las nombra; §11 pide la clase de cada arista en el grafo de la vista de producto. Nombres verificados sin colisión en los contextos de lectura de sus lectores, con su comando en la nota de coherencia de la versión. **Corregido de paso**: §11 describía el README raíz con «la tabla de proyectos de código con su D8», contra `Root-Rules.md` §4, que pide la tabla de **unidades de entrega** con su D8. Sube minor. | Framework SDD (proyecto de otro ecosistema) |
+| 8.20 | 2026-09-13 | **El expediente de caso entra al orquestador** (framework 13.18, reporte `31`). **§3.5** declara `SDD/Expedientes/` como tercera hermana de `SDD/Docs/`, fuera de la compuerta y de la migración. **§7.0** asienta con su literal la respuesta del humano al lote, con la forma de testimonio de `Expediente-Rules.md` §3.3, que es lo que la vuelve aprobación registrada de D9 **sin modificar D9**. **§8.1 suma «La mesa antes de la detención»**: para la ambigüedad y el arbitraje —no para la confirmación de plan ni para T4—, lo bloqueante sale en el momento y lo que no bloquea va a una mesa por fase o por corte, cuyas escaladas van al lote y no reingresan. **§12.1 T1** suma la fusión sin aplastar la historia de una rama con expediente. **§15** suma el término. Sube **minor**: agrega obligaciones hacia adelante y ningún documento emitido deja de cumplir. | Intervención del reporte `31` |
 
 Reglas de versionado:
 

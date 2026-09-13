@@ -49,6 +49,7 @@ Al publicar una versión nueva en el `CHANGELOG.md`, y como parte de esa misma i
 | --- | --- |
 | `CHANGELOG.md` | Es el registro de versiones en sí, acumulativo. Su historia es su propio contenido |
 | `_legacy/` | No se archiva a sí mismo |
+| `Expedientes/` | Es registro de casos, acumulativo como el `CHANGELOG.md`, y no condiciona lo que el orquestador genera. Copiarlo por versión duplicaría cada folio con otra ruta. Rige desde la 13.18 |
 | Archivos de configuración del repositorio | No son normativos y no condicionan lo que el orquestador genera |
 
 ## Regla de intocabilidad
