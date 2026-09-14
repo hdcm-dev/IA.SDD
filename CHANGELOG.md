@@ -3,6 +3,51 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.19] - 2026-09-14
+
+**Un aviso que el framework no emite terminó pedido como corrección del framework.** En una corrida del orquestador de reanudación, el agente cerró cada respuesta con un aviso de que dos conectores de servicios externos necesitaban autorización; la persona no los usaba, creyó que el aviso salía del método y pidió corregirlo. La búsqueda por los términos del aviso sobre el framework, el destino, la memoria del agente y el prompt de invocación dio **cero ocurrencias pertinentes**: lo agregaba **el entorno que ejecuta al agente**, en cada sesión. Ni la mesa ni el orquestador tenían con qué clasificar ese origen. Esta versión lo cataloga **sin mover una coma de la norma**.
+
+### Agregado — `Conocimiento/Knowledge-Entorno-De-Ejecucion-Del-Agente.md` 1.0
+
+Alias `Entorno-De-Ejecucion-Del-Agente`, `propio`, consumidor `transversal`, sin condición de carga, 273 líneas. Caracteriza **cinco clases de origen** de un texto de la conversación —pedido de la persona, instrucción del framework, contenido del destino, mensaje del entorno de ejecución, resultado de una herramienta o de un subagente— con **cómo se verifica cada una buscando y no por el tono**, y por qué la clase del entorno se prueba por descarte en cuatro lugares; **qué se hace con cada pieza del entorno**: la atribución de commits y el archivo cambiado afuera se obedecen como restricción, el aviso de un servicio sin autorizar no se retransmite salvo pertinencia; **qué pasa cuando la persona declara que un aviso recurrente no le sirve**: se registra la preferencia en la memoria del agente y no se repite, y no se corrige el framework por lo que el framework no produce; **el criterio F1–F3** que separa una lectura, que no necesita mesa (`Knowledge-Mesa-De-Expertos-A-Pedido.md` §3.1), de un defecto del framework; y **siete casos del mismo tipo**: el informe de un subagente que la persona no ve, la tarea en segundo plano que notifica sola, la herramienta ausente en el host, la credencial compartida en la conversación, la fecha que cambia a mitad de sesión, el archivo cambiado fuera del agente y la memoria que contradice el árbol.
+
+**Es catálogo y no norma.** Su §8 declara que el origen del hecho y la detención viven en `Master-Prompt.md` §8.1, la escalada en `Mesa-Rules.md` §7 y la respuesta a un secreto publicado en `Expediente-Rules.md` §4, S2, y que ante contradicción manda la regla (`Rules-Base-Conocimiento.md` §0.4). **No nombra ninguna herramienta** ni describe su implementación: describe conducta observable y la búsqueda que la sostiene.
+
+**El pedido autorizaba pasarlo a una mesa, y no se convocó**: la clasificación cierra en una sola clase con una búsqueda y ninguna de F1 a F3 se cumple. Lo declara la nota de coherencia §2.
+
+### Cambiado — `Index-Knowledge.md` 1.3 → 1.4
+
+La fila del alta, con las diez columnas de §7.1. El catálogo pasa de cinco a **seis** documentos.
+
+### Verificación contra `Rules-Base-Conocimiento.md` §6.1
+
+| # | Ítem | Resultado |
+| --- | --- | --- |
+| 1 | `[enumerable]` Once campos de cabecera, ninguno vacío | **Cumple** — `sed -n 3,13p … \| grep -cP '^\*\*[\p{L}-]+:\*\* \S'` = 11 |
+| 2 | `[enumerable]` Nombre `Knowledge-<Tema>.md`, ASCII, sin prefijo numérico | **Cumple** |
+| 3 | `[enumerable]` Alias único en el índice | **Cumple** — `grep -c "Entorno-De-Ejecucion-Del-Agente" Index-Knowledge.md` = 2 (la fila y el control de cambios) |
+| 4 | `[enumerable]` Secciones §0 a §10 | **Cumple** — `grep -c "^## [0-9]*\." Knowledge-Entorno-De-Ejecucion-Del-Agente.md` = 11 |
+| 5 | `[enumerable]` Bajo el techo de §6.2 | **Cumple** — 273 líneas contra 600 de `propio` |
+| 6 | `[enumerable]` Los ocho campos comunes coinciden con la fila | **Cumple** — comparados campo por campo con un guion: nueve de nueve iguales, contando `Estado` |
+| 7 | `[enumerable]` Verificación de ofuscación declarada | **Cumple** — sobre los tres archivos del alta se buscaron los nombres de los servicios del caso, de la herramienta y de su proveedor, correos, rutas del host, nombres de usuario y de organización, los productos y destinos privados del Product Owner y direcciones IP: **una sola ocurrencia**, en la nota de coherencia, dentro de la **cita literal del pedido** del Product Owner, que nombra al agente y no a un producto ni a un cliente. En el documento de conocimiento, **cero**. Falso positivo léxico: «entorno de ejecución» designa en `Examples/` y en el expediente `0002` el runtime de un software; acá siempre va como «entorno de ejecución del agente», y §0 lo define |
+| 8 | `[enumerable]` Numeración interna contigua | **Cumple** — §2.1–§2.3, §3.1–§3.4, §5.1–§5.3 |
+| 9 | `[enumerable]` Contradicción con el piso declarada | **No aplica** — no contradice: clasifica una clase de texto que el conjunto normativo no mira, y §8 lo declara |
+| 10 | `[interpretativo]` §0 declara qué queda afuera | **Cumple** — seis filas con dónde vive cada cosa |
+| 11 | `[interpretativo]` Un `canonico` escribe el delta | **No aplica** — es `propio` |
+| 12 | `[interpretativo]` No define criterios, nomenclatura ni gating de artefactos generados | **Cumple** — §6 se verifica sobre la conducta del agente y sus rastros |
+| 13 | `[interpretativo]` Las siete propiedades de §4.4 | **Cumple** |
+| 14 | `[interpretativo]` Usable sin contexto previo | **Cumple**, con el límite declarado en §1: supone poder buscar en el framework, en el destino y en el prompt de invocación |
+
+### Por qué es minor
+
+Por el precedente de la 13.9 y de la 13.17: **no cambia ninguna regla, orquestador ni plantilla**, pero el catálogo condiciona lo que el orquestador genera y un destino que declare 13.19 declara un catálogo que 13.18 no tenía.
+
+### Impacto sobre destinos existentes
+
+**Ninguno obligatorio.** Ningún destino tiene que migrar nada por esta versión: el documento no tiene condición de carga y se aplica por cita o cuando un agente enfrenta un texto de origen no evidente. Un destino que declare 13.18 sigue cumpliendo.
+
+`SDD/Devs/Guides/Coherencia-Entorno-De-Ejecucion-Del-Agente.md` 1.0, con la fuente de cada afirmación del documento y lo que no se observó en la sesión que lo escribió. `_legacy/13.18/` con el conjunto entero, **135 archivos** contados contra `git ls-tree -r main -- Conocimiento Examples PROMPTS README.md SDD Templates`, tomado de `main` con `git archive` antes de editar, **sin `Expedientes/`** y con cero diferencias. Conjunto resultante **13.19**.
+
 ## Registro — 2026-09-13 · Expediente `0002`
 
 **El conjunto normativo sigue en 13.18 y no hay snapshot nuevo**: `Expedientes/` es registro y queda fuera del conjunto y del snapshot (`SDD-Development-Guide.md` §I.2 y §VI.5, `Expediente-Rules.md` §2). Esta entrada existe porque el repositorio recibe una carpeta entera y el `CHANGELOG.md` es su historia.
