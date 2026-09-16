@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/06-Backlog-Tecnico/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** Scrum Master / Agile Coach senior (AG-00060)
-**Versión de las reglas:** 5.3
+**Versión de las reglas:** 5.4
 
 **Nota de alcance (reporte `29`).** El nivel de aplicación de arriba dice **dónde vive el documento**
 —un `Product-Backlog.md` y un `Backlog-Tecnico.md` por unidad de entrega, no uno por proyecto de
@@ -179,6 +179,28 @@ aceptación declarado, o —si la decisión todavía no se puede resolver en el 
 diferido de `Root-Rules.md` §12.2 con su evento de cierre. Si no, es nomenclatura o enmarcamiento de la
 documentación y no reabre este documento.
 
+**El evento tiene tres fuentes, no una (framework 13.20, expediente `0003`).** La entrada del intake es
+la fuente cuando el Product Owner decide ahí. Pero un cambio de alcance posterior al handoff también
+entra **por la resolución foliada de un expediente** (`Expediente-Rules.md` §3.2, el folio `resolucion`
+con plan aprobado y su testimonio de aprobación) o **por la orden foliada del Product Owner** que ese
+expediente asienta, y en un destino sin `PRODUCT-INTAKE` entra por **el documento de alcance que el
+destino declara equivalente** (un acta con su carta de cambios, nombrados en la carátula del expediente
+o en el informe de estado). Las tres son el mismo evento: una decisión de alcance registrada. Medido:
+en un destino, tres expedientes que cambiaron contratos públicos y pantallas cerraron sin tocar este
+documento porque el único disparo escrito era una fila que nadie asentó
+(`Expedientes/0003-Retroalimentacion-De-La-Especificacion-Ante-Cambios/`, folio 019 §1 R-A).
+
+**El criterio gana dos clases sin perder la que tenía.** Además de «estructural» (la fila del roadmap o
+el conjunto de proyectos), un cambio es de clase **compromiso** cuando altera el comportamiento
+observable, un contrato público o el alcance prometido —una clave nueva en una API, una pantalla nueva,
+un paquete con superficie ampliada— aunque no mueva ninguna fila del roadmap; es de clase **diseño
+interno** cuando cambia una decisión de arquitectura sin efecto observable (un ADR nuevo, una BT); y es
+**nomenclatura o documentación** en el resto. Compromiso y estructural reabren este documento con al
+menos una `US-XXXXX` o `BT-XXXXX` nueva; diseño interno reabre sólo `Backlog-Tecnico.md` y el ADR; la
+lista mínima por clase y quién la ejecuta viven en `Root-Rules.md` §14, que cita este criterio y no lo
+redefine. Los dos casos con los que se midió el criterio de 13.14 no cambian de clase con esta
+extensión; los dos del destino que la motivó sí (folio 019 §3.1).
+
 **Por qué no hacía falta un tercer caso de escritura del intake para llegar hasta acá.** `Master-Prompt.md`
 §13.1 declara que el Product Owner ya puede editar el `PRODUCT-INTAKE` fuera de una corrida del
 orquestador, porque es su documento humano y ninguna corrida está gobernando ese momento. Lo que faltaba
@@ -206,6 +228,12 @@ Cada artefacto inicia con un H1 y un bloque markdown de metadatos:
 **Prioridad MoSCoW:** Must | Should | Could | Won't (v1.0)
 **Estimación:** <story points o T-shirt>
 ```
+
+**Una US o BT que nace `Done` porque el sistema ya la tiene** (reintegración posterior al handoff,
+`Root-Rules.md` §14) no cambia el enumerado de `Estado`: lleva `Done` y, en su §7 de trazabilidad, la
+evidencia verificable de `Deriva-Rules.md` D9 con la forma «Estado real: entregado en el pedido de
+fusión #N (expediente `NNNN`, folio de cierre)». Es la forma que un destino usó antes de que la regla la
+nombrara, y se reconoce como cita, no como campo nuevo.
 
 Para `product-backlog`, `backlog-tecnico`, `BT-XXXXX` y `definition-of-ready` aplica la misma cabecera adaptando el título y los campos pertinentes (la BT lleva `Tipo` en vez de `Prioridad MoSCoW`).
 
@@ -541,3 +569,4 @@ Salida: SDD/Docs/Unidades-Entrega/{{NOMBRE_UNIDAD_ENTREGA}}/06-Backlog-Tecnico/<
 | 5.1 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
 | 5.2 | 2026-09-12 | **§3.6 suma el evento que dispara el paso a `v2.0` cuando el producto ya pasó el handoff** (framework 13.14), por el reporte `25`. La sección ya sabía versionar un cambio de alcance significativo y no decía **cuándo** correspondía: en el destino que originó el reporte, seis documentos de esta categoría quedaron dieciocho días sin tocar después de dos decisiones de producto reales. El evento es **la entrada de control de cambios del `PRODUCT-INTAKE` que registra una decisión de alcance posterior al handoff**, el mismo que reabre `Roadmap-Producto.md` (`Master-Prompt.md` §13.1) para que los dos no queden gobernados por disparadores distintos. Se adopta el criterio de clasificación medido en el reporte —modifica una fila de la matriz del roadmap, incluido su contenido, o el conjunto de proyectos de código del manifiesto— para distinguir el cambio estructural, que reabre, del de nomenclatura o enmarcamiento, que no. Exige además que la reapertura emita al menos una `BT-XXXXX` con criterio de aceptación o un ítem diferido de `Root-Rules.md` §12.2. Sube **minor**: agrega el disparador de una regla existente sin cambiar la mecánica de versionado que ya regía. | Intervención del disparador de alcance (reporte 25) |
 | 5.3 | 2026-09-12 | **El umbral de archivos individuales de §2.1 pasa a decir lo mismo en las seis menciones que lo tocaban** (framework 13.15, reporte `29`). §2.1 lo cuenta desde la 1.0 **por proyecto de código con tres bandas** —obligatorio, recomendado, omitir—; §3.3, el criterio de aceptación de §6 y el snippet de §8 lo contaban **por unidad de entrega con dos bandas**, una contradicción que un destino real (`Lab-Geometria`) resolvió sin saber que había dos lecturas, citando la tabla y atribuyéndole a §3.3 una lectura que §3.3 no decía. Se adopta **por proyecto de código**, la que la tabla maestra siempre dijo y la que ningún destino medido rompe: `Lab-Geometria` (BT y US, dos unidades) y `RPI.VideoControl` (US, cinco proyectos en una unidad) ya la aplican con coherencia; la lectura por unidad de entrega los habría dejado a los dos incumpliendo de golpe, en tres de sus cuatro documentos medidos, sin que ninguno lo hubiera podido detectar porque el criterio era `[interpretativo]`. **§3.3 suma el caso del documento consolidado**: cuando una unidad agrupa más de un proyecto de código, el umbral se evalúa proyecto por proyecto dentro del mismo `Product-Backlog.md` o `Backlog-Tecnico.md`, y el resultado mixto —un proyecto en archivos individuales, otros inline en el mismo documento— es la forma correcta y no un estado transitorio; forzar a toda la unidad por el cruce de un solo proyecto reescribiría secciones que no cambiaron. **§6 reclasifica el criterio de `[interpretativo]` a `[enumerable]`**, con el comando de conteo por bloque de identificador y `test -d`. **§5.2 y §5.5 nombran la unidad de conteo** que antes no decían. La cabecera suma una nota que distingue el nivel de aplicación —dónde vive el documento— del conteo del umbral —de qué proyecto es cada US o BT—, para que las dos preguntas no se vuelvan a fundir. Sube **minor**: la lectura adoptada es la que ya se aplicaba sin excepción; ningún documento generado deja de cumplir, y el que parecía incumplir bajo la lectura vieja pasa a cumplir bajo la corregida. | Intervención del umbral de archivos individuales (reporte 29) |
+| 5.4 | 2026-09-16 | **§3.6 amplía el evento a tres fuentes y el criterio a tres clases** (framework 13.20, expediente `0003` del framework): además de la fila del intake, dispara la resolución foliada de un expediente o la orden foliada del Product Owner, y en un destino sin intake el documento de alcance que declare equivalente; además de «estructural», las clases **compromiso** (comportamiento observable, contrato público, alcance) y **diseño interno**, con la lista mínima por clase en `Root-Rules.md` §14. Medido: tres expedientes de un destino cambiaron contratos y pantallas sin reabrir este documento porque el único disparo escrito era una fila que nadie asentó, y con el criterio binario eran «nomenclatura»; los dos casos de 13.14 no cambian de clase. **§4.1 reconoce** la forma «Estado real: entregado en el pedido de fusión #N» como evidencia D9 de una US o BT que nace `Done`. Sube **minor**: agrega fuentes y clases sin derogar el criterio ni el enumerado de estados. |

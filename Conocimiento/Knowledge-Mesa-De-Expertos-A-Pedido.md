@@ -8,9 +8,9 @@
 **Hereda-de:** —
 **Sustituye:** —
 **Compatible-con:** Rules-Base-Conocimiento.md 2.2
-**Versión:** 1.1
+**Versión:** 1.2
 **Estado:** Vigente
-**Fecha:** 2026-09-13
+**Fecha:** 2026-09-16
 
 ---
 
@@ -77,8 +77,8 @@ diferencias son las que declara §2.2.
 | 6 | **Refutación** | Refutador | El ataque a la lectura dominante, por evidencia y **por aplicación** |
 | 7 | **Consolidación y peritaje** | Presidente | Raíces comunes; toda contradicción entre comisiones elevada como ítem y, si hace falta medir, un peritaje (§3.3) |
 | 8 | **Veredicto y parches** | Jurado y cuerpo de parches | `Mesa-Rules.md` §6.4 y §6.5 |
-| 9 | **Aplicación y verificación** | Quien el pedido designe | La verificación de cada parche, con evidencia antes y después |
-| 10 | **Cierre** | Presidente | El bloque de `Mesa-Rules.md` §6.7, la deuda declarada y las preguntas que sobrevivieron, **en lote y con `SI NO RESPONDÉS`** |
+| 9 | **Aplicación y verificación** | Quien el pedido designe | La verificación de cada parche, con evidencia antes y después; **y, como último tramo, la reintegración a la especificación** de `Root-Rules.md` §14 (02, 03, 05, 06 y la fuente de alcance según la clase del cambio que la resolución declaró) |
+| 10 | **Cierre** | Presidente | El bloque de `Mesa-Rules.md` §6.7 —con la fila `Reintegra` de la resolución—, la deuda declarada y las preguntas que sobrevivieron, **en lote y con `SI NO RESPONDÉS`**; una fila de alcance propuesta al Product Owner **no se asienta por silencio** |
 
 ### 2.2 Las cuatro clases de objeto y su variante
 
@@ -168,6 +168,7 @@ deliberativo con acta.
 | Filtro | La pregunta | De dónde sale |
 | --- | --- | --- |
 | **Descripción o control** | Antes de corregir un documento contra el producto: ¿lo que el documento afirma **describe** el producto, o **declara un control** que el producto no ejerce? Una descripción se corrige contra el producto. Un control no ejercido no se reescribe: reescribirlo **lo absuelve** sin que nadie vote la derogación, y va a deuda declarada | Una mesa sobre la documentación de un destino: de 71 hallazgos, **55 eran descripción y 16 controles** |
+| **Descripción, control o decisión** | La pregunta anterior tiene una tercera respuesta: ¿lo que el documento afirma es **una decisión de diseño** (un ADR `Aceptado`, un render mode, un stack, una capa) que el producto no cumple? Entonces **no se corrige el documento**: es deriva mayor de `Deriva-Rules.md` §3 y se resuelve corrigiendo el código o con un ADR nuevo que supere al anterior, con aprobación del Product Owner (`Mesa-Rules.md` §6.1) | Una mesa de un destino que «corrigió» la arquitectura para describir un panel construido en otro modo de render que el decidido, y fundó un ADR en el desvío; el Product Owner lo destapó con una pregunta (`Expedientes/0003-…`, folio 019) |
 | **La unidad de aplicación es el documento** | ¿Esta corrección deja el documento mitad corregido y mitad viejo? Un documento mezclado es peor que uno uniformemente viejo | La misma mesa |
 | **Qué dice el sistema cuando no pudo** | Además de si el producto hace lo que promete: ¿qué le dice a la persona cuando no pudo hacerlo? | Una mesa de interfaz: tres observadores se contradecían y **ninguna comisión podía verlo sola** |
 | **El peritaje cambia una sola variable** | Ante una contradicción entre observadores, ¿qué experimento mínimo la resuelve? Dos corridas que difieren en **una** cosa, con evidencia de las dos | La misma mesa: dos envíos iguales salvo las claves del texto resolvieron la contradicción |
@@ -305,3 +306,4 @@ verifican sobre el expediente de la mesa, que no es un entregable de categoría.
 | --- | --- | --- |
 | 1.0 | 2026-09-13 | Emisión inicial. Cataloga la mesa de expertos convocada por pedido explícito: la lectura del pedido, las cuatro clases de objeto con su variante, el despacho verificado, el expediente de la mesa y los filtros de juicio que dejaron las mesas corridas, sin redefinir ninguna pieza de `Mesa-Rules.md`. |
 | 1.1 | 2026-09-13 | **Se alinea con `Expediente-Rules.md` por remisión** (framework 13.18, reporte `31`), y cierra la deuda que declaraba §8. **§0** nombra la regla; **§2.3** y **§5.3** remiten a su forma y dejan sólo la correspondencia de las piezas de una mesa con los tipos de actuación, para no mantener dos copias del árbol; **§3.1** remite la ruta al expediente; **§3.2** corrige «el testimonio es evidencia E4», que confundía un testimonio con una regla declarada; **§5.2** deja de fijar el nombre del archivo del informe; **§6** remite su primer criterio a A1–A12. |
+| 1.2 | 2026-09-16 | **§2.1 pasos 9 y 10 remiten a la reintegración** de `Root-Rules.md` §14 (framework 13.20, expediente `0003` del framework): la aplicación termina con la vuelta a la especificación y el cierre lleva la fila `Reintegra`; una fila de alcance no se asienta por silencio. **§3.3 suma la tercera clase del filtro**, «decisión»: un documento que registra una decisión de diseño no se corrige contra el producto. Sigue sin definir nada normativo: cita. |

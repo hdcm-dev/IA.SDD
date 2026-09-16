@@ -3,7 +3,7 @@
 **Carpeta target (por unidad de entrega):** `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/03-UX-UI-DX/` para la línea de base, `SDD/Docs/Unidades-Entrega/<Nombre-Unidad-Entrega>/08-Calidad-Y-Pruebas/` para la matriz de sensado
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Unidad de entrega
 **Subagente target del orquestador:** el subagente de la categoría que emite la afirmación; el auditor independiente para la verificación
-**Versión de las reglas:** 5.4
+**Versión de las reglas:** 5.5
 
 ---
 
@@ -118,7 +118,7 @@ desborda cualquier techo, porque hereda el tamaño de todo lo que la alimenta.
 | Columna | Contenido |
 | --- | --- |
 | ID | `SD-XXXXX` |
-| Elemento de línea de base | El identificador que se verifica: `SUP-XXXXX`, `CMP-XXXXX`, `EST-XXXXX`, `NAV-XXXXX`, `DM-XXXXX` o `VER-XXXXX` |
+| Elemento de línea de base | El identificador que se verifica: `SUP-XXXXX`, `CMP-XXXXX`, `EST-XXXXX`, `NAV-XXXXX`, `DM-XXXXX`, `VER-XXXXX` o `ADR-XXXXX` (§3, dimensión «decisión de arquitectura») |
 | Afirmación a verificar | Qué tendría que ser cierto en el sistema construido |
 | Método de verificación | Cómo se comprueba: inspección visual contra la maqueta, test automatizado de 08, inspección del esquema de datos, revisión de una ruta, o el comando declarado en el contrato de verificación cuando la sonda es `VER-XXXXX` |
 | Evidencia esperada | Qué artefacto o ejecución produce la evidencia, en el formato de §1 |
@@ -161,6 +161,7 @@ No toda diferencia entre la maqueta y el sistema construido es un problema. La m
 | Modelo de datos | Cambia el orden de los campos en la presentación | Falta un campo, cambia el tipo, cambia la obligatoriedad, cambia el formato de presentación acordado |
 | Accesibilidad | Cambia el orden de foco dentro de un grupo | Se pierde el recorrido por teclado, se pierde el foco visible, cae el contraste bajo el piso |
 | Contratos y comportamiento (`VER-XXXXX`) | Cambia el texto de un mensaje de salida sin cambiar su semántica, cambia el formato de un log | El `criterio_aceptacion` falla, cambia el comando de ejecución sin actualizar el contrato, aparecen precondiciones no declaradas, o el CU que la sonda ejercita dejó de estar cubierto |
+| Decisión de arquitectura (`ADR-XXXXX` con observable) | Cambia la forma de implementar la decisión sin cambiar lo decidido (otra librería para el mismo render mode, otro nombre del mismo registro) | El sistema contradice lo que un ADR `Aceptado` fija y que la sonda observa: el render mode declarado por página o en el enrutador, un registro en el host, un script en el documento raíz, un proyecto en la solución, una capa que no debe referenciar a otra. **No se resuelve reescribiendo el ADR**: sólo por las dos vías de abajo, y la vía 2 es un ADR nuevo que supera al anterior (`Rules-Arquitectura-Tecnica.md` §3) |
 
 Toda deriva mayor detectada se resuelve por una de dos vías, nunca por omisión:
 
@@ -168,6 +169,8 @@ Toda deriva mayor detectada se resuelve por una de dos vías, nunca por omisión
 2. Se actualiza la línea de base, con aprobación humana explícita, porque la realidad de la construcción reveló que la línea de base estaba equivocada. En ese caso la línea de base sube versión, la maqueta se corrige, y la matriz de propagación de `Maqueta-Rules.md` §3.6 se aplica de nuevo.
 
 La vía 2 es legítima y frecuente. Lo que no es legítimo es que la línea de base y el sistema se separen sin que nadie lo declare: eso es exactamente la deriva.
+
+**La dimensión «decisión de arquitectura» existe porque las otras siete no la ven.** Un cambio de render mode, de capa host o de modo de ruteo no altera ninguna superficie, componente, estado, ruta, campo ni contrato `VER`: la maqueta se ve igual y la sonda de salida responde igual. Medido en un destino: el panel se construyó en un modo de render distinto del que tres documentos y dos ADR fijaban, durante dieciséis días, sin que ninguna sonda existente pudiera registrarlo, y la contradicción se «resolvió» reescribiendo la arquitectura para describir el código (`Expedientes/0003-Retroalimentacion-De-La-Especificacion-Ante-Cambios/`, folio 019 §1 R-E y R-F). **Cada ADR `Aceptado` que fije algo observable en el árbol declara su observable** —un archivo y un patrón, un comando y su salida esperada— y da una sonda `SD-XXXXX` con elemento `ADR-XXXXX`; un ADR sin observable es una decisión que nadie puede sensar y se declara así en su cuerpo. El P0 «un documento contradice el código» de `Master-Prompt.md` §10 alcanza a los documentos que describen el sistema como hecho, no a un ADR: para un ADR rige esta tabla.
 
 ---
 
@@ -307,3 +310,4 @@ Devolución:
 | 5.2 | 2026-08-16 | El prompt de despacho de referencia decía «de la **unidad de entrega** `{{NOMBRE_PROYECTO_CODIGO}}`»: la prosa se migró en la 8.0 y **el marcador no**, con lo cual la primera línea que el subagente lee nombra el nivel correcto con la variable del nivel anterior, que el contexto de despacho ya no define. Pasa a `{{NOMBRE_UNIDAD_ENTREGA}}`. Sube **patch**. |
 | 5.3 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
 | 5.4 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
+| 5.5 | 2026-09-16 | **§3 suma la dimensión «decisión de arquitectura»** (framework 13.20, expediente `0003` del framework): un ADR `Aceptado` que fije algo observable en el árbol declara su observable y da una sonda `SD-XXXXX` con elemento `ADR-XXXXX`; la deriva mayor es que el sistema contradiga lo decidido, y no se resuelve reescribiendo el ADR sino por las dos vías (código, o ADR nuevo que supere). §2.3 admite `ADR-XXXXX` como elemento. Medido: un destino construyó su panel en otro modo de render que el fijado por dos ADR y tres documentos durante dieciséis días sin que ninguna de las siete dimensiones pudiera verlo. Sube **minor**: dimensión nueva; ninguna matriz emitida deja de cumplir. |

@@ -1,0 +1,97 @@
+# Método: git grep -l / git log / ls sobre docs/ y Context/ del destino, en main 727655e
+# Base: IA.SDD main b8943c2 (13.19) · destino privado main 727655e (nombrado por rol; S2)
+# Quién: presidente de la mesa, 2026-09-16
+# Base mecánica — qué artefactos de docs/ citan cada expediente (git grep -l en main 727655e, excluidos los propios expedientes)
+
+## expediente 0001
+  docs/01_contexto/glosario_v1.0.md
+  docs/02_especificacion_funcional/casos-de-uso/CU-03-definir-segmento_v1.0.md
+  docs/02_especificacion_funcional/reglas-negocio_v1.0.md
+  docs/03_ux-ui/flujo-interaccion_v1.0.md
+  docs/03_ux-ui/wireframes-componente_v1.0.md
+  docs/05_arquitectura_tecnica/contratos-api_v1.0.md
+  docs/05_arquitectura_tecnica/datos-personales-suscripcion_v1.0.md
+  docs/05_arquitectura_tecnica/decisiones-arquitectura_v1.0.md
+  docs/06_plan_sprint/product-backlog_v1.0.md
+  docs/07_calidad_y_pruebas/plan-pruebas_v1.0.md
+  docs/08_devops/Fast-Command-Guide.md
+  docs/08_devops/despliegue-iis_v1.0.md
+  docs/08_devops/versionado-y-release_v1.0.md
+  docs/09_developer_guide/guia-cliente-maui_v1.0.md
+  docs/deuda-declarada_v1.0.md
+  (nada más)
+
+## expediente 0002
+  docs/05_arquitectura_tecnica/arquitectura-solucion_v1.0.md
+  docs/05_arquitectura_tecnica/contratos-api_v1.0.md
+  docs/05_arquitectura_tecnica/decisiones-arquitectura_v1.0.md
+  docs/deuda-declarada_v1.0.md
+  (nada más)
+
+## expediente 0003
+  docs/05_arquitectura_tecnica/contratos-api_v1.0.md
+  docs/05_arquitectura_tecnica/decisiones-arquitectura_v1.0.md
+  docs/09_developer_guide/guia-cliente-maui_v1.0.md
+  docs/deuda-declarada_v1.0.md
+  (nada más)
+
+## expediente 0004
+  docs/03_ux-ui/maqueta/assets/escala.css
+  (nada más)
+
+## documentos de especificación y plan: última versión y fecha
+  docs/06_plan_sprint/product-backlog_v1.0.md: Versión: 2.5 · último commit 2026-09-14
+  docs/06_plan_sprint/backlog-tecnico_v1.0.md: Versión: 2.3 · último commit 2026-09-15
+  docs/06_plan_sprint/resumen-sprints_v1.0.md: Versión: 2.2 · último commit 2026-09-14
+  docs/02_especificacion_funcional/especificacion-funcional_v1.0.md: Versión: 1.8 · último commit 2026-09-14
+  docs/02_especificacion_funcional/reglas-negocio_v1.0.md: Versión: 1.6 · último commit 2026-09-14
+  docs/03_ux-ui/wireframes-componente_v1.0.md: Versión: 3.3 · último commit 2026-09-14
+  docs/05_arquitectura_tecnica/decisiones-arquitectura_v1.0.md: Versión: 2.9 · último commit 2026-09-15
+  docs/05_arquitectura_tecnica/contratos-api_v1.0.md: Versión: 2.7 · último commit 2026-09-15
+  Context/acta_proyecto.md:  · último commit 2026-09-15
+
+## PRs por expediente
+160
+2026-09-16 Merge pull request #160 from <organización>/docs/expediente-0004-cierre
+2026-09-16 Merge pull request #159 from <organización>/expediente-0004-diseno-del-editor
+2026-09-15 Merge pull request #158 from <organización>/feat/ios-extension-de-ejemplo
+2026-09-15 Merge pull request #157 from <organización>/feat/ios-mutable-content-con-imagen
+2026-09-15 Merge pull request #156 from <organización>/feat/paquete-android-imagen-e-icono
+2026-09-15 Merge pull request #155 from <organización>/feat/imagen-e-icono-en-la-api
+2026-09-15 Merge pull request #154 from <organización>/feat/icono-grande-datos-y-panel
+2026-09-15 Merge pull request #153 from <organización>/feat/claves-y-validacion-de-medio
+2026-09-15 Merge pull request #152 from <organización>/feat/arnes-de-contrato-y-payload
+2026-09-15 Merge pull request #151 from <organización>/feat/textos-en-nvarchar
+2026-09-15 Merge pull request #150 from <organización>/docs/expediente-0003-imagen-icono-subtitulo
+2026-09-15 Merge pull request #149 from <organización>/docs/cierre-plan-expediente-0002
+2026-09-15 Merge pull request #148 from <organización>/feat/api-uso-de-plantillas
+2026-09-15 Merge pull request #147 from <organización>/feat/contenido-dinamico
+2026-09-15 Merge pull request #146 from <organización>/feat/test-and-preview-y-editor-json
+2026-09-15 Merge pull request #145 from <organización>/feat/cadena-js-y-vista-previa
+2026-09-15 Merge pull request #144 from <organización>/feat/notificaciones-push-panel-y-editor
+2026-09-15 Merge pull request #143 from <organización>/feat/plantillas-datos-y-servicio
+2026-09-15 Merge pull request #142 from <organización>/feat/suscripciones-de-prueba-y-envio-de-prueba
+2026-09-15 Merge branch 'main' of <remoto-del-destino> into feat/suscripciones-de-prueba-y-envio-de-prueba
+2026-09-15 Merge pull request #141 from <organización>/feat/menu-por-fila-y-marca-de-prueba-en-el-panel
+2026-09-15 Merge branch 'main' of <remoto-del-destino> into feat/menu-por-fila-y-marca-de-prueba-en-el-panel
+2026-09-15 Merge pull request #140 from <organización>/feat/marca-de-prueba-datos-y-servicio
+2026-09-15 Merge branch 'main' of <remoto-del-destino> into feat/marca-de-prueba-datos-y-servicio
+2026-09-15 Merge pull request #139 from <organización>/fix/re-registro-conserva-marca-de-prueba
+2026-09-15 Merge pull request #138 from <organización>/docs/expediente-0002-mesa
+2026-09-15 Merge pull request #137 from <organización>/chore/cabeceras-de-version
+2026-09-15 Merge pull request #135 from <organización>/docs/fast-command-guide-y-knowledge-migraciones
+2026-09-15 Merge pull request #136 from <organización>/fix/assets-con-huella
+2026-09-15 Merge pull request #134 from <organización>/chore/renombrar-prompts
+
+## carta de cambios (Context)
+acta_proyecto.md
+acta_proyecto_TEMPLATE.md
+arquitectura_dataManager.md
+arquitectura_solucion_NET.md
+developer_guide.md
+input
+parametros.md
+ui_guide.md
+ui_template
+105
+481:| 1.7 | 29/08/2026 | <Product Owner> | **Segunda ronda de reincorporación** (carta de cambios `Context/input/integracion_preacta.md` §18, ítems `C-50` a `C-55`). **(a)** El panel y la API pasan a ser **un solo servicio desplegable** —un host, un puerto, un sitio, un artefacto—, con `<Destino>.Web` convertido en biblioteca de componentes Razor y el aislamiento intacto en el middleware de la API (§6, `ADR-11`). **(b)** Entra al alcance la **maqueta HTML navegable del panel**, con aprobación explícita del PO **antes** de codificarlo (§4.1). **(c)** Entra al alcance la **versión demo de validación de punta a punta**: un servicio web demo con formulario de envío y una app .NET MAUI híbrida Android que consume sus páginas y recibe el push en un teléfono real (§4.1, §4.3.3). **(d)** Se declara el **entorno de desarrollo y validación en devcontainer** —SDK .NET, carga de trabajo MAUI Android, `adb`, teléfono por USB y SQL Server de desarrollo en la LAN— porque la máquina de construcción no tiene ninguna de esas herramientas (§4.3.3, §6). **(e)** Se incorpora la sección **Conocimiento a aplicar** (§6.1), que cita los tres alias del catálogo, entre ellos el de la **conformación manual del pull request**, cuya regla de destinatario se escribió en el mismo acto (`_convenciones_comunes.md` §8) |

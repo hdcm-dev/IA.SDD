@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
 **Agente target:** los orquestadores de reanudación y de migración, y AG-00970 (Presidente de mesa) en tiempo de ejecución
-**Versión de las reglas:** 1.4
+**Versión de las reglas:** 1.5
 
 ---
 
@@ -376,6 +376,16 @@ proceder.** Una fila de plan, una casilla de checklist, un campo de estado o un 
 fundamento sigue en pie— pero **sí abre la fuente que va a citar**, y si el contraste no se puede hacer,
 el hallazgo no llega a `P0`.
 
+**Una cita del código no funda un parche sobre una decisión que el contrato declara cerrada.** Una
+cita `E2` sobre `src/` que contradice un ADR `Aceptado` del contrato de entrada muestra una **deriva
+mayor** de `Deriva-Rules.md` §3, no un defecto del documento: el parche va a la capa de origen —el
+código— o a un ADR nuevo que supere al anterior con aprobación humana (`Rules-Arquitectura-Tecnica.md`
+§3), y la mesa lo eleva por el disparador 7 de §7 si sostiene que la decisión es contradictoria.
+Reescribir el ADR o la arquitectura «para que describa el código» absuelve el desvío sin que nadie lo
+haya decidido. Medido: una mesa de un destino rebajó a `P1` una contradicción con un ADR cerrado
+tomando el código como fuente, declaró «falsa» la documentación que decía lo que el ADR decía, y fundó
+un ADR nuevo en el desvío (`Expedientes/0003-…`, folio 019 §1 R-E).
+
 **Es el anti-patrón que el método nombra primero** —`Master-Prompt-Reanudacion.md` §7, «confiar en la
 fuente declarativa sin contrastarla»— y la mesa lo cometió **dos veces en su primera corrida real**, las
 dos en la misma dirección. Una: elevó como `P0` cuatro filas de un plan que declaraban «pendiente de
@@ -475,7 +485,11 @@ defecto, y **el defecto se registra como deuda declarada, no se ignora**— y `E
 
 **La mesa no aplica.** Cierra entregando al orquestador que la convocó:
 
-- Los parches `APLICAR`, con su texto exacto y su criterio de verificación.
+- Los parches `APLICAR`, con su texto exacto, su criterio de verificación y **el artefacto de
+  especificación que cada uno altera** (un CU, una RN, una VIEW, un ADR, una US o BT, o «ninguno,
+  clase nomenclatura»), que es el insumo de la reintegración de `Root-Rules.md` §14: la mesa la
+  **declara** en su resolución, con la clase del cambio y la fila `Reintegra`, y **no la ejecuta**;
+  la ejecuta quien aplica el plan, como su último tramo.
 - La **deuda declarada**, que entra como **ítem diferido de `Root-Rules.md` §12.2 con sus cuatro
   campos**, incluido su evento de cierre. No se inventa un registro nuevo: el método ya tiene el suyo,
   y la reanudación ya lo contrasta en su R0 paso 4.
@@ -535,6 +549,7 @@ CIERRE DE MESA — {{destino}}, {{fecha}}
     Deuda declarada:    {{n}}, con su evento de cierre
     Capas a revalidar:  {{artefactos derivados}}
     Escaladas:          {{n}}, agrupadas
+    Reintegra:          {{la fila de la resolución: clase de cambio y categorías, por `Root-Rules.md` §14.4}}
 
   CIERRE
     Por criterio {{§10.1}} | por decisión, con lo que quedó abierto: {{lista}}
@@ -556,7 +571,7 @@ casos en los que la respuesta es no**. Fuera de esta lista, la mesa resuelve y r
 | --- | --- | --- |
 | 1 | **Ambigüedad de intención irresoluble por evidencia**: el corpus admite dos lecturas legítimas y ninguna ancla desempata | `Master-Prompt.md` §9, ambigüedad |
 | 2 | **Conflicto entre restricciones duras**: no hay solución que satisfaga todas las del contrato de entrada | §7.0, arbitraje. **Bloquea el ciclo** |
-| 3 | **Cambio de alcance**: la corrección agrega, quita o redefine lo que el producto promete | §7.0, arbitraje. **Bloquea el ciclo** |
+| 3 | **Cambio de alcance**: la corrección agrega, quita o redefine lo que el producto promete. **En una mesa a pedido cuyo pedido foliado es el propio cambio de alcance** (`Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` §3.1: el Product Owner pidió diseñar lo que el producto no prometía), el pedido **es** el arbitraje de §7.0 y el ciclo no se bloquea; lo que sí exige es la clase `compromiso` en la resolución y la fila de alcance propuesta al Product Owner (`Root-Rules.md` §14.2) | §7.0, arbitraje. **Bloquea el ciclo**, salvo el caso declarado |
 | 4 | **Irreversibilidad con impacto material**: migración de datos, contrato público, cualquier cosa cuya reversión cueste más que la corrección | §8.1, detención con propuesta |
 | 5 | **Dominio con consecuencia externa**: dinero, datos personales, obligaciones legales o de terceros | §8.1, detención con propuesta |
 | 6 | **Empate persistente del jurado** tras dos rondas | §8.1, detención con propuesta |
@@ -700,3 +715,4 @@ Insumos: {{LISTA}}, `Vocabulario-Rules.md`, y el contrato de entrada de la mesa.
 | 1.2 | 2026-09-12 | **§7 suma el origen del hecho antes de la lista cerrada.** Los siete disparadores preguntan qué clase de decisión es y ninguno de dónde salió el hecho, y una corrida con varios ciclos de mesa el mismo día mira en cada ciclo lo que aplicaron los parches de los anteriores. El presidente calcula el origen del hecho con la cláusula de `Master-Prompt.md` §8.1 contra la base de la corrida, y lo que es de la corrida pasa por la autocorrección sobre el conjunto antes de escalar. **§7.1** suma el campo a la forma y declara que `Master-Prompt.md` §7.0 la generaliza al bucle de fases. **§8** suma el criterio enumerable: ninguna escalada cuyo origen del hecho sea de la corrida sin declarar por qué la autocorrección no alcanzaba. **No se agrega ningún punto de invocación** y §0.0 no se toca. Sube **minor**: un registro de mesa ya emitido sigue cumpliendo. | Intervención del origen del hecho |
 | 1.3 | 2026-09-12 | **§6.1: una afirmación de colisión o de no colisión se ancla sólo en E1**, con el comando que localiza sus ocurrencias por el contexto de lectura de `Vocabulario-Rules.md` §9.2; sin él es `C` y no funda parche. Una cita literal muestra dónde está una palabra, y no dónde no está, que es lo que la afirmación sostiene. **§8** suma el criterio enumerable. Vale para el despacho, los especialistas y el refutador: medido sobre una mesa, el despacho llevaba cuatro datos y tres estaban mal, y el refutador contó líneas donde había que contar ocurrencias. **No se agrega ningún rol ni punto de invocación.** Sube **minor**: un registro de mesa ya emitido sigue cumpliendo. | Intervención de la colisión léxica |
 | 1.4 | 2026-09-13 | **La mesa convive con el expediente de caso** (framework 13.18, reporte `31`). **§2.2 punto 1**: si el caso tiene expediente, la cabecera nombra su carpeta, y el expediente folia el registro por `ruta@commit` sin copiarlo. **§7.1**: la respuesta del humano a una escalada se asienta con su literal, con la forma de testimonio de `Expediente-Rules.md` §3.3, que la vuelve aprobación registrada de D9. **§8, criterio 1**: en el framework, que no tiene `SDD/Docs/`, el registro es el expediente; sin eso el criterio daba falso en el único repositorio donde se corrió una mesa sin destino. Sube **minor**: un registro ya emitido sigue cumpliendo. | Intervención del reporte `31` |
+| 1.5 | 2026-09-16 | **La mesa declara la reintegración y no absuelve desvíos con el código** (framework 13.20, expediente `0003` del framework). **§6.1**: una cita del código que contradice un ADR cerrado del contrato es deriva mayor, no defecto documental; el parche va al código o a un ADR nuevo, nunca a reescribir el ADR. **§6.6**: cada parche `APLICAR` nombra el artefacto de especificación que altera; la resolución lleva la fila `Reintegra` de `Root-Rules.md` §14.4 y la ejecuta quien aplica, como último tramo. **§6.7**: el bloque de cierre cita esa fila. **§7 disparador 3**: en una mesa a pedido cuyo pedido foliado es el cambio de alcance, el pedido es el arbitraje y el ciclo no se bloquea. Medido: de cuatro mesas de un destino, una escribió el bloque de cierre y cuatro la resolución —por eso la declaración va en la resolución—; dos diseñaron cambios de alcance pedidos por el Product Owner y con la letra de la 1.4 habrían quedado bloqueadas. Sube **minor**: un registro emitido bajo la 1.4 sigue cumpliendo. | Expediente 0003 del framework |

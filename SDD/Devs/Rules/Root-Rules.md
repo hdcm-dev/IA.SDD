@@ -4,7 +4,7 @@
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Archivo target:** `SDD/Docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-00990)
-**Versión de las reglas:** 8.8
+**Versión de las reglas:** 8.9
 
 ---
 
@@ -830,7 +830,129 @@ correcta y no se podía sostener con una cita. Esta sección la funda hacia atr�
 
 ---
 
-## 14. Control de cambios
+## 14. Reintegración de un cambio posterior al handoff
+
+**Alcance transversal**, como §9, §11 y §12.
+
+### 14.0 El problema que resuelve
+
+Después del handoff el sistema sigue cambiando —por un incremento de la Fase I, por el plan de una mesa,
+por un expediente de caso, por un pedido directo del Product Owner— y **nada obligaba a que ese cambio
+volviera a la especificación**: la Fase I actualiza 10 y 11 (`Master-Prompt.md` §7); el único evento
+que reabre 00 y 06 era una fila del intake que sólo el Product Owner asienta (`Rules-Backlog-Tecnico.md`
+§3.6); la mesa entrega y no aplica (`Mesa-Rules.md` §6.6); el expediente exige «aplicado y verificado»
+sin nombrar la especificación (`Expediente-Rules.md` §4). Medido en un destino: de cuatro expedientes
+cerrados en tres días, uno volvió al backlog y a los casos de uso, tres dejaron ADR y contratos, y
+ninguno tocó el acta; quince, cuatro, cuatro y un documento citándolos, respectivamente
+(`Expedientes/0003-Retroalimentacion-De-La-Especificacion-Ante-Cambios/`, evidencia ev-01). **Un caso lo
+sostiene**, con tres expedientes dentro; la regla se escribe hacia adelante.
+
+**Lo que esta sección no es.** No es un registro nuevo ni un artefacto aparte: el método ya tiene el
+suyo (`Mesa-Rules.md` §6.6). No es retroactiva (§14.6). No gobierna el pipeline de un destino cuya norma
+no es la del framework; a ese destino llega por la mesa a pedido y el expediente, que sí la citan
+(§14.7).
+
+### 14.1 Disparo
+
+El evento es **una decisión de alcance registrada**, con las tres fuentes y el criterio de
+`Rules-Backlog-Tecnico.md` §3.6: la entrada del intake, la resolución foliada de un expediente o la orden
+foliada del Product Owner, o la entrada del documento de alcance que el destino declaró equivalente.
+Llega por cuatro canales, y la obligación es la misma en los cuatro:
+
+| Canal | Quién ejecuta la reintegración | Dónde queda la declaración (§14.4) |
+| --- | --- | --- |
+| Incremento de la Fase I | el orquestador de generación, en el paso de la Fase I que la cita | el audit de la Fase I |
+| Plan de una mesa aplicado | quien el pedido designe para aplicar (`Mesa-Rules.md` §6.6: nunca la mesa) | la `resolucion` (fila `Reintegra`) y la constancia del último tramo |
+| Expediente de caso | quien aplica el plan del expediente | la `resolucion` y la constancia de cierre; el `archivo` la exige |
+| Pedido directo por pedido de fusión | quien entrega | la línea `Especificación:` de T4 (`Master-Prompt.md` §12.1) |
+
+### 14.2 Clase del cambio y lista mínima
+
+Toda reintegración parte de una **clase**, declarada con su observable:
+
+| Clase | Qué es | Lista mínima que toca, en orden topológico |
+| --- | --- | --- |
+| **compromiso** | altera el comportamiento observable, un contrato público o el alcance prometido: una clave nueva en una API, una pantalla nueva, un paquete con superficie ampliada, una regla de negocio que cambia | la fuente de alcance (intake, acta o su carta: fila escrita por el Product Owner o **fila propuesta** a él) → 02 (CU/RN, altas o modificaciones) → 03 (VIEW) si hay superficie → 05 (ADR, contratos, modelo de datos) si hay decisión o contrato → **06 (US/BT, siempre)** → 07 y 08 si cambian el plan o las pruebas → 11 |
+| **diseño interno** | cambia una decisión de arquitectura sin efecto observable | 05 (un ADR nuevo que supera al anterior, nunca reemitido: `Rules-Arquitectura-Tecnica.md` §3) → 06 (BT) → 11 |
+| **nomenclatura o documentación** | reescribe cómo se dice o se documenta algo, sin cambiar el compromiso | sólo el documento que reescribe, con su fila de control de cambios |
+
+Lo que cambia en 01 (glosario), 07, 08 y 09 entra por el tercer disparador de `Rules-Documentacion.md`
+§0.4 (contrato público, procedimiento de despliegue o ruta citada), que ya existe; esta sección no lo
+duplica.
+
+**Qué no se reintegra.** La evidencia, los informes de comisión y del refutador, los votos, los tramos
+del plan y las capturas: se reintegra **la decisión** (el folio `resolucion`) y **su efecto verificado**
+(la constancia de cierre), y la especificación los cita por carpeta y folio, nunca por el identificador
+interno de un hallazgo o de un tramo (`Expediente-Rules.md` §5). Los identificadores internos de un
+expediente no son del ámbito producto (§9.5): lo nuevo toma el siguiente libre de la familia dueña y
+nada se renumera (§9.3).
+
+**Un default tomado por silencio** (`Mesa-Rules.md` §7.1, `SI NO RESPONDÉS`) se reintegra como decisión
+vigente en su artefacto —la RN, el CU o, sólo si es arquitectónico, un ADR— **más** un ítem diferido de
+§12.2 cuyo evento de cierre sea abrible: un folio o una fila, no «cuando el Product Owner lo pida». Una
+fila de alcance nunca queda asentada por silencio: queda **propuesta**, y el expediente no se archiva
+como «aplicado y verificado» hasta que el Product Owner la apruebe con testimonio asentado.
+
+### 14.3 Quién ejecuta y quién escribe
+
+La reintegración de 02 a 08 la escribe **quien aplica el cambio**, en la forma de la regla de cada
+categoría y con identificadores consecutivos. El intake, el acta y su carta los escribe **sólo el
+Product Owner**: el agente redacta la fila y la presenta; el Product Owner la aprueba con un testimonio
+foliado (`Expediente-Rules.md` §3.3). La mesa **decide y declara**; no escribe la especificación. La
+reintegración es el **último tramo del plan** de una mesa o de un expediente, no una tarea transversal
+que alguien deba recordar.
+
+### 14.4 La declaración
+
+Cinco campos, en el folio `resolucion` como fila de su tabla de plan y, verificados, en la constancia
+de cierre; en la Fase I, en el audit del incremento; en un pedido directo, en la línea de T4:
+
+```text
+REINTEGRACIÓN — {{origen: expediente NNNN folio NNN | incremento N | pedido de fusión #N}}
+  Clase de cambio:      compromiso | diseño interno | nomenclatura — {{observable}}
+  Fuente de alcance:    {{fila asentada: artefacto y fila | fila PROPUESTA al Product Owner}}
+  Artefactos tocados:   {{categoría: identificadores nuevos o modificados, con versión}}
+  No tocados y por qué: {{categoría: motivo, citando §14.2}}
+  Diferidos:            {{ítems §12.2 con su evento de cierre}}
+```
+
+«**No altera el compromiso**» es una respuesta válida y barata, **sólo con la clase declarada y su
+observable**; sin ellos no es una declaración, es la omisión que esta sección existe para contar.
+
+### 14.5 Escalamiento y quién lo comprueba
+
+| Situación | Nivel |
+| --- | --- |
+| Cambio aplicado (tramo fusionado, incremento cerrado) sin declaración de §14.4 | **Hallazgo P1** |
+| Declaración con clase `compromiso` y alguna categoría de la lista mínima sin fila de control de cambios que nombre el origen | **Hallazgo P1** |
+| «No altera el compromiso» sin clase ni observable | **Hallazgo P1** |
+| `archivo` de un expediente con `Motivo: aplicado y verificado` y la reintegración incompleta o el plan sin contrastar con las constancias | **Hallazgo P1** (`Expediente-Rules.md` §6, A13 a A15) |
+| Reintegración abierta al cierre del producto | **Hallazgo P0**, como en §12.2 |
+
+**Quién lo comprueba.** La compuerta de `Master-Prompt.md` §10.0 en la Fase I, los criterios A13 a A15
+de `Expediente-Rules.md` §6 sobre cada expediente resuelto, y el orquestador de reanudación en su
+reconocimiento (`Master-Prompt-Reanudacion.md` R0), que **lista** los expedientes resueltos sin
+reintegrar y no escribe nada. La comprobación es por **categoría declarada**, no por la unión: un
+expediente que declara 02 y 06 y sólo cita desde 02 está en rojo.
+
+### 14.6 No retroactividad
+
+Lo aplicado antes de que el destino declare esta versión **se lista y no cuenta como pendiente**, con el
+tratamiento de la forma histórica de `Expediente-Rules.md` §5.1. Reintegrarlo es un acto deliberado por
+**folio de alta** en el expediente que corresponda —alta, no modificación—, acotado a lo que altera el
+compromiso; lo demás queda como ítem diferido de §12.2 con evento abrible.
+
+### 14.7 Lo que no resuelve
+
+Un destino cuya norma no es la del framework no corre la Fase I ni la reanudación: a ese destino esta
+sección llega **sólo** por la mesa a pedido (`Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md`
+§2.1, pasos 9 y 10) y por el expediente (`Expediente-Rules.md` §4), y por eso esos dos la citan; lo que
+su norma propia haga con ella es una decisión de ese destino, que conviene que la cite desde su
+convención de cambios. Esta sección no fija ninguna herramienta.
+
+---
+
+## 15. Control de cambios
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
@@ -864,3 +986,4 @@ correcta y no se podía sostener con una cita. Esta sección la funda hacia atr�
 | 8.6 | 2026-08-27 | **Alta de `AG-00970` en el bloque `009xx`**, el presidente de la mesa de evaluación. Se aplicó la regla de acuñación que la 8.5 escribió —el **mayor libre descendiendo desde `00990`**— y se verificó que el identificador estuviera libre antes de acuñarlo. Se verificó además la condición que la 8.5 declara como instructiva: **a qué ítem diferido le cumple la condición esta acuñación**. A ninguno; el único abierto del bloque es el solapamiento con las categorías `90` a `99`, que **se agrava** —tres ocupantes en lugar de dos— y sigue diferido con su evento de cierre intacto. El contrato del rol vive en `Mesa-Rules.md` §1.1 y esta regla lo cita, no lo duplica. Sube **minor**: agrega una entrada a una tabla y ningún documento generado deja de cumplir. |
 | 8.7 | 2026-09-12 | **§11, §12.1 y §12.2 suman el ciclo de origen** (framework 13.13), por el reporte `27` de `IA.SDD.Documentacion`: los tres instrumentos para lo que falta declaran hacia dónde apuntan y ninguno de dónde salen, y una migración no podía distinguir un hueco que el propio ciclo no llegó a escribir de un hueco que la norma exige recién después. El campo se calcula —fase, unidad de trabajo y base de la corrida, congelados al declararse— y no lo completa el agente; el mecanismo vive en `Master-Prompt.md` §8.2, que reutiliza la base de la corrida de la intervención del reporte `26` en lugar de crear una paralela. La clasificación que la migración deriva de él vive en `Migracion-Rules.md` §4.8, y el tratamiento de los huecos anteriores al mecanismo en §4.9. Nueva fila de escalamiento en §12.2: un hueco declarado desde esta versión sin su ciclo de origen es **hallazgo P1**. Sube **minor**: agrega un campo obligatorio hacia adelante y no exige reescribir ningún hueco ya declarado. **Corregido de paso**: las filas 8.3 a 8.6 de este mismo control de cambios estaban en orden inverso, contra la comprobación 10 de `SDD-Development-Guide.md` §VI.3; se reordenan sin cambiar el texto de ninguna. |
 | 8.8 | 2026-09-13 | **§9.2 suma dos familias excluidas**, el número de expediente de caso y el folio (framework 13.18, reporte `31`), con su motivo: el número nunca se cita desnudo porque su identidad es la carpeta, que no se renombra, y lleva ancho propio de cuatro dígitos; el folio es posición. **No se agrega un tercer ámbito a §9.1 ni se toca D3**. El recuento de exclusiones pasa de cuatro a seis. Sube **minor**. | Intervención del reporte `31` |
+| 8.9 | 2026-09-16 | **§14 nueva, «Reintegración de un cambio posterior al handoff»** (framework 13.20, expediente `0003` del framework); el control de cambios pasa a §15. Cierra el lazo que §12 dejaba abierto del otro lado: el método sabía atar una decisión a un evento futuro y diferir lo que no podía contestar, pero un cambio ya aplicado al sistema después del handoff no tenía dueño que lo devolviera a 02–06 ni a la fuente de alcance. Fija el disparo (las tres fuentes de `Rules-Backlog-Tecnico.md` §3.6) y sus cuatro canales, la clase del cambio con su lista mínima en orden topológico, quién ejecuta y quién escribe (el intake y el acta, sólo el Product Owner; el agente propone la fila), la declaración de cinco campos, el escalamiento con quién lo comprueba, la no retroactividad y su límite en destinos con norma propia. Medido: en un destino, tres expedientes de cuatro cerraron sin volver al backlog ni a los casos de uso; con el criterio binario vigente eran «nomenclatura». Sube **minor**: agrega una obligación hacia adelante; ningún documento generado deja de cumplir. |

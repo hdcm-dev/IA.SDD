@@ -1,0 +1,67 @@
+# Método: guion de orquestación que despachó las comisiones a ciegas y la refutación (texto de las cartas); las rutas absolutas del host se redactan por S2
+# Base: IA.SDD main b8943c2 · destino privado main 727655e
+# Quién: presidente de la mesa, 2026-09-16
+export const meta = {
+  name: 'mesa-0003-retroalimentacion-especificacion',
+  description: 'Mesa de expertos sobre el framework SDD: cómo los cambios posteriores al handoff vuelven a la especificación; seis comisiones a ciegas y refutación',
+  phases: [{ title: 'Comisiones' }, { title: 'Refutación' }],
+}
+
+const PEDIDO = `«sería bueno que editaras tus prompts orquestadores para que incorporen el concepto de que si hacemos modificaciones en el sistema se vayan incoporando al ciclo de especificación, o al menos estudiar la factibilidad - planteaselo a la mesa y que evalue el comno lo va a hacer , - sabes porque te lo digo?, porque sino la especificación va a quedar desfasada, y cuando tome este framework sdd con sus prompts orquestadores para otro proyecto no va a llevar el comportamiento este de retroalimentar la especificación ante los cambios … y si, evalua, planifica, y comenza» (Product Owner, 2026-09-16)`
+
+const FW = '<framework>'
+const EXP = FW + '/Expedientes/0003-Retroalimentacion-De-La-Especificacion-Ante-Cambios'
+const DESTINO = '<destino>'
+
+function base(rol, competencia, noCompetencia, extra) {
+  return `Sos la comisión «${rol}» en una mesa de expertos sobre el framework SDD (repositorio ${FW}, rama expediente-0003-retroalimentacion-de-la-especificacion sobre main b8943c2, versión 13.19). Clase de objeto: diseño de una norma. Tu encargo es refutar, no verificar. Trabajás a ciegas: no vas a ver el informe de ninguna otra comisión.
+
+Caso, tal como lo presentó quien pidió la mesa: ${PEDIDO}
+
+Leé primero: (1) ${EXP}/actuaciones/001-presentacion-del-product-owner.md y 002-providencia-convocatoria-de-mesa.md (contrato de entrada: preguntas Q1–Q7, restricciones R1–R5, decisiones cerradas); (2) ${EXP}/evidencia/ev-01-alcance-de-los-expedientes-del-destino.out y ev-02-clausulas-vigentes.out; (3) ${FW}/README.md y ${FW}/SDD/Devs/Rules/Root-Rules.md para orientarte; después lo que tu competencia exija (los orquestadores están en ${FW}/SDD/Devs/Orchestrator/, las reglas en ${FW}/SDD/Devs/Rules/, el conocimiento en ${FW}/Conocimiento/, los expedientes anteriores del framework en ${FW}/Expedientes/0001 y 0002 como ejemplo de forma).
+
+El caso que originó el pedido es un destino privado del framework en ${DESTINO} (sólo lectura): su documentación generada vive en docs/ (01_contexto … 11_prompts_implementacion, 06_plan_sprint con product-backlog y backlog-tecnico), su acta y carta de cambios en Context/, su norma propia en Prompts/, y sus cuatro expedientes en docs/experdientes/0001..0004 (cada uno con actuaciones/ foliadas: la resolución con el plan y la constancia de cierre dicen qué se aplicó). S2: en tu informe llamalo «el destino» y no copies sus rutas absolutas, nombres de aplicaciones, GUID ni datos de personas; las rutas relativas dentro de docs/ sí se pueden citar.
+
+Tu competencia es ${competencia}. No te corresponde ${noCompetencia}: si encontrás algo ahí, emitís una solicitud de convocatoria con la señal y su ubicación, no un hallazgo.
+
+${extra}
+
+Reglas que no se rompen: no edites ningún repositorio. Toda afirmación sobre el framework o el destino lleva ruta relativa y línea (E4) o comando y salida (E1); toda afirmación sobre la industria o la academia lleva su fuente con nombre (norma con número, publicación con autor y año, documentación oficial con URL); si no estás seguro del apartado, citás la norma sin apartado; NO inventes cláusulas ni fuentes. Lo que no puedas anclar es C y sólo funda una pregunta.
+
+Por cada hallazgo: identificador (prefijo de tu comisión + número), nivel P0–P3 (P0 la norma no puede aplicarse o se contradice; P1 falta una pieza sin la cual el comportamiento pedido no ocurre; P2 degrada; P3 pulido), clase de ancla E1–E4 o C con su cita, impacto si no se corrige y DIRECCIÓN de la corrección (no su redacción final). Tope: 7 hallazgos. Declarás hasta tres ítems de «lo que revisé y está bien». Respondé al final, por separado y sin «depende», cada pregunta del caso que sea de tu competencia.
+
+Tu informe es tu último mensaje, verbatim, en castellano rioplatense, documento markdown con tablas, encabezado «# Informe de la comisión de ${rol}», secciones: 0. Qué revisé y con qué medio · 1. Hallazgos · 2. Lo que revisé y está bien · 3. Respuestas a las preguntas del caso · 4. Solicitudes de convocatoria (si hay). Sin preámbulo ni cierre fuera del documento.`
+}
+
+const comisiones = [
+  { key: 'consultor-documentacion-framework', rol: 'Consultor de documentación del framework', comp: 'inventariar, con ruta y línea, cada cláusula del framework que hoy hable de cambios posteriores al handoff, de incrementos, de control de cambios, de ítems diferidos, de la relación expediente↔especificación y del cierre de la mesa; verificar que cada cita exista y diga lo que se afirma; y decir, para el caso medido (ev-01), si lo que faltó fue norma, disparo o aplicación (Q1)',
+    no: 'diseñar la norma nueva ni juzgar la industria', extra: 'Leé completos: Master-Prompt.md (buscá Fase I, §7.1, §13, §13.1), Master-Prompt-Reanudacion.md (§1.1, §3.1, §4), Master-Prompt-Migracion.md (si habla de cambios), Mesa-Rules.md (§6.6, §6.7, §7), Expediente-Rules.md (§4, §5, §6), Rules-Backlog-Tecnico.md (§3.4–§3.6), Rules-Plan-Sprint.md (roadmap), Rules-Especificacion-Funcional.md y Rules-Documentacion.md (control de cambios, §0.3–§0.6), Root-Rules.md (§11, §12), Deriva-Rules.md, Knowledge-Mesa-De-Expertos-A-Pedido.md (§2.1, §3.1, §6). Entregá una tabla: cláusula · ruta:línea · qué exige · a quién (orquestador, mesa, expediente, humano) · qué dispara · qué categoría alcanza · si en el caso del destino se cumplió (con la evidencia ev-01 o tu propio grep en el destino).' },
+  { key: 'perito-del-caso', rol: 'Perito del caso', comp: 'medir en el destino, expediente por expediente (0001–0004) y categoría por categoría (01 contexto/glosario, 02 CU y RN, 03 UX/wireframes, 05 ADR/contratos/modelo de datos, 06 product-backlog/backlog-tecnico/resumen-sprints, acta y carta de cambios de Context/, deuda-declarada, 09 guías), qué cambió el expediente en el sistema (según sus resoluciones y constancias) y qué documento de especificación debía cambiar y no cambió; y la forma en que el 0001 sí lo hizo (versión 2.5 del product-backlog, US-42/US-43) como precedente reutilizable',
+    no: 'proponer el texto de la norma', extra: 'Usá git log, git grep y lectura en el destino. Para cada expediente: tabla «cambio en el sistema (tramo, PR) → categoría que debía absorberlo → estado (absorbido / no absorbido / parcial) → evidencia (ruta:línea o commit)». Contá los ítems que hoy faltan: cuántas US, BT, CU, RN, VIEW, entradas de carta de cambios harían falta para que el backlog y la especificación describan el sistema fusionado en main. Verificá también cómo numera el destino (US-42/43 consecutivas, BT-22, C-55) para que la reintegración no renumere.' },
+  { key: 'requisitos-reintegracion', rol: 'Requisitos de la reintegración', comp: 'definir qué tiene que garantizar como mínimo una reintegración de un cambio a la especificación: qué categorías toca y en qué orden, el criterio para distinguir un cambio que altera el compromiso (comportamiento, contrato, alcance) de uno de nomenclatura o documentación, la numeración consecutiva sin renumerar, el estado «entregado» vs «pendiente de decisión», quién decide y quién escribe, y qué NO se reintegra (evidencia, informes de comisión)',
+    no: 'dónde vive la regla en el framework ni la verificación mecánica', extra: 'Anclá cada requisito en algo escrito del framework (Rules-Backlog-Tecnico §3.6, Expediente-Rules §5, Rules-Documentacion, Root-Rules §12.2, Mesa-Rules §6.7) o del caso (los folios de resolución y cierre de los expedientes del destino), o marcalo C. Producí una tabla de requisitos RQ-nn con criterio de aceptación observable.' },
+  { key: 'diseno-de-la-norma', rol: 'Diseño de la norma (implementador ingenuo del framework)', comp: 'decidir dónde vive la regla nueva y qué prompts orquestadores cambian para que el comportamiento sea del framework y no de un agente: opciones (a) un paso «reintegración» en el cierre de la mesa (Mesa-Rules §6.7 y Knowledge-Mesa-De-Expertos-A-Pedido §2.1) y en el cierre del expediente (Expediente-Rules §4/§5); (b) una fase o paso del Master-Prompt (Fase I ampliada a 01–06, o una Fase I bis); (c) una regla transversal nueva (p. ej. Reintegracion-Rules.md) citada desde los tres; (d) sólo Reanudación §4. Para cada opción: archivos y secciones tocadas, líneas aproximadas, versión del framework (major/minor según su convención en CHANGELOG.md y Root-Rules), compatibilidad con destinos ya generados y con destinos que no siguen el estándar completo (sin PRODUCT-INTAKE; con acta y carta de cambios propias; con norma propia en Prompts/), y el costo de ceremonia',
+    no: 'la verificación mecánica ni las fuentes de la industria', extra: 'Leé cómo el framework ha versionado cambios de reglas (CHANGELOG.md 13.16–13.19, control de cambios al pie de Mesa-Rules.md y Expediente-Rules.md) y cómo cita reglas desde los orquestadores (Master-Prompt.md §… «lee, no duplica»). Recomendá una opción y explicá por qué las otras no, con el mismo rigor que un ADR. Entregá el esqueleto de la regla (secciones y campos), no su redacción completa.' },
+  { key: 'qa', rol: 'Verificación / QA', comp: 'cómo se verifica mecánicamente que la reintegración ocurrió: una compuerta ejecutable (p. ej. todo expediente con resolución y constancia de cierre que declare cambio de comportamiento está citado desde al menos un documento de 02 o 06 del destino, derivable con git grep como Expediente-Rules §5 ya describe), un criterio de audit de Fase I, un chequeo de la reanudación que liste los expedientes no reintegrados, y la forma de probar la compuerta en rojo (contra el destino hoy: expedientes 0002–0004) y en verde',
+    no: 'el diseño de la norma ni la industria', extra: 'Prototipá el comando o script sobre el destino (sólo lectura) y mostrá su salida real en rojo. Definí los falsos positivos (expedientes que no cambian comportamiento: documentales, de conocimiento) y cómo se declaran. Proponé el criterio de aceptación con la forma [enumerable]/[interpretativo] que usa el framework (mirá Knowledge-Mesa-De-Expertos-A-Pedido §6 y Expediente-Rules §6).' },
+  { key: 'metodologia', rol: 'Metodología (industria y academia)', comp: 'qué dicen la industria y la academia sobre control de cambios, gestión de configuración y trazabilidad de requisitos en desarrollo incremental: ISO/IEC/IEEE 12207 y 15288 (procesos de gestión de configuración y de cambios), IEEE 828, IEEE 29148 (trazabilidad de requisitos), RUP (Change Control Board, change request), SAFe/Scrum (backlog refinement, DoD que incluye documentación), CMMI (REQM, CM), «living documentation» (Martraire), ADR (Nygard), Documentation-as-Code, y literatura sobre deriva entre especificación y sistema; y qué prácticas concretas de esas fuentes aplican a un framework de documentación viva con agentes',
+    no: 'dónde va la regla en este framework ni medir el destino', extra: 'Cada afirmación con su fuente (norma con número, autor y año, URL de documentación oficial cuando la haya). Si no estás seguro del apartado, citás la norma sin apartado. NO inventes ni cláusulas ni referencias: si dudás de una, marcala C. Entregá una tabla fuente · práctica · qué aporta al caso · costo de adoptarla.' },
+]
+
+phase('Comisiones')
+const informes = (await parallel(comisiones.map(c => () =>
+  agent(base(c.rol, c.comp, c.no, c.extra), { label: `comision:${c.key}`, phase: 'Comisiones' }).then(t => ({ key: c.key, rol: c.rol, informe: t }))))).filter(Boolean)
+log(`${informes.length} informes`)
+
+phase('Refutación')
+const refutacion = await agent(`Sos el abogado del diablo en una mesa de expertos sobre el framework SDD (${FW}, main b8943c2), clase «diseño de una norma». Entrás último y sos el único que lee los informes. Atacás por evidencia (¿la cita existe y dice eso? ¿la fuente externa es real?) y sobre todo por APLICACIÓN: el defecto más caro en el diseño de una norma es la ceremonia que nadie completa. Verificá por tu cuenta en el árbol del framework y del destino (${DESTINO}, sólo lectura; S2: llamalo «el destino») cada cita que ataques o confirmes, con ruta:línea o comando y salida.
+
+Caso: ${PEDIDO}
+Expediente: ${EXP} (actuaciones 001 y 002, evidencia ev-01 y ev-02).
+
+Informes:
+${informes.map(i => `\n\n=========== ${i.rol} ===========\n${i.informe}`).join('')}
+
+Entregá tu informe como último mensaje, verbatim, en castellano rioplatense, markdown con tablas, encabezado «# Informe del abogado del diablo», secciones: 0. Qué verifiqué y con qué medio · 1. Ataques (id atacado, qué se sostiene, qué no, evidencia propia, resultado: cae / baja / se mantiene) · 2. Contradicciones entre comisiones que el jurado tiene que resolver, con el experimento o la lectura que las resuelve · 3. Costo de aplicar: qué NO conviene adoptar y por qué · 4. Lo que las comisiones no vieron (máximo 5, con ancla). Tope: 12 ataques.`, { label: 'abogado-del-diablo', phase: 'Refutación' })
+
+return { informes, refutacion }

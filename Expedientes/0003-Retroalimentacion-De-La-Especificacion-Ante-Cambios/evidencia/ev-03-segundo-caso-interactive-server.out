@@ -1,0 +1,56 @@
+# Método: grep, git log -S, git show y recuentos con find/grep sobre el destino, main 727655e
+# Base: IA.SDD main b8943c2 (13.19) · destino privado main 727655e (nombrado por rol; S2)
+# Quién: presidente de la mesa, 2026-09-16
+# Segundo caso: el diseño fijaba Blazor Interactive Server y el panel se construyó como SSR estático (destino main 727655e)
+
+## 1. Lo decidido
+27:| ADR-02 | Autenticación del panel Blazor Server | 2026-08-31 | Aceptado — **reemitido** |
+63:## ADR-02 — Autenticación del panel Blazor Server
+73:**Decisión:** Cookie Authentication (`Microsoft.AspNetCore.Authentication.Cookies`), patrón estándar de Blazor Server para sesiones interactivas. Tras el login (`POST /api/auth/panel/login`), el servidor emite una cookie de sesión; `<Destino>.Web` no maneja el JWT de la API directamente — el propio backend del panel (`<Destino>.API`, canal cookie) actúa como intermediario hacia los mismos endpoints usados por el Sistema Back Office. `HIPÓTESIS — requiere validación`: se asume patrón estándar por ausencia de una definición más específica en las fuentes.
+324:**Decisión:** **`<Destino>.API` es el único proyecto host.** Expone `/api/v1` y hospeda además los componentes Blazor del panel. **`<Destino>.Web` cambia de naturaleza, no de nombre:** pasa de aplicación Blazor Server desplegable a **biblioteca de componentes Razor** (`Microsoft.NET.Sdk.Razor`); pierde su `Program.cs` y su puerto, conserva sus `Pages/`, `Components/`, `Services/`, `Models/` y `wwwroot/`. El host registra los componentes interactivos de servidor y monta el panel en la raíz; la API sigue bajo `/api/v1`.
+Context/ui_guide.md:19:**Render mode:** Interactive Server (`@rendermode InteractiveServer`).
+Context/ui_guide.md:322:- Usa `@rendermode InteractiveServer` y `@attribute [StreamRendering]`.
+Context/ui_guide.md:392:@rendermode InteractiveServer
+Context/ui_guide.md:595:**Excepción:** La página `Login.razor` sí usa `EditForm` con `OnValidSubmit` y atributo `Enhance` porque opera en SSR (Server-Side Rendering) sin InteractiveServer activo durante el primer render.
+Context/ui_guide.md:673:@rendermode InteractiveServer
+Knowledge-Template-Blazor-Interactive-Server-GDA-V2.md
+1:# Template Blazor Interactive Server de la generación V2
+3:**Alias:** Template-Blazor-Interactive-Server-GDA-V2
+5:**Tema:** Implementación en .NET Blazor Interactive Server del sistema de diseño V2: forma del proyecto, convención de componentes, contratos de los componentes compartidos, orquestación de asistentes multipaso y mecánica de sesión
+7:**Condicion-de-carga:** el stack del acta incluye Blazor Server, `Context/ui_guide.md` declara render `InteractiveServer`, y el sistema de diseño vigente es `<paquete de diseño>`
+11:**Versión:** 2.0
+13:**Fecha:** 2026-08-29
+19:Caracteriza **cómo se implementa en .NET Blazor Interactive Server** el sistema de diseño descrito en
+68:| **Stack** | .NET 10 · Blazor con render `InteractiveServer` · SDK `Microsoft.NET.Sdk.Web` para las apps y `Microsoft.NET.Sdk.Razor` para las bibliotecas |
+docs/05_arquitectura_tecnica/arquitectura-solucion_v1.0.md:32:│  Blazor Interactive Server) — nueve vistas, hospedadas por el    │
+docs/05_arquitectura_tecnica/arquitectura-solucion_v1.0.md:442:| Frontend | Razor Components con render estático del lado del servidor (SSR, sin `blazor.web.js`) | Biblioteca de componentes Razor (`<Destino>.Web`) hospedada por el host único; no es un proceso ni un sitio aparte (`ADR-11`). Las acciones son formularios con redirect; no hay circuito interactivo |
+docs/05_arquitectura_tecnica/arquitectura-solucion_v1.0.md:505:| 2.2 | 2026-08-29 | Borrador | **Servicio único (carta de cambios `C-58`, acta v1.7 §6, `ADR-11`).** `<Destino>.API` pasa a ser el **único proyecto host** de la solución: expone `/api/v1` y hospeda además los componentes Blazor del panel. `<Destino>.Web` conserva su nombre y su contenido pero cambia de naturaleza —de aplicación Blazor Server desplegable a **biblioteca de componentes Razor** (`Microsoft.NET.Sdk.Razor`)—: pierde su `Program.cs` y su puerto. **Tres invariantes se conservan y son la razón de haber elegido esta forma y no la de colapsar los proyectos en uno:** el panel sigue consumiendo `/api/v1` por `HttpClient` (ahora en loopback), sigue sin referenciar `Utils` ni `DataManager`, y el `ApplicationIsolationMiddleware` sigue siendo el punto único de aislamiento, con su suite de 20 casos bloqueantes intacta. Se actualizan §1, §2, §3, §3.1 —con la explicación de por qué la flecha `API → Web` es de hosting y no invierte la jerarquía—, §4, §6 y §7. Se agregan a §6 las filas del entorno de desarrollo en devcontainer (`ADR-12`) y de la conformación manual del pull request. **No cambia** ningún contrato de API, ningún servicio de la BLL, ni el modelo de datos |
+docs/05_arquitectura_tecnica/arquitectura-solucion_v1.0.md:507:| 2.4 | 2026-09-15 | Borrador | **Expediente 0002, tramo 7 (T-N4.0).** §6: el frontend se corrige a render estático del lado del servidor —decía «Blazor Interactive Server» y el panel no carga `blazor.web.js`— y se agrega la fila de scripts del panel (`ADR-21`) |
+
+## 2. Cuándo y cómo se apartó el código
+ca5b127 2026-08-29 fernandofilipuzzi-utn BT-01 — esqueleto de la solución (12 proyectos)
+El panel siempre fue SSR estático (formularios que postean a endpoints, navegación
+de página completa), pero arrastraba de la plantilla un <script> a
+_framework/blazor.web.js y el registro de interactividad de servidor. Medido en un
+build limpio: el host NO sirve _framework/blazor.web.js (404) porque nada declara
+un componente interactivo, así que el circuito nunca arrancaba. El único @bind
+interactivo —el filtro de búsqueda de Aplicaciones— estaba inerte desde siempre.
+
+- App.razor: se quita <script src="_framework/blazor.web.js"> (era el 404 de consola).
+- Program.cs: AddRazorComponents() sin AddInteractiveServerComponents(), y
+  MapRazorComponents<App>() sin AddInteractiveServerRenderMode(). SSR estático puro.
+- Aplicaciones.razor: el filtro por nombre/GUID pasa de @bind:oninput (inerte sin
+  circuito) a un form GET con ?nombre=&codigo= —SSR-nativo, como la paginación de
+
+## 3. Cómo la documentación absolvió el desvío
+507:| 2.4 | 2026-09-15 | Borrador | **Expediente 0002, tramo 7 (T-N4.0).** §6: el frontend se corrige a render estático del lado del servidor —decía «Blazor Interactive Server» y el panel no carga `blazor.web.js`— y se agrega la fila de scripts del panel (`ADR-21`) |
+853:| 2.8 | 2026-09-15 | Borrador | **Expediente 0002, tramo 7.** **ADR-21** nuevo: bundles JavaScript del panel en proyecto hermano (F2 de Knowledge-Bundle-JS) con montaje por DOM y `CustomEvent` en lugar de interop, porque el panel es SSR estático; Node 22.23.2 fijado y comparado; modo `OmitirBundles` |
+
+## 4. Tamaño del panel
+páginas .razor: 22; componentes compartidos: 9
+formularios <form method=post>: 15 archivos, 37 formularios
+endpoints admin que reciben formularios y redirigen: 53 LocalRedirect en AdminAppsController; 73 en todos los controladores
+onclick/JS en línea: 58
+bundles JS: 6 módulos (ADR-21)
+login: 22:    [HttpPost("login")] → cookie por SignInAsync en el endpoint; el formulario /ingresar postea ahí (Ingresar.razor: 1 form)
+pruebas sobre el panel (ProjectReference a .Web en tests/): 0

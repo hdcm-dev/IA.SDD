@@ -1,0 +1,29 @@
+# Método: grep -n sobre los orquestadores, reglas y conocimiento del framework, main b8943c2
+# Base: IA.SDD main b8943c2 (13.19) · destino privado main 727655e (nombrado por rol; S2)
+# Quién: presidente de la mesa, 2026-09-16
+# Cláusulas del framework que hoy hablan de cambios posteriores al handoff (IA.SDD main b8943c2)
+
+## SDD/Devs/Orchestrator/Master-Prompt.md
+728:  Fase I — Ciclo incremental (por incremento, re-ejecutable).
+
+## SDD/Devs/Rules/Rules-Backlog-Tecnico.md
+162:**El evento que dispara el paso a `v2.0` cuando el producto ya pasó el handoff (reporte `25`).** Esta
+
+## SDD/Devs/Rules/Expediente-Rules.md
+304:**La evidencia funda la especificación; no se vuelve especificación.** Una decisión que el caso produce
+
+## SDD/Devs/Rules/Mesa-Rules.md
+491:### 6.7 P5 — Cierre
+
+## Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md
+81:| 10 | **Cierre** | Presidente | El bloque de `Mesa-Rules.md` §6.7, la deuda declarada y las preguntas que sobrevivieron, **en lote y con `SI NO RESPONDÉS`** |
+
+## SDD/Devs/Rules/Root-Rules.md
+671:el método declara que no gobierna—. Ahí nadie lo ve pasar, y por eso §12.2 exige de él lo que §12.1
+720:### 12.2 Ítem diferido
+820:resolución quede escrita**, como §11 fija un ADR y §12.2 fija cuatro campos en el artefacto. El criterio
+
+## SDD/Devs/Orchestrator/Master-Prompt-Reanudacion.md
+218:## §3.1 R1.5 — La mesa de evaluación, que es la preplanificación
+223:### §3.1.0 Por qué existe, y por qué va exactamente acá
+252:### §3.1.1 Cuándo se convoca y cuándo no

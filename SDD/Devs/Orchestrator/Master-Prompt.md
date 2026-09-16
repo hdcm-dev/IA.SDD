@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 8.20
+**Versión:** 8.21
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -556,6 +556,7 @@ antes de despachar la primera fase, y trata cada obligación que apunte hacia ad
 | H | Consolidación de producto | producto | `Producto/Vista-Producto.md` (AG-00050) y `Producto/Pipeline-Producto.md` (AG-00090), solo si hay más de un proyecto de código; `SDD/Docs/README.md` con la tabla de proyectos de código, su D8, rol y dependencias (AG-00990) | AG-00050, AG-00090 y AG-00990 (variante D8 de la unidad de entrega principal) | Todos los anteriores; manifiesto | `Rules-Arquitectura-Tecnica.md`, `Rules-Devops.md`, `Root-Rules.md` | `SDD/Docs/Producto/` y `SDD/Docs/README.md` | Sí (audit final consolidado) |
 | H | 11-Documentacion, plan documental | unidad de entrega + producto | Momento 1: índice del cuerpo documental por proyecto de código, con el rol de intervención de cada artefacto y su estado `Planificado`. Sin contenido redactado | Technical Writer / Documentation Lead (AG-00110) | Manifiesto; 02; 05 de cada proyecto de código | `Rules-Documentacion.md` | `SDD/Docs/Unidades-Entrega/<Nombre>/11-Documentacion/` y `SDD/Docs/Producto/11-Documentacion/` | Sí (dentro del audit final) |
 | I | 10-Examples, pasada de ejecución | unidad de entrega | Samples implementados y corridos; campo `evidencia` de cada `VER-XXXXX` con la salida real y su fecha | Developer Advocate / Sample Engineer Senior (AG-00100) | Código construido; 10 de la pasada de diseño | `Rules-Examples.md` §0.2 | `SDD/Docs/Unidades-Entrega/<Nombre>/10-Examples/` y `/samples/` | Sí (acotado al incremento) |
+| I | Reintegración a la especificación | unidad de entrega + producto | Declaración de `Root-Rules.md` §14.4 por incremento; altas o modificaciones consecutivas en 02, 03, 05, 06 y en la fuente de alcance según la clase del cambio (`Rules-Backlog-Tecnico.md` §3.6) | Quien aplica el incremento (los titulares de 02, 03, 05 y 06 para sus artefactos) | Código construido; la decisión de alcance registrada | `Root-Rules.md` §14; `Rules-Backlog-Tecnico.md` §3.6 | `SDD/Docs/…/02-…/`, `03-…/`, `05-…/`, `06-…/` y el intake o su equivalente (sólo el Product Owner) | Sí (acotado al incremento) |
 | I | 11-Documentacion, actualización incremental | unidad de entrega + producto | Momento 2: documentos afectados por el incremento actualizados al estado real, triaje de la bitácora, `AGENTS.md` emitido o refrescado en la raíz del repositorio destino, ensayo de entrega automatizado | Technical Writer / Documentation Lead (AG-00110) | Código construido; 05; 08; 09; 10 | `Rules-Documentacion.md` §0.3 a §0.6 | `SDD/Docs/.../11-Documentacion/` y `AGENTS.md` en la raíz del destino | Sí (acotado al incremento) |
 | J | 11-Documentacion, consolidación | unidad de entrega + producto | Momento 3: verificación del cuerpo completo ejecutando todo comando documentado, `AGENTS.md` definitivo, ensayo de entrega humano como gate | Technical Writer / Documentation Lead (AG-00110) + confirmación humana | Todo lo anterior | `Rules-Documentacion.md` | `SDD/Docs/.../11-Documentacion/` y `AGENTS.md` | Sí (audit final de entrega) |
 
@@ -728,6 +729,7 @@ Paso 6 — Handoff a codificación (humano). A partir de acá el sistema se cons
   Fase I — Ciclo incremental (por incremento, re-ejecutable).
     0. Verificación de la precondición dura de §7.1. Si no se cumple, el orquestador se detiene y lo informa, en lugar de generar documentación sobre un sistema inexistente.
     1. 10-Examples, pasada de ejecución: los samples alcanzados por el incremento se implementan, se corren, y su campo `evidencia` se completa con la salida real y su fecha. Un `criterio_aceptacion` que falla es un hallazgo del incremento, no un documento pendiente.
+    1 bis. Reintegración a la especificación de lo que el incremento cambió respecto del compromiso, por `Root-Rules.md` §14: clase del cambio con su observable, lista mínima por clase (02, 03, 05, 06 y la fuente de alcance cuando es de clase compromiso), identificadores consecutivos, y la declaración de §14.4 en el audit de este incremento. «No altera el compromiso» es respuesta válida sólo con la clase declarada.
     2. 11-Documentacion, actualización incremental (Momento 2): se actualizan únicamente los documentos afectados por el incremento, con su `last_review` al día y su estado revisado.
     3. Triaje de la bitácora de eventualidades según `Rules-Documentacion.md` §0.6: toda `EVE-XXXXX` abierta recibe destino, o queda marcada `No absorbida` con su motivo.
     4. Emisión o refresco de `AGENTS.md` en la raíz del repositorio destino, derivado de `Contrato-Agentes.md`. Se emite en la primera corrida de esta fase y se refresca en todas las siguientes.
@@ -1379,6 +1381,10 @@ Comprobaciones mínimas de la compuerta, cada una de naturaleza enumerable:
    a la colisión léxica. **No alcanza a los huecos declarados antes de SDD 8.7**: no llevan el campo
    porque el mecanismo no existía, y `Migracion-Rules.md` §4.9 declara su tratamiento.
 
+9. **Versión de cabecera contra historial** (`Rules-Documentacion.md` §0.4): en todo documento con control de cambios, el campo `Versión` de la cabecera es igual a la versión de la última fila del historial. Es hallazgo el documento que anuncia una versión menor que la que su propio historial ya registró. Medido en un destino: dos documentos, entre ellos el acta, anunciaban una versión atrás de su última fila.
+
+10. **Reintegración de expedientes resueltos** (`Root-Rules.md` §14.5 · `Expediente-Rules.md` §6, A13 a A15), sólo en la Fase I: por cada expediente del destino con folio `resolucion`, cada categoría que su declaración de §14.4 nombra tiene al menos una fila de control de cambios que cita la carpeta del expediente; el plan de la resolución se contrasta con las constancias; el `archivo` con motivo «aplicado y verificado» sólo existe con lo anterior en verde. Se corre por **categoría declarada**, no por la unión. Sale rojo con la lista, verde vacío, o `NO EVALUABLE` con el motivo (sin expedientes, o sin las rutas que el destino declara para 02 y 06).
+
 **La compuerta declara qué no mira, y lo declara como lista.** Su salida, incluso en verde, enuncia el
 alcance de lo que verificó y **enumera uno por uno los recortes**: qué comprobación no corrió, o corrió
 parcial, y sobre qué parte del árbol. Una compuerta que se lee como aprobación es peor que ninguna,
@@ -1460,13 +1466,13 @@ Criterios del audit (matriz):
 - Filename y estructura de carpetas correctos, incluyendo la ubicación bajo `Unidades-Entrega/<Nombre-Unidad-Entrega>/` para las categorías de unidad de entrega.
 - En la Fase B2, además: los criterios de aceptación de `Maqueta-Rules.md` §8 y de `Deriva-Rules.md` §6. Son hallazgos P0 de esa fase la aprobación de la maqueta sin retroalimentación de la documentación, la propagación de una corrección manual sin confirmación de su interpretación, y cualquier literal del dominio del proyecto de código destino en los artefactos escritos en `IA.SDD`.
 - En la Fase G, además: los criterios de aceptación de la arista B de `Rules-Examples.md` §6. Son hallazgos P0 de esa fase un `criterio_aceptacion` redactado como prosa en lugar de aserción evaluable, un sample sin contrato de verificación, y un contrato cuya `evidencia` afirma una corrida que no ocurrió.
-- En las Fases I y J, además: los criterios de aceptación de `Rules-Documentacion.md` §6, con los hallazgos P0 propios que se enumeran abajo.
+- En las Fases I y J, además: los criterios de aceptación de `Rules-Documentacion.md` §6, con los hallazgos P0 propios que se enumeran abajo; y en la Fase I, los criterios A13 a A15 de `Expediente-Rules.md` §6 sobre cada expediente resuelto del destino y el escalamiento de `Root-Rules.md` §14.5.
 
 Hallazgos P0 propios de las Fases I y J. Son los que distinguen a un cuerpo documental verificado de uno que solo parece estarlo:
 
 - Un comando documentado no ejecuta, o falla.
 - Un criterio de aceptación está redactado como prosa en lugar de aserción evaluable.
-- Un documento afirma algo que contradice el estado real del código.
+- Un documento **que describe el sistema como hecho** —la categoría 11 y las secciones descriptivas de cualquier otra— afirma algo que contradice el estado real del código. **No alcanza a un documento que registra una decisión**: una contradicción entre el código y un ADR `Aceptado` (o el render mode, el stack o el contrato que un ADR fija) es **deriva mayor** de `Deriva-Rules.md` §3, con sus dos vías —corregir el código, o un ADR nuevo que supere al anterior con aprobación humana explícita (`Rules-Arquitectura-Tecnica.md` §3)— y nunca la reescritura del ADR para que describa el código. Medido: un destino reescribió su arquitectura «para describir el código» y absolvió un desvío de diseño que ningún ADR había decidido (`Expedientes/0003-…`, folio 019 §1 R-E).
 - Una ruta de archivo citada no existe en el repositorio.
 - Un artefacto declarado obligatorio por el gating de `Rules-Documentacion.md` §2.5 está ausente sin ADR que lo justifique.
 - **Un ensayo de entrega no se completó**, o requirió salirse de la documentación para avanzar.
@@ -1717,7 +1723,8 @@ contra un observable **incompleto**, y declara «coincide» o «diverge» sin ba
 ### T3 · Una unidad de trabajo, un pull request
 
 La unidad se declara **antes** de empezar y es una de éstas: **una fase** de la generación, **una fase
-de la migración**, **una consolidación**, **una reparación**. No se acumulan dos en la misma rama,
+de la migración**, **una consolidación**, **una reparación**, **un tramo de un plan aprobado** (de una
+mesa o de un expediente de caso) o **un incremento posterior al handoff**. No se acumulan dos en la misma rama,
 porque entonces el humano no puede aceptar una y rechazar la otra, que es para lo que mira.
 
 **Y cuando igual pasa, se declara en vez de disimularse.** Hay casos legítimos —una reparación que
@@ -1740,6 +1747,8 @@ TRABAJO ENTREGADO — {{UNIDAD}}
   Commits:     {{n}}
   Unidades:    {{una, la declarada | dos: {{cuál y cuál}}, y cuál se puede revertir sin la otra}}
   Alcance:     {{qué se tocó, en una línea por clase de cambio}}
+  Apartamientos: {{de qué prompt de implementación, ADR o regla vigente se apartó esta unidad, y por qué; o "ninguno"}}
+  Especificación: {{reintegrada: identificadores tocados por categoría | no altera el compromiso, clase {{diseño interno | nomenclatura}} por `Rules-Backlog-Tecnico.md` §3.6 | pendiente: tramo N del plan}}
   Sin resolver:{{lo que queda abierto, o "nada"}}
   PR:          {{url}}
   Qué sigue después del merge: {{la fase o el paso concreto}}
@@ -1844,7 +1853,7 @@ autorización para editar lo suyo.
 **Lo que sí falta no es permiso: es criterio y disparo, y viven aguas abajo.** Que el Product Owner
 pueda editar el intake sin pedir permiso no dice **cuándo conviene que lo haga**, ni **qué pasa con el
 backlog, el plan de sprint y el roadmap** cuando lo hace. Esas dos preguntas —§5.2 y §5.3 del reporte
-`25`— se responden en `Rules-Backlog-Tecnico.md` §3.4, que ya declaraba qué hacer cuando el alcance
+`25`— se responden en `Rules-Backlog-Tecnico.md` §3.6, que ya declaraba qué hacer cuando el alcance
 cambia y no declaraba cuándo. No se responden acá, porque acá no hay ninguna versión que subir: el
 intake, editado por su autor, no dispara ni major ni minor de esta sección.
 
@@ -1852,7 +1861,7 @@ intake, editado por su autor, no dispara ni major ni minor de esta sección.
 de la reanudación —«continuar la construcción»— supone que la etapa siguiente ya está en el roadmap.
 Cuando no lo está porque el Product Owner tomó una decisión de esta clase y todavía no la asentó, lo
 que corresponde no es que D la infiera ni que la ignore: es el evento de `Rules-Backlog-Tecnico.md`
-§3.4, convocado por la mesa de `Master-Prompt-Reanudacion.md` §3.1 igual que cualquier otra
+§3.6, convocado por la mesa de `Master-Prompt-Reanudacion.md` §3.1 igual que cualquier otra
 divergencia. `Master-Prompt-Reanudacion.md` §4 lo declara con esa forma.
 
 ---
@@ -1955,7 +1964,8 @@ Términos canónicos del orquestador. Cualquier divergencia con estos términos 
 | Ciclo de origen | Campo de toda referencia pendiente, todo ítem diferido y todo apartamiento declarado (`Root-Rules.md` §11, §12.1, §12.2), con la fase, la unidad de trabajo y la base de la corrida en que se declaró el hueco. **Se calcula y se congela** al momento de escribirse (§8.2): a diferencia del origen del hecho, no se recalcula, porque el hueco se lee en corridas futuras y cada una tiene su propia base. No dice contra qué versión del producto se evaluó: eso se deriva del commit, no se declara aparte. |
 | Lote de la fase | Presentación conjunta de las detenciones no bloqueantes de una fase, al cerrarla o cuando ya no puede avanzar, con el origen del hecho calculado sobre todas antes de salir y `SI NO RESPONDÉS` en cada una (§7.0). Generaliza al bucle de fases la forma de `Mesa-Rules.md` §7.1. |
 | Vigencia operativa abierta | Estado de un producto que ya pasó el handoff y opera en producción, y cuya fase de construcción (I o J) sigue abierta. No es un valor de D8 ni una fase nueva: nombra la condición bajo la cual una decisión del Product Owner puede cambiar el alcance comprometido sin que ninguna corrida del orquestador esté en curso. Lo gobierna el roadmap para qué sigue, el backlog y el plan de sprint para el trabajo del incremento, y la operación para los incidentes — cada uno con su instrumento ya existente; el estado no crea gobierno nuevo, nombra el momento en que el ya existente no puede darse por descontado (reporte `25`, §5.4). |
-| Evento de cambio de alcance | El hecho, subproducto de un acto ya obligatorio y no uno nuevo a recordar, que dispara la reapertura de `Rules-Backlog-Tecnico.md` §3.4: la entrada de control de cambios que el Product Owner asienta en el `PRODUCT-INTAKE` al registrar una decisión de alcance posterior al handoff. Es el mismo evento para el backlog, el plan de sprint y el roadmap, para que ninguno de los tres quede reabierto por un disparador distinto (reporte `25`, §5.2). |
+| Evento de cambio de alcance | El hecho, subproducto de un acto ya obligatorio y no uno nuevo a recordar, que dispara la reapertura de `Rules-Backlog-Tecnico.md` §3.6: la entrada de control de cambios que el Product Owner asienta en el `PRODUCT-INTAKE` al registrar una decisión de alcance posterior al handoff. Es el mismo evento para el backlog, el plan de sprint y el roadmap, para que ninguno de los tres quede reabierto por un disparador distinto (reporte `25`, §5.2). |
+| Reintegración | La vuelta a la especificación —02, 03, 05, 06 y la fuente de alcance— de un cambio aplicado al sistema después del handoff, con la clase del cambio, la lista mínima por clase y la declaración de cinco campos de `Root-Rules.md` §14. Tiene dueño (quien aplica), disparo (el evento de cambio de alcance, con sus tres fuentes) y comprobación (§10.0, `Expediente-Rules.md` §6, la reanudación). No es retroactiva. |
 
 ---
 
@@ -2025,3 +2035,4 @@ Reglas de versionado:
 ---
 
 **Fin del master-prompt SDD**
+| 8.21 | 2026-09-16 | **La reintegración de un cambio posterior al handoff entra al orquestador** (framework 13.20, expediente `0003` del framework). **§6 y §7** suman a la Fase I el paso «1 bis» que devuelve a 02, 03, 05, 06 y a la fuente de alcance lo que el incremento cambió, por `Root-Rules.md` §14. **§10 acota el P0** «un documento contradice el código» a los documentos que describen el sistema como hecho: una contradicción con un ADR `Aceptado` es deriva mayor con sus dos vías, nunca la reescritura del ADR; la Fase I corre además A13–A15 de `Expediente-Rules.md`. **§10.0** suma las comprobaciones 9 (versión de cabecera = última fila del historial) y 10 (expedientes resueltos reintegrados, por categoría declarada). **§12.1 T3** suma las unidades «tramo de un plan aprobado» e «incremento posterior al handoff»; **T4** suma las líneas `Apartamientos:` y `Especificación:`. **§13.1 y §15** corrigen la cita a `Rules-Backlog-Tecnico.md` §3.4, que nació rota en 13.14 (la política de versionado y su evento viven en §3.6); la fila 8.18 de este historial la conserva como estaba, porque un historial no se reescribe. **§15** suma el término. Sube **minor**: un paso dentro de una fase existente, comprobaciones nuevas y líneas de entrega; ninguna fase nueva ni insumo obligatorio nuevo. | Expediente 0003 del framework |
