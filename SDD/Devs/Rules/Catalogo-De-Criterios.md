@@ -2,7 +2,7 @@
 
 **Framework:** SDD
 **Documento:** Catalogo-De-Criterios.md
-**Versión:** 1.19
+**Versión:** 1.20
 **Estado:** Vigente
 **Fecha:** 2026-09-13
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
@@ -44,6 +44,9 @@ aplica sin su fundamento — y el fundamento es lo que permite reconocer cuándo
 | El árbol se contradice a sí mismo: una fuente declarativa contra su contraste observable | Cuál de las dos lecturas gana | [`Master-Prompt-Reanudacion.md`](../Orchestrator/Master-Prompt-Reanudacion.md) §1, regla de resolución |
 | Una fuente declarativa de estado no tiene quién la mantenga | Quién es el responsable, y si la fuente es la adecuada | `Master-Prompt-Reanudacion.md` §1.1, R1 a R3 |
 | No se sabe en qué estado quedó un destino | Qué salida corresponde entre las cinco | `Master-Prompt-Reanudacion.md` §4 |
+| **Cambió el alcance después del handoff** —por el intake, por una mesa, por un expediente o por un pedido directo— y no se sabe si reabre backlog y roadmap | Si el cambio es de clase compromiso, diseño interno o nomenclatura, y qué reabre cada una | [`Rules-Backlog-Tecnico.md`](Rules-Backlog-Tecnico.md) §3.6, evento y criterio; [`Root-Rules.md`](Root-Rules.md) §14.2, lista mínima |
+| **Se aplicó un cambio al sistema** y hay que devolverlo a la especificación | Quién lo escribe, qué categorías toca y en qué orden, cómo se declara y quién lo comprueba | `Root-Rules.md` §14; `Expediente-Rules.md` §6 A13 a A15; `Master-Prompt.md` §10.0 comprobación 10 |
+| **El código contradice un ADR `Aceptado`** | Si es defecto del documento o deriva mayor, y por qué vía se resuelve | [`Deriva-Rules.md`](Deriva-Rules.md) §3, dimensión «decisión de arquitectura»; `Mesa-Rules.md` §6.1; `Master-Prompt.md` §10, P0 acotado |
 | La procedencia está desfasada y hay que decidir si migrar | Si «seguir en la versión declarada» sigue siendo barato | `Master-Prompt-Reanudacion.md` §4.0.1, umbral de continuidad |
 | Hay una migración en vuelo y se quiere empezar otra cosa | Retomar o reempezar | `Master-Prompt-Reanudacion.md` §4, salida E |
 | Dos categorías declaran valores incompatibles de un conjunto cerrado | Quién arbitra | [`Master-Prompt.md`](../Orchestrator/Master-Prompt.md) §7.0, detención por arbitraje |
@@ -219,3 +222,4 @@ regla—. Lo que no corresponde adoptar es la **infraestructura** de DMN, no su 
 | 1.17 | 2026-09-12 | **Una situación nueva y dos reapuntadas**, por la comprobación 12: **se va a afirmar que un término colisiona o no colisiona**, de `Vocabulario-Rules.md` §9.2 y §9.4, `Mesa-Rules.md` §6.1 y la comprobación 14 de `SDD-Development-Guide.md` §VI.3; «un término tiene dos sentidos» nombra el contexto de lectura por lector; y «hay que verificar una intervención» pasa de trece a **catorce** comprobaciones. **El total de §4 no cambia**: no entra ningún anti-patrón. Sube minor. |
 | 1.18 | 2026-09-13 | **Tres situaciones nuevas**, por la comprobación 12: **un proyecto de código de otro ecosistema** o una dependencia que toma un artefacto sin referenciarlo (`Intake-Rules.md` §4), **la cadena de herramientas ausente** donde se construye la solución (`Rules-Devops.md` §4.9) y **el sample que no se compila** y hay que poner en el agrupador (`Rules-Examples.md` §3.6). §4 suma **cuatro anti-patrones**: dos `[interpretativo]` de `Rules-Devops.md` (13 → 15) y uno de cada marca de `Rules-Examples.md` (17 → 19); el total pasa de **222 a 226**, con **109** enumerables y **117** interpretativos, y el recuento en prosa de §1 se actualiza con su fuente. Sube minor. |
 | 1.19 | 2026-09-13 | **Cuatro situaciones nuevas**, por la comprobación 12 (framework 13.18, reporte `31`): **abrir un expediente de caso**, **asentar una aprobación dada por conversación**, **la compuerta S2** y **la mesa antes de la detención**. **§4 suma `Expediente-Rules.md`**: doce anti-patrones, seis `[enumerable]` y seis `[interpretativo]`, contados sobre su §7; el total pasa de **226 a 238** (**115** enumerables, **123** interpretativos). | Intervención del reporte `31` |
+| 1.20 | 2026-09-16 | **§3 suma tres situaciones** (framework 13.20, expediente `0003` del framework): el cambio de alcance posterior al handoff, la reintegración de un cambio aplicado y el código que contradice un ADR. Medido: ninguna fila del catálogo ruteaba «cambió el alcance después del handoff», y quien seguía la cita del orquestador llegaba a una sección sin evento. |

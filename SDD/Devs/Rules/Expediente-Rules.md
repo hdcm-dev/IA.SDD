@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Expedientes/` del repositorio destino; `Expedientes/` en la raíz del repositorio del framework
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
 **Agente target:** los tres orquestadores y AG-00970 (Presidente de mesa) en tiempo de ejecución; quien interviene el framework cuando el caso es del framework
-**Versión de las reglas:** 1.0
+**Versión de las reglas:** 1.1
 
 ---
 
@@ -263,9 +263,13 @@ repetir igual, y dos paneles con cartas distintas no son comparables.
 
 1. **Antes de cada push que toque la carpeta**, correr A11. La compuerta corre siempre, sea el destino
    público o privado.
-2. Correr A1 a A10 y A12.
+2. Correr A1 a A10 y A12; en un expediente con `resolucion`, también A13 a A15.
 3. En un destino, foliar por `ruta@commit` los registros de `Audit/` que el caso produjo.
-4. Cuando lo resuelto quedó aplicado y verificado, asentar el `archivo` con su `Motivo`.
+4. Cuando lo resuelto quedó aplicado, verificado **y reintegrado a la especificación por `Root-Rules.md`
+   §14** —o su resolución declara con la clase del cambio y su observable que no altera el
+   compromiso—, asentar el `archivo` con su `Motivo`. Un `archivo` con motivo «aplicado y verificado»
+   y A13 a A15 en rojo es hallazgo P1 (§14.5). Un expediente resuelto por defecto del Product Owner
+   sobre una fila de alcance (§14.2) **no se archiva** hasta el testimonio que la aprueba.
 
 **S1 · Nada cambia después del primer push.** Ninguna pieza de la carpeta —actuación, evidencia, README—
 se modifica, se borra ni se renombra después de publicarse; se comprueba contra la rama principal (A7).
@@ -303,7 +307,11 @@ incorporación, y quien fusiona decide sabiéndolo (`Master-Prompt.md` §12.1 T1
 
 **La evidencia funda la especificación; no se vuelve especificación.** Una decisión que el caso produce
 cambia un artefacto normal —un ADR, una regla, el intake, un ítem diferido— y **la fila de control de
-cambios de ese artefacto nombra la carpeta del expediente**, con el folio en la prosa, **o nombra la fila
+cambios de ese artefacto nombra la carpeta del expediente**, con el folio en la prosa; **y cuando la
+decisión altera el compromiso, cambia además los artefactos de la lista mínima de `Root-Rules.md`
+§14.2** (02, 06 y la fuente de alcance, como mínimo), no sólo el ADR: la forma del vínculo es esta; la
+completitud es de §14. Lo que se cita desde la especificación es el folio `resolucion` o la constancia
+de cierre, por carpeta y número, nunca un identificador interno de hallazgo, tramo o evidencia, **o nombra la fila
 del plan o del registro de `Audit/` que a su vez la nombra**. Es la única vía declarada. La dirección
 inversa se deriva en dos pasos, sin tabla a mano:
 
@@ -408,18 +416,42 @@ git log -p --format= "origin/$B..HEAD" -- "$P" | grep -E '^\+' | grep -iE "(/|-)
 
 # A12 · todo registro de Audit/ que cita el expediente está foliado por ruta@commit (sólo en destino)   → vacío
 git -c core.quotepath=off grep -l "Expedientes/$(basename "$X")" -- SDD/Docs/Audit 2>/dev/null | while read a; do grep -rqF "$a@" "$X/actuaciones" || echo "$a"; done
+
+# A13 · reintegración por categoría declarada (Root-Rules §14.5): cada categoría que la última `resolucion`
+#       nombra en su fila `Reintegra` tiene al menos un documento con una fila de control de cambios que
+#       cita la carpeta (o «expediente NNNN»); SPEC declara, por categoría, las rutas del destino     → vacío
+R=$(ls "$X/actuaciones" | grep -E '^[0-9]{3}-resolucion' | tail -1); N=$(basename "$X" | cut -c1-4)
+grep -oE '^\| Reintegra \| [^|]+' "$X/actuaciones/$R" | sed 's/^| Reintegra | //' | tr ',' '\n' | sed 's/^ *//' | grep -v '^ninguna' | while read c; do
+  rutas=$(echo "$SPEC" | tr ' ' '\n' | grep "^$c=" | cut -d= -f2 | tr ',' ' '); [ -n "$rutas" ] || { echo "$N: $c NO EVALUABLE (sin ruta en SPEC)"; continue; }
+  git grep -lE "(Expedientes|experdientes)/$N|[Ee]xpediente 0*$N" -- $rutas | while read f; do grep -qE "^\| [0-9]+\.[0-9]+ \| .*(Expedientes|experdientes)/$N|^\| [0-9]+\.[0-9]+ \| .*[Ee]xpediente 0*$N" "$f" && echo ok; done | grep -q ok || echo "$N: $c sin fila de control de cambios"
+done
+
+# A14 · todo identificador de tramo del plan de la última `resolucion` aparece en una `constancia` posterior,
+#       o en el folio de cierre como no ejecutado con motivo                                             → vacío
+grep -oE '^\| T[-A-Z0-9.]+ \|' "$X/actuaciones/$R" | tr -d '| ' | sort -u | while read t; do
+  grep -rlF "$t" "$X/actuaciones/"*-constancia-* >/dev/null 2>&1 || echo "$N: $t sin constancia"
+done
+
+# A15 · el `archivo` con motivo «aplicado y verificado» existe sólo con A13 y A14 vacíos en el commit que lo asienta   → vacío
+ls "$X/actuaciones" | grep -qE '^[0-9]{3}-archivo' && grep -qi 'aplicado y verificado' "$X/actuaciones/"*-archivo-* && { [ -z "$(A13)$(A14)" ] || echo "$N: archivo con reintegración incompleta"; }
 ```
+
+**A13 se corre por categoría declarada y no por la unión**, porque un expediente que declara 02 y 06 y
+sólo cita desde 02 no está reintegrado. `SPEC` es la declaración del destino, con la forma
+`02=SDD/Docs/…/02-…,… 06=…`; sin ella la comprobación sale `NO EVALUABLE`, que es rojo para quien lee.
+Un folio de cierre de un tipo que §3.2 no nombra (un destino usó `cierre`) se lee como `constancia`.
 
 **A11 localiza sin decidir.** `PRIV` es la alternancia de los nombres de repositorios privados y sus
 organizaciones que la verificación de visibilidad del paso 2 de «Abrir» asentó; vacía si no hay. Los
 secretos no admiten un patrón universal y los mira I5.
 
-- [ ] **A1** a **A12** `[enumerable]`, con los comandos de arriba.
+- [ ] **A1** a **A15** `[enumerable]`, con los comandos de arriba; A13 a A15 sólo para un expediente con `resolucion`, y sólo hacia adelante desde la versión en que el destino adoptó `Root-Rules.md` §14 (§5.1 para los anteriores).
 - [ ] **I1** `[interpretativo]` La condición de §1 se aplicó con su precedencia: un expediente por cada mesa o por cada detención es el anti-patrón.
 - [ ] **I2** `[interpretativo]` El pase del último folio es veraz: nombra el acto que sigue y quién lo hace, y no afirma un acto que ningún folio registra.
 - [ ] **I3** `[interpretativo]` El testimonio se clasificó por contenido (§3.3).
 - [ ] **I4** `[interpretativo]` Cada evidencia es pertinente a la afirmación que la cita.
 - [ ] **I5** `[interpretativo]` Ninguna pieza lleva un secreto, y lo que viene de un repositorio privado es concepto y no infraestructura.
+- [ ] **I6** `[interpretativo]` La fila de control de cambios que satisface A13 describe lo que cambió en ese artefacto por el expediente; no es una mención de paso ni un «pendiente».
 
 ---
 
@@ -469,3 +501,4 @@ nuevo con Corrige, y una redacción S2 lleva su constancia y declara que lo empu
 | Versión | Fecha | Cambios | Autor |
 | --- | --- | --- | --- |
 | 1.0 | 2026-09-13 | Emisión inicial (framework 13.18). Regula **el expediente de caso**. Nace del expediente `0001` del framework —ocho comisiones a ciegas, una réplica, un refutador, un jurado y un dictamen— y de la mesa de la intervención del reporte `31`, que atacó el plan con Seguridad, Formal, Trazabilidad documental, Requisitos, Verificación, Lector sin contexto y un refutador, y lo votó un jurado de cinco agentes distintos (diecisiete ítems, 5-0). Fija la condición de apertura con precedencia y la radicación (§1); dónde vive, con tres exclusiones y conservación permanente (§2); **la forma mínima de diecinueve campos** con carátula que describe el caso, estado derivado de la secuencia y pase como punto de continuación (§3); número local de **cuatro dígitos** sin prefijo (§3.1); seis tipos (§3.2); el testimonio clasificado por contenido, donde **la aprobación asentada con literal, canal, fecha-hora y huella es la aprobación registrada de D9, sin modificar D9** (§3.3); los **tres momentos de uso**, S1 desde el primer push con la redacción S2 como única excepción, **S2 por clase de dato con la visibilidad verificada o declarada por el dueño**, y S3 (§4); el vínculo directo o a través de `Audit/` y `ruta@commit` (§5); y los expedientes de forma histórica (§5.1). Doce criterios enumerables con su comando en el texto (§6). **Rechazó, con medición**: cuarenta y siete campos, un folio por commit, el trailer en el mensaje, el manifiesto de sumas obligatorio, el prefijo `EXP-`, cinco dígitos, un tercer ámbito en `Root-Rules.md` §9.1, una oración nueva en D9 y un dato más en el ciclo de origen. | Intervención del reporte `31` |
+| 1.1 | 2026-09-16 | **El `archivo` exige la reintegración** (framework 13.20, expediente `0003` del framework, `Root-Rules.md` §14): §4 paso 4 la suma a «aplicado y verificado» o exige la declaración de que no altera el compromiso, y no archiva un expediente cuya fila de alcance sigue propuesta; §5 vuelve conjunción lo que era disyunción —cuando la decisión altera el compromiso, además del ADR cambian 02, 06 y la fuente de alcance— y fija que se cita el folio `resolucion` o el cierre, no un id interno; §6 suma **A13** (reintegración por categoría declarada, con `SPEC` del destino), **A14** (plan contra constancias) y **A15** (`archivo` sólo en verde), e **I6**. Medido: en un destino, de cuatro expedientes resueltos uno estaba reintegrado, uno cerró declarando «plan ejecutado» con dos tramos documentales que ninguna constancia nombra, y ninguno tenía `archivo`. Sube **minor**: obligaciones hacia adelante; los expedientes anteriores se tratan por §5.1. | Expediente 0003 del framework |

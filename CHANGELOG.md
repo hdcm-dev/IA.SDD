@@ -3,6 +3,40 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.20] - 2026-09-16
+
+**Un cambio aplicado al sistema después del handoff no tenía quién lo devolviera a la especificación, y un desvío de una decisión de arquitectura se podía absolver reescribiendo el ADR.** Un destino cerró cuatro expedientes en tres días —mesa, plan, aplicación por tramos con pedido de fusión, deuda declarada— y sólo el primero volvió al backlog y a los casos de uso: quince documentos lo citan, contra cuatro, cuatro y uno de los otros tres; ninguno tocó el acta. El Product Owner preguntó cómo se habían administrado esas introducciones y pidió que los orquestadores incorporen el ciclo; después, que la mesa revisara por qué el diseño fijado (un modo de render) no se cumplió y se corrigiera donde correspondiera. Expediente `Expedientes/0003-Retroalimentacion-De-La-Especificacion-Ante-Cambios/`: dos rondas, trece comisiones, dos refutaciones, resolución en el folio 019.
+
+### Agregado — `Root-Rules.md` §14 «Reintegración de un cambio posterior al handoff» (8.9)
+
+Disparo (las tres fuentes del evento de cambio de alcance) y sus cuatro canales; la **clase del cambio** —compromiso, diseño interno, nomenclatura— con su lista mínima en orden topológico; quién ejecuta (quien aplica) y quién escribe (el intake y el acta, sólo el Product Owner: el agente propone la fila; el silencio no asienta alcance); la declaración de cinco campos; el escalamiento y quién lo comprueba; la no retroactividad; el límite en destinos con norma propia. El control de cambios pasa a §15.
+
+### Cambiado
+
+- `Rules-Backlog-Tecnico.md` 5.4: **§3.6** el evento gana dos fuentes (la resolución foliada de un expediente o la orden foliada del Product Owner; el documento de alcance que un destino sin intake declare equivalente) y el criterio gana las clases compromiso y diseño interno. **Medido antes de publicar**: los dos casos de 13.14 no cambian de clase; los dos del destino sí. **§4.1** reconoce «Estado real: entregado en el pedido de fusión #N» como evidencia D9.
+- `Rules-Contexto.md` 4.7: §3.5 cita en lugar de repetir.
+- `Master-Prompt.md` 8.21: Fase I paso **1 bis** (reintegración a 02–06 y a la fuente de alcance); **§10 acota el P0** «un documento contradice el código» a los documentos que describen el sistema como hecho —una contradicción con un ADR `Aceptado` es deriva mayor, nunca reescritura del ADR—; §10.0 comprobaciones **9** (versión de cabecera = última fila del historial) y **10** (expedientes resueltos reintegrados, por categoría declarada); §12.1 T3 con las unidades «tramo de un plan aprobado» e «incremento posterior al handoff» y T4 con `Apartamientos:` y `Especificación:`; corrección de la cita a §3.4 (nació rota en 13.14) en §13.1 y §15; término nuevo.
+- `Master-Prompt-Reanudacion.md` 1.15: R0 paso 4 lista los expedientes resueltos sin reintegrar; R1 los imprime.
+- `Mesa-Rules.md` 1.5: **§6.1** una cita del código no funda parche sobre una decisión cerrada del contrato; **§6.6** cada parche nombra el artefacto de especificación que altera y la resolución lleva la fila `Reintegra`; §6.7 la cita; **§7 disparador 3** no bloquea una mesa a pedido cuyo pedido foliado es el cambio de alcance.
+- `Expediente-Rules.md` 1.1: §4 paso 4 el `archivo` exige la reintegración o la declaración de clase; §5 conjunción y qué se cita; §6 **A13–A15** e I6.
+- `Deriva-Rules.md` 5.5: §3 dimensión **«decisión de arquitectura»** con sonda por ADR que declara su observable; §2.3 `ADR-XXXXX` como elemento.
+- `Catalogo-De-Criterios.md` 1.20: tres situaciones.
+- `Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` 1.2: pasos 9 y 10 remiten a §14; el filtro «descripción o control» gana la clase «decisión».
+
+### Rechazado, con motivo
+
+Un archivo `Reintegracion-Rules.md` (eje III.8 entero sin necesidad); una Fase I bis (major por un hueco que no es de fase); un campo nuevo en el bloque de cierre de la mesa (escrito una vez de cuatro); reintegrar retroactivamente; el modo reincorporación completo del destino como vía; un registro de incrementos en lugar del plan de sprints; el campo `Última revisión`; alcance asentado por silencio del Product Owner; ADR «reemitidos».
+
+### Por qué es minor
+
+Ninguna regla sube major, ninguna fase nueva, ningún insumo obligatorio nuevo; las obligaciones rigen hacia adelante (`Root-Rules.md` §14.6). Un destino que declare 13.19 sigue cumpliendo.
+
+### Impacto sobre destinos existentes
+
+**Ninguno retroactivo.** Lo aplicado antes de adoptar 13.20 se lista en la reanudación como anterior y no cuenta como pendiente. El destino del caso corre una norma propia: la corrección le llega por la mesa a pedido y el expediente, y por la enmienda a su convención de cambios que su propio expediente propone al Product Owner.
+
+`SDD/Devs/Guides/Coherencia-Reintegracion-Posterior-Al-Handoff.md` 1.0 con la fuente de cada afirmación y la verificación. `_legacy/13.19/` con el conjunto entero, **137 archivos**, tomado de `main` con `git archive` antes de editar, sin `Expedientes/`.
+
 ## [13.19] - 2026-09-14
 
 **Un aviso que el framework no emite terminó pedido como corrección del framework.** En una corrida del orquestador de reanudación, el agente cerró cada respuesta con un aviso de que dos conectores de servicios externos necesitaban autorización; la persona no los usaba, creyó que el aviso salía del método y pidió corregirlo. La búsqueda por los términos del aviso sobre el framework, el destino, la memoria del agente y el prompt de invocación dio **cero ocurrencias pertinentes**: lo agregaba **el entorno que ejecuta al agente**, en cada sesión. Ni la mesa ni el orquestador tenían con qué clasificar ese origen. Esta versión lo cataloga **sin mover una coma de la norma**.

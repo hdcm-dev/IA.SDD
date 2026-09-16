@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador de reanudación
 
 **Archivo:** `Master-Prompt-Reanudacion.md`
-**Versión:** 1.14
+**Versión:** 1.15
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** lectura, diagnóstico y **entrega de contexto**, con detención obligatoria. **No escribe nada del destino salvo su propio informe**, y no ejecuta el trabajo que despacha
 **Prerequisitos:** un repositorio destino con `SDD/` poblado. No exige memoria de ninguna sesión anterior
@@ -145,7 +145,12 @@ paso 0, que **no produce contenido** —pone a salvo lo que ya estaba— y que a
    (`Expediente-Rules.md`): los de `SDD/Expedientes/` de forma vigente cuyo último folio no es
    `resolucion` ni `archivo`, o cuyo pase nombra un `Cierra con:` que todavía no ocurrió, con el pase
    del último folio y su `Suspende hasta:` contrastado. **Los expedientes de forma histórica**
-   (`Expediente-Rules.md` §5.1) se nombran en R1 y no cuentan como pendientes.
+   (`Expediente-Rules.md` §5.1) se nombran en R1 y no cuentan como pendientes. **Y los expedientes
+   resueltos sin reintegrar** (`Root-Rules.md` §14.5): los que tienen folio `resolucion` y cuya
+   declaración de §14.4 nombra categorías desde las que ninguna fila de control de cambios los cita,
+   o que no llevan declaración; se **listan**, por categoría faltante, y los anteriores a la versión en
+   que el destino adoptó §14 se nombran como tales y no cuentan como pendientes (§14.6). La
+   reanudación no reintegra nada: lo que falte va a la mesa de §3.1 como cualquier divergencia.
 
    **Es la comprobación más barata de todo el método y por eso vive acá.** La reanudación ya lee el
    árbol entero sin memoria; preguntarle además «¿qué se difirió y ya venció?» no cuesta una pasada
@@ -195,6 +200,10 @@ MIGRACIÓN
   Declarados:              {{0 | N, con su evento de cierre}}
   **Vencidos**:            {{ninguno | N, y su evento ya ocurrió}}
   Sin forma:               {{ninguno | N promesas en prosa, no contables}}
+
+EXPEDIENTES RESUELTOS SIN REINTEGRAR  (`Root-Rules.md` §14.5)
+  Posteriores a §14:       {{ninguno | NNNN: categorías sin fila (02, 06, …) | NNNN: sin declaración}}
+  Anteriores a §14:        {{ninguno | lista, no cuentan como pendientes}}
 
 CONSTRUCCIÓN
   Registro del producto:   {{última etapa declarada}}
@@ -563,3 +572,4 @@ entonces el contexto vuelve a vivir sólo en la sesión.
 | 1.12 | 2026-09-12 | **R1 publica la base de la corrida** en su bloque `REPOSITORIO`, que reproduce el formato de T0 y ahora su línea nueva de `Master-Prompt.md` §12.1; y **§6 suma el criterio enumerable del origen del hecho**: toda consulta de R2 lo declara calculado contra esa base, y ninguna de la corrida sale sin decir por qué la autocorrección no alcanzaba. Sube **minor**: una línea en un bloque y un criterio. |
 | 1.13 | 2026-09-12 | **La salida D declara qué hace cuando su punto de continuación no está en el roadmap** (framework 13.14), por el reporte `25`. §4 no contemplaba el caso: si el Product Owner decidió un cambio de alcance posterior al handoff y no lo asentó, «lo que sigue» no es una etapa que el roadmap nombre, y D no puede inferirla ni continuar como si lo fuera. Pasa a tratarse como la divergencia que es, llevada a la mesa de §3.1, que convoca el evento de `Rules-Backlog-Tecnico.md` §3.6 (`Master-Prompt.md` §13.1). Sube **minor**: precisa qué hace una salida existente ante un caso que antes no declaraba, sin agregar ninguna salida nueva. | Intervención del disparador de alcance (reporte 25) |
 | 1.14 | 2026-09-13 | **R0 paso 4 lee los expedientes de caso abiertos** (framework 13.18, reporte `31`): los de forma vigente cuyo último folio no es `resolucion` ni `archivo`, o cuyo pase tiene un evento de cierre no cumplido, con su suspensión contrastada. **Los de forma histórica se nombran y no cuentan**: el único ejemplar de destino termina en `resolucion` sin pase legible, y contarlo lo habría listado abierto para siempre. **§0** cablea la mesa antes de la detención de `Master-Prompt.md` §8.1 para las contradicciones que no bloquean. **§5** remite el punto de continuación al pase del último folio. Sube **minor**. | Intervención del reporte `31` |
+| 1.15 | 2026-09-16 | **R0 paso 4 lee los expedientes resueltos sin reintegrar y R1 los lista** (framework 13.20, expediente `0003` del framework, `Root-Rules.md` §14.5): por categoría declarada en la resolución y sin fila de control de cambios que los cite; los anteriores a la versión en que el destino adoptó §14 se nombran y no cuentan. La reanudación sigue sin escribir: lo que falte es divergencia para la mesa de §3.1. Sube **minor**. |

@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/00-Contexto/`
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Producto
 **Subagente target del orquestador:** Product Manager Senior (AG-00000) en conjunción con Analista de Negocio Senior (AG-00010) si la unidad de entrega tiene stakeholders múltiples.
-**Versión de las reglas:** 4.6
+**Versión de las reglas:** 4.7
 
 ---
 
@@ -107,11 +107,9 @@ Recomendado. La carpeta `SDD/Docs/00-Contexto/` lleva un `README.md` (sin versi�
 Esta categoría corre **una vez** (Fase A), y hasta acá ninguna regla declaraba qué pasa cuando el
 alcance comprometido cambia después de que el producto ya se entregó: `Roadmap-Producto.md` podía
 seguir afirmando una fila vieja sin que nada lo reabriera (reporte `25`). Se reabre con **el mismo
-evento y el mismo criterio** que `Rules-Backlog-Tecnico.md` §3.6 —la entrada de control de cambios que
-el Product Owner asienta en el `PRODUCT-INTAKE` al registrar una decisión de alcance posterior al
-handoff (`Master-Prompt.md` §13.1), cuando modifica una fila de la matriz §3, incluido el contenido
-declarado de una fila ya existente—, para que el roadmap y el backlog no se reabran por disparadores
-distintos. Se declara acá y no se duplica: la mecánica del evento y del criterio vive una sola vez, en
+evento y el mismo criterio** que `Rules-Backlog-Tecnico.md` §3.6, para que el roadmap y el backlog no
+se reabran por disparadores distintos; quién lo ejecuta y qué alcanza lo dice `Root-Rules.md` §14. Se
+declara acá y no se duplica: la mecánica del evento, sus fuentes y su criterio viven una sola vez, en
 `Rules-Backlog-Tecnico.md` §3.6.
 
 ---
@@ -471,3 +469,4 @@ Salida: SDD/Docs/00-Contexto/<archivos>.md.
 | 4.4 | 2026-08-17 | Sus anti-patrones suman la columna **Detección**, con la marca `[enumerable]` o `[interpretativo]` que el método ya usaba en los criterios de aceptación: dice **quién puede aplicar el criterio** —la compuerta mecánica de `Master-Prompt.md` §10.0 los enumerables, el audit y el humano los interpretativos—. Sube **minor**: agrega información verificable a una tabla existente sin cambiar ningún criterio, ningún artefacto ni ningún gating. Índice: `Catalogo-De-Criterios.md`. |
 | 4.5 | 2026-08-22 | **La familia `AG` se renumera al ancho de cinco dígitos** de `Root-Rules.md` §9.2, por el mapeo declarado y evaluado antes de aplicarse: los titulares de categoría toman `AG-00NN0`, el subagente de fase de la B2 toma **`AG-00031`** —la hermandad con el `03` queda escrita en el número—, `AG-ROOT` toma **`AG-00990`** en el bloque reservado a roles que no son de categoría, y el marcador de plantilla pasa a `AG-XXXXX`. Sube **minor**: cambia la forma de una cita y **ningún documento generado deja de cumplir por este archivo**. |
 | 4.6 | 2026-09-12 | **§3.5 es nueva: `Roadmap-Producto.md` se reabre posterior al handoff** (framework 13.14), por el reporte `25`. Esta categoría corre una vez y no tenía declarado qué pasaba cuando el alcance comprometido cambiaba después de la entrega; en el destino que originó el reporte, la fila `i` del roadmap siguió afirmando una topología de despliegue retirada seis días antes. Se reabre con el mismo evento y el mismo criterio que `Rules-Backlog-Tecnico.md` §3.6, declarados una sola vez ahí y citados acá para que el roadmap y el backlog no queden gobernados por disparadores distintos. Sube **minor**: agrega el disparador de una reapertura que antes no existía, sin cambiar la estructura de ningún documento de la categoría. | Intervención del disparador de alcance (reporte 25) |
+| 4.7 | 2026-09-16 | **§3.5 deja de repetir el texto del evento** de `Rules-Backlog-Tecnico.md` §3.6 y lo cita (framework 13.20, expediente `0003`): al ampliarse el evento a tres fuentes, la copia habría quedado vieja. Cita además `Root-Rules.md` §14. Sube **minor**: sin cambio semántico. |
