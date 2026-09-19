@@ -3,6 +3,58 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.21] - 2026-09-19
+
+**El traspaso por pull request tenía catalogada una sola variante, la manual, y la práctica ya corría otra.** Varios destinos del taller delegaron el merge al agente: abre el pull request, fusiona, borra la rama y sigue. Esa variante no tenía alias con el que citarse ni guarda escrita, y dos fallas medidas en su uso —un merge con controles en rojo por una guarda mal escrita, y seis fusiones encadenadas sobre un control roto por aceptar `unstable`— mostraban qué le faltaba. Esta versión la cataloga **por diferencia con el padre y sin mover una coma de la norma**.
+
+### Agregado — `Conocimiento/Knowledge-Conformacion-Pull-Request-Automatico.md` 1.0
+
+Alias `Conformacion-Pull-Request-Automatico`, `canonico`, consumidor `transversal`, sin condición de carga, **`Hereda-de: Conformacion-Pull-Request-Manual`**. Escribe sólo el delta:
+- **quién ejecuta los turnos 5 a 7**: el agente, sin acuse del humano;
+- **la delegación**, que es del proyecto y se asienta con fecha y responsable; sin ella rige el padre;
+- **la guarda de merge G1–G4**: cabeza auditada, estado `clean` y ningún otro, al menos una corrida de controles y todas en éxito, sin reserva; en bucle con techo;
+- **el merge atado al SHA auditado**, con su respuesta leída antes de borrar la rama;
+- **las cinco reservas** que devuelven el merge al humano, incluida la falla que ya estaba en la principal;
+- **la credencial** elegida por cuenta, con el permiso comprobado y sin exponerse en argumentos de proceso;
+- **los controles del commit de merge**, leídos antes de encadenar la unidad siguiente;
+- **la atribución**: la plataforma no distingue el merge del agente del merge del humano.
+
+§5 da el esqueleto sobre la familia de API en que se midió y declara que en otra plataforma se traduce. **§8 declara la desviación de `Master-Prompt.md` §12.1 T1**: T1 no está rotulado como decisión de stack, así que no hay sustitución (`Rules-Base-Conocimiento.md` §0.4).
+
+### Cambiado — `Index-Knowledge.md` 1.4 → 1.6
+
+- **1.5**: conciliación de tres filas con sus cabeceras, sin altas: `Compatible-con` de `Clean-Architecture-DataManager` a 2.0, y los dos `Tema` de los templates completos. La cabecera del índice pasa a declararse compatible con la 2.2.
+- **1.6**: la fila del alta, a continuación de la de su padre. El catálogo pasa de seis a **siete** documentos, **siete de siete** con fila que coincide campo por campo con su cabecera (comprobado con un guion).
+
+### Verificación contra `Rules-Base-Conocimiento.md` §6.1
+
+| # | Ítem | Resultado |
+| --- | --- | --- |
+| 1 | `[enumerable]` Once campos de cabecera, ninguno vacío | **Cumple**: `sed -n 3,13p … \| grep -cP '^\*\*[\p{L}-]+:\*\* \S'` = 11 |
+| 2 | `[enumerable]` Nombre `Knowledge-<Tema>.md`, ASCII, sin prefijo numérico | **Cumple** |
+| 3 | `[enumerable]` Alias único en el índice | **Cumple**: `grep -c "Conformacion-Pull-Request-Automatico" Index-Knowledge.md` = 2 (la fila y el control de cambios) |
+| 4 | `[enumerable]` Secciones §0 a §10 | **Cumple**: `grep -c "^## [0-9]*\."` = 11 |
+| 5 | `[enumerable]` Bajo el techo de §6.2 | **Cumple con la excepción declarada**: 346 líneas; sin §5, **248** contra 250 de `canonico`. §5 (98 líneas) es la excepción que §6.2 admite, declarada en el §0 del documento con el precedente de `Knowledge-Bundle-JS` §0.3 |
+| 6 | `[enumerable]` Los ocho campos comunes coinciden con la fila | **Cumple**: diez de diez columnas iguales, `Estado` incluido |
+| 7 | `[enumerable]` Verificación de ofuscación declarada | **Cumple**. Se buscaron nombres de organizaciones, cuentas, repositorios, productos, dominios, correos, rutas del host y números de pull request: **cero**. Hubo cuatro coincidencias de `@`, que son la sintaxis de `curl -H @` y de `git@`. Falso positivo declarado: el tipo de medio del encabezado nombra a la plataforma pública de la familia de API, que es un producto y no un cliente, y el documento la declara en §1 |
+| 8 | `[enumerable]` Numeración interna contigua | **Cumple**: §3.1–§3.5, §5.1–§5.3 |
+| 9 | `[enumerable]` Contradicción con el piso declarada | **Cumple**: §8 declara la desviación de T1 con su justificación |
+| 10 | `[interpretativo]` §0 declara qué queda afuera | **Cumple**: seis filas, con dónde vive cada cosa |
+| 11 | `[interpretativo]` Un `canonico` escribe el delta | **Cumple**: §2 marca qué turnos cambian y remite al padre para los demás |
+| 12 | `[interpretativo]` No define criterios, nomenclatura ni gating de artefactos generados | **Cumple**: §6 se verifica sobre la plataforma, el repositorio y el intercambio |
+| 13 | `[interpretativo]` Las siete propiedades de §4.4 | **Cumple** |
+| 14 | `[interpretativo]` Usable sin contexto previo | **Cumple**, leído junto con el padre, como toda especialización |
+
+### Por qué es minor
+
+Por el precedente de la 13.9, la 13.17 y la 13.19: **no cambia ninguna regla, orquestador ni plantilla**, pero el catálogo condiciona lo que el orquestador genera, y un destino que declare 13.21 declara un catálogo que 13.20 no tenía.
+
+### Impacto sobre destinos existentes
+
+**Ninguno obligatorio.** El documento no tiene condición de carga y **no cambia nada sin una delegación asentada en el destino**; sin ella rige `Master-Prompt.md` §12.1 tal como está. Un destino que declare 13.20 sigue cumpliendo.
+
+`SDD/Devs/Guides/Coherencia-Conformacion-Pull-Request-Automatico.md` 1.0 lleva la fuente de cada afirmación, por qué el documento entra al framework aunque su tool-prompt lo dejaba afuera, y lo que no se ejecutó. `_legacy/13.20/` guarda el conjunto entero, **138 archivos** contados contra `git ls-tree -r main -- Conocimiento Examples PROMPTS README.md SDD Templates`, tomado de `main` con `git archive` antes de editar, **sin `Expedientes/`** y con cero diferencias.
+
 ## [13.20] - 2026-09-16
 
 **Un cambio aplicado al sistema después del handoff no tenía quién lo devolviera a la especificación, y un desvío de una decisión de arquitectura se podía absolver reescribiendo el ADR.** Un destino cerró cuatro expedientes en tres días —mesa, plan, aplicación por tramos con pedido de fusión, deuda declarada— y sólo el primero volvió al backlog y a los casos de uso: quince documentos lo citan, contra cuatro, cuatro y uno de los otros tres; ninguno tocó el acta. El Product Owner preguntó cómo se habían administrado esas introducciones y pidió que los orquestadores incorporen el ciclo; después, que la mesa revisara por qué el diseño fijado (un modo de render) no se cumplió y se corrigiera donde correspondiera. Expediente `Expedientes/0003-Retroalimentacion-De-La-Especificacion-Ante-Cambios/`: dos rondas, trece comisiones, dos refutaciones, resolución en el folio 019.
