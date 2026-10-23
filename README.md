@@ -62,6 +62,7 @@ Es el núcleo de este documento. Buscá la fila que describe lo que venís a hac
 | Encontrar el orquestador de generación | [`SDD/Devs/Orchestrator/Master-Prompt.md`](SDD/Devs/Orchestrator/Master-Prompt.md) |
 | **Retomar un destino sin saber en qué estado quedó** | [`SDD/Devs/Orchestrator/Master-Prompt-Reanudacion.md`](SDD/Devs/Orchestrator/Master-Prompt-Reanudacion.md), o su prompt de entrada [`PROMPTS/PROMPT-Agente-Reanudacion-SDD.md`](PROMPTS/PROMPT-Agente-Reanudacion-SDD.md) |
 | **Evaluar un corpus ya existente antes de decidir qué hacer con él** | [`SDD/Devs/Rules/Mesa-Rules.md`](SDD/Devs/Rules/Mesa-Rules.md), que se convoca desde `Master-Prompt-Reanudacion.md` **R1.5** y desde `Master-Prompt-Migracion.md` **M1** |
+| **Armar una mesa de expertos que alguien pidió por nombre** —«hacé una mesa de expertos en…»—, sobre cualquier objeto | El catálogo [`Conocimiento/Index-Knowledge.md`](Conocimiento/Index-Knowledge.md): la fila cuyo `Tema` es la mesa a pedido, si el catálogo la tiene; la norma de la mesa sigue siendo [`SDD/Devs/Rules/Mesa-Rules.md`](SDD/Devs/Rules/Mesa-Rules.md) |
 | Encontrar el orquestador de migración | [`SDD/Devs/Orchestrator/Master-Prompt-Migracion.md`](SDD/Devs/Orchestrator/Master-Prompt-Migracion.md) |
 | Encontrar las plantillas de intake | [`SDD/Devs/Intake/`](SDD/Devs/Intake/) |
 | Entender el orden de fases y qué produce cada una | [`SDD/Devs/Orchestrator/Master-Prompt.md`](SDD/Devs/Orchestrator/Master-Prompt.md) §6 y §7 |

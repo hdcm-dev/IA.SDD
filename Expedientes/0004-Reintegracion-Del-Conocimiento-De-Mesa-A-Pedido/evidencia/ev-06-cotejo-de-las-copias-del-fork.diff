@@ -1,0 +1,63 @@
+# Comando: por cada copia del §8 del fork, sus palabras contra las de la sección citada de la regla (difflib.SequenceMatcher sobre el texto normalizado: sin marcas de negrita, comillas angulares, viñetas ni saltos), y la misma sección de la vigente contra _legacy/13.21/
+# Base: SDD/Devs/Rules/Mesa-Rules.md 1.5 y SDD/Devs/Orchestrator/Master-Prompt.md 8.21 del árbol de la rama (iguales a _legacy/13.21/: diff vacío); fork 1.15 de un destino privado, en <insumos>
+# Quién: redactor designado
+# Forma: «@@ copia | rango del fork contra sección y líneas de la regla | vigente = legacy | razón | tramos distintos»; «-» lo que la regla dice y la copia no; «+» lo que la copia agrega.
+@@ jurado, reglas de votacion y homogeneidad | fork L609-L620 contra Mesa-Rules.md §6.4, lineas 454-465 | vigente = _legacy/13.21: si | razon de coincidencia 1.000 | tramos distintos 0
+@@ plan, texto exacto | fork L624-L626 contra Mesa-Rules.md §6.5, lineas 469-471 | vigente = _legacy/13.21: si | razon de coincidencia 0.884 | tramos distintos 2
++ Plan: copia de Mesa-Rules.md 1.5 §6.5 (mismo commit, líneas 469-471):
+- reversión.
+@@ criterio de corte | fork L630-L633 contra Mesa-Rules.md §6.7, lineas 507-510 | vigente = _legacy/13.21: si | razon de coincidencia 0.944 | tramos distintos 2
++ 507-510), que el fork no tiene:
++ Y de
+@@ cierre por decision | fork L634-L636 contra Master-Prompt.md §10.1, lineas 1521-1524 | vigente = _legacy/13.21: si | razon de coincidencia 0.786 | tramos distintos 1
+- Si el criterio no se alcanza en cuatro rondas, la decisión sube al humano de forma explícita.
++ Master-Prompt.md 8.21 §10.1 (mismo commit, líneas 1521-1524):
+@@ dos clases de hallazgo | fork L639-L642 contra Master-Prompt.md §10.0, lineas 1281-1284 | vigente = _legacy/13.21: si | razon de coincidencia 0.629 | tramos distintos 2
+- Un lector las decide peor que un guion: se cansa, muestrea, y su hallazgo es una observación en lugar de un veredicto.
++ …
++ un argumento se sostiene, si una decisión está bien tomada. Ningún guion las alcanza. El fork no tiene compuerta mecánica (por eso el bloque mínimo de §5.6 no trae
+@@ cierre por escalada | fork L654-L655 contra Mesa-Rules.md §6.7, lineas 512-512 | vigente = _legacy/13.21: si | razon de coincidencia 0.596 | tramos distintos 2
++ También cierra por escalada. Copia de Mesa-Rules.md 1.5 §6.7 (mismo commit, línea 512):
++ Los disparadores son los de la
+@@ lista cerrada de disparadores | fork L660-L668 contra Mesa-Rules.md §7, lineas 570-578 | vigente = _legacy/13.21: si | razon de coincidencia 1.000 | tramos distintos 0
+@@ forma de la escalada | fork L671-L672 contra Mesa-Rules.md §7.1, lineas 602-603 | vigente = _legacy/13.21: si | razon de coincidencia 0.789 | tramos distintos 2
++ Cómo sale cada una, de Mesa-Rules.md 1.5 §7.1 (líneas 602-603):
++ En el fork, el lote
+@@ escala de ancla | fork L678-L684 contra Mesa-Rules.md §6.1, lineas 365-371 | vigente = _legacy/13.21: si | razon de coincidencia 1.000 | tramos distintos 0
+@@ niveles P0-P3 | fork L694-L699 contra Master-Prompt.md §10, lineas 1486-1489 | vigente = _legacy/13.21: si | razon de coincidencia 1.000 | tramos distintos 0
+@@ origen del hecho, definicion | fork L707-L711 contra Master-Prompt.md §8.1, lineas 983-988 | vigente = _legacy/13.21: si | razon de coincidencia 0.856 | tramos distintos 4
++ Copia de Master-Prompt.md 8.21 §8.1 (mismo commit, líneas 983-988):
+- (§12.1 T0).
++ ….
+- —el hecho no vive en ningún repositorio, la base no se publicó, el historial se reescribió—
++ …
++ En una
+@@ origen del hecho, tabla | fork L718-L721 contra Master-Prompt.md §8.1, lineas 1001-1004 | vigente = _legacy/13.21: si | razon de coincidencia 0.927 | tramos distintos 2
+- conjunto, la tercera fila de la tabla de arriba.
++ conjunto ….
+- —la contraparte de arriba—,
++ …,
+@@ dos frases de la mesa | fork L723-L724 contra Mesa-Rules.md §7 y §8 (587-589; 648-650), lineas 587-589 | vigente = _legacy/13.21: si | razon de coincidencia 0.286 | tramos distintos 6
+- §8.1, antes de contrastarla con
++ Mesa-Rules.md 1.5 lo aplica a
+- lista. Una
++ mesa: una
+- cuyo hecho es
+- no se evalúa contra la lista sino contra la autocorrección sobre el conjunto, y
+- salir. El caso
++ salir (líneas 587-589), y ninguna sale sin declarar por qué la autocorrección
+- es hipotético: una corrida con varios ciclos de mesa el mismo día mira, en cada ciclo,
++ alcanzaba (líneas 648-650).
+# Resumen: 13 copias. 4 coinciden enteras (jurado, disparadores, escala de ancla, niveles P0-P3). 9 difieren sólo en el marco
+# («copia de… líneas…», «que el fork no tiene»), en «…» que elide la fuente o en el arranque de la frase de aplicación que sigue.
+# Ninguna copia contradice la regla vigente: todas pasan a cita por sección (padre §8 y §9, «Dependencias»).
+# Lo que las copias agregaban, y dónde se conserva en la 2.0:
++ fork L622-L623 el juez de riesgo es el de «riesgo e irreversibilidad»  -> se omite: lo dice Mesa-Rules.md §6.4
++ fork L643 «los enumerables en cero» los mide la presidencia en la base mecánica  -> padre §4, «Criterio de corte» (una ronda incluye su base mecánica)
++ fork L645-L653 una ronda es un ciclo completo; ni la regla propia ni el presupuesto son criterio; con cuatro rondas, sube  -> padre §4 y §5.4
++ fork L670-L674 un apartamiento es el disparador 7 y sale en el lote  -> excepción §4, «Autocorrección» y «La mesa ante una excepción»
++ fork L686-L689 qué ancla admite una ficha: E1 o E2 que muestran la contradicción; sólo E3, E4 o C no se admite  -> excepción §3, «Qué admite una ficha»
++ fork L702-L706 la presidencia declara la lectura de P0-P3 para el caso  -> padre §5.1, campo LECTURA P0–P3, sin la ruta del destino
++ fork L712-L713 en una mesa, la base de la corrida es el commit base del expediente y la calcula la presidencia  -> padre §3.3, «Origen del hecho antes de escalar»
++ fork L725-L727 «de la corrida» no suprime la pregunta y no se reclasifica por contenido  -> padre §3.3, misma fila
++ fork L729-L734 un apartamiento no se autocorrige, y la pregunta sale igual  -> excepción §4, «Autocorrección»

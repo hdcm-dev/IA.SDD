@@ -15,7 +15,7 @@ traces:
 # Guía de desarrollo y extensibilidad del framework SDD
 
 **Documento:** SDD-Development-Guide.md
-**Versión:** 1.31
+**Versión:** 1.32
 **Estado:** Vigente
 **Fecha:** 2026-07-29
 **Rol de intervención:** Mantenedor del framework
@@ -496,7 +496,7 @@ El conjunto de ocho tipos de unidad de entrega es cerrado por diseño, y esta gu
 
 **Qué obligaciones dispara.** Escribe en este repositorio, de modo que **es una intervención**: entrada en el `CHANGELOG.md`, copia del conjunto superado a `_legacy/` y nota de coherencia si alcanza a varios archivos. **`Conocimiento/` entra en el snapshot**, por el criterio de §VI.5 —sólo se excluye lo que no condiciona lo que el orquestador genera— y con el precedente de `Templates/`.
 
-**Cómo verificar.** La lista de criterios de aceptación de `Rules-Base-Conocimiento.md` §6.1, los catorce ítems, con su marca `[enumerable]` o `[interpretativo]` declarada una por una.
+**Cómo verificar.** La lista de criterios de aceptación de `Rules-Base-Conocimiento.md` §6.1, los quince ítems, con su marca `[enumerable]` o `[interpretativo]` declarada una por una.
 
 **Frontera con §III.6, que se confunde fácil.** Los dos ejes producen reglas de diseño reusables y usan la misma convención de nombres agnósticos del dominio. **El criterio es el origen**: un modelo UX-UI se captura de una **maqueta que el framework generó** y se aplica en la Fase B2; un documento de conocimiento caracteriza **algo externo al framework**. Si viene de afuera, es este eje.
 
@@ -1057,3 +1057,4 @@ que diga otra cosa.
 | 1.29 | 2026-08-27 | Dos recuentos por la entrada de `Mesa-Rules.md` (framework 13.7): `SDD/Devs/Rules/` pasa de **diecinueve a veinte** archivos normativos y de siete a **ocho** transversales, y la invariante que «vive en los diecinueve archivos de reglas y en los dos master-prompts» pasa a **veinte** y **tres** — el segundo era además un dato viejo, porque el tercer orquestador existe desde el conjunto 8.10. Sube **minor**: pone al día conteos sin derogar nada. |
 | 1.30 | 2026-09-12 | **§VI.3 suma la comprobación 14, afirmaciones de colisión con su medición**: toda afirmación de colisión o de no colisión que una intervención escribe o de la que parte —la de su origen, la de su verificación previa— está en la nota con su comando y su salida, y la recibida sin comando se reproduce antes de usarse. El punto 1 de §VI.3.1 rige al cerrar, y la afirmación ocurre antes. **§II.7** pasa sus dos recuentos de trece a **catorce** comprobaciones. **Las filas 1.25 a 1.29 de este registro estaban en orden inverso** y pasan a su lugar sin cambiar su texto, por la comprobación 10. Sube **minor** (framework 13.12). | Intervención de la colisión léxica |
 | 1.31 | 2026-09-13 | **El expediente de caso** (framework 13.18, reporte `31`). **§I.2**: el recuento de reglas pasa de veinte a **veintiuno** (nueve transversales), suma la fila `Expedientes/` y declara que los expedientes son la excepción a la eliminación de registros absorbidos. **§II.7**: `Expedientes/` no es conjunto normativo y su evidencia no es ejecutable. **§VI.3** acota la comprobación 2 al conjunto normativo, y **§VI.3.2** suma la clase estable `Expedientes/`. **§VI.5** suma `Expedientes/` a la lista cerrada de exclusiones del snapshot, con el motivo del `CHANGELOG.md`, y declara que estar en la raíz no alcanza. Sube **minor**. | Intervención del reporte `31` |
+| 1.32 | 2026-10-23 | **§III.11, «Cómo verificar»**: «los catorce ítems» de `Rules-Base-Conocimiento.md` §6.1 pasa a «los quince», por el ítem que la 2.3 suma (framework 13.22, expediente `Expedientes/0004-Reintegracion-Del-Conocimiento-De-Mesa-A-Pedido/`). Marcado al Product Owner (M-5 del expediente). |

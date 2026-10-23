@@ -1,0 +1,14 @@
+# Comando: grep -n -i -o -f <lista de términos privados, fuera del repositorio> <fork>, contado por término
+# Base: fork 1.15 de un destino privado, en <insumos>; visibilidad de IA.SDD medida por la API el 2026-10-23
+# Quién: presidente de mesa
+# ev-03 — Barrido de ofuscación sobre el fork 1.15. IA.SDD es público (API: private=false, medido 2026-10-23); el destino es privado.
+# Los términos se dan por código: la tabla código→término queda fuera del repositorio.
+# columnas: código | ocurrencias | líneas del fork
+T1 | 9 | 75,596,757,758,767,768,769,790,
+T2 | 1 | 761,
+T3 | 1 | 769,
+T4 | 1 | 769,
+T5 | 6 | 239,240,767,788,
+T6 | 3 | 239,788,
+T7 | 1 | 239,
+# Además: rutas de expedientes y bitácoras del destino (ev-01, filas NO RESUELVE) y fechas de pedidos del Product Owner.
