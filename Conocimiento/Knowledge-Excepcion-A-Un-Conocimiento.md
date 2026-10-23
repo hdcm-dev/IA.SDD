@@ -61,7 +61,7 @@ cosa. Una excepción a un documento consultivo no se vuelve no negociable por ll
 | **Jurado** | Vota la ficha y si el camino recomendado está fundado, con las reglas de `Mesa-Rules.md` §6.4 |
 | **Quien pidió** | Elige entre dos caminos, **valida** el único o pide otro. Es el único que aprueba |
 | **Quien aplica** | Sigue el camino provisorio, si lo hay, sin apoyar en él nada irreversible (§4) |
-| **Supuestos** | Hay un documento de esta base que rige el objeto, y su sección se puede citar literal. En una mesa, los roles son los de `Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` §1 |
+| **Supuestos** | Hay un documento de esta base que rige el objeto —una fila del índice que se barre: el del framework que corre o el de un fork en su ruta—, y su sección se puede citar literal. Una «convención de la casa» fuera de ese índice es una regla o decisión del producto y no pasa por este documento (`Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` §3.4). En una mesa, los roles son los de `Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` §1 |
 
 ## 2. Estructura
 
@@ -96,6 +96,9 @@ citan por `XC-<n>`, y el apartado de cierre da el estado vigente de cada una.
 | ¿Cumplir el documento es **imposible o contradictorio** con una restricción dura, una regla o un ADR `Aceptado`, con ancla E1 o E2? | Se escribe la ficha (§5.1) y la excepción se eleva en el cierre con el análisis del camino de compromiso (§5.3): uno o dos caminos fundamentados, no una pregunta de sí o no | Dos mesas de un destino privado, con cinco días de diferencia, dejaron de lado una tabla de parámetros que la convención de la casa mandaba usar. Una planeó una configuración propia porque «la tabla no existe» y llevó a quien pidió la falta de la tabla como obstáculo, no la opción de crearla. La otra nombró la tabla como polo de la tensión y la descartó por el aislamiento por aplicación y por un precedente del repositorio, sin el costo de cumplir y sin elevarlo: quien pidió se enteró preguntando. **Nombrar la alternativa no alcanza**: hace falta su costo y la elevación. Medido en un destino privado, no reproducible desde esta copia |
 | ¿Cumplir es **posible pero peor** —más caro, menos simple, «no aplica del todo», «ya había un patrón parecido en el repositorio»—? | **Se cumple.** Si se sostiene que la convención está mal calibrada, se escribe una propuesta de cambio, que rige recién cuando se apruebe | El mismo caso: el precedente del repositorio pasó por norma |
 
+**Si la excepción ya se ejecutó sin ficha**, el filtro no lleva a escribirla ahora: es un hallazgo (§4, «Una
+excepción ya ejecutada sin ficha»), y la ficha nace sólo si alguien sostiene hoy que cumplir es imposible.
+
 ## 4. Decisiones ya tomadas
 
 **Mientras quien pidió decide, el default depende de qué impide cumplir y de si el camino es reversible.**
@@ -105,18 +108,19 @@ Cada rama es una salida distinta:
 | --- | --- | --- |
 | **Rama de la regla**: una regla del framework o del destino, o una decisión aceptada del producto —un ADR `Aceptado` o la fuente de verdad que el producto declare—, **que manda otra cosa para la misma materia** | **Rige ella**, que ya manda: frente a un documento de conocimiento manda la regla (`Master-Prompt.md` §6; `Rules-Base-Conocimiento.md` §0.4), y un ADR `Aceptado` sólo lo supera otro ADR aprobado (`SDD/Devs/Rules/Rules-Arquitectura-Tecnica.md` §3.3). La pregunta es «¿cuál cede?» | La excepción queda como **deuda con su evento de cierre**: el ADR que la supere o el cambio de la convención |
 | **Una imposibilidad sin medir**: quien la sostiene no puede medirla porque le falta el acceso | Es **un obstáculo y no una decisión** (`Conocimiento/Knowledge-Cadena-De-Consecuencias.md` §3): la medición se pide en el momento a quien tiene el acceso | La ficha queda **«sin admitir»**. No hay camino provisorio y no avanza nada que dependa de la excepción. El análisis puede adelantarse. Una ficha condicionada a una medición que no se hizo no es una imposibilidad medida |
-| **Rama de la reversibilidad, camino reversible**: una restricción dura, una imposibilidad medida o citada, o una regla o decisión que **sólo prohíbe el medio** que el documento exige —la prohibición rige igual, pero no dice qué hacer en su lugar— | **Se avanza con el camino recomendado, marcado como provisorio** | «Provisorio, sin aprobar». El ADR que lo escriba queda `Propuesto`, y el camino es deuda cuyo evento de cierre es la respuesta de quien pidió. Ningún paso irreversible se apoya en él hasta esa respuesta: borrar o migrar datos con pérdida, publicar un contrato o desplegar a producción |
+| **Rama de la reversibilidad, camino reversible**: una restricción dura, una imposibilidad medida o citada, o una regla o decisión que **sólo prohíbe el medio** que el documento exige —la prohibición rige igual, pero no dice qué hacer en su lugar— | **Se avanza con el camino recomendado, marcado como provisorio** | «Provisorio, sin aprobar». El ADR que lo escriba queda `Propuesto`, y el camino es deuda cuyo evento de cierre es la respuesta de quien pidió. Ningún paso irreversible se apoya en él hasta esa respuesta: el merge, una etiqueta o una publicación (`Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` §0, renglón 2), borrar o migrar datos con pérdida, publicar un contrato o desplegar a producción. Es la misma lista en los dos documentos |
 | **Rama de la reversibilidad, camino no reversible** | **Se espera** | «En espera, sin aprobar». El ADR igual se escribe `Propuesto`. No avanza lo que depende de la excepción; el resto del trabajo sigue |
 
 En las dos ramas de la reversibilidad, el ADR pasa a `Aceptado` cuando quien pidió elige o valida un
-camino.
+camino. **En la rama de la regla el análisis se escribe igual**, porque toda ficha admitida lo lleva (§2): sus
+caminos dicen qué se haría si cede la regla, y el cierre pregunta «¿cuál cede?» con ellos a la vista.
 
 | Bifurcación | Decisión | Criterio |
 | --- | --- | --- |
 | Default ante una imposibilidad | **«Cumplir» no es default** | Una excepción se admite sólo si cumplir es imposible o contradictorio (§3): «se cumple» elegiría justo lo que se demostró que no se puede |
 | Silencio de quien pidió | **No asienta nada**: la excepción queda «sin aprobar» y rige el default de la tabla de arriba | Un provisorio no es un aprobado |
 | Autocorrección | **Una excepción no se autocorrige, y la pregunta sale igual** | La convención que rige entró como decisión cerrada (`Mesa-Rules.md` §4, `decisiones_cerradas`); no seguirla es reabrir una decisión cerrada, que es arbitraje y no autocorrección (`Mesa-Rules.md` §7, disparador 7), y sólo lo aprueba quien pidió. Si su origen es de la corrida, el cierre lo dice así: «la autocorrección no alcanza porque reabre una decisión cerrada (la convención que rige); es arbitraje de quien pidió». No hace falta una pregunta aparte sobre el método |
-| Una excepción ya ejecutada sin ficha, que encuentra otra mesa | **Es un hallazgo, no una ficha retroactiva**: la comisión que la encuentra lo emite con E1 o E2 —el documento que rige y lo que se hizo en su lugar—, y el jurado decide cumplir con un parche. Si alguien sostiene que cumplir es imposible, escribe la ficha ahora, a su nombre, y sigue el ciclo de §2. Una decisión cerrada que la contradiga no la ampara: dos decisiones cerradas en conflicto son el disparador 7 de `Mesa-Rules.md` §7 | Nadie escribe una ficha en nombre de quien no la escribió: lo publicado no se reescribe, y una ficha tardía fingiría una elevación que no ocurrió |
+| Una excepción ya ejecutada sin ficha, que encuentra otra mesa | **Es un hallazgo, no una ficha retroactiva**: la comisión que la encuentra lo emite con E1 o E2 —el documento que rige y lo que se hizo en su lugar—, y el jurado decide cumplir con un parche. Si alguien sostiene que cumplir es imposible, escribe la ficha ahora, a su nombre, y sigue el ciclo de §2. La decisión que la ejecutó, si el pedido la pone en revisión, es el objeto y no una decisión cerrada (`Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` §3.4): no la ampara y no hay disparador 7. Si no está en revisión y entró como decisión cerrada, son dos decisiones cerradas en conflicto: el disparador 7 de `Mesa-Rules.md` §7 | Nadie escribe una ficha en nombre de quien no la escribió: lo publicado no se reescribe, y una ficha tardía fingiría una elevación que no ocurrió |
 | La mesa ante una excepción | **No se detiene**: la excepción sale en el cierre, en el lote de las preguntas, con uno o dos caminos y el default | Es el mismo umbral que reabre una decisión cerrada. Convive con una delegación de quien pidió del tipo «la mesa decide»: la mesa no se frena, pero una excepción nunca se asienta por silencio |
 
 ## 5. Esqueletos de referencia
@@ -140,8 +144,9 @@ EXCEPCIÓN XC-{{n}}
   número con el informe de la comisión: la foliatura es contigua, un número por archivo (`Expediente-Rules.md`
   §6, A3). Ninguna ruta de ficha se asigna de antemano: quien propone la deja en su ruta de trabajo,
   `<rol>-ficha-<n>.md` junto a su informe, y quien preside la incorpora sin editarla
-  (`Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` §2.3, «Dónde escribe cada rol»). En un destino es una
-  sección del registro de la mesa, como los informes.
+  (`Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` §2.3, «Dónde escribe cada rol»). Donde los informes
+  son secciones del registro de la mesa (ese §2.3: en un destino, si la mesa cumple `Mesa-Rules.md` §0.0), la
+  ficha es una sección más, y donde el cierre pide `{{folio}}` va esa sección.
 - **Una ficha por decisión**, aunque toque varias secciones del documento: van todas en «Conocimiento».
 - **«Costo de cumplir» mide la alternativa más barata** que ve quien propone; las otras las mide o las
   descarta el refutador.
@@ -185,12 +190,12 @@ que se entrega el trabajo:
     (ninguna) — si no hubo
 ```
 
-**La cuenta compara informes**: comisiones convocadas, refutador, análisis de decisiones si se convocó, perito
-si lo hubo, cada rol convocado de la clase «interfaz en ejecución» y los dos del jurado, el de composición y
-el de veredicto (`Mesa-Rules.md` §2.2, ítems 2 y 5). Con seis comisiones, 6 + 1 + 2 = 9; con una ficha
-admitida, el análisis suma uno: 10. **Las fichas no cuentan**: se folian y se listan aparte, como la
-presentación, la providencia, el plan y el cierre. Las preguntas de este apartado van en el mismo lote que las
-demás del cierre.
+**La cuenta compara informes**, o sus secciones donde lo son: comisiones convocadas, refutador, análisis de
+decisiones si se convocó, perito si lo hubo, cada rol convocado de la clase «interfaz en ejecución» y los dos
+del jurado, el de composición y el de veredicto (`Mesa-Rules.md` §2.2, ítems 2 y 5). Con seis comisiones,
+6 + 1 + 2 = 9; con una ficha admitida, el análisis suma uno: 10. **Las fichas no cuentan**: se folian y se
+listan aparte, como la presentación, la providencia, el plan y el cierre. Las preguntas de este apartado van
+en el mismo lote que las demás del cierre.
 
 ### 5.3 El análisis del camino de compromiso
 
@@ -321,7 +326,7 @@ sobre el expediente.
 
 | Qué cita | Cómo resuelve | Ancla |
 | --- | --- | --- |
-| `Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` §1, §2.3, §3.4 | en el árbol | — |
+| `Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` §0, §1, §2.3, §3.4 | en el árbol | — |
 | `Conocimiento/Knowledge-Cadena-De-Consecuencias.md` §2, §3 | traída a `Cadena-De-Consecuencias` §2 y §3 | — |
 | La precedencia del conocimiento frente a la regla | equiparada: `SDD/Devs/Orchestrator/Master-Prompt.md` §6 y `SDD/Devs/Rules/Rules-Base-Conocimiento.md` §0.4 | `SDD/Devs/Orchestrator/Master-Prompt.md:577` (8.21 §6) y `SDD/Devs/Rules/Rules-Base-Conocimiento.md:98-103` (2.3 §0.4) |
 | La lista de documentos que rigen | equiparada: `SDD/Devs/Orchestrator/Master-Prompt.md` §6 | `SDD/Devs/Orchestrator/Master-Prompt.md:576` (8.21 §6) |
@@ -329,7 +334,7 @@ sobre el expediente.
 | La fuerza dentro de una mesa | manda `SDD/Devs/Rules/Mesa-Rules.md` §4 | `SDD/Devs/Rules/Mesa-Rules.md:245` y `:249-251` (1.5 §4) |
 | ADR `Propuesto` y `Aceptado`, registro de decisiones | equiparada: `SDD/Devs/Rules/Rules-Arquitectura-Tecnica.md` §3.3 y §4.1 | `SDD/Devs/Rules/Rules-Arquitectura-Tecnica.md:130-132` y `:170` |
 | La foliatura de la ficha | equiparada: `SDD/Devs/Rules/Expediente-Rules.md` §3.1 y §6 | `SDD/Devs/Rules/Expediente-Rules.md:367-369` (1.1 §6, A3) |
-| La escala de ancla, la escalada, el jurado y el cierre | en el árbol: `SDD/Devs/Rules/Mesa-Rules.md` §2.2, §4, §6.1, §6.4, §6.7 y §7 | — |
+| La escala de ancla, la escalada, el jurado y el cierre | en el árbol: `SDD/Devs/Rules/Mesa-Rules.md` §0.0, §2.2, §4, §6.1, §6.4, §6.7 y §7 | — |
 | Apartamiento declarado, detención, desviación, la carpeta vaciable | manda `SDD/Devs/Rules/Root-Rules.md` §11, `Master-Prompt.md` §8.1 y `Rules-Base-Conocimiento.md` §0.2, §0.4 y §6.1 | — |
 | `SDD/Devs/Guides/Coherencia-Mesa-De-Expertos-A-Pedido.md` §3, `Expedientes/0003-Retroalimentacion-De-La-Especificacion-Ante-Cambios/` y `Expedientes/0004-Reintegracion-Del-Conocimiento-De-Mesa-A-Pedido/` | en el árbol: el cotejo de origen y los ejemplares. Ninguna hace falta para aplicar el documento | — |
 
@@ -337,4 +342,4 @@ sobre el expediente.
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
-| 1.0 | 2026-10-23 | Emisión inicial (framework 13.22, expediente `Expedientes/0004-Reintegracion-Del-Conocimiento-De-Mesa-A-Pedido/`). Sale de partir el conocimiento `Mesa-De-Expertos-A-Pedido` al incorporar la sustancia de su fork 1.15 de un destino privado: la regla general de excepción, cotejada cláusula por cláusula con la de las convenciones de ese destino y traída sin su guarda y con el alcance acotado a quien aplica este documento (§3, §4, §8); la ficha, el apartado de cierre y el análisis del camino de compromiso (§5). Cambia el término: en el origen era «apartamiento», que en este framework designa el ADR de `Root-Rules.md` §11 y entra en `restricciones_duras`. La ficha pasa de folio derivado que compartía el número de su comisión a folio propio de la serie, y lo que el origen completaba después sobre la ficha lo asientan los folios que actúan. Tras la prueba del expediente (folio 018): la ficha se deja en la ruta de trabajo del padre §2.3, la cuenta suma perito y roles de interfaz, y una excepción ya ejecutada sin ficha es un hallazgo (§4). |
+| 1.0 | 2026-10-23 | Emisión inicial (framework 13.22, expediente `Expedientes/0004-Reintegracion-Del-Conocimiento-De-Mesa-A-Pedido/`). Sale de partir el conocimiento `Mesa-De-Expertos-A-Pedido` al incorporar la sustancia de su fork 1.15 de un destino privado: la regla general de excepción, cotejada cláusula por cláusula con la de las convenciones de ese destino y traída sin su guarda y con el alcance acotado a quien aplica este documento (§3, §4, §8); la ficha, el apartado de cierre y el análisis del camino de compromiso (§5). Cambia el término: en el origen era «apartamiento», que en este framework designa el ADR de `Root-Rules.md` §11 y entra en `restricciones_duras`. La ficha pasa de folio derivado que compartía el número de su comisión a folio propio de la serie, y lo que el origen completaba después sobre la ficha lo asientan los folios que actúan. Tras la prueba del expediente (folio 018): la ficha se deja en la ruta de trabajo del padre §2.3, la cuenta suma perito y roles de interfaz, y una excepción ya ejecutada sin ficha es un hallazgo (§4). Tras la segunda reproducción (folio 021): la convención fuera del índice no pasa por este documento (§1); la excepción ya ejecutada no se ficha desde el filtro (§3) y la decisión que la ejecutó, puesta en revisión, no es decisión cerrada (§4); la lista de pasos irreversibles es la del padre; la rama de la regla también lleva análisis (§4); la ficha es sección del registro sólo donde los informes lo son (§5.1). |

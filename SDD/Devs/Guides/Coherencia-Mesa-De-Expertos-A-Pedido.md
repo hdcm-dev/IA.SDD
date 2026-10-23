@@ -136,21 +136,21 @@ sin línea en el hermano es falla.
 
 | Cláusula del destino | Dónde quedó |
 | --- | --- |
-| La guarda: rige si el índice existe y tiene filas, para todo agente y toda mesa | **No se trae** (folio 013, C-4): acá estaría siempre encendida. Lo dice `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:294` (§8) |
+| La guarda: rige si el índice existe y tiene filas, para todo agente y toda mesa | **No se trae** (folio 013, C-4): acá estaría siempre encendida. Lo dice `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:299` (§8) |
 | Un precedente del producto no es una regla; frente a una regla manda la regla | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:87` (§3) |
 | Por contradicción, no por conveniencia; la ficha con sus siete datos | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:88` (§3) y §5.1 |
 | «Más simple», «no aplica del todo», «ya había un patrón»: se cumple y se propone | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:88` (§3) |
 | Sale con un análisis de cuatro pasos, no con un sí o no; en una mesa lo hace el análisis de decisiones | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:89` (§3) y `:60` (§1) |
-| Paso 1: alternativas, con la más cercana a cumplir; las imposibles, con su ancla | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:219` (§5.3) |
-| Paso 2: criterios citados, sin inventar; dos fijos; pesos antes; lo cumplible sigue rigiendo; fuera del documento, el estándar | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:223`, `:229` y `:232` (§5.3) |
-| Paso 3: uno o dos caminos, con recomendación y reversibilidad; sin segundo, cuál quedó segunda | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:234` (§5.3) |
-| Paso 4: quien pidió elige, valida o pide otro; no se asienta por silencio | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:62` (§1) y `:117` (§4) |
-| Default, regla o decisión aceptada: rige ella, deuda con evento de cierre | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:106` (§4) |
-| Default, imposibilidad sin medir: obstáculo, se pide la medición, sin admitir | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:107` (§4) |
-| Default, reversible: provisorio, ADR `Propuesto`, nada irreversible encima; definición de reversible | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:108` (§4) y `:241` (§5.3) |
-| Default, no reversible: se espera | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:109` (§4) |
-| El ADR pasa a `Aceptado` con la respuesta | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:111` (§4) |
-| «Cumplir» no es default ante una imposibilidad | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:116` (§4) |
+| Paso 1: alternativas, con la más cercana a cumplir; las imposibles, con su ancla | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:224` (§5.3) |
+| Paso 2: criterios citados, sin inventar; dos fijos; pesos antes; lo cumplible sigue rigiendo; fuera del documento, el estándar | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:228`, `:234` y `:237` (§5.3) |
+| Paso 3: uno o dos caminos, con recomendación y reversibilidad; sin segundo, cuál quedó segunda | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:239` (§5.3) |
+| Paso 4: quien pidió elige, valida o pide otro; no se asienta por silencio | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:62` (§1) y `:121` (§4) |
+| Default, regla o decisión aceptada: rige ella, deuda con evento de cierre | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:109` (§4) |
+| Default, imposibilidad sin medir: obstáculo, se pide la medición, sin admitir | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:110` (§4) |
+| Default, reversible: provisorio, ADR `Propuesto`, nada irreversible encima; definición de reversible | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:111` (§4) y `:246` (§5.3) |
+| Default, no reversible: se espera | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:112` (§4) |
+| El ADR pasa a `Aceptado` con la respuesta | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:114` (§4) |
+| «Cumplir» no es default ante una imposibilidad | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:120` (§4) |
 | El término «apartamiento»; «desviación» y «desvío» | `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md:29` (§0), con otro término (folio 013, C-3) y «desvío» equiparado a `Mesa-Rules.md` §6.1 |
 
 ### 3.5 La cadena de consecuencias del destino, cláusula por cláusula
@@ -206,7 +206,8 @@ no se autocorrige (excepción §4).
 
 La lista completa, ítem por ítem y por documento, está en la entrada `[13.22]` del `CHANGELOG.md`, con el
 comando de cada ítem enumerable, y la salida de la comprobación de la copia sin historia en `evidencia/ev-05`
-del expediente; la de la corrección tras la prueba, en su folio 018.
+del expediente; la de la corrección tras la prueba, en su folio 018, y la de la corrección tras la segunda
+reproducción, en su folio 021.
 
 ## 6. Pendientes de la norma
 
@@ -218,9 +219,14 @@ No se aplican: tocarían una regla, un orquestador o el índice, y no hacen falt
 | P-2 | Una columna de dependencias en el índice. Tocaría `Rules-Base-Conocimiento.md` §7.1 | No: lo resuelven el mapa de carga y la tabla de §9 |
 | P-3 | Que el orquestador cargue el conocimiento en tres niveles | Queda como norma de despacho por decidir |
 | P-4 | Que una regla mande abrir el índice ante un pedido fuera del orquestador, o cargar el padre antes de un encargo sin mesa | No |
-| — | El techo de §6.2 es calibrable: el padre quedó a cuarenta líneas del techo de §6.2 (600) y en el de redacción de la resolución (560) | Se mide con el próximo documento real |
+| — | El techo de §6.2 es calibrable: el padre quedó a 20 líneas del techo de §6.2 (600), 20 por encima del de redacción de la resolución (560), que el folio 021 declara | Se mide con el próximo documento real |
 | P-5 | Que `SDD/Devs/Rules/Catalogo-De-Criterios.md` lleve una fila para el pedido de una mesa por nombre: hoy remite a `Mesa-Rules.md` §0.0 (`:90`), y un agente que siga sólo el catálogo no llega al índice de conocimiento. Tocaría una regla | No: el `README.md` lo resuelve (M-6) |
 | P-6 | Que la evidencia del expediente 0004 se renombre `NNN-<slug>` (`Expediente-Rules.md` §3.1): la resolución 013 fijó `ev-01` a `ev-06`, como el precedente publicado del 0003, y renombrar va contra ella | No: se conservan los nombres de la resolución, y el folio 018 lo declara |
+| P-7 | Si toda mesa a pedido abre expediente: el testimonio del pedido cumple siempre la rama 2 de `Expediente-Rules.md` §1, y su anti-patrón I1 rechaza un expediente por mesa (M-1 del folio 019). Tocaría esa regla | No se toca: rige su §1 tal cual, y el padre §2.3 remite a ella |
+| P-8 | `Mesa-Rules.md` §6.2 a §6.7 llama P0 a P5 a las fases del ciclo, y la misma regla usa P0–P3 como niveles (M-8 del folio 019). Tocaría esa regla | No: una carta cita la fase por su sección, nunca por «P» |
+| P-9 | `Root-Rules.md` §14 no tiene clase de cambio para un arreglo que restituye lo prometido (M-9 del folio 019). Tocaría esa regla | No: «no altera el compromiso», con su observable |
+| P-10 | A4 y A8 de `Expediente-Rules.md` §6 leen las cabeceras y los cercos de un bloque de código como propios del folio (M-11 del folio 019). Tocaría esa regla | No: un folio que los ilustra los escribe con sangría |
+| P-11 | `Mesa-Rules.md` §6.1 (`:387`) cita un folio del expediente 0003 con puntos suspensivos, que A10 no resuelve (R-3 del folio 019). Tocaría esa regla | No: resuelve a mano |
 
 ## 7. Marcado al Product Owner
 
@@ -248,5 +254,5 @@ regla de excepción entró sin su guarda.
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
-| 1.1 | 2026-10-23 | Documenta la 2.0 del documento y sus dos documentos nuevos (expediente `Expedientes/0004-Reintegracion-Del-Conocimiento-De-Mesa-A-Pedido/`): el cierre de dependencias y su unidad (§2), las versiones del fork sin rutas del destino (§3.1), el destino de cada una de las 36 referencias que no resolvían (§3.2), la equiparación de las siete invariantes de la regla base del destino (§3.3), el cotejo cláusula por cláusula de las dos secciones traídas (§3.4, §3.5), el de las copias de reglas (§3.6), lo que quedó fuera del cierre (§3.7), los pendientes de la norma (§6) y lo marcado al Product Owner (§7). La fuente del testimonio E4 deja de nombrar el archivo de otro repositorio y lo describe. Se quitan de la 1.0, porque la 1.1 reescribe esos apartados: la remisión a `SDD-Development-Guide.md` §III.11 como eje de extensión, la objeción de ubicación, «no se midió nada nuevo para esta nota», la lección que se consideró y no entró, y el recuento de `_legacy/13.16/` (131 archivos); la 1.0 sigue entera en `_legacy/13.21/`. Tras la prueba (folio 018): los pendientes P-5 y P-6, lo marcado M-5 y M-6, y las anclas de la excepción recalculadas. |
+| 1.1 | 2026-10-23 | Documenta la 2.0 del documento y sus dos documentos nuevos (expediente `Expedientes/0004-Reintegracion-Del-Conocimiento-De-Mesa-A-Pedido/`): el cierre de dependencias y su unidad (§2), las versiones del fork sin rutas del destino (§3.1), el destino de cada una de las 36 referencias que no resolvían (§3.2), la equiparación de las siete invariantes de la regla base del destino (§3.3), el cotejo cláusula por cláusula de las dos secciones traídas (§3.4, §3.5), el de las copias de reglas (§3.6), lo que quedó fuera del cierre (§3.7), los pendientes de la norma (§6) y lo marcado al Product Owner (§7). La fuente del testimonio E4 deja de nombrar el archivo de otro repositorio y lo describe. Se quitan de la 1.0, porque la 1.1 reescribe esos apartados: la remisión a `SDD-Development-Guide.md` §III.11 como eje de extensión, la objeción de ubicación, «no se midió nada nuevo para esta nota», la lección que se consideró y no entró, y el recuento de `_legacy/13.16/` (131 archivos); la 1.0 sigue entera en `_legacy/13.21/`. Tras la prueba (folio 018): los pendientes P-5 y P-6, lo marcado M-5 y M-6, y las anclas de la excepción recalculadas. Tras la segunda reproducción (folio 021): los pendientes P-7 a P-11, la distancia al techo y las anclas de la excepción recalculadas otra vez. |
 | 1.0 | 2026-09-13 | Emisión inicial. Documenta el alta de `Mesa-De-Expertos-A-Pedido`, la decisión de catalogar el uso y no reabrir la norma, y la fuente de cada afirmación del documento. |
