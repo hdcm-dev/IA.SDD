@@ -1,0 +1,57 @@
+# Comando: grep -oE '[A-Za-z0-9_./-]+\.md\b' <fork> | sort -u, y la búsqueda de cada referencia en el árbol de IA.SDD sin _legacy (detalle en la línea 5)
+# Base: IA.SDD main c9b3e46 (13.21); fork 1.15 de un destino privado, copiado fuera del repositorio como <insumos>/…fork-1.15.md
+# Quién: presidente de mesa
+# ev-01 — Referencias a archivos .md del fork 1.15 y su resolución en un workspace limpio con sólo IA.SDD. Las rutas del destino van reemplazadas por un marcador de su función (folio 018), con su línea, sus ocurrencias y su línea del fork
+# Comando: grep -oE '[A-Za-z0-9_./-]+\.md\b' <fork> | sort -u; búsqueda de cada una en el árbol de IA.SDD (main c9b3e46, sin _legacy)
+# columnas: referencia | ocurrencias | primera línea | resuelve en IA.SDD
+<folio-de-bitácora-del-destino-01>.md | 1 | L759 | NO RESUELVE
+<folio-de-bitácora-del-destino-02>.md | 1 | L757 | NO RESUELVE
+<folio-de-bitácora-del-destino-03>.md | 1 | L757 | NO RESUELVE
+<folio-de-bitácora-del-destino-04>.md | 1 | L759 | NO RESUELVE
+<folio-de-bitácora-del-destino-05>.md | 1 | L759 | NO RESUELVE
+<folio-de-ronda-de-revisión-del-destino-01>.md | 2 | L758 | NO RESUELVE
+<folio-de-ronda-de-revisión-del-destino-02>.md | 5 | L760 | NO RESUELVE
+<folio-de-ronda-de-revisión-del-destino-03>.md | 1 | L761 | NO RESUELVE
+<folio-de-ronda-de-revisión-del-destino-04>.md | 2 | L760 | NO RESUELVE
+<folio-de-ronda-de-revisión-del-destino-05>.md | 2 | L764 | NO RESUELVE
+<folio-de-ronda-de-revisión-del-destino-06>.md | 1 | L764 | NO RESUELVE
+<folio-de-ronda-de-revisión-del-destino-07>.md | 2 | L765 | NO RESUELVE
+<folio-de-ronda-de-revisión-del-destino-08>.md | 1 | L762 | NO RESUELVE
+<folio-de-ronda-de-revisión-del-destino-09>.md | 2 | L762 | NO RESUELVE
+<folio-de-ronda-de-revisión-del-destino-10>.md | 2 | L765 | NO RESUELVE
+<folio-de-ronda-de-revisión-del-destino-11>.md | 2 | L766 | NO RESUELVE
+<folio-de-ronda-de-revisión-del-destino-12>.md | 2 | L766 | NO RESUELVE
+<folio-de-expediente-del-destino-01>.md | 1 | L768 | NO RESUELVE
+<folio-de-expediente-del-destino-02>.md | 1 | L768 | NO RESUELVE
+<folio-de-expediente-del-destino-03>.md | 1 | L768 | NO RESUELVE
+<folio-de-expediente-del-destino-04>.md | 1 | L768 | NO RESUELVE
+<folio-de-expediente-del-destino-05>.md | 1 | L768 | NO RESUELVE
+<plantilla-del-folio-de-análisis-de-decisiones>.md | 1 | L604 | NO RESUELVE
+<corrección-de-un-caso-del-destino>.md | 1 | L239 | NO RESUELVE
+Coherencia-Condicion-De-Convocatoria.md | 1 | L756 | SDD/Devs/Guides/Coherencia-Condicion-De-Convocatoria.md 
+Coherencia-Mesa-De-Evaluacion.md | 3 | L42 | SDD/Devs/Guides/Coherencia-Mesa-De-Evaluacion.md 
+Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md | 1 | L664 | Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md 
+<convenciones-comunes-del-destino>.md | 21 | L205 | NO RESUELVE
+Deriva-Rules.md | 1 | L233 | SDD/Devs/Rules/Deriva-Rules.md 
+<registro-de-decisiones-de-arquitectura-del-destino>.md | 1 | L757 | NO RESUELVE
+<carta-de-comisión-de-un-expediente-del-destino>.md | 1 | L704 | NO RESUELVE
+<folio-de-otro-expediente-del-destino>.md | 1 | L761 | NO RESUELVE
+Expediente-Rules.md | 16 | L52 | SDD/Devs/Rules/Expediente-Rules.md 
+<folio-de-prueba-sin-contexto-del-destino-01>.md | 1 | L768 | NO RESUELVE
+<folio-de-prueba-sin-contexto-del-destino-02>.md | 1 | L768 | NO RESUELVE
+<folio-de-prueba-sin-contexto-del-destino-03>.md | 1 | L768 | NO RESUELVE
+<folio-de-bitácora-de-un-caso-del-destino>.md | 1 | L236 | NO RESUELVE
+Index-Knowledge.md | 3 | L280 | Conocimiento/Index-Knowledge.md 
+Master-Prompt.md | 21 | L49 | SDD/Devs/Orchestrator/Master-Prompt.md 
+Mesa-Rules.md | 73 | L35 | SDD/Devs/Rules/Mesa-Rules.md 
+<carpeta-de-agentes-del-destino>/<convenciones-comunes-del-destino>.md | 2 | L760 | NO RESUELVE
+<carpeta-de-conocimiento-del-destino>/Index-Knowledge.md | 1 | L280 | NO RESUELVE
+<bitácora-de-producción-de-un-caso-del-destino>.md | 1 | L236 | NO RESUELVE
+README.md | 4 | L171 | Conocimiento/README.md Examples/New-Solution/README.md 
+<regla-base-de-conocimiento-del-destino>.md | 5 | L10 | NO RESUELVE
+Root-Rules.md | 3 | L110 | SDD/Devs/Rules/Root-Rules.md 
+Rules-Base-Conocimiento.md | 2 | L224 | SDD/Devs/Rules/Rules-Base-Conocimiento.md 
+SDD/Devs/Guides/Coherencia-Mesa-De-Expertos-A-Pedido.md | 1 | L756 | SDD/Devs/Guides/Coherencia-Mesa-De-Expertos-A-Pedido.md 
+SDD/Devs/Orchestrator/Master-Prompt.md | 3 | L758 | SDD/Devs/Orchestrator/Master-Prompt.md 
+SDD/Devs/Rules/Expediente-Rules.md | 4 | L52 | SDD/Devs/Rules/Expediente-Rules.md 
+SDD/Devs/Rules/Mesa-Rules.md | 7 | L48 | SDD/Devs/Rules/Mesa-Rules.md 

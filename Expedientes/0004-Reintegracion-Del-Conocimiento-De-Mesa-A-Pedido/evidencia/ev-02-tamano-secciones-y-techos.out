@@ -1,0 +1,73 @@
+# Comando: wc -l y grep -n '^#' sobre los dos documentos; grep -m1 'Versión' sobre las reglas; wc -l sobre Conocimiento/
+# Base: IA.SDD main c9b3e46 (13.21); fork 1.15 de un destino privado, en <insumos>
+# Quién: presidente de mesa
+# ev-02 — Tamaño y secciones: IA.SDD 1.2 contra el fork 1.15; techos de Rules-Base-Conocimiento.md §6.2 (propio 600, canonico 250)
+   309 Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md
+   790 <insumos>/Knowledge-Mesa-De-Expertos-A-Pedido.fork-1.15.md
+  1099 total
+## secciones IA.SDD 1.2
+17:## 0. Propósito y alcance
+48:## 1. Identidad del artefacto
+66:## 2. Estructura
+68:### 2.1 El ciclo a pedido, paso por paso
+83:### 2.2 Las cuatro clases de objeto y su variante
+110:### 2.3 El expediente de la mesa
+130:## 3. Contrato de uso
+132:### 3.1 Cómo se lee un pedido
+151:### 3.2 Convenciones que no se rompen
+166:### 3.3 Filtros de juicio que el uso dejó
+178:## 4. Decisiones ya tomadas
+190:## 5. Esqueletos de referencia
+192:### 5.1 Contrato de entrada
+210:### 5.2 Despacho de una comisión
+230:### 5.3 Carpeta del expediente
+235:### 5.4 Campos de cierre que suma la clase «interfaz en ejecución»
+245:## 6. Criterios de aceptación
+259:## 7. Anti-patrones
+274:## 8. Frontera con las reglas
+293:## 9. Trazabilidad
+303:## 10. Control de cambios
+## secciones fork 1.15
+17:## 0. Propósito y alcance
+77:## 1. Identidad del artefacto
+95:## 2. Estructura
+97:### 2.1 El ciclo a pedido, paso por paso
+113:### 2.2 Las cuatro clases de objeto y su variante
+142:### 2.3 El expediente de la mesa
+188:## 3. Contrato de uso
+190:### 3.1 Cómo se lee un pedido
+210:### 3.2 Convenciones que no se rompen
+228:### 3.3 Filtros de juicio que el uso dejó
+243:### 3.4 Las convenciones que rigen, medidas
+252:## 4. Decisiones ya tomadas
+265:## 5. Esqueletos de referencia
+267:### 5.1 Contrato de entrada
+291:### 5.2 Despacho de una comisión
+322:### 5.3 Carpeta del expediente
+344:### 5.4 Campos de cierre que suma la clase «interfaz en ejecución»
+354:### 5.5 Ficha de apartamiento
+394:### 5.6 Campos de cierre: apartamientos de conocimientos
+458:### 5.7 Análisis del camino de compromiso
+522:## 6. Criterios de aceptación
+550:## 7. Anti-patrones
+573:## 8. Frontera con las reglas
+748:## 9. Trazabilidad
+771:## 10. Control de cambios
+## versiones de reglas vigentes en IA.SDD c9b3e46
+SDD/Devs/Rules/Mesa-Rules.md: **Versión de las reglas:** 1.5
+SDD/Devs/Rules/Expediente-Rules.md: **Versión de las reglas:** 1.1
+SDD/Devs/Orchestrator/Master-Prompt.md: **Versión:** 8.21
+SDD/Devs/Rules/Rules-Base-Conocimiento.md: **Versión de las reglas:** 2.2
+SDD/Devs/Rules/Root-Rules.md: **Versión de las reglas:** 8.9
+SDD/Devs/Rules/Deriva-Rules.md: **Versión de las reglas:** 5.5
+## techo de líneas de los conocimientos del catálogo
+    59 Conocimiento/Index-Knowledge.md
+   247 Conocimiento/Knowledge-Clean-Architecture-DataManager.md
+   346 Conocimiento/Knowledge-Conformacion-Pull-Request-Automatico.md
+   218 Conocimiento/Knowledge-Conformacion-Pull-Request-Manual.md
+   273 Conocimiento/Knowledge-Entorno-De-Ejecucion-Del-Agente.md
+   309 Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md
+   937 Conocimiento/Knowledge-Template-Blazor-Interactive-Server-SDD-Default.md
+   877 Conocimiento/Knowledge-Template-HTML-SDD-Default.md
+    67 Conocimiento/README.md
+  3333 total

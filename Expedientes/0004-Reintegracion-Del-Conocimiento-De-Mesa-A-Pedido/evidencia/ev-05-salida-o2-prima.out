@@ -1,0 +1,63 @@
+# Comando: los pasos 1 a 7 y 9 de la resolución (folio 013, §7) sobre el árbol de la redacción; cada bloque abre con su comando
+# Base: árbol de trabajo de la rama del expediente sobre la base 13.21, sin commit (el paso 1 emula git archive con los archivos versionados y no ignorados)
+# Quién: redactor designado
+
+## paso 1 · copia sin historia
+copia sin historia: 7118 archivos; ls -A del workspace = IA.SDD
+
+## pasos 2, 4 y 7 · python3 -I Expedientes/0004-Reintegracion-Del-Conocimiento-De-Mesa-A-Pedido/evidencia/ev-04-comprobacion-o2-prima.py . --estricto <tres documentos, índice, nota, regla>
+# forma	Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md	líneas=550	KB=64.6	prosa>110=0
+# forma	Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md	líneas=335	KB=30.8	prosa>110=0
+# forma	Conocimiento/Knowledge-Cadena-De-Consecuencias.md	líneas=160	KB=13.3	prosa>110=0
+# forma	Conocimiento/Index-Knowledge.md	líneas=64	KB=9.7	prosa>110=0
+# forma	SDD/Devs/Guides/Coherencia-Mesa-De-Expertos-A-Pedido.md	líneas=266	KB=21.8	prosa>110=0
+# forma	SDD/Devs/Rules/Rules-Base-Conocimiento.md	líneas=545	KB=38.3	prosa>110=6
+Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md	264	ruta en Expedientes/ o _legacy/ (estricto)	Expedientes/0003-Retroalimentacion-De-La-Especificacion-Ante-Cambios/actuaciones/019-resolucion-consolidacion-veredicto-dictamen-y-plan.md	Expedientes/0003-Retroalimentacion-De-La-Especificacion-Ante-Cambios/actuaciones/019-resolucion-consolidacion-veredicto-dictamen-y-plan.md
+Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md	541	ruta en Expedientes/ o _legacy/ (estricto)	Expedientes/0003-Retroalimentacion-De-La-Especificacion-Ante-Cambios/actuaciones/019-resolucion-consolidacion-veredicto-dictamen-y-plan.md	Expedientes/0003-Retroalimentacion-De-La-Especificacion-Ante-Cambios/actuaciones/019-resolucion-consolidacion-veredicto-dictamen-y-plan.md
+SDD/Devs/Rules/Rules-Base-Conocimiento.md	362	prosa > 110 columnas	293	LARGA
+SDD/Devs/Rules/Rules-Base-Conocimiento.md	363	prosa > 110 columnas	193	LARGA
+SDD/Devs/Rules/Rules-Base-Conocimiento.md	368	prosa > 110 columnas	169	LARGA
+SDD/Devs/Rules/Rules-Base-Conocimiento.md	369	prosa > 110 columnas	147	LARGA
+SDD/Devs/Rules/Rules-Base-Conocimiento.md	372	prosa > 110 columnas	134	LARGA
+SDD/Devs/Rules/Rules-Base-Conocimiento.md	518	prosa > 110 columnas	116	LARGA
+# resumen: alias ok=49, carpeta de expediente ok=18, identificador ok=12, líneas ok=58, prosa > 110 columnas falla=6, ruta ok=308, ruta en Expedientes/ o _legacy/ (estricto) ok=2, tabla Dependencias ok=29, § ok=216
+# fallas: 6
+# salida: 1
+
+## paso 3 · nada apunta afuera (tres documentos y la nota)
+Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md	0	0
+Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md	0	0
+Conocimiento/Knowledge-Cadena-De-Consecuencias.md	0	0
+SDD/Devs/Guides/Coherencia-Mesa-De-Expertos-A-Pedido.md	0	0
+
+## paso 5 · ofuscación
+# grep -ciE -f $PRIV_ENCARGO (los siete nombres del encargo; lista fuera del repositorio) <lo escrito>
+# total: 0
+# grep -ciE -f $PRIV (lista fuera del repositorio) <tres documentos, índice, nota, regla, entrada [13.22]>
+# total: 0
+# rutas del host o del scratchpad en lo escrito: 0
+
+## paso 6 · citas entrantes al padre (git grep en SDD/ y Conocimiento/)
+Conocimiento/Knowledge-Entorno-De-Ejecucion-Del-Agente.md:46:Mesa-De-Expertos-A-Pedido.md` §3.1
+Conocimiento/Knowledge-Entorno-De-Ejecucion-Del-Agente.md:145:Mesa-De-Expertos-A-Pedido.md` §3.1
+Conocimiento/Knowledge-Entorno-De-Ejecucion-Del-Agente.md:264:Mesa-De-Expertos-A-Pedido.md) §3.1
+SDD/Devs/Guides/Coherencia-Entorno-De-Ejecucion-Del-Agente.md:39:Mesa-De-Expertos-A-Pedido.md` §3.1
+SDD/Devs/Rules/Mesa-Rules.md:574:Mesa-De-Expertos-A-Pedido.md` §3.1
+948:sección llega **sólo** por la mesa a pedido (`Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` 949-§2.1, pasos 9 y 10) y por el expediente (`Expediente-Rules.md` §4), y por eso esos dos la citan; lo que 
+# secciones de destino en el padre: 124:### 2.1 El ciclo a pedido, paso por paso 221:### 3.1 Cómo se lee un pedido 
+
+## paso 7 · techo, cabecera e índice
+Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md	wc -l=550	campos=11	secciones=11
+Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md	wc -l=335	campos=11	secciones=11
+Conocimiento/Knowledge-Cadena-De-Consecuencias.md	wc -l=160	campos=11	secciones=11
+
+## paso 9 · regresión sobre el resto del catálogo (no reprueba)
+# forma	Conocimiento/Knowledge-Clean-Architecture-DataManager.md	líneas=247	KB=11.8	prosa>110=1
+# forma	Conocimiento/Knowledge-Conformacion-Pull-Request-Manual.md	líneas=218	KB=14.5	prosa>110=3
+# forma	Conocimiento/Knowledge-Conformacion-Pull-Request-Automatico.md	líneas=346	KB=23.9	prosa>110=7
+# forma	Conocimiento/Knowledge-Template-HTML-SDD-Default.md	líneas=877	KB=47.7	prosa>110=6
+# forma	Conocimiento/Knowledge-Template-Blazor-Interactive-Server-SDD-Default.md	líneas=937	KB=47.8	prosa>110=12
+# forma	Conocimiento/Knowledge-Entorno-De-Ejecucion-Del-Agente.md	líneas=273	KB=21.3	prosa>110=6
+Conocimiento/Knowledge-Conformacion-Pull-Request-Automatico.md	42	alias	Knowledge-Bundle-JS	SIN FILA EN EL ÍNDICE
+Conocimiento/Knowledge-Template-HTML-SDD-Default.md	246	alias	Panel-De-Registros.html	SIN FILA EN EL ÍNDICE
+# fallas: 53

@@ -3,6 +3,58 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.22] - 2026-10-23
+
+**El conocimiento de la mesa a pedido se había quedado trece versiones atrás de un fork suyo, y traerlo tal cual dejaba al framework apuntando a lo que no viaja.** Un destino privado llevó `Mesa-De-Expertos-A-Pedido` de la 1.2 a su 1.15 —enunciado del problema, caso que funciona, excepción a un conocimiento, ciclo de vida de la evidencia— y lo apoyó en dos archivos de su propio pipeline. El Product Owner pidió incorporarlo **íntegro y con sus dependencias**, porque `IA.SDD` se descarga en un workspace limpio y mañana otro lo forkea: un conocimiento traído que apunta a otro repositorio queda incompleto. Expediente `Expedientes/0004-Reintegracion-Del-Conocimiento-De-Mesa-A-Pedido/`: dos rondas, ocho comisiones, resolución en el folio 013.
+
+### Agregado
+
+- `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md` **1.0** — `propio`, `transversal`, sin condición de carga, **hermano** del padre: cuándo se deja de seguir un documento que rige (por contradicción, no por conveniencia), la ficha `XC-<n>` como folio propio, el análisis del camino de compromiso, el default por rama y el apartado de cierre. La regla de excepción del destino entra cotejada cláusula por cláusula, **sin su guarda** y con alcance acotado a quien aplica el documento. En el origen se llamaba «apartamiento», que acá es el ADR de `Root-Rules.md` §11.
+- `Conocimiento/Knowledge-Cadena-De-Consecuencias.md` **1.0** — `propio`, `transversal`, sin condición de carga: **la dependencia traída**, íntegra. Cuatro pasos antes de recomendar, el obstáculo que no es una decisión, la acción denegada que no se le pide a otro agente, la restricción como opción. Es hoja del grafo de citas: un fork la puede traer sola.
+
+### Cambiado
+
+- `Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` 1.2 → **2.0** (mayor: se parte). Queda como la puerta, con archivo, alias, §2.1 y §3.1 en su lugar. Recupera la salida entera de «Origen del hecho antes de escalar», que la 1.2 había perdido. Las copias de reglas que llevaba el fork se cotejaron (`evidencia/ev-06`) y pasan a cita por sección. §9 suma la tabla «Dependencias». Después de la prueba del expediente (folio 018): §1 dice cuándo una mesa a pedido cumple `Mesa-Rules.md` §0.0 y qué de este documento se toma entonces; §2.3, dónde escribe cada rol antes de su folio y en qué folio entra lo que quien pidió escribe a mitad del caso; §3.1, el pedido de diseñar lo que el producto no prometía, que `Mesa-Rules.md` §7 ya le atribuía; §3.4, qué índice se barre y qué pasa con dos decisiones cerradas en conflicto; §4, quién aplica, nunca un rol del panel.
+- `SDD/Devs/Rules/Rules-Base-Conocimiento.md` 2.2 → **2.3**, **marcado al Product Owner (M-1)**: §2.2, un documento que se suma desde otro repositorio llega con su cierre; §6.1, el ítem `[enumerable]` que lo verifica en una copia sin historia, que **no rige hacia atrás** (la lista pasa de catorce a quince); §8, la línea del snippet; §10.
+- `Conocimiento/Index-Knowledge.md` 1.6 → **1.7**: la fila del padre desde su cabecera, dos altas a continuación, la cabecera compatible con la 2.3 y §2 corregido (remitía a un tool-prompt que no existe; M-2). El catálogo pasa de siete a **nueve**, **nueve de nueve** filas iguales a su cabecera campo por campo (guion).
+- `SDD/Guides/SDD-Development-Guide.md` 1.31 → **1.32**, **marcado al Product Owner (M-5)**: §III.11 decía «los catorce ítems» de §6.1, que con la 2.3 son quince.
+- `README.md`, **marcado al Product Owner (M-6)**: la matriz de ruteo suma una fila para la mesa que alguien pide por nombre, que remite al índice de conocimiento sin nombrar ningún documento.
+- `SDD/Devs/Guides/Coherencia-Mesa-De-Expertos-A-Pedido.md` 1.0 → **1.1**: el destino de cada una de las 36 referencias que no resolvían, las siete invariantes de la regla base del destino equiparadas con línea, los dos cotejos cláusula por cláusula, los pendientes de la norma y lo marcado.
+
+### Verificación contra `Rules-Base-Conocimiento.md` §6.1 (2.3)
+
+| # | Ítem | Padre 2.0 | Excepción 1.0 | Cadena 1.0 |
+| --- | --- | --- | --- | --- |
+| 1 | `[enumerable]` Once campos, ninguno vacío (`sed -n 3,13p … \| grep -cP '^\*\*[\p{L}-]+:\*\* \S'`) | 11 | 11 | 11 |
+| 2 | `[enumerable]` Nombre `Knowledge-<Tema>.md`, ASCII, sin prefijo | Cumple | Cumple | Cumple |
+| 3 | `[enumerable]` Alias único en el índice (filas con ese alias) | 1 | 1 | 1 |
+| 4 | `[enumerable]` §0 a §10 (`grep -c '^## [0-9]*\.'`) | 11 | 11 | 11 |
+| 5 | `[enumerable]` Techo de §6.2, `propio` 600 (`wc -l`) | 560 (techo de redacción 560) | 340 (480) | 160 (200) |
+| 6 | `[enumerable]` Ocho campos comunes iguales a la fila | 10 de 10 columnas | 10 de 10 | 10 de 10 |
+| 7 | `[enumerable]` Ofuscación declarada | Cumple, ver abajo | Cumple | Cumple |
+| 8 | `[enumerable]` Toda referencia resuelve en una copia sin historia (nuevo en 2.3) | 0 fallas; falsos positivos: L192 `<carpeta-del-caso>/despacho/<rol>.md` y `<rol>-ficha-<n>.md`, L207 y L467 `README.md` (la carátula de un caso), L216 `NNN-<slug>.txt`, L400 y L454 `<carpeta-del-caso>` | 0 fallas; falsos positivos: L137 `actuaciones/NNN-informe-ficha-de-excepcion-<n>.md`, L142 `<rol>-ficha-<n>.md` | 0 fallas; ninguno |
+| 9 | `[enumerable]` Numeración contigua | §2.1–§2.3 (§2.2 con su subsección sin número), §3.1–§3.4, §5.1–§5.4 | §5.1–§5.3 | sin subsecciones |
+| 10 | `[enumerable]` Contradicción con el piso declarada | No contradice: §8 lo dice | No contradice; §8 declara qué era en su origen | Ídem |
+| 11 | `[interpretativo]` §0 declara qué queda afuera | Ocho filas | Seis filas | Cuatro filas |
+| 12 | `[interpretativo]` Un `canonico` escribe el delta | No aplica | No aplica | No aplica |
+| 13 | `[interpretativo]` No define criterios, nomenclatura ni gating | Cumple: §6 sobre el expediente | Cumple | Cumple |
+| 14 | `[interpretativo]` Las siete propiedades de §4.4 | Cumple, con «un hecho, un lugar» por la partición | Cumple | Cumple |
+| 15 | `[interpretativo]` Usable sin contexto previo | Cumple desde el alias, por el renglón 6 de §0 | Cumple | Cumple |
+
+**Ofuscación (ítem 7).** `grep -ciE -f <lista>` con los nombres del producto, la organización, el proveedor y los sistemas del destino, sobre los tres documentos, el índice, la regla, la nota y esta entrada: **0**. La lista ampliada —identificadores, hashes y números de expedientes del destino— también da **0** sobre los mismos archivos. Las dos listas viven fuera del repositorio: escribirlas acá publicaría lo que ocultan. El paso 3 de la resolución —los nombres de las dos dependencias del destino y de su carpeta de prompts, una invariante numerada como las del destino y un hash entre acentos graves— sobre los tres documentos y la nota: **0**. Falsos positivos declarados: ninguno en los documentos.
+
+**Comprobación de la copia sin historia** (`Expedientes/0004-Reintegracion-Del-Conocimiento-De-Mesa-A-Pedido/evidencia/ev-04`, corrido después de la corrección sobre un `git archive` del árbol en un workspace vacío; folio 018): sobre los tres documentos, el índice y la nota resuelven **329 rutas, 257 secciones citadas, 58 rangos de líneas, 50 alias, 12 identificadores y 18 carpetas de expediente, con 0 fallas**; la tabla «Dependencias» nombra los 29 archivos que los tres documentos citan fuera de sí. En la regla, las 6 líneas de prosa de más de 110 columnas son anteriores a esta edición. Los falsos positivos son los de la fila 8, uno por uno. Dos rutas resuelven dentro de `Expedientes/`, declaradas: el folio 019 del expediente 0003, que §3.3 del padre cita como caso. Las seis citas entrantes al padre (`Mesa-Rules.md` §7, `Root-Rules.md` §14.7, `Entorno-De-Ejecucion-Del-Agente` y su nota) caen en la misma sección, y la de `Mesa-Rules.md` §7 encuentra ahora en §3.1 lo que le atribuye.
+
+### Por qué es minor
+
+Por el precedente de la 13.9, la 13.17, la 13.19 y la 13.21, y porque la regla que cambia sube **minor**: la 2.3 suma una obligación que **no rige hacia atrás**, de modo que ningún documento escrito contra la 2.2 deja de cumplir. Ningún orquestador ni plantilla cambia; la guía de desarrollo y el `README.md` cambian un recuento y una fila.
+
+### Impacto sobre destinos existentes
+
+**Ninguno obligatorio.** Los tres documentos no tienen condición de carga y ninguna regla los nombra: con `Conocimiento/` vacía el framework corre igual. Un destino que cite `Mesa-De-Expertos-A-Pedido` §2.1 o §3.1 sigue cayendo donde caía; quien citaba §3.3 «¿Contradicción o conveniencia?» o las fichas encuentra la excepción en su hermano.
+
+`SDD/Devs/Guides/Coherencia-Mesa-De-Expertos-A-Pedido.md` 1.1 lleva la fuente de cada decisión. `_legacy/13.21/` guarda el conjunto entero, **140 archivos** contados contra `git ls-tree -r` de la base del expediente en `Conocimiento Examples PROMPTS README.md SDD Templates`, sin `Expedientes/` y con cero diferencias.
+
 ## [13.21] - 2026-09-19
 
 **El traspaso por pull request tenía catalogada una sola variante, la manual, y la práctica ya corría otra.** Varios destinos del taller delegaron el merge al agente: abre el pull request, fusiona, borra la rama y sigue. Esa variante no tenía alias con el que citarse ni guarda escrita, y dos fallas medidas en su uso —un merge con controles en rojo por una guarda mal escrita, y seis fusiones encadenadas sobre un control roto por aceptar `unstable`— mostraban qué le faltaba. Esta versión la cataloga **por diferencia con el padre y sin mover una coma de la norma**.

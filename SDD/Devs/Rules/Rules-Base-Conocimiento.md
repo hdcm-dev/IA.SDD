@@ -3,7 +3,7 @@
 **Carpeta target:** `Conocimiento/` de este repositorio
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
 **Agente target:** el prompt de relevamiento que cita este archivo, fuera de una corrida de generación, y AG-00980 (Bibliotecario de conocimiento) en tiempo de ejecución
-**Versión de las reglas:** 2.2
+**Versión de las reglas:** 2.3
 
 ---
 
@@ -164,6 +164,11 @@ documentos: lo resuelve §4.5, no la especialidad.
   que sólo tengan sentido en su dominio. Es la misma condición que `Index-Modelos-UX-UI.md` §4 y
   `Maqueta-Rules.md` §6 punto 5 ya imponen, y se verifica igual: búsqueda de términos del dominio, del
   cliente y del stack de origen, con los falsos positivos léxicos declarados uno por uno.
+- **Un documento que se suma desde otro repositorio llega con su cierre.** Toda referencia del documento
+  resuelve en este árbol, por un equivalente verificado con línea o porque lo citado se trajo a
+  `Conocimiento/`. La norma que lo gobernaba en su origen se reemplaza por esta. La trazabilidad al origen
+  se describe sin apuntar. Es lo que permite descargar el framework en un workspace vacío, o forkearlo y
+  sumar conocimientos, sin que un documento quede apuntando a un repositorio que no viaja.
 - **Lo que no es publicable no va acá.** Un fork privado puede guardar lo que quiera en su propia
   `Conocimiento/`; este repositorio, no. La regla de formato es la misma en los dos casos.
 
@@ -356,6 +361,10 @@ el modo de falla más frecuente y el más caro, porque el resultado parece un do
 - [ ] `[enumerable]` El documento entra bajo el techo de §6.2.
 - [ ] `[enumerable]` Existe la fila en `Index-Knowledge.md` y sus **ocho campos comunes** coinciden con la cabecera: alias, naturaleza, tema, consumidor, condición de carga, hereda-de, sustituye y compatible-con. `Documento` sale del nombre de archivo; `Versión` y `Fecha` no viajan al índice.
 - [ ] `[enumerable]` **La verificación de ofuscación está declarada**: términos del dominio, del cliente y del stack de origen buscados, con los falsos positivos léxicos enumerados uno por uno.
+- [ ] `[enumerable]` **Toda referencia de la prosa resuelve en una copia sin historia del árbol** (§2.2):
+      rutas, secciones citadas, alias e identificadores. Los literales de los esqueletos de §5 y los
+      ejemplos se declaran uno por uno como falsos positivos. Rige desde la 2.3: no se exige a un
+      documento escrito contra una versión anterior.
 - [ ] `[enumerable]` **La numeración interna es contigua y sin huecos**: no hay una `§N.3` sin `§N.1` y `§N.2`. Una sección con una sola subsección la lleva sin numerar.
 - [ ] `[enumerable]` Si el documento contradice un ítem del piso, o el índice declara `sustituye`, o §8 declara la desviación con su justificación.
 - [ ] `[interpretativo]` §0 declara qué queda afuera, y no en términos genéricos.
@@ -458,6 +467,7 @@ Reglas que no se negocian:
     desviación justificada en §8 del documento (§0.4).
   - Un documento, un artefacto. Si aparecen dos temas, son dos documentos.
   - Entrás bajo el techo de §6.2 o partís el documento.
+  - Si el artefacto viene de otro repositorio, traés su cierre (§2.2).
 
 Antes de devolver, corré la lista de §6.1 completa y declarás el resultado de cada ítem.
 ```
@@ -527,6 +537,7 @@ que tienda a cero a medida que las condiciones se afinan.
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
+| 2.3 | 2026-10-23 | **Un documento que se suma desde otro repositorio llega con su cierre** (framework 13.22, expediente `Expedientes/0004-Reintegracion-Del-Conocimiento-De-Mesa-A-Pedido/`, marcado al Product Owner como M-1). **§2.2** suma la viñeta: toda referencia resuelve en este árbol, por un equivalente verificado con línea o porque lo citado se trajo a `Conocimiento/`; la norma del origen se reemplaza por ésta y la trazabilidad se describe sin apuntar. **§6.1** suma el ítem `[enumerable]` que lo verifica en una copia sin historia, con los falsos positivos declarados, y que **no rige hacia atrás**: la lista pasa de catorce a **quince** ítems. **§8** suma la línea del snippet. Es la propiedad que el Product Owner pidió para cualquier fork: el framework se descarga en un workspace limpio, y un conocimiento traído que apunta a lo que no viaja queda incompleto. Volver atrás son estos cuatro bloques y el `Compatible-con` de los documentos y del índice que se escribieron contra la 2.3. |
 | 2.2 | 2026-08-23 | **El contrato de `AG-00980` deja de ser una especificación sin uso** (framework 13.5). §9.3 precisa que el pedido sale por el bloque `PEDIDO DE CONOCIMIENTO` de `Master-Prompt.md` §9.1 —que es donde la mecánica quedó escrita— y que describe **la necesidad en prosa y no el alias**, porque el subagente no conoce el catálogo. Suma la salvaguarda de **un pedido por despacho**: el segundo es un bucle, se registra y no se atiende. |
 | 2.1 | 2026-08-23 | **Se actualiza la referencia al piso rotulado** (framework 13.4). `Maqueta-Rules.md` §4 pasó a declarar sus dos capas explícitamente: §4.1 es decisión de stack y **§4.2 a §4.7** es método, con dos ítems que cambiaron de subsección. §0.3 ajusta el rango citado y nombra que el rótulo ya existe del otro lado, con lo que la **sustitución de §0.4 deja de ser una previsión y pasa a tener contra qué validarse**. |
 | 2.0 | 2026-08-23 | **Cambia el modelo de dónde vive la base, y con él tres reglas de esta.** La base **deja de ser un repositorio externo declarado en el intake** y pasa a ser `Conocimiento/`, una **carpeta anexa de este repositorio**. El motivo es operativo y decide: `IA.SDD` es el repositorio desde el que se lanza, de modo que la base viaja con lo que se clona en vez de tener que ser alcanzada. **El desacoplamiento no cambia y se declara mejor en §0.0**: no es privacidad ni ubicación, es que **el framework corre con la carpeta vacía y su comportamiento base no cambia cuando se llena**, porque ninguna regla nombra un documento y sólo existe el contrato del índice. **El mecanismo de extensión es el fork**: quien quiera su base forkea, agrega sus documentos y se lleva el método intacto. Tres consecuencias, y las tres invierten lo que la 1.1 decía. **§2.2**: una captura **escribe en este repositorio y por lo tanto es una intervención sobre él**, con nota de coherencia, `CHANGELOG.md` y copia a `_legacy/`; **`Conocimiento/` entra en el snapshot**, por el criterio de `SDD-Development-Guide.md` §VI.5 —sólo se excluye lo que no condiciona lo que el orquestador genera— y con el precedente de `Templates/`. **La compuerta de ofuscación corre y es bloqueante**, porque el repositorio es público: es la misma condición de `Index-Modelos-UX-UI.md` §4, y §6.1 suma su ítem, con lo que la lista pasa de trece a **catorce**. **§7.4**: no hay identidad de versión propia de la base, **es la del framework**, y por lo tanto **el intake no declara ninguna raíz ni ninguna versión**: cita alias y nada más. §3.2 vuelve **obligación** el nombre agnóstico del dominio, que en la 1.1 era recomendación. |
