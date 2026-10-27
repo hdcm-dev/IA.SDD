@@ -1,0 +1,7 @@
+# Enlaces que Verificar no marca como rotos: son ilustrativos y apuntan a la estructura del proyecto destino
+# (la norma muestra cómo enlaza un destino, no un archivo de este repositorio). Uno por línea: <archivo> -> <destino>.
+SDD/Devs/Guides/Coherencia-Referencias-Derivadas.md -> CU-00001-…
+SDD/Devs/Rules/Root-Rules.md -> 00-Contexto/
+SDD/Devs/Rules/Root-Rules.md -> 01-Necesidades-Negocio/
+SDD/Devs/Rules/Root-Rules.md -> Producto/
+SDD/Devs/Rules/Rules-Necesidades-Negocio.md -> Necesidades-De-Negocio/NB-00001-Reduccion-Tiempo-Asignacion-Turno.md
