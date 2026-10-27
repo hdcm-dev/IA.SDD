@@ -1,7 +1,7 @@
 # Master prompt SDD — Orquestador del producto
 
 **Archivo:** `Master-Prompt.md`
-**Versión:** 8.21
+**Versión:** 8.22
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
 **Prerequisitos:** `SDD/Intake/PRODUCT-INTAKE-<Slug-Producto>.md` completo. El `PRODUCT-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
@@ -1022,6 +1022,12 @@ Declarado por el agente, sí sería aquel eje con otro nombre.
 > trabajo propio**, y se resuelve bajo la autocorrección. Se detiene lo que **no** tiene cita posible:
 > lo que requiere intención de producto, autoridad, o una preferencia que el árbol no contiene.
 
+**Antes de detener, la prueba de materialidad** (`Conocimiento/Knowledge-Logica-De-Decision.md` §2): ¿es
+aditivo o estructural?, ¿su reversión entra en una línea?, ¿pone en riesgo el objetivo del producto?, ¿de quién
+es la norma que choca?, ¿tiene efecto externo? Lo aditivo, reversible, sin riesgo y sin efecto externo **no
+requiere autoridad del humano**: se resuelve —si choca con un ADR propio, con un ADR consecuente— y se declara en
+la entrega. Lo que sí se detiene sale con propuesta, default que avanza y qué respuesta cambiaría la decisión.
+
 **La cita es el criterio, no la intuición.** Un hallazgo que se puede sostener citando archivo y línea
 lo puede cerrar el agente; uno que sólo se puede sostener opinando, no. Verificado en la corrida que lo
 originó: de **seis hallazgos de un audit, cinco se sostenían con cita y los cerró el agente**; el
@@ -2036,3 +2042,4 @@ Reglas de versionado:
 
 **Fin del master-prompt SDD**
 | 8.21 | 2026-09-16 | **La reintegración de un cambio posterior al handoff entra al orquestador** (framework 13.20, expediente `0003` del framework). **§6 y §7** suman a la Fase I el paso «1 bis» que devuelve a 02, 03, 05, 06 y a la fuente de alcance lo que el incremento cambió, por `Root-Rules.md` §14. **§10 acota el P0** «un documento contradice el código» a los documentos que describen el sistema como hecho: una contradicción con un ADR `Aceptado` es deriva mayor con sus dos vías, nunca la reescritura del ADR; la Fase I corre además A13–A15 de `Expediente-Rules.md`. **§10.0** suma las comprobaciones 9 (versión de cabecera = última fila del historial) y 10 (expedientes resueltos reintegrados, por categoría declarada). **§12.1 T3** suma las unidades «tramo de un plan aprobado» e «incremento posterior al handoff»; **T4** suma las líneas `Apartamientos:` y `Especificación:`. **§13.1 y §15** corrigen la cita a `Rules-Backlog-Tecnico.md` §3.4, que nació rota en 13.14 (la política de versionado y su evento viven en §3.6); la fila 8.18 de este historial la conserva como estaba, porque un historial no se reescribe. **§15** suma el término. Sube **minor**: un paso dentro de una fase existente, comprobaciones nuevas y líneas de entrega; ninguna fase nueva ni insumo obligatorio nuevo. | Expediente 0003 del framework |
+| 8.22 | 2026-10-27 | **§9: prueba de materialidad antes de detener** (mesa de lógica de decisión, despacho X01; caso C01 del corpus D02: una mesa elevó la superación de un ADR propio frente a un agregado de documentación aditivo y reversible). Se conserva «ante la duda, se detiene —sobre un hecho ajeno a la corrida—». Sube **minor**: ninguna fase ni insumo nuevo. | Mesa de lógica de decisión, 2026-10-27 |

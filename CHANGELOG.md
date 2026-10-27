@@ -3,6 +3,27 @@
 Todos los cambios relevantes de este repositorio (`IA.SDD`) se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [13.23] - 2026-10-27
+
+**Una mesa le llevó al Product Owner trece preguntas, y once se contestaban midiendo el cambio.** La mesa de lógica de decisión, pedida por el Product Owner el 2026-10-27, agrega el análisis previo a elevar. Nota de coherencia: `SDD/Devs/Guides/Coherencia-Logica-De-Decision.md`. El conjunto superado (13.22) queda en `_legacy/13.22/`.
+
+### Agregado
+
+- `Conocimiento/Knowledge-Logica-De-Decision.md` **1.0**: `propio`, `transversal`, sin condición de carga. Prueba de materialidad de cinco preguntas, cinco salidas, ADR consecuente sobre un ADR propio, consulta con propuesta y default, carta con intención y lección por decisión. Es copia fiel de IA.Knowledge.Base. Antes de aplicarse se hizo una validación ciega: 20/20 casos nuevos sin falso DECIDIR.
+- `SDD/Devs/Guides/Coherencia-Logica-De-Decision.md` 1.0.
+
+### Cambiado
+
+- `SDD/Devs/Orchestrator/Master-Prompt.md` 8.21 → **8.22**: §9, la prueba de materialidad va antes de detener.
+- `SDD/Devs/Rules/Mesa-Rules.md` 1.5 → **1.6**: cambia §7.
+  - Prueba previa y ADR consecuente.
+  - Disparador 3, sólo lo estructural.
+  - El 5 suma credenciales y accesos, producción y organización ajena.
+  - El 6, sólo entre opciones irreversibles.
+  - Se agregan el 8 (zona del Product Owner), el 9 (primera delegación, acotada) y el 10 (obstáculo en el momento).
+- `Conocimiento/Knowledge-Excepcion-A-Un-Conocimiento.md` 1.0 → **1.1**: §4, en la rama de la regla, un ADR propio cede por ADR consecuente.
+- `Conocimiento/Index-Knowledge.md` 1.7 → **1.8**: el catálogo pasa de nueve a **diez** documentos.
+
 ## [13.22] - 2026-10-23
 
 **El conocimiento de la mesa a pedido se había quedado trece versiones atrás de un fork suyo, y traerlo tal cual dejaba al framework apuntando a lo que no viaja.** Un destino privado llevó `Mesa-De-Expertos-A-Pedido` de la 1.2 a su 1.15 —enunciado del problema, caso que funciona, excepción a un conocimiento, ciclo de vida de la evidencia— y lo apoyó en dos archivos de su propio pipeline. El Product Owner pidió incorporarlo **íntegro y con sus dependencias**, porque `IA.SDD` se descarga en un workspace limpio y mañana otro lo forkea: un conocimiento traído que apunta a otro repositorio queda incompleto. Expediente `Expedientes/0004-Reintegracion-Del-Conocimiento-De-Mesa-A-Pedido/`: dos rondas, ocho comisiones, resolución en el folio 013.
