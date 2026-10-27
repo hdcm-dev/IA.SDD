@@ -3,7 +3,7 @@
 **Carpeta target:** `SDD/Docs/Audit/` del repositorio destino
 **Nivel de aplicación (`Vocabulario-Rules.md` §4 R3):** Framework
 **Agente target:** los orquestadores de reanudación y de migración, y AG-00970 (Presidente de mesa) en tiempo de ejecución
-**Versión de las reglas:** 1.5
+**Versión de las reglas:** 1.6
 
 ---
 
@@ -567,22 +567,31 @@ olvidó.
 respuesta en el árbol?»*— y esta sección lo completa con lo que faltaba: **la lista cerrada de los
 casos en los que la respuesta es no**. Fuera de esta lista, la mesa resuelve y registra.
 
+**Antes de la lista, la prueba de materialidad** (`Conocimiento/Knowledge-Logica-De-Decision.md` §2): un cambio
+aditivo —no toca un contrato público, un esquema persistido con datos, la arquitectura de capas ni el objetivo
+declarado—, cuya reversión entra en una línea, sin riesgo para el objetivo y sin efecto externo **no entra en los
+disparadores 3 ni 7**. Un ADR propio del producto que choca con ese cambio se supera, acota o ratifica con un
+**ADR consecuente** que la mesa escribe `Aceptado` por la delegación vigente y declara en la resolución.
+
 | # | Disparador | Familia de detención del método |
 | --- | --- | --- |
 | 1 | **Ambigüedad de intención irresoluble por evidencia**: el corpus admite dos lecturas legítimas y ninguna ancla desempata | `Master-Prompt.md` §9, ambigüedad |
 | 2 | **Conflicto entre restricciones duras**: no hay solución que satisfaga todas las del contrato de entrada | §7.0, arbitraje. **Bloquea el ciclo** |
-| 3 | **Cambio de alcance**: la corrección agrega, quita o redefine lo que el producto promete. **En una mesa a pedido cuyo pedido foliado es el propio cambio de alcance** (`Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` §3.1: el Product Owner pidió diseñar lo que el producto no prometía), el pedido **es** el arbitraje de §7.0 y el ciclo no se bloquea; lo que sí exige es la clase `compromiso` en la resolución y la fila de alcance propuesta al Product Owner (`Root-Rules.md` §14.2) | §7.0, arbitraje. **Bloquea el ciclo**, salvo el caso declarado |
+| 3 | **Cambio de alcance estructural**: la corrección quita o redefine lo que el producto promete, o agrega algo estructural o que pone en riesgo su objetivo; un agregado aditivo y reversible no lo es. **En una mesa a pedido cuyo pedido foliado es el propio cambio de alcance** (`Conocimiento/Knowledge-Mesa-De-Expertos-A-Pedido.md` §3.1: el Product Owner pidió diseñar lo que el producto no prometía), el pedido **es** el arbitraje de §7.0 y el ciclo no se bloquea; lo que sí exige es la clase `compromiso` en la resolución y la fila de alcance propuesta al Product Owner (`Root-Rules.md` §14.2) | §7.0, arbitraje. **Bloquea el ciclo**, salvo el caso declarado |
 | 4 | **Irreversibilidad con impacto material**: migración de datos, contrato público, cualquier cosa cuya reversión cueste más que la corrección | §8.1, detención con propuesta |
-| 5 | **Dominio con consecuencia externa**: dinero, datos personales, obligaciones legales o de terceros | §8.1, detención con propuesta |
-| 6 | **Empate persistente del jurado** tras dos rondas | §8.1, detención con propuesta |
+| 5 | **Dominio con consecuencia externa**: dinero, datos personales, obligaciones legales o de terceros, producción, configuración de una organización ajena, credenciales y accesos (crearlos, rotarlos, revocarlos, concederlos o exponerlos) | §8.1, detención con propuesta |
+| 6 | **Empate persistente del jurado** tras dos rondas, entre dos opciones irreversibles (entre una reversible y otra que no, rige la reversible; entre dos reversibles, decide la presidencia) | §8.1, detención con propuesta |
 | 7 | **Reapertura de una decisión cerrada**: el panel sostiene con ancla E1 o E2 que una decisión del contrato de entrada es **contradictoria** —no que es mejorable— | §7.0, arbitraje |
+| 8 | **Zona del Product Owner**: borrar o sobrescribir lo que declaró suyo | No se actúa; se deja la propuesta |
+| 9 | **Primera delegación en un destino**: no hay delegación asentada en el destino ni literal citable del Product Owner que cubra esa clase de decisión (el caso típico: el primer merge automático de un repositorio nuevo); no alcanza a destinos ya delegados ni a lo aditivo y reversible | §8.1, detención con propuesta |
+| 10 | **Obstáculo en el momento**: falta un acceso que sólo el Product Owner puede dar, o falló un paso que él prescribió; no se rodea por otro camino | Una línea en el mismo turno, no al lote |
 
 **Todo lo demás se resuelve sin consultar**: redacción, estructura, trazabilidad faltante, criterios de
 aceptación ausentes, nombres, orden de tareas y elección técnica dentro de las restricciones ya dadas.
 Son exactamente las tres detenciones que §0.1 midió como no siendo del humano.
 
 **Antes de la lista, el origen del hecho.** La lista contesta **qué clase de decisión es**, y ninguno de
-los siete disparadores pregunta **de dónde salió el hecho**. El presidente calcula el **origen del
+los diez disparadores pregunta **de dónde salió el hecho**. El presidente calcula el **origen del
 hecho** de cada escalada candidata contra la base de la corrida, con la cláusula de `Master-Prompt.md`
 §8.1, **antes** de contrastarla con la lista. **Una escalada cuyo hecho es de la corrida no se evalúa
 contra la lista sino contra la autocorrección sobre el conjunto**, y sólo sale si esa cláusula la deja
@@ -716,3 +725,4 @@ Insumos: {{LISTA}}, `Vocabulario-Rules.md`, y el contrato de entrada de la mesa.
 | 1.3 | 2026-09-12 | **§6.1: una afirmación de colisión o de no colisión se ancla sólo en E1**, con el comando que localiza sus ocurrencias por el contexto de lectura de `Vocabulario-Rules.md` §9.2; sin él es `C` y no funda parche. Una cita literal muestra dónde está una palabra, y no dónde no está, que es lo que la afirmación sostiene. **§8** suma el criterio enumerable. Vale para el despacho, los especialistas y el refutador: medido sobre una mesa, el despacho llevaba cuatro datos y tres estaban mal, y el refutador contó líneas donde había que contar ocurrencias. **No se agrega ningún rol ni punto de invocación.** Sube **minor**: un registro de mesa ya emitido sigue cumpliendo. | Intervención de la colisión léxica |
 | 1.4 | 2026-09-13 | **La mesa convive con el expediente de caso** (framework 13.18, reporte `31`). **§2.2 punto 1**: si el caso tiene expediente, la cabecera nombra su carpeta, y el expediente folia el registro por `ruta@commit` sin copiarlo. **§7.1**: la respuesta del humano a una escalada se asienta con su literal, con la forma de testimonio de `Expediente-Rules.md` §3.3, que la vuelve aprobación registrada de D9. **§8, criterio 1**: en el framework, que no tiene `SDD/Docs/`, el registro es el expediente; sin eso el criterio daba falso en el único repositorio donde se corrió una mesa sin destino. Sube **minor**: un registro ya emitido sigue cumpliendo. | Intervención del reporte `31` |
 | 1.5 | 2026-09-16 | **La mesa declara la reintegración y no absuelve desvíos con el código** (framework 13.20, expediente `0003` del framework). **§6.1**: una cita del código que contradice un ADR cerrado del contrato es deriva mayor, no defecto documental; el parche va al código o a un ADR nuevo, nunca a reescribir el ADR. **§6.6**: cada parche `APLICAR` nombra el artefacto de especificación que altera; la resolución lleva la fila `Reintegra` de `Root-Rules.md` §14.4 y la ejecuta quien aplica, como último tramo. **§6.7**: el bloque de cierre cita esa fila. **§7 disparador 3**: en una mesa a pedido cuyo pedido foliado es el cambio de alcance, el pedido es el arbitraje y el ciclo no se bloquea. Medido: de cuatro mesas de un destino, una escribió el bloque de cierre y cuatro la resolución —por eso la declaración va en la resolución—; dos diseñaron cambios de alcance pedidos por el Product Owner y con la letra de la 1.4 habrían quedado bloqueadas. Sube **minor**: un registro emitido bajo la 1.4 sigue cumpliendo. | Expediente 0003 del framework |
+| 1.6 | 2026-10-27 | **La prueba de materialidad va antes de la lista** (mesa de lógica de decisión, despacho X01; casos C01, C02, C14 y C17 del corpus D02). **§7:** prueba de materialidad y ADR consecuente; disparador 3 «estructural»; disparador 6 sólo entre irreversibles; disparador 5 suma producción, organización ajena y credenciales; disparadores 8, 9 (acotado) y 10 (obstáculo en el momento). Sube **minor**: una escalada emitida bajo la 1.5 sigue siendo válida. | Mesa de lógica de decisión, 2026-10-27 |
