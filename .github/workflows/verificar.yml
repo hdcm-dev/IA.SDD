@@ -16,7 +16,7 @@ jobs:
     name: enlaces y publicación
     # Guarda contra forks: el runner es propio; sólo corre para ramas de este mismo repositorio.
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: [self-hosted, i7infra-dev]
+    runs-on: [self-hosted, ci-hdcm]
     timeout-minutes: 10
     steps:
       - name: Traer el árbol
